@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('title', 'PBF | Koperasi Menjangan Enam')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 <!-- jQuery -->
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>

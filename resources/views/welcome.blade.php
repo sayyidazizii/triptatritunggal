@@ -6,7 +6,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>PBF | Koperasi Menjangan Enam</title>
-        <link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+        <link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
         <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet" />
@@ -19,9 +19,9 @@
             <div class="masthead-content text-white">
                 <div class="container-fluid px-3 px-lg-0">
                     <div class="d-flex align-items-center">
-                        <img src="{{asset('img/logo_pbf.png')}}" style='width:170px; height:170px; margin-left: auto; margin-right: 20px'>
+                        <img src="{{asset('img/logo_tripta.png')}}" style='width:170px; height:170px; margin-left: auto; margin-right: 20px'>
                         <div>
-                            <h2 class="mt-4">Unit Usaha PBF</h2>
+                            <h2 class="mt-4">TRIPTA TRI TUNGGAL</h2>
                             <div class="fst-italic lh-1 mb-2 mb-3"><h5> Koperasi Menjangan Enam</h5></div>
                         </div>
                     </div>
