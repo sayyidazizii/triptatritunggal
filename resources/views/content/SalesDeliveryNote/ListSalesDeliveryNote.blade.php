@@ -2,8 +2,8 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 
 @section('content_header')
     
@@ -95,6 +95,7 @@
                         <th width="2%" style='text-align:center'>No</th>
                         <th width="10%" style='text-align:center'>Tanggal</th>
                         <th width="15%" style='text-align:center'>No. Delivery Note</th>
+                        <th width="15%" style='text-align:center'>No. Po Customer</th>
                         <th width="10%" style='text-align:center'>Gudang</th>
                         {{-- <th width="10%" style='text-align:center'>Pelanggan</th> --}}
                         <th width="10%" style='text-align:center'>Aksi</th>
@@ -110,15 +111,14 @@
                         <td style='text-align:center'>{{$no}}</td>
                         <td>{{$item['sales_delivery_note_date']}}</td>
                         <td>{{$item['sales_delivery_note_no']}}</td>
+                        <td>{{$SalesDeliveryNote->getPOnum($item['sales_order_id'])}}</td>
                         <td>{{$SalesDeliveryNote->getInvWarehouseName($item['warehouse_id'])}}</td>
                         {{-- <td>{{$item['customer_id']}}</td> --}}
                         <td style='text-align:center'>
-                            <?php if($item['sales_invoice_status']==1) { ?>
                             <a type="button" class="btn btn-outline-warning btn-sm" href="{{ url('/sales-delivery-note/edit/'.$item['sales_delivery_note_id']) }}">Edit</a>
-                            <?php } ?>
                             <a type="button" class="btn btn-outline-primary btn-sm" href="{{ url('/sales-delivery-note/detail/'.$item['sales_delivery_note_id']) }}">Detail</a>
                             <a type="button" class="btn btn-outline-dark btn-sm" href="{{ url('/sales-delivery-note/printing/'.$item['sales_delivery_note_id']) }}"  target='_blank'>Print</a>
-                            <a type="button" class="btn btn-outline-danger btn-sm" href="{{ url('/sales-delivery-note/void/'.$item['sales_delivery_note_id']) }}">Void</a>
+                            {{-- <a type="button" class="btn btn-outline-danger btn-sm" href="{{ url('/sales-delivery-note/void/'.$item['sales_delivery_note_id']) }}">Void</a> --}}
                         </td>
                     </tr>
                     <?php $no++; ?>

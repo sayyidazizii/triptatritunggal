@@ -1,8 +1,8 @@
 @inject('SalesCollectionPiece', 'App\Http\Controllers\SalesCollectionPieceController')
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 @section('js')
     <script>
         function toRp(number) {
@@ -17,19 +17,19 @@
 
 
 
-     function datapiece_add($sales_invoice_id){
-        var sales_invoice_id = $("#sales_invoice_id").val();
+     function datapiece_add($sales_collection_piece_id){
+        var sales_collection_piece_id = $("#sales_collection_piece_id").val();
         var sales_collection_piece_remark = $("#sales_collection_piece_remark").val();
 
 
 
-        console.log(sales_invoice_id,sales_collection_piece_remark);
+        console.log(sales_collection_piece_id,sales_collection_piece_remark);
         $.ajax({
             type: "post",
             url : "{{route('process-claim')}}",
             dataType: "html",
             data: {
-                'sales_invoice_id'                      : sales_invoice_id,
+                'sales_collection_piece_id'                      : sales_collection_piece_id,
                 'sales_collection_piece_remark'         : sales_collection_piece_remark,
                 '_token'                                : '{{csrf_token()}}',
             },
@@ -90,9 +90,9 @@
                         $no = 1;
                     @endphp
                     @foreach ($salescolectionpiece as $item)
-                    <input class="form-control input-bb" type="hidden" name="sales_invoice_id"
-                    id="sales_invoice_id"
-                    value="{{ $item['sales_invoice_id'] }}" readonly />
+                    <input class="form-control input-bb" type="hidden" name="sales_collection_piece_id"
+                    id="sales_collection_piece_id"
+                    value="{{ $item['sales_collection_piece_id'] }}" readonly />
 
                         <div class="col-md-6">
                             <div class="form-group">

@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 @section('js')
 <script>
 	$(document).ready(function(){
@@ -79,6 +79,14 @@
                     <div class="form-group">
                         <a class="text-dark">Nama Pelanggan<a class='red'> *</a></a>
                         <input class="form-control input-bb" type="text" name="customer_name" id="customer_name" value=""/>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <a class="text-dark">Kode Pelanggan<a class='red'> *</a></a>
+                        <input class="form-control input-bb" type="text" name="customer_code" id="customer_code" value=""/>
                     </div>
                 </div>
             </div>

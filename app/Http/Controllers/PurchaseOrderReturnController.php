@@ -15,6 +15,9 @@ use App\Models\InvItemUnit;
 use App\Models\PurchaseOrderReturn;
 use App\Models\PurchaseOrderItem;
 use App\Models\PurchaseOrder;
+use App\Models\PurchaseInvoice;
+use App\Models\PurchaseInvoiceItem;
+use App\Models\InvGoodsReceivedNoteItem;
 use App\Models\InvItemStock;
 use App\Models\PurchaseOrderReturnItem;
 use Elibyy\TCPDF\Facades\TCPDF;
@@ -85,47 +88,83 @@ class PurchaseOrderReturnController extends Controller
         return view('content/PurchaseOrder/SearchPurchaseOrder', compact('purchaseorder'));
     }
 
-    public function addPurchaseOrderReturn($purchase_order_id)
+    public function searchPurchaseInvoice()
     {
-        $purchaseorder = PurchaseOrder::where('purchase_order.data_state', 0)
-            ->where('purchase_order.purchase_order_id', $purchase_order_id)
-            ->join('purchase_order_item', 'purchase_order.purchase_order_id', 'purchase_order_item.purchase_order_id')
-            ->where('purchase_order_item.quantity_outstanding', '>', 0)
+        Session::forget('purchaseorderitem');
+
+        $purchaseinvoice = PurchaseInvoice::select('purchase_invoice.*')
+            ->where('purchase_invoice.data_state', '=', 0)
+            ->where('purchase_invoice.purchase_invoice_status', '=', 0)
+            ->get();
+
+        return view('content/PurchaseOrder/searchPurchaseInvoice', compact('purchaseinvoice'));
+    }
+
+    public function addPurchaseOrderReturn($purchase_invoice_id)
+    {
+
+        $purchaseinvoice = PurchaseInvoice::findOrFail($purchase_invoice_id);
+
+        $purchaseorder = PurchaseOrder::where('purchase_order_id', $purchaseinvoice['purchase_order_id'])
+        ->where('data_state', 0)
+        ->first();
+        
+        $purchaseinvoiceitem = PurchaseInvoiceItem::select('purchase_invoice_item.*')
+        ->where('data_state', 0)
+        ->where('purchase_invoice_id', $purchase_invoice_id)
+        ->get();
+
+        return view('content/PurchaseOrder/FormAddPurchaseOrderReturn', compact('purchase_invoice_id','purchaseinvoice','purchaseinvoiceitem','purchaseorder'));
+    }
+
+    public function getQuantityTerima($goods_received_note_item_id)
+    {
+        $invgoodsreceivednoteitemid = InvGoodsReceivedNoteItem::where('data_state', 0)
+            ->where('goods_received_note_item_id', $goods_received_note_item_id)
+            ->first();
+        return $invgoodsreceivednoteitemid['quantity_received'] ?? '';
+    }
+
+    public function getQuantityPO($goods_received_note_item_id)
+    {
+        $invgoodsreceivednoteitemid = InvGoodsReceivedNoteItem::where('data_state', 0)
+            ->where('goods_received_note_item_id', $goods_received_note_item_id)
             ->first();
 
         $purchaseorderitem = PurchaseOrderItem::where('data_state', 0)
-            ->where('purchase_order_id', $purchase_order_id)
-            ->where('purchase_order_item.quantity_outstanding', '>', 0)
-            ->get()->toArray();
+            ->where('purchase_order_item_id', $invgoodsreceivednoteitemid['purchase_order_item_id'])
+            ->first();
+        return $purchaseorderitem['quantity'] ?? '';
+    }
 
-        $purchaseorderitem_temporary = Session::get('purchaseorderitem');
+    public function getPoItemId($goods_received_note_item_id)
+    {
+        $invgoodsreceivednoteitemid = InvGoodsReceivedNoteItem::where('data_state', 0)
+            ->where('goods_received_note_item_id', $goods_received_note_item_id)
+            ->first();
 
-        if ($purchaseorderitem_temporary == null) {
-            $merge_data = $purchaseorderitem;
-        } else {
-            $merge_data = array_merge($purchaseorderitem, $purchaseorderitem_temporary);
-            $key_type = array_column($merge_data, 'item_type_id');
-            $key_qty = array_column($merge_data, 'quantity');
-            array_multisort($key_type, SORT_ASC, $merge_data, SORT_DESC, $merge_data);
-        }
-        // dd($merge_data);
+        $purchaseorderitem = PurchaseOrderItem::where('data_state', 0)
+            ->where('purchase_order_item_id', $invgoodsreceivednoteitemid['purchase_order_item_id'])
+            ->first();
+        return $purchaseorderitem['purchase_order_item_id'] ?? '';
+    }
 
-        $add_type_purchaseorderitem = PurchaseOrderItem::where('purchase_order_item.data_state', 0)
-            ->where('purchase_order_id', $purchase_order_id)
-            ->join('inv_item_type', 'inv_item_type.item_type_id', '=', 'purchase_order_item.item_type_id')
-            // ->join('inv_item_unit', 'inv_item_unit.item_unit_id', '=', 'purchase_order_item.item_unit_id')
-            ->pluck('item_type_name', 'purchase_order_item.purchase_order_item_id');
+    public function getItemBatchNumber($goods_received_note_item_id)
+    {
+        $invgoodsreceivednoteitemid = InvGoodsReceivedNoteItem::where('data_state', 0)
+            ->where('goods_received_note_item_id', $goods_received_note_item_id)
+            ->first();
 
-        $add_unit_purchaseorderitem = PurchaseOrderItem::where('purchase_order_item.data_state', 0)
-            ->where('purchase_order_id', $purchase_order_id)
-            // ->join('inv_item_type', 'inv_item_type.item_type_id', '=', 'purchase_order_item.item_type_id')
-            ->join('inv_item_unit', 'inv_item_unit.item_unit_id', '=', 'purchase_order_item.item_unit_id')
-            ->pluck('item_unit_name', 'purchase_order_item.item_unit_id');
+        return $invgoodsreceivednoteitemid['item_batch_number'] ?? '';
+    }
 
-        $null_add_purchaseorderitem = Session::get('purchase_order_item_id');
-        $null_add_unit_purchaseorderitem = Session::get('item_unit_id');
+    public function getItemExpDate($goods_received_note_item_id)
+    {
+        $invgoodsreceivednoteitemid = InvGoodsReceivedNoteItem::where('data_state', 0)
+            ->where('goods_received_note_item_id', $goods_received_note_item_id)
+            ->first();
 
-        return view('content/PurchaseOrder/FormAddPurchaseOrderReturn', compact('merge_data', 'purchaseorderitem_temporary', 'purchaseorder', 'purchaseorderitem', 'add_type_purchaseorderitem', 'null_add_purchaseorderitem', 'add_unit_purchaseorderitem', 'null_add_unit_purchaseorderitem'));
+        return $invgoodsreceivednoteitemid['item_expired_date'] ?? '';
     }
 
     public function getItemCategoryName($item_category_id)
@@ -257,6 +296,32 @@ class PurchaseOrderReturnController extends Controller
         }
 
         return $purchaseorder['purchase_order_date'];
+    }
+
+    public function getPurchaseInvoiceNo($purchase_invoice_id)
+    {
+        $purchaseinvoice = PurchaseInvoice::where('data_state', 0)
+            ->where('purchase_invoice_id', $purchase_invoice_id)
+            ->first();
+
+        if ($purchaseinvoice == null) {
+            return "-";
+        }
+
+        return $purchaseinvoice['purchase_invoice_no'];
+    }
+
+    public function getPurchaseInvoiceDate($purchase_invoice_id)
+    {
+        $purchaseinvoice = PurchaseInvoice::where('data_state', 0)
+            ->where('purchase_invoice_id', $purchase_invoice_id)
+            ->first();
+
+        if ($purchaseinvoice == null) {
+            return "-";
+        }
+
+        return $purchaseinvoice['purchase_invoice_date'];
     }
 
     public function detailPurchaseOrder($purchase_order_id)
@@ -689,6 +754,7 @@ class PurchaseOrderReturnController extends Controller
     {
 
         // $purchaseorderitem_temporary = Session::get('purchaseorderitem');
+        // dd($request->all());
 
         $fields = $request->validate([
             'purchase_order_id'           => 'required',
@@ -717,12 +783,16 @@ class PurchaseOrderReturnController extends Controller
 
         $purchaseorderreturn = array(
             'purchase_order_return_date'            => $fields['purchase_order_return_date'],
-            'purchase_order_id'                     => $fields['purchase_order_id'],
-            'supplier_id'                           => $fields['supplier_id'],
+            'purchase_order_id'                     => $request->purchase_order_id,
+            'supplier_id'                           => $request->supplier_id,
+            'purchase_invoice_id'                   => $request->purchase_invoice_id,
             'warehouse_id'                          => 7,
             'purchase_order_return_remark'          => $request->purchase_order_return_remark,
-            'subtotal_item'                         => $request->quantity_return_total,
-            'receipt_image'                         => $fileNameToStore,
+            'ppn_in_amount'                         => $request->ppn_in_amount,
+            'ppn_in_percentage'                     => $request->ppn_in_percentage,
+            'subtotal_amount'                       => $request->subtotal_amount,
+            'subtotal_amount_after_ppn'             => $request->subtotal_amount_after_ppn,
+            // 'receipt_image'                         => $fileNameToStore,
             'created_id'                             => Auth::id(),
         );
         // dd($purchaseorderreturn);
@@ -751,17 +821,17 @@ class PurchaseOrderReturnController extends Controller
             $journal_voucher_period     = date("Ym", strtotime($purchaseorderreturn['purchase_order_return_date']));
 
             $data_journal = array(
-                'branch_id'                        => 1,
-                'journal_voucher_period'         => $journal_voucher_period,
-                'journal_voucher_date'            => $purchaseorderreturn['purchase_order_return_date'],
-                'journal_voucher_title'            => 'Return Pembelian Barang ' . $first_po_return['purchase_order_return_no'],
-                'journal_voucher_no'            => $first_po_return['purchase_order_return_no'],
-                'journal_voucher_description'    => $purchaseorderreturn['purchase_order_return_remark'],
-                'transaction_module_id'            => $transaction_module_id,
-                'transaction_module_code'        => $transaction_module_code,
-                'transaction_journal_id'         => $first_po_return['purchase_order_return_id'],
-                'transaction_journal_no'         => $first_po_return['purchase_order_return_no'],
-                'created_id'                     => Auth::id(),
+                'branch_id'                         => 1,
+                'journal_voucher_period'            => $journal_voucher_period,
+                'journal_voucher_date'              => $purchaseorderreturn['purchase_order_return_date'],
+                'journal_voucher_title'             => 'Return Pembelian Barang ' . $first_po_return['purchase_order_return_no'],
+                'journal_voucher_no'                => $first_po_return['purchase_order_return_no'],
+                'journal_voucher_description'       => $purchaseorderreturn['purchase_order_return_remark'],
+                'transaction_module_id'             => $transaction_module_id,
+                'transaction_module_code'           => $transaction_module_code,
+                'transaction_journal_id'            => $first_po_return['purchase_order_return_id'],
+                'transaction_journal_no'            => $first_po_return['purchase_order_return_no'],
+                'created_id'                        => Auth::id(),
             );
 
             AcctJournalVoucher::create($data_journal);
@@ -770,20 +840,20 @@ class PurchaseOrderReturnController extends Controller
 
 
             $total_no = $request->total_no;
-            $total_received_item = $temprequest['quantity_return_total'];
+            $total_received_item = $temprequest['total_item'];
             // dd($total_no);
 
             for ($i = 1; $i <= $total_no; $i++) {
                 $purchaseorderreturnitem = array(
                     'purchase_order_return_id'              => $first_po_return['purchase_order_return_id'],
-                    'purchase_order_id'                        => $temprequest['purchase_order_id_' . $i],
+                    'purchase_invoice_item_id'              => $temprequest['purchase_invoice_item_id_' . $i],
                     'purchase_order_item_id'                => $temprequest['purchase_order_item_id_' . $i],
-                    'item_category_id'                        => $temprequest['item_category_id_' . $i],
-                    'item_type_id'                            => $temprequest['item_type_id_' . $i],
-                    'item_unit_id'                            => $temprequest['item_unit_id_' . $i],
-                    'quantity'                                => $temprequest['quantity_return_' . $i],
-                    'quantity_ordered'                        => $temprequest['quantity_return_' . $i],
-                    'quantity_return'                        => $temprequest['quantity_return_' . $i],
+                    'item_category_id'                      => $temprequest['item_category_id_' . $i],
+                    'item_type_id'                          => $temprequest['item_type_id_' . $i],
+                    'item_unit_id'                          => $temprequest['item_unit_id_' . $i],
+                    'quantity_order'                        => $temprequest['quantity_order_' . $i],
+                    'quantity_return'                       => $temprequest['quantity_return_' . $i],
+                    'total_amount'                          => $temprequest['total_amount_' . $i],
                     'item_batch_number'                     => $temprequest['item_batch_number_' . $i],
                     'item_expired_date'                     => $temprequest['item_expired_date_' . $i],
                     'created_id'                            => Auth::id(),
@@ -791,11 +861,12 @@ class PurchaseOrderReturnController extends Controller
 
                 //dd($purchaseorderreturnitem);
                 PurchaseOrderReturnItem::create($purchaseorderreturnitem);
+            // }
 
                 //update purchase order item
                 $purchaseorderitem = PurchaseOrderItem::findOrFail($purchaseorderreturnitem['purchase_order_item_id']);
-                $purchaseorderitem->quantity_outstanding = $purchaseorderitem['quantity_outstanding'] - $purchaseorderreturnitem['quantity'];
-                $purchaseorderitem->quantity_return    = $purchaseorderitem['quantity_return'] + $purchaseorderreturnitem['quantity'];
+                $purchaseorderitem->quantity_outstanding = $purchaseorderitem['quantity_outstanding'] - $purchaseorderreturnitem['quantity_return'];
+                $purchaseorderitem->quantity_return    = $purchaseorderitem['quantity_return'] + $purchaseorderreturnitem['quantity_return'];
                 $purchaseorderitem->save();
 
                 InvItemStock::create([
@@ -825,6 +896,7 @@ class PurchaseOrderReturnController extends Controller
                     'created_at'                        =>   \Carbon\Carbon::now(),
                 ]);
 
+            }
 
 
 
@@ -835,109 +907,93 @@ class PurchaseOrderReturnController extends Controller
 
 
                 // $purchaseorderitem          = PurchaseOrderItem::where('purchase_order_item_id', $temprequest['purchase_order_item_id_'.$i])
-                $purchaseorderitem          = PurchaseOrderItem::where('purchase_order_item_id', $temprequest['purchase_order_item_id_' . $i])
-                    ->first();
-                //dd($purchaseorderitem);
+                
+                // $purchaseorderitem          = PurchaseOrderItem::where('purchase_order_item_id', $temprequest['purchase_order_item_id_' . $i])
+                //     ->first();
 
                 $purchaseorder              = PurchaseOrder::findOrFail($purchaseorderreturn['purchase_order_id']);
-                //dd($purchaseorderitem,$purchaseorder);
 
                 $journalvoucher = AcctJournalVoucher::where('created_id', Auth::id())
                     ->orderBy('journal_voucher_id', 'DESC')
                     ->first();
-                //dd($data_journal);
 
                 $journal_voucher_id     = $journalvoucher['journal_voucher_id'];
 
+                //------Hutang Suplier------//
+                $preference_company = PreferenceCompany::first();
 
-                //------account_id Persedian Barang Dagang------//
-                $account         = AcctAccount::where('account_id', $preferencecompany['account_inventory_trade_id'])
+                $account = AcctAccount::where('account_id', 205)
                     ->where('data_state', 0)
                     ->first();
 
-                $total_amount               = $temprequest['quantity_return_' . $i] * $purchaseorderitem['item_unit_cost'];
+                $subtotal_after_ppn_in                  = $temprequest['subtotal_amount_after_ppn'];
 
-                $account_id_default_status         = $account['account_default_status'];
-                // dd($account_id_default_status);
+                $account_id_default_status              = $account['account_default_status'];
+
+                $data_debit1 = array(
+                    'journal_voucher_id'                => $journal_voucher_id,
+                    'account_id'                        => 205,
+                    'journal_voucher_description'       => $data_journal['journal_voucher_description'],
+                    'journal_voucher_amount'            => ABS($subtotal_after_ppn_in),
+                    'journal_voucher_debit_amount'      => ABS($subtotal_after_ppn_in),
+                    'account_id_default_status'         => $account_id_default_status,
+                    'account_id_status'                 => 1,
+                );
+                AcctJournalVoucherItem::create($data_debit1);
+
+
+            
+                //------Persedian Barang Dagang------//
+                $account         = AcctAccount::where('account_id', 82)
+                    ->where('data_state', 0)
+                    ->first();
+
+                $total_amount                           = $temprequest['total_price'];
+
+                $account_id_default_status              = $account['account_default_status'];
 
                 $data_credit1 = array(
-                    'journal_voucher_id'            => $journal_voucher_id,
-                    'account_id'                    => $preferencecompany['account_inventory_trade_id'],
-                    'journal_voucher_description'    => $data_journal['journal_voucher_description'],
-                    'journal_voucher_amount'        => ABS($total_amount),
-                    'journal_voucher_credit_amount'    => ABS($total_amount),
-                    'account_id_default_status'        => $account_id_default_status,
-                    'account_id_status'                => 0,
+                    'journal_voucher_id'                => $journal_voucher_id,
+                    'account_id'                        => 82,
+                    'journal_voucher_description'       => $data_journal['journal_voucher_description'],
+                    'journal_voucher_amount'            => ABS($total_amount),
+                    'journal_voucher_credit_amount'     => ABS($total_amount),
+                    'account_id_default_status'         => $account_id_default_status,
+                    'account_id_status'                 => 0,
                 );
 
-                //dd($data_credit1);
-
                 AcctJournalVoucherItem::create($data_credit1);
-            }
-
-
-            //------account_id Hutang Suplier------//
-            $preference_company = PreferenceCompany::first();
-
-            $account = AcctAccount::where('account_id', $preference_company['account_payable_id'])
-                ->where('data_state', 0)
-                ->first();
-
-            $subtotal_after_ppn_in = $purchaseorder['subtotal_after_ppn_in'];
-
-            $account_id_default_status         = $account['account_default_status'];
-
-            $data_debit1 = array(
-                'journal_voucher_id'            => $journal_voucher_id,
-                'account_id'                    => $account['account_id'],
-                'journal_voucher_description'    => $data_journal['journal_voucher_description'],
-                'journal_voucher_amount'        => ABS($subtotal_after_ppn_in),
-                'journal_voucher_debit_amount'    => ABS($subtotal_after_ppn_in),
-                'account_id_default_status'        => $account_id_default_status,
-                'account_id_status'                => 1,
-            );
-            // dd($data_debit1);
-
-
-            AcctJournalVoucherItem::create($data_debit1);
 
 
 
-            //------account_id PPN Masukan------//
-            $account = AcctAccount::where('account_id', $preference_company['account_vat_in_id'])
-                ->where('data_state', 0)
-                ->first();
+                //------PPN Masukan------//
+                $account = AcctAccount::where('account_id', 105)
+                    ->where('data_state', 0)
+                    ->first();
 
-            $ppn_in_amount = $purchaseorder['ppn_in_amount'];
+                $ppn_in_amount                          = $purchaseorder['ppn_in_amount'];
 
-            $account_id_default_status         = $account['account_default_status'];
+                $account_id_default_status              = $account['account_default_status'];
 
-            $data_credit2 = array(
-                'journal_voucher_id'            => $journal_voucher_id,
-                'account_id'                    => $preferencecompany['account_vat_in_id'],
-                'journal_voucher_description'    => $data_journal['journal_voucher_description'],
-                'journal_voucher_amount'        => ABS($ppn_in_amount),
-                'journal_voucher_credit_amount'    => ABS($ppn_in_amount),
-                'account_id_default_status'        => $account_id_default_status,
-                'account_id_status'                => 0,
-            );
+                $data_credit2 = array(
+                    'journal_voucher_id'                => $journal_voucher_id,
+                    'account_id'                        => 105,
+                    'journal_voucher_description'       => $data_journal['journal_voucher_description'],
+                    'journal_voucher_amount'            => ABS($ppn_in_amount),
+                    'journal_voucher_credit_amount'     => ABS($ppn_in_amount),
+                    'account_id_default_status'         => $account_id_default_status,
+                    'account_id_status'                 => 0,
+                );
 
-            //dd($data_debit1,$data_credit1,$data_credit2);
-
-            AcctJournalVoucherItem::create($data_credit2);
+                AcctJournalVoucherItem::create($data_credit2);
             //--------------------------------------------------------End Journal Voucher-----------------------------------------------------------------//
 
 
 
 
-            $purchaseorder = PurchaseOrder::findOrFail($purchaseorderreturn['purchase_order_id']);
-            $purchaseorder->total_received_item = $purchaseorder['total_received_item'] + $total_received_item;
-            if ($purchaseorder['total_item'] == $purchaseorder->total_received_item) {
-                $purchaseorder->purchase_order_status = 3;
-            } else {
-                $purchaseorder->purchase_order_status = 1;
-            }
-            $purchaseorder->save();
+            $purchaseinvoicestatus = PurchaseInvoice::findOrFail($purchaseorderreturn['purchase_invoice_id']);
+            $purchaseinvoicestatus->purchase_invoice_status = 1 ;
+            $purchaseinvoicestatus->save();
 
             $msg = 'Tambah Return Pembelian Berhasil';
             return redirect('/purchase-order-return')->with('msg', $msg);

@@ -1,8 +1,8 @@
 @inject('InvWarehouseTransfer', 'App\Http\Controllers\InvWarehouseTransferController')
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 @section('js')
 <script>
 	$(document).ready(function(){
@@ -273,6 +273,7 @@
                                 } else {
                                     $no =1;
                                     foreach ($warehousetransferitem AS $key => $val){
+                                        
                                         echo"
                                             <tr>
                                                 <td style='text-align  : center'>".$no."</td>";

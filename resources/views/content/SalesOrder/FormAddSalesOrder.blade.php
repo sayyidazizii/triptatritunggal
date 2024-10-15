@@ -1,8 +1,8 @@
 @inject('SalesOrder', 'App\Http\Controllers\SalesOrderController')
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 @section('js')
 <script>
     function elements_add(name, value){
@@ -49,9 +49,9 @@
             $("#warehouse_id").select2("val", "0");
         }
 
-        if(!elements['item_type_id']){
-            $("#item_type_id").select2("val", "0");
-        }
+        // if(!elements['item_type_id']){
+        //     $("#item_type_id").select2("val", "0");
+        // }
         
         if(!elements['customer_id']){
             $("#customer_id").select2("val", "0");
@@ -88,6 +88,29 @@
         //         });
 		// });
 
+        $("#item_category_id").change(function(){
+			var item_category_id 	= $("#item_category_id").val();
+                $.ajax({
+                    type: "POST",
+                    url : "{{route('sales-order-type')}}",
+                    dataType: "html",
+                    data: {
+                        'item_category_id'			    : item_category_id,
+                        '_token'                        : '{{csrf_token()}}',
+                    },
+                    success: function(return_data){ 
+					    $('#item_stock_id').html(return_data);
+                        console.log(return_data);
+                    },
+                    error: function(data)
+                    {
+                        console.log(data);
+
+                    }
+                });
+
+		}); 
+
         
         if(!elements['sales_order_type_id']){
             $("#sales_order_type_id").select2("val", "0");
@@ -119,42 +142,46 @@
             var total_price = price*quantity;
             $("#total_price").val(total_price);
             $("#total_price_view").val(toRp(total_price));
-
-
             var discount_percentage_item 	                = $("#discount_percentage_item").val();
             var discount_percentage_item_b 	                = $("#discount_percentage_item_b").val();
 			var total_price 	                            = $("#total_price").val();
-
             var discount_percentage_item 	                = $("#discount_percentage_item").val();
             var discount_percentage_item_b 	                = $("#discount_percentage_item_b").val();
+            var ppn_out_percentage 	                        = $("#ppn_out_percentage").val();
+
             var discount_item                               = discount_percentage_item * 1/100;
             var discount_item_b                             = discount_percentage_item_b * 1/100;
+            var ppn_item                                    = ppn_out_percentage * 1/100;
             var discount_amount_item                        = discount_item * total_price;
             var total_price_after_discount_item_a 	        = total_price - discount_amount_item;
             var discount_amount_item_b                      = discount_item_b * total_price_after_discount_item_a;
             var total_price_after_discount_item_b 	        = total_price_after_discount_item_a - discount_amount_item_b;
+            var ppn_amount_item                             = ppn_item * total_price_after_discount_item_b;
+            var total_price_after_ppn_amount                = ppn_amount_item + total_price_after_discount_item_b;
 
             $("#discount_amount_item").val(discount_amount_item);
             $("#discount_amount_item_b").val(discount_amount_item_b);
             console.log(discount_amount_item);
             console.log(discount_amount_item_b);
-
-            $("#discount_amount_item_view").val(toRp(discount_amount_item));
-
+            $("#discount_amount_item_view").val(toRp(discount_amount_item + discount_amount_item_b));
             $("#subtotal_after_discount_item_a").val(total_price_after_discount_item_a);
             console.log(total_price_after_discount_item_a);
             $("#subtotal_after_discount_item_view_a").val(toRp(total_price_after_discount_item_a));
-
             $("#subtotal_after_discount_item_b").val(total_price_after_discount_item_b);
             console.log(total_price_after_discount_item_b);
-            $("#subtotal_after_discount_item_b").val(toRp(total_price_after_discount_item_b));
+            $("#subtotal_after_discount_item_view_b").val(toRp(total_price_after_discount_item_b));
 
+            $("#total_price_after_ppn_amount_view").val(total_price_after_ppn_amount);
+            $("#total_price_after_ppn_amount").val(total_price_after_ppn_amount);
+            $("#ppn_amount_item").val(ppn_amount_item);
+            console.log(ppn_amount_item);
 		});   
 
         $(document).ready(function(){
             var price 	    = 0;
 			var quantity 	= $("#quantity").val();
             var total_price = price*quantity;
+            var ppn_amount_item = 0;
 
             $("#total_price").val(total_price);
             $("#total_price_view").val(toRp(total_price));
@@ -164,38 +191,41 @@
 			var price 	    = $("#price").val();
 			var quantity 	= $("#quantity").val();
             var total_price = price*quantity;
-
             $("#total_price").val(total_price);
             $("#total_price_view").val(toRp(total_price));
-
             var discount_percentage_item 	                = $("#discount_percentage_item").val();
             var discount_percentage_item_b 	                = $("#discount_percentage_item_b").val();
 			var total_price 	                            = $("#total_price").val();
-
             var discount_percentage_item 	                = $("#discount_percentage_item").val();
             var discount_percentage_item_b 	                = $("#discount_percentage_item_b").val();
+            var ppn_out_percentage 	                        = $("#ppn_out_percentage").val();
+
             var discount_item                               = discount_percentage_item * 1/100;
             var discount_item_b                             = discount_percentage_item_b * 1/100;
+            var ppn_item                                    = ppn_out_percentage * 1/100;
             var discount_amount_item                        = discount_item * total_price;
             var total_price_after_discount_item_a 	        = total_price - discount_amount_item;
             var discount_amount_item_b                      = discount_item_b * total_price_after_discount_item_a;
             var total_price_after_discount_item_b 	        = total_price_after_discount_item_a - discount_amount_item_b;
-
+            var ppn_amount_item                             = ppn_item * total_price_after_discount_item_b;
+            var total_price_after_ppn_amount                = ppn_amount_item + total_price_after_discount_item_b;
 
             $("#discount_amount_item").val(discount_amount_item);
             $("#discount_amount_item_b").val(discount_amount_item_b);
             console.log(discount_amount_item);
             console.log(discount_amount_item_b);
-
             $("#discount_amount_item_view").val(toRp(discount_amount_item + discount_amount_item_b));
-
             $("#subtotal_after_discount_item_a").val(total_price_after_discount_item_a);
             console.log(total_price_after_discount_item_a);
             $("#subtotal_after_discount_item_view_a").val(toRp(total_price_after_discount_item_a));
-
             $("#subtotal_after_discount_item_b").val(total_price_after_discount_item_b);
             console.log(total_price_after_discount_item_b);
             $("#subtotal_after_discount_item_view_b").val(toRp(total_price_after_discount_item_b));
+
+            $("#total_price_after_ppn_amount_view").val(total_price_after_ppn_amount);
+            $("#total_price_after_ppn_amount").val(total_price_after_ppn_amount);
+            $("#ppn_amount_item").val(ppn_amount_item);
+            console.log(ppn_amount_item);
             
 		});  
     });    
@@ -222,15 +252,37 @@
                 });
 
 		}); 
+
+        $("#item_stock_id").change(function(){
+			var item_stock_id 	= $("#item_stock_id").val();
+                $.ajax({
+                    type: "POST",
+                    url : "{{route('select-id-stock')}}",
+                    dataType: "html",
+                    data: {
+                        'item_stock_id'	: item_stock_id,
+                        '_token'        : '{{csrf_token()}}',
+                    },
+                    success: function(return_data){ 
+					$('#item_type_id').val(return_data);
+                        console.log(return_data);       
+                    },
+                    error: function(data)
+                    {
+                        console.log(data);
+
+                    }
+                });
+		});
         
-        $("#item_type_id").change(function(){
-			var item_type_id 	= $("#item_type_id").val();
+        $("#item_stock_id").change(function(){
+			var item_stock_id 	= $("#item_stock_id").val();
                 $.ajax({
                     type: "POST",
                     url : "{{route('available-stock-sales-order')}}",
                     dataType: "html",
                     data: {
-                        'item_type_id'	: item_type_id,
+                        'item_stock_id'	: item_stock_id,
                         '_token'    : '{{csrf_token()}}',
                     },
                     success: function(return_data){ 
@@ -244,21 +296,42 @@
                 });
 		});   
 
-        $("#item_type_id").change(function(){
-			var item_type_id 	= $("#item_type_id").val();
+        $("#item_stock_id").change(function(){
+			var item_stock_id 	= $("#item_stock_id").val();
+                $.ajax({
+                    type: "POST",
+                    url : "{{route('item-unit-price-sales-order')}}",
+                    dataType: "html",
+                    data: {
+                        'item_stock_id'	: item_stock_id,
+                        '_token'    : '{{csrf_token()}}',
+                    },
+                    success: function(return_data){ 
+					$('#price').val(return_data);
+                        console.log(return_data);
+                    },
+                    error: function(data)
+                    {
+                        console.log(data);
+                    }
+                });
+		});  
+
+       
+
+        $("#item_stock_id").change(function(){
+			var item_stock_id 	= $("#item_stock_id").val();
                 $.ajax({
                     type: "POST",
                     url : "{{route('select-data-unit')}}",
                     dataType: "html",
                     data: {
-                        'item_type_id'	: item_type_id,
+                        'item_stock_id'	: item_stock_id,
                         '_token'        : '{{csrf_token()}}',
                     },
                     success: function(return_data){ 
 					$('#item_unit_id').html(return_data);
-                        console.log(return_data);
-                    $("#item_unit_id").val(return_data);
-                        console.log(return_data);        
+                        console.log(return_data);       
                     },
                     error: function(data)
                     {
@@ -267,6 +340,7 @@
                     }
                 });
 		});
+
 	});
 
 
@@ -275,12 +349,16 @@
             var discount_percentage_item 	                = $("#discount_percentage_item").val();
             var discount_percentage_item_b 	                = $("#discount_percentage_item_b").val();
 			var total_price 	                            = $("#total_price").val();
+            var ppn_out_percentage 	                        = $("#ppn_out_percentage").val();
             var discount_item                               = discount_percentage_item * 1/100;
             var discount_item_b                             = discount_percentage_item_b * 1/100;
+            var ppn_item                                    = ppn_out_percentage * 1/100;
             var discount_amount_item                        = discount_item * total_price;
             var total_price_after_discount_item_a 	        = total_price - discount_amount_item;
             var discount_amount_item_b                      = discount_item_b * total_price_after_discount_item_a;
             var total_price_after_discount_item_b 	        = total_price_after_discount_item_a - discount_amount_item_b;
+            var ppn_amount_item                             = ppn_item * total_price_after_discount_item_b;
+            var total_price_after_ppn_amount                = ppn_amount_item + total_price_after_discount_item_b;
 
             $("#discount_amount_item").val(discount_amount_item);
             $("#discount_amount_item_b").val(discount_amount_item_b);
@@ -296,18 +374,27 @@
             $("#subtotal_after_discount_item_b").val(total_price_after_discount_item_b);
             console.log(total_price_after_discount_item_b);
             $("#subtotal_after_discount_item_view_b").val(toRp(total_price_after_discount_item_b));
+
+            $("#total_price_after_ppn_amount_view").val(total_price_after_ppn_amount);
+            $("#total_price_after_ppn_amount").val(total_price_after_ppn_amount);
+            $("#ppn_amount_item").val(ppn_amount_item);
+            console.log(ppn_amount_item);
 
         $("#discount_percentage_item").change(function(){
             var discount_percentage_item 	                = $("#discount_percentage_item").val();
             var discount_percentage_item_b 	                = $("#discount_percentage_item_b").val();
 			var total_price 	                            = $("#total_price").val();
+            var ppn_out_percentage 	                        = $("#ppn_out_percentage").val();
             var discount_item                               = discount_percentage_item * 1/100;
             var discount_item_b                             = discount_percentage_item_b * 1/100;
+            var ppn_item                                    = ppn_out_percentage * 1/100;
             var discount_amount_item                        = discount_item * total_price;
             var total_price_after_discount_item_a 	        = total_price - discount_amount_item;
             var discount_amount_item_b                      = discount_item_b * total_price_after_discount_item_a;
             var total_price_after_discount_item_b 	        = total_price_after_discount_item_a - discount_amount_item_b;
-            
+            var ppn_amount_item                             = ppn_item * total_price_after_discount_item_b;
+            var total_price_after_ppn_amount                = ppn_amount_item + total_price_after_discount_item_b;
+
             $("#discount_amount_item").val(discount_amount_item);
             $("#discount_amount_item_b").val(discount_amount_item_b);
             console.log(discount_amount_item);
@@ -322,6 +409,12 @@
             $("#subtotal_after_discount_item_b").val(total_price_after_discount_item_b);
             console.log(total_price_after_discount_item_b);
             $("#subtotal_after_discount_item_view_b").val(toRp(total_price_after_discount_item_b));
+
+            $("#total_price_after_ppn_amount_view").val(total_price_after_ppn_amount);
+            $("#total_price_after_ppn_amount").val(total_price_after_ppn_amount);
+            $("#ppn_amount_item").val(ppn_amount_item);
+            console.log(ppn_amount_item);
+
 
 		});
 
@@ -329,13 +422,17 @@
             var discount_percentage_item 	                = $("#discount_percentage_item").val();
             var discount_percentage_item_b 	                = $("#discount_percentage_item_b").val();
 			var total_price 	                            = $("#total_price").val();
+            var ppn_out_percentage 	                        = $("#ppn_out_percentage").val();
             var discount_item                               = discount_percentage_item * 1/100;
             var discount_item_b                             = discount_percentage_item_b * 1/100;
+            var ppn_item                                    = ppn_out_percentage * 1/100;
             var discount_amount_item                        = discount_item * total_price;
             var total_price_after_discount_item_a 	        = total_price - discount_amount_item;
             var discount_amount_item_b                      = discount_item_b * total_price_after_discount_item_a;
             var total_price_after_discount_item_b 	        = total_price_after_discount_item_a - discount_amount_item_b;
-            
+            var ppn_amount_item                             = ppn_item * total_price_after_discount_item_b;
+            var total_price_after_ppn_amount                = ppn_amount_item + total_price_after_discount_item_b;
+
             $("#discount_amount_item").val(discount_amount_item);
             $("#discount_amount_item_b").val(discount_amount_item_b);
             console.log(discount_amount_item);
@@ -351,7 +448,101 @@
             console.log(total_price_after_discount_item_b);
             $("#subtotal_after_discount_item_view_b").val(toRp(total_price_after_discount_item_b));
 
+            $("#total_price_after_ppn_amount_view").val(total_price_after_ppn_amount);
+            $("#total_price_after_ppn_amount").val(total_price_after_ppn_amount);
+            $("#ppn_amount_item").val(ppn_amount_item);
+            console.log(ppn_amount_item);
+
+
 		});
+
+        
+
+        $("#discount_amount_item").change(function(){
+            var discount_percentage_item 	                = $("#discount_percentage_item").val();
+            var discount_percentage_item_b 	                = $("#discount_percentage_item_b").val();
+			var total_price 	                            = $("#total_price").val();
+            var ppn_out_percentage 	                        = $("#ppn_out_percentage").val();
+            var discount_amount_item_text                   = $("#discount_amount_item").val();
+            var discount_amount_item_b_text                 = $("#discount_amount_item_b").val();
+            
+            var discount_item                               = discount_percentage_item * 1/100;
+            var discount_item_b                             = discount_percentage_item_b * 1/100;
+            var ppn_item                                    = ppn_out_percentage * 1/100;
+            var discount_amount_item                        = discount_item * total_price;
+
+            var discount_percentage                         = discount_amount_item_text / total_price * 100;
+            var discount_percentage_b                       = discount_amount_item_b_text / total_price * 100;
+
+            var total_price_after_discount_item_a 	        = total_price - discount_amount_item_text;
+            var discount_amount_item_b                      = discount_item_b * total_price_after_discount_item_a;
+            var total_price_after_discount_item_b 	        = total_price_after_discount_item_a - discount_amount_item_b_text;
+            var ppn_amount_item                             = ppn_item * total_price_after_discount_item_b;
+            var total_price_after_ppn_amount                = ppn_amount_item + total_price_after_discount_item_b;
+
+            // $("#discount_amount_item").val(discount_amount_item);
+            // $("#discount_amount_item_b").val(discount_amount_item_b);
+
+            $("#discount_percentage_item").val(discount_percentage);
+            $("#discount_percentage_item_b").val(discount_percentage_b);
+
+            $("#discount_amount_item_view").val(toRp(discount_amount_item + discount_amount_item_b));
+
+            $("#subtotal_after_discount_item_a").val(total_price_after_discount_item_a);
+            $("#subtotal_after_discount_item_view_a").val(toRp(total_price_after_discount_item_a));
+
+            $("#subtotal_after_discount_item_b").val(total_price_after_discount_item_b);
+            $("#subtotal_after_discount_item_view_b").val(toRp(total_price_after_discount_item_b));
+
+            $("#total_price_after_ppn_amount_view").val(total_price_after_ppn_amount);
+            $("#total_price_after_ppn_amount").val(total_price_after_ppn_amount);
+            $("#ppn_amount_item").val(ppn_amount_item);
+
+		});
+
+
+        $("#discount_amount_item_b").change(function(){
+            var discount_percentage_item 	                = $("#discount_percentage_item").val();
+            var discount_percentage_item_b 	                = $("#discount_percentage_item_b").val();
+			var total_price 	                            = $("#total_price").val();
+            var ppn_out_percentage 	                        = $("#ppn_out_percentage").val();
+            var discount_amount_item_text                   = $("#discount_amount_item").val();
+            var discount_amount_item_b_text                 = $("#discount_amount_item_b").val();
+            
+            var discount_item                               = discount_percentage_item * 1/100;
+            var discount_item_b                             = discount_percentage_item_b * 1/100;
+            var ppn_item                                    = ppn_out_percentage * 1/100;
+            var discount_amount_item                        = discount_item * total_price;
+
+            var discount_percentage                         = discount_amount_item_text / total_price * 100;
+            var discount_percentage_b                       = discount_amount_item_b_text / total_price * 100;
+
+            var total_price_after_discount_item_a 	        = total_price - discount_amount_item_text;
+            var discount_amount_item_b                      = discount_item_b * total_price_after_discount_item_a;
+            var total_price_after_discount_item_b 	        = total_price_after_discount_item_a - discount_amount_item_b_text;
+            var ppn_amount_item                             = ppn_item * total_price_after_discount_item_b;
+            var total_price_after_ppn_amount                = ppn_amount_item + total_price_after_discount_item_b;
+
+            // $("#discount_amount_item").val(discount_amount_item);
+            // $("#discount_amount_item_b").val(discount_amount_item_b);
+
+            $("#discount_percentage_item").val(discount_percentage);
+            $("#discount_percentage_item_b").val(discount_percentage_b);
+
+            $("#discount_amount_item_view").val(toRp(discount_amount_item + discount_amount_item_b));
+
+            $("#subtotal_after_discount_item_a").val(total_price_after_discount_item_a);
+            $("#subtotal_after_discount_item_view_a").val(toRp(total_price_after_discount_item_a));
+
+            $("#subtotal_after_discount_item_b").val(total_price_after_discount_item_b);
+            $("#subtotal_after_discount_item_view_b").val(toRp(total_price_after_discount_item_b));
+
+            $("#total_price_after_ppn_amount_view").val(total_price_after_ppn_amount);
+            $("#total_price_after_ppn_amount").val(total_price_after_ppn_amount);
+            $("#ppn_amount_item").val(ppn_amount_item);
+		});
+
+
     });
 
 
@@ -360,7 +551,7 @@
 
     //discount nota
     $(document).ready(function(){
-        var discount_percentage 	            = $("#discount_percentage").val();
+            var discount_percentage 	            = $("#discount_percentage").val();
 			var total_price_all 	                = $("#total_price_all").val();
 
             var ppn_out_percentage 	                = $("#ppn_out_percentage").val();
@@ -372,7 +563,7 @@
             
 
     
-            var ppn_out_amount                      = ppn_out_percentage * total_price_after_discount / 100;
+            var ppn_out_amount                      = 0;
             var total_price_after_ppn_out           = Number(total_price_after_discount) + ppn_out_amount;
 
 
@@ -407,7 +598,7 @@
             
 
     
-            var ppn_out_amount                      = ppn_out_percentage * total_price_after_discount / 100;
+            var ppn_out_amount                      = 0;
             var total_price_after_ppn_out           = Number(total_price_after_discount) + ppn_out_amount;
 
 
@@ -430,10 +621,11 @@
             $("#subtotal_after_ppn_out_view").val(toRp(total_price_after_ppn_out));
 
 		});
+        
     });
 
     $(document).ready(function(){
-        var discount_percentage 	            = $("#discount_percentage").val();
+            var discount_percentage 	            = $("#discount_percentage").val();
 			var total_price_all 	                = $("#total_price_all").val();
 
             var ppn_out_percentage 	                = $("#ppn_out_percentage").val();
@@ -445,7 +637,7 @@
             
 
     
-            var ppn_out_amount                      = ppn_out_percentage * total_price_after_discount / 100;
+            var ppn_out_amount                      = 0;
             var total_price_after_ppn_out           = Number(total_price_after_discount) + ppn_out_amount;
 
 
@@ -483,7 +675,7 @@
             
 
     
-            var ppn_out_amount                      = ppn_out_percentage * total_price_after_discount / 100;
+            var ppn_out_amount                      = 0;
             var total_price_after_ppn_out           = Number(total_price_after_discount) + ppn_out_amount;
 
 
@@ -510,9 +702,10 @@
 
 
     function processAddArraySalesOrderItem(){
+        var item_category_id		            = document.getElementById("item_category_id").value;
         var item_type_id		                = document.getElementById("item_type_id").value;
         var item_unit_id	                    = document.getElementById("item_unit_id").value;
-        // var item_stock_id	                    = document.getElementById("item_stock_id").value;
+        var item_stock_id	                    = document.getElementById("item_stock_id").value;
         var quantity			                = document.getElementById("quantity").value;
         var price			                    = document.getElementById("price").value;
         var total_price			                = document.getElementById("total_price").value;
@@ -522,14 +715,17 @@
         var discount_percentage_item_b          = document.getElementById("discount_percentage_item_b").value;
         var discount_amount_item_b		        = document.getElementById("discount_amount_item_b").value;
         var subtotal_after_discount_item_b	    = document.getElementById("subtotal_after_discount_item_b").value;
+        var ppn_amount_item	                    = document.getElementById("ppn_amount_item").value;
+        var total_price_after_ppn_amount	    = document.getElementById("total_price_after_ppn_amount").value;
 
         $.ajax({
             type: "POST",
             url : "{{route('sales-order-add-array')}}",
             data: {
+                'item_category_id'              : item_category_id,
                 'item_type_id'                  : item_type_id, 
                 'item_unit_id'                  : item_unit_id,
-                // 'item_stock_id' 		        : item_stock_id,
+                'item_stock_id' 		        : item_stock_id,
                 'quantity' 			            : quantity,
                 'price' 			            : price,
                 'total_price' 		            : total_price,
@@ -539,6 +735,8 @@
                 'discount_percentage_item_b' 	: discount_percentage_item_b,
                 'discount_amount_item_b' 		: discount_amount_item_b,
                 'subtotal_after_discount_item_b': subtotal_after_discount_item_b,
+                'ppn_amount_item'               : ppn_amount_item,
+                'total_price_after_ppn_amount'  : total_price_after_ppn_amount,
                 '_token'                        : '{{csrf_token()}}'
             },
             success: function(msg){
@@ -681,8 +879,11 @@
             <div class="row form-group">
                 <div class="col-md-6">
                     <section class="control-label">Nomor PO
+                        <span class="required text-danger">
+                            *
+                        </span>
                     </section>
-                    <input type ="text" class="form-control form-control-inline input-medium date-picker input-date"  name="purchase_order_no" id="purchase_order_no" onChange="elements_add(this.name, this.value);" value="{{$salesorderelements == null ? '' : $salesorderelements['purchase_order_no']}}" style="width: 15rem;"/>
+                    <input type ="text" class="form-control form-control-inline input-medium date-picker input-date"  name="purchase_order_no" id="purchase_order_no" onChange="elements_add(this.name, this.value);" value="{{$salesorderelements == null ? '' : $salesorderelements['purchase_order_no']}}" style="width: 15rem;" required/>
                 </div>
                 <div class="col-md-6">
                     <section class="control-label">Tanggal Kadaluarsa PO
@@ -709,8 +910,15 @@
             <hr/>
             <div class="row form-group">
                 <div class="col-md-4">
+                    <a class="text-dark">Kategori Barang<a class='red'> *</a></a>
+                    {!! Form::select('item_category_id',  $itemcategory, 0, ['class' => 'selection-search-clear select-form', 'id' => 'item_category_id']) !!}
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4">
                     <a class="text-dark">Nama Barang<a class='red'> *</a></a>
-                    {!! Form::select('item_type_id',  $invitemtype, $null_item_type_id, ['class' => 'selection-search-clear select-form', 'id' => 'item_type_id']) !!}
+                    {!! Form::select('item_stock_id',  $itemtype, 0, ['class' => 'selection-search-clear select-form', 'id' => 'item_stock_id']) !!}
+                    <input class="form-control input-bb" type="hidden" name="item_type_id" id="item_type_id" value="0" readonly/>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
@@ -766,7 +974,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <a class="text-dark">Nominal Discount A</a>
-                        <input class="form-control input-bb" type="text" name="discount_amount_item" id="discount_amount_item" value="" readonly/>
+                        <input class="form-control input-bb" type="text" name="discount_amount_item" id="discount_amount_item" value="" />
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -788,7 +996,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <a class="text-dark">Nominal Discount B</a>
-                        <input class="form-control input-bb" type="text" name="discount_amount_item_b" id="discount_amount_item_b" value="" readonly/>
+                        <input class="form-control input-bb" type="text" name="discount_amount_item_b" id="discount_amount_item_b" value="" />
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -796,6 +1004,25 @@
                         <a class="text-dark">Total Harga Setelah Discount B</a>
                         <input class="form-control input-bb" type="text" name="subtotal_after_discount_item_view_b" id="subtotal_after_discount_item_view_b" value="" readonly/>
                         <input class="form-control input-bb" type="hidden" name="subtotal_after_discount_item_b" id="subtotal_after_discount_item_b" value=""/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <a class="text-dark">PPN %</a>
+                        <input class="form-control input-bb" type="text"name="ppn_out_percentage" id="ppn_out_percentage" readonly value="{{ $ppnOut['ppn_amount_out'] }}"  placeholder="isi 0 jika kosong"></td>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <a class="text-dark">PPN Item Amount</a>
+                        <input class="form-control input-bb" type="text" name="ppn_amount_item" id="ppn_amount_item" readonly/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <a class="text-dark">Total After PPN Item </a>
+                        <input class="form-control input-bb" type="text" name="total_price_after_ppn_amount_view" id="total_price_after_ppn_amount_view" readonly placeholder="isi 0 jika kosong"></td>
+                        <input class="form-control input-bb" type="text" name="total_price_after_ppn_amount" id="total_price_after_ppn_amount" hidden/>
                     </div>
                 </div>
             </div>
@@ -829,13 +1056,15 @@
                                 <th style='text-align:center'>Total Harga A</th>
                                 <th style='text-align:center'>Discount B/Barang</th>
                                 <th style='text-align:center'>Total Harga B</th>
+                                <th style='text-align:center'>PPN</th>
+                                <th style='text-align:center'>Total Setelah PPN</th>
                                 <th style='text-align:center'>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             
                                 @if(!is_array($salesorderitem))
-                                    <tr><th colspan='10' style='text-align  : center !important;'>Data Kosong</th></tr>
+                                    <tr><th colspan='11' style='text-align  : center !important;'>Data Kosong</th></tr>
                                 @else 
                                 @php
                                     $no =1;
@@ -855,8 +1084,8 @@
                                                 <td style='text-align  : right !important;'>{{number_format($val['subtotal_after_discount_item_a'],2,',','.')}}</td>
                                                 <td style='text-align  : right !important;'>{{number_format($val['discount_amount_item_b'],2,',','.')}}</td>
                                                 <td style='text-align  : right !important;'>{{number_format($val['subtotal_after_discount_item_b'],2,',','.')}}</td>
-                                                
-                                                
+                                                <td style='text-align  : right !important;'>{{number_format($val['ppn_amount_item'],2,',','.')}}</td>
+                                                <td style='text-align  : right !important;'>{{number_format($val['total_price_after_ppn_amount'],2,',','.')}}</td>
                                                 <td style='text-align  : center'>
                                                     <a href="{{route('sales-order-delete-array', ['record_id' => $key])}}" name='Reset' class='btn btn-danger btn-sm' onClick='javascript:return confirm(\"apakah yakin ingin dihapus ?\")'></i> Hapus</a>
                                                 </td>
@@ -865,14 +1094,14 @@
                                             </tr>
                                         @php
                                             $no++;
-                                            $total_price_after_discount_item += $val['subtotal_after_discount_item_b'];
+                                            $total_price_after_discount_item += $val['total_price_after_ppn_amount'];
                                             $total_item+=$val['quantity'];
                                         @endphp
                                         
                                         @endforeach
                                         <th style='text-align  : center' colspan='2'>Total</th>
                                         <th style='text-align  : right' >{{$total_item}}</th>
-                                        <th colspan='5'></th>
+                                        <th colspan='7'></th>
                                         <th style='text-align  : right'>{{number_format($total_price_after_discount_item,2,',','.')}}</th>
                                         <th>
                                             <input class='form-control input-bb' type='hidden' name='total_price_all' id='total_price_all' value='{{$total_price_after_discount_item}}'/>
@@ -881,7 +1110,7 @@
                                         <tr>
                                             <td style='text-align  : center' colspan='2'><b>Discount Nota (%)</b></td>
                                             <td style='text-align  : center'><b>:</b></td>
-                                            <td colspan='4'></td>
+                                            <td colspan='6'></td>
                                             <td>
                                                 <input style='text-align  : right' type="text" class="form-control" name="discount_percentage" id="discount_percentage" value="0"  placeholder="isi 0 jika kosong"></td>
                                             <td>
@@ -894,28 +1123,28 @@
                                         <tr>
                                             <td style='text-align  : center' colspan='2'><b>Harga Setelah Discount Nota </td>
                                             <td style='text-align  : center'><b>:</b></td>
-                                            <td colspan='5'></td>
+                                            <td colspan='7'></td>
                                             <td style='text-align  : center'>
                                                 <input style='text-align  : right;  font-weight: bold;' type="text" class="form-control" name="subtotal_after_discount_view" id="subtotal_after_discount_view" readonly>
                                             </td>
                                             <td></td>
                                         </tr>
-                                        <tr>
-                                            <td style='text-align  : center' colspan='2'><b>PPN Keluar (%)</b></td>
-                                            <td style='text-align  : center'><b>:</b></td>
-                                            <td colspan='4'></td>
+                                        <tr hidden>
+                                            <td  style='text-align  : center' colspan='2'><b>PPN Keluar (%)</b></td>
+                                            <td  style='text-align  : center'><b>:</b></td>
+                                            <td  colspan='6'></td>
                                             <td>
-                                                <input style='text-align  : right' type="text" class="form-control" name="ppn_out_percentage" id="ppn_out_percentage" value="{{ $ppnOut['ppn_amount_out'] }}" placeholder="isi 0 jika kosong"></td>
+                                                <input  style='text-align  : right' type="text" class="form-control" name="ppn_out_percentage" id="ppn_out_percentage" value="0" placeholder="isi 0 jika kosong"></td>
                                             <td>
-                                                <input type="hidden" class="form-control" name="ppn_out_amount" id="ppn_out_amount" readonly>
-                                                <input style='text-align  : right;  font-weight: bold;' type="text" class="form-control" name="ppn_out_amount_view" id="ppn_out_amount_view" readonly>
+                                                <input  type="" class="form-control" name="ppn_out_amount" id="ppn_out_amount" readonly>
+                                                <input  style='text-align  : right;  font-weight: bold;' type="text" class="form-control" name="ppn_out_amount_view" id="ppn_out_amount_view" readonly>
                                             </td>
                                             <td></td>
                                         </tr>
                                         <tr>
                                             <td style='text-align  : center' colspan='2'><b>Total Harga Akhir </td>
                                             <td style='text-align  : center'><b>:</b></td>
-                                            <td colspan='5'></td>
+                                            <td colspan='7'></td>
                                             <td style='text-align  : center'>
                                                 <input type="hidden" class="form-control" name="subtotal_after_ppn_out" id="subtotal_after_ppn_out" readonly>
                                                 <input style='text-align  : right;  font-weight: bold;' type="text" class="form-control" name="subtotal_after_ppn_out_view" id="subtotal_after_ppn_out_view" readonly>

@@ -2,8 +2,8 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 
 @section('js')
 <script>
@@ -18,8 +18,8 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
-        <li class="breadcrumb-item"><a href="{{ url('return-pdp-lost-on-expedition') }}">Daftar Pengakuan Pihak Pembeli</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Detail Pengakuan Pihak Pembeli</li>
+        <li class="breadcrumb-item"><a href="{{ url('return-pdp-lost-on-expedition') }}">Daftar Penerimaan Pihak Pembeli</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Detail Penerimaan Pihak Pembeli</li>
     </ol>
 </nav>
 
@@ -28,7 +28,7 @@
 @section('content')
 
 <h3 class="page-title">
-    Form Detail Pengakuan Pihak Pembeli
+    Form Detail Penerimaan Pihak Pembeli
 </h3>
 <br/>
 @if(session('msg'))
@@ -71,14 +71,14 @@
             </div>
             <br>
             <div class="row">
-                <h5 class="form-section"><b>Detail Pengakuan Pihak Pembeli</b></h5>
+                <h5 class="form-section"><b>Detail Penerimaan Pihak Pembeli</b></h5>
             </div>
             <hr style="margin:0;">
             <br/>
             <div class="row form-group">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <a class="text-dark">No. Pengakuan</a>
+                        <a class="text-dark">No. Penerimaan</a>
                         <input class="form-control input-bb" type="text" name="account_id" id="account_id"  value="{{$buyers_acknowledgment['buyers_acknowledgment_no']}}" readonly/>
                     </div>
                 </div>

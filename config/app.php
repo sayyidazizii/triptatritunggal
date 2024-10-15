@@ -177,7 +177,6 @@ return [
         App\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Elibyy\TCPDF\ServiceProvider::class,
-        //Barryvdh\DomPDF\ServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
 
     ],
@@ -237,7 +236,6 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'PDF' => Elibyy\TCPDF\Facades\TCPDF::class,
-        //'PDF2' => Barryvdh\DomPDF\Facade::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class
 
     ],

@@ -2,8 +2,8 @@
 @inject('BA', 'App\Http\Controllers\BuyersAcknowledgmentController')
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 
 @section('js')
 <script>
@@ -19,10 +19,10 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
-        <li class="breadcrumb-item"><a href="{{ url('buyers-acknowledgment') }}">Daftar Pengakuan Pihak Pembeli
+        <li class="breadcrumb-item"><a href="{{ url('buyers-acknowledgment') }}">Daftar Penerimaan Pihak Pembeli
         </a></li>
         <li class="breadcrumb-item"><a href="{{ url('buyers-acknowledgment/search-sales-delivery-note') }}">Daftar Sales Delivery Note</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Tambah Pengakuan Pihak Pembeli
+        <li class="breadcrumb-item active" aria-current="page">Tambah Penerimaan Pihak Pembeli
         </li>
     </ol>
 </nav>
@@ -32,14 +32,14 @@
 @section('content')
 
 <h3 class="page-title">
-    Form Tambah Pengakuan Pihak Pembeli
+    Form Tambah Penerimaan Pihak Pembeli
 </h3>
 <br/>
 @if(session('msg'))
 <div class="alert alert-info" role="alert">
     {{session('msg')}}
 </div>
-@endif
+@endif 
 @if(count($errors) > 0)
 <div class="alert alert-danger" role="alert">
     @foreach ($errors->all() as $error)
@@ -72,10 +72,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <a class="text-dark">No. Perkiraan</a>
-                        {!! Form::select('account_id',  $acctaccount, 0, ['class' => 'selection-search-clear select-form', 'id' => 'account_id', 'onchange' => 'function_elements_add(this.name, this.value)']) !!}
+                <div hidden class="col-md-6">
+                    <div hidden class="form-group">
+                        <a hidden class="text-dark">No. Perkiraan</a>
+                        {{-- {!! Form::select('account_id',  $acctaccount, 0, ['class' => 'selection-search-clear select-form', 'id' => 'account_id', 'onchange' => 'function_elements_add(this.name, this.value)']) !!} --}}
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -87,8 +87,13 @@
                     </div>
                 </div>
                 <div class="col-md-12">
+                <div class="form-group">
+                        <a class="text-dark">No. PO Customer<a class='red'> *</a></a>
+                        <div class="">
+                            <input type ="text" class="form-control form-control-inline input-medium date-picker input-date"  name="purchase_order_no" id="purchase_order_no" value="{{ $salesorder['purchase_order_no']}}" style="width: 15rem;"/>
+                        </div>
+                    </div>
                     <div class="form-group">
-                        <a class="text-dark">Keterangan<a class='red'> *</a></a>
                         <div class="">
                             <textarea rows="3" type="text" class="form-control input-bb" name="buyers_acknowledgment_remark" id="buyers_acknowledgment_remark" onChange="function_elements_add(this.name, this.value);" ></textarea>
                         </div>
@@ -128,6 +133,7 @@
                                 } else {
                                     $no =1;
                                     foreach ($salesdeliverynoteitem AS $key => $val){
+                                        $stock_id = $BA->getItemStock($val['sales_delivery_note_item_id']);
                                         echo"
                                             <tr>
                                                 <td style='text-align  : center'>".$no."</td>
@@ -139,12 +145,15 @@
                                                 <input class='form-control' style='text-align:right;'type='hidden' name='warehouse_id' id='warehouse_id' value='".$val['warehouse_id']."'/>  
                                                 <td style='text-align  : right !important;'>
                                                     <input class='form-control' text-align:right;' type='text' name='quantity_received_".$no."' id='quantity_received".$no."' value=''/>  
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_category_id_".$no."' id='item_category_id_".$no."' value='".$BA->getCategoryId($val['sales_order_item_id'])."'/>  
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_category_id' id='item_category_id' value='".$BA->getCategoryId($val['sales_order_item_id'])."'/>  
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_type_id_".$no."' id='item_type_id_".$no."' value='".$val['item_type_id']."'/>  
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id_".$no."' id='sales_order_id_".$no."' value='".$val['sales_order_id']."'/> 
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id_".$no."' id='sales_order_item_id_".$no."' value='".$val['sales_order_item_id']."'/>  
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='customer_id_".$no."' id='customer_id_".$no."' value='".$salesorder['customer_id']."'/>  
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_id_".$no."' id='item_id_".$no."' value='".$val['item_id']."'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_stock_id_".$no."' id='item_stock_id_".$no."' value='".$BA->getItemStock($val['sales_delivery_note_item_id'])."'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_cost_".$no."' id='item_unit_cost_".$no."' value='".$BA->getItemUnitCost($stock_id)."'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_id_".$no."' id='item_unit_id_".$no."' value='".$val['item_unit_id']."'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_price_".$no."' id='item_unit_price_".$no."' value='".$val['item_unit_price']."'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='quantity_".$no."' id='quantity_".$no."' value='".$val['quantity']."'/>

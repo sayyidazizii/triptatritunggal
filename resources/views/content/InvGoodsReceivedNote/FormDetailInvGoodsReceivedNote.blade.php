@@ -2,8 +2,8 @@
 @inject('InvGoodsReceivedNote', 'App\Http\Controllers\InvGoodsReceivedNoteController')
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 @section('js')
 <script>
 	function toRp(number) {
@@ -136,6 +136,8 @@
                             <tr>
                                 <th style='text-align:center'>No.</th>
                                 <th style='text-align:center'>Kategori Barang</th>
+                                <th style='text-align:center'>Item Batch Number</th>
+                                <th style='text-align:center'>Kadaluarsa</th>
                                 <th style='text-align:center'>Barang</th>
                                 <th style='text-align:center'>Satuan</th>
                                 <th style='text-align:center'>Quantity</th>
@@ -154,6 +156,8 @@
                                             <tr>
                                                 <td style='text-align  : center'>".$no."</td>
                                                 <td style='text-align  : left !important;'>".$PurchaseOrder->getItemCategoryName($val['item_category_id'])."</td>
+                                                <td style='text-align  : left !important;'>".$val['item_batch_number']."</td>
+                                                <td style='text-align  : left !important;'>".$val['item_expired_date']."</td>
                                                 <td style='text-align  : left !important;'>".$PurchaseOrder->getItemTypeName($val['item_type_id'])."</td>
                                                 <td style='text-align  : left !important;'>".$PurchaseOrder->getItemUnitName($val['item_unit_id'])."</td>
                                                 <td style='text-align  : right !important;'>".$val['quantity']."</td>";

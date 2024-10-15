@@ -1,8 +1,8 @@
 @inject('SalesOrderReturn', 'App\Http\Controllers\SalesOrderReturnController')
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 
 @section('js')
 <script>
@@ -18,7 +18,7 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
         <li class="breadcrumb-item"><a href="{{ url('sales-order-return') }}">Daftar Return Penjualan</a></li>
-        <li class="breadcrumb-item"><a href="{{ url('sales-order-return/search-sales-delivery-note') }}">Daftar Sales Delivery Note</a></li>
+        <li class="breadcrumb-item"><a href="{{ url('sales-order-return/search-sales-invoice') }}">Daftar Sales Invoice</a></li>
         <li class="breadcrumb-item active" aria-current="page">Tambah Return Penjualan</li>
     </ol>
 </nav>
@@ -61,6 +61,7 @@
                     <div class="form-group">
                         <a class="text-dark">Gudang<a class='red'> *</a></a>
                         <br/>
+                        <input class='form-control' style='text-align:right;'type='hidden' name='customer_id' id='customer_id' value="{{ $salesorder['customer_id'] }}"/> 
                         {!! Form::select('warehouse_id',  $warehouse, 0, ['class' => 'selection-search-clear select-form', 'id' => 'warehouse_id']) !!}
                     </div>
                 </div>
@@ -69,7 +70,7 @@
                         <a class="text-dark">Tanggal Return<a class='red'> *</a></a>
                         <input type ="date" class="form-control form-control-inline input-medium date-picker input-date" data-date-format="dd-mm-yyyy" type="text" name="sales_order_return_date" id="sales_order_return_date" onChange="function_elements_add(this.name, this.value);" value=""/>
                         <input type ="hidden" class="form-control" name="sales_delivery_note_id" id="sales_delivery_note_id" onChange="function_elements_add(this.name, this.value);" value="{{$salesInvoice['sales_delivery_note_id']}}"/>
-                        <input type ="hidden" class="form-control" name="sales_delivery_order_id" id="sales_delivery_order_id" onChange="function_elements_add(this.name, this.value);" value="{{$salesInvoice['sales_delivery_order_id']}}"/>
+                        <input type ="hidden" class="form-control" name="sales_delivery_order_id" id="sales_delivery_order_id" onChange="function_elements_add(this.name, this.value);" value="{{$salesdeliveryorder['sales_delivery_order_id']}}"/>
                         <input type ="hidden" class="form-control" name="buyers_acknowledgment_no" id="buyers_acknowledgment_no" onChange="function_elements_add(this.name, this.value);" value="{{$salesInvoice['buyers_acknowledgment_no']}}"/>
                     </div>
                 </div>
@@ -92,8 +93,8 @@
                             <a class="text-dark">Barang Sudah Kembali<a class='red'> *</a></a>
                             <br/>
                              <select class="selection-search-clear" name="barang_kembali" id="barang_kembali" style="width: 100% !important">
-                                <option value="1">Sudah</option>
                                 <option value="0">Belum</option>
+                                <option value="1">Sudah</option>
                             </select>
                         </div>
                     </div>
@@ -150,9 +151,8 @@
                                                 <td style='text-align  : right !important;'>".$val['quantity']."</td>
                                                 <td style='text-align  : right !important;'>
                                                     <input class='form-control' text-align:right;' type='text'   name='quantity_return_".$no."' id='quantity_return_".$no."' value=''/>  
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id' id='sales_order_id   ' value='".$val['sales_order_id']."'/>  
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id_".$no."' id='sales_order_item_id_".$no."' value='".$val['sales_order_item_id']."'/>  
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='customer_id' id='customer_id' value='".$salesorder['customer_id']."'/>  
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id' id='sales_order_id' value='".$val['sales_order_id']."'/>  
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id_".$no."' id='sales_order_item_id_".$no."' value='".$SalesOrderReturn->getSalesOrderItemID($val['sales_delivery_note_item_id'])."'/>   
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_id_".$no."' id='item_id_".$no."' value='".$val['item_id']."'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_type_id_".$no."' id='item_type_id_".$no."' value='".$val['item_type_id']."'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_id_".$no."' id='item_unit_id_".$no."' value='".$val['item_unit_id']."'/>
@@ -160,7 +160,7 @@
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='quantity_".$no."' id='quantity_".$no."' value='".$val['quantity']."'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='sales_invoice_id' id='sales_invoice_id' value='".$val['sales_invoice_id']."'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='sales_delivery_note_id' id='sales_delivery_note_id' value='".$val['sales_delivery_note_id']."'/>
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_delivery_note_item_id' id='sales_delivery_note_item_id' value='".$val['sales_delivery_note_item_id']."'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_delivery_note_item_id_".$no."' id='sales_delivery_note_item_id_".$no."' value='".$val['sales_delivery_note_item_id']."'/>
                                                 </td>";
                                                 echo"
                                             </tr>

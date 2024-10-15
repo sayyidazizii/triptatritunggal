@@ -1,8 +1,8 @@
 @inject('InvGoodsReceivedNote', 'App\Http\Controllers\InvGoodsReceivedNoteController')
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @section('js')
 <script>
@@ -222,6 +222,7 @@
                                 <th style='text-align:center'>Kategori Barang</th>
                                 <th style='text-align:center'>Nama Barang</th>
                                 <th style='text-align:center'>Satuan</th>
+                                <th style='text-align:center'>Harga Satuan</th>
                                 <th style='text-align:center'>Qty Order</th>
                                 <th style='text-align:center'>Qty Outstanding</th>
                                 <th style='text-align:center'>Qty Diterima</th>
@@ -247,9 +248,13 @@
                                                 <td style='text-align  : left !important;'>".$InvGoodsReceivedNote->getItemCategoryName($val['item_category_id'])."</td>
                                                 <td style='text-align  : left !important;'>".$InvGoodsReceivedNote->getItemTypeName($val['item_type_id'])."</td>
                                                 <td style='text-align  : left !important;'>".$InvGoodsReceivedNote->getItemUnitName($val['item_unit_id'])."</td>
+                                                <td style='text-align  : right !important;'> 
+                                                    <input class='form-control' style='text-align:right;'type='' name='item_unit_cost_".$no."' id='item_unit_cost_".$no."' value='".$val['item_unit_cost']."' required/>
+                                                </td>
                                                 <td style='text-align  : right !important;'>".$val['quantity']."</td>
                                                 <td style='text-align  : right !important;'>".$val['quantity_outstanding']."</td>
                                                 <td style='text-align  : right !important;'>
+
                                                     <input class='form-control' style='text-align:right;' type='number' name='quantity_received_".$no."' id='quantity_received_".$no."' value='".$val['quantity_outstanding']."' onchange='quantityReceivedChange(".$no.",this.value);' autocomplete='off'/>
 
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_category_id_".$no."' id='item_category_id_".$no."' value='".$val['item_category_id']."'/>
@@ -258,14 +263,13 @@
 
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_id_".$no."' id='item_unit_id_".$no."' value='".$val['item_unit_id']."'/>
 
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_cost_".$no."' id='item_unit_cost_".$no."' value='".$val['item_unit_cost']."'/>
 
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='purchase_order_id_".$no."' id='purchase_order_id_".$no."' value='".$val['purchase_order_id']."'/>
 
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='purchase_order_item_id_".$no."' id='purchase_order_item_id_".$no."' value='".$val['purchase_order_item_id']."'/>
                                                 </td>
                                                 <td>
-                                                    <input class='form-control' style='text-align:right;'type='text' name='item_batch_number_".$no."' id='item_batch_number_".$no."' autocomplete='off'/>
+                                                    <input class='form-control' style='text-align:right;'type='text' name='item_batch_number_".$no."' id='item_batch_number_".$no."' autocomplete='off' required/>
                                                 </td>
                                                 <td>
                                                     <input class='form-control' style='text-align:right;'type='date' name='item_expired_date_".$no."' id='item_expired_date_".$no."' autocomplete='off' autocomplete='off'/>
@@ -277,6 +281,7 @@
                                             echo"
                                             <tr>
                                                 <td style='text-align  : center'>".$no.".</td>
+                                                <td style='text-align  : left !important;'></td>
                                                 <td style='text-align  : left !important;'></td>
                                                 <td style='text-align  : left !important;'></td>
                                                 <td style='text-align  : left !important;'></td>
@@ -312,7 +317,7 @@
                                         $total_no = $no - 1;
                                         echo"
                                         <tbody></tbody>
-                                        <th style='text-align  : center' colspan='6'>Total</th>
+                                        <th style='text-align  : center' colspan='7'>Total</th>
                                         <th style='text-align  : right'>
                                             <input class='form-control' style='text-align:right;'type='text' name='quantity_received_total' id='quantity_received_total' value='' readonly/>
                                             <input class='form-control' style='text-align:right;'type='hidden' name='total_no' id='total_no' value='".$total_no."' readonly/>

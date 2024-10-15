@@ -1,8 +1,8 @@
 @inject('PurchaseOrder', 'App\Http\Controllers\PurchaseOrderController')
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 @section('js')
 <script>
     function elements_add(name, value){
@@ -123,7 +123,7 @@
 			var item_type_id 	= $("#item_type_id").val();
                 $.ajax({
                     type: "POST",
-                    url : "{{route('select-data-unit')}}",
+                    url : "{{route('purchase-order-select-data-unit')}}",
                     dataType: "html",
                     data: {
                         'item_type_id'	: item_type_id,

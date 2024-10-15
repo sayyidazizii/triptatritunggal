@@ -2,8 +2,8 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 
 @section('js')
 <script>
@@ -74,6 +74,7 @@ function checkboxSalesOrderChange (sales_order_item_id) {
                         <th width="13%" style='text-align:center'>Tanggal Delivery Order</th>
                         <th width="15%" style='text-align:center'>No. Delivery Order</th>
                         <th width="10%" style='text-align:center'>Nomor SO</th>
+ 			<th width="10%" style='text-align:center'>Nomor PO Customer</th>
                         <th width="15%" style='text-align:center'>Pelanggan</th>
                         <th width="10%" style='text-align:center'>Gudang</th>
                         <th width="12%" style='text-align:center'>Aksi</th>
@@ -87,6 +88,7 @@ function checkboxSalesOrderChange (sales_order_item_id) {
                         <td>{{$item['sales_delivery_order_date']}}</td>
                         <td>{{$item['sales_delivery_order_no']}}</td>
                         <td>{{$SalesDeliveryNote->getSalesOrderNo($item['sales_order_id'])}}</td>
+			<td>{{$SalesDeliveryNote->getPurchaseOrderNo($item['sales_order_id'])}}</td>
                         <td>{{$SalesDeliveryNote->getCustomerNameSalesOrderId($item['sales_order_id'])}}</td>
                         <td>{{$SalesDeliveryNote->getInvWarehouseName($item['warehouse_id'])}}</td>
                         <td style='text-align:center'>

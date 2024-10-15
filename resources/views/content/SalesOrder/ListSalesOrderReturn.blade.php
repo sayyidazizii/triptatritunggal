@@ -2,8 +2,8 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 
 @section('content_header')
     
@@ -62,6 +62,8 @@
                 <div class="form-actions float-right">
                     <a type="button" href="{{ route('filter-reset-sales-order-return')}}" name="Reset" class="btn btn-danger btn-sm" onClick="window.location.reload();"><i class="fa fa-times"></i> Batal</a>
                     <button type="submit" name="Find" class="btn btn-primary btn-sm" title="Search Data"><i class="fa fa-search"></i> Cari</button>
+                    <a href="{{ url('sales-order-return/export') }}"name="Find" class="btn btn-sm btn-info" title="Export Excel"><i class="fa fa-print"></i>Export</a>
+
                 </div>
             </div>
         </div>
@@ -120,6 +122,7 @@
                         <td>{{$SalesOrderReturn->getSalesInvoiceDate($item['sales_invoice_id'])}}</td>
                         <td>{{date('d/m/Y', strtotime($item['sales_order_return_date']))}}</td>
                         <td class="" style='text-align:center'>
+                            <a type="button" class="btn btn-outline-warning btn-sm" href="{{ url('/sales-order-return/edit/'.$item['sales_order_return_id']) }}">Edit</a>
                             <a type="button" class="btn btn-outline-primary btn-sm" href="{{ url('/sales-order-return/detail/'.$item['sales_order_return_id']) }}">Detail</a>
                         </td>
                     </tr>

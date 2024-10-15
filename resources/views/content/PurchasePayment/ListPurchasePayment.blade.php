@@ -2,8 +2,8 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 
 @section('js')
 <script>
@@ -113,6 +113,7 @@
                         <th width="15%" style='text-align:center'>Nama Pemasok</th>
                         <th width="13%" style='text-align:center'>Tanggal Pelunasan</th>
                         <th width="15%" style='text-align:center'>No Pelunasan</th>
+                        <th width="15%" style='text-align:center'>No Invoice</th>
                         <th width="15%" style='text-align:center'>Jumlah Pelunasan Tunai</th>
                         <th width="15%" style='text-align:center'>Jumlah Pelunasan Transfer</th>
                         <th width="10%" style='text-align:center'>Aksi</th>
@@ -126,6 +127,7 @@
                         <td>{{$PurchasePayment->getCoreSupplierName($payment['supplier_id'])}}</td>
                         <td>{{$payment['payment_date']}}</td>
                         <td>{{$payment['payment_no']}}</td>
+                        <td>{{$payment['purchase_invoice_no']}}</td>
                     <?php if($payment['payment_total_cash_amount']==null){?>
                         <td style='text-align:right'>0.00</td>
                     <?php }else{?>

@@ -5,17 +5,17 @@
 @section('js')
 <script>
 	$(document).ready(function(){
-        var customer_id    = {!! json_encode($customer_id) !!};
+        var customer_code    = {!! json_encode($customer_code) !!};
         
-        if(customer_id == null){
-            $("#customer_id").select2("val", "0");
+        if(customer_code == null){
+            $("#customer_code").select2("val", "0");
         }
     });
 </script>
 @stop
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 
 @section('content_header')
     
@@ -69,9 +69,11 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <a class="text-dark">Pembeli</a>
+                        <a class="text-dark">Kode Pembeli</a>
                         <br/>
-                        {!! Form::select('customer_id',  $customer, $customer_id, ['class' => 'selection-search-clear select-form', 'id' => 'customer_id']) !!}
+                        {{-- {!! Form::select('customer_id',  $customer, $customer_id, ['class' => 'selection-search-clear select-form', 'id' => 'customer_id']) !!} --}}
+                        {!! Form::select('customer_code',  $customer, $customer_code, ['class' => 'selection-search-clear select-form', 'id' => 'customer_code']) !!}
+
                     </div>
                 </div>
             </div>
@@ -112,7 +114,8 @@
                         <th width="20%" style='text-align:center'>No Invoice Penjualan</th>
                         <th width="20%" style='text-align:center'>Tanggal Invoice</th>
                         <th width="20%" style='text-align:center'>No Faktur Pajak</th>
-                        <th width="20%" style='text-align:center'>No Penerimaan Barang</th>
+                        <th width="20%" style='text-align:center'>No Penerimaan Pembeli</th>
+                        <th width="20%" style='text-align:center'>No TTF</th>
                         <th width="15%" style='text-align:center'>Aksi</th>
                     </tr>
                 </thead>
@@ -126,6 +129,7 @@
                         <td>{{$item['sales_invoice_date']}}</td>
                         <td>{{$item['faktur_tax_no']}}</td>
                         <td>{{$item['buyers_acknowledgment_no']}}</td>
+                        <td>{{$item['ttf_no']}}</td>
                         <td class="">
                             <a type="button" class="btn btn-outline-primary btn-sm" href="{{ url('/sales-invoice/detail/'.$item['sales_invoice_id']) }}">Detail</a>
                             <a type="button" class="btn btn-outline-dark btn-sm" href="{{ url('/sales-invoice/printing/'.$item['sales_invoice_id']) }}"  target='_blank'>Print</a>

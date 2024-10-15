@@ -1,8 +1,8 @@
 @inject('PurchaseInvoice', 'App\Http\Controllers\PurchaseInvoiceController')
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 @section('js')
 <script>
 	function toRp(number) {
@@ -179,7 +179,8 @@
                                         @php
                                             $no++;
                                             $total_price += $purchaseorderitem['item_unit_cost']*$val['quantity'];
-                                            $total_item  += $purchaseorderitem['quantity'];
+                                            $total_item  += $val['quantity'];
+                                            $totalafterPpn = $total_price + $purchaseorder->ppn_in_amount;
                                         @endphp
                                     @endforeach
                                     <th style='text-align  : center' colspan='2'>Total</th>
@@ -198,7 +199,8 @@
                                             <input style='text-align  : right' type="text" class="form-control" name="ppn_in_percentage" id="ppn_in_percentage" value="{{$purchaseorder->ppn_in_percentage}}" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" style='text-align  : right' class="form-control" name="ppn_in_amount" id="ppn_in_amount" value="{{number_format($purchaseorder->ppn_in_amount,2,',','.')}}" readonly>
+                                            <input type="text" style='text-align  : right' class="form-control" name="ppn_in_amount_view" id="ppn_in_amount_view" value="{{number_format($purchaseorder->ppn_in_amount,2,',','.')}}" readonly>
+                                            <input type="text" style='text-align  : right' class="form-control" name="ppn_in_amount" id="ppn_in_amount" value="{{$purchaseorder->ppn_in_amount}}" hidden>
                                         </td>
                                     </tr>
                                     <tr>
@@ -206,7 +208,7 @@
                                         <td style='text-align  : center'><b>:</b></td>
                                         <td colspan='3'></td>
                                         <td style='text-align  : center'>
-                                            <input type="text" style='text-align  : right' class="form-control" name="subtotal_after_ppn_in" id="subtotal_after_ppn_in" value="{{number_format($purchaseorder->subtotal_after_ppn_in,2,',','.')}}" readonly>
+                                            <input type="text" style='text-align  : right' class="form-control" name="subtotal_after_ppn_in" id="subtotal_after_ppn_in" value="{{number_format($totalafterPpn,2,',','.')}}" readonly>
                                         </td>
                                     </tr>
                                 @endif

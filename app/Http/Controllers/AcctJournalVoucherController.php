@@ -64,14 +64,17 @@ class AcctJournalVoucherController extends Controller
         
         $corebranch         = CoreBranch::where('core_branch.data_state','=','0')->get()->pluck('branch_name','branch_id');
 
-        $acctjournalvoucher = AcctJournalVoucherItem::select(DB::raw("acct_journal_voucher_item.journal_voucher_item_id, acct_journal_voucher.journal_voucher_description, acct_journal_voucher.journal_voucher_title, acct_journal_voucher.project_type_id, acct_journal_voucher.project_id, acct_journal_voucher_item.journal_voucher_debit_amount, acct_journal_voucher_item.journal_voucher_credit_amount, acct_journal_voucher_item.account_id, acct_account.account_code, acct_account.account_name, acct_journal_voucher_item.account_id_status, acct_journal_voucher.transaction_module_code, acct_journal_voucher.journal_voucher_date, acct_journal_voucher.journal_voucher_id, acct_journal_voucher_item.journal_voucher_description AS journal_voucher_description_item"))
+        $acctjournalvoucher = AcctJournalVoucherItem::select(DB::raw("acct_journal_voucher_item.journal_voucher_item_id, acct_journal_voucher.journal_voucher_no,acct_journal_voucher.journal_voucher_description, acct_journal_voucher.journal_voucher_title, acct_journal_voucher.project_type_id, acct_journal_voucher.project_id, acct_journal_voucher_item.journal_voucher_debit_amount, acct_journal_voucher_item.journal_voucher_credit_amount, acct_journal_voucher_item.account_id, acct_account.account_code, acct_account.account_name, acct_journal_voucher_item.account_id_status, acct_journal_voucher.transaction_module_code, acct_journal_voucher.journal_voucher_date, acct_journal_voucher.journal_voucher_id, acct_journal_voucher_item.journal_voucher_description AS journal_voucher_description_item"))
         ->join('acct_journal_voucher','acct_journal_voucher.journal_voucher_id','=','acct_journal_voucher_item.journal_voucher_id')
         ->join('acct_account','acct_account.account_id','=','acct_journal_voucher_item.account_id')
         ->where('acct_journal_voucher.journal_voucher_date','>=',$start_date)
         ->where('acct_journal_voucher.journal_voucher_date','<=',$end_date)
-        ->where('acct_journal_voucher.branch_id','=',$branch_id)
-        ->where('acct_journal_voucher.data_state','=',0)
-        ->where('acct_journal_voucher_item.data_state','=',0)
+        ->where('acct_journal_voucher.transaction_module_code','!=','PP')
+        ->where('acct_journal_voucher.transaction_module_code','!=','SC')
+        ->where('acct_journal_voucher.transaction_module_code','!=','SCD')
+        // ->where('acct_journal_voucher.branch_id','=',$branch_id)
+        // ->where('acct_journal_voucher.data_state','=',0)
+        // ->where('acct_journal_voucher_item.data_state','=',0)
         // ->where('acct_journal_voucher_item.journal_voucher_amount','<>',0)
         ->orderBy('acct_journal_voucher_item.journal_voucher_item_id', 'ASC')
         ->get();
@@ -186,7 +189,6 @@ class AcctJournalVoucherController extends Controller
         return redirect('/journal/add');
     }
 
-
     public function deleteArrayJournalVoucher($record_id)
     {
         $arrayBaru			= array();
@@ -205,9 +207,7 @@ class AcctJournalVoucherController extends Controller
 		
     public function processAddAcctJournalVoucher(Request $request){
         $acctjournalvoucheritem = Session::get('dataarrayjournalvoucher');
-        $acctjournalvoucherprocess = Session::get('dataprocessjournalvoucher');
-
-        $journal_voucher_period = date("Ym", strtotime($acctjournalvoucherprocess['journal_voucher_date']));
+        $journal_voucher_period = date("Ym", strtotime($request->journal_voucher_date));
 
         $transaction_module_code = "JU";
 
@@ -228,11 +228,12 @@ class AcctJournalVoucherController extends Controller
         );
 
         // print_r($data);exit;
+        // dd($data);
+        // dd($acctjournalvoucheritem);
 
         $journal_voucher_token = AcctJournalVoucher::where('journal_voucher_token','=', $data['journal_voucher_token'])->get();
 
         if(!empty($acctjournalvoucheritem)){
-            if(count($journal_voucher_token) == 0){
                 if(AcctJournalVoucher::create($data)){
                     $journal_voucher_id = AcctJournalVoucher::select('journal_voucher_id')
                     ->where('created_id','=', $data['created_id'])
@@ -241,7 +242,7 @@ class AcctJournalVoucherController extends Controller
 
                     foreach ($acctjournalvoucheritem as $key => $val) {
                         
-                        if($val['journal_voucher_status'] == 1){
+                        if($val['journal_voucher_status'] == '1'){
                             $data_debet =array(
                                 'journal_voucher_id'			=> $journal_voucher_id['journal_voucher_id'],
                                 'account_id'					=> $val['account_id'],
@@ -275,52 +276,8 @@ class AcctJournalVoucherController extends Controller
                     $msg = 'Tambah Data Jurnal Umum Gagal';
                     return redirect('/journal/add')->with('msg',$msg);
                 }
-            } else {
-                $journal_voucher_id = AcctJournalVoucher::select('journal_voucher_id')
-                ->where('created_id','=', $data['created_id'])
-                ->orderBy('journal_voucher_id', 'DESC')
-                ->first();
-
-                foreach ($acctjournalvoucheritem as $key => $val) {
-                    if($val['journal_voucher_status'] == 1){
-                        $data_debet =array(
-                            'journal_voucher_id'			=> $journal_voucher_id['journal_account_id'],
-                            'account_id'					=> $val['account_id'],
-                            'journal_voucher_description'	=> $val['journal_voucher_description_item'],
-                            'journal_voucher_amount'		=> $val['journal_voucher_amount'],
-                            'journal_voucher_debit_amount'	=> $val['journal_voucher_amount'],
-                            'account_id_status'				=> 1,
-                            'journal_voucher_item_token'	=> $data['journal_voucher_token'].$val['account_id'],
-                        );
-
-                        $journal_voucher_item_token = AcctJournalVoucherItem::where('journal_voucher_item_token','=', $data_debet['journal_voucher_item_token'])->get();
-
-                        if(count($journal_voucher_item_token) == 0){
-                            AcctJournalVoucherItem::create($data_debet);
-                        }
-                        
-                    } else {
-                        $data_credit =array(
-                            'journal_voucher_id'			=> $journal_voucher_id['journal_account_id'],
-                            'account_id'					=> $val['account_id'],
-                            'journal_voucher_description'	=> $val['journal_voucher_description_item'],
-                            'journal_voucher_amount'		=> $val['journal_voucher_amount'],
-                            'journal_voucher_credit_amount'	=> $val['journal_voucher_amount'],
-                            'account_id_status'				=> 0,
-                            'journal_voucher_item_token'	=> $data['journal_voucher_token'].$val['account_id'],
-                        );
-
-                        $journal_voucher_item_token = AcctJournalVoucherItem::where('journal_voucher_item_token','=', $data_credit['journal_voucher_item_token'])->get();
-
-                        if(count($journal_voucher_item_token) == 0){
-                            AcctJournalVoucherItem::create($data_credit);
-                        }
-                    }
-                }
-
                 $msg = 'Tambah Data Jurnal Umum Berhasil';
                 return redirect('/journal')->with('msg',$msg);
-            }
             
         } else {
             $msg = 'Tambah Data Jurnal Umum Gagal';
@@ -355,7 +312,10 @@ class AcctJournalVoucherController extends Controller
         ->join('acct_account','acct_account.account_id','=','acct_journal_voucher_item.account_id')
         ->where('acct_journal_voucher.journal_voucher_date','>=',$start_date)
         ->where('acct_journal_voucher.journal_voucher_date','<=',$end_date)
-        ->where('acct_journal_voucher.branch_id','=',$branch_id)
+        // ->where('acct_journal_voucher.branch_id','=',$branch_id)
+        ->where('acct_journal_voucher.transaction_module_code','!=','PP')
+        ->where('acct_journal_voucher.transaction_module_code','!=','SC')
+        ->where('acct_journal_voucher.transaction_module_code','!=','SCD')
         ->where('acct_journal_voucher.data_state','=',0)
         ->where('acct_journal_voucher_item.journal_voucher_amount','<>',0)
         ->orderBy('acct_journal_voucher_item.journal_voucher_item_id', 'ASC')
@@ -509,7 +469,10 @@ $tblStock4 = "
         ->join('acct_account','acct_account.account_id','=','acct_journal_voucher_item.account_id')
         ->where('acct_journal_voucher.journal_voucher_date','>=',$start_date)
         ->where('acct_journal_voucher.journal_voucher_date','<=',$end_date)
-        ->where('acct_journal_voucher.branch_id','=',$branch_id)
+        // ->where('acct_journal_voucher.branch_id','=',$branch_id)
+        ->where('acct_journal_voucher.transaction_module_code','!=','PP')
+        ->where('acct_journal_voucher.transaction_module_code','!=','SC')
+        ->where('acct_journal_voucher.transaction_module_code','!=','SCD')
         ->where('acct_journal_voucher.data_state','=',0)
         ->where('acct_journal_voucher_item.journal_voucher_amount','<>',0)
         ->orderBy('acct_journal_voucher_item.journal_voucher_item_id', 'ASC')
@@ -651,5 +614,70 @@ $tblStock4 = "
             '0'	=> 'Kredit',
         );
         return $default_status[$account_default_status];
+    }
+
+    public function getReverseState($journal_voucher_id)
+    {
+        $reverse_state = AcctJournalVoucher::where('journal_voucher_id',$journal_voucher_id)
+        ->first();
+        return $reverse_state['reverse_state'];
+    }
+
+    public function reverseJournalVoucher($journal_voucher_id)
+    {
+        $journal = AcctJournalVoucher::find($journal_voucher_id);
+        $journalItem = AcctJournalVoucher::join('acct_journal_voucher_item', 'acct_journal_voucher_item.journal_voucher_id', '=', 'acct_journal_voucher.journal_voucher_id')
+            ->select('acct_journal_voucher_item.*')
+            // ->where('acct_journal_voucher.company_id', Auth::user()->company_id)
+            ->where('acct_journal_voucher.journal_voucher_id', $journal_voucher_id);
+        $data = array(
+            // 'company_id'                    => $journal['company_id'],
+            'transaction_module_id'         => $journal['transaction_module_id'],
+            'journal_voucher_status'        => $journal['journal_voucher_status'],
+            'transaction_journal_no'        => $journal['transaction_journal_no'],
+            "reverse_state"                 => 1,
+            'updated_id'                    => Auth::id(),
+            'created_id'                    => Auth::id()
+        );
+        try {
+            DB::beginTransaction();
+            AcctJournalVoucher::create($data);
+            $arr = array();
+            $journal->reverse_state = 1;
+            $journal->save();
+            $journalVoucherId = AcctJournalVoucher::orderBy('journal_voucher_id', 'DESC')->first();
+            foreach ($journalItem->get() as $key) {
+
+                $reverse_journal = array(
+                    // 'company_id'                        => $key['company_id'],
+                    'journal_voucher_id'                => $journalVoucherId['journal_voucher_id'],
+                    'account_id'                        => $key['account_id'],
+                    'journal_voucher_amount'            => $key['journal_voucher_amount'],
+                    'account_id_status'                 => (1 - $key['account_id_status']),
+                    'account_id_default_status'         => $key['account_id_default_status'],
+                    'journal_voucher_debit_amount'      => $key['journal_voucher_credit_amount'],
+                    'journal_voucher_credit_amount'     => $key['journal_voucher_debit_amount'],
+                    "data_state"                        => $key['data_state'],
+                    "reverse_state"                     => 1,
+                    'updated_id'                        => Auth::id(),
+                    'created_id'                        => Auth::id()
+                );
+                array_push($arr, $reverse_journal);
+                AcctJournalVoucherItem::create($reverse_journal);
+            }
+            $journalItem->update(['acct_journal_voucher_item.reverse_state' => 1]);
+            //     dd([$journal,$data]);
+            //     dd([$journalItem,$arr]);
+            //     dd([$data,$journal_voucher_id,$journal]);
+            //    exit;    
+            DB::commit();
+            session()->flash('msg', 'Hapus Jurnal Umum Berhasil');
+            return redirect()->route('journal');
+        } catch (\Throwable $th) {
+            dd($th);
+            DB::rollback();
+            session()->flash('msg', 'Hapus Jurnal Umum Gagal');
+            return redirect()->route('journal');
+        }
     }
 }

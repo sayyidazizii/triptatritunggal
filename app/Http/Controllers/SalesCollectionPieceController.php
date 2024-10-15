@@ -68,6 +68,7 @@ class SalesCollectionPieceController extends Controller
         }
 
         $customer_id = Session::get('customer_id');
+        $sales_collection_piece_type_id = Session::get('sales_collection_piece_type_id');
 
         Session::forget('salesinvoiceitem');
         Session::forget('salesinvoiceelements');
@@ -76,28 +77,38 @@ class SalesCollectionPieceController extends Controller
         ->join('sales_invoice', 'sales_invoice.sales_invoice_id', 'sales_collection_piece.sales_invoice_id')
         ->where('sales_collection_piece.data_state','=',0)
         ->where('sales_collection_piece.claim_status', 1)
-        ->where('sales_invoice.sales_invoice_date', '>=', $start_date)
-        ->where('sales_invoice.sales_invoice_date', '<=', $end_date);
+        ->where('sales_collection_piece.claim_date', '>=', $start_date)
+        ->where('sales_collection_piece.claim_date', '<=', $end_date);
         if($customer_id||$customer_id!=null||$customer_id!=''){
             $salescolectionpiece   = $salescolectionpiece->where('sales_collection_piece.customer_id', $customer_id);
         }
+
+        if($sales_collection_piece_type_id||$sales_collection_piece_type_id!=null||$sales_collection_piece_type_id!=''){
+            $salescolectionpiece   = $salescolectionpiece->where('sales_collection_piece.sales_collection_piece_type_id', $sales_collection_piece_type_id);
+        }
+
         $salescolectionpiece       = $salescolectionpiece->get();
 
         $customer = CoreCustomer::select('customer_id', 'customer_name')
         ->where('data_state', 0)
         ->pluck('customer_name', 'customer_id');
-
-        return view('content/SalesCollection/listSalesCollectionPiece',compact('salescolectionpiece', 'start_date', 'end_date', 'customer_id', 'customer'));
+        $sales_collection_piece_type = array(
+            '1' => 'promosi',
+            '2' => 'biasa'
+        );
+        return view('content/SalesCollection/listSalesCollectionPiece',compact('sales_collection_piece_type_id','sales_collection_piece_type','salescolectionpiece', 'start_date', 'end_date', 'customer_id', 'customer'));
     }
     
     public function filterSalesCollectionPiece(Request $request){
         $start_date     = $request->start_date;
         $end_date       = $request->end_date;
         $customer_id    = $request->customer_id;
+        $sales_collection_piece_type_id    = $request->sales_collection_piece_type_id;
 
         Session::put('start_date', $start_date);
         Session::put('end_date', $end_date);
         Session::put('customer_id', $customer_id);
+        Session::put('sales_collection_piece_type_id', $sales_collection_piece_type_id);
 
         return redirect('/sales-collection-piece');
     }
@@ -106,6 +117,7 @@ class SalesCollectionPieceController extends Controller
         Session::forget('start_date');
         Session::forget('end_date');
         Session::forget('customer_id');
+        Session::forget('sales_collection_piece_type_id');
 
         return redirect('/sales-collection-piece');
 
@@ -125,11 +137,11 @@ class SalesCollectionPieceController extends Controller
         return view('content/SalesCollection/SearchSalesCollectionPiece',compact('salescolectionpiece'));
     }
 
-    public function ClaimSalesCollectionPiece($sales_invoice_id)
+    public function ClaimSalesCollectionPiece($sales_collection_piece_id)
     {
         $salescolectionpiece = SalesCollectionPiece::select('sales_collection_piece.*','sales_invoice.sales_invoice_date')
         ->join('sales_invoice', 'sales_invoice.sales_invoice_id', 'sales_collection_piece.sales_invoice_id')
-        ->where('sales_collection_piece.sales_invoice_id',$sales_invoice_id)
+        ->where('sales_collection_piece.sales_collection_piece_id',$sales_collection_piece_id)
         ->where('sales_collection_piece.data_state','=',0)
         ->where('claim_status', 0)
         ->get();
@@ -140,7 +152,7 @@ class SalesCollectionPieceController extends Controller
 
     public function processClaimSalesCollectionPiece(Request $request){
 
-       SalesCollectionPiece::where('sales_invoice_id',$request->sales_invoice_id)
+       SalesCollectionPiece::where('sales_collection_piece_id',$request->sales_collection_piece_id)
         ->Update(['claim_status' => 1,'claim_date' =>  \Carbon\Carbon::now()]);
     
         
@@ -149,22 +161,38 @@ class SalesCollectionPieceController extends Controller
 
 
 
-    public function detailClaimSalesCollectionPiece($sales_invoice_id)
+    public function detailClaimSalesCollectionPiece($sales_collection_piece_id)
     {
         $salescolectionpiece = SalesCollectionPiece::select('sales_collection_piece.*','sales_invoice.sales_invoice_date')
         ->join('sales_invoice', 'sales_invoice.sales_invoice_id', 'sales_collection_piece.sales_invoice_id')
-        ->where('sales_collection_piece.sales_invoice_id',$sales_invoice_id)
+        ->where('sales_collection_piece.sales_collection_piece_id',$sales_collection_piece_id)
         ->where('sales_collection_piece.data_state','=',0)
         ->get();
 
         return view('content/SalesCollection/FormDetailSalesCollectionPiece',compact('salescolectionpiece'));
     }
 
-    public function CancelClaimSalesCollectionPiece($sales_invoice_id)
+    public function detailClaimSalesCollection($sales_invoice_id)
     {
+        $salesinvoice = SalesInvoice::where('sales_invoice_id',$sales_invoice_id)
+        ->where('data_state','=',0)
+        ->first();
         $salescolectionpiece = SalesCollectionPiece::select('sales_collection_piece.*','sales_invoice.sales_invoice_date')
         ->join('sales_invoice', 'sales_invoice.sales_invoice_id', 'sales_collection_piece.sales_invoice_id')
         ->where('sales_collection_piece.sales_invoice_id',$sales_invoice_id)
+        ->where('sales_collection_piece.data_state','=',0)
+        ->where('sales_collection_piece.claim_status','=',0)
+        ->get();
+
+        return view('content/SalesCollection/FormdetailListPiece',compact('salescolectionpiece','salesinvoice'));
+    }
+
+    public function CancelClaimSalesCollectionPiece($sales_collection_piece_id)
+    {
+        
+        $salescolectionpiece = SalesCollectionPiece::select('sales_collection_piece.*','sales_invoice.sales_invoice_date')
+        ->join('sales_invoice', 'sales_invoice.sales_invoice_id', 'sales_collection_piece.sales_invoice_id')
+        ->where('sales_collection_piece.sales_collection_piece_id',$sales_collection_piece_id)
         ->where('sales_collection_piece.data_state','=',0)
         ->get();
 
@@ -174,7 +202,7 @@ class SalesCollectionPieceController extends Controller
 
     public function processCancelClaimSalesCollectionPiece(Request $request){
 
-        SalesCollectionPiece::where('sales_invoice_id',$request->sales_invoice_id)
+        SalesCollectionPiece::where('sales_collection_piece_id',$request->sales_collection_piece_id)
          ->Update(['claim_status' => 0,'claim_date' => 0]);
      
          
@@ -185,14 +213,17 @@ class SalesCollectionPieceController extends Controller
     public function processAddSalesCollectionPiece(Request $request){
 
         $data = array(
-                'sales_invoice_id'	        => $request->sales_invoice_id,
-                'sales_invoice_no'	        => $request->sales_invoice_no,
-                'customer_id'	            => $request->customer_id,
-                'total_amount'	            => $request->total_amount,
-                'piece_amount'	            => $request->piece_amount,
-                'total_amount_after_piece'	=> $request->total_amount - $request->piece_amount,
-                'claim_status'	            => 0,
-                'created_id'                => Auth::id(),
+                'sales_invoice_id'	            => $request->sales_invoice_id,
+                'sales_invoice_no'	            => $request->sales_invoice_no,
+                'customer_id'	                => $request->customer_id,
+                'total_amount'	                => $request->total_amount,
+                'piece_amount'	                => $request->piece_amount,
+                'total_amount_after_piece'	    => $request->total_amount - $request->piece_amount,
+                'sales_collection_piece_type_id'=> $request->sales_collection_piece_type_id,
+                'promotion_no'	                => $request->promotion_no,
+                'memo_no'	                    => $request->memo_no,
+                'claim_status'	                => 0,
+                'created_id'                    => Auth::id(),
         );
 
 
@@ -235,6 +266,8 @@ class SalesCollectionPieceController extends Controller
         return redirect()->back()->with('msg',$msg);
     }
 
+    
+
 
     public function addSalesInvoicePiece(Request $request)
     {
@@ -246,6 +279,20 @@ class SalesCollectionPieceController extends Controller
 
         return view('content/SalesInvoice/FormAddSalesInvoice',compact('salesdeliverynote', 'salesdeliverynoteitem', 'sales_delivery_note_id', 'coreexpedition'));
     }
+
+
+
+
+
+
+
+
+
+// -----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
 
     public function editSalesInvoice($sales_invoice_id)
     {

@@ -117,6 +117,7 @@ class BuyersAcknowledgmentController extends Controller
 
         $salesorder = SalesOrder::select('sales_order.*')
         ->where('data_state', 0)
+        ->where('sales_order_id', $salesdeliverynote['sales_order_id'])
         ->first();
 
         return view('content/CoreExpedition/BuyersAcknowledgment/FormAddBuyersAcknowledgment',compact('warehouse', 'salesdeliverynote', 'sales_delivery_note_id', 'salesdeliverynoteitem', 'salesorder', 'acctaccount'));
@@ -148,6 +149,16 @@ class BuyersAcknowledgmentController extends Controller
             return "-";
         }
         return $invitemstock['item_name'];
+    }
+
+    public function getPoNo($sales_order_id)
+    {
+        $data = SalesOrder::select('purchase_order_no')
+            ->where('data_state', 0)
+            ->where('sales_order_id', $sales_order_id)
+            ->first();
+
+        return $data['purchase_order_no'] ?? '';
     }
 
     public function getSalesOrderNo($sales_order_id){
@@ -210,6 +221,14 @@ class BuyersAcknowledgmentController extends Controller
         ->first();
 
         return $customer['customer_id'];
+    }
+
+    public function getCategoryId($sales_order_item_id){
+        $category = SalesOrderItem::select('item_category_id')
+        ->where('sales_order_item_id', $sales_order_item_id)
+        ->first();
+
+        return $category['item_category_id'];
     }
 
     public function getWarehouseName($warehouse_id){
@@ -287,19 +306,36 @@ class BuyersAcknowledgmentController extends Controller
         return $item['item_stock_id'];
     }
 
+    public function getItemUnitCost($item_stock_id){
+        $item = InvItemStock::select('item_unit_cost')
+        ->where('data_state', 0)
+        ->where('item_stock_id', $item_stock_id)
+        ->first();
+
+        return $item['item_unit_cost'];
+    }
+
 
     public function processAddBuyersAcknowledgment(Request $request){
+        // dd($request->all());
         $request->validate([
-            // 'warehouse_id'                              => 'required',\
             'buyers_acknowledgment_no'                  => 'required',
-            'account_id'                                => 'required',
             'buyers_acknowledgment_date'                => 'required',
         ]);
+
+        DB::beginTransaction();
+
+    try {
+
+        SalesOrder::where('sales_order_id',$request->sales_order_id_1)
+                ->update(['purchase_order_no' => $request->purchase_order_no]);
+
         $buyers_acknowledgment = array(
             'warehouse_id'                              => $request->warehouse_id,
             'buyers_acknowledgment_no'                  => $request->buyers_acknowledgment_no,
             'sales_order_id'                            => $request->sales_order_id_1,
-            'account_id'                                => $request->account_id,
+            //akun piutang non anggota
+            'account_id'                                => 42,
             'customer_id'                               => $request->customer_id,
             'sales_delivery_order_id'                   => $request->sales_delivery_order_id,
             'sales_delivery_note_id'                    => $request->sales_delivery_note_id,
@@ -309,7 +345,6 @@ class BuyersAcknowledgmentController extends Controller
             'created_id'                                => Auth::id(),
         );
 
-        // dd($buyers_acknowledgment);
 
         if(BuyersAcknowledgment::create($buyers_acknowledgment)){
             $buyers_acknowledgment_id = BuyersAcknowledgment::select('buyers_acknowledgment_id')
@@ -320,8 +355,9 @@ class BuyersAcknowledgmentController extends Controller
             ->get();
             
             $no =1;
-
+            
             $dataitem = $request->all();
+            $total    = 0;
             foreach($salesorderitem as $item){
                 $item = BuyersAcknowledgmentItem::create([
                     'buyers_acknowledgment_id'	    => $buyers_acknowledgment_id['buyers_acknowledgment_id'],
@@ -331,9 +367,11 @@ class BuyersAcknowledgmentController extends Controller
                     'sales_order_id' 			    => $dataitem['sales_order_id_'.$no],
                     'sales_order_item_id' 		    => $dataitem['sales_order_item_id_'.$no],
                     'customer_id' 				    => $dataitem['customer_id_'.$no],
+                    'item_category_id' 		        => $dataitem['item_category_id_'.$no],
                     'item_type_id' 		            => $dataitem['item_type_id_'.$no],
                     'item_stock_id' 		        => $dataitem['item_stock_id_'.$no],
                     'item_unit_id' 		            => $dataitem['item_unit_id_'.$no],
+                    'item_unit_cost' 		        => $dataitem['item_unit_cost_'.$no],
                     'item_unit_price' 		        => $dataitem['item_unit_price_'.$no],
                     'subtotal_price' 		        => $dataitem['quantity_received_'.$no]*$dataitem['item_unit_price_'.$no],
                     'quantity'					    => $dataitem['quantity_'.$no],		
@@ -341,11 +379,10 @@ class BuyersAcknowledgmentController extends Controller
                     'created_id'                    => Auth::id(),
                 ]);
 
-                // dd($item);
 
                 $itemstock = InvItemStock::findOrfail($dataitem['item_stock_id_'.$no]);
           
-               // pengurangan stock
+//--------------Pengurangan stock
                 $itemstock->quantity_unit =  (int)$itemstock['quantity_unit'] -  (int)$dataitem['quantity_received_'.$no];
                 $itemstock->save();
 
@@ -353,49 +390,64 @@ class BuyersAcknowledgmentController extends Controller
                 $salesdeliverynote->buyers_acknowledgment_status = 1;
                 $salesdeliverynote->save();
 
-                // $salesdeliverynoteitem = SalesDeliveryNoteItem::findOrFail($dataitem['sales_delivery_note_item_id_'.$no]);
-                // $salesdeliverynoteitem->buyers_acknowledgment_item_status = 1;
-                // $salesdeliverynoteitem->save();
+                $category_id = $dataitem['item_category_id'];
 
-                //--------------------------------------------------------Start Journal Voucher-----------------------------------------------------------------//
+
+                $harga_beli            = $dataitem['quantity_'.$no] * $dataitem['item_unit_cost_'.$no];
+                $total += $harga_beli; 
+
+                $no++;
+                
+            }
+                $no++;
+            }
+
+
+                if($category_id == 1){
+//--------------------------------------------------------JURNAL BARANG PHAPROS-----------------------------------------------------------------//
                     
                 $preferencecompany 			= PreferenceCompany::first();
-            
                 $transaction_module_code 	= "PPP";
-        
                 $transactionmodule 		    = PreferenceTransactionModule::where('transaction_module_code', $transaction_module_code)
                 ->first();
-        
                 $transaction_module_id 		= $transactionmodule['transaction_module_id'];
-
                 $journal_voucher_period 	= date("Ym", strtotime($salesdeliverynote['sales_delivery_note_date']));
-
                 $salesdeliverynote = SalesDeliveryNote::where('sales_delivery_note_id', $buyers_acknowledgment['sales_delivery_note_id'])->first();
-
-                // dd($salesdeliverynote);
 
                 $data_journal = array(
                     'branch_id'						=> 1,
-                    'journal_voucher_period' 		=> $journal_voucher_period,
+                    'journal_voucher_period' 		=> $journal_voucher_period, 
                     'journal_voucher_date'			=> $buyers_acknowledgment['buyers_acknowledgment_date'],
-                    'journal_voucher_title'			=> 'Pengakuan Pihak Pembeli '.$salesdeliverynote['sales_delivery_note_no'],
-                    'journal_voucher_no'			=> $salesdeliverynote['sales_delivery_note_no'],
+                    'journal_voucher_title'			=> 'Penjualan Atas Produk PHAPROS - '.$this->getPoNo($salesdeliverynote['sales_order_id']),
+                    'journal_voucher_no'			=> $buyers_acknowledgment['buyers_acknowledgment_no'],
                     'journal_voucher_description'	=> $buyers_acknowledgment['buyers_acknowledgment_remark'],
                     'transaction_module_id'			=> $transaction_module_id,
                     'transaction_module_code'		=> $transaction_module_code,
                     'transaction_journal_id' 		=> $salesdeliverynote['sales_delivery_note_id'],
-                    'transaction_journal_no' 		=> $salesdeliverynote['sales_delivery_note_no'],
+                    'transaction_journal_no' 		=> $buyers_acknowledgment['buyers_acknowledgment_no'],
                     'created_id' 					=> Auth::id(),
                 );
 
-                // dd($data_journal);
-                
                 AcctJournalVoucher::create($data_journal);
+//--------------------------------------------------------END JURNAL BARANG PHAPROS-----------------------------------------------------------------//
+
+//--------------------------------------------------------JURNAL ITEM BARANG PHAPROS-----------------------------------------------------------------//
 
                 $salesorderitem          = SalesOrderItem::where('sales_order_item_id', $item['sales_order_item_id_'.$no])
                 ->first();
                 
                 $salesorder              = SalesOrder::findOrFail($buyers_acknowledgment['sales_order_id']);
+
+                $ppn                     = SalesOrderItem::where('sales_order_id', $buyers_acknowledgment['sales_order_id'])
+                                        ->sum('ppn_amount_item');
+
+                // $harga_beli            = BuyersAcknowledgmentItem::where('buyers_acknowledgment_id', $buyers_acknowledgment_id['buyers_acknowledgment_id'])
+                //                         ->orderBy('buyers_acknowledgment_item_id', 'DESC')
+                //                         ->sum('item_unit_cost');
+
+                // $QtyTerima            = BuyersAcknowledgmentItem::where('buyers_acknowledgment_id', $buyers_acknowledgment_id['buyers_acknowledgment_id'])
+                //                         ->orderBy('buyers_acknowledgment_item_id', 'DESC')
+                //                         ->sum('quantity');
 
                 $journalvoucher = AcctJournalVoucher::where('created_id', Auth::id())
                 ->orderBy('journal_voucher_id', 'DESC')
@@ -411,20 +463,17 @@ class BuyersAcknowledgmentController extends Controller
                 ->where('sales_order_item_id', $item['sales_order_item_id'])
                 ->first(); 
                 
+                // $harga_beli = PurchaseOrderItem::where('data_state', 0)
+                // ->where('purchase_order_item.item_type_id', $item_type_id['item_type_id'])
+                // ->first();
                 
-                $harga_beli = PurchaseOrderItem::where('data_state', 0)
-                ->where('purchase_order_item.item_type_id', $item_type_id['item_type_id'])
-                ->first();
 
-                $ppn_out_amount = $salesorder['ppn_out_amount'];
-                
-                $total_amount  = $item['quantity'] * $harga_beli['item_unit_cost'];
-                
-                $piutang = $ppn_out_amount + $total_amount;
-                
+                // $ppn_out_amount = $salesorder['ppn_out_amount'];
+                $total_amount   = $total;
+                $piutang        = $ppn + $total_amount;
+
+//Piutang Usaha(non anggota)
                 $account_id_default_status 		= $account['account_default_status'];
-                // dd($account_id_default_status);
-
                 $data_debit = array (
                     'journal_voucher_id'			=> $journal_voucher_id,
                     'account_id'					=> $buyers_acknowledgment['account_id'],
@@ -432,75 +481,270 @@ class BuyersAcknowledgmentController extends Controller
                     'journal_voucher_amount'		=> ABS($piutang),
                     'journal_voucher_debit_amount'	=> ABS($piutang),
                     'account_id_default_status'		=> $account_id_default_status,
-                    'account_id_status'				=> 1,
+                    'account_id_status'				=> 0,
                 );
-
-                // dd($data_debit);
-                
                 AcctJournalVoucherItem::create($data_debit);
 
+//Piutang Diskon
+                $diskonA = DB::table('sales_order_item')
+                ->where('sales_order_id', '=', $buyers_acknowledgment['sales_order_id'])
+                ->sum('discount_amount_item');
 
-                //------account_id Penjualan (Anggota BKP)------//
+                $diskonB = DB::table('sales_order_item')
+                ->where('sales_order_id', '=', $buyers_acknowledgment['sales_order_id'])
+                ->sum('discount_amount_item_b');
 
-                $preferencecompany 			= PreferenceCompany::first();
-                
-                $account 		= AcctAccount::where('account_id', $preferencecompany['account_sales_id'])
+                $account 		= AcctAccount::where('account_id',43)
                 ->where('data_state', 0)
                 ->first();
-                
-                // dd($account);
-                
+
+                $account_id_default_status 		=  $account['account_default_status'];
+                $data_debit2 = array (
+                    'journal_voucher_id'			=> $journal_voucher_id,
+                    'account_id'					=> 43,
+                    'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
+                    'journal_voucher_amount'		=> ABS($diskonA + $diskonB),
+                    'journal_voucher_debit_amount'	=> ABS($diskonA + $diskonB),
+                    'account_id_default_status'		=> $account_id_default_status,
+                    'account_id_status'				=> 0,
+                );
+                AcctJournalVoucherItem::create($data_debit2);
+
+//Penjualan Barang Dagang Usaha
+                $account 		= AcctAccount::where('account_id',338)
+                ->where('data_state', 0)
+                ->first();
                 $account_id_default_status 		= $account['account_default_status'];
 
                 $data_credit1 = array (
                     'journal_voucher_id'			=> $journal_voucher_id,
-                    'account_id'					=> $preferencecompany['account_sales_id'],
+                    'account_id'					=> 338,
                     'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
                     'journal_voucher_amount'		=> ABS($total_amount),
                     'journal_voucher_credit_amount'	=> ABS($total_amount),
                     'account_id_default_status'		=> $account_id_default_status,
-                    'account_id_status'				=> 0,
+                    'account_id_status'				=> 1,
                 );
-
-                // dd($data_credit1);
-
-
                 AcctJournalVoucherItem::create($data_credit1);
 
-
-                //------account_id PPN Keluar------//
-
+//PPN Keluaran
                 $preferencecompany 			= PreferenceCompany::first();
-                
-                $account 		= AcctAccount::where('account_id', $preferencecompany['account_vat_out_id'])
+                $account 		= AcctAccount::where('account_id',238)
                 ->where('data_state', 0)
                 ->first();
-                
-                $ppn_out_amount = $salesorder['ppn_out_amount'];
-                // dd($ppn_out_amount);
-                
-                $account_id_default_status 		= $account['account_default_status'];
 
+                // $ppn_out_amount              = SalesOrder::select('ppn_out_amount','sales_order_id')
+                // ->where('sales_order_id',$buyers_acknowledgment['sales_order_id'])
+                // ->first();
+
+                $account_id_default_status 		= $account['account_default_status'];
                 $data_credit2 = array (
                     'journal_voucher_id'			=> $journal_voucher_id,
-                    'account_id'					=> $preferencecompany['account_vat_out_id'],
+                    'account_id'					=> 238,
                     'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                    'journal_voucher_amount'		=> ABS($ppn_out_amount),
-                    'journal_voucher_credit_amount'	=> ABS($ppn_out_amount),
+                    'journal_voucher_amount'		=> $ppn ?? 0,
+                    'journal_voucher_credit_amount'	=> $ppn ?? 0,
+                    'account_id_default_status'		=> 1,
+                    'account_id_status'				=> 1,
+                );
+                AcctJournalVoucherItem::create($data_credit2);  
+                
+//Pendapatan Diskon Publikan
+                $diskonA = DB::table('sales_order_item')
+                ->where('sales_order_id', '=', $buyers_acknowledgment['sales_order_id'])
+                ->sum('discount_amount_item');
+
+                $diskonB = DB::table('sales_order_item')
+                ->where('sales_order_id', '=', $buyers_acknowledgment['sales_order_id'])
+                ->sum('discount_amount_item_b');
+
+                $account 		= AcctAccount::where('account_id',522)
+                ->where('data_state', 0)
+                ->first();
+                $account_id_default_status 		= $account['account_default_status'];
+                    $data_credit3 = array (
+                        'journal_voucher_id'			=> $journal_voucher_id,
+                        'account_id'					=> 522,
+                        'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
+                        'journal_voucher_amount'		=> $diskonA + $diskonB,
+                        'journal_voucher_credit_amount'	=> $diskonA + $diskonB,
+                        'account_id_default_status'		=> $account_id_default_status,
+                        'account_id_status'				=> 1,
+                    );
+                    AcctJournalVoucherItem::create($data_credit3);
+        
+//Beban Pokok Penjualan Barang 
+                $account 		= AcctAccount::where('account_id', 390)
+                ->where('data_state', 0)
+                ->first();
+
+                $item_type_id = SalesOrderItem::select('item_type_id')
+                ->where('sales_order_item_id', $item['sales_order_item_id'])
+                ->first(); 
+
+                // $harga_beli = PurchaseOrderItem::select('purchase_order.total_amount')
+                // ->join('purchase_order', 'purchase_order.purchase_order_id', '=', 'purchase_order_item.purchase_order_id')
+                // ->where('purchase_order_item.item_type_id', $item_type_id['item_type_id'])
+                // ->first();
+            
+                
+                $data_debit3= array (
+                    'journal_voucher_id'			=> $journal_voucher_id,
+                    'account_id'					=> 390,
+                    'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
+                    'journal_voucher_amount'		=> ABS($total_amount),
+                    'journal_voucher_debit_amount'	=> ABS($total_amount),
                     'account_id_default_status'		=> $account_id_default_status,
                     'account_id_status'				=> 0,
                 );
+                
+                AcctJournalVoucherItem::create($data_debit3);
+                
+//Persediaan Barang Dagangan
+                $account = AcctAccount::where('account_id', 82)
+                ->where('data_state', 0)
+                ->first();
+                
+                // $harga_beli = PurchaseOrderItem::select('purchase_order.total_amount')
+                // ->join('purchase_order', 'purchase_order.purchase_order_id', '=', 'purchase_order_item.purchase_order_id')
+                // ->where('purchase_order_item.item_type_id', $item_type_id['item_type_id'])
+                // ->first();
 
-                // dd($data_credit2);
+                $account_id_default_status 		= $account['account_default_status'];
+                $data_credit4 = array (
+                    'journal_voucher_id'			=> $journal_voucher_id,
+                    'account_id'					=> 82,
+                    'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
+                    'journal_voucher_amount'		=> $total_amount,
+                    'journal_voucher_credit_amount'	=> $total_amount,
+                    'account_id_default_status'		=> 0,
+                    'account_id_status'				=> 0,
+                );
+                
+                AcctJournalVoucherItem::create($data_credit4);
+//--------------------------------------------------------END JURNAL ITEM BARANG PHAPROS-----------------------------------------------------------------//
+                
+                }else{
 
-                AcctJournalVoucherItem::create($data_credit2);
+//--------------------------------------------------------JURNAL BARANG KIMIA FARMA-----------------------------------------------------------------//
+                    
+                $preferencecompany 			= PreferenceCompany::first();
+                $transaction_module_code 	= "PPP";
+                $transactionmodule 		    = PreferenceTransactionModule::where('transaction_module_code', $transaction_module_code)
+                ->first();
+                $transaction_module_id 		= $transactionmodule['transaction_module_id'];
+                $journal_voucher_period 	= date("Ym", strtotime($salesdeliverynote['sales_delivery_note_date']));
+                $salesdeliverynote = SalesDeliveryNote::where('sales_delivery_note_id', $buyers_acknowledgment['sales_delivery_note_id'])->first();
+
+                $data_journal = array(
+                    'branch_id'						=> 1,
+                    'journal_voucher_period' 		=> $journal_voucher_period, 
+                    'journal_voucher_date'			=> $buyers_acknowledgment['buyers_acknowledgment_date'],
+                    'journal_voucher_title'			=> 'Penjualan Atas Produk KIMIA FARMA - '.$this->getPoNo($salesdeliverynote['sales_order_id']),
+                    'journal_voucher_no'			=> $buyers_acknowledgment['buyers_acknowledgment_no'],
+                    'journal_voucher_description'	=> $buyers_acknowledgment['buyers_acknowledgment_remark'],
+                    'transaction_module_id'			=> $transaction_module_id,
+                    'transaction_module_code'		=> $transaction_module_code,
+                    'transaction_journal_id' 		=> $salesdeliverynote['sales_delivery_note_id'],
+                    'transaction_journal_no' 		=> $buyers_acknowledgment['buyers_acknowledgment_no'],
+                    'created_id' 					=> Auth::id(),
+                );
+
+                AcctJournalVoucher::create($data_journal);
+//--------------------------------------------------------END JURNAL BARANG KIMIA FARMA-----------------------------------------------------------------//
+
+//--------------------------------------------------------JURNAL ITEM BARANG KIMIA FARMA-----------------------------------------------------------------//
+
+                $salesorderitem          = SalesOrderItem::where('sales_order_item_id', $item['sales_order_item_id_'.$no])
+                ->first();
+
+                $salesorder              = SalesOrder::findOrFail($buyers_acknowledgment['sales_order_id']);
+
+                $ppn                     = SalesOrderItem::where('sales_order_id', $buyers_acknowledgment['sales_order_id'])
+                                        ->sum('ppn_amount_item');
+
+                // $harga_beli            = BuyersAcknowledgmentItem::where('buyers_acknowledgment_id', $buyers_acknowledgment_id['buyers_acknowledgment_id'])
+                //                         ->orderBy('buyers_acknowledgment_item_id', 'DESC')
+                //                         ->sum('item_unit_cost');
+                // $QtyTerima            = BuyersAcknowledgmentItem::where('buyers_acknowledgment_id', $buyers_acknowledgment_id['buyers_acknowledgment_id'])
+                //                         ->orderBy('buyers_acknowledgment_item_id', 'DESC')
+                //                         ->sum('quantity');                        
+
+                $journalvoucher = AcctJournalVoucher::where('created_id', Auth::id())
+                ->orderBy('journal_voucher_id', 'DESC')
+                ->first();
+
+                $journal_voucher_id 	= $journalvoucher['journal_voucher_id'];
+
+                $account 		= AcctAccount::where('account_id', $buyers_acknowledgment['account_id'])
+                ->where('data_state', 0)
+                ->first();
+
+                $item_type_id = SalesOrderItem::select('item_type_id')
+                ->where('sales_order_item_id', $item['sales_order_item_id'])
+                ->first(); 
+
+                // $harga_beli = PurchaseOrderItem::where('data_state', 0)
+                // ->where('purchase_order_item.item_type_id', $item_type_id['item_type_id'])
+                // ->first();
 
 
-            //----------------------------------------------------------Journal Voucher Item2-------------------------------------------------------------------//
+                // $ppn_out_amount = $salesorder['ppn_out_amount'];
+                $total_amount   = $total;
+                $piutang        = $ppn + $total_amount;
 
-        
-                //------account_id Beban Pokok Penjualan Barang Anggota BKP------//
-                $account 		= AcctAccount::where('account_id', $preferencecompany['account_hpp_id'])
+//Piutang Usaha(non anggota)
+                $account_id_default_status 		= $account['account_default_status'];
+                $data_debit = array (
+                    'journal_voucher_id'			=> $journal_voucher_id,
+                    'account_id'					=> $buyers_acknowledgment['account_id'],
+                    'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
+                    'journal_voucher_amount'		=> ABS($piutang),
+                    'journal_voucher_debit_amount'	=> ABS($piutang),
+                    'account_id_default_status'		=> $account_id_default_status,
+                    'account_id_status'				=> 0,
+                );
+                AcctJournalVoucherItem::create($data_debit);
+//Penjualan Barang Dagang Usaha
+                $account 		= AcctAccount::where('account_id',338)
+                ->where('data_state', 0)
+                ->first();
+                $account_id_default_status 		= $account['account_default_status'];
+
+                $data_credit1 = array (
+                    'journal_voucher_id'			=> $journal_voucher_id,
+                    'account_id'					=> 338,
+                    'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
+                    'journal_voucher_amount'		=> ABS($total_amount),
+                    'journal_voucher_credit_amount'	=> ABS($total_amount),
+                    'account_id_default_status'		=> $account_id_default_status,
+                    'account_id_status'				=> 1,
+                );
+                AcctJournalVoucherItem::create($data_credit1);
+
+//PPN Keluaran
+                $preferencecompany 			= PreferenceCompany::first();
+                $account 		= AcctAccount::where('account_id',238)
+                ->where('data_state', 0)
+                ->first();
+
+                $ppn_out_amount              = SalesOrder::select('ppn_out_amount','sales_order_id')
+                ->where('sales_order_id',$buyers_acknowledgment['sales_order_id'])
+                ->first();
+
+                $account_id_default_status 		= $account['account_default_status'];
+                $data_credit2 = array (
+                    'journal_voucher_id'			=> $journal_voucher_id,
+                    'account_id'					=> 238,
+                    'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
+                    'journal_voucher_amount'		=> $ppn ?? 0,
+                    'journal_voucher_credit_amount'	=> $ppn ?? 0,
+                    'account_id_default_status'		=> 1,
+                    'account_id_status'				=> 1,
+                );
+                AcctJournalVoucherItem::create($data_credit2);  
+//Beban Pokok Penjualan Barang 
+                $account 		= AcctAccount::where('account_id', 390)
                 ->where('data_state', 0)
                 ->first();
 
@@ -512,26 +756,22 @@ class BuyersAcknowledgmentController extends Controller
                 ->join('purchase_order', 'purchase_order.purchase_order_id', '=', 'purchase_order_item.purchase_order_id')
                 ->where('purchase_order_item.item_type_id', $item_type_id['item_type_id'])
                 ->first();
+            
                 
-                // $ppn_out_amount = $salesorder['ppn_out_amount'];
-                // dd($account_id_default_status);
-                
-                $data_debit2= array (
+                $data_debit3= array (
                     'journal_voucher_id'			=> $journal_voucher_id,
-                    'account_id'					=> $preferencecompany['account_hpp_id'],
+                    'account_id'					=> 390,
                     'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                    'journal_voucher_amount'		=> ABS($harga_beli['total_amount']),
-                    'journal_voucher_debit_amount'	=> ABS($harga_beli['total_amount']),
+                    'journal_voucher_amount'		=> ABS($total_amount),
+                    'journal_voucher_debit_amount'	=> ABS($total_amount),
                     'account_id_default_status'		=> $account_id_default_status,
-                    'account_id_status'				=> 1,
+                    'account_id_status'				=> 0,
                 );
-
-                // dd($data_debit2);
                 
-                AcctJournalVoucherItem::create($data_debit2);
+                AcctJournalVoucherItem::create($data_debit3);
                 
-                //------account_id Persediaan Barang Dalam Perjalan (PDP)------//
-                $account = AcctAccount::where('account_id', $preferencecompany['account_pdp_id'])
+//Persediaan Barang Dagangan
+                $account = AcctAccount::where('account_id', 82)
                 ->where('data_state', 0)
                 ->first();
                 
@@ -540,43 +780,34 @@ class BuyersAcknowledgmentController extends Controller
                 ->where('purchase_order_item.item_type_id', $item_type_id['item_type_id'])
                 ->first();
 
-                
                 $account_id_default_status 		= $account['account_default_status'];
-                
-                $data_credit3 = array (
+                $data_credit4 = array (
                     'journal_voucher_id'			=> $journal_voucher_id,
-                    'account_id'					=> $preferencecompany['account_pdp_id'],
+                    'account_id'					=> 82,
                     'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                    'journal_voucher_amount'		=> ABS($harga_beli['total_amount']),
-                    'journal_voucher_credit_amount'	=> ABS($harga_beli['total_amount']),
-                    'account_id_default_status'		=> $account_id_default_status,
+                    'journal_voucher_amount'		=> $total_amount,
+                    'journal_voucher_credit_amount'	=> $total_amount,
+                    'account_id_default_status'		=> 0,
                     'account_id_status'				=> 0,
                 );
                 
-                // dd($data_credit3);
-                
-                AcctJournalVoucherItem::create($data_credit3);
-                //--------------------------------------------------------End Journal Voucher-----------------------------------------------------------------//
+                AcctJournalVoucherItem::create($data_credit4);
+//--------------------------------------------------------END JURNAL ITEM BARANG KIMIA FARMA-----------------------------------------------------------------//
+
+                }
+
+                SalesOrder::where('sales_order_id',$request->sales_order_id_1)
+                ->update(['sales_order_status' => 3]);
+
+              
+                DB::commit();
+                $msg = 'Tambah Penerimaan Pihak Pembeli Berhasil';
+                return redirect('/buyers-acknowledgment')->with('msg',$msg);
                     
-
-
-                $no++;
-
-                // dd($no);
-
-            }
-//--------------------------------------------------------End Journal Voucher-----------------------------------------------------------------//
-
-
-                $no++;
-//dd($item);
-            
-            
-            $msg = 'Tambah Pengakuan Pihak Pembeli Berhasil';
-            return redirect('/buyers-acknowledgment')->with('msg',$msg);
-        }else{
-            $msg = 'Tambah Pengakuan Pihak Pembeli Gagal';
-            return redirect('/buyers-acknowledgment')->with('msg',$msg);
+        } catch (\Exception $e) {
+                DB::rollback();
+                $msg = 'Tambah Penerimaan Pihak Pembeli gagal';
+                return redirect('/buyers-acknowledgment')->with('msg',$msg);
         }
 
     }

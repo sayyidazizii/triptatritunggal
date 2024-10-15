@@ -2,15 +2,15 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 
 @section('content_header')
     
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Daftar Pengakuan Pihak Pembeli</li>
+        <li class="breadcrumb-item active" aria-current="page">Daftar Penerimaan Pihak Pembeli</li>
     </ol>
 </nav>
 
@@ -19,7 +19,7 @@
 @section('content')
 
 <h3 class="page-title">
-    <b>Daftar Pengakuan Pihak Pembeli</b>
+    <b>Daftar Penerimaan Pihak Pembeli</b>
 </h3>
 <br/>
 <div id="accordion">
@@ -80,7 +80,7 @@
             Daftar
         </h5>
         <div class="form-actions float-right">
-            <button onclick="location.href='{{ route('search-sales-delivery-note4') }}'" name="Find" class="btn btn-sm btn-info" title="Add Data"><i class="fa fa-plus"></i> Tambah Pengakuan Pihak Pembeli</button>
+            <button onclick="location.href='{{ route('search-sales-delivery-note4') }}'" name="Find" class="btn btn-sm btn-info" title="Add Data"><i class="fa fa-plus"></i> Tambah Penerimaan Pihak Pembeli</button>
         </div>
     </div>
 
@@ -91,11 +91,12 @@
                     <tr>
                         <th width="2%" style='text-align:center'>No</th>
                         <th width="20%" style='text-align:center'>Nama Pelanggan</th>
-                        <th width="15%" style='text-align:center'>No Pengakuan</th>
+                        <th width="15%" style='text-align:center'>No Penerimaan</th>
                         <th width="15%" style='text-align:center'>No SO</th>
+                        <th width="15%" style='text-align:center'>Po Customer</th>
                         <th width="10%" style='text-align:center'>Tanggal SO</th>
                         <th width="10%" style='text-align:center'>Tanggal Delivery SO</th>
-                        <th width="10%" style='text-align:center'>Tanggal Pengakuan Pihak Pembeli</th>
+                        <th width="10%" style='text-align:center'>Tanggal Penerimaan</th>
                         <th width="5%" style='text-align:center'>Aksi</th>
                     </tr>
                 </thead>
@@ -107,6 +108,7 @@
                         <td>{{$BuyersAcknowledgment->getCustomerNameSalesOrderId($item['sales_order_id'])}}</td>
                         <td>{{$item['buyers_acknowledgment_no']}}</td>
                         <td>{{$BuyersAcknowledgment->getSalesOrderNo($item['sales_order_id'])}}</td>
+                        <td>{{$BuyersAcknowledgment->getPoNo($item['sales_order_id'])}}</td>
                         <td>{{date('d/m/Y', strtotime($BuyersAcknowledgment->getSalesOrderDate($item['sales_order_id'])))}}</td>
                         <td>{{date('d/m/Y', strtotime($BuyersAcknowledgment->getSalesDeliveryOrderDate($item['sales_delivery_order_id'])))}}</td>
                         <td>{{date('d/m/Y', strtotime($item['buyers_acknowledgment_date']))}}</td>

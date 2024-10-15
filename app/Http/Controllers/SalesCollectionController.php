@@ -25,6 +25,7 @@ use App\Models\SalesCollection;
 use App\Models\SalesCollectionGiro;
 use App\Models\SalesCollectionItem;
 use App\Models\SalesCollectionPiece;
+use App\Models\SalesCollectionPieceType;
 use App\Models\SalesCollectionTransfer;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -33,6 +34,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Elibyy\TCPDF\Facades\TCPDF;
+use Illuminate\Support\Arr;
 
 class SalesCollectionController extends Controller
 {
@@ -125,7 +127,7 @@ class SalesCollectionController extends Controller
 
     public function addSalesCollection($customer_id){
 
-        $salesinvoiceowing = SalesInvoice::select('sales_invoice.sales_invoice_id', 'sales_invoice.customer_id', 'sales_invoice.owing_amount', 'sales_invoice.sales_invoice_date', 'sales_invoice.paid_amount', 'sales_invoice.sales_invoice_no', 'sales_invoice.subtotal_amount', 'sales_invoice.discount_percentage', 'sales_invoice.discount_amount', 'sales_invoice.total_amount', 'sales_invoice.goods_received_note_no')
+        $salesinvoiceowing = SalesInvoice::select('sales_invoice.sales_invoice_id', 'sales_invoice.customer_id', 'sales_invoice.owing_amount', 'sales_invoice.sales_invoice_date', 'sales_invoice.paid_amount','sales_invoice.buyers_acknowledgment_no', 'sales_invoice.sales_invoice_no', 'sales_invoice.subtotal_amount', 'sales_invoice.discount_percentage', 'sales_invoice.discount_amount', 'sales_invoice.total_amount', 'sales_invoice.goods_received_note_no')
         // ->join('sales_invoice_item', 'sales_invoice_item.sales_invoice_id', 'sales_invoice.sales_invoice_id')
         // ->join('sales_delivery_note_item_stock', 'sales_delivery_note_item_stock.item_stock_id', 'sales_invoice_item.item_stock_id')
         // ->join('inv_item_stock', 'inv_item_stock.item_stock_id', 'sales_delivery_note_item_stock.item_stock_id')
@@ -137,15 +139,25 @@ class SalesCollectionController extends Controller
 
         $customer = CoreCustomer::findOrfail($customer_id);
 
+
         $acctaccount    = AcctAccount::select('account_id', DB::raw('CONCAT(account_code, " - ", account_name) AS full_name'))
         ->where('acct_account.data_state', 0)
         ->where('parent_account_status', 0)
         ->pluck('full_name','account_id');
 
+        $select = array(
+            '1' => 'biasa',
+            '2' => 'promosi'
+        );
+        $payment_type_list = [
+            0 => 'Tunai',
+            1 => 'Transfer',
+        ];
+
         $salescollectionelements = Session::get('salescollectionelements');
         $salescollectiontransfer = Session::get('datasalescollectiontransfer');
         
-        return view('content/SalesCollection/FormAddSalesCollection',compact('customer_id', 'salesinvoiceowing', 'customer', 'acctaccount', 'salescollectionelements', 'salescollectiontransfer'));
+        return view('content/SalesCollection/FormAddSalesCollection',compact('payment_type_list','select','customer_id', 'salesinvoiceowing', 'customer', 'acctaccount', 'salescollectionelements', 'salescollectiontransfer'));
     }
 
     public function detailSalesCollection($collection_id){
@@ -193,6 +205,7 @@ class SalesCollectionController extends Controller
             $salescollectionelements['collection_remark']              = '';
             $salescollectionelements['cash_account_id']             = '';
             $salescollectionelements['collection_total_cash_amount']   = '';
+            $salescollectionelements['payment_type']   = '';
         }
         $salescollectionelements[$request->name] = $request->value;
         Session::put('salescollectionelements', $salescollectionelements);
@@ -223,17 +236,25 @@ class SalesCollectionController extends Controller
     {
         $allrequest = $request->all();
         $datasalescollectiontransfer = Session::get('datasalescollectiontransfer');
-      //  dd($datasalescollectiontransfer);
         $fields = $request->validate([
             'collection_date'                   => 'required',
         ]);
 
+        $paymenttype = $request->payment_type;
+
+        $payment_account_id = 5 ;
+        if($paymenttype == 0){
+            $payment_account_id = 5 ;
+        }else{
+            $payment_account_id = 8 ;
+        }
+//----------Type Transfer
         if(is_array($datasalescollectiontransfer) && !empty($datasalescollectiontransfer)){
             foreach ($datasalescollectiontransfer as $keyTransfer => $valTransfer) {
                 $transfer_account_id = $valTransfer['transfer_account_id'];
                 $data = array (
                     'collection_date'                   => $fields['collection_date'],
-                    'cash_account_id'				    => $transfer_account_id,
+                    'cash_account_id'				    => $payment_account_id,
                     'customer_id'						=> $request->customer_id,
                     'collection_remark'					=> $request->collection_remark,
                     'collection_amount'					=> $request->collection_amount,
@@ -249,9 +270,10 @@ class SalesCollectionController extends Controller
                 );
             }
         }else{
+//----------Type Tunai            
             $data = array (
                 'collection_date'                   => $fields['collection_date'],
-                'cash_account_id'				    => $request->cash_account_id,
+                'cash_account_id'				    => $payment_account_id,
                 'customer_id'						=> $request->customer_id,
                 'collection_remark'					=> $request->collection_remark,
                 'collection_amount'					=> $request->collection_amount,
@@ -266,19 +288,14 @@ class SalesCollectionController extends Controller
                 'branch_id'                         => Auth::user()->branch_id,
             );
         }
-         //dd($data);
 
-        $collection_total_amount = $data['collection_allocated'] + $data['collection_shortover'];
-
-        $selisih_shortover = $data['collection_total_amount'] - $collection_total_amount;
-
+        $collection_total_amount    = $data['collection_allocated'] + $data['collection_shortover'];
+        $selisih_shortover          = $data['collection_total_amount'] - $collection_total_amount;
         $transaction_module_code 	= "SC";
 
         $transactionmodule 		    = PreferenceTransactionModule::where('transaction_module_code', $transaction_module_code)
         ->first();
-
         $transaction_module_id 		= $transactionmodule['transaction_module_id'];
-
         $preferencecompany 			= PreferenceCompany::first();
         
         if(SalesCollection::create($data)){
@@ -287,8 +304,8 @@ class SalesCollectionController extends Controller
             ->orderBy('collection_id', 'DESC')
             ->first();
             
+//----------Header Journal Voucher
             $journal_voucher_period 	= date("Ym", strtotime($data['collection_date']));
-
             $data_journal = array(
                 'branch_id'						=> $data['branch_id'],
                 'journal_voucher_period' 		=> $journal_voucher_period,
@@ -303,7 +320,6 @@ class SalesCollectionController extends Controller
                 'created_id' 					=> $data['created_id'],
                 'created_on' 					=> $data['created_on']
             );
-            
             AcctJournalVoucher::create($data_journal);		
 
             $journalvoucher = AcctJournalVoucher::where('created_id', $data['created_id'])
@@ -355,10 +371,13 @@ class SalesCollectionController extends Controller
                 
             }
 
+        $paymenttype = $request->payment_type;
 
+        if($paymenttype == 0){
+//----------Kas
             if($data['collection_total_cash_amount'] != '' || $data['collection_total_cash_amount'] != 0){
 
-                $account = AcctAccount::where('account_id', $data['cash_account_id'])
+                $account = AcctAccount::where('account_id', 5)
                 ->where('data_state', 0)
                 ->first();
 
@@ -366,23 +385,20 @@ class SalesCollectionController extends Controller
 
                 $data_debet = array (
                     'journal_voucher_id'			=> $journal_voucher_id,
-                    'account_id'					=> $data['cash_account_id'],
+                    'account_id'					=> 5,
                     'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
                     'journal_voucher_amount'		=> ABS($data['collection_total_cash_amount']),
                     'journal_voucher_debit_amount'	=> ABS($data['collection_total_cash_amount']),
                     'account_id_default_status'		=> $account_id_default_status,
                     'account_id_status'				=> 1,
                 );
-
                 AcctJournalVoucherItem::create($data_debet);
-                
             }
-
+        }else{
+//----------Bank
             if(is_array($datasalescollectiontransfer) && !empty($datasalescollectiontransfer)){
                 foreach ($datasalescollectiontransfer as $keyTransfer => $valTransfer) {
-
                     $transfer_account_id = $valTransfer['transfer_account_id'];
-
                     $datatransfer = array(
                         'collection_id'							=> $collection_id,
                         'account_id' 							=> $transfer_account_id,
@@ -391,15 +407,12 @@ class SalesCollectionController extends Controller
                         'collection_transfer_account_name'		=> $valTransfer['collection_transfer_account_name'],
                         'collection_transfer_account_no'		=> $valTransfer['collection_transfer_account_no'],
                     );
-
                     if(SalesCollectionTransfer::create($datatransfer)){
-
                         $account = AcctAccount::where('account_id', $transfer_account_id)
                         ->where('data_state', 0)
                         ->first();
         
                         $account_id_default_status = $account['account_default_status'];
-
                         $data_debet = array (
                             'journal_voucher_id'			=> $journal_voucher_id,
                             'account_id'					=> $transfer_account_id,
@@ -409,71 +422,118 @@ class SalesCollectionController extends Controller
                             'account_id_default_status'		=> $account_id_default_status,
                             'account_id_status'				=> 1,
                         );
-
                         AcctJournalVoucherItem::create($data_debet);	
                     }
                 }
             }
+        }
+//jika check Piutang Retur
+        $accountReturn 		= AcctAccount::where('account_id', 48)
+        ->where('data_state', 0)
+        ->first();
+        $account_id_default_status_return 		= $accountReturn['account_default_status'];
 
-            if($selisih_shortover > 0){
+        $cekReturn = $request->piutang;
+        if($cekReturn == 1){
+            $data_debit = array (
+                'journal_voucher_id'			=> $journal_voucher_id,
+                'account_id'					=> 48,
+                'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
+                'journal_voucher_amount'		=> ABS($request->piutang_amount),
+                'journal_voucher_debit_amount'	=> ABS($request->piutang_amount),
+                'account_id_default_status'		=> $account_id_default_status_return,
+                'account_id_status'				=> 0,
+            );
+            AcctJournalVoucherItem::create($data_debit);
+        }
+//jika check Piutang Promosi
+        $accountReturn 		= AcctAccount::where('account_id', 50)
+        ->where('data_state', 0)
+        ->first();
+        $account_id_default_status_promosi 		= $accountReturn['account_default_status'];
 
-                $account = AcctAccount::where('account_id', $preferencecompany['account_shortover_id'])
+        $cekPromosi = $request->promosi;
+        if($cekPromosi == 1){
+            $data_debit = array (
+                'journal_voucher_id'			=> $journal_voucher_id,
+                'account_id'					=> 50,
+                'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
+                'journal_voucher_amount'		=> ABS($request->promotion_amount),
+                'journal_voucher_debit_amount'	=> ABS($request->promotion_amount),
+                'account_id_default_status'		=> $account_id_default_status_promosi,
+                'account_id_status'				=> 0,
+            );
+            AcctJournalVoucherItem::create($data_debit);
+        }
+//jika check Adm Bank
+        $accountReturn 		= AcctAccount::where('account_id', 528)
+        ->where('data_state', 0)
+        ->first();
+        $account_id_default_status_adm_cost 		= $accountReturn['account_default_status'];
+
+        $cekAdmCost = $request->adm_cost;
+        if($cekAdmCost == 1){
+            $data_debit = array (
+                'journal_voucher_id'			=> $journal_voucher_id,
+                'account_id'					=> 528,
+                'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
+                'journal_voucher_amount'		=> ABS($request->adm_cost_amount),
+                'journal_voucher_debit_amount'	=> ABS($request->adm_cost_amount),
+                'account_id_default_status'		=> $account_id_default_status_adm_cost,
+                'account_id_status'				=> 0,
+            );
+            AcctJournalVoucherItem::create($data_debit);
+        }
+//----------Piutang Piutang Non Anggota
+            $account = AcctAccount::where('account_id', 42)
                 ->where('data_state', 0)
                 ->first();
-
                 $account_id_default_status = $account['account_default_status'];
-
                 $data_credit = array (
                     'journal_voucher_id'			=> $journal_voucher_id,
-                    'account_id'					=> $preferencecompany['account_shortover_id'],
+                    'account_id'					=> 42,
                     'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                    'journal_voucher_amount'		=> ABS($selisih_shortover),
-                    'journal_voucher_credit_amount'	=> ABS($selisih_shortover),
+                    'journal_voucher_amount'		=> ABS($collection_total_amount),
+                    'journal_voucher_credit_amount'	=> ABS($collection_total_amount),
                     'account_id_default_status'		=> $account_id_default_status,
                     'account_id_status'				=> 0,
                 );
-
                 AcctJournalVoucherItem::create($data_credit);
-            } else if($selisih_shortover < 0){
 
-                $account = AcctAccount::where('account_id', $preferencecompany['account_shortover_id'])
-                ->where('data_state', 0)
-                ->first();
+//----------Piutang Piutang Non Anggota (sisa piutang jika dibayar > 1 kali)
+            // if($selisih_shortover > 0){
+            //     $account = AcctAccount::where('account_id', 42)
+            //     ->where('data_state', 0)
+            //     ->first();
+            //     $account_id_default_status = $account['account_default_status'];
+            //     $data_credit = array (
+            //         'journal_voucher_id'			=> $journal_voucher_id,
+            //         'account_id'					=> 42,
+            //         'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
+            //         'journal_voucher_amount'		=> ABS($selisih_shortover),
+            //         'journal_voucher_credit_amount'	=> ABS($selisih_shortover),
+            //         'account_id_default_status'		=> $account_id_default_status,
+            //         'account_id_status'				=> 0,
+            //     );
+            //     AcctJournalVoucherItem::create($data_credit);
 
-                $account_id_default_status = $account['account_default_status'];
+            // } else if($selisih_shortover < 0){
+            //     $account = AcctAccount::where('account_id', 42)
+            //     ->where('data_state', 0)
+            //     ->first();
+            //     $account_id_default_status = $account['account_default_status'];
+            //     $data_credit = array (
+            //         'journal_voucher_id'			=> $journal_voucher_id,
+            //         'account_id'					=> 42,
+            //         'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
+            //         'journal_voucher_amount'		=> ABS($selisih_shortover),
+            //         'journal_voucher_credit_amount'	=> ABS($selisih_shortover),
+            //         'account_id_default_status'		=> $account_id_default_status,
+            //         'account_id_status'				=> 0,
+            //     );
+            //     AcctJournalVoucherItem::create($data_credit);
+            // }
 
-                $data_debit = array (
-                    'journal_voucher_id'			=> $journal_voucher_id,
-                    'account_id'					=> $preferencecompany['account_shortover_id'],
-                    'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                    'journal_voucher_amount'		=> ABS($selisih_shortover),
-                    'journal_voucher_debit_amount'	=> ABS($selisih_shortover),
-                    'account_id_default_status'		=> $account_id_default_status,
-                    'account_id_status'				=> 1,
-                );
-
-                AcctJournalVoucherItem::create($data_debit);
-            } else {}
-
-
-            $account = AcctAccount::where('account_id', $preferencecompany['account_receivable_id'])
-            ->where('data_state', 0)
-            ->first();
-
-            $account_id_default_status = $account['account_default_status'];
-
-            $data_credit = array (
-                'journal_voucher_id'			=> $journal_voucher_id,
-                'account_id'					=> $preferencecompany['account_receivable_id'],
-                'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                'journal_voucher_amount'		=> ABS($collection_total_amount),
-                'journal_voucher_credit_amount'	=> ABS($collection_total_amount),
-                'account_id_default_status'		=> $account_id_default_status,
-                'account_id_status'				=> 0,
-            );
-
-            AcctJournalVoucherItem::create($data_credit);
-            
             $msg = "Tambah Pelunasan Piutang Berhasil";
             return redirect('/sales-collection')->with('msg',$msg);
         }else{

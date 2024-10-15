@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 @section('js')
 <script>
 	$(document).ready(function(){
@@ -180,6 +180,21 @@
                     <div class="form-group">
                         <a class="text-dark">Alamat NPWP</a>
                         <input class="form-control input-bb" type="text" name="supplier_npwp_address" id="supplier_npwp_address" value=""/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <a class="text-dark">Nama Akun</a>
+                        <input class="form-control input-bb" type="text" name="supplier_bank_acct_name" id="supplier_bank_acct_name" value=""/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <a class="text-dark">Nomor Rekening</a>
+                        <input class="form-control input-bb" type="text" name="supplier_bank_acct_no" id="supplier_bank_acct_no" value=""/>
                     </div>
                 </div>
             </div>

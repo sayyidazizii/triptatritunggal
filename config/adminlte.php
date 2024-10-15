@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'title' => 'TRIPTA TRI TUNGGAL',
+    'title' => 'PBF | Koperasi Menjangan Enam',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -46,8 +46,8 @@ return [
     |
     */
 
-    'logo' => 'TRIPTA TRI TUNGGAL',
-    'logo_img' => 'vendor/adminlte/dist/img/logo_tripta.png',
+    'logo' => 'Unit Usaha <b>PBF</b>',
+    'logo_img' => 'vendor/adminlte/dist/img/logo_pbf.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -130,7 +130,7 @@ return [
     'classes_content' => '',
     'classes_sidebar' => 'sidebar-dark-primary elevation-4',
     'classes_sidebar_nav' => 'sidebar-collapse',
-    'classes_topnav' => 'navbar-info navbar-light',
+    'classes_topnav' => 'navbar-white navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
 

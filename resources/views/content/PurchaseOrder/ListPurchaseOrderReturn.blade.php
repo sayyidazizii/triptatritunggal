@@ -2,8 +2,8 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 
 @section('content_header')
     
@@ -80,7 +80,7 @@
         Daftar
     </h5>
     <div class="form-actions float-right">
-        <button onclick="location.href='{{ url('purchase-order-return/search-purchase-order') }}'" name="Find" class="btn btn-sm btn-info" title="Add Data"><i class="fa fa-plus"></i> Tambah Return Pembelian Baru</button>
+        <button onclick="location.href='{{ url('purchase-order-return/search-purchase-invoice') }}'" name="Find" class="btn btn-sm btn-info" title="Add Data"><i class="fa fa-plus"></i> Tambah Return Pembelian Baru</button>
     </div>
 </div>
 

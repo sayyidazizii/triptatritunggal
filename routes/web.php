@@ -7,6 +7,8 @@ use App\Http\Controllers\AcctCashReceiptController;
 use App\Http\Controllers\AcctBankReceiptController;
 use App\Http\Controllers\AcctCheckReceiptController;
 use App\Http\Controllers\AcctAccountController;
+use App\Http\Controllers\AcctAgingApReportController;
+use App\Http\Controllers\AcctAgingArReportController;
 use App\Http\Controllers\AcctJournalVoucherController;
 use App\Http\Controllers\AcctJournalVoucherPurchaseController;
 use App\Http\Controllers\AcctJournalVoucherSalesController;
@@ -20,6 +22,7 @@ use App\Http\Controllers\AcctCashDisbursementReportController;
 use App\Http\Controllers\AcctBankReceiptReportController;
 use App\Http\Controllers\AcctBankDisbursementReportController;
 use App\Http\Controllers\AcctGeneralLedgerReportController;
+use App\Http\Controllers\AcctLedgerReportController;
 use App\Http\Controllers\AcctProfitLossYearReportController;
 use App\Http\Controllers\AcctProfitLossReportController;
 use App\Http\Controllers\AcctBalanceSheetReportController;
@@ -68,7 +71,12 @@ use App\Http\Controllers\InvItemStockCardController;
 use App\Http\Controllers\ReturnPDP_Controller;
 use App\Http\Controllers\ReturnPDP_LostOnExpedition_Controller;
 use App\Http\Controllers\BuyersAcknowledgmentController;
+use App\Http\Controllers\DebugController;
 use App\Http\Controllers\SalesCollectionPieceController;
+use App\Http\Controllers\KwitansiController;
+use App\Http\Controllers\SalesCollectionDiscountController;
+use App\Http\Controllers\SalesPromotionController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -209,6 +217,7 @@ Route::post('/journal/process-add', [AcctJournalVoucherController::class, 'proce
 Route::get('/journal/printing', [AcctJournalVoucherController::class, 'processPrintingAcctJournalVoucher'])->name('printing-journal');
 Route::get('/journal/export', [AcctJournalVoucherController::class, 'processExportAcctJournalVoucher'])->name('export-journal');
 Route::post('/journal/elements-add', [AcctJournalVoucherController::class, 'elements_add'])->name('elements-add-journal');
+Route::get('/journal/reverse/{journal_voucher_id}', [AcctJournalVoucherController::class, 'reverseJournalVoucher'])->name('reverse-journal-voucher');
 
 
 Route::get('/journal-Purchase', [AcctJournalVoucherPurchaseController::class, 'index'])->name('journal-purchase');
@@ -228,24 +237,30 @@ Route::get('/journal-CashBank/printing', [AcctJournalVoucherCashBankController::
 Route::get('/journal-CashBank/export', [AcctJournalVoucherCashBankController::class, 'processExportAcctJournalVoucher'])->name('export-journal-CashBank');
 
 
-Route::get('/ledger', [AcctGeneralLedgerReportController::class, 'index'])->name('ledger');
-Route::post('/ledger/filter', [AcctGeneralLedgerReportController::class, 'filterAcctGeneralLedgerReport'])->name('filter-ledger');
-Route::get('/ledger/printing', [AcctGeneralLedgerReportController::class, 'processPrintingAcctGeneralLedgerReport'])->name('printing-ledger');
-Route::get('/ledger/export', [AcctGeneralLedgerReportController::class, 'processExportAcctGeneralLedgerReport'])->name('export-ledger');
+// Route::get('/ledger', [AcctGeneralLedgerReportController::class, 'index'])->name('ledger');
+// Route::post('/ledger/filter', [AcctGeneralLedgerReportController::class, 'filterAcctGeneralLedgerReport'])->name('filter-ledger');
+// Route::get('/ledger/printing', [AcctGeneralLedgerReportController::class, 'processPrintingAcctGeneralLedgerReport'])->name('printing-ledger');
+// Route::get('/ledger/export', [AcctGeneralLedgerReportController::class, 'processExportAcctGeneralLedgerReport'])->name('export-ledger');
+
+Route::get('/ledger-report',[AcctLedgerReportController::class, 'index'])->name('ledger-report');
+Route::post('/ledger-report/filter',[AcctLedgerReportController::class, 'filterLedgerReport'])->name('filter-ledger-report');
+Route::get('/ledger-report/reset-filter',[AcctLedgerReportController::class, 'resetFilterLedgerReport'])->name('reset-filter-ledger-report');
+Route::get('/ledger-report/print',[AcctLedgerReportController::class, 'printLedgerReport'])->name('print-ledger-report');
+Route::get('/ledger-report/export',[AcctLedgerReportController::class, 'exportLedgerReport'])->name('export-ledger-report');
 
 
 Route::get('/profit-loss-report',[AcctProfitLossReportController::class, 'index'])->name('profit-loss-report');
 Route::post('/profit-loss-report/filter',[AcctProfitLossReportController::class, 'filterProfitLossReport'])->name('filter-profit-loss-report');
 Route::get('/profit-loss-report/reset-filter',[AcctProfitLossReportController::class, 'resetFilterProfitLossReport'])->name('reset-filter-profit-loss-report');
 Route::get('/profit-loss-report/print',[AcctProfitLossReportController::class, 'printProfitLossReport'])->name('print-profit-loss-report');
-Route::get('/profit-loss-report/export',[AcctProfitLossReportController::class, 'export'])->name('export-profit-loss-report');
+Route::get('/profit-loss-report/export',[AcctProfitLossReportController::class, 'exportProfitLossReport'])->name('export-profit-loss-report');
 
 
 Route::get('balance-sheet-report',[AcctBalanceSheetReportController::class, 'index'])->name('balance-sheet-report');
 Route::post('balance-sheet-report/filter',[AcctBalanceSheetReportController::class, 'filterAcctBalanceSheetReport'])->name('filter-balance-sheet-report');
 Route::get('balance-sheet-report/reset-filter',[AcctBalanceSheetReportController::class, 'resetFilterAcctBalanceSheetReport'])->name('reset-filter-balance-sheet-report');
 Route::get('balance-sheet-report/print',[AcctBalanceSheetReportController::class, 'printAcctBalanceSheetReport'])->name('print-balance-sheet-report');
-Route::get('balance-sheet-report/export',[AcctBalanceSheetReportController::class, 'export'])->name('export-balance-sheet-report');
+Route::get('balance-sheet-report/export',[AcctBalanceSheetReportController::class, 'exportAcctBalanceSheetReport'])->name('export-balance-sheet-report');
 
 
 Route::get('/core-grade', [CoreGradeController::class, 'index'])->name('core-grade');
@@ -375,12 +390,14 @@ Route::get('/warehouse-transfer/delete-array/{record_id}', [InvWarehouseTransfer
 Route::get('/warehouse-transfer/search-purchase-invoice', [InvWarehouseTransferController::class, 'search'])->name('warehouse-transfer-search-purchase-invoice');
 Route::post('/warehouse-transfer/elements-add', [InvWarehouseTransferController::class, 'elements_add'])->name('elements-add-warehouse-transfer');
 Route::post('/warehouse-transfer/add-transfer-type', [InvWarehouseTransferController::class, 'addWarehouseTransferType'])->name('add-transfer-type-warehouse-transfer');
+Route::post('/warehouse-transfer/item-stock', [InvWarehouseTransferController::class, 'getItemQty'])->name('warehouse-transfer-item-stock');
 
 
 Route::get('/purchase-order', [PurchaseOrderController::class, 'index'])->name('purchase-order');
 Route::get('/purchase-order/detail/{purchase_order_id}', [PurchaseOrderController::class, 'detailPurchaseOrder'])->name('detail-purchase-order');
 Route::get('/purchase-order/edit/{purchase_order_id}', [PurchaseOrderController::class, 'editPurchaseOrder'])->name('edit-purchase-order');
 Route::get('/purchase-order/add', [PurchaseOrderController::class, 'addPurchaseOrder'])->name('add-purchase-order');
+Route::post('/purchase-order/select-data-unit', [PurchaseOrderController::class, 'getSelectDataUnit'])->name('purchase-order-select-data-unit');
 Route::post('/purchase-order/process-add-purchase-order', [PurchaseOrderController::class, 'processAddPurchaseOrder'])->name('process-add-purchase-order');
 Route::post('/purchase-order/add-array', [PurchaseOrderController::class, 'processAddArrayPurchaseOrderItem'])->name('purchase-order-add-array');
 Route::get('/purchase-order/delete-array/{record_id}', [PurchaseOrderController::class, 'deleteArrayPurchaseOrderItem'])->name('purchase-order-delete-array');
@@ -395,6 +412,7 @@ Route::post('/purchase-order/add-warehouse', [PurchaseOrderController::class, 'a
 Route::get('/purchase-order/cetak/{purchase_order_id}', [PurchaseOrderController::class, 'cetakPurchaseOrder'])->name('cetak-purchase-order');
 
 
+
 Route::get('/purchase-order-approval', [PurchaseOrderApprovalController::class, 'index'])->name('purchase-order-approval');
 Route::get('/purchase-order-approval/approve/{purchase_order_id}', [PurchaseOrderApprovalController::class, 'approvePurchaseorder'])->name('approve-purchase-order-approval');
 Route::post('/purchase-order-approval/process-approve', [PurchaseOrderApprovalController::class, 'processApprovePurchaseOrder'])->name('process-approve-purchase-order');
@@ -403,6 +421,7 @@ Route::post('/purchase-order-approval/process-disapprove', [PurchaseOrderApprova
 
 Route::get('/purchase-order-return', [PurchaseOrderReturnController::class, 'index'])->name('purchase-order-return');
 Route::get('/purchase-order-return/search-purchase-order', [PurchaseOrderReturnController::class, 'searchPurchaseOrder'])->name('search-purchase-order-return');
+Route::get('/purchase-order-return/search-purchase-invoice', [PurchaseOrderReturnController::class, 'searchPurchaseInvoice'])->name('search-purchase-invoice');
 Route::get('/purchase-order-return/add/{purchase_order_id}', [PurchaseOrderReturnController::class, 'addPurchaseOrderReturn'])->name('add-purchase-order-return');
 Route::get('/purchase-order-return/detail/{purchase_order_return_id}', [PurchaseOrderReturnController::class, 'detailPurchaseOrderReturn'])->name('detail-purchase-order-return');
 Route::post('/purchase-order-return/process-add-purchase-order-return', [PurchaseOrderReturnController::class, 'processAddPurchaseOrderReturn'])->name('process-add-purchase-order-return');
@@ -437,10 +456,13 @@ Route::post('/sales-order/filter', [SalesOrderController::class, 'filterSalesOrd
 Route::get('/sales-order/filter-reset', [SalesOrderController::class, 'resetFilterSalesOrder'])->name('filter-reset-sales-order');
 Route::post('/sales-order/add-customer', [SalesOrderController::class, 'addCoreCustomer'])->name('add-customer-sales-order');
 Route::post('/sales-order/available-stock', [SalesOrderController::class, 'getAvailableStock'])->name('available-stock-sales-order');
+Route::post('/sales-order/item-unit-price', [SalesOrderController::class, 'getItemUnitPrice'])->name('item-unit-price-sales-order');
 Route::post('/sales-order/select-data-stock', [SalesOrderController::class, 'getSelectDataStock'])->name('select-data-stock-sales-order');
 Route::post('/sales-order/select-data-unit', [SalesOrderController::class, 'getSelectDataUnit'])->name('select-data-unit');
+Route::post('/sales-order/type', [SalesOrderController::class, 'getInvItemType'])->name('sales-order-type');
+Route::post('/sales-order/stock', [SalesOrderController::class, 'getInvItemTypeId'])->name('select-id-stock');
 
-
+    
 Route::get('/sales-order-approval', [SalesOrderApprovalController::class, 'index'])->name('sales-order-approval');
 Route::get('/sales-order-approval/approve/{sales_order_id}', [SalesOrderApprovalController::class, 'approveSalesorder'])->name('approve-sales-order-approval');
 Route::post('/sales-order-approval/process-approve', [SalesOrderApprovalController::class, 'processApproveSalesOrder'])->name('process-approve-sales-order');
@@ -455,6 +477,9 @@ Route::get('/sales-order-return/search-sales-invoice', [SalesOrderReturnControll
 Route::get('/sales-order-return/add/{sales_invoice_id}', [SalesOrderReturnController::class, 'addSalesOrderReturn'])->name('add-sales-order-return');
 Route::post('/sales-order-return/process-add-sales-order-return', [SalesOrderReturnController::class, 'processAddSalesOrderReturn'])->name('process-add-sales-order-return');
 Route::get('/sales-order-return/detail/{sales_order_return_id}', [SalesOrderReturnController::class, 'detailSalesOrderReturn'])->name('detail-sales-order-return');
+Route::get('/sales-order-return/export/', [SalesOrderReturnController::class, 'export'])->name('export-sales-order-return');
+Route::get('/sales-order-return/edit/{sales_order_return_id}', [SalesOrderReturnController::class, 'editSalesOrderReturn'])->name('edit-sales-order-return');
+Route::post('/sales-order-return/process-edit-sales-order-return', [SalesOrderReturnController::class, 'processEditSalesOrderReturn'])->name('process-edit-sales-order-return');
 
 
 Route::get('/goods-received-note', [InvGoodsReceivedNoteController::class, 'index'])->name('goods-received-note');
@@ -584,6 +609,7 @@ Route::get('/purchase-invoice/void/{purchase_invoice_id}', [PurchaseInvoiceContr
 Route::post('/purchase-invoice/process-add-purchase-invoice', [PurchaseInvoiceController::class, 'processAddPurchaseInvoice'])->name('process-add-purchase-invoice');
 Route::post('/purchase-invoice/process-edit-purchase-invoice', [PurchaseInvoiceController::class, 'processEditPurchaseInvoice'])->name('process-edit-purchase-invoice');
 Route::post('/purchase-invoice/process-void-purchase-invoice', [PurchaseInvoiceController::class, 'processVoidPurchaseInvoice'])->name('process-void-purchase-invoice');
+Route::get('/purchase-invoice/export', [PurchaseInvoiceController::class, 'export'])->name('purchase-invoice-export');
 
 
 Route::get('/sales-invoice', [SalesInvoiceController::class, 'index'])->name('sales-invoice');
@@ -603,6 +629,11 @@ Route::get('/sales-invoice/printing/{sales_invoice_id}', [SalesInvoiceController
 Route::get('/sales-invoice/closed/{sales_invoice_id}', [SalesInvoiceController::class, 'closedSalesInvoice'])->name('closed-sales-invoice');
 Route::post('/sales-invoice/process-closed', [SalesInvoiceController::class, 'processClosedSalesInvoice'])->name('process-closed-sales-invoice');
 Route::get('/sales-invoice/export', [SalesInvoiceController::class, 'export'])->name('sales-invoice-export');
+
+Route::get('/sales-invoice-report', [SalesInvoiceController::class, 'ReportSalesInvoice'])->name('sales-invoice-report');
+Route::post('/sales-invoice-report/filter', [SalesInvoiceController::class, 'filterSalesInvoiceReport'])->name('filter-sales-invoice-report');
+Route::get('/sales-invoice-report/filter-reset', [SalesInvoiceController::class, 'resetFilterSalesInvoiceReport'])->name('filter-reset-sales-invoice-report');
+Route::get('/sales-invoice-report/cetak-pengantar', [SalesInvoiceController::class, 'printKwitansiPengantar'])->name('cetak-pengantar-sales-invoice-report');
 
 Route::get('/warehouse-transfer-type', [InvWarehouseTransferTypeController::class, 'index'])->name('warehouse-transfer-type');
 Route::get('/warehouse-transfer-type/add', [InvWarehouseTransferTypeController::class, 'addInvWarehouseTransferType'])->name('add-warehouse-transfer-type');
@@ -695,17 +726,22 @@ Route::post('/sales-collection-piece/delete-piece', [SalesCollectionPieceControl
 Route::post('/sales-collection-piece/filter', [SalesCollectionPieceController::class, 'filterSalesCollectionPiece'])->name('filter-sales-collection-piece');
 Route::get('/sales-collection-piece/filter-reset', [SalesCollectionPieceController::class, 'resetFilterSalesCollectionPiece'])->name('filter-reset-sales-collection-piece');
 Route::get('/sales-collection-piece/search-sales-collection-piece', [SalesCollectionPieceController::class, 'search'])->name('search-sales-collection-piece');
-Route::get('/sales-collection-piece/claim-sales-collection-piece/{sales_invoice_id}', [SalesCollectionPieceController::class, 'ClaimSalesCollectionPiece'])->name('claim-sales-collection-piece');
+Route::get('/sales-collection-piece/claim-sales-collection-piece/{sales_collection_piece_id}', [SalesCollectionPieceController::class, 'ClaimSalesCollectionPiece'])->name('claim-sales-collection-piece');
 Route::post('/sales-collection-piece/process-claim/', [SalesCollectionPieceController::class, 'processClaimSalesCollectionPiece'])->name('process-claim');
 Route::get('/sales-collection-piece/cancel-claim-sales-collection-piece/{sales_invoice_id}', [SalesCollectionPieceController::class, 'CancelClaimSalesCollectionPiece'])->name('cancel-claim-sales-collection-piece');
-//Route::post('/sales-collection-piece/process-claim/', [SalesCollectionPieceController::class, 'processCancelClaimSalesCollectionPiece'])->name('process-batal-claim');
-Route::get('/sales-collection-piece/detail-claim-sales-collection-piece/{sales_invoice_id}', [SalesCollectionPieceController::class, 'detailClaimSalesCollectionPiece'])->name('detail-claim-sales-collection-piece');
+Route::post('/sales-collection-piece/process-cancel-claim/', [SalesCollectionPieceController::class, 'processCancelClaimSalesCollectionPiece'])->name('process-batal-claim');
+Route::get('/sales-collection-piece/detail-claim-sales-collection-piece/{sales_collection_piece_id}', [SalesCollectionPieceController::class, 'detailClaimSalesCollectionPiece'])->name('detail-claim-sales-collection-piece');
+Route::get('/sales-collection-piece/detail-sales-collection-piece/{sales_invoice_id}', [SalesCollectionPieceController::class, 'detailClaimSalesCollection'])->name('detail-claim-sales-collection');
+
+Route::get('/sales-promotion', [SalesPromotionController::class, 'index'])->name('sales-promotion');
+Route::post('/sales-promotion/filter', [SalesPromotionController::class, 'filterSalesPromotion'])->name('filter-sales-promotion');
+Route::get('/sales-promotion/filter-reset', [SalesPromotionController::class, 'resetFilterSalesCollectionPiece'])->name('filter-reset-sales-promotion');
+Route::get('/sales-promotion/export', [SalesPromotionController::class, 'export'])->name('sales-promotion-export');
 
 
 Route::get('/debt-card', [AcctDebtCardController::class, 'index'])->name('debt-card');
 Route::get('/debt-card/print/{sales_order_id}', [AcctDebtCardController::class, 'processPrinting'])->name('kwitansi-debt-card');
 Route::post('/debt-card/filter', [AcctDebtCardController::class, 'filter'])->name('filter-debt-card');
-
 
 Route::get('/item-stock-adjustment',[InvItemStockAdjustmentController::class,'index'])->name('stock-adjustment');
 Route::post('/item-stock-adjustment/filter-list', [InvItemStockAdjustmentController::class, 'filterList'])->name('filter-list-stock-adjustment');
@@ -715,7 +751,6 @@ Route::post('/item-stock-adjustment/get-item-type', [InvItemStockAdjustmentContr
 Route::post('/item-stock-adjustment/get-list-item-stock', [InvItemStockAdjustmentController::class,'getListItemStock'])->name('get-list-item-stock-adjustment');
 Route::post('/item-stock-adjustment/add-elements',[InvItemStockAdjustmentController::class, 'elements_add'])->name('add-elements-stock-adjustment');
 Route::post('/item-stock-adjustment/process-add', [InvItemStockAdjustmentController::class, 'processAdd'])->name('process-add-stock-adjustment');
-
 
 Route::get('/warehouse-in-requisition', [InvWarehouseInRequisitionController::class, 'index'])->name('warehouse-in-requisition');
 Route::get('/warehouse-in-requisition/add', [InvWarehouseInRequisitionController::class, 'addInvWarehouseInRequisition'])->name('add-warehouse-in-requisition');
@@ -731,12 +766,10 @@ Route::post('/warehouse-in-requisition/item-stock-detail', [InvWarehouseInRequis
 Route::get('/warehouse-in-requisition/reset-array', [InvWarehouseInRequisitionController::class, 'resetArrayInvWarehouseInRequisition'])->name('reset-array-warehouse-in-requisition');
 Route::get('/warehouse-in-requisition/delete-array/{record_id}', [InvWarehouseInRequisitionController::class, 'deleteArrayInvWarehouseInRequisitionItem'])->name('warehouse-in-requisition-delete-array');
 
-
 Route::get('/warehouse-in-approval', [InvWarehouseInApprovalController::class, 'index'])->name('warehouse-in-approval');
 Route::get('/warehouse-in-approval/approve/{id}', [InvWarehouseInApprovalController::class, 'approveInvWarehouseInApproval'])->name('approve-warehouse-in-approval');
 Route::get('/warehouse-in-approval/process-approve/{id}', [InvWarehouseInApprovalController::class, 'processApproveInvWarehouseInApproval'])->name('process-approve-warehouse-in-approval');
 Route::post('/warehouse-in-approval/process-disapprove', [InvWarehouseInApprovalController::class, 'processDisapproveInvWarehouseInApproval'])->name('process-disapprove-warehouse-in-approval');
-
 
 Route::get('/warehouse-in-type', [InvWarehouseInTypeController::class, 'index'])->name('warehouse-in-type');
 Route::get('/warehouse-in-type/add', [InvWarehouseInTypeController::class, 'addInvWarehouseInType'])->name('add-warehouse-in-type');
@@ -751,5 +784,42 @@ Route::post('/item-stock-card/filter', [InvItemStockCardController::class, 'filt
 Route::get('/item-stock-card/filter-reset', [InvItemStockCardController::class, 'resetFilterInvItemStockCard'])->name('filter-reset-item-stock-card');
 Route::get('/item-stock-card/detail/{item_stock_id}', [InvItemStockCardController::class, 'detailInvItemStockCard'])->name('detail-item-stock-card');
 Route::get('/item-stock-card/print-pdf/{item_stock_id}',[InvItemStockCardController::class, 'printStockCardReport'])->name('print-pdf-stock-card');
+
+Route::get('/print-kwitansi',[KwitansiController::class, 'index'])->name('print-kwitansi');
+Route::get('/print-kwitansi/add', [KwitansiController::class, 'searchCustomer'])->name('search-customer');
+Route::get('/print-kwitansi/add/{customer_id}', [KwitansiController::class, 'addKwitansi'])->name('add-print-kwitansi');
+Route::post('/print-kwitansi/save', [KwitansiController::class, 'processAddKwitansi'])->name('process-add-kwitansi');
+Route::post('/print-kwitansi/filter', [KwitansiController::class, 'filterKwitansi'])->name('filter-print-kwitansi');
+Route::get('/print-kwitansi/cetak-multiple/{sales_kwitansi_id}', [KwitansiController::class, 'printKwitansi'])->name('print-multiple');
+Route::get('/print-kwitansi/cetak-single/{sales_kwitansi_id}', [KwitansiController::class, 'printKwitansiSingle'])->name('print-single');
+Route::get('/print-kwitansi/cetak-pengantar/{sales_kwitansi_id}', [KwitansiController::class, 'printKwitansiPengantar'])->name('print-pengantar');
+Route::post('/print-kwitansi/filter-print', [KwitansiController::class, 'filterKwitansiAdd'])->name('filter-print-kwitansi-add');
+Route::get('/print-kwitansi/delete/{sales_kwitansi_id}', [KwitansiController::class, 'processDeleteKwitansi'])->name('process-delete-kwitansi');
+
+
+Route::get('/sales-discount-collection', [SalesCollectionDiscountController::class, 'index'])->name('sales-collection-discount');
+Route::get('/sales-discount-collection/add/{sales_kwitansi_id}', [SalesCollectionDiscountController::class, 'addSalesCollectionDiscount'])->name('add-sales-collection');
+Route::post('/sales-discount-collection/add-discount', [SalesCollectionDiscountController::class, 'processAddSalesCollectionDiscount'])->name('add-sales-discount-collection');
+Route::post('/sales-discount-collection/delete-discount', [SalesCollectionDiscountController::class, 'processDeleteSalesCollectionDiscount'])->name('delete-sales-discount-collection');
+Route::post('/sales-discount-collection/filter', [SalesCollectionDiscountController::class, 'filterSalesCollectionDiscount'])->name('filter-sales-discount-collection');
+Route::get('/sales-discount-collection/filter-reset', [SalesCollectionDiscountController::class, 'resetFilterSalesCollectionDiscount'])->name('filter-reset-sales-discount-collection');
+Route::get('/sales-discount-collection/search', [SalesCollectionDiscountController::class, 'searchCoreCustomer'])->name('search-core-supplier-sales-collection');
+Route::get('/sales-discount-collection/detail/{collection_id}', [SalesCollectionDiscountController::class, 'detailSalesCollectionDiscount'])->name('detail-sales-collection-discount');
+Route::get('/sales-discount-collection/print/{collection_id}', [SalesCollectionDiscountController::class, 'processPrintingSalescollectionDiscount'])->name('detail-sales-collection-discount');
+Route::get('/sales-discount-collection/delete-transfer-array/{record_id}/{sales_kwitansi_id}', [SalesCollectionDiscountController::class, 'deleteTransferArray'])->name('delete-transfer-array-sales-discount-collection');
+
+
+Route::get('/aging-account-payable', [AcctAgingApReportController::class, 'index'])->name('aging-account-payable');
+Route::post('/aging-account-payable/filter', [AcctAgingApReportController::class, 'filterAcctAgingAp'])->name('filter-aging-account-payable');
+Route::get('/aging-account-payable/filter-reset', [AcctAgingApReportController::class, 'resetFilterAcctAgingAp'])->name('filter-reset-aging-account-payable');
+
+
+Route::get('/aging-account-receivable', [AcctAgingArReportController::class, 'index'])->name('aging-account-receivable');
+Route::post('/aging-account-receivable/filter', [AcctAgingArReportController::class, 'filterAcctAgingAr'])->name('filter-aging-account-receivable');
+Route::get('/aging-account-receivable/filter-reset', [AcctAgingArReportController::class, 'resetFilterAcctAgingAr'])->name('filter-reset-aging-account-receivable');
+
+
+
+// Route::get('/debug-system', [DebugController::class, 'index'])->name('debug');
 
 ?>

@@ -2,8 +2,8 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 
 @section('content_header')
     
@@ -93,6 +93,7 @@
                         <th width="20%" style='text-align:center'>Nama Pelanggan</th>
                         <th width="20%" style='text-align:center'>No SO</th>
                         <th width="10%" style='text-align:center'>Tanggal SO</th>
+                        <th width="10%" style='text-align:center'>Po. Customer</th>
                         <th width="15%" style='text-align:center'>Status</th>
                         <th width="15%" style='text-align:center'>Aksi</th>
                     </tr>
@@ -105,6 +106,7 @@
                         <td>{{$SalesOrder->getCoreCustomerName($item['customer_id'])}}</td>
                         <td>{{$item['sales_order_no']}}</td>
                         <td>{{date('d/m/Y', strtotime($item['sales_order_date']))}}</td>
+                        <td>{{$item['purchase_order_no']}}</td>
                         <?php 
                         if($item['approved']==2){
                             ?>
@@ -120,7 +122,11 @@
                             <?php
                         }else if($item['sales_order_status']==2) {
                             ?>
-                            <td>Sudah diterima</td>
+                            <td>Intransit</td>
+                            <?php
+                        }else if($item['sales_order_status']==3) {
+                            ?>
+                            <td>Sudah Diterima</td>
                             <?php
                         }else{
                             ?>

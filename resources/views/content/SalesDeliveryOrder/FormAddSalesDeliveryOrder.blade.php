@@ -1,8 +1,8 @@
 @inject('SalesDeliveryOrder', 'App\Http\Controllers\SalesDeliveryOrderController')
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 
 @section('js')
 <script>
@@ -263,7 +263,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <label style='text-align  : left !important;'>Ppn Out<input class='form-control' style='text-align:right;'type='text' name='ppn_out_amount' id='ppn_out_amount' value='{{ $SalesDeliveryOrder->getPpnOut($salesorder['sales_order_id']) }}' readonly/>
+                            <label hidden style='text-align  : left !important;'>Ppn Out<input class='form-control' style='text-align:right;'type='text' name='ppn_out_amount' id='ppn_out_amount' value='{{ $SalesDeliveryOrder->getPpnOut($salesorder['sales_order_id']) }}' readonly/>
                             </label>
                                 @if(count($salesorderitem)==0)
                                     <tr>

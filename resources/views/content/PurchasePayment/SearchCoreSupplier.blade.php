@@ -2,8 +2,8 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 
 @section('content_header')
     
@@ -45,7 +45,7 @@
                         <th width="2%" style='text-align:center'>No</th>
                         <th width="30%" style='text-align:center'>Nama Pemasok</th>
                         <th width="40%" style='text-align:center'>Alamat Pemasok</th>
-                        <th width="20%" style='text-align:center'>Jumlah Hutang</th>
+                        <th width="20%" style='text-align:center'>Jumlah Hutang + PPN</th>
                         <th width="8%" style='text-align:center'>Aksi</th>
                     </tr>
                 </thead>

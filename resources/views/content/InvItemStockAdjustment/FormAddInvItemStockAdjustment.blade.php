@@ -2,7 +2,7 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
+@section('title', 'PBF | Koperasi Menjangan Enam')
 @section('js')
 <script>
       function function_elements_add(name, value){
@@ -21,7 +21,7 @@
 
     function changeAmount(item_stock_id, value){
         var item_total 	= $("#item_total_"+item_stock_id).val();
-        var adjustment_final_amount = parseInt(item_total) - parseInt(value);
+        var adjustment_final_amount = parseFloat(item_total) - parseFloat(value);
         $('#adjustment_difference_amount_'+item_stock_id).val(adjustment_final_amount);
     }
 

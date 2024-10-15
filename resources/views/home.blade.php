@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 
 <!-- jQuery -->
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -9,8 +9,15 @@
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <!-- Have fun using Bootstrap JS -->
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(window).on('load', function() {
+        jQuery.noConflict();
+        $('#alert').modal('show');
 
+        function close()
+        {
+            jQuery.noConflict();
+            $('#alert').modal('hide');
+        }
     });
 </script>
 
@@ -22,8 +29,57 @@ Dashboard
 @stop --}}
 
 @section('content')
-    
+
     <br>
+    <div class="modal fade bs-modal-md text-dark" id="alert" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header"  style='text-align:left !important'>
+                    <h4>Notifikasi</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <table class="table table-bordered table-hover">
+                                <p>Purchase Invoice</p>
+                                <tr>
+                                    <td>Nomor invoice</td>
+                                    <td>Jatuh Tempo</td>
+                                </tr>
+                                @foreach ($purchaseinvoice as $item)
+                                    <tr>
+                                        <td>{{ $item->purchase_invoice_no }}</td>
+                                        <td>{{ $item->purchase_invoice_due_date }}</td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                            {{ $purchaseinvoice->links() }}
+                        </div>
+                        <div class="col">
+                            <table class="table table-bordered table-hover">
+                                <p>Sales Invoice</p>
+                                <tr>
+                                    <td>Nomor invoice</td>
+                                    <td>Jatuh Tempo</td>
+                                </tr>
+                                @foreach ($salesinvoice as $item)
+                                    <tr>
+                                        <td>{{ $item->sales_invoice_no }}</td>
+                                        <td>{{ $item->sales_invoice_due_date }}</td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                            {{ $salesinvoice->links() }}
+                        </div>
+                    </div>
+                </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" data-dismiss="modal" aria-label="Close">close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="card border border-dark">
         <div class="card-header border-dark bg-dark">
             <h5 class="mb-0 float-left">

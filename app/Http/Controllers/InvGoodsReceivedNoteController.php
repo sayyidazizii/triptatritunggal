@@ -25,6 +25,7 @@ use App\Models\PreferenceTransactionModule;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class InvGoodsReceivedNoteController extends Controller
@@ -58,9 +59,9 @@ class InvGoodsReceivedNoteController extends Controller
             $end_date = Session::get('end_date');
         }
 
-        $goodsreceivednote = InvGoodsReceivedNote::where('data_state','=',0)
-        ->where('created_at', '>=', $start_date)
-        ->where('created_at', '<=', $end_date)
+        $goodsreceivednote = InvGoodsReceivedNote::where('data_state', '=', 0)
+        ->where('goods_received_note_date', '>=', $start_date)
+        ->where('goods_received_note_date', '<=', $end_date)
         ->get();
 
         $preference_company = PreferenceCompany::select('account_inventory_trade_id')->first();
@@ -127,12 +128,12 @@ class InvGoodsReceivedNoteController extends Controller
         $add_type_purchaseorderitem = PurchaseOrderItem::where('purchase_order_item.data_state', 0)
         ->where('purchase_order_id', $purchase_order_id)
         ->join('inv_item_type', 'inv_item_type.item_type_id', '=', 'purchase_order_item.item_type_id')
-        // ->join('inv_item_unit', 'inv_item_unit.item_unit_id', '=', 'purchase_order_item.item_unit_id')
+        ->join('inv_item_unit', 'inv_item_unit.item_unit_id', '=', 'purchase_order_item.item_unit_id')
         ->pluck('item_type_name', 'purchase_order_item.purchase_order_item_id');
 
         $add_unit_purchaseorderitem = PurchaseOrderItem::where('purchase_order_item.data_state', 0)
         ->where('purchase_order_id', $purchase_order_id)
-        // ->join('inv_item_type', 'inv_item_type.item_type_id', '=', 'purchase_order_item.item_type_id')
+        ->join('inv_item_type', 'inv_item_type.item_type_id', '=', 'purchase_order_item.item_type_id')
         ->join('inv_item_unit', 'inv_item_unit.item_unit_id', '=', 'purchase_order_item.item_unit_id')
         ->pluck('item_unit_name', 'purchase_order_item.item_unit_id');
 
@@ -337,6 +338,7 @@ class InvGoodsReceivedNoteController extends Controller
     }
 
     public function processAddInvGoodsReceivedNote(Request $request){
+        // dd($request->all());
 
         $purchaseorderitem_temporary = Session::get('purchaseorderitem');
 
@@ -404,7 +406,7 @@ class InvGoodsReceivedNoteController extends Controller
                 'branch_id'						=> 1,
                 'journal_voucher_period' 		=> $journal_voucher_period,
                 'journal_voucher_date'			=> $invgoodsreceivednote['goods_received_note_date'],
-                'journal_voucher_title'			=> 'Penerimaan Barang '.$goodsreceivednote['goods_received_note_no'],
+                'journal_voucher_title'			=> 'Pembelian '.$goodsreceivednote['goods_received_note_no'],
                 'journal_voucher_no'			=> $goodsreceivednote['goods_received_note_no'],
                 'journal_voucher_description'	=> $invgoodsreceivednote['goods_received_note_remark'],
                 'transaction_module_id'			=> $transaction_module_id,
@@ -440,6 +442,11 @@ class InvGoodsReceivedNoteController extends Controller
                 // dd($invgoodsreceivednoteitem);
                 InvGoodsReceivedNoteItem::create($invgoodsreceivednoteitem);
 
+                //item unit cost
+                // $item_unit_cost = array (
+                //     'item_unit_cost'					    => $temprequest['item_unit_cost_'.$i],
+                // );
+
                 //update purchase order item
                 $purchaseorderitem = PurchaseOrderItem::findOrFail($invgoodsreceivednoteitem['purchase_order_item_id']);
                 $purchaseorderitem->quantity_outstanding = $purchaseorderitem['quantity_outstanding'] - $invgoodsreceivednoteitem['quantity'];
@@ -463,29 +470,23 @@ class InvGoodsReceivedNoteController extends Controller
 
                 $item_unit_id_default = $item_type['item_unit_1'];
 
+                $quantity_unit = 0; // Default value
+
                 if($invgoodsreceivednoteitem['item_unit_id'] == $item_type['item_unit_1']){
                     $quantity_unit = $invgoodsreceivednoteitem['quantity_received'] * $item_type['item_quantity_default_1'];
                     $default_quantity = $item_type['item_quantity_default_1'];
                     $item_weight = $invgoodsreceivednoteitem['quantity_received'] * $item_type['item_weight_1'];
                     $item_weight_default = $item_type['item_weight_1'];
-                    // dd($quantity_unit, $default_quantity, $item_weight, $item_weight_default);
                 }
-                if($invgoodsreceivednoteitem['item_unit_id'] == $item_type['item_unit_2']){
+                else if($invgoodsreceivednoteitem['item_unit_id'] == $item_type['item_unit_2']){
                     $quantity_unit = $invgoodsreceivednoteitem['quantity_received'] * $item_type['item_quantity_default_2'];
                     $default_quantity = $item_type['item_quantity_default_2'];
-                    $item_weight = $invgoodsreceivednoteitem['quantity_received'] * $item_type['item_weight_2'];
-                    $item_weight_default = $item_type['item_weight_2'];
-
-                    // dd($quantity_unit, $default_quantity, $item_weight, $item_weight_default);
-                    
+                    $item_weight = $item_weight_default = $item_type['item_weight_2'];
                 }
-                if($invgoodsreceivednoteitem['item_unit_id'] == $item_type['item_unit_3']){
+                else if($invgoodsreceivednoteitem['item_unit_id'] == $item_type['item_unit_3']){
                     $quantity_unit = $invgoodsreceivednoteitem['quantity_received'] * $item_type['item_quantity_default_3'];
                     $default_quantity = $item_type['item_quantity_default_3'];
-                    $item_weight = $invgoodsreceivednoteitem['quantity_received'] * $item_type['item_weight_3'];
-                    $item_weight_default = $item_type['item_weight_3'];
-
-                // dd($quantity_unit, $default_quantity, $item_weight, $item_weight_default);
+                    $item_weight = $item_weight_default = $item_type['item_weight_3'];
                 }
 
                 $invitemstock = array(
@@ -497,6 +498,7 @@ class InvGoodsReceivedNoteController extends Controller
                     'warehouse_id'                  => $fields['warehouse_id'],
                     'item_total'                    => $temprequest['quantity_received_'.$i],
                     'item_unit_id_default' 		    => $item_unit_id_default,
+                    'item_unit_cost'                => $temprequest['item_unit_cost_'.$i],
                     'quantity_unit' 		        => $quantity_unit,
                     'item_default_quantity_unit'    => $default_quantity,
                     // 'item_weight_unit' 		        => $item_weight,
@@ -520,6 +522,7 @@ class InvGoodsReceivedNoteController extends Controller
                     $itemstockupdate = InvItemStock::findOrFail($data_item_stock['item_stock_id']);
                     $itemstockupdate->item_total += $invitemstock['item_total'];
                     $itemstockupdate->quantity_unit += $invitemstock['quantity_unit'];
+                    $itemstockupdate->item_unit_cost = $invitemstock['item_unit_cost'];
                     // $itemstockupdate->item_weight_unit += $invitemstock['item_weight_unit'];
                     // $itemstockupdate->item_stock_date = $invitemstock['item_stock_date'];
                     $itemstockupdate->save();
@@ -532,9 +535,10 @@ class InvGoodsReceivedNoteController extends Controller
 
                 $purchaseorderitem          = PurchaseOrderItem::where('purchase_order_item_id', $temprequest['purchase_order_item_id_'.$i])
                 ->first();
+            }
 
                 $purchaseorder              = PurchaseOrder::findOrFail($invgoodsreceivednote['purchase_order_id']);
-                $total_amount               = $temprequest['quantity_received_'.$i] * $purchaseorderitem['item_unit_cost'];
+                $total_amount               = $purchaseorder['total_amount'];
 
                 $journalvoucher = AcctJournalVoucher::where('created_id', Auth::id())
                 ->orderBy('journal_voucher_id', 'DESC')
@@ -547,7 +551,7 @@ class InvGoodsReceivedNoteController extends Controller
                 //------account_id Persediaan Barang Dagang------//
                 $preference_company = PreferenceCompany::first();
                 
-                $account = AcctAccount::where('account_id', $preference_company['account_inventory_trade_id'])
+                $account = AcctAccount::where('account_id', 82)
                 ->where('data_state', 0)
                 ->first();
 
@@ -567,9 +571,10 @@ class InvGoodsReceivedNoteController extends Controller
                 // dd($data_debit1);
                 
                 AcctJournalVoucherItem::create($data_debit1);
+
                 
                 //------account_id PPN Masukan------//
-                $account = AcctAccount::where('account_id', $preference_company['account_vat_in_id'])
+                $account = AcctAccount::where('account_id',106)
                 ->where('data_state', 0)
                 ->first();
 
@@ -577,11 +582,10 @@ class InvGoodsReceivedNoteController extends Controller
                 
                 $account_id_default_status 		= $account['account_default_status'];
 
-
                 
                 $data_debit2 = array (
                     'journal_voucher_id'			=> $journal_voucher_id,
-                    'account_id'					=> $account['account_id'],
+                    'account_id'					=> 106,
                     'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
                     'journal_voucher_amount'		=> ABS($ppn_in_amount),
                     'journal_voucher_debit_amount'	=> ABS($ppn_in_amount),
@@ -594,19 +598,18 @@ class InvGoodsReceivedNoteController extends Controller
                 AcctJournalVoucherItem::create($data_debit2);
 
                 
-                $account 		= AcctAccount::where('account_id', $preferencecompany['account_payable_id'])
+                $account 		= AcctAccount::where('account_id', 205)
                 ->where('data_state', 0)
                 ->first();
 
                 $subtotal_after_ppn_in = $purchaseorder['subtotal_after_ppn_in'];
 
-            // dd($account);
-
+                //hutang supplier
                 $account_id_default_status 		= $account['account_default_status'];
 
                 $data_credit = array (
                     'journal_voucher_id'			=> $journal_voucher_id,
-                    'account_id'					=> $preferencecompany['account_payable_id'],
+                    'account_id'					=> 205,
                     'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
                     'journal_voucher_amount'		=> ABS($subtotal_after_ppn_in),
                     'journal_voucher_credit_amount'	=> ABS($subtotal_after_ppn_in),
@@ -621,7 +624,7 @@ class InvGoodsReceivedNoteController extends Controller
 
 //--------------------------------------------------------End Journal Voucher-----------------------------------------------------------------//
 
-			}
+			
 
             $purchaseorder = PurchaseOrder::findOrFail($invgoodsreceivednote['purchase_order_id']);
             $purchaseorder->total_received_item = $purchaseorder['total_received_item'] + $total_received_item;

@@ -1,8 +1,8 @@
 @inject('SalesDeliveryNote', 'App\Http\Controllers\SalesDeliveryNoteController')
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 
 @section('js')
 <script>
@@ -32,6 +32,8 @@ function elements_add(name, value){
 
 
 	$(document).ready(function(){
+        $("#expedition_id").select2("val", "0");
+
 
         var elements = {!! json_encode($salesdeliveryordernoteelements) !!};
 
@@ -54,6 +56,8 @@ function elements_add(name, value){
             }
 
 		}); 
+
+
         
         
 	});
@@ -217,10 +221,10 @@ function elements_add(name, value){
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <a class="text-dark">Gudang<a class='red'> *</a></a>
+                        <a hidden class="text-dark">Gudang</a>
                         <br/>
-                        {!! Form::select('warehouse_id',  $warehouse ,$salesdeliveryordernoteelements == null ? '' : $salesdeliveryordernoteelements['warehouse_id'], ['class' => 'selection-search-clear select-form', 'id' => 'warehouse_id' , 'onchange' => 'elements_add(this.name , this.value);'] ) !!}
-                    </div>
+				<input hidden class="form-control form-control-inline input-medium date-picker input-date" type="text" name="warehouse_id' " id="warehouse_id' " onChange="function_elements_add(this.name, this.value);" value="8"/>
+			</div>
                 </div>
                 {{-- <div class="col-md-6">
                     <div class="form-group">
@@ -297,7 +301,7 @@ function elements_add(name, value){
                             </tr>
                         </thead>
                         <tbody>
-                            <label style='text-align  : left !important;'>Ppn Out<input class='form-control' style='text-align:right;'type='text' name='ppn_out_amount' id='ppn_out_amount' value='{{ $SalesDeliveryNote->getPpnOut($salesdeliveryorder['sales_delivery_order_id']) }}' readonly/>
+                            <label hidden style='text-align  : left !important;'>Ppn Out<input class='form-control' style='text-align:right;'type='text' name='ppn_out_amount' id='ppn_out_amount' value='{{ $SalesDeliveryNote->getPpnOut($salesdeliveryorder['sales_delivery_order_id']) }}' readonly/>
                             </label>
 
                             @if(count($salesdeliveryorderitem)==0)
@@ -319,14 +323,17 @@ function elements_add(name, value){
                                         <td style='text-align  : right !important;'>{{$item['quantity']}}</td>
                                         <td style='text-align  : right !important;'>{{$item['quantity_resulted']}}</td>
                                         <td style='text-align  : right !important;'>
-                                            <input class='form-control' style='text-align:right;'type='text' name='' id='quantity_delivered_$no' value='{{$val['quantity']}}' readonly/>  
-
+                                            <input class='form-control' style='text-align:right;'type='text' name='quantity_delivered_{{$no}}' id='quantity_delivered_{{$no}}' value='{{$val['quantity']}}' readonly/>  
+                                            
                                             <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id__{{$no}}' id='sales_order_id__{{$no}}' value='{{$val['sales_order_id']}}'/>  
                                             <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id__{{$no}}' id='sales_order_item_id__{{$no}}' value='{{$val['sales_order_item_id']}}'/> 
                                             <input class='form-control' style='text-align:right;'type='hidden' name='sales_delivery_order_id__{{$no}}' id='sales_delivery_order_id__{{$no}}' value='{{$val['sales_delivery_order_id']}}'/>  
                                             <input class='form-control' style='text-align:right;'type='hidden' name='sales_delivery_order_item_id__{{$no}}' id='sales_delivery_order_item_id__{{$no}}' value='{{$val['sales_delivery_order_item_id']}}'/>   
                                             <input class='form-control' style='text-align:right;'type='hidden' name='customer_id_{{$no}}' id='customer_id_{{$no}}' value='{{$val['customer_id']}}'/>  
                                             <input class='form-control' style='text-align:right;'type='hidden' name='item_id_{{$no}}' id='item_id_{{$no}}' value='{{$val['item_id']}}'/>
+                                            <input class='form-control' style='text-align:right;'type='hidden' name='item_type_id_{{$no}}' id='item_type_id_{{$no}}' value='{{$val['item_type_id']}}'/>
+                                            <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_id_{{$no}}' id='item_unit_id_{{$no}}' value='{{$val['item_unit_id']}}'/>
+                                            <input class='form-control' style='text-align:right;'type='hidden' name='quantity_{{$no}}' id='quantity_{{$no}}' value='{{$val['quantity']}}' readonly/>  
                                             <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_price_{{ $no }}' id='item_unit_price_{{ $no }}' value='{{$SalesDeliveryNote->getItemUnitprice($val->sales_delivery_order_item_id)}}'/>
                                             <input class='form-control' style='text-align:right;'type='hidden' name='subtotal_price_{{ $no }}' id='subtotal_price_{{ $no }}' value='{{$val->subtotal_price}}'/>
                                             <input class='form-control' style='text-align:right;'type='hidden' name='discount_amount_item_{{ $no }}' id='discount_amount_item_{{ $no }}' value='{{$item['discount_amount_item']}}'/>

@@ -14,7 +14,7 @@
 @stop
 
 @section('classes_body'){{ ($auth_type ?? 'login') . '-page' }}@stop
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 @section('body')
     <div class="{{ $auth_type ?? 'login' }}-box">
 

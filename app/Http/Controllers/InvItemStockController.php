@@ -66,7 +66,7 @@ class InvItemStockController extends Controller
             $invitemstock   = $invitemstock->where('inv_item_stock.warehouse_id', $warehouse_id);
         }
         $invitemstock       = $invitemstock->get();
-       // dd($invitemstock);
+    //    dd($invitemstock);
 
         return view('content/InvItemStock/ListInvItemStock',compact('invitemstock', 'invitemcategory', 'invitemtype', 'coregrade', 'invwarehouse', 'item_category_id', 'item_type_id', 'grade_id', 'warehouse_id'));
     }
@@ -143,7 +143,7 @@ class InvItemStockController extends Controller
         ->where('data_state', 0)
         ->first();
 
-        return $item['item_category_name'];
+        return $item['item_category_name'] ?? '';
     }
 
     public function getInvItemTypeName($item_type_id){
@@ -152,7 +152,7 @@ class InvItemStockController extends Controller
         ->where('data_state', 0)
         ->first();
 
-        return $item['item_type_name'];
+        return $item['item_type_name'] ?? '';
     }
 
     public function getInvItemUnitName($item_unit_id){
@@ -161,7 +161,7 @@ class InvItemStockController extends Controller
         ->where('data_state', 0)
         ->first();
 
-        return $unit['item_unit_name'];
+        return $unit['item_unit_name'] ?? '';
     }
 
     public function getInvWarehouseName($warehouse_id){
@@ -170,7 +170,7 @@ class InvItemStockController extends Controller
         ->where('data_state', 0)
         ->first();
 
-        return $warehouse['warehouse_name'];
+        return $warehouse['warehouse_name'] ?? '';
     }
 
     public function export(){
@@ -238,10 +238,9 @@ class InvItemStockController extends Controller
 
             $sheet->setCellValue('B1', "Stock Barang Periode ".date('d M Y'));	
             $sheet->setCellValue('B3', "No");
-            $sheet->setCellValue('C3', "Batch Number");
-            $sheet->setCellValue('D3', "Kategori");
-            $sheet->setCellValue('E3', "Barang");
-            // $sheet->setCellValue('F3', "Grade");
+            $sheet->setCellValue('C3', "Kategori");
+            $sheet->setCellValue('D3', "Barang");
+            $sheet->setCellValue('E3', "Batch Number");
             $sheet->setCellValue('F3', "Qty");
             $sheet->setCellValue('G3', "Unit");
             $sheet->setCellValue('H3', "Gudang");
@@ -253,15 +252,19 @@ class InvItemStockController extends Controller
             
             $j  = 4;
             $no = 1;
+            if(count($invitemstock)==0){
+                $lastno = 2;
+                $lastj = 4;
+               }else{
             foreach($invitemstock as $key => $val){
                 $sheet = $spreadsheet->getActiveSheet(0);
                 $spreadsheet->getActiveSheet()->setTitle("Stock Barang");
                 $spreadsheet->getActiveSheet()->getStyle('B'.$j.':M'.$j)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                 $sheet->setCellValue('B'.$j, $no);
-                $sheet->setCellValue('C'.$j, $val['item_batch_number']);
-                $sheet->setCellValue('D'.$j, $this->getInvItemCategoryName($val['item_category_id']));
-                $sheet->setCellValue('E'.$j, $this->getInvItemTypeName($val['item_type_id']));
-                $sheet->setCellValue('F'.$j, $val['item_total']);
+                $sheet->setCellValue('C'.$j, $this->getInvItemCategoryName($val['item_category_id']));
+                $sheet->setCellValue('D'.$j, $this->getInvItemTypeName($val['item_type_id']));
+                $sheet->setCellValue('E'.$j, $val['item_batch_number']);
+                $sheet->setCellValue('F'.$j, $val['quantity_unit']);
                 $sheet->setCellValue('G'.$j, $this->getInvItemUnitName($val['item_unit_id']));
                 $sheet->setCellValue('H'.$j, $this->getInvWarehouseName($val['warehouse_id']));
                 $sheet->setCellValue('I'.$j, $val['purchase_order_no']);
@@ -277,9 +280,33 @@ class InvItemStockController extends Controller
 
                 $no++;
                 $j++;
+                $lastno = $no;
+                $lastj = $j;
             }
-            
-            // ob_clean();
+
+           
+            $sheet = $spreadsheet->getActiveSheet(0);
+            $spreadsheet->getActiveSheet()->getStyle('B'.$lastj.':M'.$lastj)->getBorders()->getOutline()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $sheet->setCellValue('B' . $lastj , 'Jumlah Total:');
+            $sumrangeQty = 'F'. $lastno - 1 .':F'.$j;
+            $sheet->setCellValue('H' . $lastj , '=SUM('.$sumrangeQty.')');
+
+            $sheet->setCellValue('F' . $lastj + 1, 'Mengetahui');
+            $sheet->setCellValue('K' . $lastj + 1, 'Dibuat Oleh');
+
+
+            $spreadsheet->getActiveSheet()->getStyle('E'.$lastj + 5)->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $spreadsheet->getActiveSheet()->getStyle('H'.$lastj + 5)->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $spreadsheet->getActiveSheet()->getStyle('K'.$lastj + 5)->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+           
+           
+            $sheet->setCellValue('E' . $lastj + 5, 'Apoteker');
+            $sheet->setCellValue('H' . $lastj + 5, 'Administrasi Pajak');
+            $sheet->setCellValue('K' . $lastj + 5, 'Dibuat Oleh');
+
+        }
+        
+            ob_clean();
             $filename='Stock Barang '.date('d M Y').'.xls';
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
             header('Content-Disposition: attachment;filename="'.$filename.'"');
