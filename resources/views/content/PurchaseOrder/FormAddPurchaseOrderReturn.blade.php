@@ -1,7 +1,7 @@
 @inject('PurchaseOrderReturn', 'App\Http\Controllers\PurchaseOrderReturnController')
 @extends('adminlte::page')
 
-@section('title', 'PBF | Koperasi Menjangan Enam')
+@section('title', 'Tripta Tri Tunggal')
 <link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @section('js')

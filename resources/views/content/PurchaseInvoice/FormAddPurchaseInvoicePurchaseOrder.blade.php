@@ -1,7 +1,7 @@
 @inject('PurchaseInvoice', 'App\Http\Controllers\PurchaseInvoiceController')
 @extends('adminlte::page')
 
-@section('title', 'PBF | Koperasi Menjangan Enam')
+@section('title', 'Tripta Tri Tunggal')
 <link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 @section('js')
 <script>
