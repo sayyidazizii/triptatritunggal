@@ -2,7 +2,7 @@
 
 @extends('adminlte::page')
 
-@section('title', 'PBF | Koperasi Menjangan Enam')
+@section('title', 'Tripta Tri Tunggal')
 @section('js')
 <script>
       function function_elements_add(name, value){

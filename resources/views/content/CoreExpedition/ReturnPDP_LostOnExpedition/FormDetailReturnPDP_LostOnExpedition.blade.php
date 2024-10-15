@@ -1,7 +1,7 @@
 @inject('ReturnPDP_LostOnExpedition', 'App\Http\Controllers\ReturnPDP_LostOnExpedition_Controller')
 @extends('adminlte::page')
 
-@section('title', 'PBF | Koperasi Menjangan Enam')
+@section('title', 'Tripta Tri Tunggal')
 <link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 
 @section('js')

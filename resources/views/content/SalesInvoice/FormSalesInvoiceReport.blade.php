@@ -14,7 +14,7 @@
 </script>
 @stop
 
-@section('title', 'PBF | Koperasi Menjangan Enam')
+@section('title', 'Tripta Tri Tunggal')
 <link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 
 @section('content_header')
