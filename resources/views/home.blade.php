@@ -22,53 +22,7 @@ Dashboard
 @stop --}}
 
 @section('content')
-
-    <br>
-    <div class="alert alert-info ">
-        <a href="#" class="close" style="text-decoration:none" data-dismiss="alert" aria-label="close">&times;</a>
-        Notifikasi Jatuh Tempo Invoice
-        <div class="modal-body">
-            <div class="row">
-                <div class="col">
-                    <table class="table table-bordered table-hover">
-                        <p>Purchase Invoice</p>
-                        <tr>
-                            <td>Nomor invoice</td>
-                            <td>Jatuh Tempo</td>
-                        </tr>
-                        @foreach ($purchaseinvoice as $item)
-                            <tr>
-                                <td>{{ $item->purchase_invoice_no }}</td>
-                                <td>{{ $item->purchase_invoice_due_date }}</td>
-                            </tr>
-                        @endforeach
-                    </table>
-                    {{ $purchaseinvoice->links() }}
-                </div>
-                <div class="col">
-                    <table class="table table-bordered table-hover">
-                        <p>Sales Invoice</p>
-                        <tr>
-                            <td>Nomor invoice</td>
-                            <td>Jatuh Tempo</td>
-                        </tr>
-                        @foreach ($salesinvoice as $item)
-                            <tr>
-                                <td>{{ $item->sales_invoice_no }}</td>
-                                <td>{{ $item->sales_invoice_due_date }}</td>
-                            </tr>
-                        @endforeach
-                    </table>
-                    {{ $salesinvoice->links() }}
-                </div>
-            </div>
-            <br>
-            <div class="modal-footer">
-                {{-- <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-primary btn-sm" style="margin-right: -3%">Tambah</button> --}}
-            </div>
-        </div>
-    </div>
+    
     <br>
     <div class="card border border-dark">
         <div class="card-header border-dark bg-dark">
