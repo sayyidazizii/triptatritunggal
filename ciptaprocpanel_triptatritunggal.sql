@@ -12,10 +12,6 @@ MySQL - 8.0.30 : Database - ciptaprocpanel_triptatritunggal
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`ciptaprocpanel_triptatritunggal` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-
-USE `ciptaprocpanel_triptatritunggal`;
-
 /*Table structure for table `acct_account` */
 
 DROP TABLE IF EXISTS `acct_account`;
@@ -18256,99 +18252,66 @@ CREATE TABLE `system_menu_mapping` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`menu_mapping_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=186 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=301 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `system_menu_mapping` */
 
 insert  into `system_menu_mapping`(`menu_mapping_id`,`user_group_level`,`id_menu`,`created_at`,`updated_at`) values 
-(96,1,'0','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(99,1,'1','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(100,1,'11','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(101,1,'111','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(102,1,'112','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(103,1,'113','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(104,1,'114','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(105,1,'115','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(106,1,'116','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(107,1,'12','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(108,1,'121','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(109,1,'122','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(110,1,'123','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(111,1,'124','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(112,1,'125','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(113,1,'126','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(114,1,'127','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(115,1,'128','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(116,1,'14','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(117,1,'15','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(118,1,'16','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(119,1,'2','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(120,1,'21','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(121,1,'211','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(122,1,'22','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(123,1,'221','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(124,1,'222','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(125,1,'23','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(126,1,'231','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(127,1,'3','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(128,1,'31','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(129,1,'311','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(130,1,'312','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(131,1,'32','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(132,1,'321','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(133,1,'322','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(134,1,'33','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(135,1,'331','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(136,1,'4','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(137,1,'41','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(138,1,'411','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(139,1,'42','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(140,1,'421','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(141,1,'422','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(142,1,'5','2024-10-15 04:38:04','2024-10-15 04:38:04'),
-(143,1,'51','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(144,1,'6','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(145,1,'61','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(146,1,'611','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(147,1,'612','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(148,1,'613','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(149,1,'614','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(150,1,'62','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(151,1,'621','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(152,1,'622','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(153,1,'623','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(154,1,'7','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(155,1,'71','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(156,1,'711','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(157,1,'72','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(158,1,'721','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(159,1,'73','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(160,1,'8','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(161,1,'81','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(162,1,'129','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(163,1,'130','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(164,1,'131','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(165,1,'17','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(166,1,'241','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(167,1,'34','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(168,1,'43','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(169,1,'44','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(170,1,'615','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(171,1,'616','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(172,1,'617','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(173,1,'618','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(174,1,'624','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(175,1,'625','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(176,1,'45','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(177,1,'74','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(178,1,'75','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(179,1,'63','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(180,1,'722','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(181,1,'723','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(182,1,'724','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(183,1,'82','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(184,1,'24','2024-10-15 04:38:05','2024-10-15 04:38:05'),
-(185,1,'240','2024-10-15 04:38:05','2024-10-15 04:38:05');
+(244,1,'0','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(247,1,'1','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(248,1,'11','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(249,1,'111','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(250,1,'112','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(251,1,'113','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(252,1,'115','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(253,1,'12','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(254,1,'121','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(255,1,'122','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(256,1,'14','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(257,1,'15','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(258,1,'16','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(259,1,'2','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(260,1,'21','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(261,1,'211','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(262,1,'22','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(263,1,'221','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(264,1,'222','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(265,1,'23','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(266,1,'231','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(267,1,'3','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(268,1,'31','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(269,1,'311','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(270,1,'32','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(271,1,'321','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(272,1,'322','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(273,1,'33','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(274,1,'331','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(275,1,'4','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(276,1,'41','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(277,1,'411','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(278,1,'42','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(279,1,'421','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(280,1,'422','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(281,1,'7','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(282,1,'71','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(283,1,'711','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(284,1,'72','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(285,1,'721','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(286,1,'73','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(287,1,'8','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(288,1,'81','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(289,1,'17','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(290,1,'241','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(291,1,'34','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(292,1,'43','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(293,1,'617','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(294,1,'618','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(295,1,'625','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(296,1,'45','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(297,1,'74','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(298,1,'75','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(299,1,'24','2024-10-15 04:45:03','2024-10-15 04:45:03'),
+(300,1,'240','2024-10-15 04:45:03','2024-10-15 04:45:03');
 
 /*Table structure for table `system_user` */
 
@@ -18412,7 +18375,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_bank_disbursement` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_bank_disbursement` BEFORE INSERT ON `acct_bank_disbursement` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_bank_disbursement` BEFORE INSERT ON `acct_bank_disbursement` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -18467,7 +18430,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_bank_receipt` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_bank_receipt` BEFORE INSERT ON `acct_bank_receipt` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_bank_receipt` BEFORE INSERT ON `acct_bank_receipt` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -18521,7 +18484,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_cash_disbursement` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_cash_disbursement` BEFORE INSERT ON `acct_cash_disbursement` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_cash_disbursement` BEFORE INSERT ON `acct_cash_disbursement` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -18576,7 +18539,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_cash_receipt` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_cash_receipt` BEFORE INSERT ON `acct_cash_receipt` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_cash_receipt` BEFORE INSERT ON `acct_cash_receipt` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -18630,7 +18593,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_check_disbursement` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_check_disbursement` BEFORE INSERT ON `acct_check_disbursement` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_check_disbursement` BEFORE INSERT ON `acct_check_disbursement` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -18685,7 +18648,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_check_receipt` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_check_receipt` BEFORE INSERT ON `acct_check_receipt` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_check_receipt` BEFORE INSERT ON `acct_check_receipt` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -18739,7 +18702,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_journal_voucher` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_journal_voucher` BEFORE INSERT ON `acct_journal_voucher` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_journal_voucher` BEFORE INSERT ON `acct_journal_voucher` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -18785,7 +18748,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_journal_voucher_item` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_journal_voucher_item` BEFORE INSERT ON `acct_journal_voucher_item` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_journal_voucher_item` BEFORE INSERT ON `acct_journal_voucher_item` FOR EACH ROW BEGIN
 	declare nAccountIDDefaultStatus		decimal(1);
 	
 	declare nBranchID 		int(5);
@@ -18857,7 +18820,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `update_acct_journal_voucher_item` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `update_acct_journal_voucher_item` BEFORE UPDATE ON `acct_journal_voucher_item` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `update_acct_journal_voucher_item` BEFORE UPDATE ON `acct_journal_voucher_item` FOR EACH ROW BEGIN
 	DECLARE nAccountIDDefaultStatus		DECIMAL(1);
 	
 	DECLARE nBranchID 			INT(5);
@@ -18932,7 +18895,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_goods_received_note` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_goods_received_note` BEFORE INSERT ON `inv_goods_received_note` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_inv_goods_received_note` BEFORE INSERT ON `inv_goods_received_note` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -19023,7 +18986,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_item_stock_card_in` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_item_stock_card_in` AFTER INSERT ON `inv_goods_received_note_item` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_inv_item_stock_card_in` AFTER INSERT ON `inv_goods_received_note_item` FOR EACH ROW BEGIN
 	DECLARE nOpeningBalance 		DECIMAL(20,5); 
 	DECLARE nLastOpeningBalance 		DECIMAL(20,5);  
 	DECLARE nLastBalance	 		DECIMAL(20,5);
@@ -19115,7 +19078,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_warehouse_in` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_in` BEFORE INSERT ON `inv_warehouse_in` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_inv_warehouse_in` BEFORE INSERT ON `inv_warehouse_in` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -19206,7 +19169,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_warehouse_out` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_out` BEFORE INSERT ON `inv_warehouse_out` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_inv_warehouse_out` BEFORE INSERT ON `inv_warehouse_out` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -19297,7 +19260,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_warehouse_transfer` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_transfer` BEFORE INSERT ON `inv_warehouse_transfer` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_inv_warehouse_transfer` BEFORE INSERT ON `inv_warehouse_transfer` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -19388,7 +19351,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_warehouse_transfer_received_note` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_transfer_received_note` BEFORE INSERT ON `inv_warehouse_transfer_received_note` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_inv_warehouse_transfer_received_note` BEFORE INSERT ON `inv_warehouse_transfer_received_note` FOR EACH ROW BEGIN
 	DECLARE year_period 				VARCHAR(20);
 	DECLARE month_period 				VARCHAR(20);
 	DECLARE PERIOD 					VARCHAR(20);
@@ -19479,7 +19442,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_purchase_invoice` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_purchase_invoice` BEFORE INSERT ON `purchase_invoice` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_purchase_invoice` BEFORE INSERT ON `purchase_invoice` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -19570,7 +19533,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_purchase_order` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_purchase_order` BEFORE INSERT ON `purchase_order` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_purchase_order` BEFORE INSERT ON `purchase_order` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -19661,7 +19624,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_purchase_order_return` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_purchase_order_return` BEFORE INSERT ON `purchase_order_return` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_purchase_order_return` BEFORE INSERT ON `purchase_order_return` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -19752,7 +19715,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_purchase_payment` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_purchase_payment` BEFORE INSERT ON `purchase_payment` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_purchase_payment` BEFORE INSERT ON `purchase_payment` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -19843,7 +19806,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_collection` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_collection` BEFORE INSERT ON `sales_collection` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_collection` BEFORE INSERT ON `sales_collection` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -19934,7 +19897,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_delivery_note` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_delivery_note` BEFORE INSERT ON `sales_delivery_note` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_delivery_note` BEFORE INSERT ON `sales_delivery_note` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -20025,7 +19988,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_delivery_order` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_delivery_order` BEFORE INSERT ON `sales_delivery_order` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_delivery_order` BEFORE INSERT ON `sales_delivery_order` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -20116,7 +20079,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_invoice` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_invoice` BEFORE INSERT ON `sales_invoice` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_invoice` BEFORE INSERT ON `sales_invoice` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -20207,7 +20170,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_order` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_order` BEFORE INSERT ON `sales_order` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_order` BEFORE INSERT ON `sales_order` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -20298,7 +20261,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_order_return` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_order_return` BEFORE INSERT ON `sales_order_return` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_order_return` BEFORE INSERT ON `sales_order_return` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
