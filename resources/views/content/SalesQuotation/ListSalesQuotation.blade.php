@@ -1,4 +1,4 @@
-@inject('SalesOrder', 'App\Http\Controllers\SalesOrderController')
+@inject('SalesQuotation ', 'App\Http\Controllers\SalesQuotationController')
 
 @extends('adminlte::page')
 
@@ -10,7 +10,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Daftar Sales Order</li>
+        <li class="breadcrumb-item active" aria-current="page">Daftar Sales Quotation</li>
     </ol>
 </nav>
 
@@ -19,11 +19,11 @@
 @section('content')
 
 <h3 class="page-title">
-    <b>Daftar Sales Order</b> <small>Mengelola Sales Order</small>
+    <b>Daftar Sales Quotation</b> <small>Mengelola Sales Quotation</small>
 </h3>
 <br/>
 <div id="accordion">
-    <form  method="post" action="{{route('filter-sales-order')}}" enctype="multipart/form-data">
+    <form  method="post" action="{{route('filter-sales-quotation')}}" enctype="multipart/form-data">
     @csrf
         <div class="card border border-dark">
         <div class="card-header bg-dark" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -60,7 +60,7 @@
             </div>
             <div class="card-footer text-muted">
                 <div class="form-actions float-right">
-                    <a href="{{route('filter-reset-sales-order')}}" type="reset" name="Reset" class="btn btn-danger btn-sm" onClick="window.location.reload();"><i class="fa fa-times"></i> Batal</a>
+                    <a href="{{route('filter-reset-sales-quotation')}}" type="reset" name="Reset" class="btn btn-danger btn-sm" onClick="window.location.reload();"><i class="fa fa-times"></i> Batal</a>
                     <button type="submit" name="Find" class="btn btn-primary btn-sm" title="Search Data"><i class="fa fa-search"></i> Cari</button>
                 </div>
             </div>
@@ -80,7 +80,7 @@
             Daftar
         </h5>
         <div class="form-actions float-right">
-            <button onclick="location.href='{{ url('sales-order/add') }}'" name="Find" class="btn btn-sm btn-info" title="Add Data"><i class="fa fa-plus"></i> Tambah Sales Order Baru</button>
+            <button onclick="location.href='{{ url('sales-quotation/add') }}'" name="Find" class="btn btn-sm btn-info" title="Add Data"><i class="fa fa-plus"></i> Tambah Sales Quotation Baru</button>
         </div>
     </div>
 
@@ -91,64 +91,54 @@
                     <tr>
                         <th width="2%" style='text-align:center'>No.</th>
                         <th width="20%" style='text-align:center'>Nama Pelanggan</th>
-                        <th width="20%" style='text-align:center'>No SO</th>
-                        <th width="10%" style='text-align:center'>Tanggal SO</th>
+                        <th width="20%" style='text-align:center'>No SQ</th>
+                        <th width="10%" style='text-align:center'>Tanggal SQ</th>
                         <th width="10%" style='text-align:center'>Po. Customer</th>
                         <th width="15%" style='text-align:center'>Status</th>
                         <th width="15%" style='text-align:center'>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $no = 1; ?>
-                    @foreach($salesorder as $item)
+                    @php $no = 1; @endphp
+
+                    @foreach($salesquotation as $item)
                     <tr>
                         <td style='text-align:center'>{{$no}}.</td>
-                        <td>{{$SalesOrder->getCoreCustomerName($item['customer_id'])}}</td>
+                        <td>{{$SalesQuotation->getCoreCustomerName($item['customer_id'])}}</td>
                         <td>{{$item['sales_order_no']}}</td>
                         <td>{{date('d/m/Y', strtotime($item['sales_order_date']))}}</td>
                         <td>{{$item['purchase_order_no']}}</td>
-                        <?php 
-                        if($item['approved']==2){
-                            ?>
-                            <td>Tidak Disetujui</td>
-                            <?php 
-                        }else if($item['sales_order_status']==0){
-                            ?>
-                            <td>Dalam Proses</td>
-                        <?php
-                        }else if($item['sales_order_status']==1) {
-                            ?>
-                            <td>Sebagian diterima</td>
-                            <?php
-                        }else if($item['sales_order_status']==2) {
-                            ?>
-                            <td>Intransit</td>
-                            <?php
-                        }else if($item['sales_order_status']==3) {
-                            ?>
-                            <td>Sudah Diterima</td>
-                            <?php
-                        }else{
-                            ?>
-                            <td></td>
-                            <?php
-                        }
-                        ?>
-                        <td class="" style='text-align:center'>
-                            <a type="button" class="btn btn-outline-primary btn-sm" href="{{ url('/sales-order/detail/'.$item['sales_order_id']) }}">Detail</a>
-                            <?php if($item['approved']==0){ ?>
-                                <a type="button" class="btn btn-outline-danger btn-sm" href="{{ url('/sales-order/delete/'.$item['sales_order_id']) }}">Hapus</a>
-                            <?php }else if($item['approved']==1){ ?>
-                                <a type="button" class="btn btn-outline-success btn-sm">Approved</a>
-                            <?php }else if($item['approved']==2){ ?>
-                                <a type="button" class="btn btn-outline-danger btn-sm">Disapproved</a>
-                            <?php } ?>
-                            <?php if($item['sales_order_type_id']==1){ ?>
-                                <a type="button" class="btn btn-outline-info btn-sm" href="{{ url('/sales-order/kwitansi/'.$item['sales_order_id']) }}">Kwitansi</a>
-                            <?php } ?>
-                        </td>
+                            @if($item['approved'] == 2)
+                                <td>Tidak Disetujui</td>
+                            @elseif($item['sales_order_status'] == 0)
+                                <td>Dalam Proses</td>
+                            @elseif($item['sales_order_status'] == 1)
+                                <td>Sebagian diterima</td>
+                            @elseif($item['sales_order_status'] == 2)
+                                <td>Intransit</td>
+                            @elseif($item['sales_order_status'] == 3)
+                                <td>Sudah Diterima</td>
+                            @else
+                                <td></td>
+                            @endif
+                            <td class="" style='text-align:center'>
+                                <a type="button" class="btn btn-outline-primary btn-sm" href="{{ url('/sales-order/detail/'.$item['sales_order_id']) }}">Detail</a>
+                                
+                                @if($item['approved'] == 0)
+                                    <a type="button" class="btn btn-outline-danger btn-sm" href="{{ url('/sales-order/delete/'.$item['sales_order_id']) }}">Hapus</a>
+                                @elseif($item['approved'] == 1)
+                                    <a type="button" class="btn btn-outline-success btn-sm">Approved</a>
+                                @elseif($item['approved'] == 2)
+                                    <a type="button" class="btn btn-outline-danger btn-sm">Disapproved</a>
+                                @endif
+                                
+                                @if($item['sales_order_type_id'] == 1)
+                                    <a type="button" class="btn btn-outline-info btn-sm" href="{{ url('/sales-order/kwitansi/'.$item['sales_order_id']) }}">Kwitansi</a>
+                                @endif
+                            </td>
+                            
                     </tr>
-                    <?php $no++; ?>
+                    @php $no++; @endphp
                     @endforeach
                 </tbody>
             </table>

@@ -48,28 +48,18 @@ class SalesOrderController extends Controller
      */
     public function index()
     {
-        if(!Session::get('start_date')){
-            $start_date     = date('Y-m-d');
-        }else{
-            $start_date = Session::get('start_date');
-        }
-
-        if(!Session::get('end_date')){
-            $end_date     = date('Y-m-d');
-        }else{
-            $end_date = Session::get('end_date');
-        }
-
+        $start_date = Session::get('start_date', date('Y-m-d'));
+        $end_date = Session::get('end_date', date('Y-m-d'));
+    
         Session::put('editarraystate', 0);
         Session::forget('salesorderitem');
         Session::forget('salesorderelements');
-
-        $salesorder = SalesOrder::where('data_state','=',0)
-        ->where('sales_order_date', '>=', $start_date)
-        ->where('sales_order_date', '<=', $end_date)
-        ->get();
-
-        return view('content/SalesOrder/ListSalesOrder',compact('salesorder', 'start_date', 'end_date'));
+    
+        $salesorder = SalesOrder::where('data_state','=', 0)
+            ->whereBetween('sales_order_date', [$start_date, $end_date])
+            ->get();
+    
+        return view('content/SalesOrder/ListSalesOrder', compact('salesorder', 'start_date', 'end_date'));
     }
 
     public function addSalesOrder()
@@ -78,25 +68,10 @@ class SalesOrderController extends Controller
         $salesorderitem      = Session::get('salesorderitem');
 
         
-        // $invitem = InvItem::select('inv_item.item_id', DB::raw('CONCAT(inv_item_category.item_category_name, " ", inv_item_type.item_type_name) AS item_name'))
-        // ->join('inv_item_category', 'inv_item_category.item_category_id', 'inv_item.item_category_id')
-        // ->join('inv_item_type', 'inv_item_type.item_type_id', 'inv_item.item_type_id')
-        // ->join('inv_item_stock', 'inv_item_stock.item_id', 'inv_item.item_id')
-        // ->where('inv_item.data_state','=',0)
-        // ->where('inv_item_stock.item_total', '>', 0)
-        // ->pluck('item_name','inv_item.item_id');
-        // $p = 9;
-        // $invitemstock = InvItemStock::where('inv_item_stock.data_state','=',0)
-        // ->where('item_type_id', $p)
-        // ->sum('item_total');
-
-        // dd($invitemstock);
-
         $invitemtype = InvItemType::where('inv_item_type.data_state','=',0)
         ->select('*')
         ->join('inv_item_category', 'inv_item_category.item_category_id', 'inv_item_type.item_category_id')
         ->join('inv_item_stock', 'inv_item_type.item_type_id', 'inv_item_stock.item_type_id')
-       // ->where('inv_item_stock.item_total', '>', 0)
         ->pluck('inv_item_type.item_type_name','inv_item_type.item_type_id');
 
         $warehouse          = InvWarehouse::where('data_state','=',0)->pluck('warehouse_name', 'warehouse_id');
@@ -110,8 +85,6 @@ class SalesOrderController extends Controller
 
         $null_item_type_id = Session::get('item_type_id');
         $ppnOut            = PreferenceCompany::select('ppn_amount_out')->first();
-        //dd($salesorderelements);
-        //Session::forget('salesorderitem');
 
         return view('content/SalesOrder/FormAddSalesOrder',compact('ppnOut','null_item_type_id', 'warehouse', 'customer', 'itemcategory', 'itemtype', 'salesorderitem', 'itemunit', 'salesorderelements', 'invitemtype', 'coreprovince', 'corecity', 'salesordertype'));
     }

@@ -12,6 +12,10 @@ MySQL - 8.0.30 : Database - ciptaprocpanel_triptatritunggal
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`ciptaprocpanel_triptatritunggal` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+
+USE `ciptaprocpanel_triptatritunggal`;
+
 /*Table structure for table `acct_account` */
 
 DROP TABLE IF EXISTS `acct_account`;
@@ -604,7 +608,7 @@ CREATE TABLE `acct_account_balance` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`account_balance_id`),
   KEY `FK_acct_account_balance_account_id` (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `acct_account_balance` */
 
@@ -681,9 +685,13 @@ insert  into `acct_account_balance`(`account_balance_id`,`company_id`,`branch_id
 (70,2,0,302,2932102633.00,3,NULL,'2024-06-22 13:25:04'),
 (71,2,0,324,0.00,3,NULL,'2024-06-22 13:25:04'),
 (72,2,0,239,0.00,3,NULL,'2024-06-22 15:03:01'),
-(73,2,0,82,-43655304.00,75,NULL,'2024-08-02 10:50:05'),
+(73,2,0,82,-43505304.00,75,NULL,'2024-08-02 10:50:05'),
 (74,2,0,106,-4802083.00,75,NULL,'2024-08-02 10:50:05'),
-(75,2,0,205,-48457387.00,75,NULL,'2024-08-02 10:50:05');
+(75,2,0,205,-48457387.00,75,NULL,'2024-08-02 10:50:05'),
+(76,2,0,42,150446.00,3,NULL,'2024-10-17 12:41:44'),
+(77,2,0,338,150000.00,3,NULL,'2024-10-17 12:41:44'),
+(78,2,0,238,446.00,3,NULL,'2024-10-17 12:41:44'),
+(79,2,0,390,150000.00,3,NULL,'2024-10-17 12:41:44');
 
 /*Table structure for table `acct_account_balance_detail` */
 
@@ -711,7 +719,7 @@ CREATE TABLE `acct_account_balance_detail` (
   `created_id` int DEFAULT NULL,
   PRIMARY KEY (`account_balance_detail_id`),
   KEY `FK_acct_account_balance_detail_account_id` (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `acct_account_balance_detail` */
 
@@ -790,7 +798,12 @@ insert  into `acct_account_balance_detail`(`account_balance_detail_id`,`branch_i
 (72,0,2,65,'JU','2024-06-22',4,239,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,NULL,'2024-06-22 15:03:01',3),
 (73,0,2,20,'GRN','2024-06-20',5,82,0.00,0.00,43655304.00,0.00,0.00,0.00,0.00,-43655304.00,NULL,'2024-08-02 10:50:05',75),
 (74,0,2,20,'GRN','2024-06-20',5,106,0.00,0.00,4802083.00,0.00,0.00,0.00,0.00,-4802083.00,NULL,'2024-08-02 10:50:05',75),
-(75,0,2,20,'GRN','2024-06-20',5,205,0.00,0.00,48457387.00,0.00,0.00,0.00,0.00,-48457387.00,NULL,'2024-08-02 10:50:05',75);
+(75,0,2,20,'GRN','2024-06-20',5,205,0.00,0.00,48457387.00,0.00,0.00,0.00,0.00,-48457387.00,NULL,'2024-08-02 10:50:05',75),
+(76,0,2,63,'PPP','2024-10-20',8,42,0.00,150446.00,0.00,0.00,0.00,0.00,0.00,150446.00,NULL,'2024-10-17 12:41:44',3),
+(77,0,2,63,'PPP','2024-10-20',8,338,0.00,150000.00,0.00,0.00,0.00,0.00,0.00,150000.00,NULL,'2024-10-17 12:41:44',3),
+(78,0,2,63,'PPP','2024-10-20',8,238,0.00,446.00,0.00,0.00,0.00,0.00,0.00,446.00,NULL,'2024-10-17 12:41:44',3),
+(79,0,2,63,'PPP','2024-10-20',8,390,0.00,150000.00,0.00,0.00,0.00,0.00,0.00,150000.00,NULL,'2024-10-17 12:41:44',3),
+(80,0,2,63,'PPP','2024-10-20',8,82,-43655304.00,150000.00,0.00,0.00,0.00,0.00,0.00,-43505304.00,NULL,'2024-10-17 12:41:44',3);
 
 /*Table structure for table `acct_account_mutation` */
 
@@ -1799,7 +1812,7 @@ CREATE TABLE `acct_journal_voucher` (
   KEY `transaction_journal_no` (`transaction_journal_no`),
   KEY `project_id` (`project_id`),
   KEY `project_type_id` (`project_type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `acct_journal_voucher` */
 
@@ -1809,7 +1822,8 @@ insert  into `acct_journal_voucher`(`journal_voucher_id`,`company_id`,`branch_id
 (4,2,1,0,0,65,0,'',NULL,'0003/JV/VI/2024',202406,'2024-06-22',NULL,'1fe9402610079e83c1916b18c60739b7',NULL,1,'JU',0,0,NULL,0,0,NULL,NULL,0,3,'2024-06-22 08:03:01','2024-06-22 08:03:01',0),
 (5,2,1,0,0,20,34,'0016/IGRN/VI/2024','Pembelian 0016/IGRN/VI/2024','0004/JV/VI/2024',202406,'2024-06-20',NULL,NULL,NULL,1,'GRN',0,0,NULL,0,0,NULL,NULL,0,75,'2024-08-02 03:50:04','2024-08-02 03:50:04',0),
 (6,2,1,0,0,20,35,'0017/IGRN/VI/2024','Pembelian 0017/IGRN/VI/2024','0005/JV/VI/2024',202406,'2024-06-26',NULL,NULL,NULL,1,'GRN',0,0,NULL,0,0,NULL,NULL,0,75,'2024-08-02 03:51:58','2024-08-02 03:51:58',0),
-(7,2,1,0,0,20,36,'0018/IGRN/VI/2024','Pembelian 0018/IGRN/VI/2024','0006/JV/VI/2024',202406,'2024-06-26',NULL,NULL,NULL,1,'GRN',0,0,NULL,0,0,NULL,NULL,0,75,'2024-08-02 03:57:16','2024-08-02 03:57:16',0);
+(7,2,1,0,0,20,36,'0018/IGRN/VI/2024','Pembelian 0018/IGRN/VI/2024','0006/JV/VI/2024',202406,'2024-06-26',NULL,NULL,NULL,1,'GRN',0,0,NULL,0,0,NULL,NULL,0,75,'2024-08-02 03:57:16','2024-08-02 03:57:16',0),
+(8,2,1,0,0,63,1689,'1231212','Penjualan Atas Produk KIMIA FARMA - 2222','0007/JV/X/2024',202410,'2024-10-20','dada',NULL,NULL,1,'PPP',0,0,NULL,0,0,NULL,NULL,0,3,'2024-10-17 05:41:44','2024-10-17 05:41:44',0);
 
 /*Table structure for table `acct_journal_voucher_item` */
 
@@ -1837,7 +1851,7 @@ CREATE TABLE `acct_journal_voucher_item` (
   UNIQUE KEY `journal_voucher_item_token_void` (`journal_voucher_item_token_void`),
   KEY `FK_acct_journal_voucher_item_journal_voucher_id` (`journal_voucher_id`) USING BTREE,
   KEY `FK_acct_journal_voucher_item_account_id` (`account_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `acct_journal_voucher_item` */
 
@@ -1916,7 +1930,12 @@ insert  into `acct_journal_voucher_item`(`journal_voucher_item_id`,`journal_vouc
 (72,4,2,239,NULL,0.02,1,1,0.02,0.00,'1fe9402610079e83c1916b18c60739b720240622080258239',NULL,0,'2024-06-22 08:03:01','2024-06-22 08:03:01',0),
 (73,5,2,82,NULL,43655304.00,1,0,43655304.00,0.00,NULL,NULL,0,'2024-08-02 03:50:05','2024-08-02 03:50:05',0),
 (74,5,2,106,NULL,4802083.44,1,0,4802083.44,0.00,NULL,NULL,0,'2024-08-02 03:50:05','2024-08-02 03:50:05',0),
-(75,5,2,205,NULL,48457387.44,0,1,0.00,48457387.44,NULL,NULL,0,'2024-08-02 03:50:05','2024-08-02 03:50:05',0);
+(75,5,2,205,NULL,48457387.44,0,1,0.00,48457387.44,NULL,NULL,0,'2024-08-02 03:50:05','2024-08-02 03:50:05',0),
+(76,8,2,42,'dada',150445.50,0,0,150445.50,0.00,NULL,NULL,0,'2024-10-17 05:41:44','2024-10-17 05:41:44',0),
+(77,8,2,338,'dada',150000.00,1,1,0.00,150000.00,NULL,NULL,0,'2024-10-17 05:41:44','2024-10-17 05:41:44',0),
+(78,8,2,238,'dada',445.50,1,1,0.00,445.50,NULL,NULL,0,'2024-10-17 05:41:44','2024-10-17 05:41:44',0),
+(79,8,2,390,'dada',150000.00,0,1,150000.00,0.00,NULL,NULL,0,'2024-10-17 05:41:44','2024-10-17 05:41:44',0),
+(80,8,2,82,'dada',150000.00,0,0,0.00,150000.00,NULL,NULL,0,'2024-10-17 05:41:44','2024-10-17 05:41:44',0);
 
 /*Table structure for table `acct_journal_voucher_type` */
 
@@ -2464,7 +2483,7 @@ CREATE TABLE `buyers_acknowledgment` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`buyers_acknowledgment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=270 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=271 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `buyers_acknowledgment` */
 
@@ -2681,7 +2700,8 @@ insert  into `buyers_acknowledgment`(`buyers_acknowledgment_id`,`sales_delivery_
 (266,1040,1033,42,1047,0,105,'D24-014808','2024-04-19',NULL,1,0,75,'2024-06-12 08:06:06','2024-06-12 08:06:06'),
 (267,722,715,42,722,0,105,'C24-010542','2024-03-19',NULL,1,0,75,'2024-06-12 08:07:22','2024-06-12 08:07:22'),
 (268,1104,1096,42,1110,0,103,'D24-029448','2024-04-24',NULL,1,0,75,'2024-06-12 08:08:19','2024-06-12 08:08:19'),
-(269,1085,1077,42,1091,0,107,'D24-021640','2024-04-17',NULL,1,0,75,'2024-06-12 08:09:18','2024-06-12 08:09:18');
+(269,1085,1077,42,1091,0,107,'D24-021640','2024-04-17',NULL,1,0,75,'2024-06-12 08:09:18','2024-06-12 08:09:18'),
+(270,1689,1683,42,1696,0,176,'1231212','2024-10-20','dada',0,0,3,'2024-10-17 05:41:44','2024-10-17 05:41:44');
 
 /*Table structure for table `buyers_acknowledgment_item` */
 
@@ -2710,7 +2730,7 @@ CREATE TABLE `buyers_acknowledgment_item` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`buyers_acknowledgment_item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=426 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=427 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `buyers_acknowledgment_item` */
 
@@ -3058,7 +3078,8 @@ insert  into `buyers_acknowledgment_item`(`buyers_acknowledgment_item_id`,`buyer
 (422,266,1040,1483,1047,1509,NULL,NULL,1,1,1580,1,432,432,3977,4300,1857600,0,75,'2024-06-12 08:06:06','2024-06-12 08:06:06'),
 (423,267,722,1028,722,1034,NULL,NULL,2,29,1119,5,36,36,32271,36800,1324800,0,75,'2024-06-12 08:07:22','2024-06-12 08:07:22'),
 (424,268,1104,1564,1110,1586,NULL,NULL,1,1,1660,1,1008,1008,4300,4300,4334400,0,75,'2024-06-12 08:08:19','2024-06-12 08:08:19'),
-(425,269,1085,1538,1091,1564,NULL,NULL,1,1,1635,1,432,432,4300,4300,1857600,0,75,'2024-06-12 08:09:18','2024-06-12 08:09:18');
+(425,269,1085,1538,1091,1564,NULL,NULL,1,1,1635,1,432,432,4300,4300,1857600,0,75,'2024-06-12 08:09:18','2024-06-12 08:09:18'),
+(426,270,1689,2221,1696,2251,NULL,NULL,2,24,2315,5,10,10,15000,500,5000,0,3,'2024-10-17 05:41:44','2024-10-17 05:41:44');
 
 /*Table structure for table `core_agency` */
 
@@ -3704,7 +3725,7 @@ CREATE TABLE `core_customer` (
   KEY `customer_id` (`customer_id`),
   KEY `FK_core_customer_province_id` (`province_id`),
   KEY `FK_core_customer_city_id` (`city_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=176 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=177 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `core_customer` */
 
@@ -3883,7 +3904,8 @@ insert  into `core_customer`(`customer_id`,`province_id`,`city_id`,`customer_cod
 (172,71,1041,'PT. INTI CAKRAWALA MAJU','PT. INTI CAKRAWALA MAJU DC PURWOKERTO',NULL,'JL. RAYA GERILYA BARAT, TANJUNG\r\nKEDUNGWRINGIN, PURWOKERTO -\r\nSELATAN, PATIKRAJA, BANYUMAS',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-05-04 02:18:42','2024-05-04 02:18:42',NULL),
 (173,76,1148,'PT. INDOMARCO PRISMATAMA','PT.INDOMARCO PRISMATAMA DC SAMARINDA',NULL,'JL. EKONOMI    NO 1\r\nDESA LOA BUAH. KEC,SUNGAI KUNJANG\r\nKODYA SAMARINDA\r\n0541-7770734',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-06-11 02:16:57','2024-06-11 02:16:57',NULL),
 (174,91,1354,'PT. INTI CAKRAWALA MAJU','PT.INTI CAKRAWALA MAJU. DC KENDARI',NULL,'JL MADUSILA NO.19 KEC POASIA\r\nKEL.ANDUONOHU\r\nKENDARI SULAWESI TENGGARA',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-06-11 03:21:02','2024-06-11 03:21:02',NULL),
-(175,71,1048,'ICM SEMARANG','PT.INTI CAKRAWALA MAJU. DC SEMARANG',NULL,'JL.RAYA KALIGAWE NO.38 RT.01/01\r\nTERBOYO WETAN,GENUK,SEMARANG,JAWA TENGAH\r\n50112',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-07-02 03:13:37','2024-07-02 03:13:37',NULL);
+(175,71,1048,'ICM SEMARANG','PT.INTI CAKRAWALA MAJU. DC SEMARANG',NULL,'JL.RAYA KALIGAWE NO.38 RT.01/01\r\nTERBOYO WETAN,GENUK,SEMARANG,JAWA TENGAH\r\n50112',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-07-02 03:13:37','2024-07-02 03:13:37',NULL),
+(176,71,1036,'daffa hanaris','daffa hanaris',NULL,'sumbulan lor rt 02 rw 13\r\nmakamhaji','04849484',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,3,'2024-10-17 04:42:38','2024-10-17 04:42:38',NULL);
 
 /*Table structure for table `core_expedition` */
 
@@ -4434,7 +4456,7 @@ CREATE TABLE `inv_item_stock` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`item_stock_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2315 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2316 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `inv_item_stock` */
 
@@ -4897,7 +4919,7 @@ insert  into `inv_item_stock`(`item_stock_id`,`goods_received_note_id`,`goods_re
 (456,25,519,'2024-01-23','2025-10-03','66141051',29,6,'','','','',1,3,0,3,NULL,NULL,NULL,720,10500,0,0,6,'1','115',NULL,'',NULL,0,0,0,0,75,'2024-02-02 02:59:28','2024-05-14 02:43:40'),
 (457,26,520,'2024-01-31','2028-05-23','E30769S',30,6,'','','','',2,24,0,5,NULL,NULL,NULL,8467,15000,0,0,5,'1','-452',NULL,'',NULL,0,0,0,0,75,'2024-02-02 03:03:20','2024-02-22 04:51:37'),
 (458,26,521,'2024-01-31','2028-05-23','B30514S',31,6,'','','','',2,24,0,5,NULL,NULL,NULL,7554,15000,0,0,5,'1','-26',NULL,'',NULL,0,0,0,0,75,'2024-02-02 03:03:20','2024-03-02 08:10:45'),
-(459,26,522,'2024-01-31','2028-05-23','E30772S',32,6,'','','','',2,24,0,5,NULL,NULL,NULL,1979,15000,0,0,5,'1','4726',NULL,'',NULL,0,0,0,0,75,'2024-02-02 03:03:20','2024-03-13 03:40:24'),
+(459,26,522,'2024-01-31','2028-05-23','E30772S',32,6,'','','','',2,24,0,5,NULL,NULL,NULL,1979,15000,0,0,5,'1','4716',NULL,'',NULL,0,0,0,0,75,'2024-02-02 03:03:20','2024-10-17 05:40:23'),
 (460,27,523,'2024-01-31','2025-12-04','L32313N',33,6,'','','','',2,22,0,4,NULL,NULL,NULL,12485,17049,0,0,4,'1','1379',NULL,'',NULL,0,0,0,0,75,'2024-02-02 03:04:27','2024-03-08 01:55:48'),
 (461,23,517,'2024-02-02','2028-12-12','L30323S',27,8,'SFZ1POB24000254','','','',2,32,0,5,NULL,NULL,NULL,2000,20000,0,21200,5,'1','0',NULL,'',NULL,0,0,0,0,75,'2024-02-02 03:34:53','2024-02-15 02:40:28'),
 (462,0,0,'2024-02-02','2025-07-21','66002199',0,8,'CZ01POA24005850','','','',1,1,0,1,NULL,NULL,NULL,0,3557,0,4300,1,'','0',0,'',0,0,0,0,0,3,'2024-02-02 03:35:32','2024-02-20 02:43:05'),
@@ -6752,7 +6774,8 @@ insert  into `inv_item_stock`(`item_stock_id`,`goods_received_note_id`,`goods_re
 (2311,0,0,'2024-08-02','2026-11-01','66002366',0,8,'KZ01POH24000183','','','',1,1,0,1,NULL,NULL,NULL,0,3978,0,4300,1,'','2808',0,'',0,0,0,0,0,3,'2024-08-02 03:49:45','2024-08-02 03:49:45'),
 (2312,0,0,'2024-08-02','2026-11-01','66002366',0,8,'RH7O28200','','','',1,1,0,1,NULL,NULL,NULL,0,3978,0,4300,1,'','720',0,'',0,0,0,0,0,3,'2024-08-02 03:50:02','2024-08-02 03:50:02'),
 (2313,34,531,'2024-06-20','2028-07-24','66127002',85,6,'','','','',1,52,0,3,NULL,NULL,NULL,154,283476,0,0,3,'1','154',NULL,'',NULL,0,0,0,0,75,'2024-08-02 03:50:05','2024-08-02 03:50:05'),
-(2314,0,0,'2024-08-02','2026-11-01','66002366',0,8,'1H8O17727','','','',1,1,0,1,NULL,NULL,NULL,0,3978,0,4300,1,'','1800',0,'',0,0,0,0,0,3,'2024-08-02 03:50:18','2024-08-02 03:50:18');
+(2314,0,0,'2024-08-02','2026-11-01','66002366',0,8,'1H8O17727','','','',1,1,0,1,NULL,NULL,NULL,0,3978,0,4300,1,'','1800',0,'',0,0,0,0,0,3,'2024-08-02 03:50:18','2024-08-02 03:50:18'),
+(2315,26,522,'2024-10-17','2028-05-23','E30772S',32,8,'2222','','','',2,24,0,5,NULL,NULL,NULL,1979,15000,0,500,5,'1','0',NULL,'',NULL,0,0,0,0,75,'2024-10-17 05:40:23','2024-10-17 05:41:44');
 
 /*Table structure for table `inv_item_stock_adjustment` */
 
@@ -6894,7 +6917,7 @@ insert  into `inv_item_stock_card`(`item_stock_card_id`,`item_stock_id`,`section
 (74948,456,0,1,3,6,0,3,0,'66141051','',0,25,1,'INVT_GDS_RCV_NOTE','2024-01-23',0,0,115,605,0,720,0,0,NULL,'2024-02-02 09:59:28','2024-02-02 09:59:28'),
 (74949,457,0,2,24,6,0,5,0,'E30769S','',0,26,1,'INVT_GDS_RCV_NOTE','2024-01-31',0,0,-354,8821,0,8467,0,0,NULL,'2024-02-02 10:03:20','2024-02-02 10:03:20'),
 (74950,458,0,2,24,6,0,5,0,'E30770S','',0,26,1,'INVT_GDS_RCV_NOTE','2024-01-31',0,0,-8041,15595,0,7554,0,0,NULL,'2024-02-02 10:03:20','2024-02-02 10:03:20'),
-(74951,459,0,2,24,6,0,5,0,'E30772S','',0,26,1,'INVT_GDS_RCV_NOTE','2024-01-31',0,0,-3018,4997,0,1979,0,0,NULL,'2024-02-02 10:03:20','2024-02-02 10:03:20'),
+(74951,459,0,2,24,6,0,5,0,'E30772S','',0,26,1,'INVT_GDS_RCV_NOTE','2024-01-31',0,0,-3028,5007,0,1979,0,0,NULL,'2024-02-02 10:03:20','2024-02-02 10:03:20'),
 (74952,460,0,2,22,6,0,4,0,'L32313N','',0,27,1,'INVT_GDS_RCV_NOTE','2024-01-31',0,0,-10621,11106,0,485,0,0,NULL,'2024-02-02 10:04:27','2024-02-02 10:04:27'),
 (74953,460,0,2,22,6,0,4,0,'L32313N','',0,28,1,'INVT_GDS_RCV_NOTE','2024-01-31',485,0,894,11106,0,12485,0,0,NULL,'2024-02-02 10:05:21','2024-02-02 10:05:21'),
 (74954,1189,0,2,24,6,0,5,0,'E30764S','',0,29,1,'INVT_GDS_RCV_NOTE','2024-02-28',0,0,-1206,5992,0,4786,0,0,NULL,'2024-02-29 10:04:58','2024-02-29 10:04:58'),
@@ -8763,7 +8786,7 @@ CREATE TABLE `sales_delivery_note` (
   KEY `FK_sales_delivery_note_sales_delivery_order_id` (`sales_delivery_order_id`),
   KEY `FK_sales_delivery_note_sales_order_id` (`sales_order_id`),
   KEY `FK_sales_delivery_note_warehouse_id` (`warehouse_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1689 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=1690 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_delivery_note` */
 
@@ -10443,7 +10466,8 @@ insert  into `sales_delivery_note`(`sales_delivery_note_id`,`sales_delivery_orde
 (1685,1677,0,1691,8,NULL,NULL,103,16,0.00,'1669/SDN/VIII/2024',0.00,'0','',NULL,'','','','ACHMAD','H123',NULL,'','2024-08-02',0,0,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,75,'2024-08-02 03:34:14','2024-08-02 03:34:14'),
 (1686,1678,0,1692,8,NULL,NULL,40,15,0.00,'1670/SDN/VIII/2024',0.00,'0','',NULL,'','','','SIDIQ','DD 8908 YD',NULL,'','2024-08-02',0,0,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,75,'2024-08-02 03:49:45','2024-08-02 03:49:45'),
 (1687,1679,0,1693,8,NULL,NULL,77,15,0.00,'1671/SDN/VIII/2024',0.00,'0','',NULL,'','','','SIDIQ','DD 8908 YD',NULL,'','2024-08-02',0,0,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,75,'2024-08-02 03:50:02','2024-08-02 03:50:02'),
-(1688,1680,0,1694,8,NULL,NULL,29,15,0.00,'1672/SDN/VIII/2024',0.00,'0','',NULL,'','','','SIDIQ','DD 8908 YD',NULL,'','2024-08-02',0,0,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,75,'2024-08-02 03:50:18','2024-08-02 03:50:18');
+(1688,1680,0,1694,8,NULL,NULL,29,15,0.00,'1672/SDN/VIII/2024',0.00,'0','',NULL,'','','','SIDIQ','DD 8908 YD',NULL,'','2024-08-02',0,0,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,75,'2024-08-02 03:50:18','2024-08-02 03:50:18'),
+(1689,1683,0,1696,8,NULL,NULL,176,11,0.00,'1673/SDN/X/2024',0.00,'12121212','',NULL,'','','','sayyid','AD 8080 HA',NULL,'','2024-10-19',0,0,'dada',0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,1,0,3,'2024-10-17 05:40:23','2024-10-17 05:41:44');
 
 /*Table structure for table `sales_delivery_note_item` */
 
@@ -10486,7 +10510,7 @@ CREATE TABLE `sales_delivery_note_item` (
   KEY `account_id_hpp` (`hpp_account_id`),
   KEY `section_id` (`section_id`),
   KEY `FK_sales_delivery_note_item_sales_delivery_note_id` (`sales_delivery_note_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2221 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2222 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_delivery_note_item` */
 
@@ -12694,7 +12718,8 @@ insert  into `sales_delivery_note_item`(`sales_delivery_note_item_id`,`sales_del
 (2217,1685,1691,2246,1677,2218,0,0,0,0,NULL,1,1,1,'288.00','288.00','1','1.728',NULL,NULL,NULL,0,0,4300.00,1106990.28,0.00,0,75,'2024-08-02 03:34:14','2024-08-02 03:34:14'),
 (2218,1686,1692,2247,1678,2219,0,0,0,0,NULL,1,1,1,'2808.00','2808.00','1','16.848',NULL,NULL,NULL,0,0,4300.00,10574004.87,0.00,0,75,'2024-08-02 03:49:45','2024-08-02 03:49:45'),
 (2219,1687,1693,2248,1679,2220,0,0,0,0,NULL,1,1,1,'720.00','720.00','1','4.32',NULL,NULL,NULL,0,0,4300.00,2863800.00,0.00,0,75,'2024-08-02 03:50:02','2024-08-02 03:50:02'),
-(2220,1688,1694,2249,1680,2221,0,0,0,0,NULL,1,1,1,'1800.00','1800.00','1','10.8',NULL,NULL,NULL,0,0,4300.00,6982254.00,0.00,0,75,'2024-08-02 03:50:18','2024-08-02 03:50:18');
+(2220,1688,1694,2249,1680,2221,0,0,0,0,NULL,1,1,1,'1800.00','1800.00','1','10.8',NULL,NULL,NULL,0,0,4300.00,6982254.00,0.00,0,75,'2024-08-02 03:50:18','2024-08-02 03:50:18'),
+(2221,1689,1696,2251,1683,2224,0,0,0,0,NULL,24,5,5,'10.00','10.00','1','0.7',NULL,NULL,NULL,0,0,500.00,4050.00,0.00,0,3,'2024-10-17 05:40:23','2024-10-17 05:40:23');
 
 /*Table structure for table `sales_delivery_note_item_stock` */
 
@@ -12727,7 +12752,7 @@ CREATE TABLE `sales_delivery_note_item_stock` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_delivery_note_item_stock_id`),
   KEY `FK_sales_delivery_note_item_stock_sales_delivery_note_id` (`sales_delivery_note_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2127 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2128 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_delivery_note_item_stock` */
 
@@ -14843,7 +14868,8 @@ insert  into `sales_delivery_note_item_stock`(`sales_delivery_note_item_stock_id
 (2123,1691,2246,1677,2218,2208,1685,2217,NULL,NULL,1,2310,1,NULL,'288','1','288',0,NULL,'1.728',0,75,'2024-08-02 03:34:14','2024-08-02 03:34:14'),
 (2124,1692,2247,1678,2219,2209,1686,2218,NULL,NULL,1,2311,1,NULL,'2808','1','2808',0,NULL,'16.848',0,75,'2024-08-02 03:49:45','2024-08-02 03:49:45'),
 (2125,1693,2248,1679,2220,2210,1687,2219,NULL,NULL,1,2312,1,NULL,'720','1','720',0,NULL,'4.32',0,75,'2024-08-02 03:50:02','2024-08-02 03:50:02'),
-(2126,1694,2249,1680,2221,2211,1688,2220,NULL,NULL,1,2314,1,NULL,'1800','1','1800',0,NULL,'10.8',0,75,'2024-08-02 03:50:18','2024-08-02 03:50:18');
+(2126,1694,2249,1680,2221,2211,1688,2220,NULL,NULL,1,2314,1,NULL,'1800','1','1800',0,NULL,'10.8',0,75,'2024-08-02 03:50:18','2024-08-02 03:50:18'),
+(2127,1696,2251,1683,2224,2213,1689,2221,NULL,NULL,24,2315,5,NULL,'10','1','10',0,NULL,'0.7',0,3,'2024-10-17 05:40:23','2024-10-17 05:40:23');
 
 /*Table structure for table `sales_delivery_order` */
 
@@ -14872,7 +14898,7 @@ CREATE TABLE `sales_delivery_order` (
   `updated_remark` text,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_delivery_order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1681 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=1685 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_delivery_order` */
 
@@ -16547,7 +16573,11 @@ insert  into `sales_delivery_order`(`sales_delivery_order_id`,`warehouse_id`,`sa
 (1677,6,1691,'1668/SDO/VIII/2024','2024-08-02',0,NULL,1,NULL,0,1,0,75,'2024-08-02 03:33:52',0,NULL,NULL,0,NULL,NULL,'2024-08-02 03:34:14'),
 (1678,6,1692,'1669/SDO/VIII/2024','2024-08-02',0,NULL,1,NULL,0,1,0,75,'2024-08-02 03:45:58',0,NULL,NULL,0,NULL,NULL,'2024-08-02 03:49:45'),
 (1679,6,1693,'1670/SDO/VIII/2024','2024-08-02',0,NULL,1,NULL,0,1,0,75,'2024-08-02 03:46:17',0,NULL,NULL,0,NULL,NULL,'2024-08-02 03:50:02'),
-(1680,6,1694,'1671/SDO/VIII/2024','2024-08-02',0,NULL,1,NULL,0,1,0,75,'2024-08-02 03:46:34',0,NULL,NULL,0,NULL,NULL,'2024-08-02 03:50:18');
+(1680,6,1694,'1671/SDO/VIII/2024','2024-08-02',0,NULL,1,NULL,0,1,0,75,'2024-08-02 03:46:34',0,NULL,NULL,0,NULL,NULL,'2024-08-02 03:50:18'),
+(1681,6,1695,'1672/SDO/X/2024','2024-10-17',0,'da',0,NULL,0,1,0,3,'2024-10-17 05:29:21',0,NULL,NULL,0,NULL,NULL,'2024-10-17 05:29:21'),
+(1682,6,1695,'1673/SDO/X/2024','2024-10-17',0,'da',0,NULL,0,1,1,3,'2024-10-17 05:29:52',0,NULL,NULL,0,NULL,NULL,'2024-10-17 05:32:50'),
+(1683,6,1696,'1674/SDO/X/2024','2024-10-17',0,'da',1,NULL,0,1,0,3,'2024-10-17 05:32:38',0,NULL,NULL,0,NULL,NULL,'2024-10-17 05:40:23'),
+(1684,6,1697,'1675/SDO/X/2024','2024-10-17',0,'dada',0,NULL,0,1,1,3,'2024-10-17 05:35:14',0,NULL,NULL,0,NULL,NULL,'2024-10-17 05:35:49');
 
 /*Table structure for table `sales_delivery_order_item` */
 
@@ -16577,7 +16607,7 @@ CREATE TABLE `sales_delivery_order_item` (
   `voided_remark` text,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_delivery_order_item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2222 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2226 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_delivery_order_item` */
 
@@ -18789,7 +18819,11 @@ insert  into `sales_delivery_order_item`(`sales_delivery_order_item_id`,`sales_d
 (2218,1677,1691,2246,0,103,0,1,'',1,'288.00','288.00',4300,1106990.28,0,0,75,'2024-08-02 03:33:52',0,NULL,NULL,'2024-08-02 03:33:52'),
 (2219,1678,1692,2247,0,40,0,1,'',1,'2808.00','2808.00',4300,10574004.87,0,0,75,'2024-08-02 03:45:58',0,NULL,NULL,'2024-08-02 03:45:58'),
 (2220,1679,1693,2248,0,77,0,1,'',1,'720.00','720.00',4300,2863800.00,0,0,75,'2024-08-02 03:46:17',0,NULL,NULL,'2024-08-02 03:46:17'),
-(2221,1680,1694,2249,0,29,0,1,'',1,'1800.00','1800.00',4300,6982254.00,0,0,75,'2024-08-02 03:46:34',0,NULL,NULL,'2024-08-02 03:46:34');
+(2221,1680,1694,2249,0,29,0,1,'',1,'1800.00','1800.00',4300,6982254.00,0,0,75,'2024-08-02 03:46:34',0,NULL,NULL,'2024-08-02 03:46:34'),
+(2222,1681,1695,2250,0,176,0,3,'',3,'500.00','500.00',5000,2025000.00,0,0,3,'2024-10-17 05:29:21',0,NULL,NULL,'2024-10-17 05:29:21'),
+(2223,1682,1695,2250,0,176,0,3,'',3,'500.00','500.00',5000,2025000.00,0,1,3,'2024-10-17 05:29:52',0,NULL,NULL,'2024-10-17 05:32:50'),
+(2224,1683,1696,2251,0,176,0,5,'',24,'10.00','10.00',500,4050.00,0,0,3,'2024-10-17 05:32:38',0,NULL,NULL,'2024-10-17 05:32:38'),
+(2225,1684,1697,2252,0,176,0,4,'',22,'20.00','20.00',2000,32400.00,0,1,3,'2024-10-17 05:35:14',0,NULL,NULL,'2024-10-17 05:35:49');
 
 /*Table structure for table `sales_delivery_order_item_composition` */
 
@@ -18868,7 +18902,7 @@ CREATE TABLE `sales_delivery_order_item_stock` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_delivery_order_item_stock_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2212 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2214 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `sales_delivery_order_item_stock` */
 
@@ -21069,7 +21103,9 @@ insert  into `sales_delivery_order_item_stock`(`sales_delivery_order_item_stock_
 (2208,1691,2246,1677,2218,1,42,288,0,75,'2024-08-02 03:33:52','2024-08-02 03:33:52'),
 (2209,1692,2247,1678,2219,1,42,2808,0,75,'2024-08-02 03:45:58','2024-08-02 03:45:58'),
 (2210,1693,2248,1679,2220,1,42,720,0,75,'2024-08-02 03:46:17','2024-08-02 03:46:17'),
-(2211,1694,2249,1680,2221,1,42,1800,0,75,'2024-08-02 03:46:34','2024-08-02 03:46:34');
+(2211,1694,2249,1680,2221,1,42,1800,0,75,'2024-08-02 03:46:34','2024-08-02 03:46:34'),
+(2212,1695,2250,1682,2223,3,456,50,1,3,'2024-10-17 05:29:52','2024-10-17 05:32:50'),
+(2213,1696,2251,1683,2224,5,459,10,0,3,'2024-10-17 05:32:38','2024-10-17 05:32:38');
 
 /*Table structure for table `sales_delivery_order_item_stock_temporary` */
 
@@ -21089,7 +21125,7 @@ CREATE TABLE `sales_delivery_order_item_stock_temporary` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_delivery_order_item_stock_temporary_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4762 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4764 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `sales_delivery_order_item_stock_temporary` */
 
@@ -21494,7 +21530,7 @@ CREATE TABLE `sales_order` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_order_id`),
   KEY `sales_order_id` (`sales_order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1695 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=1698 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_order` */
 
@@ -23183,7 +23219,10 @@ insert  into `sales_order`(`sales_order_id`,`sales_order_type_id`,`customer_id`,
 (1691,2,103,0,'','1682/SO/VIII/2024','SFZ1POH24000175','2024-08-02','2024-08-02',2,0.00,0,0,0,0,0,1,0.00,0,0.00,NULL,NULL,288.00,0.00,0.00,0.00,1228759.21,0.00,0.00,1228759.21,0,0.00,1228759.21,0.00,0,1,0,0,'2024-08-02 03:33:19',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-08-02 03:34:17'),
 (1692,2,40,0,'','1683/SO/VIII/2024','KZ01POH24000183','2024-08-02','2024-08-02',2,0.00,0,0,0,0,0,1,0.00,0,0.00,NULL,NULL,2808.00,0.00,0.00,0.00,11737145.41,0.00,0.00,11737145.41,0,0.00,11737145.41,0.00,0,1,0,0,'2024-08-02 03:40:41',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-08-02 03:49:49'),
 (1693,2,77,0,'','1684/SO/VIII/2024','RH7O28200','2024-08-02','2024-08-02',2,0.00,0,0,0,0,0,1,0.00,0,0.00,NULL,NULL,720.00,0.00,0.00,0.00,3178818.00,0.00,0.00,3178818.00,0,0.00,3178818.00,0.00,0,1,0,0,'2024-08-02 03:42:00',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-08-02 03:50:05'),
-(1694,2,29,0,'','1685/SO/VIII/2024','1H8O17727','2024-08-02','2024-08-02',2,0.00,0,0,0,0,0,1,0.00,0,0.00,NULL,NULL,1800.00,0.00,0.00,0.00,7750301.94,0.00,0.00,7750301.94,0,0.00,7750301.94,0.00,0,1,0,0,'2024-08-02 03:44:34',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-08-02 03:50:22');
+(1694,2,29,0,'','1685/SO/VIII/2024','1H8O17727','2024-08-02','2024-08-02',2,0.00,0,0,0,0,0,1,0.00,0,0.00,NULL,NULL,1800.00,0.00,0.00,0.00,7750301.94,0.00,0.00,7750301.94,0,0.00,7750301.94,0.00,0,1,0,0,'2024-08-02 03:44:34',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-08-02 03:50:22'),
+(1695,2,176,0,'','1686/SO/X/2024','12231313','2024-10-17','2024-10-18',0,0.00,0,0,0,0,0,1,0.00,0,0.00,'da',NULL,500.00,0.00,0.00,0.00,2247750.00,0.00,0.00,2247750.00,0,0.00,2247750.00,0.00,0,1,0,0,'2024-10-17 05:28:04',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-10-17 05:29:21'),
+(1696,2,176,0,'','1687/SO/X/2024','2222','2024-10-17','2024-10-19',3,0.00,0,0,0,0,0,1,0.00,0,0.00,'da',NULL,10.00,0.00,0.00,0.00,4495.50,0.00,0.00,4495.50,0,0.00,4495.50,0.00,0,1,0,0,'2024-10-17 05:31:56',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-10-17 05:41:44'),
+(1697,2,176,0,'','1688/SO/X/2024','101010','2024-10-17','2024-10-19',0,0.00,0,0,0,0,0,1,0.00,0,0.00,'dad',NULL,20.00,0.00,0.00,0.00,35964.00,0.00,0.00,35964.00,0,0.00,35964.00,0.00,0,1,0,0,'2024-10-17 05:34:41',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-10-17 05:35:14');
 
 /*Table structure for table `sales_order_item` */
 
@@ -23236,7 +23275,7 @@ CREATE TABLE `sales_order_item` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_order_item_id`),
   KEY `sales_order_item_id` (`sales_order_item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2250 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2253 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_order_item` */
 
@@ -25476,7 +25515,10 @@ insert  into `sales_order_item`(`sales_order_item_id`,`sales_order_id`,`item_cat
 (2246,1691,1,1,288.00,288.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,288.00,0,0.00,1,4300.00,0.00,0,0,0,1,0,0,0,1238400.00,0.00,0.00,'',0,9.25,1.50,114552.00,16857.72,1123848.00,1106990.28,1228759.21,121768.93,0,0,0,'2024-08-02 03:33:19','2024-08-02 03:33:52'),
 (2247,1692,1,1,2808.00,2808.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,2808.00,0,0.00,1,4300.00,0.00,0,0,0,1,0,0,0,12074400.00,0.00,0.00,'',0,9.25,3.50,1116882.00,383513.13,10957518.00,10574004.87,11737145.41,1163140.54,0,0,0,'2024-08-02 03:40:41','2024-08-02 03:45:58'),
 (2248,1693,1,1,720.00,720.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,720.00,0,0.00,1,4300.00,0.00,0,0,0,1,0,0,0,3096000.00,0.00,0.00,'',0,7.50,0.00,232200.00,0.00,2863800.00,2863800.00,3178818.00,315018.00,0,0,0,'2024-08-02 03:42:00','2024-08-02 03:46:17'),
-(2249,1694,1,1,1800.00,1800.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1800.00,0,0.00,1,4300.00,0.00,0,0,0,1,0,0,0,7740000.00,0.00,0.00,'',0,7.00,3.00,541800.00,215946.00,7198200.00,6982254.00,7750301.94,768047.94,0,0,0,'2024-08-02 03:44:34','2024-08-02 03:46:34');
+(2249,1694,1,1,1800.00,1800.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1800.00,0,0.00,1,4300.00,0.00,0,0,0,1,0,0,0,7740000.00,0.00,0.00,'',0,7.00,3.00,541800.00,215946.00,7198200.00,6982254.00,7750301.94,768047.94,0,0,0,'2024-08-02 03:44:34','2024-08-02 03:46:34'),
+(2250,1695,1,3,500.00,1000.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,500.00,0,0.00,3,5000.00,0.00,0,0,0,1,0,0,0,2500000.00,0.00,0.00,'',0,10.00,10.00,250000.00,225000.00,2250000.00,2025000.00,2247750.00,222750.00,0,0,0,'2024-10-17 05:28:04','2024-10-17 05:29:52'),
+(2251,1696,2,24,10.00,10.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,10.00,0,0.00,5,500.00,0.00,0,0,0,1,0,0,0,5000.00,0.00,0.00,'',0,10.00,10.00,500.00,450.00,4500.00,4050.00,4495.50,445.50,0,0,0,'2024-10-17 05:31:56','2024-10-17 05:32:38'),
+(2252,1697,2,22,20.00,20.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,20.00,0,0.00,4,2000.00,0.00,0,0,0,1,0,0,0,40000.00,0.00,0.00,'',0,10.00,10.00,4000.00,3600.00,36000.00,32400.00,35964.00,3564.00,0,0,0,'2024-10-17 05:34:41','2024-10-17 05:35:14');
 
 /*Table structure for table `sales_order_return` */
 
@@ -25557,6 +25599,124 @@ CREATE TABLE `sales_order_type` (
 insert  into `sales_order_type`(`sales_order_type_id`,`sales_order_type_name`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (1,'Kwitansi',0,NULL,NULL,'2023-06-23 10:52:23'),
 (2,'Invoice',0,NULL,NULL,'2023-06-23 10:52:23');
+
+/*Table structure for table `sales_quotation` */
+
+DROP TABLE IF EXISTS `sales_quotation`;
+
+CREATE TABLE `sales_quotation` (
+  `sales_quotation_id` bigint NOT NULL AUTO_INCREMENT,
+  `sales_quotation_type_id` bigint DEFAULT '0',
+  `customer_id` int DEFAULT '0',
+  `salesman_id` int DEFAULT '0',
+  `receipt_image` varchar(500) DEFAULT '',
+  `sales_quotation_no` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT '',
+  `purchase_order_no` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT '0',
+  `sales_quotation_date` date DEFAULT NULL,
+  `sales_quotation_delivery_date` date DEFAULT NULL,
+  `sales_quotation_status` int DEFAULT '0',
+  `sales_quotation_over_limit` decimal(20,2) DEFAULT '0.00',
+  `sales_quotation_over_due_status` int NOT NULL DEFAULT '0',
+  `purchase_order_status` int DEFAULT '0',
+  `work_order_status` int DEFAULT '0' COMMENT '0 : Draft, 1 : Processed',
+  `purchase_requisition_status` int DEFAULT '0',
+  `sales_quotation_design_status` int DEFAULT '0',
+  `sales_delivery_order_status` int DEFAULT '0',
+  `customer_credit_limit_balance` decimal(20,2) DEFAULT '0.00',
+  `sales_invoice_status` int DEFAULT '0',
+  `sales_invoice_last_balance` decimal(20,2) DEFAULT '0.00',
+  `sales_quotation_remark` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci,
+  `sales_quotation_over_remark` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci,
+  `total_item` decimal(10,2) DEFAULT '0.00',
+  `subtotal_before_discount` decimal(20,2) DEFAULT '0.00',
+  `discount_percentage` decimal(20,2) DEFAULT '0.00',
+  `discount_amount` decimal(20,2) DEFAULT '0.00',
+  `subtotal_after_discount` decimal(20,2) DEFAULT '0.00',
+  `ppn_out_percentage` decimal(20,2) DEFAULT '0.00',
+  `ppn_out_amount` decimal(20,2) DEFAULT '0.00',
+  `subtotal_after_ppn_out` decimal(20,2) DEFAULT '0.00',
+  `sales_shipment_status` decimal(1,0) DEFAULT '0',
+  `paid_amount` decimal(20,2) DEFAULT '0.00',
+  `total_amount` decimal(20,2) DEFAULT '0.00',
+  `last_balance` decimal(20,2) DEFAULT '0.00',
+  `counter_edited` decimal(5,0) DEFAULT '0',
+  `branch_id` int DEFAULT NULL,
+  `data_state` int DEFAULT '0',
+  `created_id` int DEFAULT '0',
+  `created_at` datetime DEFAULT NULL,
+  `approved` int DEFAULT '0',
+  `approved_id` int DEFAULT '0',
+  `approved_on` datetime DEFAULT NULL,
+  `approved_remark` text,
+  `closed` int DEFAULT '0',
+  `closed_id` int DEFAULT '0',
+  `closed_on` datetime DEFAULT NULL,
+  `closed_remark` text,
+  `voided_id` int DEFAULT '0',
+  `voided_on` datetime DEFAULT NULL,
+  `voided_remark` text,
+  `customer_no` varchar(50) DEFAULT '',
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`sales_quotation_id`),
+  KEY `sales_order_id` (`sales_quotation_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+
+/*Data for the table `sales_quotation` */
+
+/*Table structure for table `sales_quotation_item` */
+
+DROP TABLE IF EXISTS `sales_quotation_item`;
+
+CREATE TABLE `sales_quotation_item` (
+  `sales_quotation_item_id` bigint NOT NULL AUTO_INCREMENT,
+  `sales_quotation_id` bigint DEFAULT '0',
+  `item_category_id` int DEFAULT NULL,
+  `item_type_id` int DEFAULT '0',
+  `quantity` decimal(10,2) DEFAULT '0.00',
+  `quantity_delivered` decimal(10,2) DEFAULT '0.00',
+  `quantity_shipped` decimal(10,2) DEFAULT '0.00',
+  `quantity_planned` decimal(10,2) DEFAULT '0.00',
+  `quantity_outstanding` decimal(10,2) DEFAULT '0.00',
+  `quantity_received` decimal(10,2) DEFAULT '0.00',
+  `quantity_ordered` decimal(10,2) DEFAULT '0.00',
+  `quantity_cavity` decimal(10,2) DEFAULT '0.00',
+  `quantity_minimum` decimal(10,2) DEFAULT '0.00',
+  `quantity_resulted` decimal(10,2) DEFAULT '0.00',
+  `sales_quotation_item_status` int DEFAULT '0',
+  `item_substance_price` decimal(10,2) DEFAULT '0.00',
+  `item_unit_id` int DEFAULT NULL,
+  `item_unit_price` decimal(10,2) DEFAULT '0.00',
+  `item_unit_price_adds` decimal(10,2) DEFAULT '0.00',
+  `purchase_requisition_status` int DEFAULT '0',
+  `purchase_order_status` int DEFAULT '0',
+  `work_order_status` int DEFAULT '0',
+  `sales_delivery_order_status` int NOT NULL DEFAULT '0',
+  `sales_delivery_note_status` int DEFAULT '0',
+  `sales_invoice_status` int DEFAULT '0',
+  `quantity_minimum_status` int DEFAULT '0',
+  `subtotal_amount` decimal(20,2) DEFAULT '0.00',
+  `subtotal_additional_amount` decimal(20,2) DEFAULT '0.00',
+  `subtotal_item_amount` decimal(20,2) DEFAULT '0.00',
+  `sales_quotation_no` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT '',
+  `sales_quotation_status` int DEFAULT '0',
+  `discount_percentage_item` decimal(10,2) DEFAULT '0.00',
+  `discount_percentage_item_b` decimal(10,2) DEFAULT NULL,
+  `discount_amount_item` decimal(10,2) DEFAULT '0.00',
+  `discount_amount_item_b` decimal(10,2) DEFAULT NULL,
+  `subtotal_after_discount_item_a` decimal(10,2) DEFAULT '0.00',
+  `subtotal_after_discount_item_b` decimal(10,2) DEFAULT NULL,
+  `total_price_after_ppn_amount` decimal(20,2) NOT NULL,
+  `ppn_amount_item` decimal(20,2) NOT NULL,
+  `record_id` bigint DEFAULT '0',
+  `data_state` int DEFAULT '0',
+  `created_id` int DEFAULT '0',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`sales_quotation_item_id`),
+  KEY `sales_order_item_id` (`sales_quotation_item_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+
+/*Data for the table `sales_quotation_item` */
 
 /*Table structure for table `system_log_user` */
 
@@ -25824,15 +25984,13 @@ CREATE TABLE `system_menu` (
   `indent_level` int DEFAULT NULL,
   `text` varchar(50) DEFAULT NULL,
   `image` varchar(50) DEFAULT NULL,
-  `last_update` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `last_update` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_menu`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `system_menu` */
 
 insert  into `system_menu`(`id_menu`,`id`,`type`,`indent_level`,`text`,`image`,`last_update`) values 
-('0','#','folder',1,'System',NULL,'2023-06-23 10:52:23'),
-('01','system-user-group','file',2,'System User Group',NULL,'2023-06-23 10:52:23'),
-('02','system-user','file',2,'System User',NULL,'2023-06-23 10:52:23'),
 ('1','#','folder',1,'Persediaan',NULL,'2023-06-23 10:52:23'),
 ('11','#','folder',2,'Preferensi Produk',NULL,'2023-06-23 10:52:23'),
 ('111','inv-item','file',3,'Barang',NULL,'2023-06-23 10:52:23'),
@@ -25850,9 +26008,13 @@ insert  into `system_menu`(`id_menu`,`id`,`type`,`indent_level`,`text`,`image`,`
 ('126','warehouse-out-type','file',3,'Tipe Pengeluaran Barang Gudang',NULL,'2023-06-23 10:52:23'),
 ('127','warehouse-out-requisition','file',3,'Pengeluaran Barang Gudang',NULL,'2023-06-23 10:52:23'),
 ('128','warehouse-out-approval','file',3,'Persetujuan Pengeluaran Barang Gudang',NULL,'2023-06-23 10:52:23'),
+('129','warehouse-in-type','file',3,'Tipe Penambahan Barang Gudang',NULL,'2023-06-23 10:52:23'),
+('130','warehouse-in-requisition','file',3,'Penambahan Barang Gudang',NULL,'2023-06-23 10:52:23'),
+('131','warehouse-in-approval','file',3,'Persetujuan Penambahan Barang Gudang',NULL,'2023-06-23 10:52:23'),
 ('14','goods-received-note','file',2,'Penerimaan Barang',NULL,'2023-06-23 10:52:23'),
 ('15','item-stock','file',2,'Stock Barang',NULL,'2023-06-23 10:52:23'),
 ('16','item-stock-adjustment','file',2,'Penyesuaian Stock Barang',NULL,'2023-06-23 10:52:23'),
+('17','item-stock-card','file',2,'Kartu Stock',NULL,'2023-06-23 10:52:23'),
 ('2','#','folder',1,'Pembelian',NULL,'2023-06-23 10:52:23'),
 ('21','#','folder',2,'Preferensi',NULL,'2023-06-23 10:52:23'),
 ('211','supplier','file',3,'Pemasok',NULL,'2023-06-23 10:52:23'),
@@ -25861,21 +26023,33 @@ insert  into `system_menu`(`id_menu`,`id`,`type`,`indent_level`,`text`,`image`,`
 ('222','purchase-order-approval','file',3,'Persetujuan Purchase Order',NULL,'2023-06-23 10:52:23'),
 ('23','#','folder',2,'Invoice',NULL,'2023-06-23 10:52:23'),
 ('231','purchase-invoice','file',3,'Inovice Pembelian',NULL,'2023-06-23 10:52:23'),
+('24','#','folder',2,'Laporan',NULL,'2023-07-26 15:36:17'),
+('240','purchase-order-return-report','file',3,'Laporan Retur Pembelian',NULL,'2023-07-26 15:40:54'),
+('241','purchase-order-return','file',2,'Return Pembelian',NULL,'2023-06-23 10:52:23'),
 ('3','#','folder',1,'Penjualan',NULL,'2023-06-23 10:52:23'),
 ('31','#','folder',2,'Preferensi',NULL,'2023-06-23 10:52:23'),
 ('311','customer','file',3,'Pelanggan',NULL,'2023-06-23 10:52:23'),
 ('312','agency','file',3,'Agensi',NULL,'2023-06-23 10:52:23'),
-('32','#','folder',2,'Order',NULL,'2023-06-23 10:52:23'),
-('321','sales-order','file',3,'Sales Order',NULL,'2023-06-23 10:52:23'),
-('322','sales-order-approval','file',3,'Persetujuan Sales Order',NULL,'2023-06-23 10:52:23'),
-('33','#','folder',2,'Invoice',NULL,'2023-06-23 10:52:23'),
-('331','sales-invoice','file',3,'Invoice Penjualan',NULL,'2023-06-23 10:52:23'),
+('32','#','folder',2,'Quotation',NULL,'2024-10-17 13:36:10'),
+('321','sales-quotation','file',3,'Quotation',NULL,'2024-10-17 13:36:46'),
+('33','#','folder',2,'Order',NULL,'2024-10-17 11:26:56'),
+('331','sales-order','file',3,'Sales Order',NULL,'2024-10-17 11:26:59'),
+('332','sales-order-approval','file',3,'Persetujuan Sales Order',NULL,'2024-10-17 11:27:01'),
+('34','#','folder',2,'Invoice',NULL,'2024-10-17 11:26:51'),
+('341','sales-invoice','file',3,'Invoice Penjualan',NULL,'2024-10-17 11:26:48'),
+('35','#','folder',2,'Laporan',NULL,'2024-10-17 11:26:43'),
+('351','sales-invoice-report','file',3,'Laporan Penjualan',NULL,'2024-10-17 11:26:41'),
+('36','sales-order-return','file',2,'Return Penjualan',NULL,'2024-10-17 11:26:38'),
+('37','print-kwitansi','file',2,'Cetak Kwitansi',NULL,'2024-10-17 11:26:35'),
 ('4','#','folder',1,'Expedisi',NULL,'2023-06-23 10:52:23'),
 ('41','#','folder',2,'Preferensi',NULL,'2023-06-23 10:52:23'),
 ('411','expedition','file',3,'Expedisi',NULL,'2023-06-23 10:52:23'),
 ('42','#','folder',2,'Sales Delivery',NULL,'2023-06-23 10:52:23'),
 ('421','sales-delivery-order','file',3,'Sales Delivery Order',NULL,'2023-06-23 10:52:23'),
 ('422','sales-delivery-note','file',3,'Sales Delivery Note',NULL,'2023-06-23 10:52:23'),
+('43','return-pdp','file',2,'Return Perjalanan',NULL,'2023-07-14 09:16:00'),
+('44','return-pdp-lost-on-expedition','file',2,'PDP Hilang Di Expedisi',NULL,'2023-06-23 10:52:23'),
+('45','buyers-acknowledgment','file',2,'Penerimaan Pihak Pembeli',NULL,'2023-09-01 11:15:34'),
 ('5','#','folder',1,'Produksi',NULL,'2023-06-23 10:52:23'),
 ('51','grading','file',2,'Grading',NULL,'2023-06-23 10:52:23'),
 ('6','#','folder',1,'Keuangan',NULL,'2023-06-23 10:52:23'),
@@ -25884,354 +26058,115 @@ insert  into `system_menu`(`id_menu`,`id`,`type`,`indent_level`,`text`,`image`,`
 ('612','cash-disbursement','file',3,'Pengeluaran Kas',NULL,'2023-06-23 10:52:23'),
 ('613','bank-receipt','file',3,'Penerimaan Bank',NULL,'2023-06-23 10:52:23'),
 ('614','bank-disbursement','file',3,'Pengeluaran Bank',NULL,'2023-06-23 10:52:23'),
+('615','check-receipt','file',3,'Penerimaan Giro',NULL,'2023-06-23 10:52:23'),
+('616','check-disbursement','file',3,'Pengeluaran Giro',NULL,'2023-06-23 10:52:23'),
+('617','purchase-payment','file',3,'Pelunasan Hutang',NULL,'2023-06-23 10:52:23'),
+('618','sales-collection','file',3,'Pelunasan Piutang',NULL,'2023-06-23 10:52:23'),
+('619','sales-discount-collection','file',3,'Pelunasan Piutang Diskon',NULL,'2023-12-11 12:09:13'),
 ('62','#','folder',2,'Laporan',NULL,'2023-06-23 10:52:23'),
 ('621','report-cash-receipt','file',3,'Laporan Penerimaan Kas',NULL,'2023-06-23 10:52:23'),
 ('622','report-cash-disbursement','file',3,'Laporan Pengeluaran Kas',NULL,'2023-06-23 10:52:23'),
 ('623','report-bank-receipt','file',3,'Laporan Penerimaan Bank',NULL,'2023-06-23 10:52:23'),
+('624','report-bank-disbursement','file',3,'Laporan Pengeluaran Bank',NULL,'2023-06-23 10:52:23'),
+('625','debt-card','file',3,'Kartu Hutang',NULL,'2023-12-27 16:36:38'),
+('626','aging-account-payable','file',3,'Laporan Aging Hutang ',NULL,'2023-12-27 16:41:02'),
+('627','aging-account-receivable','file',3,'Laporan Aging Piutang ',NULL,'2023-12-27 16:40:57'),
+('63','sales-collection-piece','file',2,'Potongan',NULL,'2023-09-06 11:39:36'),
+('64','sales-promotion','file',2,'Cetak Promosi',NULL,'2023-09-06 12:02:42'),
 ('7','#','folder',1,'Akuntansi',NULL,'2023-06-23 10:52:23'),
 ('71','#','folder',2,'Preferensi',NULL,'2023-06-23 10:52:23'),
 ('711','account','file',3,'No. Perkiraan',NULL,'2023-06-23 10:52:23'),
 ('72','#','folder',2,'Jurnal',NULL,'2023-06-23 10:52:23'),
 ('721','journal','file',3,'Jurnal Umum',NULL,'2023-06-23 10:52:23'),
-('73','ledger-report','file',2,'Buku Besar',NULL,'2023-12-07 14:17:07'),
-('8','#','folder',1,'Preference',NULL,'2023-06-23 10:52:23'),
-('81','preference-company','file',2,'Preferensi Perusahaan',NULL,'2023-06-23 10:52:23'),
-('129','warehouse-in-type','file',3,'Tipe Penambahan Barang Gudang',NULL,'2023-06-23 10:52:23'),
-('130','warehouse-in-requisition','file',3,'Penambahan Barang Gudang',NULL,'2023-06-23 10:52:23'),
-('131','warehouse-in-approval','file',3,'Persetujuan Penambahan Barang Gudang',NULL,'2023-06-23 10:52:23'),
-('17','item-stock-card','file',2,'Kartu Stock',NULL,'2023-06-23 10:52:23'),
-('241','purchase-order-return','file',2,'Return Pembelian',NULL,'2023-06-23 10:52:23'),
-('35','sales-order-return','file',2,'Return Penjualan',NULL,'2023-12-27 16:31:44'),
-('43','return-pdp','file',2,'Return Perjalanan',NULL,'2023-07-14 09:16:00'),
-('44','return-pdp-lost-on-expedition','file',2,'PDP Hilang Di Expedisi',NULL,'2023-06-23 10:52:23'),
-('615','check-receipt','file',3,'Penerimaan Giro',NULL,'2023-06-23 10:52:23'),
-('616','check-disbursement','file',3,'Pengeluaran Giro',NULL,'2023-06-23 10:52:23'),
-('617','purchase-payment','file',3,'Pelunasan Hutang',NULL,'2023-06-23 10:52:23'),
-('618','sales-collection','file',3,'Pelunasan Piutang',NULL,'2023-06-23 10:52:23'),
-('624','report-bank-disbursement','file',3,'Laporan Pengeluaran Bank',NULL,'2023-06-23 10:52:23'),
-('625','debt-card','file',3,'Kartu Hutang',NULL,'2023-12-27 16:36:38'),
-('45','buyers-acknowledgment','file',2,'Penerimaan Pihak Pembeli',NULL,'2023-09-01 11:15:34'),
-('74','profit-loss-report','file',2,'PHU',NULL,'2023-06-27 23:07:17'),
-('75','balance-sheet-report','file',2,'Neraca',NULL,'2023-06-23 10:54:43'),
-('63','sales-collection-piece','file',2,'Potongan',NULL,'2023-09-06 11:39:36'),
 ('722','journal-Purchase','file',3,'Jurnal Pembelian',NULL,'2023-07-22 10:49:27'),
 ('723','journal-Sales','file',3,'Jurnal Penjualan',NULL,'2023-07-24 11:35:43'),
 ('724','journal-CashBank','file',3,'Jurnal Kas Dan Bank',NULL,'2023-07-24 14:31:34'),
+('73','ledger-report','file',2,'Buku Besar',NULL,'2023-12-07 14:17:07'),
+('74','profit-loss-report','file',2,'PHU',NULL,'2023-06-27 23:07:17'),
+('75','balance-sheet-report','file',2,'Neraca',NULL,'2023-06-23 10:54:43'),
+('8','#','folder',1,'Preference',NULL,'2023-06-23 10:52:23'),
+('81','preference-company','file',2,'Preferensi Perusahaan',NULL,'2023-06-23 10:52:23'),
 ('82','ppn','file',2,'Setting Default PPN',NULL,'2023-07-24 15:01:41'),
-('24','#','folder',2,'Laporan',NULL,'2023-07-26 15:36:17'),
-('240','purchase-order-return-report','file',3,'Laporan Retur Pembelian',NULL,'2023-07-26 15:40:54'),
-('36','print-kwitansi','file',2,'Cetak Kwitansi',NULL,'2023-12-27 16:31:40'),
-('64','sales-promotion','file',2,'Cetak Promosi',NULL,'2023-09-06 12:02:42'),
-('619','sales-discount-collection','file',3,'Pelunasan Piutang Diskon',NULL,'2023-12-11 12:09:13'),
-('34','#','folder',2,'Laporan',NULL,'2023-12-27 16:31:31'),
-('341','sales-invoice-report','file',3,'Laporan Penjualan',NULL,'2023-12-27 16:32:30'),
-('626','aging-account-payable','file',3,'Laporan Aging Hutang ',NULL,'2023-12-27 16:41:02'),
-('627','aging-account-receivable','file',3,'Laporan Aging Piutang ',NULL,'2023-12-27 16:40:57');
+('9','#','folder',1,'System',NULL,'2024-10-17 11:39:04'),
+('91','system-user-group','file',2,'System User Group',NULL,'2024-10-17 11:39:07'),
+('92','system-user','file',2,'System User',NULL,'2024-10-17 11:39:09');
 
 /*Table structure for table `system_menu_mapping` */
 
 DROP TABLE IF EXISTS `system_menu_mapping`;
 
 CREATE TABLE `system_menu_mapping` (
-  `menu_mapping_id` int NOT NULL,
+  `menu_mapping_id` int NOT NULL AUTO_INCREMENT,
   `user_group_level` int DEFAULT NULL,
   `id_menu` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`menu_mapping_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=1400 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `system_menu_mapping` */
 
 insert  into `system_menu_mapping`(`menu_mapping_id`,`user_group_level`,`id_menu`,`created_at`,`updated_at`) values 
-(297,2,'0','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(300,2,'1','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(301,2,'11','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(303,2,'112','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(304,2,'113','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(306,2,'115','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(308,2,'12','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(309,2,'121','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(310,2,'122','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(311,2,'123','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(312,2,'124','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(313,2,'125','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(314,2,'126','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(315,2,'127','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(316,2,'128','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(317,2,'13','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(318,2,'14','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(319,2,'2','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(320,2,'21','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(321,2,'211','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(322,2,'22','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(323,2,'221','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(324,2,'222','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(325,2,'23','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(326,2,'231','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(327,2,'3','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(328,2,'31','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(329,2,'311','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(330,2,'312','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(331,2,'32','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(332,2,'321','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(333,2,'322','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(334,2,'33','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(335,2,'331','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(336,2,'4','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(337,2,'41','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(338,2,'411','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(339,2,'42','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(340,2,'421','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(341,2,'422','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(344,2,'6','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(345,2,'61','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(346,2,'611','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(347,2,'612','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(348,2,'613','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(349,2,'614','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(350,2,'62','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(351,2,'621','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(352,2,'622','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(353,2,'7','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(354,2,'71','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(355,2,'711','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(356,2,'72','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(357,2,'721','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(358,2,'73','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(359,2,'8','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(360,2,'81','2022-01-11 00:19:24','2023-06-23 10:52:23'),
-(425,4,'14','2022-01-11 00:21:39','2023-06-23 10:52:23'),
-(426,4,'221','2022-01-11 00:21:39','2023-06-23 10:52:23'),
-(427,4,'321','2022-01-11 00:21:39','2023-06-23 10:52:23'),
-(428,4,'33','2022-01-11 00:21:39','2023-06-23 10:52:23'),
-(429,4,'331','2022-01-11 00:21:39','2023-06-23 10:52:23'),
-(430,4,'4','2022-01-11 00:21:39','2023-06-23 10:52:23'),
-(431,4,'421','2022-01-11 00:21:39','2023-06-23 10:52:23'),
-(432,4,'422','2022-01-11 00:21:39','2023-06-23 10:52:23'),
-(435,3,'124','2022-01-11 00:22:14','2023-06-23 10:52:23'),
-(436,3,'125','2022-01-11 00:22:14','2023-06-23 10:52:23'),
-(437,3,'127','2022-01-11 00:22:14','2023-06-23 10:52:23'),
-(438,3,'13','2022-01-11 00:22:14','2023-06-23 10:52:23'),
-(439,3,'14','2022-01-11 00:22:14','2023-06-23 10:52:23'),
-(440,3,'211','2022-01-11 00:22:14','2023-06-23 10:52:23'),
-(441,3,'221','2022-01-11 00:22:14','2023-06-23 10:52:23'),
-(442,3,'311','2022-01-11 00:22:14','2023-06-23 10:52:23'),
-(443,3,'321','2022-01-11 00:22:14','2023-06-23 10:52:23'),
-(444,3,'331','2022-01-11 00:22:14','2023-06-23 10:52:23'),
-(445,3,'421','2022-01-11 00:22:14','2023-06-23 10:52:23'),
-(446,3,'422','2022-01-11 00:22:14','2023-06-23 10:52:23'),
-(447,3,'51','2022-01-11 00:22:14','2023-06-23 10:52:23'),
-(764,1,'0','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(767,1,'1','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(768,1,'11','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(770,1,'112','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(771,1,'113','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(773,1,'115','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(775,1,'12','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(776,1,'121','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(777,1,'122','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(778,1,'123','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(779,1,'124','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(780,1,'125','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(781,1,'126','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(782,1,'127','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(783,1,'128','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(784,1,'13','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(785,1,'14','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(786,1,'2','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(787,1,'21','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(788,1,'211','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(789,1,'22','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(790,1,'221','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(791,1,'222','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(792,1,'23','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(793,1,'231','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(794,1,'3','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(795,1,'31','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(796,1,'311','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(797,1,'312','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(798,1,'32','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(799,1,'321','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(800,1,'322','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(801,1,'33','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(802,1,'331','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(803,1,'4','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(804,1,'41','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(805,1,'411','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(806,1,'42','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(807,1,'421','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(808,1,'422','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(811,1,'6','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(812,1,'61','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(813,1,'611','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(814,1,'612','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(815,1,'613','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(816,1,'614','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(817,1,'62','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(818,1,'621','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(819,1,'622','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(820,1,'7','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(821,1,'71','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(822,1,'711','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(823,1,'72','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(824,1,'721','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(825,1,'73','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(826,1,'8','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(827,1,'81','2022-01-11 03:46:01','2023-06-23 10:52:23'),
-(828,1,'01',NULL,'2023-06-23 10:52:23'),
-(829,2,'01',NULL,'2023-06-23 10:52:23'),
-(831,1,'02',NULL,'2023-06-23 10:52:23'),
-(832,2,'02',NULL,'2023-06-23 10:52:23'),
-(833,5,'02',NULL,'2023-06-23 10:52:23'),
-(834,1,'623','2023-02-02 15:09:50','2023-06-23 10:52:23'),
-(835,1,'15','2023-02-03 16:41:42','2023-06-23 10:52:23'),
-(837,5,'2','2023-02-14 03:32:35','2023-06-23 10:52:23'),
-(838,5,'1','2023-02-14 03:32:35','2023-06-23 10:52:23'),
-(839,5,'11','2023-02-14 03:32:35','2023-06-23 10:52:23'),
-(841,5,'112','2023-02-14 03:32:35','2023-06-23 10:52:23'),
-(842,5,'113','2023-02-14 03:32:35','2023-06-23 10:52:23'),
-(844,5,'115','2023-02-14 03:32:35','2023-06-23 10:52:23'),
-(846,5,'12','2023-02-14 03:32:35','2023-06-23 10:52:23'),
-(847,5,'121','2023-02-14 03:32:35','2023-06-23 10:52:23'),
-(848,5,'122','2023-02-14 03:32:35','2023-06-23 10:52:23'),
-(849,5,'123','2023-02-14 03:32:35','2023-06-23 10:52:23'),
-(850,5,'124','2023-02-14 03:32:35','2023-06-23 10:52:23'),
-(851,5,'125','2023-02-14 03:32:35','2023-06-23 10:52:23'),
-(852,5,'126','2023-02-14 03:32:35','2023-06-23 10:52:23'),
-(853,5,'127','2023-02-14 03:32:35','2023-06-23 10:52:23'),
-(854,5,'128','2023-02-14 03:32:35','2023-06-23 10:52:23'),
-(855,5,'13','2023-02-14 03:32:35','2023-06-23 10:52:23'),
-(856,5,'14','2023-02-14 03:32:35','2023-06-23 10:52:23'),
-(857,5,'2','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(858,5,'21','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(859,5,'211','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(860,5,'22','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(861,5,'221','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(862,5,'222','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(863,5,'23','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(864,5,'231','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(865,5,'3','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(866,5,'31','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(867,5,'311','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(868,5,'312','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(869,5,'32','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(870,5,'321','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(871,5,'322','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(872,5,'33','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(873,5,'331','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(874,5,'4','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(875,5,'41','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(876,5,'411','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(877,5,'42','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(878,5,'421','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(879,5,'422','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(882,5,'6','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(883,5,'61','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(884,5,'611','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(885,5,'612','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(886,5,'613','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(887,5,'614','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(888,5,'62','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(889,5,'621','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(890,5,'622','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(891,5,'7','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(892,5,'71','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(893,5,'711','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(894,5,'72','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(895,5,'721','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(896,5,'73','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(897,5,'8','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(898,5,'81','2023-02-14 03:32:36','2023-06-23 10:52:23'),
-(899,1,'129',NULL,'2023-06-23 10:52:23'),
-(900,1,'130',NULL,'2023-06-23 10:52:23'),
-(901,1,'131',NULL,'2023-06-23 10:52:23'),
-(902,2,'0','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(903,2,'1','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(904,2,'2','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(905,2,'1','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(906,2,'11','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(908,2,'112','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(909,2,'113','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(910,2,'115','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(912,2,'12','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(913,2,'121','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(914,2,'122','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(915,2,'123','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(916,2,'124','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(917,2,'125','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(918,2,'126','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(919,2,'127','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(920,2,'128','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(921,2,'14','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(922,2,'15','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(923,2,'16','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(924,2,'2','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(925,2,'21','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(926,2,'211','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(927,2,'22','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(928,2,'221','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(929,2,'222','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(930,2,'23','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(931,2,'231','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(932,2,'3','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(933,2,'31','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(934,2,'311','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(935,2,'312','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(936,2,'32','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(937,2,'321','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(938,2,'322','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(939,2,'33','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(940,2,'331','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(941,2,'4','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(942,2,'41','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(943,2,'411','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(944,2,'42','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(945,2,'421','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(946,2,'422','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(947,2,'6','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(948,2,'61','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(949,2,'611','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(950,2,'612','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(951,2,'613','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(952,2,'614','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(953,2,'62','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(954,2,'621','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(955,2,'622','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(956,2,'623','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(957,2,'7','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(958,2,'71','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(959,2,'711','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(960,2,'72','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(961,2,'721','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(962,2,'73','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(963,2,'8','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(964,2,'81','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(965,2,'129','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(966,2,'130','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(967,2,'131','2023-03-01 06:51:21','2023-06-23 10:52:23'),
-(969,1,'17','2023-03-16 13:21:59','2023-06-23 10:52:23'),
-(970,1,'241','2023-05-01 15:03:57','2023-06-23 10:52:23'),
-(971,1,'34','2023-04-04 10:00:15','2023-06-23 10:52:23'),
-(972,1,'43',NULL,'2023-06-23 10:52:23'),
-(977,1,'617',NULL,'2023-06-23 10:52:23'),
-(978,1,'618',NULL,'2023-06-23 10:52:23'),
-(979,1,'624','2023-06-18 19:56:02','2023-06-23 10:52:23'),
-(980,1,'625',NULL,'2023-06-23 10:52:23'),
-(981,1,'45',NULL,'2023-06-23 10:52:23'),
-(982,1,'74',NULL,'2023-06-23 10:53:56'),
-(983,1,'75',NULL,'2023-06-23 10:54:07'),
-(984,1,'16',NULL,'2023-07-06 13:51:47'),
-(989,1,'724',NULL,'2023-07-24 14:31:55'),
-(991,1,'82',NULL,'2023-07-24 15:02:34'),
-(992,1,'24',NULL,'2023-07-26 15:36:57'),
-(993,1,'240',NULL,'2023-07-26 15:39:10'),
-(994,1,'35',NULL,'2023-09-04 10:55:17'),
-(995,1,'619',NULL,'2023-12-11 12:05:07'),
-(996,1,'36',NULL,'2023-12-14 16:56:32'),
-(997,1,'341',NULL,'2023-12-14 16:56:40'),
-(998,1,'626',NULL,'2023-12-27 13:15:41'),
-(999,1,'627',NULL,'2023-12-27 13:53:11');
+(1227,1,'0','2024-10-17 04:38:36','2024-10-17 04:38:36'),
+(1341,1,'1','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1342,1,'11','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1343,1,'111','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1344,1,'112','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1345,1,'113','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1346,1,'115','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1347,1,'12','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1348,1,'121','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1349,1,'122','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1350,1,'14','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1351,1,'15','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1352,1,'16','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1353,1,'17','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1354,1,'2','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1355,1,'21','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1356,1,'211','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1357,1,'22','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1358,1,'221','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1359,1,'222','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1360,1,'23','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1361,1,'231','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1362,1,'24','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1363,1,'240','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1364,1,'241','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1365,1,'3','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1366,1,'31','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1367,1,'311','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1368,1,'32','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1369,1,'321','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1370,1,'33','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1371,1,'331','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1372,1,'332','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1373,1,'34','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1374,1,'341','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1375,1,'35','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1376,1,'351','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1377,1,'36','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1378,1,'37','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1379,1,'4','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1380,1,'41','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1381,1,'411','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1382,1,'42','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1383,1,'421','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1384,1,'422','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1385,1,'45','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1386,1,'7','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1387,1,'71','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1388,1,'711','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1389,1,'72','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1390,1,'721','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1391,1,'73','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1392,1,'74','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1393,1,'75','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1394,1,'8','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1395,1,'81','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1396,1,'82','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1397,1,'9','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1398,1,'91','2024-10-17 06:37:09','2024-10-17 06:37:09'),
+(1399,1,'92','2024-10-17 06:37:09','2024-10-17 06:37:09');
 
 /*Table structure for table `system_user` */
 
@@ -26295,7 +26230,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_bank_disbursement` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_bank_disbursement` BEFORE INSERT ON `acct_bank_disbursement` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_bank_disbursement` BEFORE INSERT ON `acct_bank_disbursement` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -26350,7 +26285,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_bank_receipt` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_bank_receipt` BEFORE INSERT ON `acct_bank_receipt` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_bank_receipt` BEFORE INSERT ON `acct_bank_receipt` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -26404,7 +26339,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_cash_disbursement` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_cash_disbursement` BEFORE INSERT ON `acct_cash_disbursement` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_cash_disbursement` BEFORE INSERT ON `acct_cash_disbursement` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -26459,7 +26394,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_cash_receipt` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_cash_receipt` BEFORE INSERT ON `acct_cash_receipt` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_cash_receipt` BEFORE INSERT ON `acct_cash_receipt` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -26513,7 +26448,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_check_disbursement` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_check_disbursement` BEFORE INSERT ON `acct_check_disbursement` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_check_disbursement` BEFORE INSERT ON `acct_check_disbursement` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -26568,7 +26503,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_check_receipt` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_check_receipt` BEFORE INSERT ON `acct_check_receipt` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_check_receipt` BEFORE INSERT ON `acct_check_receipt` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -26622,7 +26557,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_journal_voucher` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_journal_voucher` BEFORE INSERT ON `acct_journal_voucher` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_journal_voucher` BEFORE INSERT ON `acct_journal_voucher` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -26712,7 +26647,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_journal_voucher_item` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_journal_voucher_item` BEFORE INSERT ON `acct_journal_voucher_item` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_journal_voucher_item` BEFORE INSERT ON `acct_journal_voucher_item` FOR EACH ROW BEGIN
 	DECLARE nAccountIDDefaultStatus		DECIMAL(1);
 	
 	DECLARE nAccountID		INT(10);
@@ -26791,7 +26726,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_goods_received_note` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_inv_goods_received_note` BEFORE INSERT ON `inv_goods_received_note` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_goods_received_note` BEFORE INSERT ON `inv_goods_received_note` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -26882,7 +26817,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_item_stock_card_in` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_inv_item_stock_card_in` AFTER INSERT ON `inv_goods_received_note_item` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_item_stock_card_in` AFTER INSERT ON `inv_goods_received_note_item` FOR EACH ROW BEGIN
 	DECLARE nOpeningBalance 		DECIMAL(20,5); 
 	DECLARE nLastOpeningBalance 		DECIMAL(20,5);  
 	DECLARE nLastBalance	 		DECIMAL(20,5);
@@ -26974,7 +26909,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_warehouse_in` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_inv_warehouse_in` BEFORE INSERT ON `inv_warehouse_in` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_in` BEFORE INSERT ON `inv_warehouse_in` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -27065,7 +27000,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_warehouse_out` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_inv_warehouse_out` BEFORE INSERT ON `inv_warehouse_out` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_out` BEFORE INSERT ON `inv_warehouse_out` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -27156,7 +27091,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_warehouse_transfer` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_inv_warehouse_transfer` BEFORE INSERT ON `inv_warehouse_transfer` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_transfer` BEFORE INSERT ON `inv_warehouse_transfer` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -27247,7 +27182,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_warehouse_transfer_received_note` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_inv_warehouse_transfer_received_note` BEFORE INSERT ON `inv_warehouse_transfer_received_note` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_transfer_received_note` BEFORE INSERT ON `inv_warehouse_transfer_received_note` FOR EACH ROW BEGIN
 	DECLARE year_period 				VARCHAR(20);
 	DECLARE month_period 				VARCHAR(20);
 	DECLARE PERIOD 					VARCHAR(20);
@@ -27338,7 +27273,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_purchase_invoice` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_purchase_invoice` BEFORE INSERT ON `purchase_invoice` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_purchase_invoice` BEFORE INSERT ON `purchase_invoice` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -27429,7 +27364,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_purchase_order` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_purchase_order` BEFORE INSERT ON `purchase_order` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_purchase_order` BEFORE INSERT ON `purchase_order` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -27520,7 +27455,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_purchase_order_return` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_purchase_order_return` BEFORE INSERT ON `purchase_order_return` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_purchase_order_return` BEFORE INSERT ON `purchase_order_return` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -27611,7 +27546,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_purchase_payment` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_purchase_payment` BEFORE INSERT ON `purchase_payment` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_purchase_payment` BEFORE INSERT ON `purchase_payment` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -27702,7 +27637,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_collection` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_collection` BEFORE INSERT ON `sales_collection` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_collection` BEFORE INSERT ON `sales_collection` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -27793,7 +27728,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_collection_discount` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_collection_discount` BEFORE INSERT ON `sales_collection_discount` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_collection_discount` BEFORE INSERT ON `sales_collection_discount` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -27884,7 +27819,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_delivery_note` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_delivery_note` BEFORE INSERT ON `sales_delivery_note` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_delivery_note` BEFORE INSERT ON `sales_delivery_note` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -27975,7 +27910,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_delivery_order` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_delivery_order` BEFORE INSERT ON `sales_delivery_order` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_delivery_order` BEFORE INSERT ON `sales_delivery_order` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -28066,7 +28001,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_invoice` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_invoice` BEFORE INSERT ON `sales_invoice` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_invoice` BEFORE INSERT ON `sales_invoice` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(50);
 	DECLARE month_period 		VARCHAR(50);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -28125,7 +28060,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_kwitansi` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_kwitansi` BEFORE INSERT ON `sales_kwitansi` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_kwitansi` BEFORE INSERT ON `sales_kwitansi` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(255);
 	DECLARE month_period 		VARCHAR(255);
 	DECLARE PERIOD 			VARCHAR(255);
@@ -28219,7 +28154,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_order` */$$
 
-/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_order` BEFORE INSERT ON `sales_order` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_order` BEFORE INSERT ON `sales_order` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -28299,6 +28234,97 @@ DELIMITER $$
 	SET nSalesOrderNo = CONCAT(PERIOD, '/SO/', monthPeriod, '/', year_period);
 		
 	SET new.sales_order_no = nSalesOrderNo;
+    END */$$
+
+
+DELIMITER ;
+
+/* Trigger structure for table `sales_quotation` */
+
+DELIMITER $$
+
+/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_quotation` */$$
+
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_quotation` BEFORE INSERT ON `sales_quotation` FOR EACH ROW BEGIN
+	DECLARE year_period 		VARCHAR(20);
+	DECLARE month_period 		VARCHAR(20);
+	DECLARE PERIOD 			VARCHAR(20);
+	DECLARE tPeriod			INT;
+	DECLARE nSalesQuotationNo		VARCHAR(20);
+	DECLARE monthPeriod		VARCHAR(20);
+	DECLARE lenSalesQuotationrNo		DECIMAL(10);
+	
+	SET year_period = (YEAR(new.sales_quotation_date));
+	
+	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.sales_quotation_date)), 2));
+	
+	IF (month_period) = '01' THEN 
+		SET monthPeriod = 'I';
+	END IF;
+	
+	IF (month_period) = '02' THEN 
+		SET monthPeriod = 'II';
+	END IF;
+	
+	IF (month_period) = '03' THEN 
+		SET monthPeriod = 'III';
+	END IF;
+	
+	IF (month_period) = '04' THEN 
+		SET monthPeriod = 'IV';
+	END IF;	
+	
+	IF (month_period) = '05' THEN 
+		SET monthPeriod = 'V';
+	END IF;
+	
+	IF (month_period) = '06' THEN 
+		SET monthPeriod = 'VI';
+	END IF;
+	
+	IF (month_period) = '07' THEN 
+		SET monthPeriod = 'VII';
+	END IF;
+	
+	IF (month_period) = '08' THEN 
+		SET monthPeriod = 'VIII';
+	END IF;
+	
+	IF (month_period) = '09' THEN 
+		SET monthPeriod = 'IX';
+	END IF;
+	
+	IF (month_period) = '10' THEN 
+		SET monthPeriod = 'X';
+	END IF;
+	
+	IF (month_period) = '11' THEN 
+		SET monthPeriod = 'XI';
+	END IF;
+	
+	IF (month_period) = '12' THEN 
+		SET monthPeriod = 'XII';
+	END IF;
+		
+	SET PERIOD = (SELECT LEFT(TRIM(sales_quotation_no), 4) 
+			FROM sales_quotation
+			WHERE RIGHT(TRIM(sales_quotation_no), 4) = year_period
+			ORDER BY sales_quotation_id DESC 
+			LIMIT 1);
+		
+	IF (PERIOD IS NULL ) THEN 
+		SET PERIOD = "0000";
+	END IF;
+	
+	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
+	
+	SET tPeriod = tPeriod + 1;
+	
+	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
+	
+	SET nSalesQuotationNo = CONCAT(PERIOD, '/QO/', monthPeriod, '/', year_period);
+		
+	SET new.sales_quotation_no = nSalesQuotationNo;
     END */$$
 
 

@@ -62,6 +62,7 @@ use App\Http\Controllers\SalesCollectionController;
 use App\Http\Controllers\SalesDeliveryOrderController;
 use App\Http\Controllers\SalesDeliveryNoteController;
 use App\Http\Controllers\SalesInvoiceController;
+use App\Http\Controllers\SalesQuotationController;
 use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\SalesOrderReturnController;
 use App\Http\Controllers\SalesOrderApprovalController;
@@ -440,6 +441,11 @@ Route::post('purchase-order-return-report/filter',[PurchaseOrderReturnReportCont
 Route::get('purchase-order-return-report/reset-filter',[PurchaseOrderReturnReportController::class, 'resetFilterPurchaseOrderReturnReport'])->name('reset-filter-purchase-order-return-report');
 Route::get('purchase-order-return-report/print',[PurchaseOrderReturnReportController::class, 'printPurchaseOrderReturnReport'])->name('print-purchase-order-return-report');
 Route::get('purchase-order-return-report/export',[PurchaseOrderReturnReportController::class, 'export'])->name('export-purchase-order-return-report');
+
+Route::get('/sales-quotation', [SalesQuotationController::class, 'index'])->name('sales-quotation');
+Route::get('/sales-quotation/add', [SalesQuotationController::class, 'addSalesQuotation'])->name('add-sales-quotation');
+Route::post('/sales-quotation/filter', [SalesQuotationController::class, 'filterSalesQuotation'])->name('filter-sales-quotation');
+Route::get('/sales-quotation/filter-reset', [SalesQuotationController::class, 'resetFilterSalesQuotation'])->name('filter-reset-sales-quotation');
 
 
 Route::get('/sales-order', [SalesOrderController::class, 'index'])->name('sales-order');

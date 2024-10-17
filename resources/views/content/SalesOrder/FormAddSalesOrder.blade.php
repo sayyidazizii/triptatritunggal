@@ -796,10 +796,12 @@
     $(document).ready(function(){
         var item_type_id = {!! json_encode($null_item_type_id) !!};
         
-        if(item_type_id == null){
-            $("#item_type_id").select2("val", "0");
-        }
+        // if(item_type_id == null){
+        //     $("#item_type_id").select2("val", "0");
+        // }
     });
+
+    
 
 </script>
 @stop
