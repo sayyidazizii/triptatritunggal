@@ -444,9 +444,12 @@ Route::get('purchase-order-return-report/export',[PurchaseOrderReturnReportContr
 
 Route::get('/sales-quotation', [SalesQuotationController::class, 'index'])->name('sales-quotation');
 Route::get('/sales-quotation/add', [SalesQuotationController::class, 'addSalesQuotation'])->name('add-sales-quotation');
+Route::post('/sales-order/add-array-quotation', [SalesQuotationController::class, 'processAddArraySalesQuotationItem'])->name('sales-quotation-add-array');
 Route::post('/sales-quotation/filter', [SalesQuotationController::class, 'filterSalesQuotation'])->name('filter-sales-quotation');
 Route::get('/sales-quotation/filter-reset', [SalesQuotationController::class, 'resetFilterSalesQuotation'])->name('filter-reset-sales-quotation');
-
+Route::post('/sales-quotation/quotation-elements-add', [SalesQuotationController::class, 'elements_add'])->name('elements-add-sales-quotation');
+Route::post('/sales-quotation/quotation-type', [SalesQuotationController::class, 'getInvItemTypeQuotation'])->name('sales-quotation-type');
+Route::post('/sales-quotation/quotation-stock', [SalesQuotationController::class, 'getInvItemTypeIdQuotation'])->name('select-quotation-id-stock');
 
 Route::get('/sales-order', [SalesOrderController::class, 'index'])->name('sales-order');
 Route::get('/sales-order/detail/{sales_order_id}', [SalesOrderController::class, 'detailSalesOrder'])->name('detail-sales-order');

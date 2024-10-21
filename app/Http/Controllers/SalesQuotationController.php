@@ -54,6 +54,72 @@ class SalesQuotationController extends Controller
         return view('content/SalesQuotation/ListSalesQuotation',compact('salesquotation', 'start_date', 'end_date'));
     }
 
+    public function addSalesQuotation(){
+        $salesquotationelements  = Session::get('salesquotationelements');
+        $salesquotationitem      = Session::get('salesquotationitem');
+        
+        $invitemtype = InvItemType::where('inv_item_type.data_state','=',0)
+        ->select('*')
+        ->join('inv_item_category', 'inv_item_category.item_category_id', 'inv_item_type.item_category_id')
+        ->join('inv_item_stock', 'inv_item_type.item_type_id', 'inv_item_stock.item_type_id')
+        ->pluck('inv_item_type.item_type_name','inv_item_type.item_type_id');
+
+        $warehouse          = InvWarehouse::where('data_state','=',0)->pluck('warehouse_name', 'warehouse_id');
+        $customer           = CoreCustomer::where('data_state','=',0)->pluck('customer_name', 'customer_id');
+        $itemcategory       = InvItemCategory::where('data_state','=',0)->pluck('item_category_name', 'item_category_id');
+        $itemunit           = InvItemUnit::where('data_state','=',0)->pluck('item_unit_name', 'item_unit_id');
+        $itemtype           = [];
+        $coreprovince       = CoreProvince::where('data_state', 0)->pluck('province_name', 'province_id');
+        $corecity           = CoreCity::where('data_state', 0)->pluck('city_name', 'city_id');
+
+        $null_item_type_id = Session::get('item_type_id');
+        $ppnOut            = PreferenceCompany::select('ppn_amount_out')->first();
+
+        return view('content/SalesQuotation/FormAddSalesQuotation',compact('ppnOut','null_item_type_id', 'warehouse', 'customer', 'itemcategory', 'itemtype', 'salesquotationitem', 'itemunit', 'salesquotationelements', 'invitemtype', 'coreprovince', 'corecity'));
+    }
+
+    public function processAddArraySalesQuotationItem(Request $request)
+    {
+        $fields = $request->validate([
+            'item_category_id'              => 'required',
+            'item_type_id'                  => 'required',
+            'item_unit_id'                  => 'required',
+            'quantity'                      => 'required',
+            'price'                         => 'required',
+            'total_price'                   => 'required',
+        ]);
+
+        $salesquotationitem = array(
+            'item_category_id'	            => $request->item_category_id,
+            'item_type_id'	                => $request->item_type_id,
+            'item_unit_id'	                => $request->item_unit_id,
+            'quantity'	                    => $request->quantity,
+            'price'	                        => $request->price,
+            'total_price'	                => $request->total_price,
+            'discount_percentage_item'	    => $request->discount_percentage_item,
+            'discount_amount_item'	        => $request->discount_amount_item,
+            'subtotal_after_discount_item_a'=> $request->subtotal_after_discount_item_a,
+            'ppn_amount_item'               => $request->ppn_amount_item,
+            'total_price_after_ppn_amount'  => $request->total_price_after_ppn_amount,
+        );
+
+        // echo json_encode($salesquotationitem);exit;
+
+        $lastsalesquotationitem= Session::get('salesquotationitem');
+        if($lastsalesquotationitem!== null){
+            array_push($lastsalesquotationitem, $salesquotationitem);
+            Session::put('salesquotationitem', $lastsalesquotationitem);
+        }else{
+            $lastsalesquotationitem= [];
+            array_push($lastsalesquotationitem, $salesquotationitem);
+            Session::push('salesquotationitem', $salesquotationitem);
+        }
+        
+        Session::put('editarraystate', 1);
+        
+        return redirect('/sales-quotation/add');
+    }
+
     public function filterSalesQuotation(Request $request){
         $start_date     = $request->start_date;
         $end_date       = $request->end_date;
@@ -70,4 +136,54 @@ class SalesQuotationController extends Controller
 
         return redirect('/sales-quotation');
     }
+
+    public function elements_add(Request $request){
+        $salesquotationelements= Session::get('salesquotationelements');
+        if(!$salesquotationelements || $salesquotationelements == ''){
+            $salesquotationelements['sales_order_date'] = '';
+            $salesquotationelements['warehouse_id'] = '';
+            $salesquotationelements['customer_id'] = '';
+            $salesquotationelements['sales_order_type_id'] = '';
+            $salesquotationelements['sales_order_remark'] = '';
+            $salesquotationelements['sales_quotation_due_date'] = '';
+        }
+        $salesquotationelements[$request->name] = $request->value;
+        Session::put('salesquotationelements', $salesquotationelements);
+    }
+
+    public function getInvItemTypeQuotation(Request $request)
+    {
+        $item_category_id = $request->item_category_id;
+        $data = '';
+        
+        $type = InvItemType::select('*')
+        ->where('inv_item_type.data_state','=',0)
+        ->join('inv_item_category', 'inv_item_category.item_category_id', 'inv_item_type.item_category_id')
+        ->join('inv_item_stock', 'inv_item_type.item_type_id', 'inv_item_stock.item_type_id')
+        ->where('inv_item_stock.item_category_id', $item_category_id)
+        ->where('inv_item_stock.warehouse_id', 6)
+        ->get();
+
+        $data .= "<option value=''>--Choose One--</option>";
+        foreach ($type as $mp) {
+            $data .= "<option value='$mp[item_stock_id]'>$mp[item_type_name]".'-'."$mp[item_batch_number]</option>\n";
+        }
+
+        return $data;
+    }
+
+    public function getInvItemTypeIdQuotation(Request $request)
+    {
+        $item_stock_id = $request->item_stock_id;
+        // $data = '';
+        
+        $type = InvItemStock::select('*')
+        ->where('inv_item_stock.data_state','=',0)
+        ->where('inv_item_stock.item_stock_id', $item_stock_id)
+        ->where('inv_item_stock.warehouse_id', 6)
+        ->first();
+
+        return $type['item_type_id'];
+    }
+
 }
