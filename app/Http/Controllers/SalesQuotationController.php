@@ -79,7 +79,7 @@ class SalesQuotationController extends Controller
         return view('content/SalesQuotation/FormAddSalesQuotation',compact('ppnOut','null_item_type_id', 'warehouse', 'customer', 'itemcategory', 'itemtype', 'salesquotationitem', 'itemunit', 'salesquotationelements', 'invitemtype', 'coreprovince', 'corecity'));
     }
 
-    public function processAddSalesOrder(Request $request){
+    public function processAddSalesQuotation(Request $request){
         $validationRules = [
             'sales_quotation_date'           => 'required',
             'sales_quotation_delivery_date'  => 'required',
