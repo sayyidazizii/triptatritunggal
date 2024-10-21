@@ -22,6 +22,7 @@ use App\Models\InvItemUnit;
 use App\Models\InvItemType;
 use App\Models\InvItemStock;
 use App\Models\SalesQuotation;
+use App\Models\SalesQuotationItem;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -76,6 +77,71 @@ class SalesQuotationController extends Controller
         $ppnOut            = PreferenceCompany::select('ppn_amount_out')->first();
 
         return view('content/SalesQuotation/FormAddSalesQuotation',compact('ppnOut','null_item_type_id', 'warehouse', 'customer', 'itemcategory', 'itemtype', 'salesquotationitem', 'itemunit', 'salesquotationelements', 'invitemtype', 'coreprovince', 'corecity'));
+    }
+
+    public function processAddSalesOrder(Request $request){
+        $validationRules = [
+            'sales_quotation_date'           => 'required',
+            'sales_quotation_delivery_date'  => 'required',
+            'customer_id'                    => 'required',
+            'sales_quotation_type_id'        => 'required',
+            'total_item_all'                 => 'required',
+            'total_price_all'                => 'required',
+        ];
+
+        
+        $validatedData = $request->validate($validationRules);
+
+
+        $salesquotation = array (
+            'sales_quotation_date'           => $validatedData['sales_quotation_date'],
+            'sales_quotation_delivery_date'  => $validatedData['sales_quotation_delivery_date'],
+            'customer_id'                    => $validatedData['customer_id'],
+            'sales_quotation_type_id'        => $validatedData['sales_quotation_type_id'],
+            'total_item'                     => $validatedData['total_item_all'],
+            'total_amount'                   => $validatedData['total_price_all'],
+            'sales_quotation_remark'         => $request->sales_quotation_remark,
+            'discount_percentage'            => $request->discount_percentage,
+            'discount_amount'                => $request->discount_amount,
+            'subtotal_after_discount'        => $request->subtotal_after_discount,
+            'ppn_out_percentage'	         => $request['ppn_out_percentage'],
+            'ppn_out_amount'	             => $request['ppn_out_amount'],
+            'subtotal_after_ppn_out'	     => $request['subtotal_after_ppn_out'],
+            'branch_id'                      => Auth::user()->branch_id,
+            'sales_quotation_due_date'       => $request['sales_quotation_due_date'],
+        );
+
+        if(SalesQuotation::create($salesquotation)){
+            $sales_quotation_id = SalesQuotation::orderBy('created_at','DESC')->first();
+            $salesquotationitem = Session::get('salesquotationitem');
+            foreach ($salesquotationitem AS $key => $val){
+                $datasalesquotationitem = array (
+                    'sales_quotation_id'            => $sales_quotation_id['sales_quotation_id'],
+                    'item_category_id'              => $val['item_category_id'],
+                    'item_type_id'                  => $val['item_type_id'],
+                    'item_unit_id'                  => $val['item_unit_id'],
+                    'quantity'                      => $val['quantity'],
+                    'quantity_resulted'             => $val['quantity'],
+                    'item_unit_price'               => $val['price'],
+                    'subtotal_amount'               => $val['total_price'],
+                    'discount_percentage_item'      => $val['discount_percentage_item'],
+                    'discount_amount_item'          => $val['discount_amount_item'],
+                    'subtotal_after_discount_item_a'=> $val['subtotal_after_discount_item_a'],
+                    'ppn_amount_item'               => $val['ppn_amount_item'],
+                    'total_price_after_ppn_amount'  => $val['total_price_after_ppn_amount'],
+
+                );
+                //dd($datasalesquotationitem);
+                SalesQuotationItem::create($datasalesquotationitem);
+
+            }
+            $msg = 'Tambah Sales Quotation Berhasil';
+            return redirect('/sales-quotation')->with('msg',$msg);
+        }else{
+            $msg = 'Tambah Sales Quotation Gagal';
+            return redirect('/sales-quotation/add')->with('msg',$msg);
+        }
+
     }
 
     public function processAddArraySalesQuotationItem(Request $request)
