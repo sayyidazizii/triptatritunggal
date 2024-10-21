@@ -444,6 +444,7 @@ Route::get('purchase-order-return-report/export',[PurchaseOrderReturnReportContr
 
 Route::get('/sales-quotation', [SalesQuotationController::class, 'index'])->name('sales-quotation');
 Route::get('/sales-quotation/add', [SalesQuotationController::class, 'addSalesQuotation'])->name('add-sales-quotation');
+Route::post('/sales-quotation/process-add-sales-quotation', [SalesQuotationController::class, 'processAddSalesQuotation'])->name('process-add-sales-quotation');
 Route::post('/sales-order/add-array-quotation', [SalesQuotationController::class, 'processAddArraySalesQuotationItem'])->name('sales-quotation-add-array');
 Route::post('/sales-quotation/filter', [SalesQuotationController::class, 'filterSalesQuotation'])->name('filter-sales-quotation');
 Route::get('/sales-quotation/filter-reset', [SalesQuotationController::class, 'resetFilterSalesQuotation'])->name('filter-reset-sales-quotation');
