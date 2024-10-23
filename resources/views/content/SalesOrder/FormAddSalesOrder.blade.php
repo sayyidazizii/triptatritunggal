@@ -839,7 +839,7 @@
             Form Tambah
         </h5>
         <div class="float-right">
-            <button onclick="location.href='{{ url('sales-order') }}'" name="Find" class="btn btn-sm btn-info" title="Back"><i class="fa fa-angle-left"></i>  Kembali</button>
+            <button onclick="location.href='{{ url('sales-order') }}'" name="Find" class="btn btn-sm btn-info" title="Back"><i class="fa fa-angle-left"></i> Kembali</button>
         </div>
     </div>
 
@@ -869,10 +869,7 @@
                     <a class="text-dark">Nama Pelanggan<a class='red'> *</a></a>
                     {!! Form::select('customer_id',  $customer, $salesorderelements == null ? '' : $salesorderelements['customer_id'], ['class' => 'selection-search-clear select-form', 'id' => 'customer_id', 'onchange' => 'elements_add(this.name , this.value);']) !!}
                 </div>
-                <div class="col-md-1 mt-1">
-                    <a class="text-dark"></a>
-                    <a href='#addcustomer' data-toggle='modal' name="Find" class="btn btn-success add-btn btn-sm" title="Add Data">Tambah</a>
-                </div>
+
                 <div class="col-md-6">
                     <a class="text-dark">Jenis Sales Order<a class='red'> *</a></a>
                     {!! Form::select('sales_order_type_id',  $salesordertype, $salesorderelements == null ? '' : $salesorderelements['sales_order_type_id'], ['class' => 'selection-search-clear select-form', 'id' => 'sales_order_type_id', 'onchange' => 'elements_add(this.name , this.value);']) !!}

@@ -93,7 +93,6 @@
                         <th width="20%" style='text-align:center'>Nama Pelanggan</th>
                         <th width="20%" style='text-align:center'>No SQ</th>
                         <th width="10%" style='text-align:center'>Tanggal SQ</th>
-                        <th width="10%" style='text-align:center'>Po. Customer</th>
                         <th width="15%" style='text-align:center'>Status</th>
                         <th width="15%" style='text-align:center'>Aksi</th>
                     </tr>
@@ -105,18 +104,17 @@
                     <tr>
                         <td style='text-align:center'>{{$no}}.</td>
                         <td>{{$SalesQuotation->getCoreCustomerName($item['customer_id'])}}</td>
-                        <td>{{$item['sales_order_no']}}</td>
-                        <td>{{date('d/m/Y', strtotime($item['sales_order_date']))}}</td>
-                        <td>{{$item['purchase_order_no']}}</td>
+                        <td>{{$item['sales_quotation_no']}}</td>
+                        <td>{{date('d/m/Y', strtotime($item['sales_quotation_date']))}}</td>
                             @if($item['approved'] == 2)
                                 <td>Tidak Disetujui</td>
-                            @elseif($item['sales_order_status'] == 0)
+                            @elseif($item['sales_quotation_status'] == 0)
                                 <td>Dalam Proses</td>
-                            @elseif($item['sales_order_status'] == 1)
+                            @elseif($item['sales_quotation_status'] == 1)
                                 <td>Sebagian diterima</td>
-                            @elseif($item['sales_order_status'] == 2)
+                            @elseif($item['sales_quotation_status'] == 2)
                                 <td>Intransit</td>
-                            @elseif($item['sales_order_status'] == 3)
+                            @elseif($item['sales_quotation_status'] == 3)
                                 <td>Sudah Diterima</td>
                             @else
                                 <td></td>

@@ -66,6 +66,7 @@ use App\Http\Controllers\SalesQuotationController;
 use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\SalesOrderReturnController;
 use App\Http\Controllers\SalesOrderApprovalController;
+use App\Http\Controllers\SalesQuotationApprovalController;
 use App\Http\Controllers\SystemUserController;
 use App\Http\Controllers\SystemUserGroupController;
 use App\Http\Controllers\InvItemStockCardController;
@@ -452,11 +453,17 @@ Route::post('/sales-quotation/quotation-elements-add', [SalesQuotationController
 Route::post('/sales-quotation/quotation-type', [SalesQuotationController::class, 'getInvItemTypeQuotation'])->name('sales-quotation-type');
 Route::post('/sales-quotation/quotation-stock', [SalesQuotationController::class, 'getInvItemTypeIdQuotation'])->name('select-quotation-id-stock');
 
+Route::get('/sales-quotation-approval', [SalesQuotationApprovalController::class, 'index'])->name('sales-quotation-approval');
+Route::get('/sales-quotation-approval/approve/{sales_quotation_id}', [SalesQuotationApprovalController::class, 'approveSalesquotation'])->name('approve-sales-quotation-approval');
+Route::post('/sales-quotation-approval/process-approve', [SalesQuotationApprovalController::class, 'processApproveSalesquotation'])->name('process-approve-sales-quotation');
+Route::post('/sales-quotation-approval/process-disapprove', [SalesQuotationApprovalController::class, 'processDisapproveSalesquotation'])->name('process-disapprove-sales-quotation');
+
+
 Route::get('/sales-order', [SalesOrderController::class, 'index'])->name('sales-order');
 Route::get('/sales-order/detail/{sales_order_id}', [SalesOrderController::class, 'detailSalesOrder'])->name('detail-sales-order');
 Route::get('/sales-order/kwitansi/{sales_order_id}', [SalesOrderController::class, 'kwitansiSalesOrder'])->name('kwitansi-sales-order');
 Route::get('/sales-order/edit/{sales_order_id}', [SalesOrderController::class, 'editSalesOrder'])->name('edit-sales-order');
-Route::get('/sales-order/add', [SalesOrderController::class, 'addSalesOrder'])->name('add-sales-order');
+Route::get('/sales-order/add/{sales_quotation_id}', [SalesOrderController::class, 'addSalesOrder'])->name('add-sales-order');
 Route::post('/sales-order/process-add-sales-order', [SalesOrderController::class, 'processAddSalesOrder'])->name('process-add-sales-order');
 Route::post('/sales-order/add-array', [SalesOrderController::class, 'processAddArraySalesOrderItem'])->name('sales-order-add-array');
 Route::get('/sales-order/delete-array/{record_id}', [SalesOrderController::class, 'deleteArraySalesOrderItem'])->name('sales-order-delete-array');
@@ -471,7 +478,6 @@ Route::post('/sales-order/select-data-stock', [SalesOrderController::class, 'get
 Route::post('/sales-order/select-data-unit', [SalesOrderController::class, 'getSelectDataUnit'])->name('select-data-unit');
 Route::post('/sales-order/type', [SalesOrderController::class, 'getInvItemType'])->name('sales-order-type');
 Route::post('/sales-order/stock', [SalesOrderController::class, 'getInvItemTypeId'])->name('select-id-stock');
-
     
 Route::get('/sales-order-approval', [SalesOrderApprovalController::class, 'index'])->name('sales-order-approval');
 Route::get('/sales-order-approval/approve/{sales_order_id}', [SalesOrderApprovalController::class, 'approveSalesorder'])->name('approve-sales-order-approval');
@@ -482,7 +488,6 @@ Route::post('/sales-order-approval/process-disapprove', [SalesOrderApprovalContr
 Route::get('/sales-order-return', [SalesOrderReturnController::class, 'index'])->name('sales-order-return');
 Route::post('/sales-order-return/filter', [SalesOrderReturnController::class, 'filterSalesOrderReturn'])->name('filter-sales-order-return');
 Route::get('/sales-order-return/filter-reset', [SalesOrderReturnController::class, 'resetFilterSalesOrderReturn'])->name('filter-reset-sales-order-return');
-// Route::get('/sales-order-return/search-sales-delivery-note', [SalesOrderReturnController::class, 'searchSalesDeliveryNote'])->name('search-sales-delivery-note');
 Route::get('/sales-order-return/search-sales-invoice', [SalesOrderReturnController::class, 'searchSalesInvoice'])->name('search-sales-invoice');
 Route::get('/sales-order-return/add/{sales_invoice_id}', [SalesOrderReturnController::class, 'addSalesOrderReturn'])->name('add-sales-order-return');
 Route::post('/sales-order-return/process-add-sales-order-return', [SalesOrderReturnController::class, 'processAddSalesOrderReturn'])->name('process-add-sales-order-return');

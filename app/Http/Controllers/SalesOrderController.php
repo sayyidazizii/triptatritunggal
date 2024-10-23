@@ -11,8 +11,8 @@ use App\Models\SalesOrder;
 use App\Models\SalesOrderItem;
 use App\Models\SalesOrderType;
 use App\Models\PreferenceCompany;
-use App\Models\SalesOrderItemStock;
-use App\Models\SalesOrderItemStockTemporary;
+use App\Models\SalesQuotation;
+use App\Models\SalesQuotationItem;
 use App\Models\InvWarehouse;
 use App\Models\CoreCustomer;
 use App\Models\InvItemCategory;
@@ -62,12 +62,19 @@ class SalesOrderController extends Controller
         return view('content/SalesOrder/ListSalesOrder', compact('salesorder', 'start_date', 'end_date'));
     }
 
-    public function addSalesOrder()
+    public function addSalesOrder($sales_quotation_id)
     {
         $salesorderelements  = Session::get('salesorderelements');
         $salesorderitem      = Session::get('salesorderitem');
 
-        
+        $salesquotation= SalesQuotation::where('data_state',0)
+        ->where('sales_quotation_id', $sales_quotation_id)
+        ->first();
+
+        $salesquotationitem= SalesQuotationItem::where('data_state',0)
+        ->where('sales_quotation_id', $sales_quotation_id)
+        ->get();
+
         $invitemtype = InvItemType::where('inv_item_type.data_state','=',0)
         ->select('*')
         ->join('inv_item_category', 'inv_item_category.item_category_id', 'inv_item_type.item_category_id')
@@ -86,7 +93,7 @@ class SalesOrderController extends Controller
         $null_item_type_id = Session::get('item_type_id');
         $ppnOut            = PreferenceCompany::select('ppn_amount_out')->first();
 
-        return view('content/SalesOrder/FormAddSalesOrder',compact('ppnOut','null_item_type_id', 'warehouse', 'customer', 'itemcategory', 'itemtype', 'salesorderitem', 'itemunit', 'salesorderelements', 'invitemtype', 'coreprovince', 'corecity', 'salesordertype'));
+        return view('content/SalesOrder/FormAddSalesOrder',compact('salesquotationitem', 'salesquotation', 'sales_quotation_id','ppnOut','null_item_type_id', 'warehouse', 'customer', 'itemcategory', 'itemtype', 'salesorderitem', 'itemunit', 'salesorderelements', 'invitemtype', 'coreprovince', 'corecity', 'salesordertype'));
     }
 
     public function editSalesOrder($sales_order_id)
@@ -632,7 +639,6 @@ class SalesOrderController extends Controller
         }
 
 
-
     public function getSelectDataStock(Request $request){
 
         $data= '';
@@ -653,8 +659,6 @@ class SalesOrderController extends Controller
         }
         return $data;
     }
-
-
 
     public function getSelectDataUnit(Request $request){
 

@@ -346,8 +346,6 @@
             $("#total_price_after_ppn_amount").val(total_price_after_ppn_amount);
             $("#ppn_amount_item").val(ppn_amount_item);
             console.log(ppn_amount_item);
-
-
 		});
 
         
@@ -675,7 +673,7 @@
         </div>
     </div>
 
-    <form method="post" action="{{route('process-add-sales-order')}}" enctype="multipart/form-data">
+    <form method="post" action="{{route('process-add-sales-quotation')}}" enctype="multipart/form-data">
         @csrf
         <div class="card-body">
             <div class="row form-group">
@@ -685,7 +683,7 @@
                             *
                         </span>
                     </section>
-                    <input type ="date" class="form-control form-control-inline input-medium date-picker input-date" data-date-format="dd-mm-yyyy" type="text" name="sales_order_date" id="sales_order_date" onChange="elements_add(this.name, this.value);" value="{{$salesquotationelements == null ? '' : $salesquotationelements['sales_order_date']}}" style="width: 15rem;"/>
+                    <input type ="date" class="form-control form-control-inline input-medium date-picker input-date" data-date-format="dd-mm-yyyy" type="text" name="sales_quotation_date" id="sales_quotation_date" onChange="elements_add(this.name, this.value);" value="{{$salesquotationelements == null ? '' : $salesquotationelements['sales_quotation_date']}}" style="width: 15rem;"/>
                 </div>
                 <div class="col-md-6">
                     <section class="control-label">Tanggal Kadaluarsa QO
@@ -707,7 +705,7 @@
                 <div class="col-md-12 ">
                     <a class="text-dark">Keterangan</a>
                     <div class="">
-                        <textarea rows="3" type="text" class="form-control input-bb" name="sales_order_remark" onChange="elements_add(this.name, this.value);" id="sales_order_remark" >{{$salesquotationelements == null ? '' : $salesquotationelements['sales_order_remark']}}</textarea>
+                        <textarea rows="3" type="text" class="form-control input-bb" name="sales_quotation_remark" onChange="elements_add(this.name, this.value);" id="sales_quotation_remark" >{{$salesquotationelements == null ? '' : $salesquotationelements['sales_quotation_remark']}}</textarea>
                     </div>
                 </div>
             </div>

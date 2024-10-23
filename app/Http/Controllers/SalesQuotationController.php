@@ -82,9 +82,7 @@ class SalesQuotationController extends Controller
     public function processAddSalesQuotation(Request $request){
         $validationRules = [
             'sales_quotation_date'           => 'required',
-            'sales_quotation_delivery_date'  => 'required',
             'customer_id'                    => 'required',
-            'sales_quotation_type_id'        => 'required',
             'total_item_all'                 => 'required',
             'total_price_all'                => 'required',
         ];
@@ -95,9 +93,7 @@ class SalesQuotationController extends Controller
 
         $salesquotation = array (
             'sales_quotation_date'           => $validatedData['sales_quotation_date'],
-            'sales_quotation_delivery_date'  => $validatedData['sales_quotation_delivery_date'],
             'customer_id'                    => $validatedData['customer_id'],
-            'sales_quotation_type_id'        => $validatedData['sales_quotation_type_id'],
             'total_item'                     => $validatedData['total_item_all'],
             'total_amount'                   => $validatedData['total_price_all'],
             'sales_quotation_remark'         => $request->sales_quotation_remark,
@@ -133,7 +129,6 @@ class SalesQuotationController extends Controller
                 );
                 //dd($datasalesquotationitem);
                 SalesQuotationItem::create($datasalesquotationitem);
-
             }
             $msg = 'Tambah Sales Quotation Berhasil';
             return redirect('/sales-quotation')->with('msg',$msg);
@@ -206,11 +201,10 @@ class SalesQuotationController extends Controller
     public function elements_add(Request $request){
         $salesquotationelements= Session::get('salesquotationelements');
         if(!$salesquotationelements || $salesquotationelements == ''){
-            $salesquotationelements['sales_order_date'] = '';
+            $salesquotationelements['sales_quotation_date'] = '';
             $salesquotationelements['warehouse_id'] = '';
             $salesquotationelements['customer_id'] = '';
-            $salesquotationelements['sales_order_type_id'] = '';
-            $salesquotationelements['sales_order_remark'] = '';
+            $salesquotationelements['sales_quotation_remark'] = '';
             $salesquotationelements['sales_quotation_due_date'] = '';
         }
         $salesquotationelements[$request->name] = $request->value;
@@ -250,6 +244,14 @@ class SalesQuotationController extends Controller
         ->first();
 
         return $type['item_type_id'];
+    }
+
+    public function getCoreCustomerName($customer_id){
+        $customer = CoreCustomer::where('data_state', 0)
+        ->where('customer_id', $customer_id)
+        ->first();
+
+        return $customer['customer_name'] ?? '';
     }
 
 }
