@@ -82,15 +82,15 @@
             <div class="row form-group">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <a class="text-dark">Tanggal SO</a>
+                        <a class="text-dark">Tanggal QO</a>
                         <input class="form-control input-bb" type="text" name="sales_quotation_date" id="sales_quotation_date" value="{{date('d/m/Y', strtotime($salesquotation['sales_quotation_date']))}}" readonly/>
                         <input class="form-control input-bb" type="hidden" name="sales_quotation_id" id="sales_quotation_id" value="{{$sales_quotation_id}}" readonly/>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <a class="text-dark">Tanggal Pengiriman</a>
-                        <input class="form-control input-bb" type="text" name="sales_quotatio_delivery_date" id="sales_quotation_delivery_date" value="{{date('d/m/Y', strtotime($salesquotation['sales_quotatio_delivery_date']))}}" readonly/>
+                        <a class="text-dark">Tanggal Kadaluarsa QO</a>
+                        <input class="form-control input-bb" type="text" name="sales_quotation_due_date" id="sales_quotation_due_date" value="{{date('d/m/Y', strtotime($salesquotation['sales_quotation_due_date']))}}" readonly/>
                     </div>
                 </div>
                 <div class="col-md-4">

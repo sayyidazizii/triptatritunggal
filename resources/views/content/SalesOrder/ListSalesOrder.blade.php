@@ -80,7 +80,7 @@
             Daftar
         </h5>
         <div class="form-actions float-right">
-            <button onclick="location.href='{{ url('sales-quotation-approval') }}'" name="Find" class="btn btn-sm btn-info" title="Add Data"><i class="fa fa-plus"></i> Tambah Sales Order Baru</button>
+            <button onclick="location.href='{{ url('sales-order/search-sales-quotation') }}'" name="Find" class="btn btn-sm btn-info" title="Add Data"><i class="fa fa-plus"></i> Tambah Sales Order Baru</button>
         </div>
     </div>
 

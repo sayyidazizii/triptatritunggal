@@ -62,6 +62,18 @@ class SalesOrderController extends Controller
         return view('content/SalesOrder/ListSalesOrder', compact('salesorder', 'start_date', 'end_date'));
     }
 
+    public function searchSalesQuotation()
+    {
+        Session::put('editarraystate', 0);
+        Session::forget('salesquotationitem');
+
+        $salesquotation = SalesQuotation::where('data_state','=',0)
+        ->where('approved', 1)
+        ->get();
+
+        return view('content/SalesOrder/FormSearchSalesOrder',compact('salesquotation')); 
+    }
+
     public function addSalesOrder($sales_quotation_id)
     {
         $salesorderelements  = Session::get('salesorderelements');
@@ -71,29 +83,26 @@ class SalesOrderController extends Controller
         ->where('sales_quotation_id', $sales_quotation_id)
         ->first();
 
-        $salesquotationitem= SalesQuotationItem::where('data_state',0)
-        ->where('sales_quotation_id', $sales_quotation_id)
-        ->get();
+        // Ambil SalesQuotationItem yang relevan
+        $salesquotationitem = SalesQuotationItem::where('data_state', 0)
+            ->where('sales_quotation_id', $sales_quotation_id)
+            ->get();
 
-        $invitemtype = InvItemType::where('inv_item_type.data_state','=',0)
-        ->select('*')
-        ->join('inv_item_category', 'inv_item_category.item_category_id', 'inv_item_type.item_category_id')
-        ->join('inv_item_stock', 'inv_item_type.item_type_id', 'inv_item_stock.item_type_id')
-        ->pluck('inv_item_type.item_type_name','inv_item_type.item_type_id');
-
-        $warehouse          = InvWarehouse::where('data_state','=',0)->pluck('warehouse_name', 'warehouse_id');
-        $customer           = CoreCustomer::where('data_state','=',0)->pluck('customer_name', 'customer_id');
-        $itemcategory       = InvItemCategory::where('data_state','=',0)->pluck('item_category_name', 'item_category_id');
+        // Ambil item_category_id dari SalesQuotationItem
+        $itemCategoryIds = $salesquotationitem->pluck('item_category_id');
+        
+        // Ambil kategori barang berdasarkan kategori yang diambil dari SalesQuotationItem
+        $itemcategory       = InvItemCategory::where('data_state', 0)->whereIn('item_category_id', $itemCategoryIds)->pluck('item_category_name', 'item_category_id');
         $itemunit           = InvItemUnit::where('data_state','=',0)->pluck('item_unit_name', 'item_unit_id');
         $itemtype           = [];
-        $coreprovince       = CoreProvince::where('data_state', 0)->pluck('province_name', 'province_id');
-        $corecity           = CoreCity::where('data_state', 0)->pluck('city_name', 'city_id');
+        $warehouse          = InvWarehouse::where('data_state','=',0)->pluck('warehouse_name', 'warehouse_id');
+        $customer           = CoreCustomer::where('data_state','=',0)->where('customer_id', $salesquotation->customer_id)->pluck('customer_name', 'customer_id');
         $salesordertype     = SalesOrderType::where('data_state', 0)->pluck('sales_order_type_name', 'sales_order_type_id');
 
         $null_item_type_id = Session::get('item_type_id');
         $ppnOut            = PreferenceCompany::select('ppn_amount_out')->first();
 
-        return view('content/SalesOrder/FormAddSalesOrder',compact('salesquotationitem', 'salesquotation', 'sales_quotation_id','ppnOut','null_item_type_id', 'warehouse', 'customer', 'itemcategory', 'itemtype', 'salesorderitem', 'itemunit', 'salesorderelements', 'invitemtype', 'coreprovince', 'corecity', 'salesordertype'));
+        return view('content/SalesOrder/FormAddSalesOrder',compact('salesquotationitem', 'salesquotation', 'sales_quotation_id','ppnOut','null_item_type_id', 'warehouse', 'customer', 'itemcategory', 'itemtype', 'salesorderitem', 'itemunit', 'salesorderelements','salesordertype'));
     }
 
     public function editSalesOrder($sales_order_id)
@@ -177,8 +186,6 @@ class SalesOrderController extends Controller
             $salesorderelements['customer_id'] = '';
             $salesorderelements['sales_order_type_id'] = '';
             $salesorderelements['sales_order_remark'] = '';
-            $salesorderelements['purchase_order_no'] = '';
-            $salesorderelements['purchase_order_due_date'] = '';
         }
         $salesorderelements[$request->name] = $request->value;
         Session::put('salesorderelements', $salesorderelements);
@@ -193,12 +200,6 @@ class SalesOrderController extends Controller
             'quantity'                      => 'required',
             'price'                         => 'required',
             'total_price'                   => 'required',
-            'discount_percentage_item'      => 'required',
-            'discount_amount_item'          => 'required',
-            'subtotal_after_discount_item_a'=> 'required',
-            'discount_percentage_item_b'    => 'required',
-            'discount_amount_item_b'        => 'required',
-            'subtotal_after_discount_item_b'=> 'required',
         ]);
 
         $salesorderitem = array(
@@ -208,12 +209,9 @@ class SalesOrderController extends Controller
             'quantity'	                    => $request->quantity,
             'price'	                        => $request->price,
             'total_price'	                => $request->total_price,
-            'discount_percentage_item'	    => $request->discount_percentage_item,
-            'discount_amount_item'	        => $request->discount_amount_item,
-            'subtotal_after_discount_item_a'=> $request->subtotal_after_discount_item_a,
-            'discount_percentage_item_b'	=> $request->discount_percentage_item_b,
-            'discount_amount_item_b'	    => $request->discount_amount_item_b,
-            'subtotal_after_discount_item_b'=> $request->subtotal_after_discount_item_b,
+            'discount_percentage_item'	    => $fields['discount_percentage_item'],
+            'discount_amount_item'	        => $fields['discount_amount_item'],
+            'subtotal_after_discount_item_a'=> $fields['subtotal_after_discount_item_a'],
             'ppn_amount_item'               => $request->ppn_amount_item,
             'total_price_after_ppn_amount'  => $request->total_price_after_ppn_amount,
         );
@@ -605,24 +603,38 @@ class SalesOrderController extends Controller
 
         public function getInvItemType(Request $request)
         {
-            $item_category_id = $request->item_category_id;
-            $data = '';
-            
-            $type = InvItemType::select('*')
-            ->where('inv_item_type.data_state','=',0)
-            ->join('inv_item_category', 'inv_item_category.item_category_id', 'inv_item_type.item_category_id')
-            ->join('inv_item_stock', 'inv_item_type.item_type_id', 'inv_item_stock.item_type_id')
-            ->where('inv_item_stock.item_category_id', $item_category_id)
-            ->where('inv_item_stock.warehouse_id', 6)
-            ->get();
+            $item_category_id   = $request->item_category_id;
+            $sales_quotation_id = $request->sales_quotation_id;
 
+            $data = '';
+        
+            // Ambil SalesQuotationItem yang relevan berdasarkan sales_quotation_id
+            $salesquotationitem = SalesQuotationItem::where('data_state', 0)
+                ->where('sales_quotation_id', $sales_quotation_id)
+                ->get();
+        
+            // Ambil item_type_id dari SalesQuotationItem
+            $itemTypeIds = $salesquotationitem->pluck('item_type_id');
+            
+        
+            // Ambil item types berdasarkan kategori dan item_type_id yang ada di SalesQuotationItem
+            $type = InvItemType::select('*')
+                ->where('inv_item_type.data_state', '=', 0)
+                ->where('inv_item_stock.data_state', '=', 0)
+                ->join('inv_item_category', 'inv_item_category.item_category_id', 'inv_item_type.item_category_id')
+                ->join('inv_item_stock', 'inv_item_type.item_type_id', 'inv_item_stock.item_type_id')
+                ->where('inv_item_stock.item_category_id', $item_category_id)
+                ->whereIn('inv_item_stock.item_type_id', $itemTypeIds)
+                ->where('inv_item_stock.warehouse_id', 6)
+                ->get();
+            // Menyiapkan opsi dropdown berdasarkan hasil query
             $data .= "<option value=''>--Choose One--</option>";
             foreach ($type as $mp) {
-                $data .= "<option value='$mp[item_stock_id]'>$mp[item_type_name]".'-'."$mp[item_batch_number]</option>\n";
+                $data .= "<option value='{$mp->item_stock_id}'>{$mp->item_type_name}-{$mp->item_batch_number}</option>\n";
             }
-
             return $data;
         }
+        
 
         public function getInvItemTypeId(Request $request)
         {

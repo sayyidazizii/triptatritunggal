@@ -4535,7 +4535,7 @@ insert  into `inv_item_stock`(`item_stock_id`,`goods_received_note_id`,`goods_re
 (72,0,0,'2024-01-15','2026-01-24','56003005P',0,6,'','','','',1,6,0,3,'PHAPROS','Becefort kss/25 cc x 4\'s','dus',0,97290,0,115000,3,'','118',0,'',0,0,0,0,0,3,'2023-12-22 07:32:20','2023-12-22 07:32:50'),
 (73,0,0,'2024-01-15','2025-09-29','46003125',0,6,'','','','',1,6,0,3,'PHAPROS','Becefort kss/25 cc x 4\'s','dus',0,97290,0,115000,3,'','56',0,'',0,0,0,0,0,3,'2023-12-22 07:32:20','2023-12-22 07:32:50'),
 (74,0,0,'2024-01-15','2025-01-06','3460720',0,6,'','','','',1,51,0,3,'PHAPROS','Tebokan Forte 120 mg tss/2 bls @ 15\'s','dus',0,452056,0,513700,3,'','6',0,'',0,0,0,0,0,3,'2023-12-22 07:32:20','2023-12-22 07:32:50'),
-(75,0,0,'2024-01-15','2027-01-06','56127002',0,6,'','','','',1,52,0,3,'PHAPROS','Tebokan Spesial tss/3 bls x 10\'s','dus',0,295218,0,335475,3,'','5',0,'',0,0,0,0,0,3,'2023-12-22 07:32:20','2023-12-22 07:32:50'),
+(75,0,0,'2024-01-15','2027-01-06','56127002',0,6,'','','','',1,52,0,3,'PHAPROS','Tebokan Spesial tss/3 bls x 10\'s','dus',0,295218,0,335475,3,'','5',0,'',0,0,0,0,1,3,'2023-12-22 07:32:20','2023-12-22 07:32:50'),
 (76,0,0,'2024-01-15','2027-01-06','56080001',0,6,'','','','',1,53,0,3,'PHAPROS','Tebokan tss/10 bls x 10\'s','dus',0,490644,0,557550,3,'','2',0,'',0,0,0,0,0,3,'2023-12-22 07:32:20','2023-12-22 07:32:50'),
 (77,0,0,'2024-01-15','2027-01-06','56080002',0,6,'','','','',1,53,0,3,'PHAPROS','Tebokan tss/10 bls x 10\'s','dus',0,490644,0,557550,3,'','3',0,'',0,0,0,0,0,3,'2023-12-22 07:32:20','2023-12-22 07:32:50'),
 (78,0,0,'2024-01-15','2025-08-30','56005003',0,6,'','','','',1,8,0,4,'PHAPROS','Betafort syr/btl 60 ml','btl',0,20268,0,23845,4,'','260',0,'',0,0,0,0,0,3,'2023-12-22 07:32:20','2023-12-22 07:32:50'),
@@ -25614,7 +25614,7 @@ CREATE TABLE `sales_quotation` (
   `receipt_image` varchar(500) DEFAULT '',
   `sales_quotation_no` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT '',
   `sales_quotation_date` date DEFAULT NULL,
-  `sales_quotation_delivery_date` date DEFAULT NULL,
+  `sales_quotation_due_date` date DEFAULT NULL,
   `sales_quotation_status` int DEFAULT '0',
   `sales_quotation_over_limit` decimal(20,2) DEFAULT '0.00',
   `sales_quotation_over_due_status` int NOT NULL DEFAULT '0',
@@ -25659,12 +25659,13 @@ CREATE TABLE `sales_quotation` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_quotation_id`),
   KEY `sales_order_id` (`sales_quotation_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_quotation` */
 
-insert  into `sales_quotation`(`sales_quotation_id`,`sales_quotation_type_id`,`customer_id`,`salesman_id`,`receipt_image`,`sales_quotation_no`,`sales_quotation_date`,`sales_quotation_delivery_date`,`sales_quotation_status`,`sales_quotation_over_limit`,`sales_quotation_over_due_status`,`work_order_status`,`purchase_requisition_status`,`sales_quotation_design_status`,`sales_delivery_order_status`,`customer_credit_limit_balance`,`sales_invoice_status`,`sales_invoice_last_balance`,`sales_quotation_remark`,`sales_quotation_over_remark`,`total_item`,`subtotal_before_discount`,`discount_percentage`,`discount_amount`,`subtotal_after_discount`,`ppn_out_percentage`,`ppn_out_amount`,`subtotal_after_ppn_out`,`sales_shipment_status`,`paid_amount`,`total_amount`,`last_balance`,`counter_edited`,`branch_id`,`data_state`,`created_id`,`created_at`,`approved`,`approved_id`,`approved_on`,`approved_remark`,`closed`,`closed_id`,`closed_on`,`closed_remark`,`voided_id`,`voided_on`,`voided_remark`,`customer_no`,`updated_at`) values 
-(1,0,176,0,'','0001/QO/X/2024','2024-10-23',NULL,0,0.00,0,0,0,0,0,0.00,0,0.00,NULL,NULL,5.00,0.00,0.00,0.00,11100.00,0.00,0.00,11100.00,0,0.00,11100.00,0.00,0,1,0,0,'2024-10-23 03:34:19',0,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-10-23 03:34:19');
+insert  into `sales_quotation`(`sales_quotation_id`,`sales_quotation_type_id`,`customer_id`,`salesman_id`,`receipt_image`,`sales_quotation_no`,`sales_quotation_date`,`sales_quotation_due_date`,`sales_quotation_status`,`sales_quotation_over_limit`,`sales_quotation_over_due_status`,`work_order_status`,`purchase_requisition_status`,`sales_quotation_design_status`,`sales_delivery_order_status`,`customer_credit_limit_balance`,`sales_invoice_status`,`sales_invoice_last_balance`,`sales_quotation_remark`,`sales_quotation_over_remark`,`total_item`,`subtotal_before_discount`,`discount_percentage`,`discount_amount`,`subtotal_after_discount`,`ppn_out_percentage`,`ppn_out_amount`,`subtotal_after_ppn_out`,`sales_shipment_status`,`paid_amount`,`total_amount`,`last_balance`,`counter_edited`,`branch_id`,`data_state`,`created_id`,`created_at`,`approved`,`approved_id`,`approved_on`,`approved_remark`,`closed`,`closed_id`,`closed_on`,`closed_remark`,`voided_id`,`voided_on`,`voided_remark`,`customer_no`,`updated_at`) values 
+(1,0,176,0,'','0001/QO/X/2024','2024-10-23','2024-10-25',0,0.00,0,0,0,0,0,0.00,0,0.00,NULL,NULL,5.00,0.00,0.00,0.00,11100.00,0.00,0.00,11100.00,0,0.00,11100.00,0.00,0,1,0,0,'2024-10-23 03:34:19',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-10-25 02:46:08'),
+(2,0,1,0,'','0002/QO/X/2024','2024-10-25','2024-10-28',0,0.00,0,0,0,0,0,0.00,0,0.00,'daffa',NULL,40.00,0.00,0.00,0.00,527338.80,0.00,0.00,527338.80,0,0.00,527338.80,0.00,0,1,0,0,'2024-10-25 07:07:38',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-10-25 07:07:44');
 
 /*Table structure for table `sales_quotation_item` */
 
@@ -25717,12 +25718,14 @@ CREATE TABLE `sales_quotation_item` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_quotation_item_id`),
   KEY `sales_order_item_id` (`sales_quotation_item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_quotation_item` */
 
 insert  into `sales_quotation_item`(`sales_quotation_item_id`,`sales_quotation_id`,`item_category_id`,`item_type_id`,`quantity`,`quantity_delivered`,`quantity_shipped`,`quantity_planned`,`quantity_outstanding`,`quantity_received`,`quantity_ordered`,`quantity_cavity`,`quantity_minimum`,`quantity_resulted`,`sales_quotation_item_status`,`item_substance_price`,`item_unit_id`,`item_unit_price`,`item_unit_price_adds`,`purchase_requisition_status`,`purchase_order_status`,`work_order_status`,`sales_delivery_order_status`,`sales_delivery_note_status`,`sales_invoice_status`,`quantity_minimum_status`,`subtotal_amount`,`subtotal_additional_amount`,`subtotal_item_amount`,`sales_quotation_no`,`sales_quotation_status`,`discount_percentage_item`,`discount_percentage_item_b`,`discount_amount_item`,`discount_amount_item_b`,`subtotal_after_discount_item_a`,`subtotal_after_discount_item_b`,`total_price_after_ppn_amount`,`ppn_amount_item`,`record_id`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(2,1,1,52,5.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,5.00,0,0.00,3,2000.00,0.00,0,0,0,0,0,0,0,10000.00,0.00,0.00,'',0,NULL,NULL,0.00,NULL,10000.00,NULL,11100.00,1100.00,0,0,0,'2024-10-23 03:34:19','2024-10-23 03:34:19');
+(2,1,1,52,5.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,5.00,0,0.00,3,2000.00,0.00,0,0,0,0,0,0,0,10000.00,0.00,0.00,'',0,NULL,NULL,0.00,NULL,10000.00,NULL,11100.00,1100.00,0,0,0,'2024-10-23 03:34:19','2024-10-23 03:34:19'),
+(3,2,2,22,20.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,20.00,0,0.00,4,18754.00,0.00,0,0,0,0,0,0,0,375080.00,0.00,0.00,'',0,NULL,NULL,0.00,NULL,375080.00,NULL,416338.80,41258.80,0,0,0,'2024-10-25 07:07:38','2024-10-25 07:07:38'),
+(4,2,1,5,20.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,20.00,0,0.00,3,5000.00,0.00,0,0,0,0,0,0,0,100000.00,0.00,0.00,'',0,NULL,NULL,0.00,NULL,100000.00,NULL,111000.00,11000.00,0,0,0,'2024-10-25 07:07:38','2024-10-25 07:07:38');
 
 /*Table structure for table `system_log_user` */
 
