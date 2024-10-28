@@ -49,44 +49,10 @@
             $("#warehouse_id").select2("val", "0");
         }
 
-        // if(!elements['item_type_id']){
-        //     $("#item_type_id").select2("val", "0");
-        // }
         
         if(!elements['customer_id']){
             $("#customer_id").select2("val", "0");
         }
-
-        // if(!elements['purchase_order_no']){
-        //     $("#purchase_order_no").select2("val", "0");
-        // }
-        // if(!elements['purchase_order_due_date']){
-        //     $("#purchase_order_due_date").select2("val", "0");
-        // }
-
-
-        // $("#item_stock_id").select2("val", "0");
-        // $("#item_type_id").change(function(){
-		// 	var item_type_id 	= $("#item_type_id").val();
-        //         $.ajax({
-        //             type: "POST",
-        //             url : "{{route('select-data-stock-sales-order')}}",
-        //             dataType: "html",
-        //             data: {
-        //                 'item_type_id'	: item_type_id,
-        //                 '_token'        : '{{csrf_token()}}',
-        //             },
-        //             success: function(return_data){ 
-		// 			$('#item_stock_id').html(return_data);
-        //                 console.log(return_data);
-        //             },
-        //             error: function(data)
-        //             {
-        //                 console.log(data);
-
-        //             }
-        //         });
-		// });
 
         $("#item_category_id").change(function(){
 			var item_category_id 	= $("#item_category_id").val();
@@ -145,33 +111,23 @@
             $("#total_price").val(total_price);
             $("#total_price_view").val(toRp(total_price));
             var discount_percentage_item 	                = $("#discount_percentage_item").val();
-            var discount_percentage_item_b 	                = $("#discount_percentage_item_b").val();
 			var total_price 	                            = $("#total_price").val();
             var discount_percentage_item 	                = $("#discount_percentage_item").val();
-            var discount_percentage_item_b 	                = $("#discount_percentage_item_b").val();
             var ppn_out_percentage 	                        = $("#ppn_out_percentage").val();
 
             var discount_item                               = discount_percentage_item * 1/100;
-            var discount_item_b                             = discount_percentage_item_b * 1/100;
             var ppn_item                                    = ppn_out_percentage * 1/100;
             var discount_amount_item                        = discount_item * total_price;
             var total_price_after_discount_item_a 	        = total_price - discount_amount_item;
-            var discount_amount_item_b                      = discount_item_b * total_price_after_discount_item_a;
-            var total_price_after_discount_item_b 	        = total_price_after_discount_item_a - discount_amount_item_b;
-            var ppn_amount_item                             = ppn_item * total_price_after_discount_item_b;
-            var total_price_after_ppn_amount                = ppn_amount_item + total_price_after_discount_item_b;
+            var ppn_amount_item                             = ppn_item * total_price_after_discount_item_a;
+            var total_price_after_ppn_amount                = ppn_amount_item + total_price_after_discount_item_a;
 
             $("#discount_amount_item").val(discount_amount_item);
-            $("#discount_amount_item_b").val(discount_amount_item_b);
             console.log(discount_amount_item);
-            console.log(discount_amount_item_b);
-            $("#discount_amount_item_view").val(toRp(discount_amount_item + discount_amount_item_b));
+            $("#discount_amount_item_view").val(toRp(discount_amount_item + discount_amount_item));
             $("#subtotal_after_discount_item_a").val(total_price_after_discount_item_a);
             console.log(total_price_after_discount_item_a);
             $("#subtotal_after_discount_item_view_a").val(toRp(total_price_after_discount_item_a));
-            $("#subtotal_after_discount_item_b").val(total_price_after_discount_item_b);
-            console.log(total_price_after_discount_item_b);
-            $("#subtotal_after_discount_item_view_b").val(toRp(total_price_after_discount_item_b));
 
             $("#total_price_after_ppn_amount_view").val(total_price_after_ppn_amount);
             $("#total_price_after_ppn_amount").val(total_price_after_ppn_amount);
@@ -196,33 +152,23 @@
             $("#total_price").val(total_price);
             $("#total_price_view").val(toRp(total_price));
             var discount_percentage_item 	                = $("#discount_percentage_item").val();
-            var discount_percentage_item_b 	                = $("#discount_percentage_item_b").val();
 			var total_price 	                            = $("#total_price").val();
             var discount_percentage_item 	                = $("#discount_percentage_item").val();
-            var discount_percentage_item_b 	                = $("#discount_percentage_item_b").val();
             var ppn_out_percentage 	                        = $("#ppn_out_percentage").val();
 
             var discount_item                               = discount_percentage_item * 1/100;
-            var discount_item_b                             = discount_percentage_item_b * 1/100;
             var ppn_item                                    = ppn_out_percentage * 1/100;
             var discount_amount_item                        = discount_item * total_price;
             var total_price_after_discount_item_a 	        = total_price - discount_amount_item;
-            var discount_amount_item_b                      = discount_item_b * total_price_after_discount_item_a;
-            var total_price_after_discount_item_b 	        = total_price_after_discount_item_a - discount_amount_item_b;
-            var ppn_amount_item                             = ppn_item * total_price_after_discount_item_b;
-            var total_price_after_ppn_amount                = ppn_amount_item + total_price_after_discount_item_b;
+            var ppn_amount_item                             = ppn_item * total_price_after_discount_item_a;
+            var total_price_after_ppn_amount                = ppn_amount_item + total_price_after_discount_item_a;
 
             $("#discount_amount_item").val(discount_amount_item);
-            $("#discount_amount_item_b").val(discount_amount_item_b);
             console.log(discount_amount_item);
-            console.log(discount_amount_item_b);
-            $("#discount_amount_item_view").val(toRp(discount_amount_item + discount_amount_item_b));
+            $("#discount_amount_item_view").val(toRp(discount_amount_item + discount_amount_item));
             $("#subtotal_after_discount_item_a").val(total_price_after_discount_item_a);
             console.log(total_price_after_discount_item_a);
             $("#subtotal_after_discount_item_view_a").val(toRp(total_price_after_discount_item_a));
-            $("#subtotal_after_discount_item_b").val(total_price_after_discount_item_b);
-            console.log(total_price_after_discount_item_b);
-            $("#subtotal_after_discount_item_view_b").val(toRp(total_price_after_discount_item_b));
 
             $("#total_price_after_ppn_amount_view").val(total_price_after_ppn_amount);
             $("#total_price_after_ppn_amount").val(total_price_after_ppn_amount);
@@ -349,33 +295,23 @@
 
     $(document).ready(function(){
             var discount_percentage_item 	                = $("#discount_percentage_item").val();
-            var discount_percentage_item_b 	                = $("#discount_percentage_item_b").val();
 			var total_price 	                            = $("#total_price").val();
             var ppn_out_percentage 	                        = $("#ppn_out_percentage").val();
             var discount_item                               = discount_percentage_item * 1/100;
-            var discount_item_b                             = discount_percentage_item_b * 1/100;
             var ppn_item                                    = ppn_out_percentage * 1/100;
             var discount_amount_item                        = discount_item * total_price;
             var total_price_after_discount_item_a 	        = total_price - discount_amount_item;
-            var discount_amount_item_b                      = discount_item_b * total_price_after_discount_item_a;
-            var total_price_after_discount_item_b 	        = total_price_after_discount_item_a - discount_amount_item_b;
-            var ppn_amount_item                             = ppn_item * total_price_after_discount_item_b;
-            var total_price_after_ppn_amount                = ppn_amount_item + total_price_after_discount_item_b;
+            var ppn_amount_item                             = ppn_item * total_price_after_discount_item_a;
+            var total_price_after_ppn_amount                = ppn_amount_item + total_price_after_discount_item_a;
 
             $("#discount_amount_item").val(discount_amount_item);
-            $("#discount_amount_item_b").val(discount_amount_item_b);
             console.log(discount_amount_item);
-            console.log(discount_amount_item_b);
 
-            $("#discount_amount_item_view").val(toRp(discount_amount_item + discount_amount_item_b));
+            $("#discount_amount_item_view").val(toRp(discount_amount_item + discount_amount_item));
 
             $("#subtotal_after_discount_item_a").val(total_price_after_discount_item_a);
             console.log(total_price_after_discount_item_a);
             $("#subtotal_after_discount_item_view_a").val(toRp(total_price_after_discount_item_a));
-
-            $("#subtotal_after_discount_item_b").val(total_price_after_discount_item_b);
-            console.log(total_price_after_discount_item_b);
-            $("#subtotal_after_discount_item_view_b").val(toRp(total_price_after_discount_item_b));
 
             $("#total_price_after_ppn_amount_view").val(total_price_after_ppn_amount);
             $("#total_price_after_ppn_amount").val(total_price_after_ppn_amount);
@@ -384,33 +320,23 @@
 
         $("#discount_percentage_item").change(function(){
             var discount_percentage_item 	                = $("#discount_percentage_item").val();
-            var discount_percentage_item_b 	                = $("#discount_percentage_item_b").val();
 			var total_price 	                            = $("#total_price").val();
             var ppn_out_percentage 	                        = $("#ppn_out_percentage").val();
             var discount_item                               = discount_percentage_item * 1/100;
-            var discount_item_b                             = discount_percentage_item_b * 1/100;
             var ppn_item                                    = ppn_out_percentage * 1/100;
             var discount_amount_item                        = discount_item * total_price;
             var total_price_after_discount_item_a 	        = total_price - discount_amount_item;
-            var discount_amount_item_b                      = discount_item_b * total_price_after_discount_item_a;
-            var total_price_after_discount_item_b 	        = total_price_after_discount_item_a - discount_amount_item_b;
-            var ppn_amount_item                             = ppn_item * total_price_after_discount_item_b;
-            var total_price_after_ppn_amount                = ppn_amount_item + total_price_after_discount_item_b;
+            var ppn_amount_item                             = ppn_item * total_price_after_discount_item_a;
+            var total_price_after_ppn_amount                = ppn_amount_item + total_price_after_discount_item_a;
 
             $("#discount_amount_item").val(discount_amount_item);
-            $("#discount_amount_item_b").val(discount_amount_item_b);
             console.log(discount_amount_item);
-            console.log(discount_amount_item_b);
 
-            $("#discount_amount_item_view").val(toRp(discount_amount_item + discount_amount_item_b));
+            $("#discount_amount_item_view").val(toRp(discount_amount_item + discount_amount_item));
 
             $("#subtotal_after_discount_item_a").val(total_price_after_discount_item_a);
             console.log(total_price_after_discount_item_a);
             $("#subtotal_after_discount_item_view_a").val(toRp(total_price_after_discount_item_a));
-
-            $("#subtotal_after_discount_item_b").val(total_price_after_discount_item_b);
-            console.log(total_price_after_discount_item_b);
-            $("#subtotal_after_discount_item_view_b").val(toRp(total_price_after_discount_item_b));
 
             $("#total_price_after_ppn_amount_view").val(total_price_after_ppn_amount);
             $("#total_price_after_ppn_amount").val(total_price_after_ppn_amount);
@@ -422,39 +348,28 @@
 
         $("#discount_percentage_item_b").change(function(){
             var discount_percentage_item 	                = $("#discount_percentage_item").val();
-            var discount_percentage_item_b 	                = $("#discount_percentage_item_b").val();
 			var total_price 	                            = $("#total_price").val();
             var ppn_out_percentage 	                        = $("#ppn_out_percentage").val();
             var discount_item                               = discount_percentage_item * 1/100;
-            var discount_item_b                             = discount_percentage_item_b * 1/100;
             var ppn_item                                    = ppn_out_percentage * 1/100;
             var discount_amount_item                        = discount_item * total_price;
             var total_price_after_discount_item_a 	        = total_price - discount_amount_item;
-            var discount_amount_item_b                      = discount_item_b * total_price_after_discount_item_a;
-            var total_price_after_discount_item_b 	        = total_price_after_discount_item_a - discount_amount_item_b;
-            var ppn_amount_item                             = ppn_item * total_price_after_discount_item_b;
-            var total_price_after_ppn_amount                = ppn_amount_item + total_price_after_discount_item_b;
+            var ppn_amount_item                             = ppn_item * total_price_after_discount_item_a;
+            var total_price_after_ppn_amount                = ppn_amount_item + total_price_after_discount_item_a;
 
             $("#discount_amount_item").val(discount_amount_item);
-            $("#discount_amount_item_b").val(discount_amount_item_b);
             console.log(discount_amount_item);
-            console.log(discount_amount_item_b);
 
-            $("#discount_amount_item_view").val(toRp(discount_amount_item + discount_amount_item_b));
+            $("#discount_amount_item_view").val(toRp(discount_amount_item + discount_amount_item));
 
             $("#subtotal_after_discount_item_a").val(total_price_after_discount_item_a);
             console.log(total_price_after_discount_item_a);
             $("#subtotal_after_discount_item_view_a").val(toRp(total_price_after_discount_item_a));
 
-            $("#subtotal_after_discount_item_b").val(total_price_after_discount_item_b);
-            console.log(total_price_after_discount_item_b);
-            $("#subtotal_after_discount_item_view_b").val(toRp(total_price_after_discount_item_b));
-
             $("#total_price_after_ppn_amount_view").val(total_price_after_ppn_amount);
             $("#total_price_after_ppn_amount").val(total_price_after_ppn_amount);
             $("#ppn_amount_item").val(ppn_amount_item);
             console.log(ppn_amount_item);
-
 
 		});
 
@@ -462,88 +377,33 @@
 
         $("#discount_amount_item").change(function(){
             var discount_percentage_item 	                = $("#discount_percentage_item").val();
-            var discount_percentage_item_b 	                = $("#discount_percentage_item_b").val();
 			var total_price 	                            = $("#total_price").val();
             var ppn_out_percentage 	                        = $("#ppn_out_percentage").val();
             var discount_amount_item_text                   = $("#discount_amount_item").val();
-            var discount_amount_item_b_text                 = $("#discount_amount_item_b").val();
             
             var discount_item                               = discount_percentage_item * 1/100;
-            var discount_item_b                             = discount_percentage_item_b * 1/100;
             var ppn_item                                    = ppn_out_percentage * 1/100;
             var discount_amount_item                        = discount_item * total_price;
 
             var discount_percentage                         = discount_amount_item_text / total_price * 100;
-            var discount_percentage_b                       = discount_amount_item_b_text / total_price * 100;
 
             var total_price_after_discount_item_a 	        = total_price - discount_amount_item_text;
-            var discount_amount_item_b                      = discount_item_b * total_price_after_discount_item_a;
-            var total_price_after_discount_item_b 	        = total_price_after_discount_item_a - discount_amount_item_b_text;
-            var ppn_amount_item                             = ppn_item * total_price_after_discount_item_b;
-            var total_price_after_ppn_amount                = ppn_amount_item + total_price_after_discount_item_b;
+            var ppn_amount_item                             = ppn_item * total_price_after_discount_item_a;
+            var total_price_after_ppn_amount                = ppn_amount_item + total_price_after_discount_item_a;
 
-            // $("#discount_amount_item").val(discount_amount_item);
-            // $("#discount_amount_item_b").val(discount_amount_item_b);
 
             $("#discount_percentage_item").val(discount_percentage);
-            $("#discount_percentage_item_b").val(discount_percentage_b);
 
-            $("#discount_amount_item_view").val(toRp(discount_amount_item + discount_amount_item_b));
+            $("#discount_amount_item_view").val(toRp(discount_amount_item + discount_amount_item));
 
             $("#subtotal_after_discount_item_a").val(total_price_after_discount_item_a);
             $("#subtotal_after_discount_item_view_a").val(toRp(total_price_after_discount_item_a));
-
-            $("#subtotal_after_discount_item_b").val(total_price_after_discount_item_b);
-            $("#subtotal_after_discount_item_view_b").val(toRp(total_price_after_discount_item_b));
 
             $("#total_price_after_ppn_amount_view").val(total_price_after_ppn_amount);
             $("#total_price_after_ppn_amount").val(total_price_after_ppn_amount);
             $("#ppn_amount_item").val(ppn_amount_item);
 
 		});
-
-
-        $("#discount_amount_item_b").change(function(){
-            var discount_percentage_item 	                = $("#discount_percentage_item").val();
-            var discount_percentage_item_b 	                = $("#discount_percentage_item_b").val();
-			var total_price 	                            = $("#total_price").val();
-            var ppn_out_percentage 	                        = $("#ppn_out_percentage").val();
-            var discount_amount_item_text                   = $("#discount_amount_item").val();
-            var discount_amount_item_b_text                 = $("#discount_amount_item_b").val();
-            
-            var discount_item                               = discount_percentage_item * 1/100;
-            var discount_item_b                             = discount_percentage_item_b * 1/100;
-            var ppn_item                                    = ppn_out_percentage * 1/100;
-            var discount_amount_item                        = discount_item * total_price;
-
-            var discount_percentage                         = discount_amount_item_text / total_price * 100;
-            var discount_percentage_b                       = discount_amount_item_b_text / total_price * 100;
-
-            var total_price_after_discount_item_a 	        = total_price - discount_amount_item_text;
-            var discount_amount_item_b                      = discount_item_b * total_price_after_discount_item_a;
-            var total_price_after_discount_item_b 	        = total_price_after_discount_item_a - discount_amount_item_b_text;
-            var ppn_amount_item                             = ppn_item * total_price_after_discount_item_b;
-            var total_price_after_ppn_amount                = ppn_amount_item + total_price_after_discount_item_b;
-
-            // $("#discount_amount_item").val(discount_amount_item);
-            // $("#discount_amount_item_b").val(discount_amount_item_b);
-
-            $("#discount_percentage_item").val(discount_percentage);
-            $("#discount_percentage_item_b").val(discount_percentage_b);
-
-            $("#discount_amount_item_view").val(toRp(discount_amount_item + discount_amount_item_b));
-
-            $("#subtotal_after_discount_item_a").val(total_price_after_discount_item_a);
-            $("#subtotal_after_discount_item_view_a").val(toRp(total_price_after_discount_item_a));
-
-            $("#subtotal_after_discount_item_b").val(total_price_after_discount_item_b);
-            $("#subtotal_after_discount_item_view_b").val(toRp(total_price_after_discount_item_b));
-
-            $("#total_price_after_ppn_amount_view").val(total_price_after_ppn_amount);
-            $("#total_price_after_ppn_amount").val(total_price_after_ppn_amount);
-            $("#ppn_amount_item").val(ppn_amount_item);
-		});
-
 
     });
 
@@ -557,7 +417,6 @@
 			var total_price_all 	                = $("#total_price_all").val();
 
             var ppn_out_percentage 	                = $("#ppn_out_percentage").val();
-			//var total_price_after_discount          = $("#subtotal_after_discount").val();
 
             var discount                            = discount_percentage * 1/100;
             var discount_amount                     = discount * total_price_all;
@@ -592,7 +451,6 @@
 			var total_price_all 	                = $("#total_price_all").val();
 
             var ppn_out_percentage 	                = $("#ppn_out_percentage").val();
-			//var total_price_after_discount          = $("#subtotal_after_discount").val();
 
             var discount                            = discount_percentage * 1/100;
             var discount_amount                     = discount * total_price_all;
@@ -631,7 +489,6 @@
 			var total_price_all 	                = $("#total_price_all").val();
 
             var ppn_out_percentage 	                = $("#ppn_out_percentage").val();
-			//var total_price_after_discount          = $("#subtotal_after_discount").val();
 
             var discount                            = discount_percentage * 1/100;
             var discount_amount                     = discount * total_price_all;
@@ -714,9 +571,6 @@
         var discount_percentage_item            = document.getElementById("discount_percentage_item").value;
         var discount_amount_item		        = document.getElementById("discount_amount_item").value;
         var subtotal_after_discount_item_a	    = document.getElementById("subtotal_after_discount_item_a").value;
-        var discount_percentage_item_b          = document.getElementById("discount_percentage_item_b").value;
-        var discount_amount_item_b		        = document.getElementById("discount_amount_item_b").value;
-        var subtotal_after_discount_item_b	    = document.getElementById("subtotal_after_discount_item_b").value;
         var ppn_amount_item	                    = document.getElementById("ppn_amount_item").value;
         var total_price_after_ppn_amount	    = document.getElementById("total_price_after_ppn_amount").value;
 
@@ -734,9 +588,6 @@
                 'discount_percentage_item' 	    : discount_percentage_item,
                 'discount_amount_item' 		    : discount_amount_item,
                 'subtotal_after_discount_item_a': subtotal_after_discount_item_a,
-                'discount_percentage_item_b' 	: discount_percentage_item_b,
-                'discount_amount_item_b' 		: discount_amount_item_b,
-                'subtotal_after_discount_item_b': subtotal_after_discount_item_b,
                 'ppn_amount_item'               : ppn_amount_item,
                 'total_price_after_ppn_amount'  : total_price_after_ppn_amount,
                 '_token'                        : '{{csrf_token()}}'
@@ -798,9 +649,6 @@
     $(document).ready(function(){
         var item_type_id = {!! json_encode($null_item_type_id) !!};
         
-        // if(item_type_id == null){
-        //     $("#item_type_id").select2("val", "0");
-        // }
     });
 
     
@@ -947,46 +795,26 @@
             <div class="row form-group">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <a class="text-dark">Discount A /Barang (%)</a>
+                        <a class="text-dark">Discount /Barang (%)</a>
                          <a class="text-dark">Satuan<a class='red'> *</a></a>
                         <input class="form-control input-bb" type="text" name="discount_percentage_item" id="discount_percentage_item" value=""/>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <a class="text-dark">Nominal Discount A</a>
+                        <a class="text-dark">Nominal Discount</a>
                         <input class="form-control input-bb" type="text" name="discount_amount_item" id="discount_amount_item" value="" />
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <a class="text-dark">Total Harga Setelah Discount A</a>
+                        <a class="text-dark">Total Harga Setelah Discount</a>
                         <input class="form-control input-bb" type="text" name="subtotal_after_discount_item_view_a" id="subtotal_after_discount_item_view_a" value="" readonly/>
                         <input class="form-control input-bb" type="hidden" name="subtotal_after_discount_item_a" id="subtotal_after_discount_item_a" value=""/>
                     </div>
                 </div>
             </div>
             <div class="row form-group">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <a class="text-dark">Discount B /Barang (%)</a>
-                         <a class="text-dark">Satuan<a class='red'> *</a></a>
-                        <input class="form-control input-bb" type="text" name="discount_percentage_item_b" id="discount_percentage_item_b" value=""/>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <a class="text-dark">Nominal Discount B</a>
-                        <input class="form-control input-bb" type="text" name="discount_amount_item_b" id="discount_amount_item_b" value="" />
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <a class="text-dark">Total Harga Setelah Discount B</a>
-                        <input class="form-control input-bb" type="text" name="subtotal_after_discount_item_view_b" id="subtotal_after_discount_item_view_b" value="" readonly/>
-                        <input class="form-control input-bb" type="hidden" name="subtotal_after_discount_item_b" id="subtotal_after_discount_item_b" value=""/>
-                    </div>
-                </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <a class="text-dark">PPN %</a>
