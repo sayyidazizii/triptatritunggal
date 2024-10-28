@@ -124,7 +124,7 @@
 
             $("#discount_amount_item").val(discount_amount_item);
             console.log(discount_amount_item);
-            $("#discount_amount_item_view").val(toRp(discount_amount_item + discount_amount_item));
+            $("#discount_amount_item_view").val(toRp(discount_amount_item));
             $("#subtotal_after_discount_item_a").val(total_price_after_discount_item_a);
             console.log(total_price_after_discount_item_a);
             $("#subtotal_after_discount_item_view_a").val(toRp(total_price_after_discount_item_a));
@@ -165,7 +165,7 @@
 
             $("#discount_amount_item").val(discount_amount_item);
             console.log(discount_amount_item);
-            $("#discount_amount_item_view").val(toRp(discount_amount_item + discount_amount_item));
+            $("#discount_amount_item_view").val(toRp(discount_amount_item));
             $("#subtotal_after_discount_item_a").val(total_price_after_discount_item_a);
             console.log(total_price_after_discount_item_a);
             $("#subtotal_after_discount_item_view_a").val(toRp(total_price_after_discount_item_a));
@@ -307,7 +307,7 @@
             $("#discount_amount_item").val(discount_amount_item);
             console.log(discount_amount_item);
 
-            $("#discount_amount_item_view").val(toRp(discount_amount_item + discount_amount_item));
+            $("#discount_amount_item_view").val(toRp(discount_amount_item));
 
             $("#subtotal_after_discount_item_a").val(total_price_after_discount_item_a);
             console.log(total_price_after_discount_item_a);
@@ -332,7 +332,7 @@
             $("#discount_amount_item").val(discount_amount_item);
             console.log(discount_amount_item);
 
-            $("#discount_amount_item_view").val(toRp(discount_amount_item + discount_amount_item));
+            $("#discount_amount_item_view").val(toRp(discount_amount_item));
 
             $("#subtotal_after_discount_item_a").val(total_price_after_discount_item_a);
             console.log(total_price_after_discount_item_a);
@@ -345,35 +345,6 @@
 
 
 		});
-
-        $("#discount_percentage_item_b").change(function(){
-            var discount_percentage_item 	                = $("#discount_percentage_item").val();
-			var total_price 	                            = $("#total_price").val();
-            var ppn_out_percentage 	                        = $("#ppn_out_percentage").val();
-            var discount_item                               = discount_percentage_item * 1/100;
-            var ppn_item                                    = ppn_out_percentage * 1/100;
-            var discount_amount_item                        = discount_item * total_price;
-            var total_price_after_discount_item_a 	        = total_price - discount_amount_item;
-            var ppn_amount_item                             = ppn_item * total_price_after_discount_item_a;
-            var total_price_after_ppn_amount                = ppn_amount_item + total_price_after_discount_item_a;
-
-            $("#discount_amount_item").val(discount_amount_item);
-            console.log(discount_amount_item);
-
-            $("#discount_amount_item_view").val(toRp(discount_amount_item + discount_amount_item));
-
-            $("#subtotal_after_discount_item_a").val(total_price_after_discount_item_a);
-            console.log(total_price_after_discount_item_a);
-            $("#subtotal_after_discount_item_view_a").val(toRp(total_price_after_discount_item_a));
-
-            $("#total_price_after_ppn_amount_view").val(total_price_after_ppn_amount);
-            $("#total_price_after_ppn_amount").val(total_price_after_ppn_amount);
-            $("#ppn_amount_item").val(ppn_amount_item);
-            console.log(ppn_amount_item);
-
-		});
-
-        
 
         $("#discount_amount_item").change(function(){
             var discount_percentage_item 	                = $("#discount_percentage_item").val();
@@ -394,7 +365,7 @@
 
             $("#discount_percentage_item").val(discount_percentage);
 
-            $("#discount_amount_item_view").val(toRp(discount_amount_item + discount_amount_item));
+            $("#discount_amount_item_view").val(toRp(discount_amount_item));
 
             $("#subtotal_after_discount_item_a").val(total_price_after_discount_item_a);
             $("#subtotal_after_discount_item_view_a").val(toRp(total_price_after_discount_item_a));
@@ -406,9 +377,6 @@
 		});
 
     });
-
-
-
 
 
     //discount nota
@@ -594,57 +562,12 @@
             },
             success: function(msg){
                 location.reload();
+                // console.log(data);
             }
         });
     }
 
-    function addCustomer(){
-        var customer_name 	        = $("#customer_name").val();
-        var province_id 	        = $("#province_id").val();
-        var city_id 	            = $("#city_id").val();
-        var customer_address 	    = $("#customer_address").val();
-        var customer_home_phone 	= $("#customer_home_phone").val();
-        var customer_mobile_phone1 	= $("#customer_mobile_phone1").val();
-        var customer_mobile_phone2 	= $("#customer_mobile_phone2").val();
-        var customer_fax_number 	= $("#customer_fax_number").val();
-        var customer_email 	        = $("#customer_email").val();
-        var customer_contact_person = $("#customer_contact_person").val();
-        var customer_id_number 	    = $("#customer_id_number").val();
-        var customer_tax_no 	    = $("#customer_tax_no").val();
-        var customer_payment_terms 	= $("#customer_payment_terms").val();
-        var customer_remark 	    = $("#customer_remark").val();
-        $.ajax({
-            type: "POST",
-            url : "{{route('add-customer-sales-order')}}",
-            dataType: "html",
-            data: {
-                'customer_name'	            : customer_name,
-                'province_id'	            : province_id,
-                'city_id'	                : city_id,
-                'customer_address'	        : customer_address,
-                'customer_home_phone'	    : customer_home_phone,
-                'customer_mobile_phone1'    : customer_mobile_phone1,
-                'customer_mobile_phone2'	: customer_mobile_phone2,
-                'customer_fax_number'	    : customer_fax_number,
-                'customer_email'	        : customer_email,
-                'customer_contact_person'	: customer_contact_person,
-                'customer_id_number'	    : customer_id_number,
-                'customer_tax_no'	        : customer_tax_no,
-                'customer_payment_terms'	: customer_payment_terms,
-                'customer_remark'	        : customer_remark,
-                '_token'                    : '{{csrf_token()}}',
-            },
-            success: function(return_data){ 
-                $('#customer_id').html(return_data);
-                $('#cancel_btn_customer').click();
-            },
-            error: function(data)
-            {
-                console.log(data);
 
-            }
-        });
-    }
 
     $(document).ready(function(){
         var item_type_id = {!! json_encode($null_item_type_id) !!};
@@ -861,10 +784,8 @@
                                 <th style='text-align:center'>Qty</th>
                                 <th style='text-align:center'>Satuan</th>
                                 <th style='text-align:center'>Harga Satuan</th>
-                                <th style='text-align:center'>Discount A/Barang</th>
-                                <th style='text-align:center'>Total Harga A</th>
-                                <th style='text-align:center'>Discount B/Barang</th>
-                                <th style='text-align:center'>Total Harga B</th>
+                                <th style='text-align:center'>Discount /Barang</th>
+                                <th style='text-align:center'>Total Harga </th>
                                 <th style='text-align:center'>PPN</th>
                                 <th style='text-align:center'>Total Setelah PPN</th>
                                 <th style='text-align:center'>Aksi</th>
@@ -887,12 +808,11 @@
                                                 <td style='text-align  : center'>{{$no}}</td>
                                                 <td style='text-align  : left !important;'>{{$SalesOrder->getItemTypeName($val['item_type_id'])}}</td>
                                                 <td style='text-align  : right !important;'>{{$val['quantity']}}</td>
+                                                
                                                 <td style='text-align  : left !important;'>{{$SalesOrder->getItemUnitName($val['item_unit_id'])}}</td>
                                                 <td style='text-align  : right !important;'>{{number_format($val['price'],2,',','.')}}</td>
                                                 <td style='text-align  : right !important;'>{{number_format($val['discount_amount_item'],2,',','.')}}</td>
                                                 <td style='text-align  : right !important;'>{{number_format($val['subtotal_after_discount_item_a'],2,',','.')}}</td>
-                                                <td style='text-align  : right !important;'>{{number_format($val['discount_amount_item_b'],2,',','.')}}</td>
-                                                <td style='text-align  : right !important;'>{{number_format($val['subtotal_after_discount_item_b'],2,',','.')}}</td>
                                                 <td style='text-align  : right !important;'>{{number_format($val['ppn_amount_item'],2,',','.')}}</td>
                                                 <td style='text-align  : right !important;'>{{number_format($val['total_price_after_ppn_amount'],2,',','.')}}</td>
                                                 <td style='text-align  : center'>

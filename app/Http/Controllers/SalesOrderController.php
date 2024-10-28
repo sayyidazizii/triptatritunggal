@@ -200,6 +200,7 @@ class SalesOrderController extends Controller
             'quantity'                      => 'required',
             'price'                         => 'required',
             'total_price'                   => 'required',
+            'sales_quotation_id'            => 'required',
         ]);
 
         $salesorderitem = array(
@@ -209,14 +210,12 @@ class SalesOrderController extends Controller
             'quantity'	                    => $request->quantity,
             'price'	                        => $request->price,
             'total_price'	                => $request->total_price,
-            'discount_percentage_item'	    => $fields['discount_percentage_item'],
-            'discount_amount_item'	        => $fields['discount_amount_item'],
-            'subtotal_after_discount_item_a'=> $fields['subtotal_after_discount_item_a'],
+            'discount_percentage_item'	    => $request->discount_percentage_item,
+            'discount_amount_item'	        => $request->discount_amount_item,
+            'subtotal_after_discount_item_a'=> $request->subtotal_after_discount_item_a,
             'ppn_amount_item'               => $request->ppn_amount_item,
             'total_price_after_ppn_amount'  => $request->total_price_after_ppn_amount,
         );
-
-        // dd($salesorderitem);
 
         $lastsalesorderitem= Session::get('salesorderitem');
         if($lastsalesorderitem!== null){
@@ -230,7 +229,7 @@ class SalesOrderController extends Controller
         
         Session::put('editarraystate', 1);
         
-        return redirect('/sales-order/add');
+        return redirect()->route('add-sales-order', ['sales_quotation_id' => $request->sales_quotation_id]);
     }
 
     public function deleteArraySalesOrderItem ($record_id)

@@ -288,7 +288,7 @@
 
 
     $(document).ready(function(){
-        var price 	    = $("#price").val();
+            var price 	    = $("#price").val();
 			var quantity 	= $("#quantity").val();
             var total_price = price*quantity;
             $("#total_price").val(total_price);
