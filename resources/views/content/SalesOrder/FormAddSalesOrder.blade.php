@@ -541,6 +541,7 @@
         var subtotal_after_discount_item_a	    = document.getElementById("subtotal_after_discount_item_a").value;
         var ppn_amount_item	                    = document.getElementById("ppn_amount_item").value;
         var total_price_after_ppn_amount	    = document.getElementById("total_price_after_ppn_amount").value;
+        var sales_quotation_id                  = document.getElementById("sales_quotation_id").value;
 
         $.ajax({
             type: "POST",
@@ -558,16 +559,18 @@
                 'subtotal_after_discount_item_a': subtotal_after_discount_item_a,
                 'ppn_amount_item'               : ppn_amount_item,
                 'total_price_after_ppn_amount'  : total_price_after_ppn_amount,
+                'sales_quotation_id'            : sales_quotation_id,
                 '_token'                        : '{{csrf_token()}}'
             },
             success: function(msg){
                 location.reload();
-                // console.log(data);
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+                alert('An error occurred. Please check the console for details.');
             }
         });
     }
-
-
 
     $(document).ready(function(){
         var item_type_id = {!! json_encode($null_item_type_id) !!};
@@ -792,94 +795,93 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
-                                @if(!is_array($salesorderitem))
-                                    <tr><th colspan='11' style='text-align  : center !important;'>Data Kosong</th></tr>
-                                @else 
-                                @php
-                                    $no =1;
-                                    $total_price = 0;
-                                    $total_price_after_discount_item = 0;
-                                    $total_item = 0;
-                                @endphp
-                                    @foreach ($salesorderitem AS $key => $val)
-                                        
-                                            <tr>
-                                                <td style='text-align  : center'>{{$no}}</td>
-                                                <td style='text-align  : left !important;'>{{$SalesOrder->getItemTypeName($val['item_type_id'])}}</td>
-                                                <td style='text-align  : right !important;'>{{$val['quantity']}}</td>
-                                                
-                                                <td style='text-align  : left !important;'>{{$SalesOrder->getItemUnitName($val['item_unit_id'])}}</td>
-                                                <td style='text-align  : right !important;'>{{number_format($val['price'],2,',','.')}}</td>
-                                                <td style='text-align  : right !important;'>{{number_format($val['discount_amount_item'],2,',','.')}}</td>
-                                                <td style='text-align  : right !important;'>{{number_format($val['subtotal_after_discount_item_a'],2,',','.')}}</td>
-                                                <td style='text-align  : right !important;'>{{number_format($val['ppn_amount_item'],2,',','.')}}</td>
-                                                <td style='text-align  : right !important;'>{{number_format($val['total_price_after_ppn_amount'],2,',','.')}}</td>
-                                                <td style='text-align  : center'>
-                                                    <a href="{{route('sales-order-delete-array', ['record_id' => $key])}}" name='Reset' class='btn btn-danger btn-sm' onClick='javascript:return confirm(\"apakah yakin ingin dihapus ?\")'></i> Hapus</a>
-                                                </td>
-                                                
-                                                
-                                            </tr>
-                                        @php
-                                            $no++;
-                                            $total_price_after_discount_item += $val['total_price_after_ppn_amount'];
-                                            $total_item+=$val['quantity'];
-                                        @endphp
-                                        
-                                        @endforeach
-                                        <th style='text-align  : center' colspan='2'>Total</th>
-                                        <th style='text-align  : right' >{{$total_item}}</th>
-                                        <th colspan='7'></th>
-                                        <th style='text-align  : right'>{{number_format($total_price_after_discount_item,2,',','.')}}</th>
-                                        <th>
-                                            <input class='form-control input-bb' type='hidden' name='total_price_all' id='total_price_all' value='{{$total_price_after_discount_item}}'/>
-                                            <input class='form-control input-bb' type='hidden' name='total_item_all' id='total_item_all' value='{{$total_item}}'/>
-                                        </th>
+                            @if(!is_array($salesorderitem))
+                                <tr><th colspan='11' style='text-align  : center !important;'>Data Kosong</th></tr>
+                            @else 
+                            @php
+                                $no =1;
+                                $total_price = 0;
+                                $total_price_after_discount_item = 0;
+                                $total_item = 0;
+                            @endphp
+                                @foreach ($salesorderitem AS $key => $val)
                                         <tr>
-                                            <td style='text-align  : center' colspan='2'><b>Discount Nota (%)</b></td>
-                                            <td style='text-align  : center'><b>:</b></td>
-                                            <td colspan='6'></td>
-                                            <td>
-                                                <input style='text-align  : right' type="text" class="form-control" name="discount_percentage" id="discount_percentage" value="0"  placeholder="isi 0 jika kosong"></td>
-                                            <td>
-                                                <input type="hidden" class="form-control" name="discount_amount" id="discount_amount" readonly>
-                                                <input type="hidden" class="form-control" name="subtotal_after_discount" id="subtotal_after_discount" readonly>
-                                                <input style='text-align  : right;  font-weight: bold;' type="text" class="form-control" name="discount_amount_view" id="discount_amount_view" readonly>
-                                            </td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td style='text-align  : center' colspan='2'><b>Harga Setelah Discount Nota </td>
-                                            <td style='text-align  : center'><b>:</b></td>
-                                            <td colspan='7'></td>
+                                            <td style='text-align  : center'>{{$no}}</td>
+                                            <td style='text-align  : left !important;'>{{$SalesOrder->getItemTypeName($val['item_type_id'])}}</td>
+                                            <td style='text-align  : right !important;'>{{$val['quantity']}}</td>
+                                            
+                                            <td style='text-align  : left !important;'>{{$SalesOrder->getItemUnitName($val['item_unit_id'])}}</td>
+                                            <td style='text-align  : right !important;'>{{number_format($val['price'],2,',','.')}}</td>
+                                            <td style='text-align  : right !important;'>{{number_format($val['discount_amount_item'],2,',','.')}}</td>
+                                            <td style='text-align  : right !important;'>{{number_format($val['subtotal_after_discount_item_a'],2,',','.')}}</td>
+                                            <td style='text-align  : right !important;'>{{number_format($val['ppn_amount_item'],2,',','.')}}</td>
+                                            <td style='text-align  : right !important;'>{{number_format($val['total_price_after_ppn_amount'],2,',','.')}}</td>
                                             <td style='text-align  : center'>
-                                                <input style='text-align  : right;  font-weight: bold;' type="text" class="form-control" name="subtotal_after_discount_view" id="subtotal_after_discount_view" readonly>
+                                                <a href="{{route('sales-order-delete-array', ['record_id' => $key])}}" name='Reset' class='btn btn-danger btn-sm' onClick='javascript:return confirm(\"apakah yakin ingin dihapus ?\")'></i> Hapus</a>
                                             </td>
-                                            <td></td>
+                                            
+                                            
                                         </tr>
-                                        <tr hidden>
-                                            <td  style='text-align  : center' colspan='2'><b>PPN Keluar (%)</b></td>
-                                            <td  style='text-align  : center'><b>:</b></td>
-                                            <td  colspan='6'></td>
-                                            <td>
-                                                <input  style='text-align  : right' type="text" class="form-control" name="ppn_out_percentage" id="ppn_out_percentage" value="0" placeholder="isi 0 jika kosong"></td>
-                                            <td>
-                                                <input  type="" class="form-control" name="ppn_out_amount" id="ppn_out_amount" readonly>
-                                                <input  style='text-align  : right;  font-weight: bold;' type="text" class="form-control" name="ppn_out_amount_view" id="ppn_out_amount_view" readonly>
-                                            </td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td style='text-align  : center' colspan='2'><b>Total Harga Akhir </td>
-                                            <td style='text-align  : center'><b>:</b></td>
-                                            <td colspan='7'></td>
-                                            <td style='text-align  : center'>
-                                                <input type="hidden" class="form-control" name="subtotal_after_ppn_out" id="subtotal_after_ppn_out" readonly>
-                                                <input style='text-align  : right;  font-weight: bold;' type="text" class="form-control" name="subtotal_after_ppn_out_view" id="subtotal_after_ppn_out_view" readonly>
-                                            </td>
-                                            <td></td>
-                                        </tr>
+                                    @php
+                                        $no++;
+                                        $total_price_after_discount_item += $val['total_price_after_ppn_amount'];
+                                        $total_item+=$val['quantity'];
+                                    @endphp
+                                    
+                                @endforeach
+
+                                <th style='text-align  : center' colspan='2'>Total</th>
+                                <th style='text-align  : right' >{{$total_item}}</th>
+                                <th colspan='5'></th>
+                                <th style='text-align  : right'>{{number_format($total_price_after_discount_item,2,',','.')}}</th>
+                                <th>
+                                    <input class='form-control input-bb' type='hidden' name='total_price_all' id='total_price_all' value='{{$total_price_after_discount_item}}'/>
+                                    <input class='form-control input-bb' type='hidden' name='total_item_all' id='total_item_all' value='{{$total_item}}'/>
+                                </th>
+                                <tr>
+                                    <td style='text-align  : center' colspan='2'><b>Discount Nota (%)</b></td>
+                                    <td style='text-align  : center'><b>:</b></td>
+                                    <td colspan='4'></td>
+                                    <td>
+                                        <input style='text-align  : right' type="text" class="form-control" name="discount_percentage" id="discount_percentage" value="0"  placeholder="isi 0 jika kosong"></td>
+                                    <td>
+                                        <input type="hidden" class="form-control" name="discount_amount" id="discount_amount" readonly>
+                                        <input type="hidden" class="form-control" name="subtotal_after_discount" id="subtotal_after_discount" readonly>
+                                        <input style='text-align  : right;  font-weight: bold;' type="text" class="form-control" name="discount_amount_view" id="discount_amount_view" readonly>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style='text-align  : center' colspan='2'><b>Harga Setelah Discount Nota </td>
+                                    <td style='text-align  : center'><b>:</b></td>
+                                    <td colspan='5'></td>
+                                    <td style='text-align  : center'>
+                                        <input style='text-align  : right;  font-weight: bold;' type="text" class="form-control" name="subtotal_after_discount_view" id="subtotal_after_discount_view" readonly>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr hidden>
+                                    <td  style='text-align  : center' colspan='2'><b>PPN Keluar (%)</b></td>
+                                    <td  style='text-align  : center'><b>:</b></td>
+                                    <td  colspan='4'></td>
+                                    <td>
+                                        <input  style='text-align  : right' type="text" class="form-control" name="ppn_out_percentage" id="ppn_out_percentage" value="0" placeholder="isi 0 jika kosong"></td>
+                                    <td>
+                                        <input  type="" class="form-control" name="ppn_out_amount" id="ppn_out_amount" readonly>
+                                        <input  style='text-align  : right;  font-weight: bold;' type="text" class="form-control" name="ppn_out_amount_view" id="ppn_out_amount_view" readonly>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td style='text-align  : center' colspan='2'><b>Total Harga Akhir </td>
+                                    <td style='text-align  : center'><b>:</b></td>
+                                    <td colspan='5'></td>
+                                    <td style='text-align  : center'>
+                                        <input type="hidden" class="form-control" name="subtotal_after_ppn_out" id="subtotal_after_ppn_out" readonly>
+                                        <input style='text-align  : right;  font-weight: bold;' type="text" class="form-control" name="subtotal_after_ppn_out_view" id="subtotal_after_ppn_out_view" readonly>
+                                    </td>
+                                    <td></td>
+                                </tr>
                             @endif
                         </tbody>
                     </table>

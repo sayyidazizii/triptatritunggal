@@ -192,44 +192,49 @@ class SalesOrderController extends Controller
     }
     
     public function processAddArraySalesOrderItem(Request $request)
-    {
-        $fields = $request->validate([
-            'item_category_id'              => 'required',
-            'item_type_id'                  => 'required',
-            'item_unit_id'                  => 'required',
-            'quantity'                      => 'required',
-            'price'                         => 'required',
-            'total_price'                   => 'required',
-            'sales_quotation_id'            => 'required',
-        ]);
+    {   
+        try {
+            $fields = $request->validate([
+                'item_category_id'              => 'required',
+                'item_type_id'                  => 'required',
+                'item_unit_id'                  => 'required',
+                'quantity'                      => 'required',
+                'price'                         => 'required',
+                'total_price'                   => 'required',
+                'sales_quotation_id'            => 'required',
+            ]);
 
-        $salesorderitem = array(
-            'item_category_id'	            => $request->item_category_id,
-            'item_type_id'	                => $request->item_type_id,
-            'item_unit_id'	                => $request->item_unit_id,
-            'quantity'	                    => $request->quantity,
-            'price'	                        => $request->price,
-            'total_price'	                => $request->total_price,
-            'discount_percentage_item'	    => $request->discount_percentage_item,
-            'discount_amount_item'	        => $request->discount_amount_item,
-            'subtotal_after_discount_item_a'=> $request->subtotal_after_discount_item_a,
-            'ppn_amount_item'               => $request->ppn_amount_item,
-            'total_price_after_ppn_amount'  => $request->total_price_after_ppn_amount,
-        );
+            $salesorderitem = array(
+                'item_category_id'	            => $request->item_category_id,
+                'item_type_id'	                => $request->item_type_id,
+                'item_unit_id'	                => $request->item_unit_id,
+                'quantity'	                    => $request->quantity,
+                'price'	                        => $request->price,
+                'total_price'	                => $request->total_price,
+                'discount_percentage_item'	    => $request->discount_percentage_item,
+                'discount_amount_item'	        => $request->discount_amount_item,
+                'subtotal_after_discount_item_a'=> $request->subtotal_after_discount_item_a,
+                'ppn_amount_item'               => $request->ppn_amount_item,
+                'total_price_after_ppn_amount'  => $request->total_price_after_ppn_amount,
+            );
 
-        $lastsalesorderitem= Session::get('salesorderitem');
-        if($lastsalesorderitem!== null){
-            array_push($lastsalesorderitem, $salesorderitem);
-            Session::put('salesorderitem', $lastsalesorderitem);
-        }else{
-            $lastsalesorderitem= [];
-            array_push($lastsalesorderitem, $salesorderitem);
-            Session::push('salesorderitem', $salesorderitem);
+            $lastsalesorderitem= Session::get('salesorderitem');
+            if($lastsalesorderitem!== null){
+                array_push($lastsalesorderitem, $salesorderitem);
+                Session::put('salesorderitem', $lastsalesorderitem);
+            }else{
+                $lastsalesorderitem= [];
+                array_push($lastsalesorderitem, $salesorderitem);
+                Session::push('salesorderitem', $salesorderitem);
+            }
+            
+            Session::put('editarraystate', 1);
+        
+            return redirect()->route('add-sales-order', ['sales_quotation_id' => $request->sales_quotation_id]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Print validation errors for debugging
+            return response()->json(['errors' => $e->errors()], 422);
         }
-        
-        Session::put('editarraystate', 1);
-        
-        return redirect()->route('add-sales-order', ['sales_quotation_id' => $request->sales_quotation_id]);
     }
 
     public function deleteArraySalesOrderItem ($record_id)
@@ -388,15 +393,10 @@ class SalesOrderController extends Controller
             'sales_order_date'               => 'required',
             'sales_order_delivery_date'      => 'required',
             'customer_id'                    => 'required',
-            'purchase_order_no'              => [
-                'required',
-                Rule::unique('sales_order', 'purchase_order_no'),
-            ],
             'sales_order_type_id'            => 'required',
             'total_item_all'                 => 'required',
             'total_price_all'                => 'required',
         ];
-
         
         $validatedData = $request->validate($validationRules);
         $fileNameToStore = '';
@@ -418,91 +418,66 @@ class SalesOrderController extends Controller
 
         }
 
-        // print_r($request->file('receipt_image'));
 
-        $salesorder = array (
-            'sales_order_date'           => $validatedData['sales_order_date'],
-            'sales_order_delivery_date'  => $validatedData['sales_order_delivery_date'],
-            'customer_id'                => $validatedData['customer_id'],
-            'sales_order_type_id'        => $validatedData['sales_order_type_id'],
-            'total_item'                 => $validatedData['total_item_all'],
-            'total_amount'               => $validatedData['total_price_all'],
-            'sales_order_remark'         => $request->sales_order_remark,
-            'discount_percentage'        => $request->discount_percentage,
-            'discount_amount'            => $request->discount_amount,
-            'subtotal_after_discount'    => $request->subtotal_after_discount,
-            'ppn_out_percentage'	     => $request['ppn_out_percentage'],
-            'ppn_out_amount'	         => $request['ppn_out_amount'],
-            'subtotal_after_ppn_out'	 => $request['subtotal_after_ppn_out'],
-            'receipt_image'              => $fileNameToStore,
-            'branch_id'                  => Auth::user()->branch_id,
-            'purchase_order_no'          => $validatedData['purchase_order_no'],
-            'purchase_order_due_date'    => $request['purchase_order_due_date'],
-
-        );
-        if (SalesOrder::where('purchase_order_no', $validatedData['purchase_order_no'])->exists()) {
-            $msg = 'Nomor PO sudah ada.';
-            return redirect('/sales-order/add')->with('msg', $msg);
+        try {
+            DB::beginTransaction();
+            
+            $salesorder = array (
+                'sales_order_date'           => $validatedData['sales_order_date'],
+                'sales_order_delivery_date'  => $validatedData['sales_order_delivery_date'],
+                'customer_id'                => $validatedData['customer_id'],
+                'sales_order_type_id'        => $validatedData['sales_order_type_id'],
+                'total_item'                 => $validatedData['total_item_all'],
+                'total_amount'               => $validatedData['total_price_all'],
+                'sales_order_remark'         => $request->sales_order_remark,
+                'discount_percentage'        => $request->discount_percentage,
+                'discount_amount'            => $request->discount_amount,
+                'subtotal_after_discount'    => $request->subtotal_after_discount,
+                'ppn_out_percentage'	     => $request['ppn_out_percentage'],
+                'ppn_out_amount'	         => $request['ppn_out_amount'],
+                'subtotal_after_ppn_out'	 => $request['subtotal_after_ppn_out'],
+                'receipt_image'              => $fileNameToStore,
+                'branch_id'                  => Auth::user()->branch_id,
+            );
+           // dd($salesorder);
+    
+            SalesOrder::create($salesorder);
+                $sales_order_id = SalesOrder::orderBy('created_at','DESC')->first();
+                $salesorderitem = Session::get('salesorderitem');
+                //dd($salesorderitem);
+                foreach ($salesorderitem AS $key => $val){
+                    $datasalesorderitem = array (
+                        'sales_order_id'                => $sales_order_id['sales_order_id'],
+                        'item_category_id'              => $val['item_category_id'],
+                        'item_type_id'                  => $val['item_type_id'],
+                        'item_unit_id'                  => $val['item_unit_id'],
+                        // 'item_stock_id'                 => $val['item_stock_id'],
+                        'quantity'                      => $val['quantity'],
+                        'quantity_resulted'             => $val['quantity'],
+                        'item_unit_price'               => $val['price'],
+                        'subtotal_amount'               => $val['total_price'],
+                        'discount_percentage_item'      => $val['discount_percentage_item'],
+                        'discount_amount_item'          => $val['discount_amount_item'],
+                        'subtotal_after_discount_item_a'=> $val['subtotal_after_discount_item_a'],
+                        'ppn_amount_item'               => $val['ppn_amount_item'],
+                        'total_price_after_ppn_amount'  => $val['total_price_after_ppn_amount'],
+    
+                    );
+                    SalesOrderItem::create($datasalesorderitem);
+    
+                }
+                $msg = 'Tambah Sales Order Berhasil';
+                
+                DB::commit();
+                return redirect('/sales-order')->with('msg',$msg);
+        }catch (\Exception $e) {
+            DB::rollBack();
+            report($e);
+                $msg = 'Tambah Sales Order Gagal';
+                return redirect('/sales-order/add')->with('msg',$msg);
         }
-       // dd($salesorder);
-
-        if(SalesOrder::create($salesorder)){
-            $sales_order_id = SalesOrder::orderBy('created_at','DESC')->first();
-            $salesorderitem = Session::get('salesorderitem');
-            //dd($salesorderitem);
-            foreach ($salesorderitem AS $key => $val){
-                $datasalesorderitem = array (
-                    'sales_order_id'                => $sales_order_id['sales_order_id'],
-                    'item_category_id'              => $val['item_category_id'],
-                    'item_type_id'                  => $val['item_type_id'],
-                    'item_unit_id'                  => $val['item_unit_id'],
-                    // 'item_stock_id'                 => $val['item_stock_id'],
-                    'quantity'                      => $val['quantity'],
-                    'quantity_resulted'             => $val['quantity'],
-                    'item_unit_price'               => $val['price'],
-                    'subtotal_amount'               => $val['total_price'],
-                    'discount_percentage_item'      => $val['discount_percentage_item'],
-                    'discount_amount_item'          => $val['discount_amount_item'],
-                    'subtotal_after_discount_item_a'=> $val['subtotal_after_discount_item_a'],
-                    'discount_percentage_item_b'    => $val['discount_percentage_item_b'],
-                    'discount_amount_item_b'        => $val['discount_amount_item_b'],
-                    'subtotal_after_discount_item_b'=> $val['subtotal_after_discount_item_b'],
-                    'ppn_amount_item'               => $val['ppn_amount_item'],
-                    'total_price_after_ppn_amount'  => $val['total_price_after_ppn_amount'],
-
-                );
-                //dd($datasalesorderitem);
-                SalesOrderItem::create($datasalesorderitem);
-                //     // $sales_order_item_id = SalesOrderItem::where('sales_order_id',$datasalesorderitem['sales_order_id'])
-                //     // // ->orderBy('created_at','DESC')
-                //     // ->get();
-                //     // $salesorderitem = Session::get('salesorderitem');
-                //     // dd($sales_order_item_id);
-                //     foreach($datasalesorderitem AS $key =>  $itemstock){
-
-                //         $data = array(
-                //             'sales_order_id' 			    => $sales_order_id['sales_order_id'],
-                //             // 'sales_order_item_id' 		    => $sales_order_item_id['sales_order_item_id'],
-                //             'item_unit_id' 		            => $itemstock['item_unit_id'],
-                //             'item_stock_id' 		        => $itemstock['item_stock_id'],
-                //             'item_total_stock' 		        => $itemstock['quantity'],
-                //             'created_id'                    => Auth::id(),
-                //         );
-                //         dd($data);
-                //         SalesOrderItemStock::create($datasalesorderitem);
-                //}
-                    
-                //}    
-
-            }
-            $msg = 'Tambah Sales Order Berhasil';
-            return redirect('/sales-order')->with('msg',$msg);
-        }else{
-            $msg = 'Tambah Sales Order Gagal';
-            return redirect('/sales-order/add')->with('msg',$msg);
-        }
-
     }
+}
 
     public function addCoreCustomer(Request $request){
         $customer_name              = $request->customer_name;
