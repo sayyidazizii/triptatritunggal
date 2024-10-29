@@ -30,6 +30,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+
 
 
 class SalesQuotationController extends Controller
@@ -254,6 +261,137 @@ class SalesQuotationController extends Controller
         ->first();
 
         return $customer['customer_name'] ?? '';
+    }
+
+    public function export($quotation_id)
+    {
+
+        // Ambil data sales quotation
+        $salesquotation = SalesQuotation::join('core_customer', 'core_customer.customer_id', 'sales_quotation.customer_id')
+            ->join('sales_quotation_item', 'sales_quotation_item.sales_quotation_id', 'sales_quotation.sales_quotation_id')
+            ->where('sales_quotation.data_state', '=', 0)
+            ->where('sales_quotation.sales_quotation_id', $quotation_id)
+            ->first();
+
+        if (!$salesquotation) {
+            echo "Maaf, data yang diekspor tidak ada!";
+            return;
+        }
+
+        $preference_company = PreferenceCompany::first();
+
+
+        // Buat objek Spreadsheet
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle('Quotation');
+
+        // Set properti spreadsheet
+        $spreadsheet->getProperties()->setCreator("PT. TRIPTA TRI TUNGGAL")
+            ->setTitle("Quotation");
+
+        // Header
+        $sheet->mergeCells("B2:D2");
+        $sheet->setCellValue("B2", "PT. TRIPTA TRI TUNGGAL");
+        $sheet->getStyle("B2")->getFont()->setBold(true)->setSize(16);
+        
+        $sheet->mergeCells("B3:D3");
+        $sheet->setCellValue("B3", "SERVING BETTER");
+
+        $drawing = new Drawing();
+        $drawing->setName('Logo');
+        $drawing->setDescription('Logo Tripta');
+        $drawing->setPath(public_path('img/logo_tripta.png')); // Pastikan path sudah benar
+        $drawing->setHeight(50); // Sesuaikan ukuran tinggi logo
+        $drawing->setCoordinates('B4'); // Set lokasi untuk logo (di bawah "SERVING BETTER")
+        $drawing->setOffsetX(10);
+        $drawing->setWorksheet($sheet);
+
+        $sheet->mergeCells("E2:G2");
+        $sheet->setCellValue("E2", "Quote");
+        $sheet->getStyle("E2")->getFont()->setBold(true)->getColor()->setRGB("3366FF");
+
+        // Informasi Quote
+        $sheet->setCellValue("E4", "Date");
+        $sheet->setCellValue("E5", "Valid Until");
+        $sheet->setCellValue("E6", "Quote #");
+        $sheet->setCellValue("E7", "Customer ID");
+
+        $sheet->getStyle("E4:E7")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
+        $sheet->getStyle("F4:F7")->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THIN);
+
+        // Bagian Customer dan Project Description
+        $sheet->mergeCells("B9:C9");
+        $sheet->setCellValue("B9", "Customer:");
+        $sheet->mergeCells("D9:G9");
+        $sheet->setCellValue("D9", "Quote/Project Description");
+        $sheet->getStyle("B9:G9")->getFont()->setBold(true)->getColor()->setRGB("FFFFFF");
+        $sheet->getStyle("B9:G9")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle("B9:G9")->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+            ->getStartColor()->setARGB('4F81BD');
+
+        $sheet->mergeCells("B10:C15"); // Area Customer
+        $sheet->mergeCells("D10:G15"); // Area Project Description
+
+        // Tabel Deskripsi Item
+        $sheet->setCellValue("B17", "Description");
+        $sheet->setCellValue("E17", "QTY");
+        $sheet->setCellValue("F17", "HARGA");
+        $sheet->setCellValue("G17", "Line Total");
+
+        $sheet->getStyle("B17:G17")->getFont()->setBold(true);
+        $sheet->getStyle("B17:G17")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle("B17:G17")->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
+        $sheet->getStyle("B18:G28")->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
+
+        // Contoh Data Kosong di Tabel
+        for ($row = 18; $row <= 28; $row++) {
+            $sheet->mergeCells("B{$row}:D{$row}"); // Kolom Description memanjang
+            $sheet->setCellValue("E{$row}", ""); // QTY
+            $sheet->setCellValue("F{$row}", ""); // Harga
+            $sheet->setCellValue("G{$row}", ""); // Line Total
+        }
+
+        // Bagian Special Notes and Instructions
+        $sheet->mergeCells("B30:D30");
+        $sheet->setCellValue("B30", "Special Notes and Instructions");
+        $sheet->getStyle("B30")->getFont()->setBold(true);
+
+        $sheet->mergeCells("B31:D35"); // Area untuk notes
+
+        // Bagian Ringkasan Total
+        $sheet->setCellValue("E30", "Subtotal");
+        $sheet->setCellValue("E31", "Discount");
+        $sheet->setCellValue("E32", "DPP");
+        $sheet->setCellValue("E33", "VAT Rate 11%");
+        $sheet->setCellValue("E34", "Total");
+
+        $sheet->getStyle("E30:E34")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
+        $sheet->getStyle("F30:F34")->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THIN);
+
+        // Footer
+        $sheet->mergeCells("B37:G37");
+        $sheet->setCellValue("B37", "Silakan gunakan quotation ini hanya untuk tujuan penawaran dan tidak mengikat kecuali disetujui tertulis.");
+        $sheet->getStyle("B37")->getFont()->setItalic(true)->setSize(9);
+
+        // Pengaturan Lebar Kolom
+        $sheet->getColumnDimension('B')->setWidth(20);
+        $sheet->getColumnDimension('C')->setWidth(15);
+        $sheet->getColumnDimension('D')->setWidth(15);
+        $sheet->getColumnDimension('E')->setWidth(10);
+        $sheet->getColumnDimension('F')->setWidth(12);
+        $sheet->getColumnDimension('G')->setWidth(15);
+
+        // Simpan dan Ekspor File
+        $filename = 'Quotation_Template_' . date('d_M_Y') . '.xlsx';
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+
+        $writer = new Xlsx($spreadsheet);
+        ob_clean(); // Bersihkan buffer output sebelum menulis
+        $writer->save('php://output');
+        exit;
     }
 
 }

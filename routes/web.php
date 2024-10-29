@@ -452,6 +452,7 @@ Route::get('/sales-quotation/filter-reset', [SalesQuotationController::class, 'r
 Route::post('/sales-quotation/quotation-elements-add', [SalesQuotationController::class, 'elements_add'])->name('elements-add-sales-quotation');
 Route::post('/sales-quotation/quotation-type', [SalesQuotationController::class, 'getInvItemTypeQuotation'])->name('sales-quotation-type');
 Route::post('/sales-quotation/quotation-stock', [SalesQuotationController::class, 'getInvItemTypeIdQuotation'])->name('select-quotation-id-stock');
+Route::get('/sales-quotation/export/{sales_quotation_id}', [SalesQuotationController::class, 'export'])->name('select-quotation-export');
 
 Route::get('/sales-quotation-approval', [SalesQuotationApprovalController::class, 'index'])->name('sales-quotation-approval');
 Route::get('/sales-quotation-approval/approve/{sales_quotation_id}', [SalesQuotationApprovalController::class, 'approveSalesquotation'])->name('approve-sales-quotation-approval');
