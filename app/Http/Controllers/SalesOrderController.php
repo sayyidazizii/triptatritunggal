@@ -477,7 +477,6 @@ class SalesOrderController extends Controller
                 return redirect('/sales-order/add')->with('msg',$msg);
         }
     }
-}
 
     public function addCoreCustomer(Request $request){
         $customer_name              = $request->customer_name;
