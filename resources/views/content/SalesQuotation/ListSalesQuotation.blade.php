@@ -130,9 +130,7 @@
                                     <a type="button" class="btn btn-outline-danger btn-sm">Disapproved</a>
                                 @endif
                                 
-                                @if($item['sales_order_type_id'] == 1)
-                                    <a type="button" class="btn btn-outline-info btn-sm" href="{{ url('/sales-order/kwitansi/'.$item['sales_order_id']) }}">Kwitansi</a>
-                                @endif
+                                    <a type="button" class="btn btn-outline-info btn-sm" target="_blank" href="{{ url('/sales-quotation/export/'.$item['sales_quotation_id']) }}">Cetak</a>
                             </td>
                             
                     </tr>
