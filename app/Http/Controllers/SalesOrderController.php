@@ -415,9 +415,7 @@ class SalesOrderController extends Controller
             $fileNameToStore = $filename.'_'.time().'.'.$extension;
             // Upload Image
             $path = $request->file('receipt_image')->storeAs('public/receipt',$fileNameToStore);
-
         }
-
 
         try {
             DB::beginTransaction();
@@ -439,19 +437,18 @@ class SalesOrderController extends Controller
                 'receipt_image'              => $fileNameToStore,
                 'branch_id'                  => Auth::user()->branch_id,
             );
-           // dd($salesorder);
     
             SalesOrder::create($salesorder);
+
                 $sales_order_id = SalesOrder::orderBy('created_at','DESC')->first();
                 $salesorderitem = Session::get('salesorderitem');
-                //dd($salesorderitem);
+                
                 foreach ($salesorderitem AS $key => $val){
                     $datasalesorderitem = array (
                         'sales_order_id'                => $sales_order_id['sales_order_id'],
                         'item_category_id'              => $val['item_category_id'],
                         'item_type_id'                  => $val['item_type_id'],
                         'item_unit_id'                  => $val['item_unit_id'],
-                        // 'item_stock_id'                 => $val['item_stock_id'],
                         'quantity'                      => $val['quantity'],
                         'quantity_resulted'             => $val['quantity'],
                         'item_unit_price'               => $val['price'],
@@ -464,11 +461,11 @@ class SalesOrderController extends Controller
     
                     );
                     SalesOrderItem::create($datasalesorderitem);
-    
                 }
+                
                 $msg = 'Tambah Sales Order Berhasil';
                 
-                DB::commit();
+            DB::commit();
                 return redirect('/sales-order')->with('msg',$msg);
         }catch (\Exception $e) {
             DB::rollBack();

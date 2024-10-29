@@ -3725,7 +3725,7 @@ CREATE TABLE `core_customer` (
   KEY `customer_id` (`customer_id`),
   KEY `FK_core_customer_province_id` (`province_id`),
   KEY `FK_core_customer_city_id` (`city_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=177 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=178 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `core_customer` */
 
@@ -3905,7 +3905,8 @@ insert  into `core_customer`(`customer_id`,`province_id`,`city_id`,`customer_cod
 (173,76,1148,'PT. INDOMARCO PRISMATAMA','PT.INDOMARCO PRISMATAMA DC SAMARINDA',NULL,'JL. EKONOMI    NO 1\r\nDESA LOA BUAH. KEC,SUNGAI KUNJANG\r\nKODYA SAMARINDA\r\n0541-7770734',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-06-11 02:16:57','2024-06-11 02:16:57',NULL),
 (174,91,1354,'PT. INTI CAKRAWALA MAJU','PT.INTI CAKRAWALA MAJU. DC KENDARI',NULL,'JL MADUSILA NO.19 KEC POASIA\r\nKEL.ANDUONOHU\r\nKENDARI SULAWESI TENGGARA',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-06-11 03:21:02','2024-06-11 03:21:02',NULL),
 (175,71,1048,'ICM SEMARANG','PT.INTI CAKRAWALA MAJU. DC SEMARANG',NULL,'JL.RAYA KALIGAWE NO.38 RT.01/01\r\nTERBOYO WETAN,GENUK,SEMARANG,JAWA TENGAH\r\n50112',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-07-02 03:13:37','2024-07-02 03:13:37',NULL),
-(176,71,1036,'daffa hanaris','daffa hanaris',NULL,'sumbulan lor rt 02 rw 13\r\nmakamhaji','04849484',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,3,'2024-10-17 04:42:38','2024-10-17 04:42:38',NULL);
+(176,71,1036,'daffa hanaris','daffa hanaris',NULL,'sumbulan lor rt 02 rw 13\r\nmakamhaji','04849484',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,3,'2024-10-17 04:42:38','2024-10-17 04:42:38',NULL),
+(177,71,1036,NULL,'Sayyid',NULL,'sumbulan lor rt 02 rw 13\nmakamhaji','04849484',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,3,'2024-10-29 07:26:03','2024-10-29 07:26:03',NULL);
 
 /*Table structure for table `core_expedition` */
 
@@ -21530,7 +21531,7 @@ CREATE TABLE `sales_order` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_order_id`),
   KEY `sales_order_id` (`sales_order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1699 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=1702 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_order` */
 
@@ -23223,7 +23224,10 @@ insert  into `sales_order`(`sales_order_id`,`sales_order_type_id`,`customer_id`,
 (1695,2,176,0,'','1686/SO/X/2024','12231313','2024-10-17','2024-10-18',0,0.00,0,0,0,0,0,1,0.00,0,0.00,'da',NULL,500.00,0.00,0.00,0.00,2247750.00,0.00,0.00,2247750.00,0,0.00,2247750.00,0.00,0,1,0,0,'2024-10-17 05:28:04',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-10-17 05:29:21'),
 (1696,2,176,0,'','1687/SO/X/2024','2222','2024-10-17','2024-10-19',3,0.00,0,0,0,0,0,1,0.00,0,0.00,'da',NULL,10.00,0.00,0.00,0.00,4495.50,0.00,0.00,4495.50,0,0.00,4495.50,0.00,0,1,0,0,'2024-10-17 05:31:56',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-10-17 05:41:44'),
 (1697,2,176,0,'','1688/SO/X/2024','101010','2024-10-17','2024-10-19',0,0.00,0,0,0,0,0,1,0.00,0,0.00,'dad',NULL,20.00,0.00,0.00,0.00,35964.00,0.00,0.00,35964.00,0,0.00,35964.00,0.00,0,1,0,0,'2024-10-17 05:34:41',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-10-17 05:35:14'),
-(1698,2,1,0,'','1689/SO/X/2024','da5r4g2t','2024-10-21','2024-10-22',0,0.00,0,0,0,0,0,0,0.00,0,0.00,NULL,NULL,10.00,0.00,0.00,0.00,44955.00,0.00,0.00,44955.00,0,0.00,44955.00,0.00,0,1,0,0,'2024-10-21 06:43:31',0,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-10-21 06:43:31');
+(1698,2,1,0,'','1689/SO/X/2024','da5r4g2t','2024-10-21','2024-10-22',0,0.00,0,0,0,0,0,0,0.00,0,0.00,NULL,NULL,10.00,0.00,0.00,0.00,44955.00,0.00,0.00,44955.00,0,0.00,44955.00,0.00,0,1,0,0,'2024-10-21 06:43:31',0,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-10-21 06:43:31'),
+(1699,2,176,0,'','1690/SO/X/2024','0','2024-10-29','2024-10-31',0,0.00,0,0,0,0,0,0,0.00,0,0.00,'da',NULL,15.00,0.00,0.00,0.00,33300.00,0.00,0.00,33300.00,0,0.00,33300.00,0.00,0,1,0,0,'2024-10-29 04:50:08',0,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-10-29 04:50:08'),
+(1700,2,176,0,'','1691/SO/X/2024','0','2024-10-29','2024-10-31',0,0.00,0,0,0,0,0,0,0.00,0,0.00,'da',NULL,15.00,0.00,0.00,0.00,33300.00,0.00,0.00,33300.00,0,0.00,33300.00,0.00,0,1,0,0,'2024-10-29 04:50:39',0,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-10-29 04:50:39'),
+(1701,2,176,0,'','1692/SO/X/2024','0','2024-10-29','2024-10-31',0,0.00,0,0,0,0,0,0,0.00,0,0.00,'da',NULL,10.00,0.00,0.00,0.00,27750.00,0.00,0.00,27750.00,0,0.00,27750.00,0.00,0,1,0,0,'2024-10-29 04:51:58',0,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-10-29 04:51:58');
 
 /*Table structure for table `sales_order_item` */
 
@@ -25659,13 +25663,14 @@ CREATE TABLE `sales_quotation` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_quotation_id`),
   KEY `sales_order_id` (`sales_quotation_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_quotation` */
 
 insert  into `sales_quotation`(`sales_quotation_id`,`sales_quotation_type_id`,`customer_id`,`salesman_id`,`receipt_image`,`sales_quotation_no`,`sales_quotation_date`,`sales_quotation_due_date`,`sales_quotation_status`,`sales_quotation_over_limit`,`sales_quotation_over_due_status`,`work_order_status`,`purchase_requisition_status`,`sales_quotation_design_status`,`sales_delivery_order_status`,`customer_credit_limit_balance`,`sales_invoice_status`,`sales_invoice_last_balance`,`sales_quotation_remark`,`sales_quotation_over_remark`,`total_item`,`subtotal_before_discount`,`discount_percentage`,`discount_amount`,`subtotal_after_discount`,`ppn_out_percentage`,`ppn_out_amount`,`subtotal_after_ppn_out`,`sales_shipment_status`,`paid_amount`,`total_amount`,`last_balance`,`counter_edited`,`branch_id`,`data_state`,`created_id`,`created_at`,`approved`,`approved_id`,`approved_on`,`approved_remark`,`closed`,`closed_id`,`closed_on`,`closed_remark`,`voided_id`,`voided_on`,`voided_remark`,`customer_no`,`updated_at`) values 
 (1,0,176,0,'','0001/QO/X/2024','2024-10-23','2024-10-25',0,0.00,0,0,0,0,0,0.00,0,0.00,NULL,NULL,5.00,0.00,0.00,0.00,11100.00,0.00,0.00,11100.00,0,0.00,11100.00,0.00,0,1,0,0,'2024-10-23 03:34:19',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-10-25 02:46:08'),
-(2,0,1,0,'','0002/QO/X/2024','2024-10-25','2024-10-28',0,0.00,0,0,0,0,0,0.00,0,0.00,'daffa',NULL,40.00,0.00,0.00,0.00,527338.80,0.00,0.00,527338.80,0,0.00,527338.80,0.00,0,1,0,0,'2024-10-25 07:07:38',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-10-25 07:07:44');
+(2,0,1,0,'','0002/QO/X/2024','2024-10-25','2024-10-28',0,0.00,0,0,0,0,0,0.00,0,0.00,'daffa',NULL,40.00,0.00,0.00,0.00,527338.80,0.00,0.00,527338.80,0,0.00,527338.80,0.00,0,1,0,0,'2024-10-25 07:07:38',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-10-25 07:07:44'),
+(3,0,177,0,'','0003/QO/X/2024','2024-10-29','2024-10-31',0,0.00,0,0,0,0,0,0.00,0,0.00,NULL,NULL,10.00,0.00,0.00,0.00,183150.00,0.00,0.00,183150.00,0,0.00,183150.00,0.00,0,1,0,0,'2024-10-29 07:31:32',0,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-10-29 07:31:32');
 
 /*Table structure for table `sales_quotation_item` */
 
@@ -25718,14 +25723,15 @@ CREATE TABLE `sales_quotation_item` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_quotation_item_id`),
   KEY `sales_order_item_id` (`sales_quotation_item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_quotation_item` */
 
 insert  into `sales_quotation_item`(`sales_quotation_item_id`,`sales_quotation_id`,`item_category_id`,`item_type_id`,`quantity`,`quantity_delivered`,`quantity_shipped`,`quantity_planned`,`quantity_outstanding`,`quantity_received`,`quantity_ordered`,`quantity_cavity`,`quantity_minimum`,`quantity_resulted`,`sales_quotation_item_status`,`item_substance_price`,`item_unit_id`,`item_unit_price`,`item_unit_price_adds`,`purchase_requisition_status`,`purchase_order_status`,`work_order_status`,`sales_delivery_order_status`,`sales_delivery_note_status`,`sales_invoice_status`,`quantity_minimum_status`,`subtotal_amount`,`subtotal_additional_amount`,`subtotal_item_amount`,`sales_quotation_no`,`sales_quotation_status`,`discount_percentage_item`,`discount_percentage_item_b`,`discount_amount_item`,`discount_amount_item_b`,`subtotal_after_discount_item_a`,`subtotal_after_discount_item_b`,`total_price_after_ppn_amount`,`ppn_amount_item`,`record_id`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (2,1,1,52,5.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,5.00,0,0.00,3,2000.00,0.00,0,0,0,0,0,0,0,10000.00,0.00,0.00,'',0,NULL,NULL,0.00,NULL,10000.00,NULL,11100.00,1100.00,0,0,0,'2024-10-23 03:34:19','2024-10-23 03:34:19'),
 (3,2,2,22,20.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,20.00,0,0.00,4,18754.00,0.00,0,0,0,0,0,0,0,375080.00,0.00,0.00,'',0,NULL,NULL,0.00,NULL,375080.00,NULL,416338.80,41258.80,0,0,0,'2024-10-25 07:07:38','2024-10-25 07:07:38'),
-(4,2,1,5,20.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,20.00,0,0.00,3,5000.00,0.00,0,0,0,0,0,0,0,100000.00,0.00,0.00,'',0,NULL,NULL,0.00,NULL,100000.00,NULL,111000.00,11000.00,0,0,0,'2024-10-25 07:07:38','2024-10-25 07:07:38');
+(4,2,1,5,20.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,20.00,0,0.00,3,5000.00,0.00,0,0,0,0,0,0,0,100000.00,0.00,0.00,'',0,NULL,NULL,0.00,NULL,100000.00,NULL,111000.00,11000.00,0,0,0,'2024-10-25 07:07:38','2024-10-25 07:07:38'),
+(5,3,2,34,10.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,10.00,0,0.00,5,16500.00,0.00,0,0,0,0,0,0,0,165000.00,0.00,0.00,'',0,NULL,NULL,0.00,NULL,165000.00,NULL,183150.00,18150.00,0,0,0,'2024-10-29 07:31:32','2024-10-29 07:31:32');
 
 /*Table structure for table `system_log_user` */
 
