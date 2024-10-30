@@ -93,7 +93,7 @@
                         <th width="20%" style='text-align:center'>Nama Pelanggan</th>
                         <th width="20%" style='text-align:center'>No SQ</th>
                         <th width="10%" style='text-align:center'>Tanggal SQ</th>
-                        <th width="15%" style='text-align:center'>Status</th>
+                            <th width="15%" style='text-align:center'>Status</th>
                         <th width="15%" style='text-align:center'>Aksi</th>
                     </tr>
                 </thead>
@@ -111,11 +111,7 @@
                             @elseif($item['sales_quotation_status'] == 0)
                                 <td>Dalam Proses</td>
                             @elseif($item['sales_quotation_status'] == 1)
-                                <td>Sebagian diterima</td>
-                            @elseif($item['sales_quotation_status'] == 2)
-                                <td>Intransit</td>
-                            @elseif($item['sales_quotation_status'] == 3)
-                                <td>Sudah Diterima</td>
+                                <td>Sales Order</td>
                             @else
                                 <td></td>
                             @endif

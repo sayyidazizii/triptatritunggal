@@ -416,10 +416,13 @@ class SalesOrderController extends Controller
             // Upload Image
             $path = $request->file('receipt_image')->storeAs('public/receipt',$fileNameToStore);
         }
-
+        
         try {
             DB::beginTransaction();
-            
+
+            $sales_quotation_id = $request->sales_quotation_id;
+            SalesQuotation::where('sales_quotation_id', $sales_quotation_id)->update(['approved' => 2, 'sales_quotation_status' => 1]);
+
             $salesorder = array (
                 'sales_order_date'           => $validatedData['sales_order_date'],
                 'sales_order_delivery_date'  => $validatedData['sales_order_delivery_date'],
