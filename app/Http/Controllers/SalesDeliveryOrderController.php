@@ -88,33 +88,6 @@ class SalesDeliveryOrderController extends Controller
         return redirect('/sales-delivery-order');
     }
 
-    // public function search()
-    // {
-    //     Session::forget('dataarrayinvitemstock');
-    //     Session::forget('datacheckboxdeliveryorder');
-
-    //     $salesorderitem = SalesOrderItem::select('sales_order.','sales_order_item.')
-    //     ->join('sales_order','sales_order.sales_order_id','sales_order_item.sales_order_id')
-    //     ->where('sales_order.data_state','=',0)
-    //     ->where('sales_order_item.data_state','=',0)
-    //     ->where('sales_order_item.quantity_resulted','>',0)
-    //     ->where('approved','=',1)
-    //     ->get();
-
-    //     return view('content/SalesDeliveryOrder/SearchSalesOrder',compact('salesorderitem'));
-    // }
-
-    // public function addSalesDeliveryOrder()
-    // {
-    //     $datacheckboxdeliveryorder = Session::get('datacheckboxdeliveryorder');
-
-    //     $warehouse = InvWarehouse::select('warehouse_id', 'warehouse_name')
-    //     ->where('data_state', 0)
-    //     ->pluck('warehouse_name', 'warehouse_id');
-
-    //     return view('content/SalesDeliveryOrder/FormAddSalesDeliveryOrder',compact('warehouse', 'datacheckboxdeliveryorder'));
-    // }
-
     public function search()
     {
         $salesorder = SalesOrder::select('sales_order.*')
@@ -151,14 +124,13 @@ class SalesDeliveryOrderController extends Controller
         
         $data_type_id = $this->getType($sales_order_id);
 
-          $type_id = array("item_type_id");
-          foreach ($data_type_id as $data_item) {
-              $type_id[] = array(
-                'item_type_id' => $data_item->item_type_id,
-                'datastock' => $this->getTypeStockid($data_item->item_type_id),
-              );
-
-          }
+        $type_id = array("item_type_id");
+            foreach ($data_type_id as $data_item) {
+                $type_id[] = array(
+                    'item_type_id' => $data_item->item_type_id,
+                    'datastock' => $this->getTypeStockid($data_item->item_type_id),
+                );
+            }
         return ($type_id);
     }
 
@@ -190,14 +162,13 @@ class SalesDeliveryOrderController extends Controller
         
         $datasdo = $this->getSOid($sales_order_id);
 
-          $data = array("sales_order_item_id");
-          foreach ($datasdo as $data_item) {
-              $data[] = array(
+        $data = array("sales_order_item_id");
+            foreach ($datasdo as $data_item) {
+                $data[] = array(
                 'sales_order_item_id' => $data_item->sales_order_item_id,
                 'data' => $this->getSOid2($data_item->sales_order_item_id),
-              );
-
-          }
+                );
+            }
         return ($data);
     }
 
@@ -435,87 +406,87 @@ class SalesDeliveryOrderController extends Controller
             'created_id'                    => Auth::id(),
         );
 
-        if(SalesDeliveryOrder::create($salesdeliveryorder)){
-            $sales_delivery_order_id = SalesDeliveryOrder::select('sales_delivery_order_id')
-            ->orderBy('created_at', 'DESC')
-            ->first();
-
-            $salesorderitem = SalesOrderitem::where('sales_order_id',$request->sales_order_id_1)
-            ->get();
+        try {
+            DB::beginTransaction();
             
-            $no =1;
-
-            $dataitem = $request->all();
-
-            // dd($dataitem);
-
-            foreach($salesorderitem as $item){
-                $item = SalesDeliveryOrderItem::create([
-                    'sales_delivery_order_id'	=> $sales_delivery_order_id['sales_delivery_order_id'],
-                    'sales_order_id' 			=> $dataitem['sales_order_id_'.$no],
-                    'sales_order_item_id' 		=> $dataitem['sales_order_item_id_'.$no],
-                    'customer_id' 				=> $dataitem['customer_id_'.$no],
-                    'item_type_id' 		        => $dataitem['item_type_id_'.$no],
-                    'item_unit_id' 		        => $dataitem['item_unit_id_'.$no],
-                    'item_unit_price' 		    => $dataitem['item_unit_price_'.$no],
-                    'subtotal_price' 		    => $dataitem['subtotal_after_discount_item_'.$no],
-                    'quantity'					=> $dataitem['quantity_delivered_'.$no],		
-                    'quantity_ordered'		    => $dataitem['quantity_'.$no],	
-                    'created_id'                => Auth::id(),
-                ]);
-
-                $salesorder = SalesOrder::findOrFail($dataitem['sales_order_id_'.$no]);
-                $salesorder->sales_delivery_order_status = 1;
-                $salesorder->save();
-
-                $salesorderitem = SalesOrderItem::findOrFail($dataitem['sales_order_item_id_'.$no]);
-                $salesorderitem->sales_delivery_order_status = 1;
-                $salesorderitem->quantity_delivered = $salesorderitem->quantity_delivered + $dataitem['quantity_delivered_'.$no];
-                $salesorderitem->save();
-
-                $no++;
-            }
-            
-            
-        $sdo_item_stock = SalesDeliveryOrderItemStockTemporary::where('sales_order_id', $request->sales_order_id_1)
-        ->get();
-
-        // dd($sdo_item_stock);
-
-        foreach($sdo_item_stock as $itemstock){
-
-            $sales_delivery_order_item_id = SalesDeliveryOrderItem::select('sales_delivery_order_item_id')
-            ->where('sales_order_item_id', $itemstock['sales_order_item_id'])
-            ->where('sales_order_id', $itemstock['sales_order_id'])
-            ->orderBy('sales_delivery_order_item_id', 'DESC')
-            ->first()
-            ->sales_delivery_order_item_id;
-
-            $data = SalesDeliveryOrderItemStock::create([
-                'sales_delivery_order_id'	    => $sales_delivery_order_id['sales_delivery_order_id'],
-                'sales_delivery_order_item_id'	=> $sales_delivery_order_item_id,
-                'sales_order_id' 			    => $itemstock['sales_order_id'],
-                'sales_order_item_id' 		    => $itemstock['sales_order_item_id'],
-                'item_unit_id' 		            => $itemstock['item_unit_id'],
-                'item_stock_id' 		        => $itemstock['item_stock_id'],
-                'item_total_stock' 		        => $itemstock['item_stock_quantity'],
-                'created_id'                    => Auth::id(),
-            ]);
-
-
-        }
+                SalesDeliveryOrder::create($salesdeliveryorder);
+                    $sales_delivery_order_id = SalesDeliveryOrder::select('sales_delivery_order_id')
+                    ->orderBy('created_at', 'DESC')
+                    ->first();
         
-        if($data){
-            SalesDeliveryOrderItemStockTemporary::where('sales_order_id', $data['sales_order_id'])->delete();
-        }
-            
-            $msg = 'Tambah Sales Delivery Order Berhasil';
-            return redirect('/sales-delivery-order')->with('msg',$msg);
-        }else{
-            $msg = 'Tambah Sales Delivery Order Gagal';
-            return redirect('/sales-delivery-order')->with('msg',$msg);
-        }
+                    $salesorderitem = SalesOrderitem::where('sales_order_id',$request->sales_order_id_1)
+                    ->get();
+                    
+                    $no =1;
+        
+                    $dataitem = $request->all();
+        
+                    foreach($salesorderitem as $item){
+                        $item = SalesDeliveryOrderItem::create([
+                            'sales_delivery_order_id'	=> $sales_delivery_order_id['sales_delivery_order_id'],
+                            'sales_order_id' 			=> $dataitem['sales_order_id_'.$no],
+                            'sales_order_item_id' 		=> $dataitem['sales_order_item_id_'.$no],
+                            'customer_id' 				=> $dataitem['customer_id_'.$no],
+                            'item_type_id' 		        => $dataitem['item_type_id_'.$no],
+                            'item_unit_id' 		        => $dataitem['item_unit_id_'.$no],
+                            'item_unit_price' 		    => $dataitem['item_unit_price_'.$no],
+                            'subtotal_price' 		    => $dataitem['subtotal_after_discount_item_'.$no],
+                            'quantity'					=> $dataitem['quantity_delivered_'.$no],		
+                            'quantity_ordered'		    => $dataitem['quantity_'.$no],	
+                            'created_id'                => Auth::id(),
+                        ]);
+        
+                        $salesorder = SalesOrder::findOrFail($dataitem['sales_order_id_'.$no]);
+                        $salesorder->sales_delivery_order_status = 1;
+                        $salesorder->save();
+        
+                        $salesorderitem = SalesOrderItem::findOrFail($dataitem['sales_order_item_id_'.$no]);
+                        $salesorderitem->sales_delivery_order_status = 1;
+                        $salesorderitem->quantity_delivered = $salesorderitem->quantity_delivered + $dataitem['quantity_delivered_'.$no];
+                        $salesorderitem->save();
+        
+                        $no++;
+                    }
+                    
+                    
+                $sdo_item_stock = SalesDeliveryOrderItemStockTemporary::where('sales_order_id', $request->sales_order_id_1)
+                ->get();
+        
+                foreach($sdo_item_stock as $itemstock){
+        
+                    $sales_delivery_order_item_id = SalesDeliveryOrderItem::select('sales_delivery_order_item_id')
+                    ->where('sales_order_item_id', $itemstock['sales_order_item_id'])
+                    ->where('sales_order_id', $itemstock['sales_order_id'])
+                    ->orderBy('sales_delivery_order_item_id', 'DESC')
+                    ->first()
+                    ->sales_delivery_order_item_id;
+        
+                    $data = SalesDeliveryOrderItemStock::create([
+                        'sales_delivery_order_id'	    => $sales_delivery_order_id['sales_delivery_order_id'],
+                        'sales_delivery_order_item_id'	=> $sales_delivery_order_item_id,
+                        'sales_order_id' 			    => $itemstock['sales_order_id'],
+                        'sales_order_item_id' 		    => $itemstock['sales_order_item_id'],
+                        'item_unit_id' 		            => $itemstock['item_unit_id'],
+                        'item_stock_id' 		        => $itemstock['item_stock_id'],
+                        'item_total_stock' 		        => $itemstock['item_stock_quantity'],
+                        'created_id'                    => Auth::id(),
+                    ]);
+                }
+                if($data){
+                    SalesDeliveryOrderItemStockTemporary::where('sales_order_id', $data['sales_order_id'])->delete();
+                }
 
+                $msg = 'Tambah Sales Delivery Order Berhasil';
+
+            DB::commit();
+                return redirect('/sales-delivery-order')->with('msg',$msg);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            report($e);
+
+                $msg = 'Tambah Sales Delivery Order Gagal';
+                return redirect('/sales-delivery-order')->with('msg',$msg);
+        }
     }
 
     public function processEditSalesDeliveryOrder(Request $request)

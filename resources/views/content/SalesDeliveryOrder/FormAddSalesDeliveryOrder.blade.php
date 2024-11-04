@@ -308,15 +308,14 @@
                                                 <div id="form_baru">
 
                                                 </div>
-                                                    <td style='text-align  : center'>
+                                                    {{-- <td style='text-align  : center'>
                                                         <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id' id='sales_order_item_id_{{$no}}' value='{{$val['sales_order_item_id']}}'/>  
-                                                    </td>
-                                                    <td colspan="2" style='text-align  : left !important;'>
+                                                    </td> --}}
+                                                    {{-- <td colspan="2" style='text-align  : left !important;'>
                                                         <div class="row form-group">
                                                         <div class="col-md-12">
                                                             <input type="hidden" name="sales_order_id" id="sales_order_id_{{$no}}" value="{{Request::segment(3)}}">
                                                             <input type="hidden" name="item_type_id" id="item_type_id_{{$no}}" value="{{$val['item_type_id']}}">
-                                                            {{-- <select class="selection-search-clear" name="item_type_id" id="item_type_id" style="width: 100% !important" > --}}
                                                             <div class="form-group">
                                                                 <a class="text-dark">Pilih Batch Barang<a class='red'>*</a></a>
                             
@@ -328,9 +327,8 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        {{-- <input type="" name="item_batch_number" id="item_batch_number_{{$no}}" > --}}
+                                                    </td> --}}
+                                                    {{-- <td>
                                                         <a class="text-dark">Qty Barang<a class='red'>*</a></a>
                                                         <input class='form-control' style='text-align:right;' type='' name='item_stock_quantity' id='quantity_item_{{$no}}' />
                                                         <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_id' id='item_unit_id_{{$no}}' value='{{$val['item_unit_id']}}'/>
@@ -338,9 +336,9 @@
                                                     <td style='text-align  : left !important;'>
                                                         <br>
                                                         <a id="add-stock-button_{{$no}}"  type="button" onclick="datastock_add({{ $no }});" class="btn btn-primary btn-sm" ><i class="fa fa-plus"> </i> Pilih Stock</a>
-                                                    </td>
+                                                    </td> --}}
                                                 {{-- </form> --}}
-                                                <td colspan="5" style='text-align  : left !important;'>
+                                                {{-- <td colspan="5" style='text-align  : left !important;'>
                                                     <table>
                                                         <tr>
                                                             <td>No</td>
@@ -349,23 +347,20 @@
                                                             <td>qty</td>
                                                             <td>aksi</td>
                                                         </tr>
-                                                  
                                                         @php
-                                                             $row =1;
-                                                             $baris =count($salesorderitemstocktemp);
-                                                             $total = 0;
+                                                            $row =1;
+                                                            $baris =count($salesorderitemstocktemp);
+                                                            $total = 0;
 
-                                                             $datatemp = $SalesDeliveryOrder->getSOid2($val['sales_order_item_id']);
+                                                            $datatemp = $SalesDeliveryOrder->getSOid2($val['sales_order_item_id']);
                                                         @endphp
 
                                                         @foreach ($datatemp as $Key => $val) 
-                                                            {{-- <td>{{ $row++ }}</td> --}}
                                                         <tr>
-                                                            {{-- <td>{{ $val['sales_delivery_order_item_stock_temporary_id'] }}</td> --}}
-                                                             @php
-                                                            $total += $val['item_stock_quantity'] ;
+                                                            @php
+                                                                $total += $val['item_stock_quantity'] ;
                                                             @endphp
-                                                      
+
                                                             <td>{{ $row++ }}</td>
                                                             <td>{{ $SalesDeliveryOrder->getSelectInvItemStock($val['item_stock_id']) }}</td>
                                                             <input  type="hidden" name="sales_delivery_order_item_stock_temporary_id" id="sales_delivery_order_item_stock_temporary_id_{{$val['sales_delivery_order_item_stock_temporary_id']}}" value="{{$val['sales_delivery_order_item_stock_temporary_id']}}">    
@@ -384,7 +379,7 @@
                                                             <td></td>
                                                         </tr>
                                                     </table>
-                                                </td>
+                                                </td> --}}
                                             </tr>
                                             @php
                                                 $no++; 
@@ -427,7 +422,7 @@
 @include('footer')
 
 {{-- <form action="{{url('/sales-delivery-order/add-item-stock')}}" method="POST"> --}}
-    @csrf
+    {{-- @csrf
     
     <div class="modal fade bs-modal-md" id="addtstock" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-md">
@@ -437,37 +432,25 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        {{-- <div class="col-md-12 mb-3">
-                            <a class="text-dark">Tipe Barang<a class='red'> </a></a>
-                            {!! Form::select('sales_order_item_id',  $type, '', ['class' => 'selection-search-clear select-form', 'id' => 'sales_order_item_id', 'name' => 'sales_order_item_id']) !!}
-                            <input type="hidden" name="sales_order_id" id="sales_order_id" value="{{Request::segment(3)}}">
-                            <input type="hidden" name="item_type_id" id="item_type_id" value="">
-                        </div> --}}
                         <div class="col-md-12 mb-3">
                             <a class="text-dark">Stock Barang<a class='red'> </a></a>
-                            {{-- {!! Form::select('item_stock_id',  [], null, ['class' => 'selection-search-clear select-form', 'id' => 'item_stock_id']) !!} --}}
-                            {{-- <select class="selection-search-clear" name="item_stock_id" id="item_stock_id" style="width: 100% !important">
-                            </select> --}}
-
                         </div>
                         <div class="col-md-12 mb-3">
                             <a class="text-dark">Satuan<a class='red'> </a></a>
-                            {{-- <select class="selection-search-clear" name="item_unit_id" id="item_unit_id" style="width: 100% !important"> --}}
                             </select>                        
                         </div>
                         <div class="col-md-12">
                             <a class="text-dark">Quantity Stock<a class='red'> </a></a>
-                            {{-- <input type="number" class="form-control input-bb" name="item_stock_quantity" id="item_stock_quantity" value="" autocomplete="off"> --}}
                         </div>
                     </div>
                     <br>
                     <div class="modal-footer">
-                        {{-- <button type="button" class="btn btn-danger btn-sm" >Batal</button> --}}
                         <button type="submit" class="btn btn-primary btn-sm" style="margin-right: -3%">Tambah</button>
                     </div>
                 </div>
             </div>
         </div>
+    </div> --}}
 {{-- </form> --}}
 <br>
 <br>
