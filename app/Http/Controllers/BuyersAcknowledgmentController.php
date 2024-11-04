@@ -323,9 +323,10 @@ class BuyersAcknowledgmentController extends Controller
             'buyers_acknowledgment_date'                => 'required',
         ]);
 
-        DB::beginTransaction();
-
+        
     try {
+            
+        DB::beginTransaction();
 
         SalesOrder::where('sales_order_id',$request->sales_order_id_1)
                 ->update(['purchase_order_no' => $request->purchase_order_no]);
@@ -408,11 +409,10 @@ class BuyersAcknowledgmentController extends Controller
                     
                 $preferencecompany 			= PreferenceCompany::first();
                 $transaction_module_code 	= "PPP";
-                $transactionmodule 		    = PreferenceTransactionModule::where('transaction_module_code', $transaction_module_code)
-                ->first();
+                $transactionmodule 		    = PreferenceTransactionModule::where('transaction_module_code', $transaction_module_code)->first();
                 $transaction_module_id 		= $transactionmodule['transaction_module_id'];
                 $journal_voucher_period 	= date("Ym", strtotime($salesdeliverynote['sales_delivery_note_date']));
-                $salesdeliverynote = SalesDeliveryNote::where('sales_delivery_note_id', $buyers_acknowledgment['sales_delivery_note_id'])->first();
+                $salesdeliverynote          = SalesDeliveryNote::where('sales_delivery_note_id', $buyers_acknowledgment['sales_delivery_note_id'])->first();
 
                 $data_journal = array(
                     'branch_id'						=> 1,
@@ -510,97 +510,7 @@ class BuyersAcknowledgmentController extends Controller
                 );
                 AcctJournalVoucherItem::create($data_debit2);
 
-//Penjualan Barang Dagang Usaha
-                $account 		= AcctAccount::where('account_id',338)
-                ->where('data_state', 0)
-                ->first();
-                $account_id_default_status 		= $account['account_default_status'];
 
-                $data_credit1 = array (
-                    'journal_voucher_id'			=> $journal_voucher_id,
-                    'account_id'					=> 338,
-                    'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                    'journal_voucher_amount'		=> ABS($total_amount),
-                    'journal_voucher_credit_amount'	=> ABS($total_amount),
-                    'account_id_default_status'		=> $account_id_default_status,
-                    'account_id_status'				=> 1,
-                );
-                AcctJournalVoucherItem::create($data_credit1);
-
-//PPN Keluaran
-                $preferencecompany 			= PreferenceCompany::first();
-                $account 		= AcctAccount::where('account_id',238)
-                ->where('data_state', 0)
-                ->first();
-
-                // $ppn_out_amount              = SalesOrder::select('ppn_out_amount','sales_order_id')
-                // ->where('sales_order_id',$buyers_acknowledgment['sales_order_id'])
-                // ->first();
-
-                $account_id_default_status 		= $account['account_default_status'];
-                $data_credit2 = array (
-                    'journal_voucher_id'			=> $journal_voucher_id,
-                    'account_id'					=> 238,
-                    'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                    'journal_voucher_amount'		=> $ppn ?? 0,
-                    'journal_voucher_credit_amount'	=> $ppn ?? 0,
-                    'account_id_default_status'		=> 1,
-                    'account_id_status'				=> 1,
-                );
-                AcctJournalVoucherItem::create($data_credit2);  
-                
-//Pendapatan Diskon Publikan
-                $diskonA = DB::table('sales_order_item')
-                ->where('sales_order_id', '=', $buyers_acknowledgment['sales_order_id'])
-                ->sum('discount_amount_item');
-
-                $diskonB = DB::table('sales_order_item')
-                ->where('sales_order_id', '=', $buyers_acknowledgment['sales_order_id'])
-                ->sum('discount_amount_item_b');
-
-                $account 		= AcctAccount::where('account_id',522)
-                ->where('data_state', 0)
-                ->first();
-                $account_id_default_status 		= $account['account_default_status'];
-                    $data_credit3 = array (
-                        'journal_voucher_id'			=> $journal_voucher_id,
-                        'account_id'					=> 522,
-                        'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                        'journal_voucher_amount'		=> $diskonA + $diskonB,
-                        'journal_voucher_credit_amount'	=> $diskonA + $diskonB,
-                        'account_id_default_status'		=> $account_id_default_status,
-                        'account_id_status'				=> 1,
-                    );
-                    AcctJournalVoucherItem::create($data_credit3);
-        
-//Beban Pokok Penjualan Barang 
-                $account 		= AcctAccount::where('account_id', 390)
-                ->where('data_state', 0)
-                ->first();
-
-                $item_type_id = SalesOrderItem::select('item_type_id')
-                ->where('sales_order_item_id', $item['sales_order_item_id'])
-                ->first(); 
-
-                // $harga_beli = PurchaseOrderItem::select('purchase_order.total_amount')
-                // ->join('purchase_order', 'purchase_order.purchase_order_id', '=', 'purchase_order_item.purchase_order_id')
-                // ->where('purchase_order_item.item_type_id', $item_type_id['item_type_id'])
-                // ->first();
-            
-                
-                $data_debit3= array (
-                    'journal_voucher_id'			=> $journal_voucher_id,
-                    'account_id'					=> 390,
-                    'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                    'journal_voucher_amount'		=> ABS($total_amount),
-                    'journal_voucher_debit_amount'	=> ABS($total_amount),
-                    'account_id_default_status'		=> $account_id_default_status,
-                    'account_id_status'				=> 0,
-                );
-                
-                AcctJournalVoucherItem::create($data_debit3);
-                
-//Persediaan Barang Dagangan
                 $account = AcctAccount::where('account_id', 82)
                 ->where('data_state', 0)
                 ->first();

@@ -1,9 +1,8 @@
 @inject('ABSR','App\Http\Controllers\AcctBalanceSheetReportController')
-{{-- @inject('ISAR','App\Http\Controllers\InvtStockAdjustmentReportController')  --}}
 
 @extends('adminlte::page')
 
-@section('title', 'MOZAIC Minimarket')
+@section('title', 'Tripta Tri Tunggal')
 
 @section('content_header')
     
@@ -105,7 +104,7 @@
                     <tr>
                         <td style='width: 50%'>
                             <table class="table table-bordered table-advance table-hover">
-                                <?php
+                            <?php
                                 $grand_total_account_amount1 = 0;
                                 $grand_total_account_amount2 = 0;
                                     foreach ($acctbalancesheetreport_left as $key => $val) {
@@ -156,7 +155,6 @@
                                             if($val['report_type1']	== 3){
                                             
                                                 $last_balance1 	= $ABSR->getAmountAccount($val['account_id1']);
-                                                // print_r($last_balance1);
                                                 
                                                 echo "
                                                     <td><div style='font-weight:".$report_bold1."'>".$report_tab1."(".$val['account_code1'].") ".$val['account_name1']."</div> </td>
@@ -175,16 +173,16 @@
 
                                         //     if($val['report_type1']	== 8){
                                             
-                                        //         $last_balance1 	= $ISAR->getLastBalanceStock($val['account_id1']);
-                                        //         // print_r($last_balance1);
+                                        // // $last_balance1 	= $ISAR->getLastBalanceStock($val['account_id1']);
+                                        // //  print_r($last_balance1);
                                                 
                                         //         echo "
                                         //             <td><div style='font-weight:".$report_bold1."'>".$report_tab1."(".$val['account_code1'].") ".$val['account_name1']."</div> </td>
-                                        //             <td style='text-align:right'><div style='font-weight:".$report_bold1."'>".number_format($last_balance1, 2)."</div></td>
+                                        //             <td style='text-align:right'><div style='font-weight:".$report_bold1."'>'0'</div></td>
 
                                         //         ";
 
-                                        //         $account_amount1_top[$val['report_no']] = $last_balance1;
+                                        // //         $account_amount1_top[$val['report_no']] = $last_balance1;
                                         //     }
                                         // echo "
                                         //     </tr>";
@@ -325,7 +323,7 @@
                                             </tr>";	
 
                                     }
-                                ?>
+                            ?>
                             </table>
                         </td>
                         <td style='width: 50%'>

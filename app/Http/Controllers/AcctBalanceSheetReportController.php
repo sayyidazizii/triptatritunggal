@@ -52,12 +52,10 @@ class AcctBalanceSheetReportController extends Controller
 
         $acctbalancesheetreport_left = AcctBalanceSheetReport::select('report_tab1','report_bold1','report_type1','account_name1','account_code1','report_no','report_formula1','report_operator1','account_id1')
         ->where('data_state', 0)
-        ->where('company_id', Auth::user()->company_id)
         ->get();
 
         $acctbalancesheetreport_right = AcctBalanceSheetReport::select('report_tab2','report_bold2','report_type2','account_name2','account_code2','report_no','report_formula2','report_operator2','account_id2')
         ->where('data_state', 0)
-        ->where('company_id', Auth::user()->company_id)
         ->get();
 
         return view('content.AcctBalanceSheetReport.ListAcctBalanceSheetReport', compact('monthlist','yearlist','month','year','acctbalancesheetreport_left','acctbalancesheetreport_right'));
@@ -123,14 +121,12 @@ class AcctBalanceSheetReportController extends Controller
         ->whereYear('acct_journal_voucher.journal_voucher_date', $year)
         ->where('acct_journal_voucher.data_state',0)
         ->where('acct_journal_voucher_item.account_id', $account_id)
-        ->where('acct_journal_voucher.company_id', Auth::user()->company_id)
         ->get();
         
         $data_first = JournalVoucher::select('acct_journal_voucher_item.account_id_status','acct_journal_voucher_item.account_id_default_status','acct_journal_voucher_item.journal_voucher_debit_amount','acct_journal_voucher_item.journal_voucher_credit_amount')
         ->join('acct_journal_voucher_item','acct_journal_voucher_item.journal_voucher_id','acct_journal_voucher.journal_voucher_id')
         ->whereYear('acct_journal_voucher.journal_voucher_date', $year)
         ->where('acct_journal_voucher.data_state',0)
-        ->where('acct_journal_voucher.company_id', Auth::user()->company_id)
         ->where('acct_journal_voucher_item.account_id', $account_id)
         ->orderBy('acct_journal_voucher_item.journal_voucher_item_id', 'ASC')
         ->first();
@@ -179,12 +175,10 @@ class AcctBalanceSheetReportController extends Controller
 
         $acctbalancesheetreport_left = AcctBalanceSheetReport::select('report_tab1','report_bold1','report_type1','account_name1','account_code1','report_no','report_formula1','report_operator1','account_id1')
         ->where('data_state', 0)
-        ->where('company_id', Auth::user()->company_id)
         ->get();
 
         $acctbalancesheetreport_right = AcctBalanceSheetReport::select('report_tab2','report_bold2','report_type2','account_name2','account_code2','report_no','report_formula2','report_operator2','account_id2')
         ->where('data_state', 0)
-        ->where('company_id', Auth::user()->company_id)
         ->get();
 
         $pdf = new TCPDF('P', PDF_UNIT, 'F4', true, 'UTF-8', false);
@@ -687,12 +681,10 @@ class AcctBalanceSheetReportController extends Controller
 
         $acctbalancesheetreport_left = AcctBalanceSheetReport::select('report_tab1','report_bold1','report_type1','account_name1','account_code1','report_no','report_formula1','report_operator1','account_id1')
         ->where('data_state', 0)
-        ->where('company_id', Auth::user()->company_id)
         ->get();
 
         $acctbalancesheetreport_right = AcctBalanceSheetReport::select('report_tab2','report_bold2','report_type2','account_name2','account_code2','report_no','report_formula2','report_operator2','account_id2')
         ->where('data_state', 0)
-        ->where('company_id', Auth::user()->company_id)
         ->get();
 
         if(!empty($acctbalancesheetreport_left && $acctbalancesheetreport_right)){
@@ -727,7 +719,6 @@ class AcctBalanceSheetReportController extends Controller
             $spreadsheet->getActiveSheet()->getStyle('B4:E4')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
             $spreadsheet->getActiveSheet()->getStyle('B4:E4')->getFont()->setBold(true);	
             $spreadsheet->getActiveSheet()->setCellValue('B1',"Laporan Neraca ");	
-            // $spreadsheet->getActiveSheet()->setCellValue('B2',$preferencecompany['company_name']);	
             $spreadsheet->getActiveSheet()->setCellValue('B2',"Periode Januari - ".$this->getMonthName($month)." ".$year."");	
             
             $j = 4;
