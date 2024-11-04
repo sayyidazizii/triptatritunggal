@@ -303,7 +303,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                              {{-- <form id="form_stock" action="{{url('/sales-delivery-order/add-item-stock')}}" method="POST"> --}}
+                                            {{-- <form id="form_stock" action="{{url('/sales-delivery-order/add-item-stock')}}" method="POST"> --}}
                                                 {{-- {{ Form::open(['route' => '/sales-delivery-order/add-item-stock']) }} --}}
                                                 <div id="form_baru">
 

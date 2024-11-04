@@ -1,0 +1,2174 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
+
+<Styles>
+ <Style ss:ID="Default" ss:Name="Normal">
+  <Alignment ss:Vertical="Bottom"/>
+  <Borders/>
+  <Font/>
+  <Interior/>
+  <NumberFormat/>
+  <Protection/>
+ </Style>
+ <Style ss:ID="s27">
+  <Font x:Family="Swiss" ss:Color="#0000FF" ss:Bold="1"/>
+ </Style>
+ <Style ss:ID="s21">
+  <NumberFormat ss:Format="yyyy\-mm\-dd"/>
+ </Style>
+ <Style ss:ID="s22">
+  <NumberFormat ss:Format="yyyy\-mm\-dd\ hh:mm:ss"/>
+ </Style>
+ <Style ss:ID="s23">
+  <NumberFormat ss:Format="hh:mm:ss"/>
+ </Style>
+</Styles>
+
+ <Worksheet ss:Name="Sheet1">
+  <ss:Table>
+   <ss:Row>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">item_type_id</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">item_category_id</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">item_type_name</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">item_type_expired_time</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">item_package_status</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">item_unit_1</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">item_quantity_default_1</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">item_weight_1</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">item_unit_2</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">item_quantity_default_2</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">item_weight_2</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">item_unit_3</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">item_quantity_default_3</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">item_weight_3</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">purchase_account_id</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">purchase_return_account_id</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">purchase_discount_account_id</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">sales_account_id</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">sales_return_account_id</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">sales_discount_account_id</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">inv_account_id</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">inv_return_account_id</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">inv_discount_account_id</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">hpp_account_id</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">hpp_amount</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">data_state</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">created_id</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">created_at</Data></ss:Cell>
+    <ss:Cell  ss:StyleID="s27"><Data ss:Type="String">updated_at</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Antimo tab/cc 10's</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">180</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.006</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.006</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.006</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">3</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-15T09:29:54.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Antimo Anak 12,5 mg/5 ml susp/10 sct x 5 ml</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">180</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.08</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.08</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.08</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">3</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-01-20T02:59:05.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Antimo Anak 12.5 mg/5 ml-strawberry</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">180</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.08</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.08</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.08</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">3</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-04-24T07:59:20.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">4</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Antimo Herbal/10 sachet @ 15 mL</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">6767</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">6767</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">6767</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">6767</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">6767</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">6767</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">6767</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">6767</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">6767</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">3</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Becefort kss/10 str x 10's</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.24</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.24</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.24</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">3</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:02:22.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">6</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Becefort kss/25 cc x 4's</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.22</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.22</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.22</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">3</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:02:43.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">7</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Becefort syr/btl 60 ml</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">3</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">8</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Betafort syr/btl 60 ml</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">9</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Bioron Forte tsg/7 cc x 4's</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-09-02T04:49:37.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">10</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Bioron tsg/10 cc x 10's</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.12</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.12</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.12</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:03:08.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">11</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Febrinex susp/btl 60 ml</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">12</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Fitogen tab/3 bls x 10's</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.02</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.02</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.02</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T06:59:17.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">13</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Hemorogard kaps/3 bls x10's</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.03</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.03</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.03</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:03:41.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">14</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Livron B Plex tsg/10 str x 10's</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.05</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.05</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.05</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:04:04.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">15</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Noza kapl/cc 4's</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.23</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.23</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.23</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:04:49.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">16</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">X-Gra kaps/4 cc x 10's</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.07</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.07</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.07</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:05:14.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">17</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Asifit Tab Salut (Blister 3x10 Tab) BJN</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">18</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Batugin 120 ml BJN</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">4</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.17</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">4</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.17</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">4</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.17</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:06:07.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">19</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Batugin 300 ml BJN</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">20</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Bedak Salicyl 2% 60gr</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.08</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.08</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.08</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:07:00.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">21</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Citamin Cplus 1000 mg EFF</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">22</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Enkasari Herbal @120 ml BJN</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">4</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.17</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">4</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.17</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">4</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.17</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:09:36.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">23</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Marcks Active Natural Beige (New)</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.06</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.06</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.06</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-11-24T14:59:17.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">24</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Marcks classic creme 40gr (New)</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.07</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.07</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.07</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:10:22.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">25</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Marcks Teens CP Cr?me (New)</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.08</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.08</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.08</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:10:49.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">26</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Marcks Active creme 20gr (New)</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.06</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.06</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.06</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:11:13.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">27</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Marcks Active white 20gr (New)</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.06</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.06</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.06</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:11:32.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">28</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Marcks breathable powder ivory</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.04</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.04</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.04</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:11:53.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">29</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Marcks breathable powder natural beige</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.04</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.04</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.04</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:12:19.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">30</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Marcks breathable powder rose pink</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.04</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.04</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.04</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:12:45.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">31</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Marcks classic rose 40gr (New)</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.07</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.07</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.07</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:13:10.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">32</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Marcks teens CP natural beige (New)</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.07</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.07</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.07</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:13:49.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">33</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Marcks teens CP pink (New)</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.07</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.07</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.07</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:14:10.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">34</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Marcks classic putih 40gr (New)</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.07</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.07</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.07</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:14:39.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">35</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Marcks classic invisible 40gr (New)</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.07</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.07</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.07</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:15:00.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">36</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Marcks Active pink 20gr (New)</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.06</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.06</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.06</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:15:59.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">37</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Marcks Active invisible 20gr (New)</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.06</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.06</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.06</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:16:20.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">38</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Venus flawless matte cushion no 1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.08</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.08</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.08</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:18:49.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">39</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Venus flawless matte cushion no 2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.08</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.08</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.08</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:19:05.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">40</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Venus flawless matte cushion no 3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.08</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.08</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.08</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:18:31.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">41</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Venus flawless matte cushion no 4</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.08</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.08</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.08</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:18:05.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">42</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Venus Soft Matte Lipcream No.2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.03</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.03</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.03</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:17:09.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">43</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Venus Soft Matte Lipcream No.4</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1095</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.03</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.03</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.03</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">74</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="String">0000-00-00 00:00:00</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-08-14T07:16:52.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">44</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">BIORON FORTE TAB 7x4'S</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.06</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.06</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.06</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">75</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-09-02T04:50:30.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-09-11T08:04:47.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">45</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">BIORON FORTE TAB 7x4'S</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.06</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.06</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.06</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">75</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-09-11T08:04:14.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-09-11T08:04:14.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">46</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">becefort syr/btl 60ml</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">100</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">4</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.17</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">4</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.17</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">4</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.17</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">75</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-10-19T08:44:27.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-04-24T07:56:35.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">47</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">betafort  syr/btl 60ml</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">100</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">4</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.17</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">4</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.17</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">4</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.17</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">75</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2023-10-19T08:44:50.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-04-24T07:57:25.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">48</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Antimo Anak 12,5 mg/5 ml Jeruk</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">3</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-01-15T06:39:45.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-01-15T06:39:45.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">50</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Becefort kss/10 str x 10</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.24</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.24</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.24</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">3</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-01-15T06:40:24.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-04-24T07:58:34.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">51</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Tebokan Forte 120 mg tss/2 bls @ 15's</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">3</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-01-15T06:40:51.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-01-15T06:40:51.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">52</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Tebokan Spesial tss/3 bls x 10's</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">3</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-01-15T06:41:03.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-01-15T06:41:03.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">53</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Tebokan tss/10 bls x 10's</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">3</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-01-15T06:41:15.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-01-15T06:41:15.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">55</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Magasida Tablet  10's</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">3</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">3</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-01-15T06:41:31.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-01-15T06:42:19.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">56</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">2</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Marcks classic cr?me 40gr (New)</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">5</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.07</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">0.07</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">3</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-01-15T06:42:09.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-01-20T02:39:53.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">57</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Vikom - z kss/ 10 str x 10's</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">75</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-06-11T07:52:00.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-06-11T07:52:00.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">58</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Vikom - z kss/ 10 str x 10's</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">75</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-06-11T07:52:08.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-06-11T07:52:08.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">59</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Diafac XR tab/ 3bls x 10's</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">75</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-06-11T07:54:10.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-06-11T07:54:10.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">60</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Dios tss/ 3 str x 10's</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">75</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-06-11T07:56:15.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-06-11T07:56:15.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">61</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Geriavita kss/ 10 bls x 10's</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">75</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-06-11T07:58:54.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-06-11T07:58:54.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">62</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Kaloba fct/ 1 bls @21's</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">75</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-06-11T08:00:27.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-06-11T08:00:27.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">63</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Marimer Hypertonic/ ds, btl.100ml</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">75</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-06-11T08:02:26.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-06-11T08:02:26.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">64</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Marimer Isotonic/ ds, btl 100ml</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">75</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-06-11T08:05:33.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-06-11T08:05:33.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">65</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Pehavit - D3 kapsul/ 30's</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">75</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-06-11T08:06:35.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-06-11T08:06:35.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">66</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Tensigard kaps/3 bls x 10's</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">75</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-06-11T08:07:47.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-06-11T08:07:47.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">67</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">Noza Kapl/ cc 4's</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">75</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-06-11T08:44:07.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-06-11T08:44:07.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">68</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">CARDISMO XR 60MG TSS/3BLS 10'S</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">75</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-07-02T07:30:18.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-07-02T07:30:18.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">69</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">KOLKATRIOL 0.25 MCG KAPS/BTL 30'S</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">75</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-07-02T07:40:02.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-07-02T07:40:02.000</Data></ss:Cell>
+   </ss:Row>
+   <ss:Row>
+    <ss:Cell><Data ss:Type="Number">70</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">1</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String">FEBRINEX SYR</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="String"></Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">0</Data></ss:Cell>
+    <ss:Cell><Data ss:Type="Number">75</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-07-02T07:53:09.000</Data></ss:Cell>
+    <ss:Cell ss:StyleID="s22"><Data ss:Type="DateTime">2024-07-02T07:53:09.000</Data></ss:Cell>
+   </ss:Row>
+  </ss:Table>
+ </Worksheet>
+</Workbook>
