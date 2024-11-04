@@ -295,7 +295,7 @@
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_type_id_{{$no}}' id='item_type_id_{{$no}}' value='{{$val['item_type_id']}}'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_id_{{$no}}' id='item_unit_id_{{$no}}' value='{{$val['item_unit_id']}}'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_price_{{$no}}' id='item_unit_price_{{$no}}' value='{{$val['item_unit_price']}}'/>
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='subtotal_after_discount_item_{{$no}}' id='subtotal_after_discount_item_{{$no}}' value='{{$val['subtotal_after_discount_item_b']}}'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='subtotal_after_discount_item_{{$no}}' id='subtotal_after_discount_item_{{$no}}' value='{{$val['subtotal_after_discount_item_a']}}'/>
                                                     <input class='form-control' style='text-align:right;' type='hidden' name='quantity_{{$no}}' id='quantity_{{$no}}' value='{{$val['quantity']}}'/>
                                                 </td>
                                                 <td style='text-align:center;'>
