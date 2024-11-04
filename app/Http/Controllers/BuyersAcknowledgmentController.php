@@ -107,7 +107,6 @@ class BuyersAcknowledgmentController extends Controller
         ->first();
 
         $acctaccount = AcctAccount::where('acct_account.data_state','=','0')
-        ->where('parent_account_status','=',0)
         ->select('account_id', DB::raw('CONCAT(account_code, " - ", account_name) AS account_code'))
         ->pluck('account_code', 'account_id');
 
@@ -382,7 +381,7 @@ class BuyersAcknowledgmentController extends Controller
 
 
                 $itemstock = InvItemStock::findOrfail($dataitem['item_stock_id_'.$no]);
-          
+        
 //--------------Pengurangan stock
                 $itemstock->quantity_unit =  (int)$itemstock['quantity_unit'] -  (int)$dataitem['quantity_received_'.$no];
                 $itemstock->save();
