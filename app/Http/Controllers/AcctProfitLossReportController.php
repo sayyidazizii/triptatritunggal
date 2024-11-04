@@ -35,20 +35,29 @@ class AcctProfitLossReportController extends Controller
         } else {
             $end_date = Session::get('end_date');
         }
-        if(!$journal_voucher_id = Session::get('journal_voucher_id')){
-            $journal_voucher_id = null;
-        } else {
-            $journal_voucher_id = Session::get('journal_voucher_id');
-        }
     
 
-        $profitloss = AcctProfitLossReport::select('report_tab','report_bold','report_type','account_name','account_id','account_code','report_no','report_formula','report_operator')
+        $income = AcctProfitLossReport::select('report_tab','report_bold','report_type','account_name','account_id','account_code','report_no','report_formula','report_operator')
         ->where('data_state',0)
-        // ->where('account_type_id',2)
-        // ->where('company_id', Auth::user()->company_id)
+        ->where('account_type_id',2)
+        ->where('company_id', Auth::user()->company_id)
         ->get();
 
-        return view('content.AcctProfitLossReport.ListAcctProfitLossReport',compact('start_date','end_date','profitloss','journal_voucher_id'));
+        $expenditure = AcctProfitLossReport::select('report_tab','report_bold','report_type','account_name','account_id','account_code','report_no','report_formula','report_operator')
+        ->where('data_state',0)
+        ->where('account_type_id',3)
+        ->where('company_id', Auth::user()->company_id)
+        ->get();
+
+        $unit_status = array(
+            1 => 'Qmart Internal',
+            2 => 'Qmart External', 
+            3 => 'Basah & Kering'
+        );
+        // echo json_encode($income);exit;
+
+
+        return view('content.AcctProfitLossReport.ListAcctProfitLossReport',compact('start_date','end_date','income','expenditure','unit_status'));
     }
 
     public function filterProfitLossReport(Request $request)
@@ -87,52 +96,25 @@ class AcctProfitLossReportController extends Controller
         } else {
             $end_date = Session::get('end_date');
         }
-        if(!$journal_voucher_id = Session::get('journal_voucher_id')){
-            $journal_voucher_id = null;
-        } else {
-            $journal_voucher_id = Session::get('journal_voucher_id');
-        }
         
 
-        if($journal_voucher_id == ''){
-            $data = JournalVoucher::join('acct_journal_voucher_item','acct_journal_voucher_item.journal_voucher_id','acct_journal_voucher.journal_voucher_id')
-            ->select('acct_journal_voucher_item.journal_voucher_amount','acct_journal_voucher_item.account_id_status')
-            ->where('acct_journal_voucher.journal_voucher_date', '>=', $start_date)
-            ->where('acct_journal_voucher.journal_voucher_date', '<=', $end_date)
-            ->where('acct_journal_voucher.data_state',0)
-            ->where('acct_journal_voucher_item.account_id', $account_id)
-            // // ->where('acct_journal_voucher.company_id', Auth::user()->company_id)
-            ->get();
-            }else{
-                $data = JournalVoucher::join('acct_journal_voucher_item','acct_journal_voucher_item.journal_voucher_id','acct_journal_voucher.journal_voucher_id')
-            ->select('acct_journal_voucher_item.journal_voucher_amount','acct_journal_voucher_item.account_id_status')
-            ->where('acct_journal_voucher.journal_voucher_date', '>=', $start_date)
-            ->where('acct_journal_voucher.journal_voucher_date', '<=', $end_date)
-            ->where('acct_journal_voucher.data_state',0)
-            ->where('acct_journal_voucher_item.account_id', $account_id)
-            // // ->where('acct_journal_voucher.company_id', Auth::user()->company_id)
-            ->get();
-        }
-    
-        if($journal_voucher_id == ''){
-        $data_first = JournalVoucher::join('acct_journal_voucher_item','acct_journal_voucher_item.journal_voucher_id','acct_journal_voucher.journal_voucher_id','acct_journal_voucher.merchant_id')
-            ->select('acct_journal_voucher_item.account_id_status','acct_journal_voucher_item.account_id_default_status')
-            ->where('acct_journal_voucher.journal_voucher_date', '>=', $start_date)
-            ->where('acct_journal_voucher.journal_voucher_date', '<=', $end_date)
-            ->where('acct_journal_voucher.data_state',0)
-            // // ->where('acct_journal_voucher.company_id', Auth::user()->company_id)
-            ->where('acct_journal_voucher_item.account_id', $account_id)
-            ->first();
-        }else{
-            $data_first = JournalVoucher::join('acct_journal_voucher_item','acct_journal_voucher_item.journal_voucher_id','acct_journal_voucher.journal_voucher_id')
-            ->select('acct_journal_voucher_item.account_id_status','acct_journal_voucher_item.account_id_default_status')
-            ->where('acct_journal_voucher.journal_voucher_date', '>=', $start_date)
-            ->where('acct_journal_voucher.journal_voucher_date', '<=', $end_date)
-            ->where('acct_journal_voucher.data_state',0)
-            // // ->where('acct_journal_voucher.company_id', Auth::user()->company_id)
-            ->where('acct_journal_voucher_item.account_id', $account_id)
-            ->first();
-        }
+    $data = JournalVoucher::join('acct_journal_voucher_item','acct_journal_voucher_item.journal_voucher_id','acct_journal_voucher.journal_voucher_id')
+        ->select('acct_journal_voucher_item.journal_voucher_amount','acct_journal_voucher_item.account_id_status')
+        ->where('acct_journal_voucher.journal_voucher_date', '>=', $start_date)
+        ->where('acct_journal_voucher.journal_voucher_date', '<=', $end_date)
+        ->where('acct_journal_voucher.data_state',0)
+        ->where('acct_journal_voucher_item.account_id', $account_id)
+        ->where('acct_journal_voucher.company_id', Auth::user()->company_id)
+        ->get();
+
+    $data_first = JournalVoucher::join('acct_journal_voucher_item','acct_journal_voucher_item.journal_voucher_id','acct_journal_voucher.journal_voucher_id')
+        ->select('acct_journal_voucher_item.account_id_status','acct_journal_voucher_item.account_id_default_status')
+        ->where('acct_journal_voucher.journal_voucher_date', '>=', $start_date)
+        ->where('acct_journal_voucher.journal_voucher_date', '<=', $end_date)
+        ->where('acct_journal_voucher.data_state',0)
+        ->where('acct_journal_voucher.company_id', Auth::user()->company_id)
+        ->where('acct_journal_voucher_item.account_id', $account_id)
+        ->first();
     
         
         $amount     = 0;
@@ -167,10 +149,15 @@ class AcctProfitLossReportController extends Controller
 
         $income = AcctProfitLossReport::select('report_tab','report_bold','report_type','account_name','account_id','account_code','report_no','report_formula','report_operator')
         ->where('data_state',0)
-        // ->where('account_type_id',2)
-        // // ->where('company_id', Auth::user()->company_id)
+        ->where('account_type_id',2)
+        ->where('company_id', Auth::user()->company_id)
         ->get();
 
+        $expenditure = AcctProfitLossReport::select('report_tab','report_bold','report_type','account_name','account_id','account_code','report_no','report_formula','report_operator')
+        ->where('data_state',0)
+        ->where('account_type_id',3)
+        ->where('company_id', Auth::user()->company_id)
+        ->get();
 
         $pdf = new TCPDF('P', PDF_UNIT, 'F4', true, 'UTF-8', false);
 
@@ -303,22 +290,36 @@ class AcctProfitLossReportController extends Controller
 										$tblitem_top5 = "";
 									}
 
-                                    if($valTop['report_type']	== 6){
-                                    
-                                        $expenditure_subtotal 	= $total_account_amount;
-    
-    
-                                        $account_amount[$valTop['report_no']] = $expenditure_subtotal;
-                                        $tblitem_top6 = "
-                                        <tr>
-                                            <td><div style='font-weight:".$report_bold."'>".$report_tab."".$valTop['account_name']."</div></td>
-                                            <td style=\"text-align:right;\"><div style='font-weight:".$report_bold."'>".number_format($expenditure_subtotal, 2)."</div></td>
-                                        </tr>";
-                                    }else{
-                                        $tblitem_top6 = "";
-                                    }
+									$tblitem_top .= $tblitem_top1.$tblitem_top2.$tblitem_top3.$tblitem_top5;
 
-									$tblitem_top .= $tblitem_top1.$tblitem_top2.$tblitem_top3.$tblitem_top5.$tblitem_top6;
+									if($valTop['report_type'] == 6){
+										if(!empty($valTop['report_formula']) && !empty($valTop['report_operator'])){
+											$report_formula 	= explode('#', $valTop['report_formula']);
+											$report_operator 	= explode('#', $valTop['report_operator']);
+
+											$grand_total_account_amount1	= 0;
+											for($i = 0; $i < count($report_formula); $i++){
+												if($report_operator[$i] == '-'){
+													if($grand_total_account_amount1 == 0 ){
+														$grand_total_account_amount1 = $grand_total_account_amount1 + $account_amount[$report_formula[$i]];
+													} else {
+														$grand_total_account_amount1 = $grand_total_account_amount1 - $account_amount[$report_formula[$i]];
+													}
+												} else if($report_operator[$i] == '+'){
+													if($grand_total_account_amount1 == 0){
+														$grand_total_account_amount1 = $grand_total_account_amount1 + $account_amount[$report_formula[$i]];
+													} else {
+														$grand_total_account_amount1 = $grand_total_account_amount1 + $account_amount[$report_formula[$i]];
+													}
+												}
+											}
+										} else {
+											
+										}
+									} else {
+										
+									}
+
 								}
 
 		        $tblfooter_top	= "
@@ -327,7 +328,175 @@ class AcctProfitLossReportController extends Controller
 		        	<td width=\"10%\"></td>
 		        </tr>";
 
-        $pdf::writeHTML($tblHeader.$tblheader_top.$tblitem_top.$tblfooter_top, true, false, false, false, '');
+			       /* print_r("tblitem_top ");
+			        print_r($tblitem_top);
+			        exit; */
+
+				$tblheader_bottom = "
+					<tr>
+						<td width=\"5%\"></td>
+			        	<td width=\"100%\" style=\"border-bottom:1px black solid;border-left:1px black solid;border-right:1px black solid\">	
+			        		<table id=\"items\" width=\"100%\" cellspacing=\"1\" cellpadding=\"2\" border=\"0\">";		
+			        			$tblitem_bottom = "";
+			        			foreach ($expenditure as $keyBottom => $valBottom) {
+									if($valBottom['report_tab'] == 0){
+										$report_tab = ' ';
+									} else if($valBottom['report_tab'] == 1){
+										$report_tab = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+									} else if($valBottom['report_tab'] == 2){
+										$report_tab = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+									} else if($valBottom['report_tab'] == 3){
+										$report_tab = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+									}
+
+									if($valBottom['report_bold'] == 1){
+										$report_bold = 'bold';
+									} else {
+										$report_bold = 'normal';
+									}									
+
+									if($valBottom['report_type'] == 1){
+										$tblitem_bottom1 = "
+											<tr>
+												<td colspan=\"2\"><div style=\"font-weight:".$report_bold."\">".$report_tab."".$valBottom['account_name']."</div></td>
+											</tr>";
+									} else {
+										$tblitem_bottom1 = "";
+									}
+
+
+
+									if($valBottom['report_type'] == 2){
+										$tblitem_bottom2 = "
+											<tr>
+												<td style=\"width: 73%\"><div style=\"font-weight:".$report_bold."\">".$report_tab."".$valBottom['account_name']."</div></td>
+												<td style=\"width: 25%\"><div style=\"font-weight:".$report_bold."\"></div></td>
+											</tr>";
+									} else {
+										$tblitem_bottom2 = "";
+									}									
+
+									if($valBottom['report_type']	== 3){
+										$account_subtotal 	= $this->getAmountAccount($valBottom['account_id']);
+
+										// print_r("account_subtotal ");
+										// print_r($account_subtotal);
+										// exit;
+
+										$tblitem_bottom3 = "
+											<tr>
+												<td style=\"width: 73%\"><div style=\"font-weight:".$report_bold."\">".$report_tab."(".$valBottom['account_code'].") ".$valBottom['account_name']."</div> </td>
+												<td style=\"text-align:right;width: 25%\">".number_format($account_subtotal, 2)."</td>
+											</tr>";
+
+										$account_amount[$valBottom['report_no']] = $account_subtotal;
+
+									} else {
+										$tblitem_bottom3 = "";
+									}
+									
+
+									if($valBottom['report_type'] == 5){
+										if(!empty($valBottom['report_formula']) && !empty($valBottom['report_operator'])){
+											$report_formula 	= explode('#', $valBottom['report_formula']);
+											$report_operator 	= explode('#', $valBottom['report_operator']);
+
+											$total_account_amount2	= 0;
+											for($i = 0; $i < count($report_formula); $i++){
+												if($report_operator[$i] == '-'){
+													if($total_account_amount2 == 0 ){
+														$total_account_amount2 = $total_account_amount2 + $account_amount[$report_formula[$i]];
+													} else {
+														$total_account_amount2 = $total_account_amount2 - $account_amount[$report_formula[$i]];
+													}
+												} else if($report_operator[$i] == '+'){
+													if($total_account_amount2 == 0){
+														$total_account_amount2 = $total_account_amount2 + $account_amount[$report_formula[$i]];
+													} else {
+														$total_account_amount2 = $total_account_amount2 + $account_amount[$report_formula[$i]];
+													}
+												}
+											}
+											$tblitem_bottom5 = "
+												<tr>
+													<td><div style=\"font-weight:".$report_bold."\">".$report_tab."".$valBottom['account_name']."</div></td>
+													<td style=\"text-align:righr;\"><div style=\"font-weight:".$report_bold."\">".number_format($total_account_amount2, 2)."</div></td>
+												</tr>";
+										} else {
+											$tblitem_bottom5 = "";
+										}
+									} else {
+										$tblitem_bottom5 = "";
+									}
+
+									$tblitem_bottom .= $tblitem_bottom1.$tblitem_bottom2.$tblitem_bottom3.$tblitem_bottom5;
+
+
+									if($valBottom['report_type'] == 6){
+										if(!empty($valBottom['report_formula']) && !empty($valBottom['report_operator'])){
+											$report_formula 	= explode('#', $valBottom['report_formula']);
+											$report_operator 	= explode('#', $valBottom['report_operator']);
+
+											$grand_total_account_amount2	= 0;
+											for($i = 0; $i < count($report_formula); $i++){
+												if($report_operator[$i] == '-'){
+													if($grand_total_account_amount2 == 0 ){
+														$grand_total_account_amount2 = $grand_total_account_amount2 + $account_amount[$report_formula[$i]];
+													} else {
+														$grand_total_account_amount2 = $grand_total_account_amount2 - $account_amount[$report_formula[$i]];
+													}
+												} else if($report_operator[$i] == '+'){
+													if($grand_total_account_amount2 == 0){
+														$grand_total_account_amount2 = $grand_total_account_amount2 + $account_amount[$report_formula[$i]];
+													} else {
+														$grand_total_account_amount2 = $grand_total_account_amount2 + $account_amount[$report_formula[$i]];
+													}
+												}
+											}
+                                            $tblitem_bottom6 = "
+                                            <td><div style='font-weight:".$report_bold."'>".$report_tab."".$valBottom['account_name']."</div></td>
+                                            <td style='text-align:right'><div style='font-weight:".$report_bold."'>".number_format($grand_total_account_amount2, 2)."</div></td>
+                                        ";
+										} else {
+											
+										}
+									} else {
+										
+									}
+
+								}
+								// exit;
+
+		       	$tblfooter_bottom = "
+		       			</table>
+		        	</td>
+		        	<td width=\"5%\"></td>
+		        </tr>";
+
+
+			        $shu = $grand_total_account_amount2;
+			$tblFooter = "
+			
+			    <tr>
+			    	<td width=\"5%\"></td>
+			    	<td style=\"border:1px black solid;\">
+			    		<table id=\"items\" width=\"100%\" cellspacing=\"1\" cellpadding=\"2\" border=\"0\">
+							<tr>
+								<td style=\"width: 75%\"><div style=\"font-weight:bold;font-size:14px\">RUGI / LABA</div></td>
+								<td style=\"width: 23%; text-align:right;\"><div style=\"font-weight:bold; font-size:14px\">".number_format($shu, 2)."</div></td>
+							</tr>
+			    		</table>
+			    	</td>
+			    	<td width=\"10%\"></td>
+			    </tr>
+			</table>
+            <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\">
+                <tr>
+                    <td style=\"text-align:right\">".ucfirst(Auth::user()->name).", ".date('d-m-Y H:i')."</td>
+                </tr>
+            </table>";
+
+        $pdf::writeHTML($tblHeader.$tblheader_top.$tblitem_top.$tblfooter_top.$tblheader_bottom.$tblitem_bottom.$tblfooter_bottom.$tblFooter, true, false, false, false, '');
 
         $filename = 'Laporan_Rugi_Laba_'.$start_date.'s.d.'.$end_date.'.pdf';
         $pdf::Output($filename, 'I');
@@ -348,13 +517,21 @@ class AcctProfitLossReportController extends Controller
        
         $income = AcctProfitLossReport::select('report_tab','report_bold','report_type','account_name','account_id','account_code','report_no','report_formula','report_operator')
         ->where('data_state',0)
+        ->where('account_type_id',2)
+        ->where('company_id', Auth::user()->company_id)
+        ->get();
+
+        $expenditure = AcctProfitLossReport::select('report_tab','report_bold','report_type','account_name','account_id','account_code','report_no','report_formula','report_operator')
+        ->where('data_state',0)
+        ->where('account_type_id',3)
+        ->where('company_id', Auth::user()->company_id)
         ->get();
 
         $spreadsheet = new Spreadsheet();
-        // echo json_encode($hidden);exit;
+
         // if(!empty($sales_invoice || $purchase_invoice || $expenditure)){
-            $spreadsheet->getProperties()->setCreator("Pbf Menjangan Enam")
-                                        ->setLastModifiedBy("Pbf Menjangan Enam")
+            $spreadsheet->getProperties()->setCreator("MOZAIC")
+                                        ->setLastModifiedBy("MOZAIC")
                                         ->setTitle("Profit Loss Report")
                                         ->setSubject("")
                                         ->setDescription("Profit Loss Report")
@@ -423,15 +600,7 @@ class AcctProfitLossReportController extends Controller
                         $account_subtotal 	= $this->getAmountAccount($valTop['account_id']);
 
                         $spreadsheet->getActiveSheet()->setCellValue('B'.$j, $report_tab.$valTop['account_name']);
-                        $spreadsheet->getActiveSheet()->setCellValue('C'.$j, $report_tab.$account_subtotal);
-
-                        $account_amount[$valTop['report_no']] = $account_subtotal;
-
-                        $j++;
-                    }
-
-                    if($valTop['report_type']	== 4){
-                        $account_subtotal 	= $this->getAmountAccount($valTop['account_id']);
+                        $spreadsheet->getActiveSheet()->setCellValue('C'.$j, $report_tab.number_format($account_subtotal,2));
 
                         $account_amount[$valTop['report_no']] = $account_subtotal;
 
@@ -462,26 +631,41 @@ class AcctProfitLossReportController extends Controller
                             }
 
                             $spreadsheet->getActiveSheet()->setCellValue('B'.$j, $report_tab.$valTop['account_name']);
-                            $spreadsheet->getActiveSheet()->setCellValue('C'.$j, $report_tab.$total_account_amount);
+                            $spreadsheet->getActiveSheet()->setCellValue('C'.$j, $report_tab.number_format($total_account_amount,2));
 
                             $j++;
                         }
                     }
 
+                    if($valTop['report_type'] == 6){
+                        if(!empty($valTop['report_formula']) && !empty($valTop['report_operator'])){
+                            $report_formula 	= explode('#', $valTop['report_formula']);
+                            $report_operator 	= explode('#', $valTop['report_operator']);
 
-                    if($valTop['report_type']	== 6){
-                                    
-                        $expenditure_subtotal 	= $total_account_amount;
+                            $grand_total_account_amount1	= 0;
+                            for($i = 0; $i < count($report_formula); $i++){
+                                if($report_operator[$i] == '-'){
+                                    if($grand_total_account_amount1 == 0 ){
+                                        $grand_total_account_amount1 = $grand_total_account_amount1 + $account_amount[$report_formula[$i]];
+                                    } else {
+                                        $grand_total_account_amount1 = $grand_total_account_amount1 - $account_amount[$report_formula[$i]];
+                                    }
+                                } else if($report_operator[$i] == '+'){
+                                    if($grand_total_account_amount1 == 0){
+                                        $grand_total_account_amount1 = $grand_total_account_amount1 + $account_amount[$report_formula[$i]];
+                                    } else {
+                                        $grand_total_account_amount1 = $grand_total_account_amount1 + $account_amount[$report_formula[$i]];
+                                    }
+                                }
+                            }
 
+                            $spreadsheet->getActiveSheet()->setCellValue('B'.$j, $report_tab.$valTop['account_name']);
+                            $spreadsheet->getActiveSheet()->setCellValue('C'.$j, $report_tab.number_format($grand_total_account_amount1,2));
 
-                        $account_amount[$valTop['report_no']] = $expenditure_subtotal;
+                            $j++;
+                        }
 
-                        $spreadsheet->getActiveSheet()->setCellValue('B'.$j, $report_tab.$valTop['account_name']);
-                        $spreadsheet->getActiveSheet()->setCellValue('C'.$j, $report_tab.$expenditure_subtotal);
-
-                        $j++;
                     }
-                    
                             
 
                 }else{
@@ -491,23 +675,119 @@ class AcctProfitLossReportController extends Controller
                 
             }
 
-        
+            // $j--;
 
-            $spreadsheet->getActiveSheet()->getStyle('B'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
-            $spreadsheet->getActiveSheet()->getStyle('C'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+            foreach($expenditure as $keyBottom => $valBottom){
+                if(is_numeric($keyTop)){
+                    
+                    $spreadsheet->setActiveSheetIndex(0);
+                    $spreadsheet->getActiveSheet()->getStyle('B'.$j.':C'.$j)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            
+                    $spreadsheet->getActiveSheet()->getStyle('B'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+                    $spreadsheet->getActiveSheet()->getStyle('C'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+                    
 
-            $spreadsheet->getActiveSheet()->getStyle('B'.$j.':C'.$j)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                    if($valBottom['report_tab'] == 0){
+                        $report_tab = ' ';
+                    } else if($valBottom['report_tab'] == 1){
+                        $report_tab = '     ';
+                    } else if($valBottom['report_tab'] == 2){
+                        $report_tab = '          ';
+                    } else if($valBottom['report_tab'] == 3){
+                        $report_tab = '               ';
+                    }
 
-            $spreadsheet->getActiveSheet()->getStyle("B".($j).":C".$j)->getFont()->setBold(true);	
+                    if($valBottom['report_bold'] == 1){
+                        $spreadsheet->getActiveSheet()->getStyle('B'.$j)->getFont()->setBold(true);	
+                        $spreadsheet->getActiveSheet()->getStyle('C'.$j)->getFont()->setBold(true);	
+                    } else {
+                    
+                    }
 
-            $shu = $expenditure_subtotal;
+                    if($valBottom['report_type'] == 1){
+                        $spreadsheet->getActiveSheet()->mergeCells("B".$j.":C".$j."");
+                        $spreadsheet->getActiveSheet()->setCellValue('B'.$j, $valBottom['account_name']);
+                    }
+                        
+                    
+                    if($valBottom['report_type']	== 2){
+                        $spreadsheet->getActiveSheet()->setCellValue('B'.$j, $valBottom['account_name']);
+                    }
+                            
 
-            // $spreadsheet->getActiveSheet()->setCellValue('B'.($j), "RUGI / LABA");
-            // $spreadsheet->getActiveSheet()->setCellValue('C'.($j), $shu);
-            // $j++;
+                    if($valBottom['report_type']	== 3){
+                        $account_subtotal 	= $this->getAmountAccount($valBottom['account_id']);
 
-            $spreadsheet->getActiveSheet()->mergeCells('B'.$j.':C'.$j);
-            $spreadsheet->getActiveSheet()->getStyle('B'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+                        $spreadsheet->getActiveSheet()->setCellValue('B'.$j, $report_tab.$valBottom['account_name']);
+                        $spreadsheet->getActiveSheet()->setCellValue('C'.$j, $report_tab.number_format($account_subtotal,2));
+
+                        $account_amount[$valBottom['report_no']] = $account_subtotal;
+                    }
+
+
+                    if($valBottom['report_type'] == 5){
+                        if(!empty($valBottom['report_formula']) && !empty($valBottom['report_operator'])){
+                            $report_formula 	= explode('#', $valBottom['report_formula']);
+                            $report_operator 	= explode('#', $valBottom['report_operator']);
+
+                            $total_account_amount	= 0;
+                            for($i = 0; $i < count($report_formula); $i++){
+                                if($report_operator[$i] == '-'){
+                                    if($total_account_amount == 0 ){
+                                        $total_account_amount = $total_account_amount + $account_amount[$report_formula[$i]];
+                                    } else {
+                                        $total_account_amount = $total_account_amount - $account_amount[$report_formula[$i]];
+                                    }
+                                } else if($report_operator[$i] == '+'){
+                                    if($total_account_amount == 0){
+                                        $total_account_amount = $total_account_amount + $account_amount[$report_formula[$i]];
+                                    } else {
+                                        $total_account_amount = $total_account_amount + $account_amount[$report_formula[$i]];
+                                    }
+                                }
+                            }
+
+                            $spreadsheet->getActiveSheet()->setCellValue('B'.$j, $report_tab.$valBottom['account_name']);
+                            $spreadsheet->getActiveSheet()->setCellValue('C'.$j, $report_tab.number_format($total_account_amount,2));
+                        }
+                    }
+
+                    if($valBottom['report_type'] == 6){
+                        if(!empty($valBottom['report_formula']) && !empty($valBottom['report_operator'])){
+                            $report_formula 	= explode('#', $valBottom['report_formula']);
+                            $report_operator 	= explode('#', $valBottom['report_operator']);
+
+                            $grand_total_account_amount2	= 0;
+                            for($i = 0; $i < count($report_formula); $i++){
+                                if($report_operator[$i] == '-'){
+                                    if($grand_total_account_amount2 == 0 ){
+                                        $grand_total_account_amount2 = $grand_total_account_amount2 + $account_amount[$report_formula[$i]];
+                                    } else {
+                                        $grand_total_account_amount2 = $grand_total_account_amount2 - $account_amount[$report_formula[$i]];
+                                    }
+                                } else if($report_operator[$i] == '+'){
+                                    if($grand_total_account_amount2 == 0){
+                                        $grand_total_account_amount2 = $grand_total_account_amount2 + $account_amount[$report_formula[$i]];
+                                    } else {
+                                        $grand_total_account_amount2 = $grand_total_account_amount2 + $account_amount[$report_formula[$i]];
+                                    }
+                                }
+                            }
+
+                            $spreadsheet->getActiveSheet()->setCellValue('B'.$j, $report_tab.$valBottom['account_name']);
+                            $spreadsheet->getActiveSheet()->setCellValue('C'.$j, $report_tab.number_format($grand_total_account_amount2,2));
+                        }
+
+                    }
+                            
+
+                }else{
+                    continue;
+                }
+
+                $j++;
+            }
+
             $sheet->setCellValue('B'.$j, Auth::user()->name.", ".date('d-m-Y H:i'));
 
             
