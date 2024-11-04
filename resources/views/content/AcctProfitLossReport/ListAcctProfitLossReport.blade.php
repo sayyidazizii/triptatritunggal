@@ -123,7 +123,7 @@
                 </thead>
                 <tbody>
                     <?php $no = 1; 
-                         
+                    
                     ?>
                     @foreach ($income as $val)
                         <?php

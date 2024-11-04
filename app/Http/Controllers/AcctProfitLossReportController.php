@@ -40,31 +40,24 @@ class AcctProfitLossReportController extends Controller
         $income = AcctProfitLossReport::select('report_tab','report_bold','report_type','account_name','account_id','account_code','report_no','report_formula','report_operator')
         ->where('data_state',0)
         ->where('account_type_id',2)
-        ->where('company_id', Auth::user()->company_id)
         ->get();
 
         $expenditure = AcctProfitLossReport::select('report_tab','report_bold','report_type','account_name','account_id','account_code','report_no','report_formula','report_operator')
         ->where('data_state',0)
         ->where('account_type_id',3)
-        ->where('company_id', Auth::user()->company_id)
         ->get();
 
-        $unit_status = array(
-            1 => 'Qmart Internal',
-            2 => 'Qmart External', 
-            3 => 'Basah & Kering'
-        );
-        // echo json_encode($income);exit;
+        // echo json_encode($expenditure);exit;
 
 
-        return view('content.AcctProfitLossReport.ListAcctProfitLossReport',compact('start_date','end_date','income','expenditure','unit_status'));
+        return view('content.AcctProfitLossReport.ListAcctProfitLossReport',compact('start_date','end_date','income','expenditure' ));
     }
 
     public function filterProfitLossReport(Request $request)
     {
-        $start_date         = $request->start_date;
-        $end_date           = $request->end_date;
-        $journal_voucher_id    = $request->journal_voucher_id;
+        $start_date             = $request->start_date;
+        $end_date               = $request->end_date;
+        $journal_voucher_id     = $request->journal_voucher_id;
 
 
         Session::put('start_date', $start_date);
@@ -104,7 +97,6 @@ class AcctProfitLossReportController extends Controller
         ->where('acct_journal_voucher.journal_voucher_date', '<=', $end_date)
         ->where('acct_journal_voucher.data_state',0)
         ->where('acct_journal_voucher_item.account_id', $account_id)
-        ->where('acct_journal_voucher.company_id', Auth::user()->company_id)
         ->get();
 
     $data_first = JournalVoucher::join('acct_journal_voucher_item','acct_journal_voucher_item.journal_voucher_id','acct_journal_voucher.journal_voucher_id')
@@ -112,7 +104,6 @@ class AcctProfitLossReportController extends Controller
         ->where('acct_journal_voucher.journal_voucher_date', '>=', $start_date)
         ->where('acct_journal_voucher.journal_voucher_date', '<=', $end_date)
         ->where('acct_journal_voucher.data_state',0)
-        ->where('acct_journal_voucher.company_id', Auth::user()->company_id)
         ->where('acct_journal_voucher_item.account_id', $account_id)
         ->first();
     
@@ -150,13 +141,11 @@ class AcctProfitLossReportController extends Controller
         $income = AcctProfitLossReport::select('report_tab','report_bold','report_type','account_name','account_id','account_code','report_no','report_formula','report_operator')
         ->where('data_state',0)
         ->where('account_type_id',2)
-        ->where('company_id', Auth::user()->company_id)
         ->get();
 
         $expenditure = AcctProfitLossReport::select('report_tab','report_bold','report_type','account_name','account_id','account_code','report_no','report_formula','report_operator')
         ->where('data_state',0)
         ->where('account_type_id',3)
-        ->where('company_id', Auth::user()->company_id)
         ->get();
 
         $pdf = new TCPDF('P', PDF_UNIT, 'F4', true, 'UTF-8', false);
@@ -514,24 +503,22 @@ class AcctProfitLossReportController extends Controller
         } else {
             $end_date = Session::get('end_date');
         }
-       
+    
         $income = AcctProfitLossReport::select('report_tab','report_bold','report_type','account_name','account_id','account_code','report_no','report_formula','report_operator')
         ->where('data_state',0)
         ->where('account_type_id',2)
-        ->where('company_id', Auth::user()->company_id)
         ->get();
 
         $expenditure = AcctProfitLossReport::select('report_tab','report_bold','report_type','account_name','account_id','account_code','report_no','report_formula','report_operator')
         ->where('data_state',0)
         ->where('account_type_id',3)
-        ->where('company_id', Auth::user()->company_id)
         ->get();
 
         $spreadsheet = new Spreadsheet();
 
         // if(!empty($sales_invoice || $purchase_invoice || $expenditure)){
-            $spreadsheet->getProperties()->setCreator("MOZAIC")
-                                        ->setLastModifiedBy("MOZAIC")
+            $spreadsheet->getProperties()->setCreator("FRIST")
+                                        ->setLastModifiedBy("FRIST")
                                         ->setTitle("Profit Loss Report")
                                         ->setSubject("")
                                         ->setDescription("Profit Loss Report")

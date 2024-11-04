@@ -1,5 +1,5 @@
 @inject('ABSR','App\Http\Controllers\AcctBalanceSheetReportController')
-@inject('ISAR','App\Http\Controllers\InvtStockAdjustmentReportController')
+{{-- @inject('ISAR','App\Http\Controllers\InvtStockAdjustmentReportController')  --}}
 
 @extends('adminlte::page')
 
@@ -166,32 +166,28 @@
 
                                                 $account_amount1_top[$val['report_no']] = $last_balance1;
                                             }
-
-                                            
-                                                
+                                                    
                                         echo "
                                             </tr>";
-                                            echo "
-                                            <tr>";
 
-                                            if($val['report_type1']	== 8){
+                                        // echo "
+                                        //     <tr>";
+
+                                        //     if($val['report_type1']	== 8){
                                             
-                                                $last_balance1 	= $ISAR->getLastBalanceStock($val['account_id1']);
-                                                // print_r($last_balance1);
+                                        //         $last_balance1 	= $ISAR->getLastBalanceStock($val['account_id1']);
+                                        //         // print_r($last_balance1);
                                                 
-                                                echo "
-                                                    <td><div style='font-weight:".$report_bold1."'>".$report_tab1."(".$val['account_code1'].") ".$val['account_name1']."</div> </td>
-                                                    <td style='text-align:right'><div style='font-weight:".$report_bold1."'>".number_format($last_balance1, 2)."</div></td>
+                                        //         echo "
+                                        //             <td><div style='font-weight:".$report_bold1."'>".$report_tab1."(".$val['account_code1'].") ".$val['account_name1']."</div> </td>
+                                        //             <td style='text-align:right'><div style='font-weight:".$report_bold1."'>".number_format($last_balance1, 2)."</div></td>
 
-                                                ";
+                                        //         ";
 
-                                                $account_amount1_top[$val['report_no']] = $last_balance1;
-                                            }
-
-                                            
-                                                
-                                        echo "
-                                            </tr>";
+                                        //         $account_amount1_top[$val['report_no']] = $last_balance1;
+                                        //     }
+                                        // echo "
+                                        //     </tr>";
 
                                         echo "
                                             <tr>";
@@ -540,7 +536,6 @@
 
                                         echo "			
                                             </tr>";	
-
                                         
                                     }
                                 ?>
