@@ -452,29 +452,29 @@ class SalesDeliveryOrderController extends Controller
                 $sdo_item_stock = SalesDeliveryOrderItemStockTemporary::where('sales_order_id', $request->sales_order_id_1)
                 ->get();
         
-                foreach($sdo_item_stock as $itemstock){
+                // foreach($sdo_item_stock as $itemstock){
         
-                    $sales_delivery_order_item_id = SalesDeliveryOrderItem::select('sales_delivery_order_item_id')
-                    ->where('sales_order_item_id', $itemstock['sales_order_item_id'])
-                    ->where('sales_order_id', $itemstock['sales_order_id'])
-                    ->orderBy('sales_delivery_order_item_id', 'DESC')
-                    ->first()
-                    ->sales_delivery_order_item_id;
+                //     $sales_delivery_order_item_id = SalesDeliveryOrderItem::select('sales_delivery_order_item_id')
+                //     ->where('sales_order_item_id', $itemstock['sales_order_item_id'])
+                //     ->where('sales_order_id', $itemstock['sales_order_id'])
+                //     ->orderBy('sales_delivery_order_item_id', 'DESC')
+                //     ->first()
+                //     ->sales_delivery_order_item_id;
         
-                    $data = SalesDeliveryOrderItemStock::create([
-                        'sales_delivery_order_id'	    => $sales_delivery_order_id['sales_delivery_order_id'],
-                        'sales_delivery_order_item_id'	=> $sales_delivery_order_item_id,
-                        'sales_order_id' 			    => $itemstock['sales_order_id'],
-                        'sales_order_item_id' 		    => $itemstock['sales_order_item_id'],
-                        'item_unit_id' 		            => $itemstock['item_unit_id'],
-                        'item_stock_id' 		        => $itemstock['item_stock_id'],
-                        'item_total_stock' 		        => $itemstock['item_stock_quantity'],
-                        'created_id'                    => Auth::id(),
-                    ]);
-                }
-                if($data){
-                    SalesDeliveryOrderItemStockTemporary::where('sales_order_id', $data['sales_order_id'])->delete();
-                }
+                //     $data = SalesDeliveryOrderItemStock::create([
+                //         'sales_delivery_order_id'	    => $sales_delivery_order_id['sales_delivery_order_id'],
+                //         'sales_delivery_order_item_id'	=> $sales_delivery_order_item_id,
+                //         'sales_order_id' 			    => $itemstock['sales_order_id'],
+                //         'sales_order_item_id' 		    => $itemstock['sales_order_item_id'],
+                //         'item_unit_id' 		            => $itemstock['item_unit_id'],
+                //         'item_stock_id' 		        => $itemstock['item_stock_id'],
+                //         'item_total_stock' 		        => $itemstock['item_stock_quantity'],
+                //         'created_id'                    => Auth::id(),
+                //     ]);
+                // }
+                // if($data){
+                //     SalesDeliveryOrderItemStockTemporary::where('sales_order_id', $data['sales_order_id'])->delete();
+                // }
 
                 $msg = 'Tambah Sales Delivery Order Berhasil';
 
