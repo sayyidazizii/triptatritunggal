@@ -44,6 +44,7 @@ use Illuminate\Support\Facades\DB;
 use Elibyy\TCPDF\Facades\TCPDF;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Illuminate\Support\Facades\Log;
 
 class SalesDeliveryNoteController extends Controller
 {
@@ -83,6 +84,46 @@ class SalesDeliveryNoteController extends Controller
         Session::forget('salesdeliveryordernoteelements');
 
         return view('content/SalesDeliveryNote/ListSalesDeliveryNote', compact('salesdeliverynote', 'start_date', 'end_date'));
+    }
+
+    public function addSalesDeliveryNote($sales_delivery_order_id)
+    {
+
+        $salesdeliveryordernoteelements  = Session::get('salesdeliveryordernoteelements');
+
+        $warehouse = InvWarehouse::select('warehouse_id', 'warehouse_name')
+        ->where('data_state', 0)
+        ->pluck('warehouse_name', 'warehouse_id');
+
+        $salesdeliveryorder     = SalesDeliveryOrder::findOrFail($sales_delivery_order_id);
+        
+        $salesdeliveryorderitem = SalesDeliveryOrderItem::select('sales_delivery_order_item.*')
+        ->where('sales_delivery_order_item.sales_delivery_order_id', $sales_delivery_order_id)
+        ->where('sales_delivery_order_item.data_state', 0)
+        ->get();
+
+        $salesdeliverynoteitem_view  = SalesDeliveryOrderItem::select('sales_delivery_order_item.*')
+        ->where('sales_delivery_order_id', $sales_delivery_order_id)
+        ->where('data_state', 0)
+        ->get();
+    
+
+        $expedition = CoreExpedition::select('expedition_name', 'expedition_id')
+        ->where('data_state', 0)
+        ->pluck('expedition_name', 'expedition_id');
+
+        $city = CoreCity::where('data_state', 0)
+        ->pluck('city_name', 'city_id');
+
+        $null_warehouse_id = Session::get('warehouse_id');
+
+        $status = array(
+            1 => 'Active',
+            2 => 'Non Active',
+            3 => 'All',
+        );
+
+        return view('content/SalesDeliveryNote/FormAddSalesDeliveryNote',compact('warehouse','null_warehouse_id','salesdeliveryordernoteelements', 'salesdeliveryorder', 'salesdeliveryorderitem','salesdeliverynoteitem_view', 'sales_delivery_order_id', 'expedition', 'city', 'status'));
     }
 
     public function filterSalesDeliveryNote(Request $request){
@@ -128,54 +169,7 @@ class SalesDeliveryNoteController extends Controller
         return $poNum['purchase_order_no'] ?? '';
     }
 
-    public function addSalesDeliveryNote($sales_delivery_order_id)
-    {
 
-        $salesdeliveryordernoteelements  = Session::get('salesdeliveryordernoteelements');
-
-        $warehouse = InvWarehouse::select('warehouse_id', 'warehouse_name')
-        ->where('data_state', 0)
-        ->pluck('warehouse_name', 'warehouse_id');
-
-        $salesdeliveryorder     = SalesDeliveryOrder::findOrFail($sales_delivery_order_id);
-        
-        $salesdeliveryorderitem = SalesDeliveryOrderItem::select('sales_delivery_order_item.*','sales_delivery_order_item_stock.*')
-        ->rightJoin('sales_delivery_order_item_stock', 'sales_delivery_order_item_stock.sales_delivery_order_id', '=', 'sales_delivery_order_item_stock.sales_delivery_order_id')
-        ->where('sales_delivery_order_item.sales_delivery_order_id', $sales_delivery_order_id)
-        ->where('sales_delivery_order_item_stock.sales_delivery_order_id', $sales_delivery_order_id)
-        ->where('sales_delivery_order_item.data_state', 0)
-        ->groupby('sales_delivery_order_item.sales_delivery_order_id',
-                  'sales_delivery_order_item_stock.sales_delivery_order_item_id',
-                  'sales_delivery_order_item_stock.item_stock_id',
-                  'sales_delivery_order_item_stock.item_total_stock')
-                    ->get();
-                 
-
-        $salesdeliverynoteitem_view  = SalesDeliveryOrderItem::select('sales_delivery_order_item.*')
-        ->where('sales_delivery_order_id', $sales_delivery_order_id)
-        ->where('data_state', 0)
-        ->get();
-    
-                    // dd($salesdeliveryorderitem);
-        //  return json_encode($salesdeliveryorderitem);
-        //  exit;
-        $expedition = CoreExpedition::select('expedition_name', 'expedition_id')
-        ->where('data_state', 0)
-        ->pluck('expedition_name', 'expedition_id');
-
-        $city = CoreCity::where('data_state', 0)
-        ->pluck('city_name', 'city_id');
-
-        $null_warehouse_id = Session::get('warehouse_id');
-
-        $status = array(
-            1 => 'Active',
-            2 => 'Non Active',
-            3 => 'All',
-        );
-
-        return view('content/SalesDeliveryNote/FormAddSalesDeliveryNote',compact('warehouse','null_warehouse_id','salesdeliveryordernoteelements', 'salesdeliveryorder', 'salesdeliveryorderitem','salesdeliverynoteitem_view', 'sales_delivery_order_id', 'expedition', 'city', 'status'));
-    }
 
 
     public function getdataItemStok($sales_delivery_order_item_id){
@@ -369,9 +363,7 @@ class SalesDeliveryNoteController extends Controller
     {
         $sales_order_status_cek = 0;
 
-        $salesdeliveryorder = SalesDeliveryOrder::findOrFail($request->sales_delivery_order_id);
-        $salesdeliveryorder->sales_delivery_note_status = 1;
-        $salesdeliveryorder->save();
+
 
         $salesdeliverynote = array(
             'sales_delivery_order_id'       => $request->sales_delivery_order_id,
@@ -388,270 +380,138 @@ class SalesDeliveryNoteController extends Controller
             'branch_id'                     => Auth::user()->branch_id,
             'created_id'                    => Auth::id(),
         );
-    //    dd([$request->all(),$salesdeliverynote]);
-        if(SalesDeliveryNote::create($salesdeliverynote)){
-            $salesdeliverynoteid = SalesDeliveryNote::select('sales_delivery_note_id', 'sales_order_id', 'sales_delivery_note_no')
-            ->orderBy('created_at', 'DESC')
-            ->first();
 
-            $salesdeliveryorderitem = SalesDeliveryOrderItem::select('sales_delivery_order_item.*', 'inv_item_type.*')
-            ->join('inv_item_type', 'inv_item_type.item_type_id', '=', 'sales_delivery_order_item.item_type_id')
-            ->where('sales_delivery_order_item.sales_delivery_order_id', $request->sales_delivery_order_id)
-            ->where('sales_delivery_order_item.data_state', 0)
-            ->orderBy('sales_delivery_order_item.sales_delivery_order_item_id', 'DESC')
-            ->get();
+        try {
+            DB::beginTransaction();
 
-            $no =1;
-            
-            // dd($salesdeliveryorderitem);
-            $dataitem = $request->all();
-            //dd($dataitem);
-            foreach($salesdeliveryorderitem as $item){  
-
-                // dd($item);
-                $temp_quantity = $dataitem['quantity_delivered_'.$no];
-                $item_stocks = '';
-
-                $item_unit_id_unit = $item['item_unit_1'];
-                $quantity_unit = $dataitem['quantity_'.$no] * $item['item_quantity_default_1'];
-                $default_quantity = $item['item_quantity_default_1'];
-                $item_weight = $dataitem['quantity_'.$no] * $item['item_weight_1'];
-                if($dataitem['item_unit_id_'.$no] == $item['item_unit_1']){
+            $salesdeliveryorder = SalesDeliveryOrder::findOrFail($request->sales_delivery_order_id);
+            $salesdeliveryorder->sales_delivery_note_status = 1;
+            $salesdeliveryorder->save();
+    
+            SalesDeliveryNote::create($salesdeliverynote);
+                $salesdeliverynoteid = SalesDeliveryNote::select('sales_delivery_note_id', 'sales_order_id', 'sales_delivery_note_no')
+                ->orderBy('created_at', 'DESC')
+                ->first();
+    
+                $salesdeliveryorderitem = SalesDeliveryOrderItem::select('sales_delivery_order_item.*', 'inv_item_type.*')
+                ->join('inv_item_type', 'inv_item_type.item_type_id', '=', 'sales_delivery_order_item.item_type_id')
+                ->where('sales_delivery_order_item.sales_delivery_order_id', $request->sales_delivery_order_id)
+                ->where('sales_delivery_order_item.data_state', 0)
+                ->orderBy('sales_delivery_order_item.sales_delivery_order_item_id', 'DESC')
+                ->get();
+    
+                $no =1;
+                
+                // dd($salesdeliveryorderitem);
+                $dataitem = $request->all();
+                //dd($dataitem);
+                foreach($salesdeliveryorderitem as $item){  
+    
+                    $temp_quantity = $dataitem['quantity_delivered_'.$no];
+                    $item_stocks = '';
+    
+                    $item_unit_id_unit = $item['item_unit_1'];
                     $quantity_unit = $dataitem['quantity_'.$no] * $item['item_quantity_default_1'];
                     $default_quantity = $item['item_quantity_default_1'];
                     $item_weight = $dataitem['quantity_'.$no] * $item['item_weight_1'];
-                }
-                if($dataitem['item_unit_id_'.$no] == $item['item_unit_2']){
-                    $quantity_unit = $dataitem['quantity_'.$no] * $item['item_quantity_default_2'];
-                    $default_quantity = $item['item_quantity_default_2'];
-                    $item_weight = $dataitem['quantity_'.$no] * $item['item_weight_2'];
-                }
-                if($dataitem['item_unit_id_'.$no] == $item['item_unit_3']){
-                    $quantity_unit = $dataitem['quantity_'.$no] * $item['item_quantity_default_3'];
-                    $default_quantity = $item['item_quantity_default_3'];
-                    $item_weight = $dataitem['quantity_'.$no] * $item['item_weight_3'];
-                }
-
-                $data = SalesDeliveryNoteItem::create([
-                    'sales_delivery_note_id'	    => $salesdeliverynoteid['sales_delivery_note_id'],
-                    'warehouse_id'                  => $request->warehouse_id,
-                    'sales_order_id' 			    => $dataitem['sales_order_id__'.$no],
-                    'sales_order_item_id' 		    => $dataitem['sales_order_item_id__'.$no],
-                    'sales_delivery_order_id' 	    => $dataitem['sales_delivery_order_id__'.$no],
-                    'sales_delivery_order_item_id'  => $dataitem['sales_delivery_order_item_id__'.$no],
-                    'customer_id' 				    => $dataitem['customer_id'],
-                    'item_id' 		                => $dataitem['item_id_'.$no],
-                    'item_type_id' 		            => $dataitem['item_type_id_'.$no],
-                    'item_unit_id' 		            => $dataitem['item_unit_id_'.$no],
-                    'item_unit_id_unit' 		    => $item_unit_id_unit,
-                    'quantity_unit' 		        => $dataitem['quantity_delivered_'.$no],
-                    'item_default_quantity_unit'    => $default_quantity,
-                    'item_weight_unit' 		        => $item_weight,
-                    'item_unit_price' 		        => $dataitem['item_unit_price_'.$no],
-                    'subtotal_price' 		        => $dataitem['subtotal_price_'.$no],
-                    'item_stock_id' 		        => '',
-                    'quantity'					    => $dataitem['quantity_delivered_'.$no],		
-                    'quantity_ordered'		        => $dataitem['quantity_'.$no],	
-                    'created_id'                    => Auth::id(),
-                ]);
-
-
-                $salesdeliverynoteitem = SalesDeliveryNoteItem::select('sales_delivery_note_item.*')
-                // ->where('sales_delivery_note_item.sales_order_id', $data->sales_order_id)
-                // ->where('sales_delivery_note_item.sales_order_item_id', $data->sales_order_item_id)
-                ->orderBy('created_at', 'DESC')
-                ->first();
-
-                
-                $sdo_item_stock = SalesDeliveryOrderItemStock::select('sales_delivery_order_item_stock.*')
-                ->join('inv_item_stock', 'inv_item_stock.item_stock_id', '=', 'sales_delivery_order_item_stock.item_stock_id')
-                // ->join('inv_item_type', 'inv_item_stock.item_type_id', '=', 'inv_item_type.item_type_id')
-                ->where('sales_delivery_order_item_stock.sales_order_id', $salesdeliverynoteitem['sales_order_id'])
-                ->where('sales_delivery_order_item_stock.data_state', 0)
-                ->get();
-
-
-                $no++;
-                }
-               
-              
-
-
-                $itemNoteNew = SalesDeliveryNoteItem::select('*')
-                ->where('created_at', \Carbon\Carbon::now())
-                ->where('sales_delivery_note_id', $salesdeliverynoteid['sales_delivery_note_id'])
-                ->orderBy('created_at', 'DESC')
-                ->get();
-
-                $dataItemNote = array("sales_delivery_note_item_id");
-                $rows = 1;
-                foreach ($itemNoteNew as $data_item) {
-                    $dataItemNote[] = array(
-                      'sales_delivery_note_item_id' => $data_item->sales_delivery_note_item_id,
-                    );
-                   
-                  
-                }
-
-
-                //pengurangan Stock
-                $total_no = $request->total_no;
-                for ($i = 1; $i <= $total_no; $i++) {
-
-                    $itemstock     = InvItemStock::findOrFail($dataitem['item_stock_id_'.$i]);
-                    $itemstock->quantity_unit = (int)$itemstock['quantity_unit'] - (int)$dataitem['quantity_'.$i];
-                    $itemstock->save();
-
-                   
+                    if($dataitem['item_unit_id_'.$no] == $item['item_unit_1']){
+                        $quantity_unit = $dataitem['quantity_'.$no] * $item['item_quantity_default_1'];
+                        $default_quantity = $item['item_quantity_default_1'];
+                        $item_weight = $dataitem['quantity_'.$no] * $item['item_weight_1'];
+                    }
+                    if($dataitem['item_unit_id_'.$no] == $item['item_unit_2']){
+                        $quantity_unit = $dataitem['quantity_'.$no] * $item['item_quantity_default_2'];
+                        $default_quantity = $item['item_quantity_default_2'];
+                        $item_weight = $dataitem['quantity_'.$no] * $item['item_weight_2'];
+                    }
+                    if($dataitem['item_unit_id_'.$no] == $item['item_unit_3']){
+                        $quantity_unit = $dataitem['quantity_'.$no] * $item['item_quantity_default_3'];
+                        $default_quantity = $item['item_quantity_default_3'];
+                        $item_weight = $dataitem['quantity_'.$no] * $item['item_weight_3'];
+                    }
     
-    
-                        $inv_stock_note = array(
-                            'goods_received_note_id'            =>   $itemstock['goods_received_note_id'],
-                            'goods_received_note_item_id'       =>   $itemstock['goods_received_note_item_id'],
-                            'item_stock_date'                   =>  \Carbon\Carbon::now(), # new \Datetime()
-                            'item_stock_expired_date'           =>   $itemstock['item_stock_expired_date'],
-                            'item_batch_number'                 =>   $itemstock['item_batch_number'],
-                            'purchase_order_item_id'            =>   $itemstock['purchase_order_item_id'],
-                            'warehouse_id'                      =>   8,
-                            'item_category_id'                  =>   $itemstock['item_category_id'],
-                            'item_type_id'                      =>   $dataitem['item_type_id_'.$i],
-                            'item_unit_id'                      =>   $dataitem['item_unit_id_'.$i],
-                            'item_unit_cost'                    =>   $itemstock['item_unit_cost'],
-                            'item_unit_price'                   =>   $dataitem['item_unit_price_'.$i],
-                            'item_total'                        =>   $itemstock['item_total'],
-                            'item_unit_id_default'              =>   $itemstock['item_unit_id_default'],
-                            'item_default_quantity_unit'        =>   $itemstock['item_default_quantity_unit'],
-                            'quantity_unit'                     =>   (int)$dataitem['quantity_'.$i],
-                            'item_weight_default'               =>   $itemstock['item_weight_default'],
-                            'item_weight_unit'                  =>   $itemstock['item_weight_unit'],
-                            'package_id'                        =>   $itemstock['package_id'],
-                            'package_total'                     =>   $itemstock['package_total'],
-                            'package_unit_id'                   =>   $itemstock['package_unit_id'],
-                            'package_price'                     =>   $itemstock['package_price'],
-                            'data_state'                        =>   $itemstock['data_state'],
-                            'created_id'                        =>   $itemstock['created_id'],
-                            'created_at'                        =>  \Carbon\Carbon::now(), # new \Datetime()
-                            'updated_at'                        =>   $itemstock['updated_at'],
-                            'purchase_order_no'                 =>   $dataitem['purchase_order_no'],
-                            
-                        );    
-                        InvItemStock::create($inv_stock_note);
-                    // }
-                    
-    
-                    $itemstockNew = InvItemStock::select('*')
-                        ->where('created_at', \Carbon\Carbon::now())
-                        ->where('item_type_id', $dataitem['item_type_id_'.$i])
-                        ->where('item_category_id',$inv_stock_note['item_category_id'])
-                        ->where('item_unit_id',$dataitem['item_unit_id_'.$i])
-                        ->where('quantity_unit', (int)$dataitem['quantity_'.$i])
-                        ->where('item_batch_number', $dataitem['item_batch_number_'.$i])
-                        ->where('warehouse_id',8)
-                        ->orderBy('created_at', 'DESC')
-                        ->get();
-    
-                    $dataStock = array("item_stock_id");
-                    $row = 1;
-                    foreach ($itemstockNew as $data_item) {
-                        $dataStock[] = array(
-                          'item_stock_id' => $data_item->item_stock_id,
-                        );
-                   
-                            $nos = 1;
-                            foreach($sdo_item_stock as $val){
-                
-                                $item_unit_id_unit = $val['item_unit_1'];
-                
-                                if($val['item_unit_id'] == $val['item_unit_1']){
-                                    $quantity_unit = $val['item_total_stock'] * $val['item_quantity_default_1'];
-                                    $default_quantity = $val['item_quantity_default_1'];
-                                    $item_weight = $val['item_total_stock'] * $val['item_weight_1'];
-                                    $item_weight_default = $val['item_weight_1'];
-                                    // dd($item_unit_id_unit);
-                                }
-                                if($val['item_unit_id'] == $val['item_unit_2']){
-                                    $quantity_unit = $val['item_total_stock'] * $val['item_quantity_default_2'];
-                                    $default_quantity = $val['item_quantity_default_2'];
-                                    $item_weight = $val['item_total_stock'] * $val['item_weight_2'];
-                                    $item_weight_default = $val['item_weight_2'];
-                                }
-                                if($val['item_unit_id'] == $val['item_unit_3']){
-                                    $quantity_unit = $val['item_total_stock'] * $val['item_quantity_default_3'];
-                                    $default_quantity = $val['item_quantity_default_3'];
-                                    $item_weight = $val['item_total_stock'] * $val['item_weight_3'];
-                                    $item_weight_default = $val['item_weight_2'];
-                                }
-
-                                
-                                    $dataitemnotestock =array(
-                                        'sales_delivery_note_id'	                => $salesdeliverynoteid['sales_delivery_note_id'],
-                                        'sales_delivery_note_item_id'	            => $data['sales_delivery_note_item_id'],
-                                        'sales_delivery_order_id'	                => $dataitem['sales_delivery_order_id_'.$i],
-                                        'sales_delivery_order_item_id'	            => $dataitem['sales_delivery_order_item_id_'.$i],
-                                        'sales_delivery_order_item_stock_id'	    => $dataitem['sales_delivery_order_item_stock_id_'.$i],
-                                        'sales_order_id' 			                => $dataitem['sales_order_id_'.$i],
-                                        'sales_order_item_id' 		                => $dataitem['sales_order_item_id_'.$i],
-                                        // 'item_category_id' 		                => $val['item_category_id'.$i],
-                                        'item_type_id' 		                        => $dataitem['item_type_id_'.$i],
-                                        'item_unit_id' 		                        => $dataitem['item_unit_id_'.$i],
-                                        'item_unit_id_unit' 		                => $item_unit_id_unit,
-                                        'quantity_unit' 		                    => $dataitem['quantity_'.$i],
-                                        'item_default_quantity_unit'                => $default_quantity,
-                                        'item_weight_unit' 		                    => $item_weight,
-                                        // 'item_weight_default' 		            => $item_weight_default,
-                                        'item_stock_id' 		                    => $dataStock[$row]['item_stock_id'],
-                                        'quantity'					                => $quantity_unit,
-                                        'warehouse_id'                              => $request->warehouse_id,
-                                        'created_id'                                => Auth::id(),
-                                    );  
-
-                                }
-                                        
-                            }
-    
-                            SalesDeliveryNoteItemStock::create($dataitemnotestock);
-                            $row++; 
-                            
-                }
-
-                
-
-                // UPDATE NOTE ITEM ID 
-                DB::table('sales_delivery_note_item_stock as a')
-                ->join('sales_delivery_note_item as c', 'a.sales_delivery_order_item_id', '=', 'c.sales_delivery_order_item_id')
-                ->update([ 'a.sales_delivery_note_item_id' => DB::raw("`c`.`sales_delivery_note_item_id`") ]);
-
-
-                  // UPDATE kartu stock
-                  DB::table('inv_item_stock_card as a')
-                  ->join('sales_delivery_order_item_stock as b', 'a.item_stock_id', '=', 'b.item_stock_id')
-                  ->where('b.sales_delivery_order_id',$request->sales_delivery_order_id)
-                  ->update([
-                     'a.item_stock_card_in' => DB::raw("`a`.`item_stock_card_in` - `b`.`item_total_stock`") ,
-                     'a.item_stock_card_out' => DB::raw("`a`.`item_stock_card_out` + `b`.`item_total_stock`") 
+                    $data = SalesDeliveryNoteItem::create([
+                        'sales_delivery_note_id'	    => $salesdeliverynoteid['sales_delivery_note_id'],
+                        'warehouse_id'                  => $request->warehouse_id,
+                        'sales_order_id' 			    => $dataitem['sales_order_id__'.$no],
+                        'sales_order_item_id' 		    => $dataitem['sales_order_item_id__'.$no],
+                        'sales_delivery_order_id' 	    => $dataitem['sales_delivery_order_id__'.$no],
+                        'sales_delivery_order_item_id'  => $dataitem['sales_delivery_order_item_id__'.$no],
+                        'customer_id' 				    => $dataitem['customer_id'],
+                        'item_id' 		                => $dataitem['item_id_'.$no],
+                        'item_type_id' 		            => $dataitem['item_type_id_'.$no],
+                        'item_unit_id' 		            => $dataitem['item_unit_id_'.$no],
+                        'item_unit_id_unit' 		    => $item_unit_id_unit,
+                        'quantity_unit' 		        => $dataitem['quantity_delivered_'.$no],
+                        'item_default_quantity_unit'    => $default_quantity,
+                        'item_weight_unit' 		        => $item_weight,
+                        'item_unit_price' 		        => $dataitem['item_unit_price_'.$no],
+                        'subtotal_price' 		        => $dataitem['subtotal_price_'.$no],
+                        'item_stock_id' 		        => '',
+                        'quantity'					    => $dataitem['quantity_delivered_'.$no],		
+                        'quantity_ordered'		        => $dataitem['quantity_'.$no],	
+                        'created_id'                    => Auth::id(),
                     ]);
-
-
+    
+    
+                    $salesdeliverynoteitem = SalesDeliveryNoteItem::select('sales_delivery_note_item.*')
+                    ->orderBy('created_at', 'DESC')
+                    ->first();
+    
+                    
+                    $sdo_item_stock = SalesDeliveryOrderItemStock::select('sales_delivery_order_item_stock.*')
+                    ->join('inv_item_stock', 'inv_item_stock.item_stock_id', '=', 'sales_delivery_order_item_stock.item_stock_id')
+                    ->where('sales_delivery_order_item_stock.sales_order_id', $salesdeliverynoteitem['sales_order_id'])
+                    ->where('sales_delivery_order_item_stock.data_state', 0)
+                    ->get();
+                    $no++;
+                    }
+    
+    
+                    $itemNoteNew = SalesDeliveryNoteItem::select('*')
+                    ->where('created_at', \Carbon\Carbon::now())
+                    ->where('sales_delivery_note_id', $salesdeliverynoteid['sales_delivery_note_id'])
+                    ->orderBy('created_at', 'DESC')
+                    ->get();
+    
+                    $dataItemNote = array("sales_delivery_note_item_id");
+                    $rows = 1;
+                    foreach ($itemNoteNew as $data_item) {
+                        $dataItemNote[] = array(
+                            'sales_delivery_note_item_id' => $data_item->sales_delivery_note_item_id,
+                        );
+                    }
+    
+                $salesorder = SalesOrder::where('sales_order_id', $salesdeliverynote['sales_order_id'])
+                ->first();
+    
+                if($sales_order_status_cek == 0){
+                    $salesorder->sales_order_status = 2;
+                }else if($sales_order_status_cek == 1){
+                    $salesorder->sales_order_status = 1;
+                }
+                $salesorder->save();
+    
+                
+                $msg = 'Tambah Sales Delivery Note Berhasil';
+                
+                DB::commit();
+                return redirect('/sales-delivery-note')->with('msg',$msg);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            report($e);
             
-           
+            Log::error('Error saat menambah Sales Delivery Note: ' . $e->getMessage(), [
+                'exception' => $e,
+                'user_id' => auth()->user()->id, // Contoh menambahkan informasi tambahan
+                'url' => request()->url(), // Contoh menambahkan informasi tambahan
+            ]);
 
-            $salesorder = SalesOrder::where('sales_order_id', $salesdeliverynote['sales_order_id'])
-            ->first();
-
-            if($sales_order_status_cek == 0){
-                $salesorder->sales_order_status = 2;
-            }else if($sales_order_status_cek == 1){
-                $salesorder->sales_order_status = 1;
-            }
-            $salesorder->save();
-
-            
-            $msg = 'Tambah Sales Delivery Note Berhasil';
-            return redirect('/sales-delivery-note')->with('msg',$msg);
-        }else{
             $msg = 'Tambah Sales Delivery Note Gagal';
             return redirect('/sales-delivery-note')->with('msg',$msg);
         }
+
+
 
     }
 

@@ -394,22 +394,18 @@ function elements_add(name, value){
                                             $no++;
 
                                         @endphp
-
                                         
-                                         <input class='form-control' style='text-align:right;'type='hidden' name='sales_delivery_order_id_{{$total_no}}' id='sales_delivery_order_id_{{$total_no}}' value='{{$val->sales_delivery_order_id}}'/>  
-                                         <input class='form-control' style='text-align:right;'type='hidden' readonly name='sales_delivery_order_item_id_{{$total_no}}' id='sales_delivery_order_item_id_{{$total_no}}' value='{{$val->sales_delivery_order_item_id}}'/>
-                                         <input class='form-control' style='text-align:right;'type='hidden' name='sales_delivery_order_item_stock_id_{{$total_no}}' id='sales_delivery_order_item_stock_id_{{$total_no}}' value='{{$val->sales_delivery_order_item_stock_id}}'/>    
-                                         <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id_{{$total_no}}' id='sales_order_id_{{$total_no}}' value='{{$item['sales_order_id']}}'/>  
-                                         <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id_{{$total_no}}' id='sales_order_item_id_{{$total_no}}' value='{{$item['sales_order_item_id']}}'/>  
-                                         <input class='form-control' style='text-align:right;'type='hidden' name='customer_id_{{$total_no}}' id='customer_id_{{$total_no}}' value='{{$item['customer_id']}}'/>  
-                                         <input class='form-control' style='text-align:right;'type='hidden' name='item_id_{{$total_no}}' id='item_id_{{$total_no}}' value='{{$item['item_id']}}'/>
-                                         <input class='form-control' style='text-align:right;'type='hidden' name='item_type_id_{{$total_no}}' id='item_type_id_{{$total_no}}' value='{{$item['item_type_id']}}'/>
-                                         <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_id_{{$total_no}}' id='item_unit_id_{{$total_no}}' value='{{$item['item_unit_id']}}'/>
-                                         <input class='form-control' style='text-align:right;'type='hidden' name='item_batch_number_{{$total_no}}' id='item_batch_number_{{$total_no}}' value='{{$SalesDeliveryNote->getItemBatchNumber($val->item_stock_id)}}'/>
-                                        <input class='form-control' style='text-align:right;'type='hidden' name='quantity_{{$total_no}}' id='quantity_{{$total_no}}' value='{{ $SalesDeliveryNote->getdataItemStok($val['sales_delivery_order_item_id']) }}'/>
+                                        <input class='form-control' style='text-align:right;'type='hidden' name='sales_delivery_order_id_{{$total_no}}' id='sales_delivery_order_id_{{$total_no}}' value='{{$val->sales_delivery_order_id}}'/>  
+                                        <input class='form-control' style='text-align:right;'type='hidden' readonly name='sales_delivery_order_item_id_{{$total_no}}' id='sales_delivery_order_item_id_{{$total_no}}' value='{{$val->sales_delivery_order_item_id}}'/>
+                                        <input class='form-control' style='text-align:right;'type='hidden' name='sales_delivery_order_item_stock_id_{{$total_no}}' id='sales_delivery_order_item_stock_id_{{$total_no}}' value='{{$val->sales_delivery_order_item_stock_id}}'/>    
+                                        <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id_{{$total_no}}' id='sales_order_id_{{$total_no}}' value='{{$item['sales_order_id']}}'/>  
+                                        <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id_{{$total_no}}' id='sales_order_item_id_{{$total_no}}' value='{{$item['sales_order_item_id']}}'/>  
+                                        <input class='form-control' style='text-align:right;'type='hidden' name='customer_id_{{$total_no}}' id='customer_id_{{$total_no}}' value='{{$item['customer_id']}}'/>  
+                                        <input class='form-control' style='text-align:right;'type='hidden' name='item_id_{{$total_no}}' id='item_id_{{$total_no}}' value='{{$item['item_id']}}'/>
+                                        <input class='form-control' style='text-align:right;'type='hidden' name='item_type_id_{{$total_no}}' id='item_type_id_{{$total_no}}' value='{{$item['item_type_id']}}'/>
+                                        <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_id_{{$total_no}}' id='item_unit_id_{{$total_no}}' value='{{$item['item_unit_id']}}'/>
+                                        <input class='form-control' style='text-align:right;'type='hidden' name='item_batch_number_{{$total_no}}' id='item_batch_number_{{$total_no}}' value='{{$SalesDeliveryNote->getItemBatchNumber($val->item_stock_id)}}'/>
                                         <input class='form-control' style='text-align:right;'type='hidden' name='item_stock_id_{{$total_no}}' id='item_stock_id_{{$total_no}}' value='{{$val->item_stock_id}}'/>
-                                        {{-- <input class='form-control' style='text-align:right;'type='hidden' name='item_type_id_{{$total_no}}' id='item_type_id_{{$total_no}}' value='{{$val->item_type_id}}'/> --}}
-                                        {{-- <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_id_{{$total_no}}' id='item_unit_id_{{$total_no}}' value='{{$val->item_unit_id}}'/> --}}
                                         <input class='form-control' style='text-align:right;'type='hidden' name='total_no' id='total_no' value='{{$total_no}}'/>
                                     @endforeach
                                 @endif
