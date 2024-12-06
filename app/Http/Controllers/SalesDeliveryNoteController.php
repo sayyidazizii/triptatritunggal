@@ -407,28 +407,6 @@ class SalesDeliveryNoteController extends Controller
                 //dd($dataitem);
                 foreach($salesdeliveryorderitem as $item){  
     
-                    $temp_quantity = $dataitem['quantity_delivered_'.$no];
-                    $item_stocks = '';
-    
-                    $item_unit_id_unit = $item['item_unit_1'];
-                    $quantity_unit = $dataitem['quantity_'.$no] * $item['item_quantity_default_1'];
-                    $default_quantity = $item['item_quantity_default_1'];
-                    $item_weight = $dataitem['quantity_'.$no] * $item['item_weight_1'];
-                    if($dataitem['item_unit_id_'.$no] == $item['item_unit_1']){
-                        $quantity_unit = $dataitem['quantity_'.$no] * $item['item_quantity_default_1'];
-                        $default_quantity = $item['item_quantity_default_1'];
-                        $item_weight = $dataitem['quantity_'.$no] * $item['item_weight_1'];
-                    }
-                    if($dataitem['item_unit_id_'.$no] == $item['item_unit_2']){
-                        $quantity_unit = $dataitem['quantity_'.$no] * $item['item_quantity_default_2'];
-                        $default_quantity = $item['item_quantity_default_2'];
-                        $item_weight = $dataitem['quantity_'.$no] * $item['item_weight_2'];
-                    }
-                    if($dataitem['item_unit_id_'.$no] == $item['item_unit_3']){
-                        $quantity_unit = $dataitem['quantity_'.$no] * $item['item_quantity_default_3'];
-                        $default_quantity = $item['item_quantity_default_3'];
-                        $item_weight = $dataitem['quantity_'.$no] * $item['item_weight_3'];
-                    }
     
                     $data = SalesDeliveryNoteItem::create([
                         'sales_delivery_note_id'	    => $salesdeliverynoteid['sales_delivery_note_id'],
@@ -441,10 +419,10 @@ class SalesDeliveryNoteController extends Controller
                         'item_id' 		                => $dataitem['item_id_'.$no],
                         'item_type_id' 		            => $dataitem['item_type_id_'.$no],
                         'item_unit_id' 		            => $dataitem['item_unit_id_'.$no],
-                        'item_unit_id_unit' 		    => $item_unit_id_unit,
+                        'item_unit_id_unit' 		    => 0,
                         'quantity_unit' 		        => $dataitem['quantity_delivered_'.$no],
-                        'item_default_quantity_unit'    => $default_quantity,
-                        'item_weight_unit' 		        => $item_weight,
+                        'item_default_quantity_unit'    => 0,
+                        'item_weight_unit' 		        => 0,
                         'item_unit_price' 		        => $dataitem['item_unit_price_'.$no],
                         'subtotal_price' 		        => $dataitem['subtotal_price_'.$no],
                         'item_stock_id' 		        => '',
