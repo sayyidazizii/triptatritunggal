@@ -435,47 +435,32 @@ class SalesDeliveryOrderController extends Controller
                             'quantity_ordered'		    => $dataitem['quantity_'.$no],	
                             'created_id'                => Auth::id(),
                         ]);
-        
                         $salesorder = SalesOrder::findOrFail($dataitem['sales_order_id_'.$no]);
                         $salesorder->sales_delivery_order_status = 1;
                         $salesorder->save();
-        
+                        
                         $salesorderitem = SalesOrderItem::findOrFail($dataitem['sales_order_item_id_'.$no]);
                         $salesorderitem->sales_delivery_order_status = 1;
                         $salesorderitem->quantity_delivered = $salesorderitem->quantity_delivered + $dataitem['quantity_delivered_'.$no];
                         $salesorderitem->save();
-        
+                        // echo json_encode($salesorderitem);exit;
+                        // dd($salesorderitem);
+                        
+                        //pengurangan stock
+                        $stock_item2 = InvItemStock::where('item_type_id',$dataitem['item_type_id_'.$no])
+                        ->where('item_unit_id', $dataitem['item_unit_id_'.$no])
+                        ->first();
+
+                        
+                        $stock_item2->quantity_unit = $stock_item2['quantity_unit'] - $dataitem['quantity_'.$no];
+                        // $stock_item2->updated_id = Auth::id();
+                        $stock_item2->save();
+
                         $no++;
+                        
                     }
                     
                     
-                $sdo_item_stock = SalesDeliveryOrderItemStockTemporary::where('sales_order_id', $request->sales_order_id_1)
-                ->get();
-        
-                // foreach($sdo_item_stock as $itemstock){
-        
-                //     $sales_delivery_order_item_id = SalesDeliveryOrderItem::select('sales_delivery_order_item_id')
-                //     ->where('sales_order_item_id', $itemstock['sales_order_item_id'])
-                //     ->where('sales_order_id', $itemstock['sales_order_id'])
-                //     ->orderBy('sales_delivery_order_item_id', 'DESC')
-                //     ->first()
-                //     ->sales_delivery_order_item_id;
-        
-                //     $data = SalesDeliveryOrderItemStock::create([
-                //         'sales_delivery_order_id'	    => $sales_delivery_order_id['sales_delivery_order_id'],
-                //         'sales_delivery_order_item_id'	=> $sales_delivery_order_item_id,
-                //         'sales_order_id' 			    => $itemstock['sales_order_id'],
-                //         'sales_order_item_id' 		    => $itemstock['sales_order_item_id'],
-                //         'item_unit_id' 		            => $itemstock['item_unit_id'],
-                //         'item_stock_id' 		        => $itemstock['item_stock_id'],
-                //         'item_total_stock' 		        => $itemstock['item_stock_quantity'],
-                //         'created_id'                    => Auth::id(),
-                //     ]);
-                // }
-                // if($data){
-                //     SalesDeliveryOrderItemStockTemporary::where('sales_order_id', $data['sales_order_id'])->delete();
-                // }
-
                 $msg = 'Tambah Sales Delivery Order Berhasil';
 
             DB::commit();
