@@ -421,7 +421,7 @@ class SalesDeliveryNoteController extends Controller
                         'item_unit_id' 		            => $dataitem['item_unit_id_'.$no],
                         'item_unit_id_unit' 		    => 0,
                         'quantity_unit' 		        => $dataitem['quantity_delivered_'.$no],
-                        'item_default_quantity_unit'    => 0,
+                        'item_default_quantity_unit'    => 1,
                         'item_weight_unit' 		        => 0,
                         'item_unit_price' 		        => $dataitem['item_unit_price_'.$no],
                         'subtotal_price' 		        => $dataitem['subtotal_price_'.$no],

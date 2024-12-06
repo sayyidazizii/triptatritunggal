@@ -883,7 +883,7 @@ class PurchaseOrderReturnController extends Controller
                     'item_unit_id'                      =>   $temprequest['item_unit_id_' . $i],
                     'item_total'                        =>   '',
                     'item_unit_id_default'              =>   $temprequest['item_unit_id_' . $i],
-                    'item_default_quantity_unit'        =>   1,
+                    'item_default_quantity_unit'        =>   0,
                     'quantity_unit'                     =>   $temprequest['quantity_return_' . $i],
                     'item_weight_default'               =>   '',
                     'item_weight_unit'                  =>   '',
