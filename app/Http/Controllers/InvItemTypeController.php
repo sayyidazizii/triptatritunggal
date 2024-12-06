@@ -42,11 +42,11 @@ class InvItemTypeController extends Controller
 
     public function addInvItemType(Request $request)
     {
-        $acctaccountcode    = AcctAccount::select('account_id', DB::raw('CONCAT(account_code, " - ", account_name) AS full_name'))
-        ->where('acct_account.data_state','=','0')
-        ->where('parent_account_status', 0)
-        ->get()
-        ->pluck('full_name','account_id');
+        // $acctaccountcode    = AcctAccount::select('account_id', DB::raw('CONCAT(account_code, " - ", account_name) AS full_name'))
+        // ->where('acct_account.data_state','=','0')
+        // ->where('parent_account_status', 0)
+        // ->get()
+        // ->pluck('full_name','account_id');
 
         $inv_unit = InvItemUnit::where('data_state','=','0')
         ->get()
@@ -57,7 +57,7 @@ class InvItemTypeController extends Controller
         $null_item_unit_1 = Session::get('item_unit_1');
         $null_item_unit_2 = Session::get('item_unit_2');
         $null_item_unit_3 = Session::get('item_unit_3');
-        return view('content/InvItemType/FormAddInvItemType', compact('null_item_unit_1','null_item_unit_2','null_item_unit_3', 'inv_unit', 'invitemcategory', 'acctaccountcode'));
+        return view('content/InvItemType/FormAddInvItemType', compact('null_item_unit_1','null_item_unit_2','null_item_unit_3', 'inv_unit', 'invitemcategory'));
     }
 
     public function processAddInvItemType(Request $request)
