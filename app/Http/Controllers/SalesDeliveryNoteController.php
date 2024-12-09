@@ -431,17 +431,16 @@ class SalesDeliveryNoteController extends Controller
                         'created_id'                    => Auth::id(),
                     ]);
     
-    
-                    $salesdeliverynoteitem = SalesDeliveryNoteItem::select('sales_delivery_note_item.*')
-                    ->orderBy('created_at', 'DESC')
-                    ->first();
-    
                     
-                    $sdo_item_stock = SalesDeliveryOrderItemStock::select('sales_delivery_order_item_stock.*')
-                    ->join('inv_item_stock', 'inv_item_stock.item_stock_id', '=', 'sales_delivery_order_item_stock.item_stock_id')
-                    ->where('sales_delivery_order_item_stock.sales_order_id', $salesdeliverynoteitem['sales_order_id'])
-                    ->where('sales_delivery_order_item_stock.data_state', 0)
-                    ->get();
+                    /* pengurangan stock */
+                    $stock_item2 = InvItemStock::where('item_type_id',$dataitem['item_type_id_'.$no])
+                    ->where('item_unit_id', $dataitem['item_unit_id_'.$no])
+                    ->first();
+
+
+                    $stock_item2->quantity_unit = $stock_item2['quantity_unit'] - $dataitem['quantity_'.$no];
+                    $stock_item2->save();
+
                     $no++;
                     }
     

@@ -446,16 +446,6 @@ class SalesDeliveryOrderController extends Controller
                         // echo json_encode($salesorderitem);exit;
                         // dd($salesorderitem);
 
-                        //pengurangan stock
-                        $stock_item2 = InvItemStock::where('item_type_id',$dataitem['item_type_id_'.$no])
-                        ->where('item_unit_id', $dataitem['item_unit_id_'.$no])
-                        ->first();
-
-
-                        $stock_item2->quantity_unit = $stock_item2['quantity_unit'] - $dataitem['quantity_'.$no];
-                        // $stock_item2->updated_id = Auth::id();
-                        $stock_item2->save();
-
                         $no++;
 
                     }
