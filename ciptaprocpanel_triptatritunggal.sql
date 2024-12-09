@@ -12,10 +12,6 @@ MySQL - 8.0.30 : Database - ciptaprocpanel_triptatritunggal
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`ciptaprocpanel_triptatritunggal` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-
-USE `ciptaprocpanel_triptatritunggal`;
-
 /*Table structure for table `acct_account` */
 
 DROP TABLE IF EXISTS `acct_account`;
@@ -1534,7 +1530,7 @@ CREATE TABLE `buyers_acknowledgment` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`buyers_acknowledgment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=271 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=275 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `buyers_acknowledgment` */
 
@@ -3508,7 +3504,7 @@ CREATE TABLE `inv_item_stock` (
 /*Data for the table `inv_item_stock` */
 
 insert  into `inv_item_stock`(`item_stock_id`,`goods_received_note_id`,`goods_received_note_item_id`,`item_stock_date`,`item_stock_expired_date`,`purchase_order_item_id`,`warehouse_id`,`purchase_order_no`,`buyers_acknowledgment_no`,`no_retur_barang`,`nota_retur_pajak`,`item_category_id`,`item_type_id`,`item_id`,`item_unit_id`,`category`,`barang`,`satuan`,`item_total`,`item_unit_cost`,`item_unit_total`,`item_unit_price`,`item_unit_id_default`,`item_default_quantity_unit`,`quantity_unit`,`item_weight_default`,`item_weight_unit`,`package_id`,`package_total`,`package_unit_id`,`package_price`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(1,0,0,'0000-00-00','0000-00-00',0,1,'','','','',1,1,0,10,'','','',0,0,0,0,10,'','',0,'',0,0,0,0,0,0,'0000-00-00','0000-00-00 00:00:00'),
+(1,0,0,'0000-00-00','0000-00-00',0,1,'','','','',1,1,0,10,'','','',0,0,0,0,10,'','0',0,'',0,0,0,0,0,0,'0000-00-00','2024-12-09 09:01:12'),
 (2,0,0,'0000-00-00','0000-00-00',0,1,'','','','',1,2,0,22,'','','',0,0,0,0,22,'','',0,'',0,0,0,0,0,0,'0000-00-00','0000-00-00 00:00:00'),
 (3,0,0,'0000-00-00','0000-00-00',0,1,'','','','',1,3,0,10,'','','',0,0,0,0,10,'','',0,'',0,0,0,0,0,0,'0000-00-00','0000-00-00 00:00:00'),
 (4,0,0,'0000-00-00','0000-00-00',0,1,'','','','',1,4,0,23,'','','',0,0,0,0,23,'','',0,'',0,0,0,0,0,0,'0000-00-00','0000-00-00 00:00:00'),
@@ -6064,9 +6060,12 @@ CREATE TABLE `sales_delivery_note` (
   KEY `FK_sales_delivery_note_sales_delivery_order_id` (`sales_delivery_order_id`),
   KEY `FK_sales_delivery_note_sales_order_id` (`sales_order_id`),
   KEY `FK_sales_delivery_note_warehouse_id` (`warehouse_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_delivery_note` */
+
+insert  into `sales_delivery_note`(`sales_delivery_note_id`,`sales_delivery_order_id`,`shipment_planning_id`,`sales_order_id`,`warehouse_id`,`section_id`,`salesman_id`,`customer_id`,`expedition_id`,`sales_delivery_note_cost`,`sales_delivery_note_no`,`ppn_out_amount`,`expedition_receipt_no`,`customer_name`,`customer_address`,`customer_city`,`customer_home_phone`,`customer_mobile_phone1`,`driver_name`,`fleet_police_number`,`purchase_order_no`,`salesman_name`,`sales_delivery_note_date`,`sales_delivery_note_status`,`sales_invoice_status`,`sales_delivery_note_remark`,`posted`,`posted_id`,`posted_on`,`voided_id`,`voided_on`,`voided_remark`,`rejected_id`,`rejected_on`,`rejected_remark`,`branch_id`,`return_status`,`pdp_lost_on_expedition_status`,`buyers_acknowledgment_status`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
+(1,2,0,1,8,NULL,NULL,176,11,0.00,'0001/SDN/XII/2024',0.00,'111111','',NULL,'','','','dafa','AD1234',NULL,'','2024-12-09',0,0,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,3,'2024-12-09 09:01:12','2024-12-09 09:01:12');
 
 /*Table structure for table `sales_delivery_note_item` */
 
@@ -6109,9 +6108,12 @@ CREATE TABLE `sales_delivery_note_item` (
   KEY `account_id_hpp` (`hpp_account_id`),
   KEY `section_id` (`section_id`),
   KEY `FK_sales_delivery_note_item_sales_delivery_note_id` (`sales_delivery_note_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_delivery_note_item` */
+
+insert  into `sales_delivery_note_item`(`sales_delivery_note_item_id`,`sales_delivery_note_id`,`sales_order_id`,`sales_order_item_id`,`sales_delivery_order_id`,`sales_delivery_order_item_id`,`section_id`,`warehouse_id`,`supplier_id`,`item_category_id`,`item_id`,`item_type_id`,`item_unit_id`,`item_unit_id_unit`,`quantity`,`quantity_unit`,`item_default_quantity_unit`,`item_weight_unit`,`item_batch_number`,`sales_delivery_note_item_token`,`sales_delivery_note_item_token_void`,`return_item_status`,`data_state`,`item_unit_price`,`subtotal_price`,`hpp_amount`,`hpp_account_id`,`created_id`,`created_at`,`updated_at`) values 
+(1,1,1,1,2,2,0,0,0,0,NULL,1,10,0,'100.00','100.00','1','0',NULL,NULL,NULL,0,0,1500.00,150000.00,0.00,0,3,'2024-12-09 09:01:12','2024-12-09 09:01:12');
 
 /*Table structure for table `sales_delivery_note_item_stock` */
 
@@ -6175,9 +6177,12 @@ CREATE TABLE `sales_delivery_order` (
   `updated_remark` text,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_delivery_order_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_delivery_order` */
+
+insert  into `sales_delivery_order`(`sales_delivery_order_id`,`warehouse_id`,`sales_order_id`,`sales_delivery_order_no`,`sales_delivery_order_date`,`sales_delivery_order_status`,`sales_delivery_order_remark`,`sales_delivery_note_status`,`sales_delivery_order_cost`,`ppn_out_amount`,`branch_id`,`data_state`,`created_id`,`created_at`,`voided_id`,`voided_on`,`voided_remark`,`updated_id`,`updated_on`,`updated_remark`,`updated_at`) values 
+(2,1,1,'0001/SDO/XII/2024','2024-12-09',0,NULL,1,NULL,0,1,0,3,'2024-12-09 09:00:35',0,NULL,NULL,0,NULL,NULL,'2024-12-09 09:01:12');
 
 /*Table structure for table `sales_delivery_order_item` */
 
@@ -6207,9 +6212,12 @@ CREATE TABLE `sales_delivery_order_item` (
   `voided_remark` text,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_delivery_order_item_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_delivery_order_item` */
+
+insert  into `sales_delivery_order_item`(`sales_delivery_order_item_id`,`sales_delivery_order_id`,`sales_order_id`,`sales_order_item_id`,`salesman_id`,`customer_id`,`item_id`,`item_unit_id`,`item_batch_number`,`item_type_id`,`quantity`,`quantity_ordered`,`item_unit_price`,`subtotal_price`,`sales_delivery_note_status`,`data_state`,`created_id`,`created_at`,`voided_id`,`voided_on`,`voided_remark`,`updated_at`) values 
+(2,2,1,1,0,176,0,10,'',1,'100.00','100.00',1500,150000.00,0,0,3,'2024-12-09 09:00:35',0,NULL,NULL,'2024-12-09 09:00:35');
 
 /*Table structure for table `sales_delivery_order_item_composition` */
 
@@ -8805,9 +8813,12 @@ CREATE TABLE `sales_order` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_order_id`),
   KEY `sales_order_id` (`sales_order_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_order` */
+
+insert  into `sales_order`(`sales_order_id`,`sales_order_type_id`,`customer_id`,`salesman_id`,`receipt_image`,`sales_order_no`,`purchase_order_no`,`sales_order_date`,`sales_order_delivery_date`,`sales_order_status`,`sales_order_over_limit`,`sales_order_over_due_status`,`purchase_order_status`,`work_order_status`,`purchase_requisition_status`,`sales_order_design_status`,`sales_delivery_order_status`,`customer_credit_limit_balance`,`sales_invoice_status`,`sales_invoice_last_balance`,`sales_order_remark`,`sales_order_over_remark`,`total_item`,`subtotal_before_discount`,`discount_percentage`,`discount_amount`,`subtotal_after_discount`,`ppn_out_percentage`,`ppn_out_amount`,`subtotal_after_ppn_out`,`sales_shipment_status`,`paid_amount`,`total_amount`,`last_balance`,`counter_edited`,`branch_id`,`data_state`,`created_id`,`created_at`,`approved`,`approved_id`,`approved_on`,`approved_remark`,`closed`,`closed_id`,`closed_on`,`closed_remark`,`voided_id`,`voided_on`,`voided_remark`,`customer_no`,`updated_at`) values 
+(1,2,176,0,'','0001/SO/XII/2024','0','2024-12-09','2024-12-09',0,0.00,0,0,0,0,0,1,0.00,0,0.00,NULL,NULL,100.00,0.00,0.00,0.00,166500.00,0.00,0.00,166500.00,0,0.00,166500.00,0.00,0,1,0,0,'2024-12-09 08:09:54',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-12-09 09:00:35');
 
 /*Table structure for table `sales_order_item` */
 
@@ -8860,9 +8871,12 @@ CREATE TABLE `sales_order_item` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_order_item_id`),
   KEY `sales_order_item_id` (`sales_order_item_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_order_item` */
+
+insert  into `sales_order_item`(`sales_order_item_id`,`sales_order_id`,`item_category_id`,`item_type_id`,`quantity`,`quantity_delivered`,`quantity_shipped`,`quantity_planned`,`quantity_outstanding`,`quantity_received`,`quantity_ordered`,`quantity_cavity`,`quantity_minimum`,`quantity_resulted`,`sales_order_item_status`,`item_substance_price`,`item_unit_id`,`item_unit_price`,`item_unit_price_adds`,`purchase_requisition_status`,`purchase_order_status`,`work_order_status`,`sales_delivery_order_status`,`sales_delivery_note_status`,`sales_invoice_status`,`quantity_minimum_status`,`subtotal_amount`,`subtotal_additional_amount`,`subtotal_item_amount`,`sales_order_no`,`sales_order_status`,`discount_percentage_item`,`discount_percentage_item_b`,`discount_amount_item`,`discount_amount_item_b`,`subtotal_after_discount_item_a`,`subtotal_after_discount_item_b`,`total_price_after_ppn_amount`,`ppn_amount_item`,`record_id`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
+(1,1,1,1,100.00,200.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,100.00,0,0.00,10,1500.00,0.00,0,0,0,1,0,0,0,150000.00,0.00,0.00,'',0,0.00,NULL,0.00,NULL,150000.00,NULL,166500.00,16500.00,0,0,0,'2024-12-09 08:09:54','2024-12-09 09:00:35');
 
 /*Table structure for table `sales_order_return` */
 
@@ -9001,9 +9015,12 @@ CREATE TABLE `sales_quotation` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_quotation_id`),
   KEY `sales_order_id` (`sales_quotation_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_quotation` */
+
+insert  into `sales_quotation`(`sales_quotation_id`,`sales_quotation_type_id`,`customer_id`,`salesman_id`,`receipt_image`,`sales_quotation_no`,`sales_quotation_date`,`sales_quotation_due_date`,`sales_quotation_status`,`sales_quotation_over_limit`,`sales_quotation_over_due_status`,`work_order_status`,`purchase_requisition_status`,`sales_quotation_design_status`,`sales_delivery_order_status`,`customer_credit_limit_balance`,`sales_invoice_status`,`sales_invoice_last_balance`,`sales_quotation_remark`,`sales_quotation_over_remark`,`total_item`,`subtotal_before_discount`,`discount_percentage`,`discount_amount`,`subtotal_after_discount`,`ppn_out_percentage`,`ppn_out_amount`,`subtotal_after_ppn_out`,`sales_shipment_status`,`paid_amount`,`total_amount`,`last_balance`,`counter_edited`,`branch_id`,`data_state`,`created_id`,`created_at`,`approved`,`approved_id`,`approved_on`,`approved_remark`,`closed`,`closed_id`,`closed_on`,`closed_remark`,`voided_id`,`voided_on`,`voided_remark`,`customer_no`,`updated_at`) values 
+(1,0,176,0,'','0001/QO/XII/2024','2024-12-09','2024-12-09',1,0.00,0,0,0,0,0,0.00,0,0.00,NULL,NULL,100.00,0.00,0.00,0.00,111000.00,0.00,0.00,111000.00,0,0.00,111000.00,0.00,0,1,0,0,'2024-12-09 08:00:10',2,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-12-09 08:09:54');
 
 /*Table structure for table `sales_quotation_item` */
 
@@ -9056,9 +9073,12 @@ CREATE TABLE `sales_quotation_item` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_quotation_item_id`),
   KEY `sales_order_item_id` (`sales_quotation_item_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_quotation_item` */
+
+insert  into `sales_quotation_item`(`sales_quotation_item_id`,`sales_quotation_id`,`item_category_id`,`item_type_id`,`quantity`,`quantity_delivered`,`quantity_shipped`,`quantity_planned`,`quantity_outstanding`,`quantity_received`,`quantity_ordered`,`quantity_cavity`,`quantity_minimum`,`quantity_resulted`,`sales_quotation_item_status`,`item_substance_price`,`item_unit_id`,`item_unit_price`,`item_unit_price_adds`,`purchase_requisition_status`,`purchase_order_status`,`work_order_status`,`sales_delivery_order_status`,`sales_delivery_note_status`,`sales_invoice_status`,`quantity_minimum_status`,`subtotal_amount`,`subtotal_additional_amount`,`subtotal_item_amount`,`sales_quotation_no`,`sales_quotation_status`,`discount_percentage_item`,`discount_percentage_item_b`,`discount_amount_item`,`discount_amount_item_b`,`subtotal_after_discount_item_a`,`subtotal_after_discount_item_b`,`total_price_after_ppn_amount`,`ppn_amount_item`,`record_id`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
+(1,1,1,1,100.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,100.00,0,0.00,10,1000.00,0.00,0,0,0,0,0,0,0,100000.00,0.00,0.00,'',0,0.00,NULL,0.00,NULL,100000.00,NULL,111000.00,11000.00,0,0,0,'2024-12-09 08:00:10','2024-12-09 08:00:10');
 
 /*Table structure for table `system_log_user` */
 
@@ -9574,7 +9594,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_bank_disbursement` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_bank_disbursement` BEFORE INSERT ON `acct_bank_disbursement` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_bank_disbursement` BEFORE INSERT ON `acct_bank_disbursement` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -9629,7 +9649,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_bank_receipt` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_bank_receipt` BEFORE INSERT ON `acct_bank_receipt` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_bank_receipt` BEFORE INSERT ON `acct_bank_receipt` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -9683,7 +9703,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_cash_disbursement` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_cash_disbursement` BEFORE INSERT ON `acct_cash_disbursement` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_cash_disbursement` BEFORE INSERT ON `acct_cash_disbursement` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -9738,7 +9758,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_cash_receipt` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_cash_receipt` BEFORE INSERT ON `acct_cash_receipt` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_cash_receipt` BEFORE INSERT ON `acct_cash_receipt` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -9792,7 +9812,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_check_disbursement` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_check_disbursement` BEFORE INSERT ON `acct_check_disbursement` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_check_disbursement` BEFORE INSERT ON `acct_check_disbursement` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -9847,7 +9867,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_check_receipt` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_check_receipt` BEFORE INSERT ON `acct_check_receipt` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_check_receipt` BEFORE INSERT ON `acct_check_receipt` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -9901,7 +9921,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_journal_voucher` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_journal_voucher` BEFORE INSERT ON `acct_journal_voucher` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_journal_voucher` BEFORE INSERT ON `acct_journal_voucher` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -9991,7 +10011,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_journal_voucher_item` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_journal_voucher_item` BEFORE INSERT ON `acct_journal_voucher_item` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_journal_voucher_item` BEFORE INSERT ON `acct_journal_voucher_item` FOR EACH ROW BEGIN
 	DECLARE nAccountIDDefaultStatus		DECIMAL(1);
 	
 	DECLARE nAccountID		INT(10);
@@ -10070,7 +10090,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_goods_received_note` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_goods_received_note` BEFORE INSERT ON `inv_goods_received_note` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_inv_goods_received_note` BEFORE INSERT ON `inv_goods_received_note` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -10161,7 +10181,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_item_stock_card_in` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_item_stock_card_in` AFTER INSERT ON `inv_goods_received_note_item` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_inv_item_stock_card_in` AFTER INSERT ON `inv_goods_received_note_item` FOR EACH ROW BEGIN
 	DECLARE nOpeningBalance 		DECIMAL(20,5); 
 	DECLARE nLastOpeningBalance 		DECIMAL(20,5);  
 	DECLARE nLastBalance	 		DECIMAL(20,5);
@@ -10253,7 +10273,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_warehouse_in` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_in` BEFORE INSERT ON `inv_warehouse_in` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_inv_warehouse_in` BEFORE INSERT ON `inv_warehouse_in` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -10344,7 +10364,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_warehouse_out` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_out` BEFORE INSERT ON `inv_warehouse_out` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_inv_warehouse_out` BEFORE INSERT ON `inv_warehouse_out` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -10435,7 +10455,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_warehouse_transfer` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_transfer` BEFORE INSERT ON `inv_warehouse_transfer` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_inv_warehouse_transfer` BEFORE INSERT ON `inv_warehouse_transfer` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -10526,7 +10546,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_warehouse_transfer_received_note` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_transfer_received_note` BEFORE INSERT ON `inv_warehouse_transfer_received_note` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_inv_warehouse_transfer_received_note` BEFORE INSERT ON `inv_warehouse_transfer_received_note` FOR EACH ROW BEGIN
 	DECLARE year_period 				VARCHAR(20);
 	DECLARE month_period 				VARCHAR(20);
 	DECLARE PERIOD 					VARCHAR(20);
@@ -10617,7 +10637,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_purchase_invoice` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_purchase_invoice` BEFORE INSERT ON `purchase_invoice` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_purchase_invoice` BEFORE INSERT ON `purchase_invoice` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -10708,7 +10728,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_purchase_order` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_purchase_order` BEFORE INSERT ON `purchase_order` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_purchase_order` BEFORE INSERT ON `purchase_order` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -10799,7 +10819,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_purchase_order_return` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_purchase_order_return` BEFORE INSERT ON `purchase_order_return` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_purchase_order_return` BEFORE INSERT ON `purchase_order_return` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -10890,7 +10910,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_purchase_payment` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_purchase_payment` BEFORE INSERT ON `purchase_payment` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_purchase_payment` BEFORE INSERT ON `purchase_payment` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -10981,7 +11001,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_collection` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_collection` BEFORE INSERT ON `sales_collection` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_collection` BEFORE INSERT ON `sales_collection` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -11072,7 +11092,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_collection_discount` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_collection_discount` BEFORE INSERT ON `sales_collection_discount` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_collection_discount` BEFORE INSERT ON `sales_collection_discount` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -11163,7 +11183,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_delivery_note` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_delivery_note` BEFORE INSERT ON `sales_delivery_note` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_delivery_note` BEFORE INSERT ON `sales_delivery_note` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -11254,7 +11274,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_delivery_order` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_delivery_order` BEFORE INSERT ON `sales_delivery_order` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_delivery_order` BEFORE INSERT ON `sales_delivery_order` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -11345,7 +11365,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_invoice` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_invoice` BEFORE INSERT ON `sales_invoice` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_invoice` BEFORE INSERT ON `sales_invoice` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(50);
 	DECLARE month_period 		VARCHAR(50);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -11404,7 +11424,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_kwitansi` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_kwitansi` BEFORE INSERT ON `sales_kwitansi` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_kwitansi` BEFORE INSERT ON `sales_kwitansi` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(255);
 	DECLARE month_period 		VARCHAR(255);
 	DECLARE PERIOD 			VARCHAR(255);
@@ -11498,7 +11518,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_order` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_order` BEFORE INSERT ON `sales_order` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_order` BEFORE INSERT ON `sales_order` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -11589,7 +11609,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_quotation` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_quotation` BEFORE INSERT ON `sales_quotation` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_quotation` BEFORE INSERT ON `sales_quotation` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
