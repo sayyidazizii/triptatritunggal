@@ -76,7 +76,7 @@ class SalesDeliveryNoteController extends Controller
         }else{
             $end_date = Session::get('end_date');
         }
-    
+
         $salesdeliverynote = SalesDeliveryNote::where('data_state','=',0)
         ->where('sales_delivery_note_date', '>=', $start_date)
         ->where('sales_delivery_note_date', '<=', $end_date)
@@ -96,7 +96,7 @@ class SalesDeliveryNoteController extends Controller
         ->pluck('warehouse_name', 'warehouse_id');
 
         $salesdeliveryorder     = SalesDeliveryOrder::findOrFail($sales_delivery_order_id);
-        
+
         $salesdeliveryorderitem = SalesDeliveryOrderItem::select('sales_delivery_order_item.*')
         ->where('sales_delivery_order_item.sales_delivery_order_id', $sales_delivery_order_id)
         ->where('sales_delivery_order_item.data_state', 0)
@@ -106,7 +106,7 @@ class SalesDeliveryNoteController extends Controller
         ->where('sales_delivery_order_id', $sales_delivery_order_id)
         ->where('data_state', 0)
         ->get();
-    
+
 
         $expedition = CoreExpedition::select('expedition_name', 'expedition_id')
         ->where('data_state', 0)
@@ -169,14 +169,11 @@ class SalesDeliveryNoteController extends Controller
         return $poNum['purchase_order_no'] ?? '';
     }
 
-
-
-
     public function getdataItemStok($sales_delivery_order_item_id){
         $salesdeliveryorderitemstok = SalesDeliveryOrderItemStock::select('item_total_stock')
         ->where('sales_delivery_order_item_id', $sales_delivery_order_item_id)
         ->where('data_state', 0)
-        ->get();   
+        ->get();
 
         return $salesdeliveryorderitemstok[0]['item_total_stock'];
     }
@@ -186,7 +183,7 @@ class SalesDeliveryNoteController extends Controller
         $salesdeliveryorderitemstok = SalesDeliveryOrderItemStock::select('*')
         ->where('sales_delivery_order_item_id', $sales_delivery_order_item_id)
         ->where('data_state', 0)
-        ->get();   
+        ->get();
 
         return $salesdeliveryorderitemstok;
     }
@@ -199,15 +196,6 @@ class SalesDeliveryNoteController extends Controller
         ->first();
 
         return $item['item_unit_price'];
-    }
-
-    public function getItemBatchNumber($item_stock_id){
-        $item = InvItemStock::select('item_batch_number')
-        ->where('item_stock_id', $item_stock_id)
-        ->where('data_state', 0)
-        ->first();
-
-        return $item['item_batch_number']?? '';
     }
 
     public function getItemIdNotenow($sales_order_item_id){
@@ -327,7 +315,7 @@ class SalesDeliveryNoteController extends Controller
             array_push($lastdataarrayinvitemstock, $dataarrayinvitemstock);
             Session::push('dataarrayinvitemstock', $dataarrayinvitemstock);
         }
-        
+
         Session::forget('dataprocessinvitemstock');
         Session::put('dataprocessinvitemstock', $dataarrayinvitemstock);
         // return redirect('/grading/add');
@@ -338,7 +326,7 @@ class SalesDeliveryNoteController extends Controller
     {
         $arrayBaru			= array();
         $dataArrayHeader	= Session::get('dataarrayinvitemstock');
-        
+
         foreach($dataArrayHeader as $key=>$val){
             if($key != $record_id){
                 $arrayBaru[$key] = $val;
@@ -387,27 +375,27 @@ class SalesDeliveryNoteController extends Controller
             $salesdeliveryorder = SalesDeliveryOrder::findOrFail($request->sales_delivery_order_id);
             $salesdeliveryorder->sales_delivery_note_status = 1;
             $salesdeliveryorder->save();
-    
+
             SalesDeliveryNote::create($salesdeliverynote);
                 $salesdeliverynoteid = SalesDeliveryNote::select('sales_delivery_note_id', 'sales_order_id', 'sales_delivery_note_no')
                 ->orderBy('created_at', 'DESC')
                 ->first();
-    
+
                 $salesdeliveryorderitem = SalesDeliveryOrderItem::select('sales_delivery_order_item.*', 'inv_item_type.*')
                 ->join('inv_item_type', 'inv_item_type.item_type_id', '=', 'sales_delivery_order_item.item_type_id')
                 ->where('sales_delivery_order_item.sales_delivery_order_id', $request->sales_delivery_order_id)
                 ->where('sales_delivery_order_item.data_state', 0)
                 ->orderBy('sales_delivery_order_item.sales_delivery_order_item_id', 'DESC')
                 ->get();
-    
+
                 $no =1;
-                
+
                 // dd($salesdeliveryorderitem);
                 $dataitem = $request->all();
                 //dd($dataitem);
-                foreach($salesdeliveryorderitem as $item){  
-    
-    
+                foreach($salesdeliveryorderitem as $item){
+
+
                     $data = SalesDeliveryNoteItem::create([
                         'sales_delivery_note_id'	    => $salesdeliverynoteid['sales_delivery_note_id'],
                         'warehouse_id'                  => $request->warehouse_id,
@@ -426,8 +414,8 @@ class SalesDeliveryNoteController extends Controller
                         'item_unit_price' 		        => $dataitem['item_unit_price_'.$no],
                         'subtotal_price' 		        => $dataitem['subtotal_price_'.$no],
                         'item_stock_id' 		        => '',
-                        'quantity'					    => $dataitem['quantity_delivered_'.$no],		
-                        'quantity_ordered'		        => $dataitem['quantity_'.$no],	
+                        'quantity'					    => $dataitem['quantity_delivered_'.$no],
+                        'quantity_ordered'		        => $dataitem['quantity_'.$no],
                         'created_id'                    => Auth::id(),
                     ]);
     
@@ -441,16 +429,23 @@ class SalesDeliveryNoteController extends Controller
                     $stock_item2->quantity_unit = $stock_item2['quantity_unit'] - $dataitem['quantity_'.$no];
                     $stock_item2->save();
 
+
+
+                    $sdo_item_stock = SalesDeliveryOrderItemStock::select('sales_delivery_order_item_stock.*')
+                    ->join('inv_item_stock', 'inv_item_stock.item_stock_id', '=', 'sales_delivery_order_item_stock.item_stock_id')
+                    ->where('sales_delivery_order_item_stock.sales_order_id', $salesdeliverynoteitem['sales_order_id'])
+                    ->where('sales_delivery_order_item_stock.data_state', 0)
+                    ->get();
                     $no++;
                     }
-    
-    
+
+
                     $itemNoteNew = SalesDeliveryNoteItem::select('*')
                     ->where('created_at', \Carbon\Carbon::now())
                     ->where('sales_delivery_note_id', $salesdeliverynoteid['sales_delivery_note_id'])
                     ->orderBy('created_at', 'DESC')
                     ->get();
-    
+
                     $dataItemNote = array("sales_delivery_note_item_id");
                     $rows = 1;
                     foreach ($itemNoteNew as $data_item) {
@@ -458,26 +453,26 @@ class SalesDeliveryNoteController extends Controller
                             'sales_delivery_note_item_id' => $data_item->sales_delivery_note_item_id,
                         );
                     }
-    
+
                 $salesorder = SalesOrder::where('sales_order_id', $salesdeliverynote['sales_order_id'])
                 ->first();
-    
+
                 if($sales_order_status_cek == 0){
                     $salesorder->sales_order_status = 2;
                 }else if($sales_order_status_cek == 1){
                     $salesorder->sales_order_status = 1;
                 }
                 $salesorder->save();
-    
-                
+
+
                 $msg = 'Tambah Sales Delivery Note Berhasil';
-                
+
                 DB::commit();
                 return redirect('/sales-delivery-note')->with('msg',$msg);
         } catch (\Exception $e) {
             DB::rollBack();
             report($e);
-            
+
             Log::error('Error saat menambah Sales Delivery Note: ' . $e->getMessage(), [
                 'exception' => $e,
                 'user_id' => auth()->user()->id, // Contoh menambahkan informasi tambahan
@@ -532,9 +527,9 @@ class SalesDeliveryNoteController extends Controller
             $no = 1;
 
             foreach($salesdeliverynoteitem as $orderitem){
-                $item = SalesDeliveryNoteitem::findOrFail($orderitem['sales_delivery_note_item_id']);		
+                $item = SalesDeliveryNoteitem::findOrFail($orderitem['sales_delivery_note_item_id']);
                 $item->data_state = 1;
-                if($item->save()){	
+                if($item->save()){
                     $salesorderitem = SalesOrderItem::findOrFail($item['sales_order_item_id']);
                     $salesorderitem->quantity_resulted = $salesorderitem->quantity_resulted + $orderitem['quantity'];
                     $salesorderitem->quantity_delivered = $salesorderitem->quantity_delivered - $orderitem['quantity'];
@@ -549,7 +544,7 @@ class SalesDeliveryNoteController extends Controller
 
                         $itemunitfirst  = InvItemUnit::where('item_unit_id', $val['item_unit_id'])->first();
                         $itemunitsecond = InvItemUnit::where('item_unit_id', $itemstock['item_unit_id'])->first();
-                        
+
                         $item_total = $itemstock['item_total'] + ($val['quantity']* $itemunitsecond['item_unit_default_quantity'] / $itemunitfirst['item_unit_default_quantity']);
 
                         $itemstock->item_total = $itemstock['item_total'] + $item_total;
@@ -560,7 +555,7 @@ class SalesDeliveryNoteController extends Controller
 
                 $no++;
             }
-            
+
             $msg = 'Hapus Sales Delivery Note Berhasil';
             return redirect('/sales-delivery-note')->with('msg',$msg);
         }else{
@@ -724,7 +719,7 @@ class SalesDeliveryNoteController extends Controller
 
         return $salesorder['purchase_order_no'];
     }
-    
+
 
     public function getSalesOrderDate($sales_order_id){
         $salesorder = SalesOrder::select('sales_order_date')
@@ -817,8 +812,8 @@ class SalesDeliveryNoteController extends Controller
         $expedition_status           = $request->expedition_status;
         $expedition_remark           = $request->expedition_remark;
         $data='';
-        
-        $invitemunit = CoreExpedition::create([  
+
+        $invitemunit = CoreExpedition::create([
             'expedition_code'               => $expedition_code,
             'expedition_name'               => $expedition_name,
             'expedition_address'            => $expedition_address,
@@ -840,7 +835,7 @@ class SalesDeliveryNoteController extends Controller
 
         $data .= "<option value=''>--Choose One--</option>";
         foreach ($coreexpedition as $mp){
-            $data .= "<option value='$mp[expedition_id]'>$mp[expedition_name]</option>\n";	
+            $data .= "<option value='$mp[expedition_id]'>$mp[expedition_name]</option>\n";
         }
 
         return $data;
@@ -909,7 +904,7 @@ class SalesDeliveryNoteController extends Controller
 
         return $addres['customer_name'];
     }
-    
+
     public function processPrintingSalesDeliveryNote ($sales_delivery_note_id)
     {
         $salesdeliverynote      = SalesDeliveryNote::findOrFail($sales_delivery_note_id);
@@ -925,7 +920,7 @@ class SalesDeliveryNoteController extends Controller
         // dd($sdn_item_stock);
         $company = PreferenceCompany::select('*')
             ->first();
-        
+
         $pdf = new TCPDF('P', PDF_UNIT, 'F4', true, 'UTF-8', false);
 
         $pdf::SetPrintHeader(false);
@@ -979,7 +974,7 @@ class SalesDeliveryNoteController extends Controller
 
         $tbl = "
         <table cellspacing=\"0\" cellspacing=\"1\" cellpadding=\"0\" border=\"0\">
-           
+
             <br>
             <tr>
                 <td style=\"text-align:left;width:65%\">
@@ -988,7 +983,7 @@ class SalesDeliveryNoteController extends Controller
             </tr>
             <tr>
                 <td style=\"text-align:left;width:50%\">
-                    <b style=\"font-size:14px\">".$this->getCustomerNameSalesOrderId($salesdeliverynote['sales_order_id'])."</b> 
+                    <b style=\"font-size:14px\">".$this->getCustomerNameSalesOrderId($salesdeliverynote['sales_order_id'])."</b>
                     <br>
                     ".$this->getCustomerAddressSalesOrderId($salesdeliverynote['sales_order_id'])."
                 </td>
@@ -999,17 +994,17 @@ class SalesDeliveryNoteController extends Controller
 
         $tbl1 = "
         <b><div style=\"font-size:13px\">  Remarks : Pengiriman atas pesanan nomor ".$this->getPurchaseOrderNo($salesdeliverynote['sales_order_id'])." tanggal ".date('d/m/Y', strtotime($this->getSalesOrderDate($salesdeliverynote['sales_order_id'])))."</div></b><br>
-        <table cellspacing=\"1\" cellpadding=\"0\" border=\"1\">			        
+        <table cellspacing=\"1\" cellpadding=\"0\" border=\"1\">
             <tr>
                 <th style=\"text-align:center;\" width=\"5%\"><div style=\"font-size:13px\">No.</div></th>
-                <th style=\"text-align:center;\" width=\"15%\"><div style=\"font-size:13px\">Batch Number</div></th> 
-                <th style=\"text-align:center;\" width=\"15%\"><div style=\"font-size:13px\">Expired Date</div></th> 
-                <th style=\"text-align:center;\" width=\"10%\"><div style=\"font-size:13px\">Kategori</div></th> 
-                <th style=\"text-align:center;\" width=\"25%\"><div style=\"font-size:13px\">Nama Barang</div></th> 
-                <th style=\"text-align:center;\" width=\"10%\"><div style=\"font-size:13px\">Unit</div></th> 
-                <th style=\"text-align:center;\" width=\"10%\"><div style=\"font-size:13px\">Berat (Kg)</div></th> 
+                <th style=\"text-align:center;\" width=\"15%\"><div style=\"font-size:13px\">Batch Number</div></th>
+                <th style=\"text-align:center;\" width=\"15%\"><div style=\"font-size:13px\">Expired Date</div></th>
+                <th style=\"text-align:center;\" width=\"10%\"><div style=\"font-size:13px\">Kategori</div></th>
+                <th style=\"text-align:center;\" width=\"25%\"><div style=\"font-size:13px\">Nama Barang</div></th>
+                <th style=\"text-align:center;\" width=\"10%\"><div style=\"font-size:13px\">Unit</div></th>
+                <th style=\"text-align:center;\" width=\"10%\"><div style=\"font-size:13px\">Berat (Kg)</div></th>
                 <th style=\"text-align:center;\" width=\"10%\"><div style=\"font-size:13px\">Qty</div></th>
-            </tr>   
+            </tr>
             ";
         $no = 1;
         $totalqty = 0;
@@ -1027,9 +1022,9 @@ class SalesDeliveryNoteController extends Controller
                         <td style=\"text-align:left;\"><div style=\"font-size:12px\"> ".$this->getItemUnitName($val['item_unit_id'])." &nbsp;</div></td>
                         <td style=\"text-align:right;\"><div style=\"font-size:12px\"> ".$this->getWeight($val['sales_delivery_note_item_id'])." &nbsp;</div></td>
                         <td style=\"text-align:right;\"><div style=\"font-size:12px\">".$val['quantity_unit']." &nbsp;</div></td>
-                    </tr>						
+                    </tr>
                 ";
-               
+
                 $totalweight += $this->getWeight($val['sales_delivery_note_item_id']);
                 $totalqty += $val['quantity_unit'];
                 $no++;
@@ -1042,7 +1037,7 @@ class SalesDeliveryNoteController extends Controller
                 <td style=\"text-align:right;font-size:10px\" >".$totalqty." &nbsp; </td>
 
             </tr>
-                    
+
         </table>";
 
         $pdf::writeHTML($tbl1.$tbl2.$tbl4, true, false, false, '');
@@ -1123,7 +1118,7 @@ class SalesDeliveryNoteController extends Controller
         ->where('sales_delivery_note.data_state','=',0)
         ->where('sales_delivery_note.sales_delivery_note_date', '>=', $start_date)
         ->where('sales_delivery_note.sales_delivery_note_date', '<=', $end_date)
-        
+
         ->get();
         Session::forget('salesdeliveryordernoteelements');
 
@@ -1156,7 +1151,7 @@ class SalesDeliveryNoteController extends Controller
            $spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(20);
 
 
-   
+
            $spreadsheet->getActiveSheet()->mergeCells("B5:M5");
            $spreadsheet->getActiveSheet()->mergeCells("B6:M6");
            $spreadsheet->getActiveSheet()->mergeCells("B7:M7");
@@ -1179,13 +1174,13 @@ class SalesDeliveryNoteController extends Controller
 
 
 
-           $sheet->setCellValue('B5', "PBF MENJANGAN ENAM ");	
+           $sheet->setCellValue('B5', "PBF MENJANGAN ENAM ");
            $sheet->setCellValue('B6', "Jl.Puspowarno Raya No 55D RT 06 RW 09");
            $sheet->setCellValue('B7', "APA : ".Auth::user()->name."");
            $sheet->setCellValue('B8', " SIKA: 449.2/16/DPM-PTSP/SIKA.16/III/2019 ");
            $sheet->setCellValue('B9', "");
            $sheet->setCellValue('B10', "");
-           $sheet->setCellValue('B11', "SURAT JALAN Periode ".$start_date." - ".$end_date);	
+           $sheet->setCellValue('B11', "SURAT JALAN Periode ".$start_date." - ".$end_date);
            $sheet->setCellValue('B12', "No");
            $sheet->setCellValue('C12', "Nomor PO");
            $sheet->setCellValue('D12', "TGL PO");
@@ -1198,7 +1193,7 @@ class SalesDeliveryNoteController extends Controller
            $sheet->setCellValue('K12', "QTY");
            $sheet->setCellValue('L12', "HARGA");
            $sheet->setCellValue('M12', "JUMLAH");
-           
+
            $j  = 13;
            $no = 1;
 
@@ -1223,50 +1218,50 @@ class SalesDeliveryNoteController extends Controller
                 $sheet->setCellValue('K'.$j, $val['quantity_unit']);
                 $sheet->setCellValue('L'.$j, $val['item_unit_price']);
                 $sheet->setCellValue('M'.$j, $val['subtotal_price']);
-          
+
                 $no++;
                 $j++;
                 $lastno = $no;
                 $lastj = $j;
-             
+
             }
- 
-      
- 
+
+
+
              $sheet = $spreadsheet->getActiveSheet(0);
              $spreadsheet->getActiveSheet()->getStyle('B'.$lastj.':M'.$lastj)->getBorders()->getOutline()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
              $sheet->setCellValue('H' . $lastj , 'Jumlah Total:');
-  
+
              $sumrangedpp = 'K'. $lastno - 1 .':K'.$j;
              $sheet->setCellValue('K' . $lastj , '=SUM('.$sumrangedpp.')');
-  
+
              $sumrangeppn = 'L'. $lastno - 1 .':L'.$j;
              $sheet->setCellValue('L' . $lastj , '=SUM('.$sumrangeppn.')');
-  
+
              $sumrangetotal = 'M'. $lastno - 1 .':M'.$j;
              $sheet->setCellValue('M' . $lastj , '=SUM('.$sumrangetotal.')');
 
 
              $sheet->setCellValue('F' . $lastj + 1, 'Mengetahui');
              $sheet->setCellValue('K' . $lastj + 1, 'Dibuat Oleh');
- 
- 
+
+
              $spreadsheet->getActiveSheet()->getStyle('E'.$lastj + 5)->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
              $spreadsheet->getActiveSheet()->getStyle('G'.$lastj + 5)->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
              $spreadsheet->getActiveSheet()->getStyle('K'.$lastj + 5)->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-            
-            
+
+
              $sheet->setCellValue('E' . $lastj + 5, 'Apoteker');
              $sheet->setCellValue('G' . $lastj + 5, 'Administrasi Pajak');
              $sheet->setCellValue('K' . $lastj + 5, 'Dibuat Oleh');
- 
+
 
 
            }
-          
-          
-          
-           
+
+
+
+
            ob_clean();
            $filename='Sales Delivery Note '.date('d M Y').'.xls';
            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
