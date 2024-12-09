@@ -133,7 +133,7 @@ float: left !important;
                     width: 'resolve',
                 });
             });
-            $('#date').datepicker({ dateFormat: 'dd-mm-yy' }).val();
+            // $('#date').datepicker({ dateFormat: 'dd-mm-yy' }).val();
         </script>
 
         {{-- Configured Scripts --}}
