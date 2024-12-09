@@ -138,7 +138,7 @@ class SalesDeliveryOrderController extends Controller
     public function getTypeStockid($type_id){
 
 
-            $stock = InvItemStock::select('inv_item_stock.item_stock_id', DB::raw('CONCAT(inv_item_type.item_type_name, " - ", inv_item_stock.item_batch_number) AS item_name'))
+            $stock = InvItemStock::select('inv_item_stock.item_stock_id', DB::raw('inv_item_type.item_type_name AS item_name'))
             ->join('inv_item_type', 'inv_item_type.item_type_id', 'inv_item_stock.item_type_id')
             ->join('inv_item_unit', 'inv_item_unit.item_unit_id', 'inv_item_stock.item_unit_id')
             ->orderby('inv_item_stock.item_stock_expired_date', 'ASC')
@@ -207,10 +207,8 @@ class SalesDeliveryOrderController extends Controller
 
     public function addSalesDeliveryOrder($sales_order_id)
     {
-        //dd($this->getItemtemp($sales_order_id));
         $salesdeliveryorderelements  = Session::get('salesdeliveryorderelements');
         $inv_item_stock_temporary = Session::get('dataarrayinvitemstock');
-        //dd($salesdeliveryorderelements);
         $warehouse = InvWarehouse::select('warehouse_id', 'warehouse_name')
         ->where('data_state', 0)
         ->pluck('warehouse_name', 'warehouse_id');
@@ -239,29 +237,17 @@ class SalesDeliveryOrderController extends Controller
         ->pluck('item_name', 'sales_order_item_id');
 
         $item_stock_id = $this->getTypeStock($sales_order_id);
-        // dd($item_stock_id);
 
-        // $salesorderitemstocktemp=$this->getItemtemp($sales_order_id);
-        //dd($salesorderitemstocktemp);
         $salesorderitemstocktemp = SalesDeliveryOrderItemStockTemporary::select('*')
         ->where('sales_order_id', $sales_order_id)
-        // ->whereIn('sales_order_item_id', $salesorderitem['sales_order_item_id'])
         ->where('data_state', 0)
         ->get();
 
-        //dd($item_stock_id);
         $stock = collect($inv_item_stock_temporary);
 
         $null_warehouse_id = Session::get('warehouse_id');
         $null_sales_delivery_order_remark = Session::get('sales_delivery_order_remark');
         $null_sales_delivery_order_date = Session::get('sales_delivery_order_date');
-       // dd($salesdeliveryorderelements);
-        // $filteredItems = $stock->where('sales_order_item_id', $sales_order_item_id)
-        //                             ->where('sales_order_id', $sales_order_id);
-
-        // dd($inv_item_stock_temporary);
-
-        // Session::forget('dataarrayinvitemstock');
         return view('content/SalesDeliveryOrder/FormAddSalesDeliveryOrder',compact('salesorderitemstocktemp','item_stock_id','salesdeliveryorderelements','null_warehouse_id','warehouse','null_sales_delivery_order_date','null_sales_delivery_order_remark', 'sales_order_id', 'salesorderitem', 'salesorder', 'type', 'inv_item_stock_temporary', 'stock'));
     }
 

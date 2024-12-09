@@ -259,7 +259,6 @@
                                 <th style='text-align:center'>Qty</th>
                                 <th style='text-align:center'>Qty Proses</th>
                                 <th style='text-align:center'>Qty Kirim</th>
-                                <th style='text-align:center'>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -298,9 +297,7 @@
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='subtotal_after_discount_item_{{$no}}' id='subtotal_after_discount_item_{{$no}}' value='{{$val['subtotal_after_discount_item_a']}}'/>
                                                     <input class='form-control' style='text-align:right;' type='hidden' name='quantity_{{$no}}' id='quantity_{{$no}}' value='{{$val['quantity']}}'/>
                                                 </td>
-                                                <td style='text-align:center;'>
-                                                    <a href='{{url('sales-delivery-order/detail-item-stock/'.$val['sales_order_id'].'/'.$val['sales_order_item_id'])}}' class="btn btn-outline-info btn-sm" title="Detail Stock">Detail</a>
-                                                </td>
+
                                             </tr>
                                             <tr>
                                             {{-- <form id="form_stock" action="{{url('/sales-delivery-order/add-item-stock')}}" method="POST"> --}}
