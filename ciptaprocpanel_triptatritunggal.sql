@@ -10199,14 +10199,14 @@ DELIMITER $$
 					WHERE goods_received_note_id = new.goods_received_note_id);
 					
 	SET nLastOpeningBalance = (SELECT last_balance FROM inv_item_stock_card
-					WHERE item_type_id = new.item_type_id AND item_batch_number = new.item_batch_number
+					WHERE item_type_id = new.item_type_id
 					ORDER BY item_stock_card_id DESC LIMIT 1);
 					
 	SET nSecondItemStockID 	= (SELECT item_stock_id FROM inv_item_stock
 					ORDER BY item_stock_id DESC LIMIT 1);
 	
 	SET nLastItemStockID 	= (SELECT item_stock_id FROM inv_item_stock 
-					WHERE item_type_id = new.item_type_id AND item_batch_number = new.item_batch_number
+					WHERE item_type_id = new.item_type_id
 					ORDER BY item_stock_id DESC LIMIT 1);
 					
 					
@@ -10238,10 +10238,10 @@ DELIMITER $$
 	end if;
 	
 	
-	INSERT INTO inv_item_stock_card (item_stock_id, item_category_id, item_type_id, item_unit_id, item_batch_number, warehouse_id, 
+	INSERT INTO inv_item_stock_card (item_stock_id, item_category_id, item_type_id, item_unit_id, warehouse_id, 
 		transaction_id, transaction_type, transaction_code, transaction_date, 
 		opening_balance, item_stock_card_in, last_balance)
-		VALUES (nItemStockID, new.item_category_id, new.item_type_id, new.item_unit_id, new.item_batch_number, nWarehouseID, 
+		VALUES (nItemStockID, new.item_category_id, new.item_type_id, new.item_unit_id, nWarehouseID, 
 			nTransactionID, nTransactionType, nTransactionCode, nTransactionDate,
 			nOpeningBalance, nQuantityReceived, nLastOpeningBalance);
 			
