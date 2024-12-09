@@ -1,25 +1,25 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
     function check_all(){
         $(':checkbox').each(function() {
-            this.checked = true;                        
+            this.checked = true;
         });
     }
     function uncheck_all(){
         $(':checkbox').each(function() {
-            this.checked = false;                        
+            this.checked = false;
         });
     }
 </script>
 @stop
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -102,7 +102,7 @@
                 <div class="indent_third">
                     <input type='checkbox' class='checkboxes' name='checkbox_{{$val['id_menu']}}' id='checkbox_{{$val['id_menu']}}' value='1'  OnClick='checkboxSalesOrderChange({{$val['id_menu']}})';/> {{$val['text']}}
                 </div>
-            <?php   } 
+            <?php   }
             } ?>
         </div>
         <div class="card-footer text-muted">
@@ -122,9 +122,9 @@
 @stop
 
 @section('footer')
-    
+
 @stop
 
 @section('css')
-    
+
 @stop

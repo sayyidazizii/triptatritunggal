@@ -2,7 +2,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
@@ -13,7 +13,7 @@
 @stop
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -149,7 +149,7 @@
                 Daftar
             </h5>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -184,11 +184,11 @@
                                                 <td style='text-align  : right !important;'>".$item['quantity']."</td>
                                                 <td style='text-align  : right !important;'>".$item['quantity_resulted']."</td>
                                                 <td style='text-align  : right !important;'>
-                                                    <input class='form-control' style='text-align:right;'type='text' name='quantity_delivered_".$no."' id='quantity_delivered_".$no."' value='".$val['quantity']."' readonly/>  
+                                                    <input class='form-control' style='text-align:right;'type='text' name='quantity_delivered_".$no."' id='quantity_delivered_".$no."' value='".$val['quantity']."' readonly/>
 
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id_".$no."' id='sales_order_id_".$no."' value='".$item['sales_order_id']."'/>  
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id_".$no."' id='sales_order_item_id_".$no."' value='".$item['sales_order_item_id']."'/>  
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='customer_id_".$no."' id='customer_id_".$no."' value='".$item['customer_id']."'/>  
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id_".$no."' id='sales_order_id_".$no."' value='".$item['sales_order_id']."'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id_".$no."' id='sales_order_item_id_".$no."' value='".$item['sales_order_item_id']."'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='customer_id_".$no."' id='customer_id_".$no."' value='".$item['customer_id']."'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_id_".$no."' id='item_id_".$no."' value='".$item['item_id']."'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='quantity_".$no."' id='quantity_".$no."' value='".$item['quantity']."'/>
                                                 </td>";
@@ -204,7 +204,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="card-footer text-muted">
             <div class="form-actions float-right">
                 <button type="submit" name="Save" class="btn btn-danger btn-sm" title="Save"><i class="fa fa-times"></i> Hapus</button>
@@ -217,13 +217,13 @@
 <br>
 
 @include('footer')
-    
+
 @stop
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
+
 @stop

@@ -2,7 +2,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
@@ -16,7 +16,7 @@
                         'value'	    : value,
                         '_token'    : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
                         console.log(return_data);
                     },
                     error: function(data)
@@ -38,7 +38,7 @@
         if(!elements['warehouse_id']){
             $("#warehouse_id").select2("val", "0");
         }
-        
+
         if(!elements['sales_delivery_order_remark']){
             $("#sales_delivery_order_remark").value("val", "0");
         }
@@ -54,10 +54,10 @@
         // $("#item_stock_id").select2("val", "0");
         // $("#item_stock_id").select2("val", "0");
 
-             
+
 
         // // $("#item_type_id").change(function(){
-        
+
 
 
 
@@ -71,11 +71,11 @@
                         'sales_order_item_id'	: sales_order_item_id,
                         '_token'        : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
 					$('#item_unit_id').html(return_data);
                         console.log(return_data);
                     $("#item_unit_id").val(return_data);
-                        console.log(return_data);        
+                        console.log(return_data);
                     },
                     error: function(data)
                     {
@@ -84,7 +84,7 @@
                     }
                 });
 		});
-        
+
 	});
 
 
@@ -112,7 +112,7 @@
                 'item_unit_id'             : item_unit_id,
                 '_token'                   : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 window.location.reload();
                 console.log(data);
             },
@@ -138,7 +138,7 @@
                 'sales_delivery_order_item_stock_temporary_id'      : sdo_item_stock_temporary_id,
                 '_token'                   : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 window.location.reload();
                 console.log(data);
             },
@@ -152,9 +152,9 @@
 
 
 
-    
 
-    
+
+
 </script>
 @stop
 
@@ -163,7 +163,7 @@
 @endphp
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -205,7 +205,7 @@
 
 <form method="post" action="{{route('process-add-sales-delivery-order')}}" enctype="multipart/form-data">
         @csrf
-        
+
         <div class="card-body">
             <div class="row form-group">
                 <div class="col-md-6">
@@ -232,7 +232,7 @@
             </div>
         </div>
     </div>
-    
+
     <br/>
     <div class="card border border-dark">
         <div class="card-header border-dark bg-dark">
@@ -243,7 +243,7 @@
                 {{-- <a href='#addtstock' data-toggle='modal' name="Find" class="btn btn-success btn-sm" title="Add Data">Pilih Stock</a> --}}
             </div>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -276,7 +276,7 @@
                                         $sales_order_item_id = -1;
                                     @endphp
                                         @foreach ($salesorderitem AS $key => $val)
-                                        
+
                                             <tr>
                                                 <td style='text-align  : center'>{{$no}}.</td>
                                                 <td style='text-align  : left !important;'>{{$SalesDeliveryOrder->getCustomerName($salesorder['customer_id'])}}</td>
@@ -287,11 +287,11 @@
                                                 <td style='text-align  : right !important;'>{{$val['quantity']}}</td>
                                                 <td style='text-align  : right !important;'>{{$val['quantity_resulted']}}</td>
                                                 <td style='text-align  : right !important;'>
-                                                    <input class='form-control' style='text-align:right;'type='text' name='quantity_delivered_{{$no}}' id='quantity_delivered_{{$no}}' value='{{$val['quantity_resulted']}}'/>  
+                                                    <input class='form-control' style='text-align:right;'type='text' name='quantity_delivered_{{$no}}' id='quantity_delivered_{{$no}}' value='{{$val['quantity_resulted']}}'/>
 
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id_{{$no}}' id='sales_order_id_{{$no}}' value='{{$val['sales_order_id']}}'/>  
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id_{{$no}}' id='sales_order_item_id_{{$no}}' value='{{$val['sales_order_item_id']}}'/>  
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='customer_id_{{$no}}' id='customer_id_{{$no}}' value='{{$salesorder['customer_id']}}'/>  
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id_{{$no}}' id='sales_order_id_{{$no}}' value='{{$val['sales_order_id']}}'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id_{{$no}}' id='sales_order_item_id_{{$no}}' value='{{$val['sales_order_item_id']}}'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='customer_id_{{$no}}' id='customer_id_{{$no}}' value='{{$salesorder['customer_id']}}'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_type_id_{{$no}}' id='item_type_id_{{$no}}' value='{{$val['item_type_id']}}'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_id_{{$no}}' id='item_unit_id_{{$no}}' value='{{$val['item_unit_id']}}'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_price_{{$no}}' id='item_unit_price_{{$no}}' value='{{$val['item_unit_price']}}'/>
@@ -309,7 +309,7 @@
 
                                                 </div>
                                                     {{-- <td style='text-align  : center'>
-                                                        <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id' id='sales_order_item_id_{{$no}}' value='{{$val['sales_order_item_id']}}'/>  
+                                                        <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id' id='sales_order_item_id_{{$no}}' value='{{$val['sales_order_item_id']}}'/>
                                                     </td> --}}
                                                     {{-- <td colspan="2" style='text-align  : left !important;'>
                                                         <div class="row form-group">
@@ -318,7 +318,7 @@
                                                             <input type="hidden" name="item_type_id" id="item_type_id_{{$no}}" value="{{$val['item_type_id']}}">
                                                             <div class="form-group">
                                                                 <a class="text-dark">Pilih Batch Barang<a class='red'>*</a></a>
-                            
+
                                                                 <select class="selection-search-clear" name="item_stock_id" id="item_stock_id_{{$no}}" style="width: 100% !important" >
                                                                     <option value=''>--Choose One--</option>
                                                                     @foreach($item_stock_id[$no]['datastock'] as $Key => $item)
@@ -355,7 +355,7 @@
                                                             $datatemp = $SalesDeliveryOrder->getSOid2($val['sales_order_item_id']);
                                                         @endphp
 
-                                                        @foreach ($datatemp as $Key => $val) 
+                                                        @foreach ($datatemp as $Key => $val)
                                                         <tr>
                                                             @php
                                                                 $total += $val['item_stock_quantity'] ;
@@ -363,14 +363,14 @@
 
                                                             <td>{{ $row++ }}</td>
                                                             <td>{{ $SalesDeliveryOrder->getSelectInvItemStock($val['item_stock_id']) }}</td>
-                                                            <input  type="hidden" name="sales_delivery_order_item_stock_temporary_id" id="sales_delivery_order_item_stock_temporary_id_{{$val['sales_delivery_order_item_stock_temporary_id']}}" value="{{$val['sales_delivery_order_item_stock_temporary_id']}}">    
-                                                            <td>{{ $SalesDeliveryOrder->getInvItemUnitName($val['item_unit_id'])}}</td>                                                     
+                                                            <input  type="hidden" name="sales_delivery_order_item_stock_temporary_id" id="sales_delivery_order_item_stock_temporary_id_{{$val['sales_delivery_order_item_stock_temporary_id']}}" value="{{$val['sales_delivery_order_item_stock_temporary_id']}}">
+                                                            <td>{{ $SalesDeliveryOrder->getInvItemUnitName($val['item_unit_id'])}}</td>
                                                             <td hidden>{{ $val['sales_order_id'] }}</td>
                                                             <td hidden>{{ $val['sales_order_item_id'] }}</td>
                                                             <td>{{ $val['item_stock_quantity'] }}</td>
                                                             <td><button id="delete-stock-button_{{$val['sales_delivery_order_item_stock_temporary_id']}}" onclick="datastock_delete({{ $val['sales_delivery_order_item_stock_temporary_id'] }});" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
                                                         </tr>
-                                                        @endforeach 
+                                                        @endforeach
                                                         <tr>
                                                             <td></td>
                                                             <td></td>
@@ -382,10 +382,10 @@
                                                 </td> --}}
                                             </tr>
                                             @php
-                                                $no++; 
-                                            @endphp 
+                                                $no++;
+                                            @endphp
                                         @endforeach
-                                        
+
                                         @php
                                             $no =1;
                                             $nos = 1;
@@ -396,8 +396,8 @@
                                                 <input type="text" name="sales_order_item_id_{{$item['sales_order_item_id']}}{{$no}}" id="sales_order_item_id{{$item['sales_order_item_id']}}_{{$no}}" value="{{$item['sales_order_item_id']}}">
                                                 <input type="text" name="item_stock_quantity_{{$item['sales_order_item_id']}}{{$no}}" id="item_stock_quantity{{$item['sales_order_item_id']}}_{{$no}}" value="{{$item['item_stock_quantity']}}">
                                             @php
-                                                $no++; 
-                                            @endphp 
+                                                $no++;
+                                            @endphp
                                         @endforeach
                                 @endif
                         </tbody>
@@ -405,7 +405,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="card-footer text-muted">
             <div class="form-actions float-right">
                 <a name='Reset' class='btn btn-danger btn-sm' onClick='javascript:return confirm(\"apakah yakin ingin dihapus ?\")'><i class="fa fa-times"></i> Reset</a>
@@ -423,7 +423,7 @@
 
 {{-- <form action="{{url('/sales-delivery-order/add-item-stock')}}" method="POST"> --}}
     {{-- @csrf
-    
+
     <div class="modal fade bs-modal-md" id="addtstock" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-md">
             <div class="modal-content">
@@ -437,7 +437,7 @@
                         </div>
                         <div class="col-md-12 mb-3">
                             <a class="text-dark">Satuan<a class='red'> </a></a>
-                            </select>                        
+                            </select>
                         </div>
                         <div class="col-md-12">
                             <a class="text-dark">Quantity Stock<a class='red'> </a></a>
@@ -459,9 +459,9 @@
 
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
+
 @stop

@@ -3,14 +3,14 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
-    
+
 	$(document).ready(function(){
         $("#account_id_item").select2("val", "0");
-        
+
         var elements = {!! json_encode($acctdisbursementelements) !!};
 
         if(!elements || elements==''){
@@ -25,7 +25,7 @@
         if(!elements['customer_id']){
             $("#customer_id").select2("val", "0");
         }
-    
+
         if(!elements['check_disbursement_title']){
             $("#check_disbursement_title").val('');
         }
@@ -37,9 +37,9 @@
         if(!elements['check_number']){
             $("#check_number").val('');
         }
-    
+
     });
-    
+
     function function_elements_add(name, value){
         $.ajax({
             type: "POST",
@@ -50,7 +50,7 @@
                 'value'	    : value,
                 '_token'    : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 console.log(return_data);
             },
             error: function(data)
@@ -74,7 +74,7 @@
 
         function_elements_add(name, value);
     }
-    
+
 	function processAddArrayAcctCashDisbursementItem(){
 		var account_id_item					= document.getElementById("account_id_item").value;
 		var check_disbursement_item_amount		= document.getElementById("check_disbursement_item_amount").value;
@@ -83,13 +83,13 @@
         console.log(check_disbursement_item_amount);
         console.log(check_disbursement_item_title);
 
-		
+
         $.ajax({
         type: "POST",
         url : "{{route('add-check-disbursement-array')}}",
         data: {
             'account_id_item'					: account_id_item,
-            'check_disbursement_item_amount' 			: check_disbursement_item_amount, 
+            'check_disbursement_item_amount' 			: check_disbursement_item_amount,
             'check_disbursement_item_title' 			: check_disbursement_item_title,
             '_token'                            : '{{csrf_token()}}'
         },
@@ -114,7 +114,7 @@
 @stop
 
 @section('content')
-<?php 
+<?php
 ?>
 <form method="post" action="{{route('process-add-check-disbursement')}}" enctype="multipart/form-data">
     @csrf
@@ -164,7 +164,7 @@
                     <a class="text-dark">Jatuh tempo<a class='red'> *</a></a>
                     <input type ="date" class="form-control form-control-inline input-medium date-picker input-date" data-date-format="dd-mm-yyyy" type="text" name="check_disbursement_due_date" id="check_disbursement_due_date" onChange="changeDate2(this.name, this.value);" value="{{$acctdisbursementelements == null ? '' : $acctdisbursementelements['check_disbursement_due_date']}}" />
                 </div>
-            </div>	
+            </div>
             <div class="row form-group">
                 <div class="col-md-6">
                     <a class="text-dark">No. Perkiraan</a>
@@ -176,7 +176,7 @@
                         <input class="form-control input-bb" type="text" name="check_disbursement_title" id="check_disbursement_title" onChange="function_elements_add(this.name, this.value)" value="{{$acctdisbursementelements == null ? '' : $acctdisbursementelements['check_disbursement_title']}}"/>
                     </div>
                 </div>
-            </div>	
+            </div>
             <div class = "row form-group">
                 <div class="col-md-12 ">
                     <a class="text-dark">Deskripsi</a>
@@ -193,7 +193,7 @@
             </div>
             <hr style="margin:0;">
             <br/>
-            
+
             <div class="row form-group">
                 <div class="col-md-6">
                     <a class="text-dark">No. Perkiraan</a>
@@ -206,7 +206,7 @@
                     </div>
                 </div>
             </div>
-                        
+
             <div class = "row form-group">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -222,7 +222,7 @@
             </div>
         </div>
     </div>
-   
+
 
 <br/>
 <div class="card border border-dark">
@@ -260,11 +260,11 @@
                                             <td style='text-align  : left !important;'>".$val['check_disbursement_item_title']."</td>
                                             <td style='text-align  : right !important;'>".$val['check_disbursement_item_amount']."</td>";
                                             ?>
-                                            
+
                                             <td style='text-align  : center'>
                                                 <a href="{{route('delete-check-disbursement-array', ['record_id' => $key])}}" name='Reset' class='btn btn-danger btn-sm' onClick='javascript:return confirm(\"apakah yakin ingin dihapus ?\")'></i> Hapus</a>
                                             </td>
-                                            <?php 
+                                            <?php
                                             echo"
                                         </tr>
                                     ";
@@ -282,13 +282,13 @@
                                 <td style='text-align  : center !important;'>
                                 </td>
                                 <input type='hidden' name='check_disbursement_amount_total' id='check_disbursement_amount_total' value='<?php echo $check_disbursement_amount_total; ?>'/>
-                            </tr>	
+                            </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    
+
     <div class="card-footer text-muted">
         <div class="form-actions float-right">
             <button type="reset" name="Reset" class="btn btn-danger btn-sm" onClick="window.location.reload();"><i class="fa fa-times"></i> Batal</button>
@@ -305,5 +305,5 @@
 @stop
 
 @section('css')
-    
+
 @stop

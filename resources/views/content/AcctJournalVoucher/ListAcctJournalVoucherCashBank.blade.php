@@ -3,10 +3,10 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -23,7 +23,7 @@
 <div class="alert alert-info" role="alert">
     {{session('msg')}}
 </div>
-@endif 
+@endif
 <div class="card border border-dark">
     <div class="card-header bg-dark clearfix">
         <h5 class="mb-0 float-left">
@@ -74,7 +74,7 @@
         </div>
     </div>
 </form>
-    
+
     <div class="card-body">
         <table class="table table-striped table-bordered table-hover table-full-width">
             <thead>
@@ -101,7 +101,7 @@
                 } else {
                     $totaldebet		= 0;
                     $totalkredit	= 0;
-                    foreach ($acctjournalvoucher as $key=>$val){	
+                    foreach ($acctjournalvoucher as $key=>$val){
                         $id = $AcctJournalVoucher->getMinID($val['journal_voucher_id']);
 
                         $project_name = $AcctJournalVoucher->getProjectName($val['project_id']);
@@ -118,12 +118,12 @@
                                 $debet = " ";
                             }
                         // }
-                        
+
 
 
                         if($val['journal_voucher_item_id'] === $id){
                             echo"
-                                <tr>			
+                                <tr>
                                     <td style='text-align:center'>".$no."</td>
                                     <td>".$val['journal_voucher_date']."</td>
                                     <td>".$val['journal_voucher_title']."</td>
@@ -137,7 +137,7 @@
                             $no++;
                         } else {
                             echo"
-                                <tr>			
+                                <tr>
                                     <td style='text-align:center'></td>
                                     <td></td>
                                     <td></td>
@@ -153,7 +153,7 @@
                         $totaldebet 	+= $val['journal_voucher_debit_amount'];
                         $totalkredit 	+= $val['journal_voucher_credit_amount'];
                     }
-                    
+
                     echo"
                         <tr>
                             <td colspan='8' style='text-align:right'></td>
@@ -165,7 +165,7 @@
                         </tr>
                     ";
                 }
-                
+
             ?>
             </tbody>
         </table>
@@ -187,9 +187,9 @@
 @stop
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
+
 @stop

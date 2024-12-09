@@ -2,11 +2,11 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
-    
+
 	$(document).ready(function(){
         $("#bank_id").select2("val", "0");
         $("#account_id").select2("val", "0");
@@ -39,7 +39,7 @@
         });
 
 
-        
+
 
 
         $('#promotion_amount').attr('readonly', true);
@@ -91,8 +91,8 @@
                     console.log(amount);
                 }
         });
-        
-        
+
+
 
         if(!elements['cash_account_id']){
             $("#cash_account_id").select2("val", "0");
@@ -115,7 +115,7 @@
                 'value'	    : value,
                 '_token'    : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 console.log(return_data);
             },
             error: function(data)
@@ -165,8 +165,8 @@
             var ppn_in_amount 	    = $("#"+i+"_ppn_in_amount").val();
             var promotion_amount 	= $("#"+i+"_promotion_amount").val();
             var adm_cost_amount 	= $("#"+i+"_adm_cost_amount").val();
-            
-            
+
+
             if(isNaN(allocation)){
                 allocation = 0;
             }
@@ -190,12 +190,12 @@
             promotiontotal  += parseFloat(promotion_amount);
             admcosttotal    += parseFloat(adm_cost_amount);
 
-           
+
 
             lastbalance = parseFloat(owing_amount) - parseFloat(allocation) - parseFloat(shortover)- parseFloat(ppn_in_amount) - parseFloat(promotion_amount) - parseFloat(adm_cost_amount);
 
             lastbalancenoppn = parseFloat(owing_amount) - parseFloat(allocation) - parseFloat(shortover) - parseFloat(promotion_amount) - parseFloat(adm_cost_amount);
-            
+
 
             var checkboxPpn = document.getElementById("ppn_in_amount_check");
             var input = document.getElementById("ppn_in_amount");
@@ -213,10 +213,10 @@
             }
 
 
-          
-           
-           
-            
+
+
+
+
         }
 
         $("#allocation_total").val(allocationtotal);
@@ -225,8 +225,8 @@
         $("#shortover_total_view").val(toRp(shortovertotal));
         $("#payment_allocated_move_view").val(toRp(parseFloat(payment_amount) - parseFloat(allocationtotal) - parseFloat(shortovertotal)));
         $("#payment_allocated_move").val(parseFloat(payment_amount) - parseFloat(allocationtotal) - parseFloat(shortovertotal));
-            
-        
+
+
         $("#ppn_in_amount_view").val(toRp(ppntotal));
         $("#promotion_amount_view").val(toRp(promotiontotal));
         $("#adm_cost_amount_view").val(toRp(admcosttotal));
@@ -236,16 +236,16 @@
     }
 
 	function toRp(number) {
-		var number = number.toString(), 
-		rupiah = number.split('.')[0], 
+		var number = number.toString(),
+		rupiah = number.split('.')[0],
 		cents = (number.split('.')[1] || '') +'00';
 		rupiah = rupiah.split('').reverse().join('')
 			.replace(/(\d{3}(?!$))/g, '$1.')
 			.split('').reverse().join('');
 		return rupiah + ',' + cents.slice(0, 2);
 	}
-    
-    
+
+
     function processAddArrayPurchasePaymentTransfer(){
         var bank_id	                            = document.getElementById("bank_id").value;
         var payment_transfer_account_name	    = document.getElementById("payment_transfer_account_name").value;
@@ -267,7 +267,7 @@
             }
         });
     }
-    
+
     function addBank(){
         var bank_code                   = $("#bank_code").val();
         var bank_name                   = $("#bank_name").val();
@@ -284,7 +284,7 @@
                 'bank_remark'	        : bank_remark,
                 '_token'                : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 $('#bank_id').html(return_data);
                 $('#cancel_btn_bank').click();
             },
@@ -298,7 +298,7 @@
 </script>
 @stop
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -386,13 +386,13 @@
                         <input class="form-control input-bb" type="text" name="payment_total_cash_amount" id="payment_total_cash_amount" value="{{$purchasepaymentelements == null ? '' : $purchasepaymentelements['payment_total_cash_amount']}}" onChange="elements_add(this.name, this.value);" style='text-align:right'/>
                     </div>
                 </div>
-            </div>      
+            </div>
             <div class="row form-group">
                 <!-- <div class="col-md-6">
                     <a class="text-dark">No Perkiraan</a>
                     {!! Form::select('cash_account_id',  $acctaccount, $purchasepaymentelements == null ? '' : $purchasepaymentelements['cash_account_id'], ['class' => 'selection-search-clear select-form', 'id' => 'cash_account_id', 'onchange' => 'elements_add(this.name, this.value);']) !!}
                 </div> -->
-                
+
             </div>
             <br/>
             <div class="container" id="tranfer-bank">
@@ -402,7 +402,7 @@
                 </div>
                 <hr style="margin:0;">
                 <br/>
-                
+
                 <div class="row form-group">
                     <div class="col-md-6">
                         <a class="text-dark">Bank</a>
@@ -447,7 +447,7 @@
                         </div>
                     </div>
                 </div>
-                    
+
                 <br>
                 <br>
                 <div class="row">
@@ -460,7 +460,7 @@
                                         <th style='text-align:center' width="20%">Nama Akun</th>
                                         <th style='text-align:center' width="20%">No. Akun</th>
                                         <th style='text-align:center' width="20%">Jumlah Transfer</th>
-                                        <th style='text-align:center' width="10%">Aksi</th>	
+                                        <th style='text-align:center' width="10%">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -482,9 +482,9 @@
                                                         </td>
                                                         <?php
                                                         echo"
-                                                    </tr>								
-                                                ";	
-                                                $total_transfer += $val['payment_transfer_amount'];													
+                                                    </tr>
+                                                ";
+                                                $total_transfer += $val['payment_transfer_amount'];
                                             }
                                             echo"
                                                 <input class='form-control input-bb' type='hidden' name='payment_total_transfer_amount' id='payment_total_transfer_amount' value='".$total_transfer."' autocomplete='off'/>
@@ -498,8 +498,8 @@
                 </div>
 
             </div>
-            
-            
+
+
             <br>
             <br>
             <div class="row form-group">
@@ -562,7 +562,7 @@
                                 $promosi_amount   = 0;
                                 $adm_cost_amount  = 0;
                                 $total_owing      = 0;
-                                foreach ($purchaseinvoiceowing AS $key => $val){ 
+                                foreach ($purchaseinvoiceowing AS $key => $val){
                                     $total_owing += $val['owing_amount'];
                                     ?>
 
@@ -593,7 +593,7 @@
                                         <input class="form-control" type="text" style='text-align:right' name="{{$no}}_last_balance_view" id="{{$no}}_last_balance_view" value="{{number_format($val['owing_amount'])}}" readonly/>
                                         <input class="form-control" type="hidden" style='text-align:right' name="{{$no}}_last_balance" id="{{$no}}_last_balance" value="{{$val['owing_amount']}}" readonly/>
 
-                                        
+
                                         <input class="form-control" type="hidden" style='text-align:right' name="{{$no}}_purchase_invoice_id" id="{{$no}}_purchase_invoice_id" value="{{$val['purchase_invoice_id']}}" readonly/>
                                         <input class="form-control" type="hidden" style='text-align:right' name="{{$no}}_purchase_invoice_amount" id="{{$no}}_purchase_invoice_amount" value="{{$val['total_amount']}}" readonly/>
                                         <input class="form-control" type="hidden" style='text-align:right' name="{{$no}}_purchase_invoice_date" id="{{$no}}_purchase_invoice_date" value="{{$val['purchase_invoice_date']}}" readonly/>
@@ -606,7 +606,7 @@
                                 <?php
                                 $no++;
                                 }
-                                
+
                                     echo"
                                     <th style='text-align  : right' colspan='5'>
                                         Total
@@ -664,7 +664,7 @@
                                             <input class='form-control input-bb' type='hidden' name='item_total' id='item_total' value='".$no."'/>
                                         </th>
                                     </tr>
-                                   
+
                                     ";
 
                                     // biaya adm
@@ -683,7 +683,7 @@
                                             <input class='form-control input-bb' type='hidden' name='item_total' id='item_total' value='".$no."'/>
                                         </th>
                                     </tr>
-                                    
+
                                     ";
                             }
                         ?>
@@ -692,7 +692,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="card-footer text-muted">
         <div class="form-actions float-right">
             <button type="reset" name="Reset" class="btn btn-danger" onClick="window.location.reload();"><i class="fa fa-times"></i> Batal</button>
@@ -713,30 +713,30 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Kode Bank</a>
                             <input class="form-control input-bb" type="text" name="bank_code" id="bank_code" value=""/>
                         </div>
                     </div>
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nama Bank</a>
                             <input class="form-control input-bb" type="text" name="bank_name" id="bank_name" value=""/>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">	
-                        <div class="form-group">	
+                    <div class="col-md-12">
+                        <div class="form-group">
                             <a class="text-dark">No Perkiraan</a>
                             {!! Form::select('account_id',  $acctaccount, 0, ['class' => 'selection-search-clear select-form', 'id' => 'account_id']) !!}
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">	
-                        <div class="form-group">	
+                    <div class="col-md-12">
+                        <div class="form-group">
                             <a class="text-dark">Keterangan</a>
                             <textarea class="form-control input-bb" type="text" name="bank_remark" id="bank_remark"></textarea>
                         </div>

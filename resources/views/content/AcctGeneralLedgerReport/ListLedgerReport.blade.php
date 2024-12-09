@@ -2,11 +2,11 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -30,7 +30,7 @@
                 Filter
             </h5>
         </div>
-    
+
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body">
                 <div class = "row">
@@ -94,7 +94,7 @@
 <div class="alert alert-info" role="alert">
     {{session('msg')}}
 </div>
-@endif 
+@endif
 <div class="card border border-dark">
   <div class="card-header bg-dark clearfix">
     <h5 class="mb-0 float-left">
@@ -126,9 +126,9 @@
                         <th style="text-align: center" colspan="5">Saldo Awal</th>
                         <td></td>
                         <td></td>
-                        <?php 
-                            
-                            if($account['account_default_status']==0 || $accountbalancedetail_old['last_balance'] >= 0){  
+                        <?php
+
+                            if($account['account_default_status']==0 || $accountbalancedetail_old['last_balance'] >= 0){
                                 if (isset($accountbalancedetail_old['last_balance'])) {
                                     if($accountbalancedetail_old['last_balance'] >= 0){
                                         echo "
@@ -147,15 +147,15 @@
                                         <td style='text-align: right'>0.00</td>
                                     ";
                                 }
-                                
-                            
+
+
                             } else {
                                 if (isset($accountbalancedetail_old['last_balance'])) {
                                     if($accountbalancedetail_old['last_balance'] >= 0){
                                         echo "
                                             <td style='text-align: right'>0.00</td>
                                             <td style='text-align: right'>".number_format($accountbalancedetail_old['last_balance'],2,'.',',')."</td>
-                                            
+
                                         ";
                                     } else {
                                         echo "
@@ -172,7 +172,7 @@
                             }
                         ?>
                     </tr>
-                    
+
                         <?php
                         $no                     = 1;
                         $voucher_debit          = 0;
@@ -242,7 +242,7 @@
                                 }
                         }
                         ?>
-                    
+
                     <tr>
                         <th style="text-align: center" colspan="5">Total Debet Kredit</th>
                         <?php
@@ -277,13 +277,13 @@
 @stop
 
 @section('footer')
-    
+
 @stop
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
-@stop   
+
+@stop

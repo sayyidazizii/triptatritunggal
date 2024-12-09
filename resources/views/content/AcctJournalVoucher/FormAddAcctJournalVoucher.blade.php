@@ -3,7 +3,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
@@ -14,7 +14,7 @@
             elements = [];
         }
     });
-    
+
     function function_elements_add(name, value){
         $.ajax({
             type: "POST",
@@ -25,7 +25,7 @@
                 'value'	    : value,
                 '_token'    : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 console.log(return_data);
             },
             error: function(data)
@@ -40,7 +40,7 @@
 @stop
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -88,7 +88,7 @@
                     </select>
                 </div>
             </div> --}}
-           
+
             <h3 class="page-title">
                 Detail Jurnal Umum
             </h3>
@@ -101,7 +101,7 @@
                         @endforeach
                     </select>
                 </div>
-            </div>	
+            </div>
             <div class="row form-group">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -117,7 +117,7 @@
                         @endforeach
                     </select>
                 </div>
-            </div>	
+            </div>
             <div class = "row form-group">
                 <div class="col-md-12 ">
                     <a class="text-dark">Deskripsi</a>
@@ -200,7 +200,7 @@
                                                 <td>
                                                     <a href="{{route('delete-journal-array', ['record_id' => $key])}}" name='Reset' class='btn btn-danger btn-sm' onClick='javascript:return confirm(\"apakah yakin ingin dihapus ?\")'></i> Hapus</a>
                                                 </td>
-                                                <?php 
+                                                <?php
                                                 echo"
                                             </tr>
                                             ";
@@ -225,11 +225,11 @@
     <br>
     <br>
     <br>
-    
+
     @include('footer')
-    
+
     @stop
 
 @section('css')
-    
+
 @stop

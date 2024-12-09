@@ -3,7 +3,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
@@ -11,7 +11,7 @@
         var disbursement_date    =   document.getElementById("disbursement_date").value;
         $('#disbursement_date_table').html(disbursement_date);
     }
-    
+
 	function processAddArrayAcctDisbursementItem(){
 		var account_id_item					= document.getElementById("account_id_item").value;
 		var disbursement_item_amount		= document.getElementById("disbursement_item_amount").value;
@@ -20,13 +20,13 @@
         console.log(disbursement_item_amount);
         console.log(disbursement_item_title);
 
-		
+
         $.ajax({
         type: "POST",
         url : "{{route('add-disbursement-array')}}",
         data: {
             'account_id_item'					: account_id_item,
-            'disbursement_item_amount' 			: disbursement_item_amount, 
+            'disbursement_item_amount' 			: disbursement_item_amount,
             'disbursement_item_title' 			: disbursement_item_title,
             '_token'                            : '{{csrf_token()}}'
         },
@@ -51,7 +51,7 @@
 @stop
 
 @section('content')
-<?php 
+<?php
 ?>
 <h3 class="page-title">
     Detail Pengeluaran Kas dan Bank
@@ -101,7 +101,7 @@
                         <input class="form-control input-bb" type="text" name="disbursement_title" id="disbursement_title" value="{{$acctdisbursementdetail['disbursement_title']}}" readonly/>
                     </div>
                 </div>
-            </div>	
+            </div>
             <div class = "row form-group">
                 <div class="col-md-12 ">
                     <a class="text-dark">Deskripsi</a>
@@ -167,7 +167,7 @@
                                     <b><?php echo $disbursement_amount_total;?></b>
                                 </td>
                                 <input type='hidden' name='disbursement_amount_total' id='disbursement_amount_total' value='<?php echo $disbursement_amount_total; ?>'/>
-                            </tr>	
+                            </tr>
                     </tbody>
                 </table>
             </div>
@@ -178,7 +178,7 @@
             <button type="reset" name="Reset" class="btn btn-danger" href='#remark' data-toggle='modal' ><i class="fa fa-times"></i> Batal</button>
         </div>
     </div>
-    
+
 </div>
 
     <div class="modal fade bs-modal-lg" id="remark" tabindex="-1" role="dialog" aria-hidden="true">
@@ -187,14 +187,14 @@
                 <div class="modal-header"  style='text-align:left !important'>
                     <h4>Pembatalan Pengeluaran Kas dan Bank</h4>
                 </div>
-                
+
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-12">	
+                        <div class="col-md-12">
                             <a class="text-dark">Keterangan</a>
                             <div class="">
                                 <textarea rows="3" type="text" class="form-control input-bb" name="voided_remark" onChange="function_elements_add(this.name, this.value);" id="voided_remark"></textarea>
-                            </div>	
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -209,9 +209,9 @@
 @stop
 
 @section('footer')
-    
+
 @stop
 
 @section('css')
-    
+
 @stop

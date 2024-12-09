@@ -2,7 +2,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 @section('js')
 <script>
     function elements_add(name, value){
@@ -15,7 +15,7 @@
                 'value'	    : value,
                 '_token'    : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 console.log(return_data);
             },
             error: function(data)
@@ -27,8 +27,8 @@
     }
 
 	function toRp(number) {
-		var number = number.toString(), 
-		rupiah = number.split('.')[0], 
+		var number = number.toString(),
+		rupiah = number.split('.')[0],
 		cents = (number.split('.')[1] || '') +'00';
 		rupiah = rupiah.split('').reverse().join('')
 			.replace(/(\d{3}(?!$))/g, '$1.')
@@ -37,7 +37,7 @@
 	}
 
 	$(document).ready(function(){
-        
+
 
         var elements = {!! json_encode($salesquotationelements) !!};
 
@@ -49,7 +49,7 @@
             $("#warehouse_id").select2("val", "0");
         }
 
-        
+
         if(!elements['customer_id']){
             $("#customer_id").select2("val", "0");
         }
@@ -66,7 +66,7 @@
                         'item_category_id'			    : item_category_id,
                         '_token'                        : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
 					$('#item_stock_id').html(return_data);
                         console.log(return_data);
                     },
@@ -77,9 +77,9 @@
                     }
                 });
 
-		}); 
+		});
 
-        
+
         $("#item_category_id").select2("val", "0");
         $("#item_unit_id").select2("val", "0");
 
@@ -122,7 +122,7 @@
             $("#total_price_after_ppn_amount").val(total_price_after_ppn_amount);
             $("#ppn_amount_item").val(ppn_amount_item);
             console.log(ppn_amount_item);
-		});   
+		});
 
         $(document).ready(function(){
             var price 	    = 0;
@@ -133,7 +133,7 @@
             $("#total_price").val(total_price);
             $("#total_price_view").val(toRp(total_price));
 
-            
+
         $("#quantity").change(function(){
 			var price 	    = $("#price").val();
 			var quantity 	= $("#quantity").val();
@@ -168,9 +168,9 @@
             $("#total_price_after_ppn_amount").val(total_price_after_ppn_amount);
             $("#ppn_amount_item").val(ppn_amount_item);
             console.log(ppn_amount_item);
-            
-		});  
-    });    
+
+		});
+    });
 
         $("#province_id").change(function(){
 			var province_id 	= $("#province_id").val();
@@ -182,7 +182,7 @@
                         'province_id'	: province_id,
                         '_token'        : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
 					$('#city_id').html(return_data);
                         console.log(return_data);
                     },
@@ -193,7 +193,7 @@
                     }
                 });
 
-		}); 
+		});
 
         $("#item_stock_id").change(function(){
 			var item_stock_id 	= $("#item_stock_id").val();
@@ -205,9 +205,9 @@
                         'item_stock_id'	: item_stock_id,
                         '_token'        : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
 					$('#item_type_id').val(return_data);
-                        console.log(return_data);       
+                        console.log(return_data);
                     },
                     error: function(data)
                     {
@@ -216,7 +216,7 @@
                     }
                 });
 		});
-        
+
         $("#item_stock_id").change(function(){
 			var item_stock_id 	= $("#item_stock_id").val();
                 $.ajax({
@@ -227,7 +227,7 @@
                         'item_stock_id'	: item_stock_id,
                         '_token'    : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
 					$('#available_stock').val(return_data);
                         console.log(return_data);
                     },
@@ -236,7 +236,7 @@
                         console.log(data);
                     }
                 });
-		});   
+		});
 
         $("#item_stock_id").change(function(){
 			var item_stock_id 	= $("#item_stock_id").val();
@@ -248,7 +248,7 @@
                         'item_stock_id'	: item_stock_id,
                         '_token'    : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
 					$('#price').val(return_data);
                         console.log(return_data);
                     },
@@ -257,9 +257,9 @@
                         console.log(data);
                     }
                 });
-		});  
+		});
 
-       
+
 
         $("#item_stock_id").change(function(){
 			var item_stock_id 	= $("#item_stock_id").val();
@@ -271,9 +271,9 @@
                         'item_stock_id'	: item_stock_id,
                         '_token'        : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
 					$('#item_unit_id').html(return_data);
-                        console.log(return_data);       
+                        console.log(return_data);
                     },
                     error: function(data)
                     {
@@ -348,7 +348,7 @@
             console.log(ppn_amount_item);
 		});
 
-        
+
 
         $("#discount_amount_item").change(function(){
             var price 	    = $("#price").val();
@@ -400,9 +400,9 @@
             var discount                            = discount_percentage * 1/100;
             var discount_amount                     = discount * total_price_all;
             var total_price_after_discount	        = total_price_all - discount_amount;
-            
 
-    
+
+
             var ppn_out_amount                      = 0;
             var total_price_after_ppn_out           = Number(total_price_after_discount) + ppn_out_amount;
 
@@ -418,7 +418,7 @@
             $("#ppn_out_amount").val(ppn_out_amount);
             console.log(ppn_out_amount);
             $("#ppn_out_amount_view").val(toRp(ppn_out_amount));
-            
+
 
 
             $("#subtotal_after_ppn_out").val(total_price_after_ppn_out);
@@ -435,9 +435,9 @@
             var discount                            = discount_percentage * 1/100;
             var discount_amount                     = discount * total_price_all;
             var total_price_after_discount	        = total_price_all - discount_amount;
-            
 
-    
+
+
             var ppn_out_amount                      = 0;
             var total_price_after_ppn_out           = Number(total_price_after_discount) + ppn_out_amount;
 
@@ -453,7 +453,7 @@
             $("#ppn_out_amount").val(ppn_out_amount);
             console.log(ppn_out_amount);
             $("#ppn_out_amount_view").val(toRp(ppn_out_amount));
-            
+
 
 
             $("#subtotal_after_ppn_out").val(total_price_after_ppn_out);
@@ -461,7 +461,7 @@
             $("#subtotal_after_ppn_out_view").val(toRp(total_price_after_ppn_out));
 
 		});
-        
+
     });
 
     $(document).ready(function(){
@@ -474,9 +474,9 @@
             var discount                            = discount_percentage * 1/100;
             var discount_amount                     = discount * total_price_all;
             var total_price_after_discount	        = total_price_all - discount_amount;
-            
 
-    
+
+
             var ppn_out_amount                      = 0;
             var total_price_after_ppn_out           = Number(total_price_after_discount) + ppn_out_amount;
 
@@ -492,7 +492,7 @@
             $("#ppn_out_amount").val(ppn_out_amount);
             console.log(ppn_out_amount);
             $("#ppn_out_amount_view").val(toRp(ppn_out_amount));
-            
+
 
 
             $("#subtotal_after_ppn_out").val(total_price_after_ppn_out);
@@ -512,9 +512,9 @@
             var discount                            = discount_percentage * 1/100;
             var discount_amount                     = discount * total_price_all;
             var total_price_after_discount	        = total_price_all - discount_amount;
-            
 
-    
+
+
             var ppn_out_amount                      = 0;
             var total_price_after_ppn_out           = Number(total_price_after_discount) + ppn_out_amount;
 
@@ -530,7 +530,7 @@
             $("#ppn_out_amount").val(ppn_out_amount);
             console.log(ppn_out_amount);
             $("#ppn_out_amount_view").val(toRp(ppn_out_amount));
-            
+
 
 
             $("#subtotal_after_ppn_out").val(total_price_after_ppn_out);
@@ -560,7 +560,7 @@
             url : "{{route('sales-quotation-add-array')}}",
             data: {
                 'item_category_id'              : item_category_id,
-                'item_type_id'                  : item_type_id, 
+                'item_type_id'                  : item_type_id,
                 'item_unit_id'                  : item_unit_id,
                 'item_stock_id' 		        : item_stock_id,
                 'quantity' 			            : quantity,
@@ -615,7 +615,7 @@
                 'customer_remark'	        : customer_remark,
                 '_token'                    : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 $('#customer_id').html(return_data);
                 $('#cancel_btn_customer').click();
             },
@@ -629,8 +629,8 @@
 
     $(document).ready(function(){
         var item_type_id = {!! json_encode($null_item_type_id) !!};
-        
- 
+
+
     });
 
 </script>
@@ -709,7 +709,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <h4 class="text-dark" style="margin-top: 3%;"><b>Daftar Barang</b></h4>
             <hr/>
             <div class="row form-group">
@@ -817,7 +817,7 @@
                 Daftar
             </h5>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -837,10 +837,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                                 @if(!is_array($salesquotationitem ))
                                     <tr><th colspan='11' style='text-align  : center !important;'>Data Kosong</th></tr>
-                                @else 
+                                @else
                                 @php
                                     $no =1;
                                     $total_price = 0;
@@ -848,7 +848,7 @@
                                     $total_item = 0;
                                 @endphp
                                     @foreach ($salesquotationitem  AS $key => $val)
-                                        
+
                                             <tr>
                                                 <td style='text-align  : center'>{{$no}}</td>
                                                 <td style='text-align  : left !important;'>{{$SalesOrder->getItemTypeName($val['item_type_id'])}}</td>
@@ -862,15 +862,15 @@
                                                 <td style='text-align  : center'>
                                                     <a href="{{route('sales-order-delete-array', ['record_id' => $key])}}" name='Reset' class='btn btn-danger btn-sm' onClick='javascript:return confirm(\"apakah yakin ingin dihapus ?\")'></i> Hapus</a>
                                                 </td>
-                                                
-                                                
+
+
                                             </tr>
                                         @php
                                             $no++;
                                             $total_price_after_discount_item += $val['total_price_after_ppn_amount'];
                                             $total_item+=$val['quantity'];
                                         @endphp
-                                        
+
                                         @endforeach
                                         <th style='text-align  : center' colspan='2'>Total</th>
                                         <th style='text-align  : right' >{{$total_item}}</th>
@@ -930,7 +930,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="card-footer text-muted">
             <div class="form-actions float-right">
                 <button type="reset" name="Reset" class="btn btn-danger btn-sm" onClick="window.location.reload();"><i class="fa fa-times"></i> Batal</button>
@@ -949,22 +949,22 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nama Pelanggan</a>
                             <input class="form-control input-bb" type="text" name="customer_name" id="customer_name" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Provinsi<a class='red'> *</a></a>
                             {!! Form::select('province_id',  $coreprovince, 0, ['class' => 'selection-search-clear select-form', 'id' => 'province_id']) !!}
                         </div>
                     </div>
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Kota<a class='red'> *</a></a>
                             {!! Form::select('city_id',  $corecity, 0, ['class' => 'selection-search-clear select-form', 'id' => 'city_id']) !!}
                         </div>
@@ -979,68 +979,68 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Telp. Rumah</a>
                             <input class="form-control input-bb" type="text" name="customer_home_phone" id="customer_home_phone" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">No HP 1</a>
                             <input class="form-control input-bb" type="text" name="customer_mobile_phone1" id="customer_mobile_phone1" value=""/>
                         </div>
-                    </div>	
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">No HP 2</a>
                             <input class="form-control input-bb" type="text" name="customer_mobile_phone2" id="customer_mobile_phone2" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">No Fax</a>
                             <input class="form-control input-bb" type="text" name="customer_fax_number" id="customer_fax_number" value=""/>
                         </div>
-                    </div>	
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Email</a>
                             <input class="form-control input-bb" type="text" name="customer_email" id="customer_email" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Contact Person</a>
                             <input class="form-control input-bb" type="text" name="customer_contact_person" id="customer_contact_person" value=""/>
                         </div>
-                    </div>	
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nomor ID</a>
                             <input class="form-control input-bb" type="text" name="customer_id_number" id="customer_id_number" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">No Tax</a>
                             <input class="form-control input-bb" type="text" name="customer_tax_no" id="customer_tax_no" value=""/>
                         </div>
-                    </div>	
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Syarat Pembayaran</a>
                             <input class="form-control input-bb" type="text" name="customer_payment_terms" id="customer_payment_terms" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 ">

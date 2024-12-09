@@ -2,7 +2,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
@@ -13,7 +13,7 @@
 @stop
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -27,7 +27,7 @@
 @section('content')
 
 <h3 class="page-title">
-    <b>Form Hapus Sales Delivery Order</b> 
+    <b>Form Hapus Sales Delivery Order</b>
 </h3>
 <br/>
 @if(session('msg'))
@@ -51,7 +51,7 @@
             {{-- <div class="row">
                 <h5 class="form-section"><b>Form Hapus</b></h5>
             </div>
-            <hr style="margin:0;"> 
+            <hr style="margin:0;">
             <br/> --}}
             <div class="row form-group">
                 <div class="col-md-4">
@@ -91,7 +91,7 @@
                 Daftar
             </h5>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -129,11 +129,11 @@
                                             <td style='text-align  : right !important;'>{{$item['quantity']}}</td>
                                             <td style='text-align  : right !important;'>{{$item['quantity_resulted']}}</td>
                                             <td style='text-align  : right !important;'>
-                                                <input class='form-control' style='text-align:right;'type='text' name='quantity_delivered_{{$no}}' id='quantity_delivered_{{$no}}' value='{{$val['quantity']}}' readonly/>  
+                                                <input class='form-control' style='text-align:right;'type='text' name='quantity_delivered_{{$no}}' id='quantity_delivered_{{$no}}' value='{{$val['quantity']}}' readonly/>
 
-                                                <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id_{{$no}}' id='sales_order_id_{{$no}}' value='{{$val['sales_order_id']}}'/>  
-                                                <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id_{{$no}}' id='sales_order_item_id_{{$no}}' value='{{$val['sales_order_item_id']}}'/>  
-                                                <input class='form-control' style='text-align:right;'type='hidden' name='customer_id_{{$no}}' id='customer_id_{{$no}}' value='{{$val['customer_id']}}'/>  
+                                                <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id_{{$no}}' id='sales_order_id_{{$no}}' value='{{$val['sales_order_id']}}'/>
+                                                <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id_{{$no}}' id='sales_order_item_id_{{$no}}' value='{{$val['sales_order_item_id']}}'/>
+                                                <input class='form-control' style='text-align:right;'type='hidden' name='customer_id_{{$no}}' id='customer_id_{{$no}}' value='{{$val['customer_id']}}'/>
                                                 <input class='form-control' style='text-align:right;'type='hidden' name='item_id_{{$no}}' id='item_id_{{$no}}' value='{{$val['item_id']}}'/>
                                                 <input class='form-control' style='text-align:right;'type='hidden' name='quantity_{{$no}}' id='quantity_{{$no}}' value='{{$val['quantity']}}'/>
                                             </td>
@@ -141,7 +141,7 @@
                                                 <a href='{{url ('/sales-delivery-order/void/detail-item-stock/'.$val->sales_delivery_order_id.'/'.$val->sales_delivery_order_item_id)}}' class='btn btn-outline-info btn-sm' title='Detail Stock'>Detail Stock</a>
                                             </td>
                                         </tr>
-                                    
+
                                     $no++;
                                 @endforeach
                             @endif
@@ -150,7 +150,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="card-footer text-muted">
             <div class="form-actions float-right">
                 <button type="submit" name="Delete" class="btn btn-danger btn-sm" title="Delete"><i class='fas fa-trash-alt'></i> Hapus</button>
@@ -168,9 +168,9 @@
 
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
+
 @stop

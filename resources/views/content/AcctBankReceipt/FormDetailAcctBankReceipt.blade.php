@@ -3,7 +3,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
@@ -11,7 +11,7 @@
         var bank_bank_receipt_date    =   document.getElementById("bank_bank_receipt_date").value;
         $('#rbank_eceipt_date_table').html(bank_bank_receipt_date);
     }
-    
+
 	function processAddArrayAcctReceiptItem(){
 		var account_id_item					= document.getElementById("account_id_item").value;
 		var bank_receipt_item_amount				= document.getElementById("bank_receipt_item_amount").value;
@@ -20,13 +20,13 @@
         console.log(bank_receipt_item_amount);
         console.log(bank_receipt_item_title);
 
-		
+
         $.ajax({
         type: "POST",
         url : "{{route('add-bank-receipt-array')}}",
         data: {
             'account_id_item'					: account_id_item,
-            'bank_receipt_item_amount' 				: bank_receipt_item_amount, 
+            'bank_receipt_item_amount' 				: bank_receipt_item_amount,
             'bank_receipt_item_title' 				: bank_receipt_item_title,
             '_token'                            : '{{csrf_token()}}'
         },
@@ -51,7 +51,7 @@
 @stop
 
 @section('content')
-<?php 
+<?php
 ?>
 <h3 class="page-title">
     Detail Penerimaan Bank
@@ -104,7 +104,7 @@
                         <input class="form-control input-bb" type="text" name="bank_receipt_title" id="bank_receipt_title" value="{{$acctreceiptdetail == null ? '' : $acctreceiptdetail['bank_receipt_title']}}" readonly/>
                     </div>
                 </div>
-            </div>	
+            </div>
             <div class = "row form-group">
                 <div class="col-md-12 ">
                     <a class="text-dark">Deskripsi</a>
@@ -118,7 +118,7 @@
             <br/>
         </div>
     </div>
-   
+
 
 <br/>
 <div class="card border border-dark">
@@ -170,13 +170,13 @@
                                     <b><?php echo $bank_receipt_amount_total;?></b>
                                 </td>
                                 <input type='hidden' name='bank_receipt_amount_total' id='bank_receipt_amount_total' value='<?php echo $bank_receipt_amount_total; ?>'/>
-                            </tr>	
+                            </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    
+
 </div>
 <br>
 <br>
@@ -186,5 +186,5 @@
 @stop
 
 @section('css')
-    
+
 @stop

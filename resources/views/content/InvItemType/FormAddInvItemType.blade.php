@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
@@ -21,7 +21,7 @@
                 'item_category_name'	: item_category_name,
                 '_token'                : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 $('#item_category_id').html(return_data);
                 $('#cancel-btn-category').click();
             },
@@ -34,21 +34,21 @@
 
         // $(document).ready(function(){
         // var item_unit_id = {!! json_encode($null_item_unit_1) !!};
-        
+
         // if(item_unit_id == null){
         //     $("#item_unit_1").select2("val", "0");
         // }
         // });
         // $(document).ready(function(){
         // var item_unit_id = {!! json_encode($null_item_unit_2) !!};
-        
+
         // if(item_unit_id == null){
         //     $("#item_unit_2").select2("val", "0");
         // }
         // });
         // $(document).ready(function(){
         // var item_unit_id = {!! json_encode($null_item_unit_3) !!};
-        
+
         // if(item_unit_id == null){
         //     $("#item_unit_3").select2("val", "0");
         // }
@@ -58,7 +58,7 @@
 @stop
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -198,10 +198,10 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-12">		
+                    <div class="col-md-12">
                         <a class="text-dark">Kategori Barang</a>
                         <input class="form-control input-bb" type="text" name="item_category_name" id="item_category_name" value=""/>
-                    </div>	
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -219,5 +219,5 @@
 @stop
 
 @section('css')
-    
+
 @stop

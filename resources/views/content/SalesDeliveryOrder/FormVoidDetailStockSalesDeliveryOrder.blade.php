@@ -2,7 +2,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
@@ -20,7 +20,7 @@
                         'sales_order_item_id'	: sales_order_item_id,
                         '_token'        : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
 					$('#item_stock_id').html(return_data);
                         console.log(return_data);
                     },
@@ -74,11 +74,11 @@
                 Daftar
             </h5>
             <div class="float-right">
-                
+
                 <button onclick="location.href='{{ url('sales-delivery-order/void/'.$sales_delivery_order_id) }}'" name="Find" class="btn btn-sm btn-info" title="Back"><i class="fa fa-angle-left"></i>  Kembali</button>
             </div>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -112,16 +112,16 @@
                                                     <td style='text-align  : left !important;'>{{$SalesDeliveryOrder->getSelectInvItemStock2($val['item_stock_id'])}}</td>
                                                     <td style='text-align  : right !important;'>{{$val['item_total_stock']}}</td>
                                                     {{-- <td style='text-align:center;'>
-                                                        <a href='' class="btn btn-outline-warning btn-sm" title="Edit Data">Edit</a> 
+                                                        <a href='' class="btn btn-outline-warning btn-sm" title="Edit Data">Edit</a>
                                                         <a href='{{url ('/sales-delivery-order/edit/detail-item-stock/delete-item-stock/'.$val->sales_delivery_order_id.'/'.$val->sales_delivery_order_item_id.'/'.$val->sales_delivery_order_item_stock_id)}}' class="btn btn-outline-danger btn-sm" title="delete Data">Hapus</a>
                                                     </td> --}}
 
-                                                    
-                                                    
+
+
                                             </tr>
                                             @php
-                                                $no++; 
-                                            @endphp 
+                                                $no++;
+                                            @endphp
                                         @endforeach
                                 @endif
                         </tbody>
@@ -152,7 +152,7 @@
             <div class="modal-content">
                 <div class="modal-header"  style='text-align:left !important'>
                     <h4>Form Edit Item Stock</h4>
-                    
+
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -192,9 +192,9 @@
 @stop
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
+
 @stop

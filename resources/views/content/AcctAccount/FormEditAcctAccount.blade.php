@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
@@ -9,7 +9,7 @@
         var account_type_id             = {!! json_encode($account_type_id) !!};
         var account_default_status      = {!! json_encode($account_default_status) !!};
         var parent_account_id           = {!! json_encode($parent_account_id) !!};
-        
+
         if(account_type_id == null){
             $("#account_type_id").select2("val", "0");
         }
@@ -24,7 +24,7 @@
 @stop
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -97,7 +97,7 @@
                     <br/>
                     {!! Form::select('parent_account_id',  $acctaccountcode, $acctaccount['parent_account_id'], ['class' => 'selection-search-clear select-form', 'id' => 'parent_account_id']) !!}
                 </div>
-            </div>	
+            </div>
             <div class = "row form-group">
                 <div class="col-md-12 ">
                     <a class="text-dark">Keterangan</a>
@@ -121,9 +121,9 @@
 <br>
 
 @include('footer')
-    
+
 @stop
 
 @section('css')
-    
+
 @stop

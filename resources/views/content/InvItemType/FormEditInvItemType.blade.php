@@ -1,17 +1,17 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
     $(document).ready(function(){
         // $("#item_category_id").select2("val", "0");
-        
+
         var item_unit_1 = {!! json_encode($invitemtype['item_unit_1']) !!};
         var item_unit_2 = {!! json_encode($invitemtype['item_unit_2']) !!};
         var item_unit_3 = {!! json_encode($invitemtype['item_unit_3']) !!};
-        
+
         if(item_unit_1 == null){
             $("#item_unit_1").select2("val", "0");
         }
@@ -23,7 +23,7 @@
         if(item_unit_3 == null){
             $("#item_unit_3").select2("val", "0");
         }
-    
+
     });
 
     function addCategory(){
@@ -36,7 +36,7 @@
                 'item_category_name'	: item_category_name,
                 '_token'                : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 $('#item_category_id').html(return_data);
                 $('#cancel-btn-category').click();
             },
@@ -51,7 +51,7 @@
 @stop
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -196,10 +196,10 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-12">		
+                    <div class="col-md-12">
                         <a class="text-dark">Kategori Barang</a>
                         <input class="form-control input-bb" type="text" name="item_category_name" id="item_category_name" value=""/>
-                    </div>	
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -217,5 +217,5 @@
 @stop
 
 @section('css')
-    
+
 @stop

@@ -2,7 +2,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
@@ -37,7 +37,7 @@
                         'item_category_id'			    : item_category_id,
                         '_token'                        : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
 					$('#modal_item_type_id').html(return_data);
                         // console.log(return_data);
                     },
@@ -59,7 +59,7 @@
                         'package_id'	: package_id,
                         '_token'        : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
                     return_data = JSON.parse(return_data);
                     return_data = JSON.parse(return_data);
                     $('#package_name').val(return_data['package_name']);
@@ -73,19 +73,19 @@
 
 		});
 	});
-    
+
 	function processAddArrayInvItemStock(){
 		var item_id				    = document.getElementById("item_id").value;
 		var item_quantity		    = document.getElementById("item_quantity").value;
 		var item_stock_unit_id		= document.getElementById("item_stock_unit_id").value;
-		
+
         $.ajax({
         type: "POST",
         url : "{{route('add-grading-array')}}",
         data: {
             'item_id'			    : item_id,
-            'item_quantity' 	    : item_quantity, 
-            'item_stock_unit_id' 	: item_stock_unit_id, 
+            'item_quantity' 	    : item_quantity,
+            'item_stock_unit_id' 	: item_stock_unit_id,
             '_token'                : '{{csrf_token()}}'
         },
         success: function(msg){
@@ -93,19 +93,19 @@
         }
     });
 	}
-    
+
 	function processAddArrayInvItemStockPackage(){
 		var package_id		        = document.getElementById("package_id").value;
 		var item_package_quantity	= document.getElementById("item_package_quantity").value;
 		var item_package_unit_id	= document.getElementById("item_package_unit_id").value;
-		
+
         $.ajax({
         type: "POST",
         url : "{{route('add-grading-package-array')}}",
         data: {
-            'package_id' 	        : package_id, 
-            'item_package_quantity' : item_package_quantity, 
-            'item_package_unit_id' 	: item_package_unit_id, 
+            'package_id' 	        : package_id,
+            'item_package_quantity' : item_package_quantity,
+            'item_package_unit_id' 	: item_package_unit_id,
             '_token'                : '{{csrf_token()}}'
         },
         success: function(msg){
@@ -124,7 +124,7 @@
                 'value'	    : value,
                 '_token'    : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 console.log(return_data);
             },
             error: function(data)
@@ -169,7 +169,7 @@
                 'item_stock_id'	                : item_stock_id,
                 '_token'                        : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 $('#item_id').html(return_data);
                 $('#cancel_btn_item').click();
                 // return_date = JSON.parse(return_data);
@@ -199,7 +199,7 @@
                 'item_unit_remark'	            : item_unit_remark,
                 '_token'                        : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 $('#item_stock_unit_id').html(return_data);
                 $('#item_package_unit_id').html(return_data);
                 $('#cancel_btn_item_unit').click();
@@ -215,7 +215,7 @@
 @stop
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -455,7 +455,7 @@
                 Daftar
             </h5>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -535,7 +535,7 @@
                                                 }
                                             }
 
-                                        ?>	
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -565,13 +565,13 @@
                                     <input class="form-control input-bb" type="hidden" name="item_quantity_total" id="item_quantity_total" value="{{$item_quantity_total}}"/>
                                 </td>
                                 <td colspan='5'></td>
-                            </tr>	
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        
+
         <div class="card-footer text-muted">
             <div class="form-actions float-right">
                 <a href="{{route('reset-grading-array', ['item_stock_id' => $item_stock_id])}}" name='Reset' class='btn btn-danger' onClick='javascript:return confirm(\"apakah yakin ingin dihapus ?\")'><i class="fa fa-times"></i> Reset</a>
@@ -628,7 +628,7 @@
                         </div>
                     </div>
                 </div>
-            
+
                 <br/>
                 <h4 class="text-dark">COA Barang</h4>
                 <hr/>
@@ -681,14 +681,14 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Kode Barang Satuan</a>
                             <input class="form-control input-bb" type="text" name="item_unit_code" id="item_unit_code" value=""/>
                         </div>
                     </div>
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nama Barang Satuan</a>
                             <input class="form-control input-bb" type="text" name="modal_item_unit_name" id="modal_item_unit_name" value=""/>
                         </div>
@@ -697,14 +697,14 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Default Quantity</a>
                             <input class="form-control input-bb" type="text" name="item_unit_default_quantity" id="item_unit_default_quantity" value=""/>
                         </div>
                     </div>
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Keterangan</a>
                             <input class="form-control input-bb" type="text" name="item_unit_remark" id="item_unit_remark" value=""/>
                         </div>
@@ -721,13 +721,13 @@
 @stop
 
 @section('footer')
-    
+
 @stop
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
+
 @stop

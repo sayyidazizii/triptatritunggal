@@ -2,7 +2,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
@@ -14,7 +14,7 @@
                 $("#sales_delivery_note_cost").val(0);
             }
 
-		}); 
+		});
 	});
 
     function addExpedition(){
@@ -53,7 +53,7 @@
                 'expedition_remark'	            : expedition_remark,
                 '_token'                        : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 $('#expedition_id').html(return_data);
                 $('#cancel_btn_expedition').click();
             },
@@ -68,7 +68,7 @@
 @stop
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -226,7 +226,7 @@
                 Daftar
             </h5>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -261,11 +261,11 @@
                                                 <td style='text-align  : right !important;'>".$item['quantity']."</td>
                                                 <td style='text-align  : right !important;'>".$item['quantity_resulted']."</td>
                                                 <td style='text-align  : right !important;'>
-                                                    <input class='form-control' style='text-align:right;'type='text' name='quantity_delivered_".$no."' id='quantity_delivered_".$no."' value='".$val['quantity']."' readonly/>  
+                                                    <input class='form-control' style='text-align:right;'type='text' name='quantity_delivered_".$no."' id='quantity_delivered_".$no."' value='".$val['quantity']."' readonly/>
 
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id_".$no."' id='sales_order_id_".$no."' value='".$item['sales_order_id']."'/>  
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id_".$no."' id='sales_order_item_id_".$no."' value='".$item['sales_order_item_id']."'/>  
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='customer_id_".$no."' id='customer_id_".$no."' value='".$item['customer_id']."'/>  
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id_".$no."' id='sales_order_id_".$no."' value='".$item['sales_order_id']."'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id_".$no."' id='sales_order_item_id_".$no."' value='".$item['sales_order_item_id']."'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='customer_id_".$no."' id='customer_id_".$no."' value='".$item['customer_id']."'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_id_".$no."' id='item_id_".$no."' value='".$item['item_id']."'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_id_".$no."' id='item_unit_id_".$no."' value='".$item['item_unit_id']."'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_price_".$no."' id='item_unit_price_".$no."' value='".$item['item_unit_price']."'/>
@@ -284,7 +284,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="card-footer text-muted">
             <div class="form-actions float-right">
                 <a href="{{route('edit-sales-delivery-note', ['sales_delivery_note_id' => $sales_delivery_note_id])}}" name='Reset' class='btn btn-danger' onClick='javascript:return confirm(\"apakah yakin ingin dihapus ?\")'><i class="fa fa-times"></i> Reset</a>
@@ -304,98 +304,98 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Kode Ekspedisi</a>
                             <input class="form-control input-bb" type="text" name="expedition_code" id="expedition_code" value=""/>
                         </div>
                     </div>
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nama Ekspedisi</a>
                             <input class="form-control input-bb" type="text" name="expedition_name" id="expedition_name" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Rute</a>
                             <input class="form-control input-bb" type="text" name="expedition_route" id="expedition_route" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">	
-                        <div class="form-group">	
+                    <div class="col-md-12">
+                        <div class="form-group">
                             <a class="text-dark">Alamat</a>
                             <input class="form-control input-bb" type="text" name="expedition_address" id="expedition_address" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nama Kota<a class='red'> *</a></a>
                             {!! Form::select('expedition_city',  $city, 0, ['class' => 'selection-search-clear select-form', 'id' => 'expedition_city']) !!}
                         </div>
                     </div>
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nomor Telepon</a>
                             <input class="form-control input-bb" type="text" name="expedition_home_phone" id="expedition_home_phone" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nomor handphone 1</a>
                             <input class="form-control input-bb" type="text" name="expedition_mobile_phone1" id="expedition_mobile_phone1" value=""/>
                         </div>
-                    </div>	
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nomor handphone 2</a>
                             <input class="form-control input-bb" type="text" name="expedition_mobile_phone2" id="expedition_mobile_phone2" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nomor Fax</a>
                             <input class="form-control input-bb" type="text" name="expedition_fax_number" id="expedition_fax_number" value=""/>
                         </div>
-                    </div>	
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Email</a>
                             <input class="form-control input-bb" type="text" name="expedition_email" id="expedition_email" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Person in Charge</a>
                             <input class="form-control input-bb" type="text" name="expedition_person_in_charge" id="expedition_person_in_charge" value=""/>
                         </div>
-                    </div>	
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Status<a class='red'> *</a></a>
                             {!! Form::select('expedition_status',  $status, 0, ['class' => 'selection-search-clear select-form', 'id' => 'expedition_status']) !!}
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">		
-                        <div class="form-group">		
+                    <div class="col-md-12">
+                        <div class="form-group">
                             <a class="text-dark">Keterangan</a>
                             <input class="form-control input-bb" type="text" name="expedition_remark" id="expedition_remark" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -408,9 +408,9 @@
 @stop
 
 @section('footer')
-    
+
 @stop
 
 @section('css')
-    
+
 @stop

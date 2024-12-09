@@ -2,7 +2,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 @section('js')
 <script>
     function elements_add(name, value){
@@ -15,7 +15,7 @@
                 'value'	    : value,
                 '_token'    : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 console.log(return_data);
             },
             error: function(data)
@@ -27,8 +27,8 @@
     }
 
 	function toRp(number) {
-		var number = number.toString(), 
-		rupiah = number.split('.')[0], 
+		var number = number.toString(),
+		rupiah = number.split('.')[0],
 		cents = (number.split('.')[1] || '') +'00';
 		rupiah = rupiah.split('').reverse().join('')
 			.replace(/(\d{3}(?!$))/g, '$1.')
@@ -46,11 +46,11 @@
         if(!elements['warehouse_id']){
             $("#warehouse_id").select2("val", "0");
         }
-        
+
         if(!elements['supplier_id']){
             $("#supplier_id").select2("val", "0");
         }
-        
+
         $("#item_category_id").select2("val", "0");
         $("#item_unit_id").select2("val", "0");
         $("#province_id").change(function(){
@@ -63,7 +63,7 @@
                         'province_id'	: province_id,
                         '_token'        : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
 					    $('#city_id').html(return_data);
                         console.log(return_data);
                     },
@@ -74,7 +74,7 @@
                     }
                 });
 
-		});    
+		});
         $("#item_category_id").change(function(){
 			var item_category_id 	= $("#item_category_id").val();
                 $.ajax({
@@ -85,7 +85,7 @@
                         'item_category_id'			    : item_category_id,
                         '_token'                        : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
 					    $('#item_type_id').html(return_data);
                         console.log(return_data);
                     },
@@ -96,7 +96,7 @@
                     }
                 });
 
-		});  
+		});
 
         $("#item_type_id").change(function(){
 			var item_type_id 	= $("#item_type_id").val();
@@ -108,7 +108,7 @@
                         'item_type_id'	: item_type_id,
                         '_token'    : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
 					$('#available_stock').val(return_data);
                         console.log(return_data);
                     },
@@ -117,7 +117,7 @@
                         console.log(data);
                     }
                 });
-		});   
+		});
 
         $("#item_type_id").change(function(){
 			var item_type_id 	= $("#item_type_id").val();
@@ -129,11 +129,11 @@
                         'item_type_id'	: item_type_id,
                         '_token'        : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
 					$('#item_unit_id').html(return_data);
                         console.log(return_data);
                     $("#item_unit_id").val(return_data);
-                        console.log(return_data);        
+                        console.log(return_data);
                     },
                     error: function(data)
                     {
@@ -142,7 +142,7 @@
                     }
                 });
 		});
-            
+
         $("#price").change(function(){
 			var price 	                    = $("#price").val();
 			var quantity 	                = $("#quantity").val();
@@ -158,7 +158,7 @@
             // }
 
 
-            
+
             var discount_percentage_item 	= $("#discount_percentage_item").val();
 			var total_price 	            = $("#total_price").val();
             var discount_item                = discount_percentage_item * 1/100;
@@ -173,7 +173,7 @@
             $("#subtotal_after_discount_item_view").val(toRp(total_price_after_discount_item));
 
 
-		});   
+		});
 
 
         $(document).ready(function(){
@@ -205,7 +205,7 @@
             console.log(total_price_after_discount_item);
             $("#subtotal_after_discount_item_view").val(toRp(total_price_after_discount_item));
 
-		}); 
+		});
     });
 
     //add discount
@@ -280,8 +280,8 @@
 		});
     });
 	});
-    
-    
+
+
     function processAddArrayPurchaseOrderItem(){
         var item_category_id	                = document.getElementById("item_category_id").value;
         var item_type_id		                = document.getElementById("item_type_id").value;
@@ -292,13 +292,13 @@
         var discount_percentage_item			= document.getElementById("discount_percentage_item").value;
         var discount_amount_item			    = document.getElementById("discount_amount_item").value;
 
-        
+
             $.ajax({
                 type: "POST",
                 url : "{{route('purchase-order-add-array')}}",
                 data: {
                     'item_category_id'	            : item_category_id,
-                    'item_type_id' 		            : item_type_id, 
+                    'item_type_id' 		            : item_type_id,
                     'item_unit_id' 		            : item_unit_id,
                     'quantity' 			            : quantity,
                     'price' 			            : price,
@@ -350,7 +350,7 @@
                 'supplier_remark'	        : supplier_remark,
                 '_token'                    : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 $('#supplier_id').html(return_data);
                 $('#cancel_btn_supplier').click();
             },
@@ -382,7 +382,7 @@
                 'warehouse_remark'      : warehouse_remark,
                 '_token'                : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 $('#warehouse_id').html(return_data);
                 $('#cancel_btn_warehouse').click();
             },
@@ -404,7 +404,7 @@
                 'item_category_name'	: item_category_name,
                 '_token'                : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 $('#item_category_id').html(return_data);
                 $('#modal_item_category_id').html(return_data);
                 $('#cancel-btn-category').click();
@@ -431,7 +431,7 @@
                 'item_type_expired_time'	: item_type_expired_time,
                 '_token'                    : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 $('#item_type_id').html(return_data);
                 $('#cancel-btn-type').click();
             },
@@ -459,7 +459,7 @@
                 'item_unit_remark'	            : item_unit_remark,
                 '_token'                        : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 $('#item_unit_id').html(return_data);
                 $('#cancel-btn-unit').click();
             },
@@ -474,7 +474,7 @@
 </script>
 @stop
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -560,7 +560,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <br/>
             <h4 class="text-dark"><b>Daftar Barang</b></h4>
             <hr/>
@@ -662,7 +662,7 @@
                 Daftar
             </h5>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -682,7 +682,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                                 @if(!is_array($purchaseorderitem))
                                     <tr><th colspan='8' style='text-align  : center !important;'>Data Kosong</th></tr>
                                 @else
@@ -702,17 +702,17 @@
                                                 <td style='text-align  : right !important;'>{{$val['discount_percentage']}} %</td>
                                                 <td style='text-align  : right !important;'>{{number_format($val['discount_amount'],2,',','.')}}</td>
                                                 <td style='text-align  : right !important;'>{{number_format($val['total_price'],2,',','.')}}</td>
-                                                
+
                                                 <td style='text-align  : center'>
                                                     <a href="{{route('purchase-order-delete-array', ['record_id' =>$key])}}" name='Reset' class='btn btn-danger btn-sm' onClick='javascript:return confirm(\"apakah yakin ingin dihapus ?\")'></i> Hapus</a>
                                                 </td>
-                                                
+
                                             </tr>
-                                            
+
                                         @php
                                             $no++;
                                             $total_price+=$val['total_price'];
-                                            $total_item+=$val['quantity'];    
+                                            $total_item+=$val['quantity'];
                                         @endphp
                                         @endforeach
                                         <th style='text-align  : center' colspan='2'>Total</th>
@@ -748,13 +748,13 @@
                                             <td></td>
                                         </tr>
                                 @endif
-                    
+
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        
+
         <div class="card-footer text-muted" style="margin-top: -1%">
             <div class="form-actions float-right">
                 <button type="reset" name="Reset" class="btn btn-danger btn-sm" onClick="window.location.reload();"><i class="fa fa-times"></i> Batal</button>
@@ -773,22 +773,22 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nama Pemasok</a>
                             <input class="form-control input-bb" type="text" name="supplier_name" id="supplier_name" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Provinsi<a class='red'> *</a></a>
                             {!! Form::select('province_id',  $coreprovince, 0, ['class' => 'selection-search-clear select-form', 'id' => 'province_id']) !!}
                         </div>
                     </div>
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Kota<a class='red'> *</a></a>
                             {!! Form::select('city_id',  $corecity, 0, ['class' => 'selection-search-clear select-form', 'id' => 'city_id']) !!}
                         </div>
@@ -803,68 +803,68 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Telp. Rumah</a>
                             <input class="form-control input-bb" type="text" name="supplier_home_phone" id="supplier_home_phone" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">No HP 1</a>
                             <input class="form-control input-bb" type="text" name="supplier_mobile_phone1" id="supplier_mobile_phone1" value=""/>
                         </div>
-                    </div>	
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">No HP 2</a>
                             <input class="form-control input-bb" type="text" name="supplier_mobile_phone2" id="supplier_mobile_phone2" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">No Fax</a>
                             <input class="form-control input-bb" type="text" name="supplier_fax_number" id="supplier_fax_number" value=""/>
                         </div>
-                    </div>	
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Email</a>
                             <input class="form-control input-bb" type="text" name="supplier_email" id="supplier_email" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Contact Person</a>
                             <input class="form-control input-bb" type="text" name="supplier_contact_person" id="supplier_contact_person" value=""/>
                         </div>
-                    </div>	
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nomor ID</a>
                             <input class="form-control input-bb" type="text" name="supplier_id_number" id="supplier_id_number" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">No Tax</a>
                             <input class="form-control input-bb" type="text" name="supplier_tax_no" id="supplier_tax_no" value=""/>
                         </div>
-                    </div>	
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Syarat Pembayaran</a>
                             <input class="form-control input-bb" type="text" name="supplier_payment_terms" id="supplier_payment_terms" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 ">
@@ -892,10 +892,10 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-12">		
+                    <div class="col-md-12">
                         <a class="text-dark">Kategori Barang</a>
                         <input class="form-control input-bb" type="text" name="item_category_name" id="item_category_name" value=""/>
-                    </div>	
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -915,26 +915,26 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nama Nama Barang</a>
                             <input class="form-control input-bb" type="text" name="item_type_name" id="item_type_name" value=""/>
                         </div>
-                    </div>	
-                    <div class="col-md-5">	
-                        <div class="form-group">	
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
                             <a class="text-dark">Kategori<a class='red'> *</a></a>
                             {!! Form::select('modal_item_category_id',  $itemcategory, 0, ['class' => 'selection-search-clear select-form', 'id' => 'modal_item_category_id']) !!}
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Waktu Kadaluarsa (hari)</a>
                             <input class="form-control input-bb" type="text" name="item_type_expired_time" id="item_type_expired_time" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -954,34 +954,34 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Kode Satuan Barang</a>
                             <input class="form-control input-bb" type="text" name="item_unit_code" id="item_unit_code" value=""/>
                         </div>
-                    </div>	
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nama Satuan Barang</a>
                             <input class="form-control input-bb" type="text" name="item_unit_name" id="item_unit_name" value=""/>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Default Quantity</a>
                             <input class="form-control input-bb" type="text" name="item_unit_default_quantity" id="item_unit_default_quantity" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Keterangan</a>
                             <input class="form-control input-bb" type="text" name="item_unit_remark" id="item_unit_remark" value=""/>
                         </div>
-                    </div>		
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -1001,18 +1001,18 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Kode Gudang</a>
                             <input class="form-control input-bb" type="text" name="warehouse_code" id="warehouse_code" value=""/>
                         </div>
-                    </div>	
+                    </div>
                     <div class="col-md-6">
-                        <div class="form-group">	
+                        <div class="form-group">
                             <a class="text-dark">Nama Gudang</a>
                             <input class="form-control input-bb" type="text" name="warehouse_name" id="warehouse_name" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 ">
@@ -1023,14 +1023,14 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Lokasi<a class='red'> *</a></a>
                             {!! Form::select('warehouse_location_id',  $location, 0, ['class' => 'selection-search-clear select-form', 'id' => 'warehouse_location_id']) !!}
                         </div>
                     </div>
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">No Telp</a>
                             <input class="form-control input-bb" type="text" name="warehouse_phone" id="warehouse_phone" value=""/>
                         </div>
@@ -1060,5 +1060,5 @@
 @stop
 
 @section('css')
-    
+
 @stop

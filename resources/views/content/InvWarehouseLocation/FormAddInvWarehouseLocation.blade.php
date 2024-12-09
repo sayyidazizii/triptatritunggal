@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 @section('js')
 <script>
 	$(document).ready(function(){
@@ -16,7 +16,7 @@
                         'province_id'	: province_id,
                         '_token'        : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
 					    $('#city_id').html(return_data);
                         // console.log(return_data);
                     },
@@ -32,7 +32,7 @@
 </script>
 @stop
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -114,5 +114,5 @@
 @stop
 
 @section('css')
-    
+
 @stop

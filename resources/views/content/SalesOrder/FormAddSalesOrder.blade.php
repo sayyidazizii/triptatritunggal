@@ -2,7 +2,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 @section('js')
 <script>
     function elements_add(name, value){
@@ -15,7 +15,7 @@
                 'value'	    : value,
                 '_token'    : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 console.log(return_data);
             },
             error: function(data)
@@ -27,8 +27,8 @@
     }
 
 	function toRp(number) {
-		var number = number.toString(), 
-		rupiah = number.split('.')[0], 
+		var number = number.toString(),
+		rupiah = number.split('.')[0],
 		cents = (number.split('.')[1] || '') +'00';
 		rupiah = rupiah.split('').reverse().join('')
 			.replace(/(\d{3}(?!$))/g, '$1.')
@@ -37,7 +37,7 @@
 	}
 
 	$(document).ready(function(){
-        
+
 
         var elements = {!! json_encode($salesorderelements) !!};
 
@@ -49,7 +49,7 @@
             $("#warehouse_id").select2("val", "0");
         }
 
-        
+
         if(!elements['customer_id']){
             $("#customer_id").select2("val", "0");
         }
@@ -67,7 +67,7 @@
                         'sales_quotation_id'			: sales_quotation_id,
                         '_token'                        : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
 					    $('#item_stock_id').html(return_data);
                         console.log(return_data);
                     },
@@ -77,9 +77,9 @@
                     }
                 });
 
-		}); 
+		});
 
-        
+
         if(!elements['sales_order_type_id']){
             $("#sales_order_type_id").select2("val", "0");
             document.getElementById("receipt-image").style.visibility = "hidden";
@@ -133,7 +133,7 @@
             $("#total_price_after_ppn_amount").val(total_price_after_ppn_amount);
             $("#ppn_amount_item").val(ppn_amount_item);
             console.log(ppn_amount_item);
-		});   
+		});
 
         $(document).ready(function(){
             var price 	    = 0;
@@ -144,7 +144,7 @@
             $("#total_price").val(total_price);
             $("#total_price_view").val(toRp(total_price));
 
-            
+
         $("#quantity").change(function(){
 			var price 	    = $("#price").val();
 			var quantity 	= $("#quantity").val();
@@ -174,9 +174,9 @@
             $("#total_price_after_ppn_amount").val(total_price_after_ppn_amount);
             $("#ppn_amount_item").val(ppn_amount_item);
             console.log(ppn_amount_item);
-            
-		});  
-    });    
+
+		});
+    });
 
         $("#province_id").change(function(){
 			var province_id 	= $("#province_id").val();
@@ -188,7 +188,7 @@
                         'province_id'	: province_id,
                         '_token'        : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
 					$('#city_id').html(return_data);
                         console.log(return_data);
                     },
@@ -199,7 +199,7 @@
                     }
                 });
 
-		}); 
+		});
 
         $("#item_stock_id").change(function(){
 			var item_stock_id 	= $("#item_stock_id").val();
@@ -211,9 +211,9 @@
                         'item_stock_id'	: item_stock_id,
                         '_token'        : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
 					$('#item_type_id').val(return_data);
-                        console.log(return_data);       
+                        console.log(return_data);
                     },
                     error: function(data)
                     {
@@ -222,7 +222,7 @@
                     }
                 });
 		});
-        
+
         $("#item_stock_id").change(function(){
 			var item_stock_id 	= $("#item_stock_id").val();
                 $.ajax({
@@ -233,7 +233,7 @@
                         'item_stock_id'	: item_stock_id,
                         '_token'    : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
 					$('#available_stock').val(return_data);
                         console.log(return_data);
                     },
@@ -242,7 +242,7 @@
                         console.log(data);
                     }
                 });
-		});   
+		});
 
         $("#item_stock_id").change(function(){
 			var item_stock_id 	= $("#item_stock_id").val();
@@ -254,7 +254,7 @@
                         'item_stock_id'	: item_stock_id,
                         '_token'    : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
 					$('#price').val(return_data);
                         console.log(return_data);
                     },
@@ -263,9 +263,9 @@
                         console.log(data);
                     }
                 });
-		});  
+		});
 
-       
+
 
         $("#item_stock_id").change(function(){
 			var item_stock_id 	= $("#item_stock_id").val();
@@ -277,9 +277,9 @@
                         'item_stock_id'	: item_stock_id,
                         '_token'        : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
 					$('#item_unit_id').html(return_data);
-                        console.log(return_data);       
+                        console.log(return_data);
                     },
                     error: function(data)
                     {
@@ -351,7 +351,7 @@
 			var total_price 	                            = $("#total_price").val();
             var ppn_out_percentage 	                        = $("#ppn_out_percentage").val();
             var discount_amount_item_text                   = $("#discount_amount_item").val();
-            
+
             var discount_item                               = discount_percentage_item * 1/100;
             var ppn_item                                    = ppn_out_percentage * 1/100;
             var discount_amount_item                        = discount_item * total_price;
@@ -389,9 +389,9 @@
             var discount                            = discount_percentage * 1/100;
             var discount_amount                     = discount * total_price_all;
             var total_price_after_discount	        = total_price_all - discount_amount;
-            
 
-    
+
+
             var ppn_out_amount                      = 0;
             var total_price_after_ppn_out           = Number(total_price_after_discount) + ppn_out_amount;
 
@@ -407,7 +407,7 @@
             $("#ppn_out_amount").val(ppn_out_amount);
             console.log(ppn_out_amount);
             $("#ppn_out_amount_view").val(toRp(ppn_out_amount));
-            
+
 
 
             $("#subtotal_after_ppn_out").val(total_price_after_ppn_out);
@@ -423,9 +423,9 @@
             var discount                            = discount_percentage * 1/100;
             var discount_amount                     = discount * total_price_all;
             var total_price_after_discount	        = total_price_all - discount_amount;
-            
 
-    
+
+
             var ppn_out_amount                      = 0;
             var total_price_after_ppn_out           = Number(total_price_after_discount) + ppn_out_amount;
 
@@ -441,7 +441,7 @@
             $("#ppn_out_amount").val(ppn_out_amount);
             console.log(ppn_out_amount);
             $("#ppn_out_amount_view").val(toRp(ppn_out_amount));
-            
+
 
 
             $("#subtotal_after_ppn_out").val(total_price_after_ppn_out);
@@ -449,7 +449,7 @@
             $("#subtotal_after_ppn_out_view").val(toRp(total_price_after_ppn_out));
 
 		});
-        
+
     });
 
     $(document).ready(function(){
@@ -461,9 +461,9 @@
             var discount                            = discount_percentage * 1/100;
             var discount_amount                     = discount * total_price_all;
             var total_price_after_discount	        = total_price_all - discount_amount;
-            
 
-    
+
+
             var ppn_out_amount                      = 0;
             var total_price_after_ppn_out           = Number(total_price_after_discount) + ppn_out_amount;
 
@@ -479,7 +479,7 @@
             $("#ppn_out_amount").val(ppn_out_amount);
             console.log(ppn_out_amount);
             $("#ppn_out_amount_view").val(toRp(ppn_out_amount));
-            
+
 
 
             $("#subtotal_after_ppn_out").val(total_price_after_ppn_out);
@@ -499,9 +499,9 @@
             var discount                            = discount_percentage * 1/100;
             var discount_amount                     = discount * total_price_all;
             var total_price_after_discount	        = total_price_all - discount_amount;
-            
 
-    
+
+
             var ppn_out_amount                      = 0;
             var total_price_after_ppn_out           = Number(total_price_after_discount) + ppn_out_amount;
 
@@ -517,7 +517,7 @@
             $("#ppn_out_amount").val(ppn_out_amount);
             console.log(ppn_out_amount);
             $("#ppn_out_amount_view").val(toRp(ppn_out_amount));
-            
+
 
 
             $("#subtotal_after_ppn_out").val(total_price_after_ppn_out);
@@ -548,7 +548,7 @@
             url : "{{route('sales-order-add-array')}}",
             data: {
                 'item_category_id'              : item_category_id,
-                'item_type_id'                  : item_type_id, 
+                'item_type_id'                  : item_type_id,
                 'item_unit_id'                  : item_unit_id,
                 'item_stock_id' 		        : item_stock_id,
                 'quantity' 			            : quantity,
@@ -574,10 +574,10 @@
 
     $(document).ready(function(){
         var item_type_id = {!! json_encode($null_item_type_id) !!};
-        
+
     });
 
-    
+
 
 </script>
 @stop
@@ -665,7 +665,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <h4 class="text-dark" style="margin-top: 3%;"><b>Daftar Barang</b></h4>
             <hr/>
             <div class="row form-group">
@@ -775,7 +775,7 @@
                 Daftar
             </h5>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -797,7 +797,7 @@
                         <tbody>
                             @if(!is_array($salesorderitem))
                                 <tr><th colspan='11' style='text-align  : center !important;'>Data Kosong</th></tr>
-                            @else 
+                            @else
                             @php
                                 $no =1;
                                 $total_price = 0;
@@ -809,7 +809,7 @@
                                             <td style='text-align  : center'>{{$no}}</td>
                                             <td style='text-align  : left !important;'>{{$SalesOrder->getItemTypeName($val['item_type_id'])}}</td>
                                             <td style='text-align  : right !important;'>{{$val['quantity']}}</td>
-                                            
+
                                             <td style='text-align  : left !important;'>{{$SalesOrder->getItemUnitName($val['item_unit_id'])}}</td>
                                             <td style='text-align  : right !important;'>{{number_format($val['price'],2,',','.')}}</td>
                                             <td style='text-align  : right !important;'>{{number_format($val['discount_amount_item'],2,',','.')}}</td>
@@ -819,15 +819,15 @@
                                             <td style='text-align  : center'>
                                                 <a href="{{route('sales-order-delete-array', ['record_id' => $key])}}" name='Reset' class='btn btn-danger btn-sm' onClick='javascript:return confirm(\"apakah yakin ingin dihapus ?\")'></i> Hapus</a>
                                             </td>
-                                            
-                                            
+
+
                                         </tr>
                                     @php
                                         $no++;
                                         $total_price_after_discount_item += $val['total_price_after_ppn_amount'];
                                         $total_item+=$val['quantity'];
                                     @endphp
-                                    
+
                                 @endforeach
 
                                 <th style='text-align  : center' colspan='2'>Total</th>
@@ -888,7 +888,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="card-footer text-muted">
             <div class="form-actions float-right">
                 <button type="reset" name="Reset" class="btn btn-danger btn-sm" onClick="window.location.reload();"><i class="fa fa-times"></i> Batal</button>

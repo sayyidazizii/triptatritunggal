@@ -2,7 +2,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 @section('js')
     <script>
         function toRp(number) {
@@ -33,7 +33,7 @@
                 'sales_collection_piece_remark'         : sales_collection_piece_remark,
                 '_token'                                : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 window.location.replace('http://127.0.0.1:8000/sales-collection-piece');
                 console.log(data);
             },
@@ -59,7 +59,7 @@
                 'sales_collection_piece_id'      : sales_collection_piece_id,
                 '_token'                   : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 window.location.reload();
                 console.log(data);
             },
@@ -69,7 +69,7 @@
 
             }
         });
-       
+
     }
 
 
@@ -113,7 +113,7 @@
             @csrf
             <div class="card-body">
                 <div class="row form-group">
-                
+
                     <input class="form-control input-bb" type="hidden" name="sales_invoice_id"
                     id="sales_invoice_id"
                     value="{{ $salesinvoice['sales_invoice_id'] }}" readonly />
@@ -152,7 +152,7 @@
                         </div>
                     </div>
                 </div>
-               
+
             </div>
     </div>
 
@@ -196,7 +196,7 @@
                                     if($item->sales_collection_piece_type_id == 2){
                                       $claim = 'biasa';
                                     }
-                                @endphp   
+                                @endphp
                                 <td>{{ $claim }}</td>
                                 <td style='text-align  : right !important;'>
                                     {{number_format(($item['total_amount_after_piece'] ), 2)}}</td>
@@ -211,7 +211,7 @@
                         @endforeach
                         </tbody>
                     </table>
-                  
+
                 </div>
             </div>
         </div>

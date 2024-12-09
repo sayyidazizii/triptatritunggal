@@ -3,10 +3,10 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -23,7 +23,7 @@
 <div class="alert alert-info" role="alert">
     {{session('msg')}}
 </div>
-@endif 
+@endif
 <div class="card border border-dark">
     <div class="card-header bg-dark clearfix">
         <h5 class="mb-0 float-left">
@@ -64,7 +64,7 @@
                     <br/>
                     {!! Form::select('supplier_id',  $coreSupplier, null, ['class' => 'selection-search-clear select-form']) !!}
                 </div>
-            </div>	
+            </div>
         </div>
     </div>
     <div class="card-footer text-muted">
@@ -74,7 +74,7 @@
         </div>
     </div>
 </form>
-    
+
     <div class="card-body">
         <table class="table table-striped table-bordered table-hover table-full-width">
             <thead>
@@ -101,8 +101,8 @@
                         </tr>
                     ";
                 }else{
-                    foreach ($purchaseorderreturn as $key=>$val){	
-                      
+                    foreach ($purchaseorderreturn as $key=>$val){
+
                         $amount = $val['quantity_return'] * $PORR->getCost($val['purchase_order_item_id']);
                         $jumlah = $amount - $PORR->getDiscountAmount($val['purchase_order_item_id']);
                         $total += $jumlah;
@@ -120,7 +120,7 @@
                         </tr>
                     ";
                     $no++;
-                        
+
                     }
                     echo "
                         <tr>
@@ -152,9 +152,9 @@
 @stop
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
+
 @stop

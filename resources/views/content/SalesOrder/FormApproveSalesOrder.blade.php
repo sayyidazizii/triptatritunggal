@@ -2,12 +2,12 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 @section('js')
 <script>
 	function toRp(number) {
-		var number = number.toString(), 
-		rupiah = number.split('.')[0], 
+		var number = number.toString(),
+		rupiah = number.split('.')[0],
 		cents = (number.split('.')[1] || '') +'00';
 		rupiah = rupiah.split('').reverse().join('')
 			.replace(/(\d{3}(?!$))/g, '$1.')
@@ -25,7 +25,7 @@
                 'sales_order_id'	: sales_order_id,
                 '_token'            : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 window.location.href = "{{route('sales-order-approval')}}"
             },
             error: function(data)
@@ -37,7 +37,7 @@
 </script>
 @stop
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -118,7 +118,7 @@
                 Daftar
             </h5>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -140,7 +140,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                                 @if(count($salesorderitem)<1)
                                     <tr><th colspan='9' style='text-align  : center !important;'>Data Kosong</th></tr>
                                 @else
@@ -167,9 +167,9 @@
                                                 <td style='text-align  : right !important;'>{{$val['discount_percentage_item_b']}}</td>
                                                 <td style='text-align  : right !important;'>{{number_format($val['discount_amount_item_b'],2,',','.')}}</td>
                                                 <td style='text-align  : right !important;'>{{number_format($val['subtotal_after_discount_item_b'],2,',','.')}}</td>
-                                    
+
                                             </tr>
-                                        
+
                                         @php
                                             $no++;
                                             $total_discount_amount += $SalesOrder->getDiscountNota($val['sales_order_id']);
@@ -202,14 +202,14 @@
                                             <td colspan='8  '></td>
                                             <td style='text-align  : right'><b>{{number_format($SalesOrder->getAmountAfterPPN_Out($val['sales_order_id']),2,',','.')}}</b></td>
                                         </tr>
-                                        
+
                                     @endif
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        
+
         <div class="card-footer text-muted">
             <div class="form-actions float-right">
                 <a name="disapprove" class="btn btn-danger btn-sm" title="disapprove" onclick="disapprove()"><i class="fa fa-times"></i> Disapprove</a>
@@ -227,5 +227,5 @@
 @stop
 
 @section('css')
-    
+
 @stop
