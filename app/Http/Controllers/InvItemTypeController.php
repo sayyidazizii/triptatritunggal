@@ -44,7 +44,7 @@ class InvItemTypeController extends Controller
     {
         // $acctaccountcode    = AcctAccount::select('account_id', DB::raw('CONCAT(account_code, " - ", account_name) AS full_name'))
         // ->where('acct_account.data_state','=','0')
-        // ->where('parent_account_status', 0)
+        // ->where('parent_account_status', 0)update
         // ->get()
         // ->pluck('full_name','account_id');
 
