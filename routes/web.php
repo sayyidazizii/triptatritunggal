@@ -453,6 +453,9 @@ Route::post('/sales-quotation/quotation-elements-add', [SalesQuotationController
 Route::post('/sales-quotation/quotation-type', [SalesQuotationController::class, 'getInvItemTypeQuotation'])->name('sales-quotation-type');
 Route::post('/sales-quotation/quotation-stock', [SalesQuotationController::class, 'getInvItemTypeIdQuotation'])->name('select-quotation-id-stock');
 Route::get('/sales-quotation/export/{sales_quotation_id}', [SalesQuotationController::class, 'export'])->name('select-quotation-export');
+Route::post('/sales-quotation/select-data-unit-quotation', [SalesQuotationController::class, 'getSelectDataUnit'])->name('select-data-unit-quotation');
+Route::post('/sales-quotation/available-stock-sales-quotation', [SalesQuotationController::class, 'getAvailableStock'])->name('available-stock-sales-quotation');
+
 
 Route::get('/sales-quotation-approval', [SalesQuotationApprovalController::class, 'index'])->name('sales-quotation-approval');
 Route::get('/sales-quotation-approval/approve/{sales_quotation_id}', [SalesQuotationApprovalController::class, 'approveSalesquotation'])->name('approve-sales-quotation-approval');
@@ -481,7 +484,7 @@ Route::post('/sales-order/type', [SalesOrderController::class, 'getInvItemType']
 Route::post('/sales-order/stock', [SalesOrderController::class, 'getInvItemTypeId'])->name('select-id-stock');
 Route::get('/sales-order/search-sales-quotation', [SalesOrderController::class, 'searchSalesQuotation'])->name('search-sales-quotation');
 
-    
+
 Route::get('/sales-order-approval', [SalesOrderApprovalController::class, 'index'])->name('sales-order-approval');
 Route::get('/sales-order-approval/approve/{sales_order_id}', [SalesOrderApprovalController::class, 'approveSalesorder'])->name('approve-sales-order-approval');
 Route::post('/sales-order-approval/process-approve', [SalesOrderApprovalController::class, 'processApproveSalesOrder'])->name('process-approve-sales-order');

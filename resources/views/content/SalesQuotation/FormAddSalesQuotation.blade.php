@@ -68,7 +68,7 @@
                     },
                     success: function(return_data){
 					$('#item_stock_id').html(return_data);
-                        console.log(return_data);
+                        // console.log(return_data);
                     },
                     error: function(data)
                     {
@@ -221,7 +221,7 @@
 			var item_stock_id 	= $("#item_stock_id").val();
                 $.ajax({
                     type: "POST",
-                    url : "{{route('available-stock-sales-order')}}",
+                    url : "{{route('available-stock-sales-quotation')}}",
                     dataType: "html",
                     data: {
                         'item_stock_id'	: item_stock_id,
@@ -265,7 +265,7 @@
 			var item_stock_id 	= $("#item_stock_id").val();
                 $.ajax({
                     type: "POST",
-                    url : "{{route('select-data-unit')}}",
+                    url : "{{route('select-data-unit-quotation')}}",
                     dataType: "html",
                     data: {
                         'item_stock_id'	: item_stock_id,

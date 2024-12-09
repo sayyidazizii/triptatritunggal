@@ -65,7 +65,7 @@ class SalesQuotationController extends Controller
     public function addSalesQuotation(){
         $salesquotationelements  = Session::get('salesquotationelements');
         $salesquotationitem      = Session::get('salesquotationitem');
-        
+
         $invitemtype = InvItemType::where('inv_item_type.data_state','=',0)
         ->select('*')
         ->join('inv_item_category', 'inv_item_category.item_category_id', 'inv_item_type.item_category_id')
@@ -96,7 +96,7 @@ class SalesQuotationController extends Controller
             'total_price_all'                => 'required',
         ];
 
-        
+
         $validatedData = $request->validate($validationRules);
 
 
@@ -184,9 +184,9 @@ class SalesQuotationController extends Controller
             array_push($lastsalesquotationitem, $salesquotationitem);
             Session::push('salesquotationitem', $salesquotationitem);
         }
-        
+
         Session::put('editarraystate', 1);
-        
+
         return redirect('/sales-quotation/add');
     }
 
@@ -224,13 +224,12 @@ class SalesQuotationController extends Controller
     {
         $item_category_id = $request->item_category_id;
         $data = '';
-        
+
         $type = InvItemType::select('*')
         ->where('inv_item_type.data_state','=',0)
         ->join('inv_item_category', 'inv_item_category.item_category_id', 'inv_item_type.item_category_id')
         ->join('inv_item_stock', 'inv_item_type.item_type_id', 'inv_item_stock.item_type_id')
         ->where('inv_item_stock.item_category_id', $item_category_id)
-        ->where('inv_item_stock.warehouse_id', 6)
         ->get();
 
         $data .= "<option value=''>--Choose One--</option>";
@@ -245,11 +244,10 @@ class SalesQuotationController extends Controller
     {
         $item_stock_id = $request->item_stock_id;
         // $data = '';
-        
+
         $type = InvItemStock::select('*')
         ->where('inv_item_stock.data_state','=',0)
         ->where('inv_item_stock.item_stock_id', $item_stock_id)
-        ->where('inv_item_stock.warehouse_id', 6)
         ->first();
 
         return $type['item_type_id'];
@@ -294,7 +292,7 @@ class SalesQuotationController extends Controller
         $sheet->mergeCells("B2:D2");
         $sheet->setCellValue("B2", "PT. TRIPTA TRI TUNGGAL");
         $sheet->getStyle("B2")->getFont()->setBold(true)->setSize(16);
-        
+
         $sheet->mergeCells("B3:D3");
         $sheet->setCellValue("B3", "SERVING BETTER");
 
@@ -394,4 +392,82 @@ class SalesQuotationController extends Controller
         exit;
     }
 
+    public function getSelectDataUnit(Request $request){
+
+        $item_stock_id  = $request->item_stock_id;
+        $item_type_id   = InvItemStock::select('*')
+        ->where('inv_item_stock.data_state','=',0)
+        ->where('inv_item_stock.item_stock_id', $item_stock_id)
+        // ->where('inv_item_stock.warehouse_id', 6)
+        ->first();
+
+        $inv_item_type= InvItemType::where('item_type_id', $item_type_id['item_type_id'])
+        ->first();
+
+        $data= '';
+
+        if($inv_item_type != null){
+            $unit1 = InvItemType::select('inv_item_type.item_unit_1','inv_item_unit.*')
+            ->join('inv_item_unit', 'inv_item_unit.item_unit_id', '=', 'inv_item_type.item_unit_1')
+            ->where('inv_item_type.item_unit_1', $inv_item_type['item_unit_1'])
+            // ->where('inv_item_type.item_unit_2', $inv_item_type['item_unit_2'])
+            // ->where('inv_item_type.item_unit_3', $inv_item_type['item_unit_3'])
+            ->first();
+
+            // return $unit1;
+            $unit2 = InvItemType::select('inv_item_type.item_unit_2','inv_item_unit.*')
+            ->join('inv_item_unit', 'inv_item_unit.item_unit_id', '=', 'inv_item_type.item_unit_2')
+            ->where('inv_item_type.item_unit_2', $inv_item_type['item_unit_2'])
+            ->first();
+
+            $unit3 = InvItemType::select('inv_item_type.item_unit_3','inv_item_unit.*')
+            ->join('inv_item_unit', 'inv_item_unit.item_unit_id', '=', 'inv_item_type.item_unit_3')
+            ->where('inv_item_type.item_unit_3', $inv_item_type['item_unit_3'])
+            ->first();
+
+
+        $array = [];
+        if($unit1){
+            array_push($array, $unit1);
+        }
+        if($unit2){
+            array_push($array, $unit2);
+        }
+        if($unit3){
+            array_push($array, $unit3);
+        }
+        // $unit = array_merge($unit1, $unit2);
+        // $unit4 = array_merge($unit, $unit3);
+
+
+        $data .= "<option value=''>--Choose One--</option>";
+        foreach ($array as $val){
+            print_r($val['item_unit_id']);
+
+            $data .= "<option value='$val[item_unit_id]'>$val[item_unit_name]</option>\n";
+        }
+        return $data;
+        }
+    }
+
+    public function getAvailableStock(Request $request){
+        $item_stock_id    = $request->item_stock_id;
+        $available_stock = 0;
+
+        $itemstock  = InvItemStock::where('inv_item_stock.data_state', 0)
+        ->where('inv_item_stock.item_stock_id', $item_stock_id)
+        ->sum('quantity_unit');
+
+        $itemunitsecond = InvItemStock::join('inv_item_unit', 'inv_item_stock.item_unit_id', '=', 'inv_item_unit.item_unit_id')
+        ->where('inv_item_stock.item_stock_id', $item_stock_id)
+        ->first();
+
+        if($itemstock == null){
+            $return_data =  'kosong';
+            return $return_data;
+        }else{
+            $return_data =  $itemstock . ' ' .  $itemunitsecond['item_unit_name'];
+            return $return_data;
+        }
+    }
 }

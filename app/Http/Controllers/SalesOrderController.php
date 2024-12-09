@@ -50,15 +50,15 @@ class SalesOrderController extends Controller
     {
         $start_date = Session::get('start_date', date('Y-m-d'));
         $end_date = Session::get('end_date', date('Y-m-d'));
-    
+
         Session::put('editarraystate', 0);
         Session::forget('salesorderitem');
         Session::forget('salesorderelements');
-    
+
         $salesorder = SalesOrder::where('data_state','=', 0)
             ->whereBetween('sales_order_date', [$start_date, $end_date])
             ->get();
-    
+
         return view('content/SalesOrder/ListSalesOrder', compact('salesorder', 'start_date', 'end_date'));
     }
 
@@ -71,7 +71,7 @@ class SalesOrderController extends Controller
         ->where('approved', 1)
         ->get();
 
-        return view('content/SalesOrder/FormSearchSalesOrder',compact('salesquotation')); 
+        return view('content/SalesOrder/FormSearchSalesOrder',compact('salesquotation'));
     }
 
     public function addSalesOrder($sales_quotation_id)
@@ -90,7 +90,7 @@ class SalesOrderController extends Controller
 
         // Ambil item_category_id dari SalesQuotationItem
         $itemCategoryIds = $salesquotationitem->pluck('item_category_id');
-        
+
         // Ambil kategori barang berdasarkan kategori yang diambil dari SalesQuotationItem
         $itemcategory       = InvItemCategory::where('data_state', 0)->whereIn('item_category_id', $itemCategoryIds)->pluck('item_category_name', 'item_category_id');
         $itemunit           = InvItemUnit::where('data_state','=',0)->pluck('item_unit_name', 'item_unit_id');
@@ -112,7 +112,7 @@ class SalesOrderController extends Controller
         $salesorder= SalesOrder::where('data_state',0)
         ->where('sales_order_id', $sales_order_id)
         ->first();
-        
+
         $invitem = InvItem::select('inv_item.item_id', DB::raw('CONCAT(inv_item_category.item_category_name, " ", inv_item_type.item_type_name, " ", core_grade.grade_name) AS item_name'))
         ->join('inv_item_category', 'inv_item_category.item_category_id', 'inv_item.item_category_id')
         ->join('inv_item_type', 'inv_item_type.item_type_id', 'inv_item.item_type_id')
@@ -137,7 +137,7 @@ class SalesOrderController extends Controller
                     'price'	                => $val['item_unit_cost'],
                     'total_price'	        => $val['subtotal_amount'],
                 );
-    
+
                 $lastsalesorderitem= Session::get('salesorderitem');
                 if($lastsalesorderitem!== null){
                     array_push($lastsalesorderitem, $salesorderitem);
@@ -150,7 +150,7 @@ class SalesOrderController extends Controller
 
             }
         }
-        
+
         $salesorderitem = Session::get('salesorderitem');
 
         $warehouse = InvWarehouse::where('data_state','=',0)->pluck('warehouse_name', 'warehouse_id');
@@ -190,9 +190,9 @@ class SalesOrderController extends Controller
         $salesorderelements[$request->name] = $request->value;
         Session::put('salesorderelements', $salesorderelements);
     }
-    
+
     public function processAddArraySalesOrderItem(Request $request)
-    {   
+    {
         try {
             $fields = $request->validate([
                 'item_category_id'              => 'required',
@@ -227,9 +227,9 @@ class SalesOrderController extends Controller
                 array_push($lastsalesorderitem, $salesorderitem);
                 Session::push('salesorderitem', $salesorderitem);
             }
-            
+
             Session::put('editarraystate', 1);
-        
+
             return redirect()->route('add-sales-order', ['sales_quotation_id' => $request->sales_quotation_id]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             // Print validation errors for debugging
@@ -241,7 +241,7 @@ class SalesOrderController extends Controller
     {
         $arrayBaru			= array();
         $dataArrayHeader	= Session::get('salesorderitem');
-        
+
         foreach($dataArrayHeader as $key=>$val){
             if($key != $record_id){
                 $arrayBaru[$key] = $val;
@@ -257,7 +257,7 @@ class SalesOrderController extends Controller
     {
         $salesorder = SalesOrder::findOrFail($sales_order_id);
         $salesorder->data_state = 1;
-        
+
         if($salesorder->save()){
             $msg = 'Hapus Sales Order Berhasil';
             return redirect('/sales-order')->with('msg',$msg);
@@ -397,7 +397,7 @@ class SalesOrderController extends Controller
             'total_item_all'                 => 'required',
             'total_price_all'                => 'required',
         ];
-        
+
         $validatedData = $request->validate($validationRules);
         $fileNameToStore = '';
 
@@ -416,7 +416,7 @@ class SalesOrderController extends Controller
             // Upload Image
             $path = $request->file('receipt_image')->storeAs('public/receipt',$fileNameToStore);
         }
-        
+
         try {
             DB::beginTransaction();
 
@@ -440,12 +440,12 @@ class SalesOrderController extends Controller
                 'receipt_image'              => $fileNameToStore,
                 'branch_id'                  => Auth::user()->branch_id,
             );
-    
+
             SalesOrder::create($salesorder);
 
                 $sales_order_id = SalesOrder::orderBy('created_at','DESC')->first();
                 $salesorderitem = Session::get('salesorderitem');
-                
+
                 foreach ($salesorderitem AS $key => $val){
                     $datasalesorderitem = array (
                         'sales_order_id'                => $sales_order_id['sales_order_id'],
@@ -461,13 +461,13 @@ class SalesOrderController extends Controller
                         'subtotal_after_discount_item_a'=> $val['subtotal_after_discount_item_a'],
                         'ppn_amount_item'               => $val['ppn_amount_item'],
                         'total_price_after_ppn_amount'  => $val['total_price_after_ppn_amount'],
-    
+
                     );
                     SalesOrderItem::create($datasalesorderitem);
                 }
-                
+
                 $msg = 'Tambah Sales Order Berhasil';
-                
+
             DB::commit();
                 return redirect('/sales-order')->with('msg',$msg);
         }catch (\Exception $e) {
@@ -495,7 +495,7 @@ class SalesOrderController extends Controller
         $customer_remark            = $request->customer_remark;
         $data='';
 
-        $corecustomer = CoreCustomer::create([  
+        $corecustomer = CoreCustomer::create([
             'customer_name'             => $customer_name,
             'province_id'               => $province_id,
             'city_id'                   => $city_id,
@@ -518,7 +518,7 @@ class SalesOrderController extends Controller
 
         $data .= "<option value=''>--Choose One--</option>";
         foreach ($customer as $mp){
-            $data .= "<option value='$mp[customer_id]'>$mp[customer_name]</option>\n";	
+            $data .= "<option value='$mp[customer_id]'>$mp[customer_name]</option>\n";
         }
 
         return $data;
@@ -526,14 +526,14 @@ class SalesOrderController extends Controller
 
     public function kwitansiSalesOrder($sales_order_id){
         $salesorder = SalesOrder::findOrFail($sales_order_id);
-        
+
         return response()->download(
             storage_path('app/public/receipt/'.$salesorder['receipt_image']),
             'kwitansi_'.$salesorder['sales_order_id'].'.png',
         );
     }
 
-        public function getAvailableStock(Request $request){
+    public function getAvailableStock(Request $request){
             $item_stock_id    = $request->item_stock_id;
             $available_stock = 0;
 
@@ -553,7 +553,7 @@ class SalesOrderController extends Controller
                 $return_data =  $itemstock . ' ' .  $itemunitsecond['item_unit_name'];
                 return $return_data;
             }
-        }
+    }
 
         public function getItemUnitPrice(Request $request){
             $item_stock_id    = $request->item_stock_id;
@@ -580,16 +580,16 @@ class SalesOrderController extends Controller
             $sales_quotation_id = $request->sales_quotation_id;
 
             $data = '';
-        
+
             // Ambil SalesQuotationItem yang relevan berdasarkan sales_quotation_id
             $salesquotationitem = SalesQuotationItem::where('data_state', 0)
                 ->where('sales_quotation_id', $sales_quotation_id)
                 ->get();
-        
+
             // Ambil item_type_id dari SalesQuotationItem
             $itemTypeIds = $salesquotationitem->pluck('item_type_id');
-            
-        
+
+
             // Ambil item types berdasarkan kategori dan item_type_id yang ada di SalesQuotationItem
             $type = InvItemType::select('*')
                 ->where('inv_item_type.data_state', '=', 0)
@@ -607,13 +607,13 @@ class SalesOrderController extends Controller
             }
             return $data;
         }
-        
+
 
         public function getInvItemTypeId(Request $request)
         {
             $item_stock_id = $request->item_stock_id;
             // $data = '';
-            
+
             $type = InvItemStock::select('*')
             ->where('inv_item_stock.data_state','=',0)
             ->where('inv_item_stock.item_stock_id', $item_stock_id)
@@ -640,7 +640,7 @@ class SalesOrderController extends Controller
 
         $data .= "<option value=''>--Choose One--</option>";
         foreach ($stock as $val){
-            $data .= "<option value='$val[item_stock_id]'>$val[item_name]</option>\n";	
+            $data .= "<option value='$val[item_stock_id]'>$val[item_name]</option>\n";
         }
         return $data;
     }
@@ -656,7 +656,7 @@ class SalesOrderController extends Controller
 
         $inv_item_type= InvItemType::where('item_type_id', $item_type_id['item_type_id'])
         ->first();
-        
+
         $data= '';
 
         if($inv_item_type != null){
@@ -666,7 +666,7 @@ class SalesOrderController extends Controller
             // ->where('inv_item_type.item_unit_2', $inv_item_type['item_unit_2'])
             // ->where('inv_item_type.item_unit_3', $inv_item_type['item_unit_3'])
             ->first();
-            
+
             // return $unit1;
             $unit2 = InvItemType::select('inv_item_type.item_unit_2','inv_item_unit.*')
             ->join('inv_item_unit', 'inv_item_unit.item_unit_id', '=', 'inv_item_type.item_unit_2')
@@ -677,7 +677,7 @@ class SalesOrderController extends Controller
             ->join('inv_item_unit', 'inv_item_unit.item_unit_id', '=', 'inv_item_type.item_unit_3')
             ->where('inv_item_type.item_unit_3', $inv_item_type['item_unit_3'])
             ->first();
-        
+
 
         $array = [];
         if($unit1){
@@ -691,13 +691,13 @@ class SalesOrderController extends Controller
         }
         // $unit = array_merge($unit1, $unit2);
         // $unit4 = array_merge($unit, $unit3);
-        
-        
+
+
         $data .= "<option value=''>--Choose One--</option>";
         foreach ($array as $val){
             print_r($val['item_unit_id']);
-            
-            $data .= "<option value='$val[item_unit_id]'>$val[item_unit_name]</option>\n";	
+
+            $data .= "<option value='$val[item_unit_id]'>$val[item_unit_name]</option>\n";
         }
         return $data;
         }
