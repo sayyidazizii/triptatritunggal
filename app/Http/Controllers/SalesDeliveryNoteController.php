@@ -429,40 +429,8 @@ class SalesDeliveryNoteController extends Controller
                     $stock_item2->quantity_unit = $stock_item2['quantity_unit'] - $dataitem['quantity_'.$no];
                     $stock_item2->save();
 
-
-
-                    $sdo_item_stock = SalesDeliveryOrderItemStock::select('sales_delivery_order_item_stock.*')
-                    ->join('inv_item_stock', 'inv_item_stock.item_stock_id', '=', 'sales_delivery_order_item_stock.item_stock_id')
-                    ->where('sales_delivery_order_item_stock.sales_order_id', $salesdeliverynoteitem['sales_order_id'])
-                    ->where('sales_delivery_order_item_stock.data_state', 0)
-                    ->get();
                     $no++;
                     }
-
-
-                    $itemNoteNew = SalesDeliveryNoteItem::select('*')
-                    ->where('created_at', \Carbon\Carbon::now())
-                    ->where('sales_delivery_note_id', $salesdeliverynoteid['sales_delivery_note_id'])
-                    ->orderBy('created_at', 'DESC')
-                    ->get();
-
-                    $dataItemNote = array("sales_delivery_note_item_id");
-                    $rows = 1;
-                    foreach ($itemNoteNew as $data_item) {
-                        $dataItemNote[] = array(
-                            'sales_delivery_note_item_id' => $data_item->sales_delivery_note_item_id,
-                        );
-                    }
-
-                $salesorder = SalesOrder::where('sales_order_id', $salesdeliverynote['sales_order_id'])
-                ->first();
-
-                if($sales_order_status_cek == 0){
-                    $salesorder->sales_order_status = 2;
-                }else if($sales_order_status_cek == 1){
-                    $salesorder->sales_order_status = 1;
-                }
-                $salesorder->save();
 
 
                 $msg = 'Tambah Sales Delivery Note Berhasil';
