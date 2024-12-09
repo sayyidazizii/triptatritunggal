@@ -195,7 +195,7 @@ class PurchaseOrderController extends Controller
         $purchaseorderitem = PurchaseOrderItem::where('data_state', 0)
             ->where('purchase_order_id', $purchase_order_id)
             ->get();
-        
+
         $company = PreferenceCompany::select('*')
             ->first();
 
@@ -251,7 +251,7 @@ class PurchaseOrderController extends Controller
                 <table cellspacing=\"0\" cellpadding=\"2\" border=\"1\">
                     <tr>
                         <td><div style=\"text-align: center; font-size:12px; font-weight: bold\">Purchasing Order</div></td>
-                   
+
                     </tr>
                 </table>
             </td>
@@ -265,7 +265,7 @@ class PurchaseOrderController extends Controller
                 <td>
                     <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\">
                         <tr style=\"text-align: left;font-weight: bold\">
-                                <td>No.  PO</td>   
+                                <td>No.  PO</td>
                                 <td>: " . $purchaseorder['purchase_order_no'] . "</td>
                         </tr>
                         <tr style=\"text-align: left;font-weight: bold\">
@@ -285,7 +285,7 @@ class PurchaseOrderController extends Controller
                 <td>
                 <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\">
                     <tr style=\"text-align: left;font-weight: bold\">
-                            <td>Kode Supplier</td>   
+                            <td>Kode Supplier</td>
                             <td>: " . $purchaseorder['supplier_code'] . "</td>
                     </tr>
                     <tr style=\"text-align: left;font-weight: bold\">
@@ -335,7 +335,7 @@ class PurchaseOrderController extends Controller
                             <td style=\"text-align: right;\">" . number_format($val['subtotal_amount'], 2) . "</td>
                             <td style=\"text-align: right;\">" .  number_format($Jumlah , 2)  . "</td>
                             <td style=\"text-align: right;\">" . $purchaseorder['purchase_order_remark'] . "</td>
-                        </tr> 
+                        </tr>
                         ";
             $no++;
         }
@@ -353,7 +353,7 @@ class PurchaseOrderController extends Controller
                     ";
         $html2 .= "</table>";
         $path = '<img width="60"; height="60" src="resources/assets/img/ttd.png">';
-        //dd($path);        
+        //dd($path);
         $html2 .= "
                     <table style=\"text-align: center;font-weight: bold\" cellspacing=\"20\";>
                         <tr>
@@ -734,12 +734,12 @@ class PurchaseOrderController extends Controller
         // $item_type_id   = InvItemStock::select('*')
         // ->where('inv_item_stock.data_state','=',0)
         // ->where('inv_item_stock.item_stock_id', $item_stock_id)
-        // ->where('inv_item_stock.warehouse_id', 6)
+        //
         // ->first();
 
         $inv_item_type= InvItemType::where('item_type_id', $request->item_type_id)
         ->first();
-        
+
         $data= '';
 
         if($inv_item_type != null){
@@ -749,7 +749,7 @@ class PurchaseOrderController extends Controller
             // ->where('inv_item_type.item_unit_2', $inv_item_type['item_unit_2'])
             // ->where('inv_item_type.item_unit_3', $inv_item_type['item_unit_3'])
             ->first();
-            
+
             // return $unit1;
             $unit2 = InvItemType::select('inv_item_type.item_unit_2','inv_item_unit.*')
             ->join('inv_item_unit', 'inv_item_unit.item_unit_id', '=', 'inv_item_type.item_unit_2')
@@ -760,7 +760,7 @@ class PurchaseOrderController extends Controller
             ->join('inv_item_unit', 'inv_item_unit.item_unit_id', '=', 'inv_item_type.item_unit_3')
             ->where('inv_item_type.item_unit_3', $inv_item_type['item_unit_3'])
             ->first();
-        
+
 
         $array = [];
         if($unit1){
@@ -774,13 +774,13 @@ class PurchaseOrderController extends Controller
         }
         // $unit = array_merge($unit1, $unit2);
         // $unit4 = array_merge($unit, $unit3);
-        
-        
+
+
         $data .= "<option value=''>--Choose One--</option>";
         foreach ($array as $val){
             print_r($val['item_unit_id']);
-            
-            $data .= "<option value='$val[item_unit_id]'>$val[item_unit_name]</option>\n";	
+
+            $data .= "<option value='$val[item_unit_id]'>$val[item_unit_name]</option>\n";
         }
         return $data;
         }
