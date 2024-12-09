@@ -398,7 +398,7 @@ class SalesQuotationController extends Controller
         $item_type_id   = InvItemStock::select('*')
         ->where('inv_item_stock.data_state','=',0)
         ->where('inv_item_stock.item_stock_id', $item_stock_id)
-        // ->where('inv_item_stock.warehouse_id', 6)
+        //
         ->first();
 
         $inv_item_type= InvItemType::where('item_type_id', $item_type_id['item_type_id'])
