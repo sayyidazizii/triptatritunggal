@@ -297,7 +297,6 @@ function elements_add(name, value){
                                 <th style='text-align:center'>Qty</th>
                                 <th style='text-align:center'>Qty Proses</th>
                                 <th style='text-align:center'>Qty Kirim</th>
-                                <th style='text-align:center'>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -338,12 +337,6 @@ function elements_add(name, value){
                                             <input class='form-control' style='text-align:right;'type='hidden' name='subtotal_price_{{ $no }}' id='subtotal_price_{{ $no }}' value='{{$val->subtotal_price}}'/>
                                             <input class='form-control' style='text-align:right;'type='hidden' name='discount_amount_item_{{ $no }}' id='discount_amount_item_{{ $no }}' value='{{$item['discount_amount_item']}}'/>
                                             <input class='form-control' style='text-align:right;'type='hidden' name='subtotal_after_discount_item_{{ $no }}' id='subtotal_after_discount_item_{{ $no }}' value='{{$item['subtotal_after_discount_item']}}'/>
-                                            {{-- <input class='form-control' style='text-align:right;'type='' name='no' id='no_{{$no}}' value='{{$no}}' readonly/> --}}
-                                            {{-- <p>{{ $SalesDeliveryNote->getdataItemStokNote($val['sales_delivery_order_item_id'])}}</p> --}}
-
-                                        </td>
-                                        <td style='text-align:center;'>
-                                            <a href='{{url('/sales-delivery-note/add/detail-item-stock/'.$val['sales_delivery_order_id'].'/'.$val['sales_delivery_order_item_id'])}}' class="btn btn-outline-info btn-sm" title="Detail Stock">Detail Stock</a>
                                         </td>
                                     </tr>
                                 @php
@@ -382,12 +375,7 @@ function elements_add(name, value){
                                                 <td style='text-align  : right !important;'>{{$item['quantity_resulted']}}</td>
                                                 <td style='text-align  : right !important;'>
                                                     <input class='form-control' style='text-align:right;'type='text' name='quantity_delivered_{{$no}}' id='quantity_delivered_{{$no}}' value='{{$item['quantity']}}' readonly/>
-
-
                                                 </td>
-                                                <td style='text-align:center;'>
-                                                <a href='{{url ('/sales-delivery-note/add/detail-item-stock/'.$val->sales_delivery_order_id.'/'.$val->sales_delivery_order_item_id)}}' class='btn btn-outline-info btn-sm' title='Detail Stock'>Detail Stock</a>
-                                            </td>
                                             </tr>
                                         @php
                                             $total_no = $no;
@@ -404,7 +392,6 @@ function elements_add(name, value){
                                         <input class='form-control' style='text-align:right;'type='hidden' name='item_id_{{$total_no}}' id='item_id_{{$total_no}}' value='{{$item['item_id']}}'/>
                                         <input class='form-control' style='text-align:right;'type='hidden' name='item_type_id_{{$total_no}}' id='item_type_id_{{$total_no}}' value='{{$item['item_type_id']}}'/>
                                         <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_id_{{$total_no}}' id='item_unit_id_{{$total_no}}' value='{{$item['item_unit_id']}}'/>
-                                        <input class='form-control' style='text-align:right;'type='hidden' name='item_batch_number_{{$total_no}}' id='item_batch_number_{{$total_no}}' value='{{$SalesDeliveryNote->getItemBatchNumber($val->item_stock_id)}}'/>
                                         <input class='form-control' style='text-align:right;'type='hidden' name='item_stock_id_{{$total_no}}' id='item_stock_id_{{$total_no}}' value='{{$val->item_stock_id}}'/>
                                         <input class='form-control' style='text-align:right;'type='hidden' name='total_no' id='total_no' value='{{$total_no}}'/>
                                     @endforeach
