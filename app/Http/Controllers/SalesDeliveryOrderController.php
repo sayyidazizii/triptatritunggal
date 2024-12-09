@@ -69,7 +69,7 @@ class SalesDeliveryOrderController extends Controller
         Session::forget('datacheckboxdeliveryorder');
         Session::forget('dataarrayinvitemstock');
         Session::forget('salesdeliveryorderelements');
-    
+
         $salesdeliveryorder = SalesDeliveryOrder::where('data_state','=',0)
         ->where('sales_delivery_order_date', '>=', $start_date)
         ->where('sales_delivery_order_date', '<=', $end_date)
@@ -121,7 +121,7 @@ class SalesDeliveryOrderController extends Controller
 
 
     public function getTypeStock($sales_order_id){
-        
+
         $data_type_id = $this->getType($sales_order_id);
 
         $type_id = array("item_type_id");
@@ -136,7 +136,7 @@ class SalesDeliveryOrderController extends Controller
 
 
     public function getTypeStockid($type_id){
-        
+
 
             $stock = InvItemStock::select('inv_item_stock.item_stock_id', DB::raw('CONCAT(inv_item_type.item_type_name, " - ", inv_item_stock.item_batch_number) AS item_name'))
             ->join('inv_item_type', 'inv_item_type.item_type_id', 'inv_item_stock.item_type_id')
@@ -144,7 +144,7 @@ class SalesDeliveryOrderController extends Controller
             ->orderby('inv_item_stock.item_stock_expired_date', 'ASC')
             ->where('inv_item_stock.quantity_unit', '>', 0)
             ->where('inv_item_stock.data_state', 0)
-            ->where('inv_item_stock.warehouse_id', 6)
+
             ->where('inv_item_stock.item_type_id' ,$type_id)
             ->get();
             // ->pluck('item_name', 'item_stock_id');
@@ -159,7 +159,7 @@ class SalesDeliveryOrderController extends Controller
 
 
     public function getItemtemp($sales_order_id){
-        
+
         $datasdo = $this->getSOid($sales_order_id);
 
         $data = array("sales_order_item_id");
@@ -178,7 +178,7 @@ class SalesDeliveryOrderController extends Controller
         ->where('sales_order_item_id', $sales_order_item_id)
         ->where('data_state', 0)
         ->get();
-        
+
 
     return ($salesorderitem);
     }
@@ -249,7 +249,7 @@ class SalesDeliveryOrderController extends Controller
         ->where('data_state', 0)
         ->get();
 
-        //dd($item_stock_id);   
+        //dd($item_stock_id);
         $stock = collect($inv_item_stock_temporary);
 
         $null_warehouse_id = Session::get('warehouse_id');
@@ -300,7 +300,7 @@ class SalesDeliveryOrderController extends Controller
         $salesdeliveryorderitem = SalesDeliveryOrderItem::select('sales_delivery_order_item.*')
         ->where('sales_delivery_order_id', $sales_delivery_order_id)
         ->where('data_state', 0)
-        ->get();    
+        ->get();
 
         $salesdeliveryorder = SalesDeliveryOrder::findOrFail($sales_delivery_order_id);
 
@@ -349,7 +349,7 @@ class SalesDeliveryOrderController extends Controller
             array_push($lastdataarrayinvitemstock, $dataarrayinvitemstock);
             Session::push('dataarrayinvitemstock', $dataarrayinvitemstock);
         }
-        
+
         // Session::forget('dataprocessinvitemstock');
         // Session::put('dataprocessinvitemstock', $dataarrayinvitemstock);
 
@@ -361,7 +361,7 @@ class SalesDeliveryOrderController extends Controller
             return redirect()->back()->with('msg',$msg);
         }
 
-        
+
     }
 
 
@@ -369,7 +369,7 @@ class SalesDeliveryOrderController extends Controller
     {
         $arrayBaru			= array();
         $dataArrayHeader	= Session::get('dataarrayinvitemstock');
-        
+
         foreach($dataArrayHeader as $key=>$val){
             if($key != $record_id){
                 $arrayBaru[$key] = $val;
@@ -408,19 +408,19 @@ class SalesDeliveryOrderController extends Controller
 
         try {
             DB::beginTransaction();
-            
+
                 SalesDeliveryOrder::create($salesdeliveryorder);
                     $sales_delivery_order_id = SalesDeliveryOrder::select('sales_delivery_order_id')
                     ->orderBy('created_at', 'DESC')
                     ->first();
-        
+
                     $salesorderitem = SalesOrderitem::where('sales_order_id',$request->sales_order_id_1)
                     ->get();
-                    
+
                     $no =1;
-        
+
                     $dataitem = $request->all();
-        
+
                     foreach($salesorderitem as $item){
                         $item = SalesDeliveryOrderItem::create([
                             'sales_delivery_order_id'	=> $sales_delivery_order_id['sales_delivery_order_id'],
@@ -431,36 +431,36 @@ class SalesDeliveryOrderController extends Controller
                             'item_unit_id' 		        => $dataitem['item_unit_id_'.$no],
                             'item_unit_price' 		    => $dataitem['item_unit_price_'.$no],
                             'subtotal_price' 		    => $dataitem['subtotal_after_discount_item_'.$no],
-                            'quantity'					=> $dataitem['quantity_delivered_'.$no],		
-                            'quantity_ordered'		    => $dataitem['quantity_'.$no],	
+                            'quantity'					=> $dataitem['quantity_delivered_'.$no],
+                            'quantity_ordered'		    => $dataitem['quantity_'.$no],
                             'created_id'                => Auth::id(),
                         ]);
                         $salesorder = SalesOrder::findOrFail($dataitem['sales_order_id_'.$no]);
                         $salesorder->sales_delivery_order_status = 1;
                         $salesorder->save();
-                        
+
                         $salesorderitem = SalesOrderItem::findOrFail($dataitem['sales_order_item_id_'.$no]);
                         $salesorderitem->sales_delivery_order_status = 1;
                         $salesorderitem->quantity_delivered = $salesorderitem->quantity_delivered + $dataitem['quantity_delivered_'.$no];
                         $salesorderitem->save();
                         // echo json_encode($salesorderitem);exit;
                         // dd($salesorderitem);
-                        
+
                         //pengurangan stock
                         $stock_item2 = InvItemStock::where('item_type_id',$dataitem['item_type_id_'.$no])
                         ->where('item_unit_id', $dataitem['item_unit_id_'.$no])
                         ->first();
 
-                        
+
                         $stock_item2->quantity_unit = $stock_item2['quantity_unit'] - $dataitem['quantity_'.$no];
                         // $stock_item2->updated_id = Auth::id();
                         $stock_item2->save();
 
                         $no++;
-                        
+
                     }
-                    
-                    
+
+
                 $msg = 'Tambah Sales Delivery Order Berhasil';
 
             DB::commit();
@@ -490,10 +490,10 @@ class SalesDeliveryOrderController extends Controller
 
             $dataitem = $request->all();
             foreach($salesdeliveryorderitem as $orderitem){
-                $item = SalesDeliveryOrderitem::findOrFail($orderitem['sales_delivery_order_item_id']);		
-                $item->quantity         = $dataitem['quantity_delivered_'.$no];		
+                $item = SalesDeliveryOrderitem::findOrFail($orderitem['sales_delivery_order_item_id']);
+                $item->quantity         = $dataitem['quantity_delivered_'.$no];
                 $item->subtotal_price   = $dataitem['quantity_delivered_'.$no]*$dataitem['item_unit_price_'.$no];
-                if($item->save()){	
+                if($item->save()){
                     // $salesorderitem = SalesOrderItem::findOrFail($item['sales_order_item_id']);
                     // $salesorderitem->quantity_resulted = $salesorderitem->quantity_resulted - $dataitem['quantity_delivered_'.$no] + $orderitem['quantity'];
                     // $salesorderitem->quantity_delivered = $salesorderitem->quantity_delivered + $dataitem['quantity_delivered_'.$no] - $orderitem['quantity'];
@@ -502,7 +502,7 @@ class SalesDeliveryOrderController extends Controller
 
                 $no++;
             }
-            
+
             $msg = 'Edit Sales Delivery Order Berhasil';
             return redirect('/sales-delivery-order')->with('msg',$msg);
         }else{
@@ -526,9 +526,9 @@ class SalesDeliveryOrderController extends Controller
             $no = 1;
 
             foreach($salesdeliveryorderitem as $orderitem){
-                $item = SalesDeliveryOrderItem::findOrFail($orderitem['sales_delivery_order_item_id']);		
+                $item = SalesDeliveryOrderItem::findOrFail($orderitem['sales_delivery_order_item_id']);
                 $item->data_state = 1;
-                if($item->save()){	
+                if($item->save()){
                     // $salesorderitem = SalesOrderItem::findOrFail($item['sales_order_item_id']);
                     // $salesorderitem->quantity_resulted = $salesorderitem->quantity_resulted + $orderitem['quantity'];
                     // $salesorderitem->quantity_delivered = $salesorderitem->quantity_delivered - $orderitem['quantity'];
@@ -543,11 +543,11 @@ class SalesDeliveryOrderController extends Controller
             ->get();
 
             foreach($salesdeliveryorderitemstock as $orderitemstock){
-                $item2 = SalesDeliveryOrderItemStock::findOrFail($orderitemstock['sales_delivery_order_item_stock_id']);		
+                $item2 = SalesDeliveryOrderItemStock::findOrFail($orderitemstock['sales_delivery_order_item_stock_id']);
                 $item2->data_state = 1;
                 $item2->save();
             }
-            
+
             $msg = 'Hapus Sales Delivery Order Berhasil';
             return redirect('/sales-delivery-order')->with('msg',$msg);
         }else{
@@ -559,7 +559,7 @@ class SalesDeliveryOrderController extends Controller
 
     public function addSalesOrderItemCheckbox(Request $request){
         $sales_order_item_id = $request->sales_order_item_id;
-        
+
         $datacheckboxdeliveryorder = array(
             'sales_order_item_id'	=> $request->sales_order_item_id,
         );
@@ -760,7 +760,7 @@ class SalesDeliveryOrderController extends Controller
         // dd($data);
         $data .= "<option value=''>--Choose One--</option>";
         foreach ($stock as $val){
-            $data .= "<option value='$val[item_stock_id]'>$val[item_name]</option>\n";	
+            $data .= "<option value='$val[item_stock_id]'>$val[item_name]</option>\n";
         }
         return $data;
     }
@@ -774,7 +774,7 @@ class SalesDeliveryOrderController extends Controller
                                     ->where('sales_order_id', $sales_order_id);
 
         // dd($filteredItems);
-        
+
 
         return view('content/SalesDeliveryOrder/FormDetailArrayInvItemStock',compact('collection', 'filteredItems', 'sales_order_id'));
     }
@@ -843,7 +843,7 @@ class SalesDeliveryOrderController extends Controller
     }
 
 
-    
+
 
     public function deleteItemStockToSalesOrder($sales_delivery_order, $sales_delivery_order_item, $sdo_item_stock_id){
 
@@ -874,7 +874,7 @@ class SalesDeliveryOrderController extends Controller
 
 
 
-    
+
     public function detailItemStockToSalesOrder($sales_order_id, $sales_order_item_id){
 
         $filteredItems = SalesDeliveryOrderItemStockTemporary::where('data_state', 0)
@@ -883,7 +883,7 @@ class SalesDeliveryOrderController extends Controller
         ->get();
 
         // dd($filteredItems);
-        
+
 
         return view('content/SalesDeliveryOrder/FormDetailInvItemStocktoSDO',compact('filteredItems', 'sales_order_id'));
     }
@@ -895,7 +895,7 @@ class SalesDeliveryOrderController extends Controller
         ->get();
 
         // dd($filteredItems);
-        
+
 
         return view('content/SalesDeliveryOrder/FormDetailStockSalesDeliveryOrder',compact('detail_stock_sdo', 'sales_delivery_order_id'));
     }
@@ -915,9 +915,9 @@ class SalesDeliveryOrderController extends Controller
         // }
 
         // dd($detail_stock_sdo);
-        
-        
-        
+
+
+
         // dd($edit_stock_sdo);
 
         $type = SalesOrderItem::select('sales_order_item.sales_order_item_id', DB::raw('CONCAT(inv_item_category.item_category_name, " - ", inv_item_type.item_type_name) AS item_name'))
@@ -928,10 +928,10 @@ class SalesDeliveryOrderController extends Controller
         ->get()
         ->pluck('item_name', 'sales_order_item_id');
 
-        
+
 
         // dd($stock);
-        
+
 
         return view('content/SalesDeliveryOrder/FormEditDetailStockSalesDeliveryOrder',compact('type', 'detail_stock_sdo', 'sales_delivery_order_id', 'sales_delivery_order_item_id', 'sales_order_item_id'));
 
@@ -1008,7 +1008,7 @@ class SalesDeliveryOrderController extends Controller
         $inv_item_type= InvItemType::join('sales_order_item', 'sales_order_item.item_type_id', 'inv_item_type.item_type_id')
         ->where('sales_order_item.sales_order_item_id', $sales_order_item_id)
         ->first();
-        
+
         $data= '';
 
         if($inv_item_type != null){
@@ -1018,7 +1018,7 @@ class SalesDeliveryOrderController extends Controller
             // ->where('inv_item_type.item_unit_2', $inv_item_type['item_unit_2'])
             // ->where('inv_item_type.item_unit_3', $inv_item_type['item_unit_3'])
             ->first();
-            
+
             // return $unit1;
             $unit2 = InvItemType::select('inv_item_type.item_unit_2','inv_item_unit.*')
             ->join('inv_item_unit', 'inv_item_unit.item_unit_id', '=', 'inv_item_type.item_unit_2')
@@ -1029,7 +1029,7 @@ class SalesDeliveryOrderController extends Controller
             ->join('inv_item_unit', 'inv_item_unit.item_unit_id', '=', 'inv_item_type.item_unit_3')
             ->where('inv_item_type.item_unit_3', $inv_item_type['item_unit_3'])
             ->first();
-        
+
 
         $array = [];
         if($unit1){
@@ -1043,16 +1043,16 @@ class SalesDeliveryOrderController extends Controller
         }
         // $unit = array_merge($unit1, $unit2);
         // $unit4 = array_merge($unit, $unit3);
-        
-        
+
+
         $data .= "<option value=''>--Choose One--</option>";
         foreach ($array as $val){
             print_r($val['item_unit_id']);
-            
-            $data .= "<option value='$val[item_unit_id]'>$val[item_unit_name]</option>\n";	
+
+            $data .= "<option value='$val[item_unit_id]'>$val[item_unit_name]</option>\n";
         }
         return $data;
         }
     }
-    
+
 }
