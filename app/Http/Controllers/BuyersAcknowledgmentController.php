@@ -115,6 +115,7 @@ class BuyersAcknowledgmentController extends Controller
         ->where('sales_delivery_note_id', $sales_delivery_note_id)
         ->get();
 
+
         $salesorder = SalesOrder::select('sales_order.*')
         ->where('data_state', 0)
         ->where('sales_order_id', $salesdeliverynote['sales_order_id'])
@@ -297,10 +298,10 @@ class BuyersAcknowledgmentController extends Controller
         return $orderitem;
     }
 
-    public function getItemStock($sales_delivery_note_item_id){
-        $item = SalesDeliveryNoteItemStock::select('item_stock_id')
+    public function getItemStock($item_stock_id){
+        $item = InvItemStock::select('item_stock_id')
         ->where('data_state', 0)
-        ->where('sales_delivery_note_item_id', $sales_delivery_note_item_id)
+        ->where('item_stock_id', $item_stock_id)
         ->first();
 
         return $item['item_stock_id'];
@@ -377,24 +378,6 @@ class BuyersAcknowledgmentController extends Controller
                     'created_id'                    => Auth::id(),
                 ]);
 
-
-                $itemstock = InvItemStock::findOrfail($dataitem['item_stock_id_'.$no]);
-
-//--------------Pengurangan stock
-                $itemstock->quantity_unit =  (int)$itemstock['quantity_unit'] -  (int)$dataitem['quantity_received_'.$no];
-                $itemstock->save();
-
-                $salesdeliverynote = SalesDeliveryNote::findOrFail($dataitem['sales_delivery_note_id']);
-                $salesdeliverynote->buyers_acknowledgment_status = 1;
-                $salesdeliverynote->save();
-
-                $category_id = $dataitem['item_category_id'];
-
-
-                $harga_beli            = $dataitem['quantity_'.$no] * $dataitem['item_unit_cost_'.$no];
-                $total += $harga_beli;
-
-                $no++;
 
             }
                 $no++;
