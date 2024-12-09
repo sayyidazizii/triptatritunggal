@@ -3,7 +3,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
@@ -16,7 +16,7 @@ function checkboxSalesOrderChange (sales_order_item_id) {
             'sales_order_item_id'   : sales_order_item_id,
             '_token'                : '{{csrf_token()}}',
         },
-        success: function(return_data){ 
+        success: function(return_data){
             console.log(return_data);
         },
         error: function(data)
@@ -30,7 +30,7 @@ function checkboxSalesOrderChange (sales_order_item_id) {
 @stop
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -52,7 +52,7 @@ function checkboxSalesOrderChange (sales_order_item_id) {
 <div class="alert alert-info" role="alert">
     {{session('msg')}}
 </div>
-@endif 
+@endif
 <div class="card border border-dark">
     <div class="card-header bg-dark clearfix">
         <h5 class="mb-0 float-left">
@@ -105,7 +105,7 @@ function checkboxSalesOrderChange (sales_order_item_id) {
                         if($item->sales_collection_piece_type_id == 2){
                           $claim = 'biasa';
                         }
-                    @endphp   
+                    @endphp
                     <td>{{ $claim }}</td>
                         <td style='text-align:center'>
                             <a type="button" class="btn btn-outline-primary btn-sm" href="{{ url('/sales-collection-piece/claim-sales-collection-piece/'.$item['sales_collection_piece_id']) }}"><i class="fas fa-check"></i></a>
@@ -117,7 +117,7 @@ function checkboxSalesOrderChange (sales_order_item_id) {
             </table>
         </div>
     </div>
-        
+
     {{-- <div class="card-footer text-muted">
         <div class="form-actions float-right">
             <button type="submit" name="Save" class="btn btn-primary" title="Save">Tambah</button>
@@ -131,9 +131,9 @@ function checkboxSalesOrderChange (sales_order_item_id) {
 <br>
 
 @include('footer')
-    
+
 @stop
 
 @section('css')
-    
+
 @stop

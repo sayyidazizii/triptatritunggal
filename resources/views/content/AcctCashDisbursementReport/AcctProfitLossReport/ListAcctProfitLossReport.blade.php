@@ -4,7 +4,7 @@
 
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('content_header')
 
@@ -222,7 +222,7 @@
                     </tbody>
                 </table>
             </div>
-           
+
         </div>
     </div>
     </div>

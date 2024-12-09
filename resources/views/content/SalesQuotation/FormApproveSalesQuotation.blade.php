@@ -2,12 +2,12 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 @section('js')
 <script>
 	function toRp(number) {
-		var number = number.toString(), 
-		rupiah = number.split('.')[0], 
+		var number = number.toString(),
+		rupiah = number.split('.')[0],
 		cents = (number.split('.')[1] || '') +'00';
 		rupiah = rupiah.split('').reverse().join('')
 			.replace(/(\d{3}(?!$))/g, '$1.')
@@ -25,7 +25,7 @@
                 'sales_quotation_id'	: sales_quotation_id,
                 '_token'            : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 window.location.href = "{{route('sales-quotation-approval')}}"
             },
             error: function(data)
@@ -37,7 +37,7 @@
 </script>
 @stop
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -118,7 +118,7 @@
                 Daftar
             </h5>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -161,7 +161,7 @@
                                                 <td style='text-align  : right !important;'>{{number_format($val['discount_amount_item'],2,',','.')}}</td>
                                                 <td style='text-align  : right !important;'>{{number_format($val['subtotal_after_discount_item_a'],2,',','.')}}</td>
                                             </tr>
-                                        
+
                                         @php
                                             $no++;
                                             $total_discount_amount += $SalesQuotation->getDiscountNota($val['sales_quotation_id']);
@@ -200,7 +200,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="card-footer text-muted">
             <div class="form-actions float-right">
                 <a name="disapprove" class="btn btn-danger btn-sm" title="disapprove" onclick="disapprove()"><i class="fa fa-times"></i> Disapprove</a>
@@ -218,5 +218,5 @@
 @stop
 
 @section('css')
-    
+
 @stop

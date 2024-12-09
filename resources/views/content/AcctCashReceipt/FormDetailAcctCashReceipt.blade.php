@@ -3,7 +3,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
@@ -11,7 +11,7 @@
         var cash_receipt_date    =   document.getElementById("cash_receipt_date").value;
         $('#cash_receipt_date_table').html(cash_receipt_date);
     }
-    
+
 	function processAddArrayAcctReceiptItem(){
 		var account_id_item					= document.getElementById("account_id_item").value;
 		var cash_receipt_item_amount				= document.getElementById("cash_receipt_item_amount").value;
@@ -20,13 +20,13 @@
         console.log(cash_receipt_item_amount);
         console.log(cash_receipt_item_title);
 
-		
+
         $.ajax({
         type: "POST",
         url : "{{route('add-cash-receipt-array')}}",
         data: {
             'account_id_item'					: account_id_item,
-            'cash_receipt_item_amount' 				: cash_receipt_item_amount, 
+            'cash_receipt_item_amount' 				: cash_receipt_item_amount,
             'cash_receipt_item_title' 				: cash_receipt_item_title,
             '_token'                            : '{{csrf_token()}}'
         },
@@ -51,7 +51,7 @@
 @stop
 
 @section('content')
-<?php 
+<?php
 ?>
 <h3 class="page-title">
     Detail Penerimaan Kas
@@ -104,7 +104,7 @@
                         <input class="form-control input-bb" type="text" name="cash_receipt_title" id="cash_receipt_title" value="{{$acctreceiptdetail['cash_receipt_title']}}" readonly/>
                     </div>
                 </div>
-            </div>	
+            </div>
             <div class = "row form-group">
                 <div class="col-md-12 ">
                     <a class="text-dark">Deskripsi</a>
@@ -169,13 +169,13 @@
                                     <b><?php echo $cash_receipt_amount_total;?></b>
                                 </td>
                                 <input type='hidden' name='cash_receipt_amount_total' id='cash_receipt_amount_total' value='<?php echo $cash_receipt_amount_total; ?>'/>
-                            </tr>	
+                            </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    
+
 </div>
 <br>
 <br>
@@ -185,5 +185,5 @@
 @stop
 
 @section('css')
-    
+
 @stop

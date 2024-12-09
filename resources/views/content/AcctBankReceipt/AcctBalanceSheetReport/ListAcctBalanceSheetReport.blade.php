@@ -3,10 +3,10 @@
 
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -72,7 +72,7 @@
 <div class="alert alert-info" role="alert">
     {{session('msg')}}
 </div>
-@endif 
+@endif
 <div class="card border border-dark">
   <div class="card-header bg-dark clearfix">
     <h5 class="mb-0 float-left">
@@ -120,10 +120,10 @@
 
 
                                 <?php
-                                $totalleft = 0;  
+                                $totalleft = 0;
                                 foreach ($acctbalancesheetreport_left as $item)
-                                { 
-                                $totalleft += $ABSR->getAmountAccount($item->account_id1)   
+                                {
+                                $totalleft += $ABSR->getAmountAccount($item->account_id1)
                                 ?>
                                 <tr>
                                     <td><?php echo $item->account_code1 ?> </td>
@@ -148,16 +148,16 @@
                                 </tr>
 
                                 <?php
-                                $totalright = 0;  
-                                foreach ($acctbalancesheetreport_right as $item) { 
-                                $totalright += $ABSR->getAmountAccount($item->account_id2)   
+                                $totalright = 0;
+                                foreach ($acctbalancesheetreport_right as $item) {
+                                $totalright += $ABSR->getAmountAccount($item->account_id2)
                                 ?>
                                 <tr>
                                     <td><?php echo $item->account_code2 ?> </td>
                                     <td><?php echo $item->account_name2 ?> </td>
                                     <td>{{ number_format($ABSR->getAmountAccount($item->account_id2)) }}</td>
                                 </tr>
-                                
+
                             <?php } ?>
                             <tr class="table table-bordered table-advance table-hover">
                                 <th>Total :</th>
@@ -177,13 +177,13 @@
 @stop
 
 @section('footer')
-    
+
 @stop
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
-@stop   
+
+@stop

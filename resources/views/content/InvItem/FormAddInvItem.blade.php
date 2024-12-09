@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 @section('js')
 <script>
 	$(document).ready(function(){
@@ -18,7 +18,7 @@
                         'item_category_id'			    : item_category_id,
                         '_token'                        : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
 					    $('#item_type_id').html(return_data);
                         // console.log(return_data);
                     },
@@ -42,7 +42,7 @@
                 'item_category_name'	: item_category_name,
                 '_token'                : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 $('#item_category_id').html(return_data);
                 $('#modal_item_category_id').html(return_data);
                 $('#cancel-btn-category').click();
@@ -69,7 +69,7 @@
                 'item_type_expired_time'	: item_type_expired_time,
                 '_token'                    : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 $('#item_type_id').html(return_data);
                 $('#cancel-btn-type').click();
             },
@@ -91,7 +91,7 @@
                 'grade_name'	 : grade_name,
                 '_token'         : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 $('#grade_id').html(return_data);
                 $('#cancel-btn-grade').click();
             },
@@ -119,7 +119,7 @@
                 'item_unit_remark'	            : item_unit_remark,
                 '_token'                        : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 $('#item_unit_id').html(return_data);
                 $('#cancel-btn-unit').click();
             },
@@ -133,7 +133,7 @@
 </script>
 @stop
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -224,7 +224,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <br/>
             <h4 class="text-dark">COA Barang</h4>
             <hr/>
@@ -303,10 +303,10 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-12">		
+                    <div class="col-md-12">
                         <a class="text-dark">Kategori Barang</a>
                         <input class="form-control input-bb" type="text" name="item_category_name" id="item_category_name" value=""/>
-                    </div>	
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -326,26 +326,26 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nama Tipe Barang</a>
                             <input class="form-control input-bb" type="text" name="item_type_name" id="item_type_name" value=""/>
                         </div>
-                    </div>	
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Kategori<a class='red'> *</a></a>
                             {!! Form::select('modal_item_category_id',  $invitemcategory, 0, ['class' => 'selection-search-clear select-form', 'id' => 'modal_item_category_id']) !!}
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Waktu Kadaluarsa (hari)</a>
                             <input class="form-control input-bb" type="text" name="item_type_expired_time" id="item_type_expired_time" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -364,34 +364,34 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Kode Satuan Barang</a>
                             <input class="form-control input-bb" type="text" name="item_unit_code" id="item_unit_code" value=""/>
                         </div>
-                    </div>	
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nama Satuan Barang</a>
                             <input class="form-control input-bb" type="text" name="item_unit_name" id="item_unit_name" value=""/>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Default Quantity</a>
                             <input class="form-control input-bb" type="text" name="item_unit_default_quantity" id="item_unit_default_quantity" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Keterangan</a>
                             <input class="form-control input-bb" type="text" name="item_unit_remark" id="item_unit_remark" value=""/>
                         </div>
-                    </div>		
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -409,5 +409,5 @@
 @stop
 
 @section('css')
-    
+
 @stop

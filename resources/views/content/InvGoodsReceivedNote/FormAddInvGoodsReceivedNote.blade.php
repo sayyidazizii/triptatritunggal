@@ -2,13 +2,13 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @section('js')
 <script>
 	function toRp(number) {
-		var number = number.toString(), 
-		rupiah = number.split('.')[0], 
+		var number = number.toString(),
+		rupiah = number.split('.')[0],
 		cents = (number.split('.')[1] || '') +'00';
 		rupiah = rupiah.split('').reverse().join('')
 			.replace(/(\d{3}(?!$))/g, '$1.')
@@ -48,7 +48,7 @@
 
 		document.getElementById("quantity_received_total").value = quantity_received_total;
 	}
-    
+
 	$(document).ready(function(){
         var quantity_received_total = 0;
         var total_no 				= document.getElementById("total_no").value;
@@ -65,13 +65,13 @@
 
             quantity_received_total = parseFloat(quantity_received_total) + parseFloat(quantity_received);
         }
-        
+
 		document.getElementById("quantity_received_total").value = quantity_received_total;
 	});
 
     $(document).ready(function(){
         var purchase_order_item_id = {!! json_encode($null_add_purchaseorderitem) !!};
-        
+
         if(purchase_order_item_id == null){
             $("#purchase_order_item_id").select2("val", "0");
         }
@@ -79,7 +79,7 @@
 
     $(document).ready(function(){
         var item_unit_id = {!! json_encode($null_add_unit_purchaseorderitem) !!};
-        
+
         if(item_unit_id == null){
             $("#item_unit_id").select2("val", "0");
         }
@@ -92,7 +92,7 @@
 </script>
 @stop
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -211,7 +211,7 @@
                 <a href='#addbatch' data-toggle='modal' name="Find" class="btn btn-success btn-sm" title="Add Data">Tambah</a>
             </div>
         </div>
-    
+
         <div class="card-body table-responsive">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -248,7 +248,7 @@
                                                 <td style='text-align  : left !important;'>".$InvGoodsReceivedNote->getItemCategoryName($val['item_category_id'])."</td>
                                                 <td style='text-align  : left !important;'>".$InvGoodsReceivedNote->getItemTypeName($val['item_type_id'])."</td>
                                                 <td style='text-align  : left !important;'>".$InvGoodsReceivedNote->getItemUnitName($val['item_unit_id'])."</td>
-                                                <td style='text-align  : right !important;'> 
+                                                <td style='text-align  : right !important;'>
                                                     <input class='form-control' style='text-align:right;'type='' name='item_unit_cost_".$no."' id='item_unit_cost_".$no."' value='".$val['item_unit_cost']."' required/>
                                                 </td>
                                                 <td style='text-align  : right !important;'>".$val['quantity']."</td>
@@ -313,7 +313,7 @@
                                             $purchase_order_item_id = $val['purchase_order_item_id'];
 
                                     }
-                                    
+
                                         $total_no = $no - 1;
                                         echo"
                                         <tbody></tbody>
@@ -331,7 +331,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="card-footer text-muted">
             <div class="form-actions float-right">
                 <a href="{{route('delete-new-purchase-order-item', $purchase_order_id)}}"type="reset" name="Reset" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> Batal</a>
@@ -346,7 +346,7 @@
 
 <form action="{{route('add-new-purchase-order-item', $purchase_order_id)}}" method="POST">
     @csrf
-    
+
     <div class="modal fade bs-modal-md" id="addbatch" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-md">
             <div class="modal-content">
@@ -390,9 +390,9 @@
 @stop
 
 @section('footer')
-    
+
 @stop
 
 @section('css')
-    
+
 @stop

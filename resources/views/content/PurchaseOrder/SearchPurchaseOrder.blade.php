@@ -3,10 +3,10 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -26,7 +26,7 @@
 <div class="alert alert-info" role="alert">
     {{session('msg')}}
 </div>
-@endif 
+@endif
 <div class="card border border-dark">
     <div class="card-header bg-dark clearfix">
         <h5 class="mb-0 float-left">
@@ -54,11 +54,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $no = 1; 
+                    <?php $no = 1;
                     $purchase_order_id = -1;
                     ?>
                     @foreach($purchaseorder as $item)
-                    <?php 
+                    <?php
                         if($purchase_order_id != $item['purchase_order_id']){
                         $purchase_order_id = $item['purchase_order_id'];
                     ?>
@@ -75,8 +75,8 @@
                             <a type="button" class="btn btn-outline-success btn-sm" href="{{ url('/purchase-order-return/add/'.$item['purchase_order_id']) }}"><i class="fa fa-plus"></i> Tambah</a>
                         </td>
                     </tr>
-                    <?php 
-                        $no++; 
+                    <?php
+                        $no++;
                         } else {
                     ?>
                     <tr>
@@ -88,8 +88,8 @@
                         <td class="" style='text-align:center'>
                         </td>
                     </tr>
-                    <?php 
-                    $no++; 
+                    <?php
+                    $no++;
                     }
                     ?>
                     @endforeach
@@ -107,9 +107,9 @@
 @stop
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
+
 @stop

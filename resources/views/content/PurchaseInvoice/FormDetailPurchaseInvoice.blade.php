@@ -2,12 +2,12 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 @section('js')
 <script>
 	function toRp(number) {
-		var number = number.toString(), 
-		rupiah = number.split('.')[0], 
+		var number = number.toString(),
+		rupiah = number.split('.')[0],
 		cents = (number.split('.')[1] || '') +'00';
 		rupiah = rupiah.split('').reverse().join('')
 			.replace(/(\d{3}(?!$))/g, '$1.')
@@ -17,7 +17,7 @@
 </script>
 @stop
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -132,7 +132,7 @@
                 Daftar
             </h5>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -156,7 +156,7 @@
                                     $no             = 1;
                                     $total_price    = 0;
                                     $total_item     = 0;
-                                @endphp    
+                                @endphp
                                 @foreach ($purchaseinvoiceitem AS $key => $val)
                                     <tr>
                                         <td style='text-align  : center'>{{$no}}</td>
@@ -179,8 +179,8 @@
                                 <th style='text-align  : right'>{{$total_item}}</th>
                                 <th style='text-align  : right'></th>
                                 <th style='text-align  : right'>{{number_format($total_price,2,',','.')}}
-                                    <input class='form-control input-bb' type='hidden' name='total_amount' id='total_amount' value='{{$total_price}}'/>  
-                                    <input class='form-control input-bb' type='hidden' name='total_item' id='total_item' value='{{$total_item}}'/>    
+                                    <input class='form-control input-bb' type='hidden' name='total_amount' id='total_amount' value='{{$total_price}}'/>
+                                    <input class='form-control input-bb' type='hidden' name='total_item' id='total_item' value='{{$total_item}}'/>
                                 </th>
                                 <tr>
                                     <td style='text-align  : center' colspan='2'><b>PPN Masuk (%)</b></td>
@@ -207,7 +207,7 @@
                 </div>
             </div>
         </div>
-        
+
         {{-- <div class="card-footer text-muted">
             <div class="form-actions float-right">
                 <button type="reset" name="Reset" class="btn btn-danger" onClick="window.location.reload();"><i class="fa fa-times"></i> Batal</button>
@@ -225,5 +225,5 @@
 @stop
 
 @section('css')
-    
+
 @stop

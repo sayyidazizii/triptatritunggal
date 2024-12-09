@@ -3,7 +3,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
@@ -11,7 +11,7 @@
         var check_disbursement_date    =   document.getElementById("check_disbursement_date").value;
         $('#check_disbursement_date_table').html(check_disbursement_date);
     }
-    
+
 	function processAddArrayAcctDisbursementItem(){
 		var account_id_item					= document.getElementById("account_id_item").value;
 		var check_disbursement_item_amount				= document.getElementById("check_disbursement_item_amount").value;
@@ -20,13 +20,13 @@
         console.log(check_disbursement_item_amount);
         console.log(check_disbursement_item_title);
 
-		
+
         $.ajax({
         type: "POST",
         url : "{{route('add-check-disbursement-array')}}",
         data: {
             'account_id_item'					: account_id_item,
-            'check_disbursement_item_amount' 				: check_disbursement_item_amount, 
+            'check_disbursement_item_amount' 				: check_disbursement_item_amount,
             'check_disbursement_item_title' 				: check_disbursement_item_title,
             '_token'                            : '{{csrf_token()}}'
         },
@@ -51,7 +51,7 @@
 @stop
 
 @section('content')
-<?php 
+<?php
 ?>
 <h3 class="page-title">
     Detail Pengeluaran Giro
@@ -85,7 +85,7 @@
                     <a class="text-dark">No Pengeluaran</a>
                     <input class="form-control input-bb" type="text" name="check_disbursement_no" id="check_disbursement_no" value="{{$acctdisbursementdetail['check_disbursement_no']}}" readonly/>
                 </div>
-                <div class="col-md-4">   
+                <div class="col-md-4">
                     <a class="text-dark">Jatuh Tempo</a>
                     <input class="form-control input-bb" type="text" name="check_disbursement_no" id="check_disbursement_no" value="{{date('d/m/Y', strtotime($acctdisbursementdetail['check_disbursement_due_date']))}}" readonly/>
                 </div>
@@ -114,7 +114,7 @@
                         <input class="form-control input-bb" type="text" name="check_disbursement_title" id="check_disbursement_title" value="{{$acctdisbursementdetail['check_disbursement_title']}}" readonly/>
                     </div>
                 </div>
-            </div>	
+            </div>
             <div class = "row form-group">
                 <div class="col-md-12 ">
                     <a class="text-dark">Deskripsi</a>
@@ -180,13 +180,13 @@
                                     <b><?php echo $check_disbursement_amount_total;?></b>
                                 </td>
                                 <input type='hidden' name='check_disbursement_amount_total' id='check_disbursement_amount_total' value='<?php echo $check_disbursement_amount_total; ?>'/>
-                            </tr>	
+                            </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    
+
 </div>
 <br>
 <br>
@@ -196,5 +196,5 @@
 @stop
 
 @section('css')
-    
+
 @stop

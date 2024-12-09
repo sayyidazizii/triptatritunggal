@@ -2,12 +2,12 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 @section('js')
 <script>
 	function toRp(number) {
-		var number = number.toString(), 
-		rupiah = number.split('.')[0], 
+		var number = number.toString(),
+		rupiah = number.split('.')[0],
 		cents = (number.split('.')[1] || '') +'00';
 		rupiah = rupiah.split('').reverse().join('')
 			.replace(/(\d{3}(?!$))/g, '$1.')
@@ -25,7 +25,7 @@
                 'purchase_order_id'	: purchase_order_id,
                 '_token'            : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 window.location.href = "{{route('purchase-order-approval')}}"
             },
             error: function(data)
@@ -37,7 +37,7 @@
 </script>
 @stop
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -119,7 +119,7 @@
                 Daftar
             </h5>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -143,7 +143,7 @@
                                     $no =1;
                                     $total_price = 0;
                                     $total_item = 0;
-                                @endphp   
+                                @endphp
                                 @foreach ($purchaseorderitem AS $key => $val)
                                     <tr>
                                         <td style='text-align  : center'>{{$no}}</td>
@@ -190,7 +190,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="card-footer text-muted">
             <div class="form-actions float-right">
                 <a name="Dissaprove" class="btn btn-danger btn-sm" onClick="disapprove()"><i class="fa fa-times"></i> Disapprove</a>
@@ -207,5 +207,5 @@
 @stop
 
 @section('css')
-    
+
 @stop

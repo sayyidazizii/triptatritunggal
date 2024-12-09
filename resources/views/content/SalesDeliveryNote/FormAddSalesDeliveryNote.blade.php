@@ -2,7 +2,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
@@ -18,7 +18,7 @@ function elements_add(name, value){
                 'value'	    : value,
                 '_token'    : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 console.log(return_data);
             },
             error: function(data)
@@ -55,11 +55,11 @@ function elements_add(name, value){
                 $("#sales_delivery_note_cost").val(0);
             }
 
-		}); 
+		});
 
 
-        
-        
+
+
 	});
 
     function addExpedition(){
@@ -101,7 +101,7 @@ function elements_add(name, value){
                 'expedition_remark'	            : expedition_remark,
                 '_token'                        : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 $('#expedition_id').html(return_data);
                 $('#cancel_btn_expedition').click();
             },
@@ -116,7 +116,7 @@ function elements_add(name, value){
 @stop
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -282,7 +282,7 @@ function elements_add(name, value){
                 Daftar
             </h5>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -311,7 +311,7 @@ function elements_add(name, value){
                             $no =1;
                         @endphp
                             @foreach ($salesdeliverynoteitem_view AS $key => $val)
-                            @php    
+                            @php
                                 $item = $SalesDeliveryNote->getSalesOrderItem($val['sales_order_item_id']);
                             @endphp
                                     <tr>
@@ -323,17 +323,17 @@ function elements_add(name, value){
                                         <td style='text-align  : right !important;'>{{$item['quantity']}}</td>
                                         <td style='text-align  : right !important;'>{{$item['quantity_resulted']}}</td>
                                         <td style='text-align  : right !important;'>
-                                            <input class='form-control' style='text-align:right;'type='text' name='quantity_delivered_{{$no}}' id='quantity_delivered_{{$no}}' value='{{$val['quantity']}}' readonly/>  
-                                            
-                                            <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id__{{$no}}' id='sales_order_id__{{$no}}' value='{{$val['sales_order_id']}}'/>  
-                                            <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id__{{$no}}' id='sales_order_item_id__{{$no}}' value='{{$val['sales_order_item_id']}}'/> 
-                                            <input class='form-control' style='text-align:right;'type='hidden' name='sales_delivery_order_id__{{$no}}' id='sales_delivery_order_id__{{$no}}' value='{{$val['sales_delivery_order_id']}}'/>  
-                                            <input class='form-control' style='text-align:right;'type='hidden' name='sales_delivery_order_item_id__{{$no}}' id='sales_delivery_order_item_id__{{$no}}' value='{{$val['sales_delivery_order_item_id']}}'/>   
-                                            <input class='form-control' style='text-align:right;'type='hidden' name='customer_id_{{$no}}' id='customer_id_{{$no}}' value='{{$val['customer_id']}}'/>  
+                                            <input class='form-control' style='text-align:right;'type='text' name='quantity_delivered_{{$no}}' id='quantity_delivered_{{$no}}' value='{{$val['quantity']}}' readonly/>
+
+                                            <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id__{{$no}}' id='sales_order_id__{{$no}}' value='{{$val['sales_order_id']}}'/>
+                                            <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id__{{$no}}' id='sales_order_item_id__{{$no}}' value='{{$val['sales_order_item_id']}}'/>
+                                            <input class='form-control' style='text-align:right;'type='hidden' name='sales_delivery_order_id__{{$no}}' id='sales_delivery_order_id__{{$no}}' value='{{$val['sales_delivery_order_id']}}'/>
+                                            <input class='form-control' style='text-align:right;'type='hidden' name='sales_delivery_order_item_id__{{$no}}' id='sales_delivery_order_item_id__{{$no}}' value='{{$val['sales_delivery_order_item_id']}}'/>
+                                            <input class='form-control' style='text-align:right;'type='hidden' name='customer_id_{{$no}}' id='customer_id_{{$no}}' value='{{$val['customer_id']}}'/>
                                             <input class='form-control' style='text-align:right;'type='hidden' name='item_id_{{$no}}' id='item_id_{{$no}}' value='{{$val['item_id']}}'/>
                                             <input class='form-control' style='text-align:right;'type='hidden' name='item_type_id_{{$no}}' id='item_type_id_{{$no}}' value='{{$val['item_type_id']}}'/>
                                             <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_id_{{$no}}' id='item_unit_id_{{$no}}' value='{{$val['item_unit_id']}}'/>
-                                            <input class='form-control' style='text-align:right;'type='hidden' name='quantity_{{$no}}' id='quantity_{{$no}}' value='{{$val['quantity']}}' readonly/>  
+                                            <input class='form-control' style='text-align:right;'type='hidden' name='quantity_{{$no}}' id='quantity_{{$no}}' value='{{$val['quantity']}}' readonly/>
                                             <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_price_{{ $no }}' id='item_unit_price_{{ $no }}' value='{{$SalesDeliveryNote->getItemUnitprice($val->sales_delivery_order_item_id)}}'/>
                                             <input class='form-control' style='text-align:right;'type='hidden' name='subtotal_price_{{ $no }}' id='subtotal_price_{{ $no }}' value='{{$val->subtotal_price}}'/>
                                             <input class='form-control' style='text-align:right;'type='hidden' name='discount_amount_item_{{ $no }}' id='discount_amount_item_{{ $no }}' value='{{$item['discount_amount_item']}}'/>
@@ -381,9 +381,9 @@ function elements_add(name, value){
                                                 <td style='text-align  : right !important;'>{{$item['quantity']}}</td>
                                                 <td style='text-align  : right !important;'>{{$item['quantity_resulted']}}</td>
                                                 <td style='text-align  : right !important;'>
-                                                    <input class='form-control' style='text-align:right;'type='text' name='quantity_delivered_{{$no}}' id='quantity_delivered_{{$no}}' value='{{$item['quantity']}}' readonly/>  
+                                                    <input class='form-control' style='text-align:right;'type='text' name='quantity_delivered_{{$no}}' id='quantity_delivered_{{$no}}' value='{{$item['quantity']}}' readonly/>
 
-                                            
+
                                                 </td>
                                                 <td style='text-align:center;'>
                                                 <a href='{{url ('/sales-delivery-note/add/detail-item-stock/'.$val->sales_delivery_order_id.'/'.$val->sales_delivery_order_item_id)}}' class='btn btn-outline-info btn-sm' title='Detail Stock'>Detail Stock</a>
@@ -394,13 +394,13 @@ function elements_add(name, value){
                                             $no++;
 
                                         @endphp
-                                        
-                                        <input class='form-control' style='text-align:right;'type='hidden' name='sales_delivery_order_id_{{$total_no}}' id='sales_delivery_order_id_{{$total_no}}' value='{{$val->sales_delivery_order_id}}'/>  
+
+                                        <input class='form-control' style='text-align:right;'type='hidden' name='sales_delivery_order_id_{{$total_no}}' id='sales_delivery_order_id_{{$total_no}}' value='{{$val->sales_delivery_order_id}}'/>
                                         <input class='form-control' style='text-align:right;'type='hidden' readonly name='sales_delivery_order_item_id_{{$total_no}}' id='sales_delivery_order_item_id_{{$total_no}}' value='{{$val->sales_delivery_order_item_id}}'/>
-                                        <input class='form-control' style='text-align:right;'type='hidden' name='sales_delivery_order_item_stock_id_{{$total_no}}' id='sales_delivery_order_item_stock_id_{{$total_no}}' value='{{$val->sales_delivery_order_item_stock_id}}'/>    
-                                        <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id_{{$total_no}}' id='sales_order_id_{{$total_no}}' value='{{$item['sales_order_id']}}'/>  
-                                        <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id_{{$total_no}}' id='sales_order_item_id_{{$total_no}}' value='{{$item['sales_order_item_id']}}'/>  
-                                        <input class='form-control' style='text-align:right;'type='hidden' name='customer_id_{{$total_no}}' id='customer_id_{{$total_no}}' value='{{$item['customer_id']}}'/>  
+                                        <input class='form-control' style='text-align:right;'type='hidden' name='sales_delivery_order_item_stock_id_{{$total_no}}' id='sales_delivery_order_item_stock_id_{{$total_no}}' value='{{$val->sales_delivery_order_item_stock_id}}'/>
+                                        <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id_{{$total_no}}' id='sales_order_id_{{$total_no}}' value='{{$item['sales_order_id']}}'/>
+                                        <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id_{{$total_no}}' id='sales_order_item_id_{{$total_no}}' value='{{$item['sales_order_item_id']}}'/>
+                                        <input class='form-control' style='text-align:right;'type='hidden' name='customer_id_{{$total_no}}' id='customer_id_{{$total_no}}' value='{{$item['customer_id']}}'/>
                                         <input class='form-control' style='text-align:right;'type='hidden' name='item_id_{{$total_no}}' id='item_id_{{$total_no}}' value='{{$item['item_id']}}'/>
                                         <input class='form-control' style='text-align:right;'type='hidden' name='item_type_id_{{$total_no}}' id='item_type_id_{{$total_no}}' value='{{$item['item_type_id']}}'/>
                                         <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_id_{{$total_no}}' id='item_unit_id_{{$total_no}}' value='{{$item['item_unit_id']}}'/>
@@ -414,7 +414,7 @@ function elements_add(name, value){
                 </div>
             </div>
         </div>
-        
+
         <div class="card-footer text-muted">
             <div class="form-actions float-right">
                 <a href="{{route('add-sales-delivery-note', ['sales_delivery_order_id' => $sales_delivery_order_id])}}" name='Reset' class='btn btn-danger btn-sm' onClick='javascript:return confirm(\"apakah yakin ingin dihapus ?\")'><i class="fa fa-times"></i> Reset</a>
@@ -434,98 +434,98 @@ function elements_add(name, value){
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Kode Ekspedisi</a>
                             <input class="form-control input-bb" type="text" name="expedition_code" id="expedition_code" value=""/>
                         </div>
                     </div>
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nama Ekspedisi</a>
                             <input class="form-control input-bb" type="text" name="expedition_name" id="expedition_name" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Rute</a>
                             <input class="form-control input-bb" type="text" name="expedition_route" id="expedition_route" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">	
-                        <div class="form-group">	
+                    <div class="col-md-12">
+                        <div class="form-group">
                             <a class="text-dark">Alamat</a>
                             <input class="form-control input-bb" type="text" name="expedition_address" id="expedition_address" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nama Kota<a class='red'> *</a></a>
                             {!! Form::select('expedition_city',  $city, 0, ['class' => 'selection-search-clear select-form', 'id' => 'expedition_city']) !!}
                         </div>
                     </div>
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nomor Telepon</a>
                             <input class="form-control input-bb" type="text" name="expedition_home_phone" id="expedition_home_phone" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nomor handphone 1</a>
                             <input class="form-control input-bb" type="text" name="expedition_mobile_phone1" id="expedition_mobile_phone1" value=""/>
                         </div>
-                    </div>	
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nomor handphone 2</a>
                             <input class="form-control input-bb" type="text" name="expedition_mobile_phone2" id="expedition_mobile_phone2" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nomor Fax</a>
                             <input class="form-control input-bb" type="text" name="expedition_fax_number" id="expedition_fax_number" value=""/>
                         </div>
-                    </div>	
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Email</a>
                             <input class="form-control input-bb" type="text" name="expedition_email" id="expedition_email" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Person in Charge</a>
                             <input class="form-control input-bb" type="text" name="expedition_person_in_charge" id="expedition_person_in_charge" value=""/>
                         </div>
-                    </div>	
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Status<a class='red'> *</a></a>
                             {!! Form::select('expedition_status',  $status, 0, ['class' => 'selection-search-clear select-form', 'id' => 'expedition_status']) !!}
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">		
-                        <div class="form-group">		
+                    <div class="col-md-12">
+                        <div class="form-group">
                             <a class="text-dark">Keterangan</a>
                             <input class="form-control input-bb" type="text" name="expedition_remark" id="expedition_remark" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -540,13 +540,13 @@ function elements_add(name, value){
 <br>
 
 @include('footer')
-    
+
 @stop
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
+
 @stop

@@ -2,13 +2,13 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 @section('js')
 <script>
 	$(document).ready(function(){
         $("#item_category_id").select2("val", "0");
         // $("#item_unit_id").select2("val", "0");
-        
+
         var elements = {!! json_encode($warehousetransferelements) !!};
 
         if(!elements || elements==''){
@@ -42,7 +42,7 @@
                     'item_category_id'			    : item_category_id,
                     '_token'                        : '{{csrf_token()}}',
                 },
-                success: function(return_data){ 
+                success: function(return_data){
                     $('#item_type_id').html(return_data);
                     // console.log(return_data);
                 },
@@ -67,7 +67,7 @@
                     'item_type_id'	    : item_type_id,
                     '_token'            : '{{csrf_token()}}',
                 },
-                success: function(return_data){ 
+                success: function(return_data){
                     console.log(return_data);
                     $('#item_batch_number').val(return_data);
 
@@ -93,7 +93,7 @@
                     'item_type_id'	    : item_type_id,
                     '_token'            : '{{csrf_token()}}',
                 },
-                success: function(return_data){ 
+                success: function(return_data){
                     console.log(return_data);
                     $('#item_unit_id').val(return_data);
 
@@ -119,7 +119,7 @@
                     'item_type_id'	    : item_type_id,
                     '_token'            : '{{csrf_token()}}',
                 },
-                success: function(return_data){ 
+                success: function(return_data){
                     console.log(return_data);
                     $('#stock_quantity').val(return_data);
 
@@ -149,7 +149,7 @@
         //             'item_id'	        : item_id,
         //             '_token'            : '{{csrf_token()}}',
         //         },
-        //         success: function(return_data){ 
+        //         success: function(return_data){
         //             return_data = JSON.parse(return_data);
         //             return_data = JSON.parse(return_data);
 
@@ -175,7 +175,7 @@
         //             'item_stock_id'	    : item_stock_id,
         //             '_token'            : '{{csrf_token()}}',
         //         },
-        //         success: function(return_data){ 
+        //         success: function(return_data){
         //             // return_data = return_data.slice(1);
         //             return_data = JSON.parse(return_data);
         //             return_data = JSON.parse(return_data);
@@ -188,9 +188,9 @@
         //         }
         //     });
         // });
-    
+
 	});
-    
+
     function elements_add(name, value){
         $.ajax({
             type: "POST",
@@ -201,7 +201,7 @@
                 'value'	    : value,
                 '_token'    : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 console.log(return_data);
             },
             error: function(data)
@@ -211,7 +211,7 @@
             }
         });
     }
-    
+
     function processAddArrayWarehouseTransferItem(){
         var item_category_id	                = document.getElementById("item_category_id").value;
         var item_stock_id		                = document.getElementById("item_type_id").value;
@@ -233,7 +233,7 @@
             url : "{{route('warehouse_transfer-add-array')}}",
             data: {
                 'item_category_id'	                : item_category_id,
-                'item_stock_id' 		            : item_stock_id, 
+                'item_stock_id' 		            : item_stock_id,
                 'item_unit_id' 		                : item_unit_id,
                 'quantity' 			                : quantity,
                 'item_batch_number' 			    : item_batch_number,
@@ -267,7 +267,7 @@
                 'warehouse_remark'      : warehouse_remark,
                 '_token'                : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 $('#warehouse_from_id').html(return_data);
                 $('#warehouse_to_id').html(return_data);
                 $('#cancel_btn_warehouse_from').click();
@@ -299,7 +299,7 @@
                 'warehouse_remark'      : warehouse_remark,
                 '_token'                : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 $('#warehouse_to_id').html(return_data);
                 $('#warehouse_from_id').html(return_data);
                 $('#cancel_btn_warehouse_to').click();
@@ -323,7 +323,7 @@
                 'warehouse_transfer_type_remark'	: warehouse_transfer_type_remark,
                 '_token'                            : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 $('#warehouse_transfer_type_id').html(return_data);
                 $('#cancel_btn_warehouse_transfer').click();
             },
@@ -368,7 +368,7 @@
                 'expedition_remark'	            : expedition_remark,
                 '_token'                        : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 $('#expedition_id').html(return_data);
                 $('#cancel_btn_expedition').click();
             },
@@ -382,7 +382,7 @@
 </script>
 @stop
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -478,7 +478,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <br/>
             <h4 class="text-dark">Daftar Barang</h4>
             <hr/>
@@ -542,7 +542,7 @@
                 Daftar
             </h5>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -591,7 +591,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="card-footer text-muted">
             <div class="form-actions float-right">
                 <button type="reset" name="Reset" class="btn btn-danger btn-sm" onClick="window.location.reload();"><i class="fa fa-times"></i> Batal</button>
@@ -610,18 +610,18 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Kode Gudang</a>
                             <input class="form-control input-bb" type="text" name="warehouse_code_from" id="warehouse_code_from" value=""/>
                         </div>
-                    </div>	
+                    </div>
                     <div class="col-md-6">
-                        <div class="form-group">	
+                        <div class="form-group">
                             <a class="text-dark">Nama Gudang</a>
                             <input class="form-control input-bb" type="text" name="warehouse_name_from" id="warehouse_name_from" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 ">
@@ -632,14 +632,14 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Lokasi<a class='red'> *</a></a>
                             {!! Form::select('warehouse_location_id_from',  $location, 0, ['class' => 'selection-search-clear select-form', 'id' => 'warehouse_location_id_from']) !!}
                         </div>
                     </div>
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">No Telp</a>
                             <input class="form-control input-bb" type="text" name="warehouse_phone_from" id="warehouse_phone_from" value=""/>
                         </div>
@@ -672,18 +672,18 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Kode Gudang</a>
                             <input class="form-control input-bb" type="text" name="warehouse_code_to" id="warehouse_code_to" value=""/>
                         </div>
-                    </div>	
+                    </div>
                     <div class="col-md-6">
-                        <div class="form-group">	
+                        <div class="form-group">
                             <a class="text-dark">Nama Gudang</a>
                             <input class="form-control input-bb" type="text" name="warehouse_name_to" id="warehouse_name_to" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 ">
@@ -694,14 +694,14 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Lokasi<a class='red'> *</a></a>
                             {!! Form::select('warehouse_location_id_to',  $location, 0, ['class' => 'selection-search-clear select-form', 'id' => 'warehouse_location_id_to']) !!}
                         </div>
                     </div>
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">No Telp</a>
                             <input class="form-control input-bb" type="text" name="warehouse_phone_to" id="warehouse_phone_to" value=""/>
                         </div>
@@ -734,11 +734,11 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group">	
+                        <div class="form-group">
                             <a class="text-dark">Nama Tipe Transfer Gudang</a>
                             <input class="form-control input-bb" type="text" name="warehouse_transfer_type_name" id="warehouse_transfer_type_name" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 ">
@@ -765,98 +765,98 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Kode Ekspedisi</a>
                             <input class="form-control input-bb" type="text" name="expedition_code" id="expedition_code" value=""/>
                         </div>
                     </div>
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nama Ekspedisi</a>
                             <input class="form-control input-bb" type="text" name="expedition_name" id="expedition_name" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Rute</a>
                             <input class="form-control input-bb" type="text" name="expedition_route" id="expedition_route" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">	
-                        <div class="form-group">	
+                    <div class="col-md-12">
+                        <div class="form-group">
                             <a class="text-dark">Alamat</a>
                             <input class="form-control input-bb" type="text" name="expedition_address" id="expedition_address" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nama Kota<a class='red'> *</a></a>
                             {!! Form::select('expedition_city',  $city, 0, ['class' => 'selection-search-clear select-form', 'id' => 'expedition_city']) !!}
                         </div>
                     </div>
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nomor Telepon</a>
                             <input class="form-control input-bb" type="text" name="expedition_home_phone" id="expedition_home_phone" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nomor handphone 1</a>
                             <input class="form-control input-bb" type="text" name="expedition_mobile_phone1" id="expedition_mobile_phone1" value=""/>
                         </div>
-                    </div>	
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nomor handphone 2</a>
                             <input class="form-control input-bb" type="text" name="expedition_mobile_phone2" id="expedition_mobile_phone2" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nomor Fax</a>
                             <input class="form-control input-bb" type="text" name="expedition_fax_number" id="expedition_fax_number" value=""/>
                         </div>
-                    </div>	
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Email</a>
                             <input class="form-control input-bb" type="text" name="expedition_email" id="expedition_email" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">		
-                        <div class="form-group">		
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Person in Charge</a>
                             <input class="form-control input-bb" type="text" name="expedition_person_in_charge" id="expedition_person_in_charge" value=""/>
                         </div>
-                    </div>	
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Status<a class='red'> *</a></a>
                             {!! Form::select('expedition_status',  $status, 0, ['class' => 'selection-search-clear select-form', 'id' => 'expedition_status']) !!}
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">		
-                        <div class="form-group">		
+                    <div class="col-md-12">
+                        <div class="form-group">
                             <a class="text-dark">Keterangan</a>
                             <input class="form-control input-bb" type="text" name="expedition_remark" id="expedition_remark" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -874,5 +874,5 @@
 @stop
 
 @section('css')
-    
+
 @stop

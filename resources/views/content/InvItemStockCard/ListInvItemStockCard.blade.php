@@ -3,10 +3,10 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -31,7 +31,7 @@
                 Filter
             </h5>
         </div>
-    
+
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body">
                 <div class = "row">
@@ -73,7 +73,7 @@
 <div class="alert alert-info" role="alert">
     {{session('msg')}}
 </div>
-@endif 
+@endif
 <div class="card border border-dark">
     <div class="card-header bg-dark clearfix">
         <h5 class="mb-0 float-left">
@@ -102,8 +102,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php 
-                        $no = 1; 
+                    <?php
+                        $no = 1;
                         $opening_balance = 0;
                         $last_balance = 0;
                         $stock_in = 0;
@@ -132,8 +132,8 @@
 
                         </td>
                     </tr>
-                    <?php 
-                        $no++; 
+                    <?php
+                        $no++;
                         $stock_in++;
                         $stock_out++;
                     ?>
@@ -152,9 +152,9 @@
 @stop
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
+
 @stop

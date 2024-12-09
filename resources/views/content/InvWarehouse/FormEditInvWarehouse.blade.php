@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />  
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
@@ -15,7 +15,7 @@
                     'province_id'	: province_id,
                     '_token'        : '{{csrf_token()}}',
                 },
-                success: function(return_data){ 
+                success: function(return_data){
                     $('#city_id').html(return_data);
                     console.log(return_data);
                 },
@@ -42,7 +42,7 @@
                 'city_id'	                : city_id,
                 '_token'                    : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 $('#location_id').html(return_data);
                 $('#cancel_btn_location').click();
             },
@@ -57,7 +57,7 @@
 @stop
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -178,22 +178,22 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Nama Lokasi </a>
                             <input class="form-control input-bb" type="text" name="warehouse_location_code" id="warehouse_location_code" value=""/>
                         </div>
-                    </div>	
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Provinsi<a class='red'> *</a></a>
                             {!! Form::select('province_id',  $province, 0, ['class' => 'selection-search-clear select-form', 'id' => 'province_id']) !!}
                         </div>
                     </div>
-                    <div class="col-md-6">	
-                        <div class="form-group">	
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <a class="text-dark">Kota<a class='red'> *</a></a>
                             {!! Form::select('city_id',  $city, 0, ['class' => 'selection-search-clear select-form', 'id' => 'city_id']) !!}
                         </div>
@@ -216,5 +216,5 @@
 @stop
 
 @section('css')
-    
+
 @stop

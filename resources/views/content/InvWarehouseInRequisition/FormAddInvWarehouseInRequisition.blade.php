@@ -3,7 +3,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
@@ -18,7 +18,7 @@
                 'value'	    : value,
                 '_token'    : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 console.log(return_data);
             },
             error: function(data)
@@ -46,7 +46,7 @@
         if(!elements['warehouse_in_type_id']){
             $("#warehouse_in_type_id").select2("val", "0");
         }
-        
+
 
         $("#item_stock_id").change(function(){
             var item_stock_id 	= $("#item_stock_id").val();
@@ -59,7 +59,7 @@
                     'item_stock_id'	    : item_stock_id,
                     '_token'            : '{{csrf_token()}}',
                 },
-                success: function(return_data){ 
+                success: function(return_data){
                     return_data = JSON.parse(return_data);
                     return_data = JSON.parse(return_data);
                     $('#default_quantity').val(return_data['item_total']);
@@ -73,19 +73,19 @@
             });
         });
     });
-    
+
 	function processAddArrayWarehouseInRequisitionItem(){
 		var item_stock_id	= document.getElementById("item_stock_id").value;
 		var quantity		= document.getElementById("quantity").value;
 		var item_unit_id	= document.getElementById("item_unit_id").value;
-		
+
         $.ajax({
         type: "POST",
         url : "{{route('warehouse-in-requisition-add-array')}}",
         data: {
             'item_stock_id'		: item_stock_id,
-            'quantity' 	        : quantity, 
-            'item_unit_id' 	    : item_unit_id, 
+            'quantity' 	        : quantity,
+            'item_unit_id' 	    : item_unit_id,
             '_token'            : '{{csrf_token()}}'
         },
         success: function(msg){
@@ -97,7 +97,7 @@
 @stop
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -242,7 +242,7 @@
                 Daftar
             </h5>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -270,7 +270,7 @@
                                                 <td style='text-align  : right !important;'>".$val['quantity']."</td>
                                                 <td style='text-align  : left !important;'>".$InvWarehouseInRequisition->getItemUnitName($val['item_unit_id'])."</td>";
                                                 ?>
-                                                
+
                                                 <td style='text-align  : center'>
                                                     <a href="{{route('warehouse-in-requisition-delete-array', ['record_id' => $key])}}" name='Reset' class='btn btn-danger btn-sm' onClick='javascript:return confirm(\"apakah yakin ingin dihapus ?\")'></i> Hapus</a>
                                                 </td>
@@ -287,7 +287,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="card-footer text-muted">
             <div class="form-actions float-right">
                 <a href="{{route('reset-array-warehouse-in-requisition')}}" name='Reset' class='btn btn-danger btn-sm' onClick='javascript:return confirm(\"apakah yakin ingin dihapus ?\")'><i class="fa fa-times"></i> Reset</a>
@@ -301,9 +301,9 @@
 @stop
 
 @section('footer')
-    
+
 @stop
 
 @section('css')
-    
+
 @stop
