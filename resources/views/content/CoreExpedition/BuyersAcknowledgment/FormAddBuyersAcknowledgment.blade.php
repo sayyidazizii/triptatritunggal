@@ -133,6 +133,7 @@
                                 } else {
                                     $no =1;
                                     foreach ($salesdeliverynoteitem AS $key => $val){
+                                        $stock_id = $BA->getItemStock($val['sales_delivery_note_item_id']); 
                                         echo"
                                             <tr>
                                                 <td style='text-align  : center'>".$no."</td>
@@ -156,6 +157,9 @@
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='quantity_".$no."' id='quantity_".$no."' value='".$val['quantity']."'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='sales_delivery_note_id_".$no."' id='sales_delivery_note_id_".$no."' value='".$val['sales_delivery_note_id']."'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='sales_delivery_note_item_id_".$no."' id='sales_delivery_note_item_id_".$no."' value='".$val['sales_delivery_note_item_id']."'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_stock_id_".$no."' id='item_stock_id_".$no."' value='".$BA->getItemStock($val['sales_delivery_note_item_id'])."'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_cost_".$no."' id='item_unit_cost_".$no."' value='".$BA->getItemUnitCost($stock_id)."'/>
+
                                                 </td>";
                                                 echo"
                                             </tr>
