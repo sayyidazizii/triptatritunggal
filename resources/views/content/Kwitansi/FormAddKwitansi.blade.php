@@ -3,7 +3,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 @section('js')
 <script>
 
@@ -11,7 +11,7 @@ var salesinvoice = {!! json_encode($salesinvoice) !!};
 
     function check_all(){
         $(':checkbox').each(function() {
-            this.checked = true;                        
+            this.checked = true;
         });
     }
     // function alert(){
@@ -19,36 +19,36 @@ var salesinvoice = {!! json_encode($salesinvoice) !!};
     //     //     if(this.checked = false){
     //             confirm("Press a button!\nEither OK or Cancel.");
 
-    //     //     };                        
+    //     //     };
     //     // });
     // }
 
     $(document).ready(function() {
 
-       
+
     $(':checkbox').attr('checked', true);
         // $("checkbox").val(1);
 });
 
 function handleChange($no) {
 
- 
+
     console.log($no);
     $("#checkbox_"+$no).val("0");
 
     $('#checkbox_view_'+$no).change(function() {
         if($(this).is(":checked")) {
-    
-            $("#checkbox_"+$no).val("1");  
+
+            $("#checkbox_"+$no).val("1");
         }
-        // $("#checkbox_"+$no).val("1");  
-        
+        // $("#checkbox_"+$no).val("1");
+
         if(!$(this).is(":checked")) {
-           
-            $("#checkbox_"+$no).val("0");  
-            // confirm("Press a button!\nEither OK or Cancel."); 
+
+            $("#checkbox_"+$no).val("0");
+            // confirm("Press a button!\nEither OK or Cancel.");
         }
-        
+
 
     });
 }
@@ -57,7 +57,7 @@ function handleChange($no) {
 @stop
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -85,8 +85,8 @@ function handleChange($no) {
                 Filter
             </h5>
         </div>
-      
-    
+
+
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body">
                 <div class = "row">
@@ -130,7 +130,7 @@ function handleChange($no) {
 <div class="alert alert-info" role="alert">
     {{session('msg')}}
 </div>
-@endif 
+@endif
 <div class="card border border-dark">
     <div class="card-header bg-dark clearfix">
         <h5 class="mb-0 float-left">
@@ -175,9 +175,9 @@ function handleChange($no) {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php 
-                     $no = 1;   
-                     $total_no = 1;                 
+                    <?php
+                     $no = 1;
+                     $total_no = 1;
                     ?>
                     @foreach($salesinvoice as $item)
                     <tr>
@@ -185,14 +185,14 @@ function handleChange($no) {
                         <td>{{ $Kwitansi->getCustomerName($item['customer_id'])}}</td>
                         <td>{{$item['sales_invoice_date']}}</td>
                         <td>{{ $item['sales_invoice_no']}}
-                            <input class='form-control' type='hidden' name='sales_invoice_id_{{$no}}' id='sales_invoice_id_{{$no}}' value='{{$item['sales_invoice_id']}}'/>  
+                            <input class='form-control' type='hidden' name='sales_invoice_id_{{$no}}' id='sales_invoice_id_{{$no}}' value='{{$item['sales_invoice_id']}}'/>
                         </td>
                         <td >{{ $item['buyers_acknowledgment_no']}}
                             <input class='form-control' type='hidden' name='buyers_acknowledgment_id_{{$no}}' id='buyers_acknowledgment_id_{{$no}}' value='{{$item['buyers_acknowledgment_id']}}'/>  </td>
                         <td>{{ number_format($item['total_discount_amount'])}}</td>
                         <td style='text-align:center'>
                             <input type='checkbox' class='checkboxes' name='checkbox_view_{{$no}}' id='checkbox_view_{{$no}}' onchange="handleChange({{ $no }})"/>
-                            <input class='form-control' type='hidden' name='checkbox_{{$no}}' id='checkbox_{{ $no }}' value="1"/> 
+                            <input class='form-control' type='hidden' name='checkbox_{{$no}}' id='checkbox_{{ $no }}' value="1"/>
                         </td>
                     </tr>
                     @php
@@ -203,7 +203,7 @@ function handleChange($no) {
                     @endforeach
                 </tbody>
                 <input class='form-control' style='text-align:right;'type='hidden' name='total_no' id='total_no' value='{{$total_no}}'/>
-                <input class='form-control' type='hidden' name='customer_id' id='customer_id' value='{{$customer_id}}'/>  
+                <input class='form-control' type='hidden' name='customer_id' id='customer_id' value='{{$customer_id}}'/>
             </table>
             <div class="card-footer text-muted">
                 <div class="form-actions float-right">
@@ -226,9 +226,9 @@ function handleChange($no) {
 
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
+
 @stop

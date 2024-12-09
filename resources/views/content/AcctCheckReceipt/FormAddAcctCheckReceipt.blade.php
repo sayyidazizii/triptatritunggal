@@ -3,20 +3,20 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
-    
+
 	$(document).ready(function(){
         $("#account_id_item").select2("val", "0");
-        
+
         var elements = {!! json_encode($acctreceiptelements) !!};
-        
+
         if(!elements || elements==''){
             elements = [];
         }
-        
+
         if(!elements['account_id']){
             $("#account_id").select2("val", "0");
         }
@@ -24,7 +24,7 @@
         if(!elements['customer_id']){
             $("#customer_id").select2("val", "0");
         }
-    
+
         if(!elements['check_receipt_title']){
             $("#check_receipt_title").val('');
         }
@@ -37,7 +37,7 @@
             $("#check_number").val('');
         }
     });
-    
+
     function function_elements_add(name, value){
         $.ajax({
             type: "POST",
@@ -48,7 +48,7 @@
                 'value'	    : value,
                 '_token'    : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 console.log(return_data);
             },
             error: function(data)
@@ -65,7 +65,7 @@
 
         function_elements_add(name, value);
     }
-    
+
     function changeDate2(name, value){
         var check_receipt_due_date    =   document.getElementById("check_receipt_due_date").value;
         $('#date_table').html(check_receipt_due_date);
@@ -81,13 +81,13 @@
         console.log(check_receipt_item_amount);
         console.log(check_receipt_item_title);
 
-		
+
         $.ajax({
         type: "POST",
         url : "{{route('add-check-receipt-array')}}",
         data: {
             'account_id_item'					    : account_id_item,
-            'check_receipt_item_amount' 				: check_receipt_item_amount, 
+            'check_receipt_item_amount' 				: check_receipt_item_amount,
             'check_receipt_item_title' 				: check_receipt_item_title,
             '_token'                            : '{{csrf_token()}}'
         },
@@ -112,7 +112,7 @@
 @stop
 
 @section('content')
-<?php 
+<?php
 $project_type_id = Session::get('receiptprojecttype');
 ?>
 <form method="post" action="{{route('process-add-check-receipt')}}" enctype="multipart/form-data">
@@ -175,7 +175,7 @@ $project_type_id = Session::get('receiptprojecttype');
                         <input class="form-control input-bb" type="text" name="check_receipt_title" id="check_receipt_title" onChange="function_elements_add(this.name, this.value)" value="{{$acctreceiptelements == null ? '' : $acctreceiptelements['check_receipt_title']}}"/>
                     </div>
                 </div>
-            </div>	
+            </div>
             <div class = "row form-group">
                 <div class="col-md-12 ">
                     <a class="text-dark">Deskripsi</a>
@@ -192,7 +192,7 @@ $project_type_id = Session::get('receiptprojecttype');
             </div>
             <hr style="margin:0;">
             <br/>
-            
+
             <div class="row form-group">
                 <div class="col-md-6">
                     <a class="text-dark">No. Perkiraan</a>
@@ -205,7 +205,7 @@ $project_type_id = Session::get('receiptprojecttype');
                     </div>
                 </div>
             </div>
-                        
+
             <div class = "row form-group">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -221,7 +221,7 @@ $project_type_id = Session::get('receiptprojecttype');
             </div>
         </div>
     </div>
-    
+
 
 <br/>
 <div class="card border border-dark">
@@ -280,13 +280,13 @@ $project_type_id = Session::get('receiptprojecttype');
                                 <td style='text-align  : center !important;'>
                                 </td>
                                 <input type='hidden' name='check_receipt_amount_total' id='check_receipt_amount_total' value='<?php echo $check_receipt_amount_total; ?>'/>
-                            </tr>	
+                            </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    
+
     <div class="card-footer text-muted">
         <div class="form-actions float-right">
             <button type="reset" name="Reset" class="btn btn-danger btn-sm" onClick="window.location.reload();"><i class="fa fa-times"></i> Batal</button>
@@ -303,5 +303,5 @@ $project_type_id = Session::get('receiptprojecttype');
 @stop
 
 @section('css')
-    
+
 @stop

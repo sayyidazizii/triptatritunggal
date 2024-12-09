@@ -2,7 +2,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
@@ -11,7 +11,7 @@
 @stop
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -51,7 +51,7 @@
                 <button onclick="location.href='{{ url('sales-delivery-order/add/'.$sales_order_id) }}'" name="Find" class="btn btn-sm btn-info" title="Back"><i class="fa fa-angle-left"></i>  Kembali</button>
             </div>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -88,8 +88,8 @@
                                                     </td>
                                             </tr>
                                             @php
-                                                $no++; 
-                                            @endphp 
+                                                $no++;
+                                            @endphp
                                         @endforeach
                                 @endif
                         </tbody>
@@ -109,9 +109,9 @@
 
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
+
 @stop

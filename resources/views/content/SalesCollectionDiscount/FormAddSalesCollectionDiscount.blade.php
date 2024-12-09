@@ -2,11 +2,11 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
-    
+
 	$(document).ready(function(){
         $("#account_id").select2("val", "0");
 
@@ -81,7 +81,7 @@
                 'value'	    : value,
                 '_token'    : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 console.log(return_data);
             },
             error: function(data)
@@ -127,8 +127,8 @@
             var allocation 	    = $("#"+i+"_allocation").val();
             var shortover 	    = $("#"+i+"_shortover").val();
             var lain_lain 	    = $("#"+i+"_lain_lain_amount").val();
-            
-            
+
+
             if(isNaN(allocation)){
                 allocation = 0;
             }
@@ -163,16 +163,16 @@
     }
 
 	function toRp(number) {
-		var number = number.toString(), 
-		rupiah = number.split('.')[0], 
+		var number = number.toString(),
+		rupiah = number.split('.')[0],
 		cents = (number.split('.')[1] || '') +'00';
 		rupiah = rupiah.split('').reverse().join('')
 			.replace(/(\d{3}(?!$))/g, '$1.')
 			.split('').reverse().join('');
 		return rupiah + ',' + cents.slice(0, 2);
 	}
-    
-    
+
+
     function processAddArraySalesCollectionTransfer(){
         var transfer_account_id	                    = document.getElementById("transfer_account_id").value;
         var collection_transfer_bank_name	        = document.getElementById("collection_transfer_bank_name").value;
@@ -242,7 +242,7 @@
                 'memo_no'                                   : memo_no,
                 '_token'                                    : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 window.location.reload();
                 console.log(data);
             },
@@ -264,7 +264,7 @@
             $("#nomor_memo_"+$no).hide();
             $("#label_promosi").hide();
             $("#label_memo").hide();
-            
+
         }else{
             $("#nomor_promosi_"+$no).show();
             $("#nomor_memo_"+$no).show();
@@ -288,7 +288,7 @@
                 'sales_collection_piece_id'      : sales_collection_piece_id,
                 '_token'                   : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 window.location.reload();
                 console.log(data);
             },
@@ -298,7 +298,7 @@
 
             }
         });
-       
+
     }
 
 
@@ -310,7 +310,7 @@
 </script>
 @stop
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -385,7 +385,7 @@
             </div>
             <hr style="margin:0;">
             <br/>
-            
+
             <div class="row form-group">
                 {{-- <div class="col-md-6">
                     <a class="text-dark">No Perkiraan</a>
@@ -468,7 +468,7 @@
                                         <th style='text-align:center' width="20%">Nama Akun</th>
                                         <th style='text-align:center' width="20%">No. Akun</th>
                                         <th style='text-align:center' width="20%">Jumlah Transfer</th>
-                                        <th style='text-align:center' width="10%">Aksi</th>	
+                                        <th style='text-align:center' width="10%">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -490,9 +490,9 @@
                                                         </td>
                                                         <?php
                                                         echo"
-                                                    </tr>								
-                                                ";	
-                                                $total_transfer += $val['collection_transfer_amount'];													
+                                                    </tr>
+                                                ";
+                                                $total_transfer += $val['collection_transfer_amount'];
                                             }
                                             echo"
                                                 <input class='form-control input-bb' type='hidden' name='collection_total_transfer_amount' id='collection_total_transfer_amount' value='".$total_transfer."' autocomplete='off'/>
@@ -592,7 +592,7 @@
                                         <input class="form-control" type="text" style='text-align:right' name="{{$no}}_last_balance_view" id="{{$no}}_last_balance_view" value="{{number_format($val['owing_discount_amount'],2)}}" readonly/>
                                         <input class="form-control" type="hidden" style='text-align:right' name="{{$no}}_last_balance" id="{{$no}}_last_balance" value="{{$val['owing_discount_amount'],2}}" readonly/>
 
-                                        
+
                                         <input class="form-control" type="hidden" style='text-align:right' name="{{$no}}_sales_invoice_id" id="{{$no}}_sales_invoice_id" value="{{$val['sales_invoice_id']}}" readonly/>
                                         <input class="form-control" type="hidden" style='text-align:right' name="{{$no}}_sales_invoice_amount" id="{{$no}}_sales_invoice_amount" value="{{$val['total_discount_amount']}}" readonly/>
                                         <input class="form-control" type="hidden" style='text-align:right' name="{{$no}}_sales_invoice_date" id="{{$no}}_sales_invoice_date" value="{{$val['sales_invoice_date']}}" readonly/>
@@ -639,7 +639,7 @@
                                     <th>
                                     </th>
                                     </tr>
-                                   
+
                                     ";
                             }
                         ?>
@@ -648,7 +648,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="card-footer text-muted">
         <div class="form-actions float-right">
             <button type="reset" name="Reset" class="btn btn-danger" onClick="window.location.reload();"><i class="fa fa-times"></i> Batal</button>
@@ -661,9 +661,9 @@
 @stop
 
 @section('footer')
-    
+
 @stop
 
 @section('css')
-    
+
 @stop

@@ -2,12 +2,12 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 @section('js')
 <script>
 	function toRp(number) {
-		var number = number.toString(), 
-		rupiah = number.split('.')[0], 
+		var number = number.toString(),
+		rupiah = number.split('.')[0],
 		cents = (number.split('.')[1] || '') +'00';
 		rupiah = rupiah.split('').reverse().join('')
 			.replace(/(\d{3}(?!$))/g, '$1.')
@@ -18,7 +18,7 @@
 </script>
 @stop
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -113,7 +113,7 @@
                 Daftar
             </h5>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -154,14 +154,14 @@
                                                 <td style='text-align  : left'>".$val['warehouse_transfer_item_remark']."</td>
                                                 <td style='text-align  : right'>".$val['quantity']."</td>
                                                 <td style='text-align  : center'>
-                                                    <input class='form-control' style='text-align:right;'type='text' name='quantity_received_".$no."' id='quantity_received_".$no."' value='".$val['quantity']."'/>  
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_id_".$no."' id='item_id_".$no."' value='".$val['item_id']."'/>     
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_category_id_".$no."' id='item_category_id_".$no."' value='".$val['item_category_id']."'/>   
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_type_id_".$no."' id='item_type_id_".$no."' value='".$val['item_type_id']."'/>   
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_id_".$no."' id='item_unit_id_".$no."' value='".$val['item_unit_id']."'/>   
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_stock_id_".$no."' id='item_stock_id_".$no."' value='".$val['item_stock_id']."'/>   
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='warehouse_transfer_item_id_".$no."' id='warehouse_transfer_item_id_".$no."' value='".$val['warehouse_transfer_item_id']."'/>   
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_batch_number_".$no."' id='item_batch_number_".$no."' value='".$InvWarehouseTransferReceivedNote->getItemStockBatchNumber($val['item_stock_id'])."'/>     
+                                                    <input class='form-control' style='text-align:right;'type='text' name='quantity_received_".$no."' id='quantity_received_".$no."' value='".$val['quantity']."'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_id_".$no."' id='item_id_".$no."' value='".$val['item_id']."'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_category_id_".$no."' id='item_category_id_".$no."' value='".$val['item_category_id']."'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_type_id_".$no."' id='item_type_id_".$no."' value='".$val['item_type_id']."'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_id_".$no."' id='item_unit_id_".$no."' value='".$val['item_unit_id']."'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_stock_id_".$no."' id='item_stock_id_".$no."' value='".$val['item_stock_id']."'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='warehouse_transfer_item_id_".$no."' id='warehouse_transfer_item_id_".$no."' value='".$val['warehouse_transfer_item_id']."'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_batch_number_".$no."' id='item_batch_number_".$no."' value='".$InvWarehouseTransferReceivedNote->getItemStockBatchNumber($val['item_stock_id'])."'/>
                                                 </td>
                                             </tr>
                                         ";
@@ -174,7 +174,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="card-footer text-muted">
             <div class="form-actions float-right">
                 <button type="reset" name="Reset" class="btn btn-danger" onClick="window.location.reload();"><i class="fa fa-times"></i> Batal</button>
@@ -188,9 +188,9 @@
 @stop
 
 @section('footer')
-    
+
 @stop
 
 @section('css')
-    
+
 @stop

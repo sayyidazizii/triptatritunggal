@@ -2,7 +2,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 @section('js')
 <script>
 	$(document).ready(function(){
@@ -20,7 +20,7 @@
                     'item_category_id'			    : item_category_id,
                     '_token'                        : '{{csrf_token()}}',
                 },
-                success: function(return_data){ 
+                success: function(return_data){
                     $('#item_type_id').html(return_data);
                     // console.log(return_data);
                 },
@@ -45,7 +45,7 @@
                     'item_type_id'	    : item_type_id,
                     '_token'            : '{{csrf_token()}}',
                 },
-                success: function(return_data){ 
+                success: function(return_data){
                     $('#item_id').html(return_data);
                 },
                 error: function(data)
@@ -73,7 +73,7 @@
                     'item_id'	        : item_id,
                     '_token'            : '{{csrf_token()}}',
                 },
-                success: function(return_data){ 
+                success: function(return_data){
                     return_data = JSON.parse(return_data);
                     return_data = JSON.parse(return_data);
 
@@ -99,7 +99,7 @@
                     'item_stock_id'	    : item_stock_id,
                     '_token'            : '{{csrf_token()}}',
                 },
-                success: function(return_data){ 
+                success: function(return_data){
                     // return_data = return_data.slice(1);
                     return_data = JSON.parse(return_data);
                     $('#stock_quantity').val(return_data['item_total']);
@@ -110,9 +110,9 @@
                 }
             });
         });
-    
+
 	});
-    
+
     function elements_add(name, value){
         $.ajax({
             type: "POST",
@@ -123,7 +123,7 @@
                 'value'	    : value,
                 '_token'    : '{{csrf_token()}}',
             },
-            success: function(return_data){ 
+            success: function(return_data){
                 console.log(return_data);
             },
             error: function(data)
@@ -133,7 +133,7 @@
             }
         });
     }
-    
+
     function processAddArrayWarehouseTransferItem(){
         var item_category_id	                = document.getElementById("item_category_id").value;
         var item_type_id		                = document.getElementById("item_type_id").value;
@@ -148,7 +148,7 @@
             url : "{{route('warehouse_transfer-add-array')}}",
             data: {
                 'item_category_id'	                : item_category_id,
-                'item_type_id' 		                : item_type_id, 
+                'item_type_id' 		                : item_type_id,
                 'item_id' 			                : item_id,
                 'item_unit_id' 		                : item_unit_id,
                 'quantity' 			                : quantity,
@@ -165,7 +165,7 @@
 </script>
 @stop
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -251,7 +251,7 @@
                 Daftar
             </h5>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -273,7 +273,7 @@
                                 } else {
                                     $no =1;
                                     foreach ($warehousetransferitem AS $key => $val){
-                                        
+
                                         echo"
                                             <tr>
                                                 <td style='text-align  : center'>".$no."</td>";
@@ -302,7 +302,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="card-footer text-muted">
             <div class="form-actions float-right">
                 <button type="submit" name="Save" class="btn btn-danger" title="Save">Hapus</button>
@@ -314,9 +314,9 @@
 @stop
 
 @section('footer')
-    
+
 @stop
 
 @section('css')
-    
+
 @stop

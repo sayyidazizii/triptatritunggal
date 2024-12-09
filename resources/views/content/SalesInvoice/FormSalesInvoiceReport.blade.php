@@ -6,7 +6,7 @@
 <script>
 	$(document).ready(function(){
         var customer_code    = {!! json_encode($customer_code) !!};
-        
+
         if(customer_code == null){
             $("#customer_code").select2("val", "0");
         }
@@ -15,10 +15,10 @@
 @stop
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -43,7 +43,7 @@
                 Filter
             </h5>
         </div>
-    
+
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body">
                 <div class = "row">
@@ -96,7 +96,7 @@
 <div class="alert alert-info" role="alert">
     {{session('msg')}}
 </div>
-@endif 
+@endif
 <div class="card border border-dark">
     <div class="card-header bg-dark clearfix">
         <h5 class="mb-0 float-left">
@@ -126,8 +126,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php 
-                    $no = 1; 
+                    <?php
+                    $no = 1;
                     $salesorderitem = 0;
                     $itemunitcost   = 0;
                     $jumlahDiskon   = 0;
@@ -195,15 +195,15 @@
                     <tr class="text-bold">
                         <td colspan="10" style='text-align:center'></td>
                         <td colspan="3" style='text-align:center'>
-                            @if($checkbox == 1) 
-                            @if(count($salesinvoice) > 0) 
-                            @if(isset($customer_code) > 0) 
+                            @if($checkbox == 1)
+                            @if(count($salesinvoice) > 0)
+                            @if(isset($customer_code) > 0)
                             <a href="{{ url('/sales-invoice-report/cetak-pengantar') }}" type="button" class="btn btn-sm btn-secondary"><i class="fa fa-file"> Cetak Pengantar</i></a>
                             @endif
                             @endif
                             @endif
 
-                            @if(count($salesinvoice) > 0) 
+                            @if(count($salesinvoice) > 0)
                             <a href="{{ url('sales-invoice/export') }}" name="Find" class="btn btn-sm btn-info" title="Export Excel"><i class="fa fa-print"></i>Export</a>
                             @endif
                         </td>
@@ -222,5 +222,5 @@
 @stop
 
 @section('css')
-    
+
 @stop

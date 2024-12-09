@@ -3,10 +3,10 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -32,7 +32,7 @@
                 Filter
             </h5>
         </div>
-    
+
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body">
                 <div class = "row">
@@ -74,7 +74,7 @@
 <div class="alert alert-info" role="alert">
     {{session('msg')}}
 </div>
-@endif 
+@endif
 <div class="card border border-dark">
     <div class="card-header bg-dark clearfix">
         <h5 class="mb-0 float-left">
@@ -116,7 +116,7 @@
                             <?php if($item['sales_delivery_note_status'] == 0) { ?>
                             <a type="button" class="btn btn-outline-warning btn-sm" href="{{ url('/sales-delivery-order/edit/'.$item['sales_delivery_order_id']) }}">Edit</a>
                             <a type="button" class="btn btn-outline-danger btn-sm" href="{{ url('/sales-delivery-order/void/'.$item['sales_delivery_order_id']) }}">Void</a>
-                            <?php  
+                            <?php
                             }
                             ?>
                         </td>
@@ -138,9 +138,9 @@
 @stop
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
+
 @stop

@@ -4,7 +4,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 @section('js')
 <script>
 	$(document).ready(function(){
@@ -12,7 +12,7 @@
         var item_type_id        = {!! json_encode($item_type_id) !!};
         var grade_id            = {!! json_encode($grade_id) !!};
         var warehouse_id        = {!! json_encode($warehouse_id) !!};
-        
+
         if(item_category_id == null){
             $("#item_category_id").select2("val", "0");
         }
@@ -26,7 +26,7 @@
             $("#warehouse_id").select2("val", "0");
         }
 
-        
+
         $("#item_category_id").change(function(){
 			var item_category_id 	= $("#item_category_id").val();
                 $.ajax({
@@ -37,7 +37,7 @@
                         'item_category_id'	  : item_category_id,
                         '_token'              : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
                         console.log(return_data);
 					$('#item_type_id').html(return_data);
                     },
@@ -49,7 +49,7 @@
                 });
 
 		});
-        
+
         $("#item_type_id").change(function(){
             var item_type_id 	= $("#item_type_id").val();
                 $.ajax({
@@ -60,7 +60,7 @@
                         'item_type_id'	  : item_type_id,
                         '_token'              : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
                         $('#grade_id').html(return_data);
                     },
                     error: function(data)
@@ -76,7 +76,7 @@
 @stop
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -101,7 +101,7 @@
                 Filter
             </h5>
         </div>
-    
+
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body">
                 <div class = "row form-group">
@@ -137,7 +137,7 @@
 <div class="alert alert-info" role="alert">
     {{session('msg')}}
 </div>
-@endif 
+@endif
 <div class="card border border-dark">
     <div class="card-header bg-dark clearfix">
         <h5 class="mb-0 float-left">
@@ -195,20 +195,20 @@
                         <td style='text-align:right'>-</td>
                         <?php } else {?>
                         <td style='text-align:right'>{{$stock['purchase_order_no']}}</td>
-                        <?php } ?> 
+                        <?php } ?>
 
 
                         <?php if($stock['no_retur_barang']=='0') {?>
                             <td style='text-align:right'>-</td>
                         <?php } else {?>
                             <td style='text-align:right'>{{$stock['no_retur_barang']}}</td>
-                        <?php } ?> 
+                        <?php } ?>
 
                         <?php if($stock['nota_retur_pajak']=='0') {?>
                             <td style='text-align:right'>-</td>
                         <?php } else {?>
                             <td style='text-align:right'>{{$stock['nota_retur_pajak']}}</td>
-                        <?php } ?> 
+                        <?php } ?>
 
                         <td>{{date('d/m/Y', strtotime($stock['item_stock_date']))}}</td>
                         <td>Rp. {{number_format($stock['item_unit_cost'],2)}}</td>
@@ -218,7 +218,7 @@
                             <td>-</td>
                         <?php } else {?>
                             <td>{{date('d/m/Y', strtotime($stock['item_stock_expired_date']))}}</td>
-                        <?php } ?> 
+                        <?php } ?>
                         {{-- <td class="">
                             <a type="button" class="btn btn-outline-warning btn-sm" href="{{ url('/inv-item-stock/edit/'.$stock['item_stock_id']) }}">Edit</a>
                             <a type="button" class="btn btn-outline-danger btn-sm" href="{{ url('/inv-item-stock/delete-inv-item-stock/'.$stock['item_stock_id']) }}">Hapus</a>
@@ -240,9 +240,9 @@
 @stop
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
+
 @stop

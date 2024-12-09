@@ -2,7 +2,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
@@ -11,26 +11,26 @@
     $(document).ready(function(){
             var barang_kembali 	                = $("#barang_kembali").val();
             var warehouse_id 	                = $("#warehouse_id").val();
-            $('#warehouse_id_view').attr('disabled','true'); 
-            
+            $('#warehouse_id_view').attr('disabled','true');
+
 			if(barang_kembali == 1){
                 warehouse_id = 7
                $('#warehouse_id_view').select2('val','7');
-               
+
             }else{
                 warehouse_id = 9
                 $('#warehouse_id_view').select2('val','9');
             }
             $("#barang_kembali").val(barang_kembali);
             $("#warehouse_id").val(warehouse_id);
-    
+
             console.log(barang_kembali , warehouse_id);
 
 
         $("#barang_kembali").change(function(){
             var barang_kembali 	                = $("#barang_kembali").val();
             var warehouse_id 	                = $("#warehouse_id").val();
-            $('#warehouse_id_view').attr('disabled','true'); 
+            $('#warehouse_id_view').attr('disabled','true');
 
             if(barang_kembali == 1){
                 warehouse_id = 7
@@ -41,7 +41,7 @@
             }
             $("#barang_kembali").val(barang_kembali);
             $("#warehouse_id").val(warehouse_id);
-    
+
             console.log(barang_kembali , warehouse_id);
 
 
@@ -51,7 +51,7 @@
 @stop
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -178,7 +178,7 @@
             </div>
         </div>
     </div>
-    
+
     <br/>
     <div class="card border border-dark">
         <div class="card-header border-dark bg-dark">
@@ -186,7 +186,7 @@
                 Daftar
             </h5>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -217,14 +217,14 @@
                                                 <td style='text-align  : left !important;'>".$SalesOrderReturn->getItemStockName($val['item_stock_id'])."</td>
                                                 <td style='text-align  : right !important;'>".$val['quantity']."</td>
                                                 <td style='text-align  : right !important;'>
-                                                    <input class='form-control' style='text-align:right;'type='text' name='quantity_delivered_".$no."' id='quantity_delivered_".$no."' value='".$val['quantity_return']."' readonly/>  
+                                                    <input class='form-control' style='text-align:right;'type='text' name='quantity_delivered_".$no."' id='quantity_delivered_".$no."' value='".$val['quantity_return']."' readonly/>
 
 
 
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='harga_beli_".$no."' id='harga_beli_".$no."' value='".$SalesOrderReturn->getIntemUnitCost($val['item_type_id'])."'/>
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id_".$no."' id='sales_order_id_".$no."' value='".$val['sales_order_id']."'/>  
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id_".$no."' id='sales_order_item_id_".$no."' value='".$val['sales_order_item_id']."'/>  
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='customer_id_".$no."' id='customer_id_".$no."' value='".$val['customer_id']."'/>  
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id_".$no."' id='sales_order_id_".$no."' value='".$val['sales_order_id']."'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id_".$no."' id='sales_order_item_id_".$no."' value='".$val['sales_order_item_id']."'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='customer_id_".$no."' id='customer_id_".$no."' value='".$val['customer_id']."'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_id_".$no."' id='item_id_".$no."' value='".$val['item_id']."'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_type_id_".$no."' id='item_type_id_".$no."' value='".$val['item_type_id']."'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='quantity_".$no."' id='quantity_".$no."' value='".$val['quantity']."'/>
@@ -257,13 +257,13 @@
 <br>
 
 @include('footer')
-    
+
 @stop
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
+
 @stop

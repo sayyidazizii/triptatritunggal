@@ -3,12 +3,12 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 @section('js')
 <script>
 	function toRp(number) {
-		var number = number.toString(), 
-		rupiah = number.split('.')[0], 
+		var number = number.toString(),
+		rupiah = number.split('.')[0],
 		cents = (number.split('.')[1] || '') +'00';
 		rupiah = rupiah.split('').reverse().join('')
 			.replace(/(\d{3}(?!$))/g, '$1.')
@@ -18,7 +18,7 @@
 </script>
 @stop
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -116,7 +116,7 @@
                 Detail Retur Pembelian
             </h5>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -147,13 +147,13 @@
                                     $qtyPo = 0;
                                     $qtyReceived = 0;
                                     $qtyRetur = 0;
-                                @endphp    
+                                @endphp
                                 @foreach ($purchaseinvoiceitem AS $key => $val)
                                 @php
                                     $qtyPo = $PurchaseOrderReturn->getQuantityPO($val['goods_received_note_item_id']);
                                     $qtyReceived = $PurchaseOrderReturn->getQuantityTerima($val['goods_received_note_item_id']);
                                     $qtyRetur = $qtyPo - $qtyReceived;
-                                @endphp  
+                                @endphp
                                     <tr>
                                         <td style='text-align  : center'>{{$no}}
                                         <input hidden class='form-control input-bb' style='text-align  : right !important;' type='number' name='purchase_invoice_item_id_{{ $no }}' id='purchase_invoice_item_id_{{ $no }}' value="{{$val['purchase_invoice_item_id']}}" readonly/>
@@ -190,16 +190,16 @@
                                         $total_price += $val['subtotal_amount'];
                                         $total_item  += $val['quantity'];
                                         $totalAfterPpn = $total_price + $purchaseorder->ppn_in_amount;
-                                        
+
                                     @endphp
                                 @endforeach
                                 <th style='text-align  : center' colspan='4'>Total</th>
                                 <th style='text-align  : center' colspan='5'></th>
                                 <th style='text-align  : right'>{{$total_item}}</th>
                                 <th style='text-align  : right'>{{number_format($total_price,2,',','.')}}
-                                    <input class='form-control input-bb' type='hidden' name='subtotal_amount' id='subtotal_amount' value='{{$total_price}}'/>  
-                                    <input class='form-control input-bb' type='hidden' name='total_item' id='total_item' value='{{$total_item}}'/>    
-                                    <input class='form-control input-bb' type='hidden' name='total_price' id='total_price' value='{{$total_price}}'/>  
+                                    <input class='form-control input-bb' type='hidden' name='subtotal_amount' id='subtotal_amount' value='{{$total_price}}'/>
+                                    <input class='form-control input-bb' type='hidden' name='total_item' id='total_item' value='{{$total_item}}'/>
+                                    <input class='form-control input-bb' type='hidden' name='total_price' id='total_price' value='{{$total_price}}'/>
                                 </th>
                                 <tr>
                                     <td style='text-align  : center' colspan='5'><b>PPN Masuk (%)</b></td>
@@ -229,13 +229,13 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="card-footer text-muted">
             <div class="form-actions float-right">
                 <button type="reset" name="Reset" class="btn btn-danger" onClick="window.location.reload();"><i class="fa fa-times"></i> Batal</button>
                 <button type="submit" name="Save" class="btn btn-primary" title="Save"><i class="fa fa-check"></i> Simpan</button>
             </div>
-        </div> 
+        </div>
     </div>
 </form>
 <br/>
@@ -247,5 +247,5 @@
 @stop
 
 @section('css')
-    
+
 @stop

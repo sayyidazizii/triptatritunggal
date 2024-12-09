@@ -2,12 +2,12 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 @section('js')
 <script>
 	function toRp(number) {
-		var number = number.toString(), 
-		rupiah = number.split('.')[0], 
+		var number = number.toString(),
+		rupiah = number.split('.')[0],
 		cents = (number.split('.')[1] || '') +'00';
 		rupiah = rupiah.split('').reverse().join('')
 			.replace(/(\d{3}(?!$))/g, '$1.')
@@ -28,7 +28,7 @@
                         'item_category_id'			    : item_category_id,
                         '_token'                        : '{{csrf_token()}}',
                     },
-                    success: function(return_data){ 
+                    success: function(return_data){
 					    $('#item_type_id').html(return_data);
                         // console.log(return_data);
                     },
@@ -39,7 +39,7 @@
                     }
                 });
 
-		});    
+		});
         $("#price").change(function(){
 			var price 	    = $("#price").val();
 			var quantity 	= $("#quantity").val();
@@ -47,7 +47,7 @@
             $("#total_price").val(total_price);
             $("#total_price_view").val(toRp(total_price));
 
-		});   
+		});
         $("#quantity").change(function(){
 			var price 	    = $("#price").val();
 			var quantity 	= $("#quantity").val();
@@ -55,10 +55,10 @@
             $("#total_price").val(total_price);
             $("#total_price_view").val(toRp(total_price));
 
-		}); 
+		});
 	});
-    
-    
+
+
     function processAddArrayPurchaseOrderItem(){
         var item_category_id	= document.getElementById("item_category_id").value;
         var item_type_id		= document.getElementById("item_type_id").value;
@@ -72,7 +72,7 @@
             url : "{{route('purchase-order-add-array')}}",
             data: {
                 'item_category_id'	: item_category_id,
-                'item_type_id' 		: item_type_id, 
+                'item_type_id' 		: item_type_id,
                 'item_unit_id' 		: item_unit_id,
                 'quantity' 			: quantity,
                 'price' 			: price,
@@ -88,7 +88,7 @@
 </script>
 @stop
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -158,7 +158,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <br/>
             <h4 class="text-dark">Daftar Barang</h4>
             <hr/>
@@ -215,7 +215,7 @@
                 Daftar
             </h5>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -283,7 +283,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="card-footer text-muted">
             <div class="form-actions float-right">
                 <button type="reset" name="Reset" class="btn btn-danger" onClick="window.location.reload();"><i class="fa fa-times"></i> Batal</button>
@@ -296,9 +296,9 @@
 @stop
 
 @section('footer')
-    
+
 @stop
 
 @section('css')
-    
+
 @stop

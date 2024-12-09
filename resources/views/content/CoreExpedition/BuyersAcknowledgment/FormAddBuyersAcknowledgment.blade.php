@@ -3,7 +3,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
@@ -15,7 +15,7 @@
 @stop
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -39,7 +39,7 @@
 <div class="alert alert-info" role="alert">
     {{session('msg')}}
 </div>
-@endif 
+@endif
 @if(count($errors) > 0)
 <div class="alert alert-danger" role="alert">
     @foreach ($errors->all() as $error)
@@ -110,7 +110,7 @@
                 Daftar
             </h5>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -141,15 +141,15 @@
                                                 <td style='text-align  : left !important;'>".$salesorder['sales_order_date']."</td>
                                                 <td style='text-align  : left !important;'>".$ReturnPDP->getInvItemTypeName($val['item_type_id'])."</td>
                                                 <td style='text-align  : right !important;'>".$val['quantity']."</td>
-                                                <input class='form-control' style='text-align:right;'type='hidden' name='warehouse_id' id='warehouse_id' value='".$val['warehouse_id']."'/>  
+                                                <input class='form-control' style='text-align:right;'type='hidden' name='warehouse_id' id='warehouse_id' value='".$val['warehouse_id']."'/>
                                                 <td style='text-align  : right !important;'>
-                                                    <input class='form-control' text-align:right;' type='text' name='quantity_received_".$no."' id='quantity_received".$no."' value=''/>  
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_category_id_".$no."' id='item_category_id_".$no."' value='".$BA->getCategoryId($val['sales_order_item_id'])."'/>  
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_category_id' id='item_category_id' value='".$BA->getCategoryId($val['sales_order_item_id'])."'/>  
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_type_id_".$no."' id='item_type_id_".$no."' value='".$val['item_type_id']."'/>  
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id_".$no."' id='sales_order_id_".$no."' value='".$val['sales_order_id']."'/> 
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id_".$no."' id='sales_order_item_id_".$no."' value='".$val['sales_order_item_id']."'/>  
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='customer_id_".$no."' id='customer_id_".$no."' value='".$salesorder['customer_id']."'/>  
+                                                    <input class='form-control' text-align:right;' type='text' name='quantity_received_".$no."' id='quantity_received".$no."' value=''/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_category_id_".$no."' id='item_category_id_".$no."' value='".$BA->getCategoryId($val['sales_order_item_id'])."'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_category_id' id='item_category_id' value='".$BA->getCategoryId($val['sales_order_item_id'])."'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_type_id_".$no."' id='item_type_id_".$no."' value='".$val['item_type_id']."'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id_".$no."' id='sales_order_id_".$no."' value='".$val['sales_order_id']."'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id_".$no."' id='sales_order_item_id_".$no."' value='".$val['sales_order_item_id']."'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='customer_id_".$no."' id='customer_id_".$no."' value='".$salesorder['customer_id']."'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_id_".$no."' id='item_id_".$no."' value='".$val['item_id']."'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_id_".$no."' id='item_unit_id_".$no."' value='".$val['item_unit_id']."'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_price_".$no."' id='item_unit_price_".$no."' value='".$val['item_unit_price']."'/>
@@ -169,7 +169,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="card-footer text-muted">
             <div class="form-actions float-right">
                 <a name='Reset'  class='btn btn-danger btn-sm' onClick='javascript:return confirm(\"apakah yakin ingin dihapus ?\")'><i class="fa fa-times"></i> Reset</a>
@@ -187,9 +187,9 @@
 @stop
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
+
 @stop

@@ -4,10 +4,10 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -24,7 +24,7 @@
 <div class="alert alert-info" role="alert">
     {{session('msg')}}
 </div>
-@endif 
+@endif
 <div class="card border border-dark">
     <div class="card-header bg-dark clearfix">
         <h5 class="mb-0 float-left">
@@ -42,14 +42,14 @@
                     <br/>
                     {!! Form::select('month_id',  $monthlist, $month_period, ['class' => 'selection-search-clear select-form', 'style'=> 'width: 100% !important']) !!}
                 </div>
-            </div>	
+            </div>
             <div style='width:47% !important; margin-right:2%' >
                 <div class="row form-group">
                     <a class="text-dark">Periode (Tahun)</a>
                     <br/>
                     {!! Form::select('year_id',  $year, $year_period, ['class' => 'selection-search-clear select-form', 'style'=> 'width: 100% !important']) !!}
                 </div>
-            </div>	
+            </div>
         </div>
         <div class="row">
             <div style='width:47% !important; margin-right:3%; margin-left:0.5%' >
@@ -58,7 +58,7 @@
                     <br/>
                     {!! Form::select('account_id',  $acctaccount, $account_id, ['class' => 'selection-search-clear select-form', 'style'=> 'width: 100% !important']) !!}
                 </div>
-            </div>	
+            </div>
             {{-- <div style='width:47% !important; margin-right:2%' >
                 <div class="row form-group">
                     <a class="text-dark">Cabang</a>
@@ -75,7 +75,7 @@
         </div>
     </div>
 </form>
-    
+
     <div class="card-body">
         <table class="table table-striped table-bordered table-hover table-full-width">
         <thead>
@@ -99,7 +99,7 @@
                 <td colspan="5" align="center"><b> Saldo Awal</b></td>
                 <td></td>
                 <td></td>
-                <?php 
+                <?php
                     if($account_id_status == 1){
                         if($opening_balance >= 0){
                             echo "
@@ -112,13 +112,13 @@
                                 <td style='text-align: right'>".number_format($opening_balance, 2)."</td>
                             ";
                         }
-                    
+
                     } else {
                         if($opening_balance >= 0){
                             echo "
                                 <td style='text-align: right'>0.00</td>
                                 <td style='text-align: right'>".number_format($opening_balance, 2)."</td>
-                                
+
                             ";
                         } else {
                             echo "
@@ -128,8 +128,8 @@
                         }
                     }
                 ?>
-                
-                
+
+
             </tr>
             <?php
                 $no = 1;
@@ -138,11 +138,11 @@
 
                 $total_debit 	= 0;
                 $total_kredit 	= 0;
-                if(!empty( $acctgeneralledgerreport)){	
-                    foreach ( $acctgeneralledgerreport as $key=>$val){	
+                if(!empty( $acctgeneralledgerreport)){
+                    foreach ( $acctgeneralledgerreport as $key=>$val){
                         if($val['data_state']==2){
                             echo"
-                                <tr class='red'>			
+                                <tr class='red'>
                                     <td style='text-align:center'>$no.</td>
                                     <td style='text-align:center'>".$val['transaction_date']."</td>
                                     <td>".$val['transaction_no']."</td>
@@ -156,7 +156,7 @@
                             ";
                         }else{
                             echo"
-                                <tr>			
+                                <tr>
                                     <td style='text-align:center'>$no.</td>
                                     <td style='text-align:center'>".$val['transaction_date']."</td>
                                     <td>".$val['transaction_no']."</td>
@@ -176,7 +176,7 @@
 
                         $total_debit += $val['account_in'];
                         $total_kredit+= $val['account_out'];
-                    } 
+                    }
                 } else {
                     if($account_id_status == 1){
                         if($opening_balance >= 0){
@@ -186,7 +186,7 @@
                             $last_balance_debet 	= 0;
                             $last_balance_credit 	= $opening_balance;
                         }
-                    
+
                     } else {
                         if($opening_balance >= 0){
                             $last_balance_debet 	= 0;
@@ -194,11 +194,11 @@
                         } else {
                             $last_balance_debet 	= $opening_balance;
                             $last_balance_credit 	= 0;
-                            
+
                         }
                     }
                 }
-                
+
             ?>
                 <tr>
                     <td></td>
@@ -260,13 +260,13 @@
                 <div class="modal-header"  style='text-align:left !important'>
                     <h4>Pilih Tipe Proyek</h4>
                 </div>
-                
+
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-3"></div>
-                        <div class="col-md-6">		
+                        <div class="col-md-6">
                             <center>
-                                    
+
                                 <input type="radio" name="project_type_id" id="project_type_id" value="0" checked> Proyek WBM
 
                                 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -274,7 +274,7 @@
                                 <input type="radio" name="project_type_id" id="project_type_id" value="1"> Proyek Non WBM
                             </center>
                         </div>
-                        <div class="col-md-3"></div>	
+                        <div class="col-md-3"></div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -288,13 +288,13 @@
 @stop
 
 @section('footer')
-    
+
 @stop
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
+
 @stop

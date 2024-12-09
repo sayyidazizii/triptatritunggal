@@ -2,7 +2,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
@@ -13,7 +13,7 @@
 @stop
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -89,7 +89,7 @@
                 Daftar
             </h5>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -108,7 +108,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                                 @if(count($salesdeliveryorderitem)==0)
                                     <tr><th colspan='9' style='text-align  : center !important;'>Data Kosong</th></tr>
                                 @else
@@ -116,7 +116,7 @@
                                     $no =1;
                                 @endphp
                                     @foreach ($salesdeliveryorderitem AS $key => $val)
-                                    @php    
+                                    @php
                                         $item = $SalesDeliveryOrder->getSalesOrderItem($val['sales_order_item_id']);
                                     @endphp
                                             <tr>
@@ -128,11 +128,11 @@
                                                 <td style='text-align  : right !important;'>{{$item['quantity']}}</td>
                                                 <td style='text-align  : right !important;'>{{$item['quantity_resulted']}}</td>
                                                 <td style='text-align  : right !important;'>
-                                                    <input class='form-control' style='text-align:right;'type='text' name='quantity_delivered_{{$no}}' id='quantity_delivered_$no' value='{{$val['quantity']}}' readonly/>  
+                                                    <input class='form-control' style='text-align:right;'type='text' name='quantity_delivered_{{$no}}' id='quantity_delivered_$no' value='{{$val['quantity']}}' readonly/>
 
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id_$no' id='sales_order_id_{{$no}}' value='{{$val['sales_order_id']}}'/>  
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id_{{$no}}' id='sales_order_item_id_$no' value='{{$val['sales_order_item_id']}}'/>  
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='customer_id_{{$no}}' id='customer_id_{{$no}}' value='{{$val['customer_id']}}'/>  
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id_$no' id='sales_order_id_{{$no}}' value='{{$val['sales_order_id']}}'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id_{{$no}}' id='sales_order_item_id_$no' value='{{$val['sales_order_item_id']}}'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='customer_id_{{$no}}' id='customer_id_{{$no}}' value='{{$val['customer_id']}}'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_id_{{$no}}' id='item_id_{{$no}}' value='{{$val['item_id']}}'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='quantity_{{$no}}' id='quantity_{{$no}}' value='{{$val['quantity']}}'/>
                                                 </td>
@@ -145,8 +145,8 @@
                                         @endphp
                                     @endforeach
                                 @endif
-                                 
-                            
+
+
                         </tbody>
                     </table>
                 </div>
@@ -163,9 +163,9 @@
 @stop
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
+
 @stop

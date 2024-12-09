@@ -2,12 +2,12 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 @section('js')
 <script>
 	function toRp(number) {
-		var number = number.toString(), 
-		rupiah = number.split('.')[0], 
+		var number = number.toString(),
+		rupiah = number.split('.')[0],
 		cents = (number.split('.')[1] || '') +'00';
 		rupiah = rupiah.split('').reverse().join('')
 			.replace(/(\d{3}(?!$))/g, '$1.')
@@ -17,7 +17,7 @@
 </script>
 @stop
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -90,7 +90,7 @@
                 Daftar
             </h5>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -109,7 +109,7 @@
                                 <th style='text-align:center'> Discount 2</th>
                                 <th style='text-align:center'>PPN</th>
                                 <th style='text-align:center'>Total Bayar</th>
-                               
+
                             </tr>
                         </thead>
                         <tbody>
@@ -124,7 +124,7 @@
                                     $ppn_amount = 0 ;
                                     $no = 1;
                                 @endphp
-                                @foreach ($salesorderitem AS $key => $val) 
+                                @foreach ($salesorderitem AS $key => $val)
                                     <tr>
                                         <td style='text-align  : center'>{{$no}}</td>
                                         <td style='text-align  : left !important;'>{{$val['item_type_name']}}</td>
@@ -146,7 +146,7 @@
                                     $ppn_amount += $val['ppn_amount_item'];
                                     $price_after_discount_amount = $total_price_after_discount_item + $ppn_amount;
                                 @endphp
-                                
+
                                 @endforeach
                                 <th style='text-align  : center' colspan='2'>Total</th>
                                 <th style='text-align  : right' >{{$total_item}}</th>
@@ -210,7 +210,7 @@
                 Foto Kwitansi
             </h5>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive" style="text-align : center;">
@@ -229,5 +229,5 @@
 @stop
 
 @section('css')
-    
+
 @stop

@@ -2,7 +2,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('js')
 <script>
@@ -13,7 +13,7 @@
 @stop
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -61,7 +61,7 @@
                     <div class="form-group">
                         <a class="text-dark">Gudang<a class='red'> *</a></a>
                         <br/>
-                        <input class='form-control' style='text-align:right;'type='hidden' name='customer_id' id='customer_id' value="{{ $salesorder['customer_id'] }}"/> 
+                        <input class='form-control' style='text-align:right;'type='hidden' name='customer_id' id='customer_id' value="{{ $salesorder['customer_id'] }}"/>
                         {!! Form::select('warehouse_id',  $warehouse, 0, ['class' => 'selection-search-clear select-form', 'id' => 'warehouse_id']) !!}
                     </div>
                 </div>
@@ -117,7 +117,7 @@
                 Daftar
             </h5>
         </div>
-    
+
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -144,15 +144,15 @@
                                             <tr>
                                                 <td style='text-align  : center'>".$no."</td>
                                                 <td style='text-align  : left !important;'>".$SalesOrderReturn->getCustomerNameSalesOrderId($val['sales_order_id'])."</td>
-                                                
+
                                                 <td style='text-align  : left !important;'>".$SalesOrderReturn->getSalesInvoiceNo($val['sales_invoice_id'])."</td>
                                                 <td style='text-align  : left !important;'>".$SalesOrderReturn->getSalesInvoiceDate($val['sales_invoice_id'])."</td>
                                                 <td style='text-align  : left !important;'>".$SalesOrderReturn->getInvItemTypeName($val['item_type_id'])."</td>
                                                 <td style='text-align  : right !important;'>".$val['quantity']."</td>
                                                 <td style='text-align  : right !important;'>
-                                                    <input class='form-control' text-align:right;' type='text'   name='quantity_return_".$no."' id='quantity_return_".$no."' value=''/>  
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id' id='sales_order_id' value='".$val['sales_order_id']."'/>  
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id_".$no."' id='sales_order_item_id_".$no."' value='".$SalesOrderReturn->getSalesOrderItemID($val['sales_delivery_note_item_id'])."'/>   
+                                                    <input class='form-control' text-align:right;' type='text'   name='quantity_return_".$no."' id='quantity_return_".$no."' value=''/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id' id='sales_order_id' value='".$val['sales_order_id']."'/>
+                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id_".$no."' id='sales_order_item_id_".$no."' value='".$SalesOrderReturn->getSalesOrderItemID($val['sales_delivery_note_item_id'])."'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_id_".$no."' id='item_id_".$no."' value='".$val['item_id']."'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_type_id_".$no."' id='item_type_id_".$no."' value='".$val['item_type_id']."'/>
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_id_".$no."' id='item_unit_id_".$no."' value='".$val['item_unit_id']."'/>
@@ -174,7 +174,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="card-footer text-muted">
             <div class="form-actions float-right">
                 <a name='Reset'  class='btn btn-danger btn-sm' onClick='javascript:return confirm(\"apakah yakin ingin dihapus ?\")'><i class="fa fa-times"></i> Reset</a>
@@ -192,9 +192,9 @@
 @stop
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
+
 @stop
