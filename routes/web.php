@@ -41,6 +41,7 @@ use App\Http\Controllers\AcctAgingApReportController;
 use App\Http\Controllers\AcctAgingArReportController;
 use App\Http\Controllers\PreferenceCompanyController;
 use App\Http\Controllers\SalesDeliveryNoteController;
+use App\Http\Controllers\AcctAccountSettingController;
 use App\Http\Controllers\AcctJournalVoucherController;
 use App\Http\Controllers\InvWarehouseInTypeController;
 use App\Http\Controllers\SalesDeliveryOrderController;
@@ -202,13 +203,15 @@ Route::get('/system-user-group/edit/{user_id}', [SystemUserGroupController::clas
 Route::post('/system-user-group/process-edit-system-user-group', [SystemUserGroupController::class, 'processEditSystemUserGroup'])->name('process-edit-system-user-group');
 Route::get('/system-user-group/delete-system-user-group/{user_id}', [SystemUserGroupController::class, 'deleteSystemUserGroup'])->name('delete-system-user-group');
 
-
 Route::get('/account', [AcctAccountController::class, 'index'])->name('account');
 Route::get('/account/add', [AcctAccountController::class, 'addAcctAccount'])->name('add-account');
 Route::get('/account/delete-account/{account_id}', [AcctAccountController::class, 'deleteAcctAccount'])->name('delete-account');
 Route::get('/account/edit/{account_id}', [AcctAccountController::class, 'editAcctAccount'])->name('edit-account');
 Route::post('/account/process-add-account', [AcctAccountController::class, 'processAddAcctAccount'])->name('process-add-account');
 Route::post('/account/process-edit-account/{account_id}', [AcctAccountController::class, 'processEditAcctAccount'])->name('process-edit-account');
+
+Route::get('/account-setting',[AcctAccountSettingController::class, 'index'])->name('acct-account-setting');
+Route::post('/account-setting/process-add',[AcctAccountSettingController::class, 'processAddAcctAccountSetting'])->name('process-add-acct-account-setting');
 
 Route::get('/journal', [AcctJournalVoucherController::class, 'index'])->name('journal');
 Route::post('/journal/filter', [AcctJournalVoucherController::class, 'filterAcctJournalVoucher'])->name('filter-journal');
