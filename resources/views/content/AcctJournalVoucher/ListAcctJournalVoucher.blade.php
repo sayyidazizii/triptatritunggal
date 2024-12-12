@@ -126,7 +126,7 @@
                         if($val['journal_voucher_item_id'] === $id){
                             $delete = ' ';
                                     if($reverse_state==0){
-                                    $delete = "<a type='button' class='btn my-3 btn-danger btn-sm' href='".route('reverse-journal-voucher',['journal_voucher_id'=>$val['journal_voucher_id']])."' onclick='".'return confirm("Apakah Anda Yakin Ingin Menghapus Data Ini ?")'."'>Hapus</a>";
+                                    $delete = "<a type='button' class='btn my-3 btn-primary btn-sm' href='".route('reverse-journal-voucher',['journal_voucher_id'=>$val['journal_voucher_id']])."' onclick='".'return confirm("Apakah Anda Yakin Ingin Menghapus Data Ini ?")'."'>reverse</a>";
                                     }else{
                                         $delete = "Dihapus";
                                     }

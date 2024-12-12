@@ -61,7 +61,7 @@ class AcctJournalVoucherController extends Controller
         }else{
             $branch_id      = Session::get('branch_id');
         }
-        
+
         $corebranch         = CoreBranch::where('core_branch.data_state','=','0')->get()->pluck('branch_name','branch_id');
 
         $acctjournalvoucher = AcctJournalVoucherItem::select(DB::raw("acct_journal_voucher_item.journal_voucher_item_id, acct_journal_voucher.journal_voucher_no,acct_journal_voucher.journal_voucher_description, acct_journal_voucher.journal_voucher_title, acct_journal_voucher.project_type_id, acct_journal_voucher.project_id, acct_journal_voucher_item.journal_voucher_debit_amount, acct_journal_voucher_item.journal_voucher_credit_amount, acct_journal_voucher_item.account_id, acct_account.account_code, acct_account.account_name, acct_journal_voucher_item.account_id_status, acct_journal_voucher.transaction_module_code, acct_journal_voucher.journal_voucher_date, acct_journal_voucher.journal_voucher_id, acct_journal_voucher_item.journal_voucher_description AS journal_voucher_description_item"))
@@ -69,13 +69,11 @@ class AcctJournalVoucherController extends Controller
         ->join('acct_account','acct_account.account_id','=','acct_journal_voucher_item.account_id')
         ->where('acct_journal_voucher.journal_voucher_date','>=',$start_date)
         ->where('acct_journal_voucher.journal_voucher_date','<=',$end_date)
-        ->where('acct_journal_voucher.transaction_module_code','!=','PP')
-        ->where('acct_journal_voucher.transaction_module_code','!=','SC')
-        ->where('acct_journal_voucher.transaction_module_code','!=','SCD')
-        // ->where('acct_journal_voucher.branch_id','=',$branch_id)
-        // ->where('acct_journal_voucher.data_state','=',0)
-        // ->where('acct_journal_voucher_item.data_state','=',0)
-        // ->where('acct_journal_voucher_item.journal_voucher_amount','<>',0)
+        ->where('acct_journal_voucher.branch_id','=',$branch_id)
+        ->where('acct_journal_voucher.transaction_module_code', 'JU')
+        ->where('acct_journal_voucher.data_state','=',0)
+        ->where('acct_journal_voucher_item.data_state','=',0)
+        ->where('acct_journal_voucher_item.journal_voucher_amount','<>',0)
         ->orderBy('acct_journal_voucher_item.journal_voucher_item_id', 'ASC')
         ->get();
        // dd($acctjournalvoucher);
@@ -99,7 +97,7 @@ class AcctJournalVoucherController extends Controller
         ->where('journal_voucher_id', $journal_voucher_id)
         ->orderBy('journal_voucher_item_id', 'asc')
         ->first();
-        
+
         return $id['journal_voucher_item_id'];
     }
 
@@ -183,7 +181,7 @@ class AcctJournalVoucherController extends Controller
             array_push($lastdataarrayjournalvoucher, $dataarrayjournalvoucher);
             Session::push('dataarrayjournalvoucher', $dataarrayjournalvoucher);
         }
-        
+
         Session::forget('dataprocessjournalvoucher');
         Session::put('dataprocessjournalvoucher', $dataarrayjournalvoucher);
         return redirect('/journal/add');
@@ -193,7 +191,7 @@ class AcctJournalVoucherController extends Controller
     {
         $arrayBaru			= array();
         $dataArrayHeader	= Session::get('dataarrayjournalvoucher');
-        
+
         foreach($dataArrayHeader as $key=>$val){
             if($key != $record_id){
                 $arrayBaru[$key] = $val;
@@ -204,7 +202,7 @@ class AcctJournalVoucherController extends Controller
 
         return redirect('/journal/add');
     }
-		
+
     public function processAddAcctJournalVoucher(Request $request){
         $acctjournalvoucheritem = Session::get('dataarrayjournalvoucher');
         $journal_voucher_period = date("Ym", strtotime($request->journal_voucher_date));
@@ -241,7 +239,7 @@ class AcctJournalVoucherController extends Controller
                     ->first();
 
                     foreach ($acctjournalvoucheritem as $key => $val) {
-                        
+
                         if($val['journal_voucher_status'] == '1'){
                             $data_debet =array(
                                 'journal_voucher_id'			=> $journal_voucher_id['journal_voucher_id'],
@@ -278,13 +276,13 @@ class AcctJournalVoucherController extends Controller
                 }
                 $msg = 'Tambah Data Jurnal Umum Berhasil';
                 return redirect('/journal')->with('msg',$msg);
-            
+
         } else {
             $msg = 'Tambah Data Jurnal Umum Gagal';
             return redirect('/journal/add')->with('msg',$msg);
         }
     }
-    
+
     public function processPrintingAcctJournalVoucher ()
     {
         $branch         = CoreBranch::where('data_state','=',0)->get();
@@ -354,7 +352,7 @@ class AcctJournalVoucherController extends Controller
         </table>
         ";
         $pdf::writeHTML($tbl, true, false, false, false, '');
-        
+
         $no = 1;
         $tblStock1 = "
         <table cellspacing=\"0\" cellpadding=\"1\" border=\"1\" width=\"100%\">
@@ -368,7 +366,7 @@ class AcctJournalVoucherController extends Controller
                 <td width=\"14%\" ><div style=\"text-align: center;\">Debet </div></td>
                 <td width=\"14%\" ><div style=\"text-align: center;\">Kredit </div></td>
             </tr>
-        
+
              ";
 
         $totaldebet     = 0;
@@ -392,7 +390,7 @@ class AcctJournalVoucherController extends Controller
 
             if($val['journal_voucher_item_id'] == $id){
                 $tblStock2 .="
-                    <tr>			
+                    <tr>
                         <td style=\"text-align:center\">$no.</td>
                         <td style=\"text-align:center\">".$val['journal_voucher_date']."</td>
                         <td>(".$project_name.") ".$val['journal_voucher_title']."</td>
@@ -402,12 +400,12 @@ class AcctJournalVoucherController extends Controller
                         <td><div style=\"text-align: right;\">".$debet."</div></td>
                         <td><div style=\"text-align: right;\">".$kredit."</div></td>
                     </tr>
-                    
+
                 ";
                 $no++;
             } else {
                 $tblStock2 .="
-                    <tr>			
+                    <tr>
                         <td style=\"text-align:center\"></td>
                         <td style=\"text-align:center\"></td>
                         <td></td>
@@ -417,15 +415,15 @@ class AcctJournalVoucherController extends Controller
                         <td><div style=\"text-align: right;\">".$debet."</div></td>
                         <td><div style=\"text-align: right;\">".$kredit."</div></td>
                     </tr>
-                    
+
                 ";
             }
 
             $totaldebet 	+= $val['journal_voucher_debit_amount'];
             $totalkredit 	+= $val['journal_voucher_credit_amount'];
         }
-$tblStock4 = " 
-            <tr>	
+$tblStock4 = "
+            <tr>
                 <td colspan=\"6\"><div style=\"text-align: left;\"></div></td>
                 <td><div style=\"text-align: right;font-weight:bold\">".number_format($totaldebet, 2,',','.')."</div></td>
                 <td><div style=\"text-align: right;font-weight:bold\">".number_format($totalkredit, 2,',','.')."</div></td>
@@ -461,7 +459,7 @@ $tblStock4 = "
         }else{
             $branch_id      = Session::get('branch_id');
         }
-        
+
         $corebranch         = CoreBranch::where('core_branch.data_state','=','0')->get()->pluck('branch_name','branch_id');
 
         $acctjournalvoucher = AcctJournalVoucherItem::select(DB::raw("acct_journal_voucher_item.journal_voucher_item_id, acct_journal_voucher.journal_voucher_description, acct_journal_voucher.journal_voucher_title, acct_journal_voucher.project_type_id, acct_journal_voucher.project_id, acct_journal_voucher_item.journal_voucher_debit_amount, acct_journal_voucher_item.journal_voucher_credit_amount, acct_journal_voucher_item.account_id, acct_account.account_code, acct_account.account_name, acct_journal_voucher_item.account_id_status, acct_journal_voucher.transaction_module_code, acct_journal_voucher.journal_voucher_date, acct_journal_voucher.journal_voucher_id, acct_journal_voucher_item.journal_voucher_description AS journal_voucher_description_item"))
@@ -477,7 +475,7 @@ $tblStock4 = "
         ->where('acct_journal_voucher_item.journal_voucher_amount','<>',0)
         ->orderBy('acct_journal_voucher_item.journal_voucher_item_id', 'ASC')
         ->get();
-        
+
         $spreadsheet = new Spreadsheet();
 
         if(count($acctjournalvoucher)>=0){
@@ -488,7 +486,7 @@ $tblStock4 = "
                                          ->setDescription("Jurnal Umum")
                                          ->setKeywords("Jurnal Umum")
                                          ->setCategory("Jurnal Umum");
-                                 
+
             $sheet = $spreadsheet->getActiveSheet(0);
             $spreadsheet->getActiveSheet()->setTitle("Jurnal Umum");
             $spreadsheet->getActiveSheet()->getPageSetup()->setFitToWidth(1);
@@ -501,7 +499,7 @@ $tblStock4 = "
             $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(30);
             $spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(20);
             $spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(20);
-    
+
             $spreadsheet->getActiveSheet()->mergeCells("B1:I1");
             $spreadsheet->getActiveSheet()->getStyle('B1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
             $spreadsheet->getActiveSheet()->getStyle('B1')->getFont()->setBold(true)->setSize(16);
@@ -512,8 +510,8 @@ $tblStock4 = "
 
 
 
-            
-            $sheet->setCellValue('B1',"Jurnal Umum Dari Periode ".date('d M Y', strtotime($start_date))." s.d. ".date('d M Y', strtotime($end_date)));	
+
+            $sheet->setCellValue('B1',"Jurnal Umum Dari Periode ".date('d M Y', strtotime($start_date))." s.d. ".date('d M Y', strtotime($end_date)));
             $sheet->setCellValue('B3',"No");
             $sheet->setCellValue('C3',"Tanggal");
             $sheet->setCellValue('D3',"Uraian");
@@ -523,22 +521,22 @@ $tblStock4 = "
             $sheet->setCellValue('H3',"Debet");
             $sheet->setCellValue('I3',"Kredit");
 
-        
-            
-            
+
+
+
             $j=4;
             $no=0;
-            
+
             foreach($acctjournalvoucher as $key=>$val){
 
                 if(is_numeric($key)){
-                    
+
                     $sheet = $spreadsheet->getActiveSheet(0);
                     $spreadsheet->getActiveSheet()->setTitle("Jurnal Umum");
                     $spreadsheet->getActiveSheet()->getStyle('B'.$j.':I'.$j)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
 
                     $spreadsheet->getActiveSheet()->getStyle('H'.$j.':I'.$j)->getNumberFormat()->setFormatCode('0.00');
-            
+
                     $spreadsheet->getActiveSheet()->getStyle('B'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                     $spreadsheet->getActiveSheet()->getStyle('C'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
                     $spreadsheet->getActiveSheet()->getStyle('D'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
@@ -583,16 +581,16 @@ $tblStock4 = "
                         $sheet->setCellValue('H'.$j, $debet);
                         $sheet->setCellValue('I'.$j, $kredit);
                     }
-                        
-                        
-                    
+
+
+
                 }else{
                     continue;
                 }
                 $j++;
-        
+
             }
-            
+
             // ob_clean();
             $filename='Jurnal_Umum_'.$start_date.'_s.d._'.$end_date.'.xls';
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -606,7 +604,7 @@ $tblStock4 = "
         }
 
     }
-    
+
     public function getDefaultStatus($account_default_status)
     {
         $default_status = array (
@@ -669,7 +667,7 @@ $tblStock4 = "
             //     dd([$journal,$data]);
             //     dd([$journalItem,$arr]);
             //     dd([$data,$journal_voucher_id,$journal]);
-            //    exit;    
+            //    exit;
             DB::commit();
             session()->flash('msg', 'Hapus Jurnal Umum Berhasil');
             return redirect()->route('journal');
