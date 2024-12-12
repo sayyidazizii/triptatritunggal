@@ -74,7 +74,6 @@ class PreferenceCompanyController extends Controller
         $preferencecompany->account_delivery_id     = $request->account_delivery_id;
         $preferencecompany->account_cash_id         = $request->account_cash_id;
         $preferencecompany->account_cash_on_way_id  = $request->account_cash_on_way_id;
-        $preferencecompany->pharmacist_license_no   = $request->pharmacist_license_no;
 
         if($preferencecompany->save()){
             $msg = 'Edit Preferensi Perusahaan Berhasil';

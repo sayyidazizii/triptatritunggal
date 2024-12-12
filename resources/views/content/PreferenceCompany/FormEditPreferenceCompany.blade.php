@@ -90,12 +90,6 @@
                         <input class="form-control input-bb" type="text" name="company_website" id="company_website" value="{{$preferencecompany['company_website']}}"/>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <a class="text-dark">No izin Apoteker<a class='red'></a></a>
-                        <input class="form-control input-bb" type="text" name="pharmacist_license_no" id="pharmacist_license_no" value="{{$preferencecompany['pharmacist_license_no']}}"/>
-                    </div>
-                </div>
             </div>
             <div class="row form-group">
                 <div class="col-md-6">

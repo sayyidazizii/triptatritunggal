@@ -47,7 +47,6 @@
                         <th width="10%" style='text-align:center'>No HP</th>
                         <th width="15%" style='text-align:center'>Email</th>
                         <th width="15%" style='text-align:center'>Website</th>
-                        <th width="15%" style='text-align:center'>No Izin Apoteker</th>
                         <th width="8%" style='text-align:center'>Aksi</th>
                     </tr>
                 </thead>
@@ -62,7 +61,6 @@
                         <td>{{$company['company_mobile_number']}}</td>
                         <td>{{$company['company_email']}}</td>
                         <td>{{$company['company_website']}}</td>
-                        <td>{{$company['pharmacist_license_no']}}</td>
                         <td style='text-align:center'>
                             <a type="button" class="btn btn-outline-warning btn-sm" href="{{ url('/preference-company/edit/'.$company['company_id']) }}">Edit</a>
                         </td>
