@@ -12,10 +12,6 @@ MySQL - 8.0.30 : Database - ciptaprocpanel_triptatritunggal
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`ciptaprocpanel_triptatritunggal` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-
-USE `ciptaprocpanel_triptatritunggal`;
-
 /*Table structure for table `acct_account` */
 
 DROP TABLE IF EXISTS `acct_account`;
@@ -31,6 +27,7 @@ CREATE TABLE `acct_account` (
   `account_remark` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `account_status` int DEFAULT '0',
   `account_token` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `parent_account_status` int DEFAULT '0',
   `account_type_id` int DEFAULT NULL,
   `data_state` int DEFAULT '0',
   `created_id` int DEFAULT NULL,
@@ -42,63 +39,63 @@ CREATE TABLE `acct_account` (
 
 /*Data for the table `acct_account` */
 
-insert  into `acct_account`(`account_id`,`company_id`,`account_code`,`account_name`,`account_group`,`account_suspended`,`account_default_status`,`account_remark`,`account_status`,`account_token`,`account_type_id`,`data_state`,`created_id`,`updated_id`,`created_at`,`updated_at`) values 
-(1,2,'100','ASET','100',0,0,'',0,'',0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(2,2,'101.00','ASET LANCAR','101.00',0,0,'',0,'',0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(3,2,'101.00.1','KAS BESAR','101.00',0,0,'',0,'',0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(4,2,'101.00.2','KAS KECIL','101.00',0,0,'',0,'',0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(5,2,'101.00.3','KAS DI BANK','101.00',0,0,'',0,'',0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(6,2,'101.00.4','Piutang Dagang','101.00',0,0,'',0,'',0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(7,2,'101.00.5','Piutang Lain Lain','101.00',0,0,'',0,'',0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(8,2,'101.00.6','Persediaan Barang','101.00',0,0,'',0,'',0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(9,2,'101.00.7','Biaya/Kontribusi Dibayar Dimuka','101.00',0,0,'',0,'',0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(10,2,'102','Aset Tidak Lancar','102',0,0,'',0,'',0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(11,2,'102.01','ASET TETAP','102.00',0,0,'',0,'',0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(12,2,'102.01.01','Aset Furniture','102.01',0,0,'',0,'',0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(13,2,'102.01.02','Aset Peralatan Masak','102.02',0,0,'',0,'',0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(14,2,'102.01.03','Depresiasi Akumulasi Aset','102.03',0,0,'',0,'',0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(15,2,'200.01','Liabilitas dan Ekuitas','200.01',0,0,'',0,'',0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(16,2,'200.01.1','Utang Lancar','200.01',0,1,'',1,'',1,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(17,2,'200.01.2','Utang Jangka Panjang','200.01',0,1,'',1,'',1,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(18,2,'200.01.3','MODAL/EKUITAS','200.01',0,1,'',1,'',1,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(19,2,'200.01.4','Modal','200.01',0,1,'',1,'',1,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(20,2,'200.01.5','Modal Belum Disetor','200.01',0,1,'',1,'',1,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(21,2,'200.01.6','Modal Disetor','200.01',0,1,'',1,'',1,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(22,2,'200.01.7','Saldo Laba','200.01',0,1,'',1,'',1,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(23,2,'200.01.8','Saldo Laba Tahun Lalu','200.01',0,1,'',1,'',1,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(24,2,'200.01.9','Laba/Rugi Bersih Tahun Berjalan','200.01',0,0,'',0,'',0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(25,2,'300','Pendapatan Usaha','300',0,1,'',1,'',2,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(26,2,'300.01','PENJUALAN','300.01',0,1,'',1,'',2,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(27,2,'300.01.1','Penjualan Bahan Baku','300.01',0,1,'',1,'',2,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(28,2,'300.01.2','Pendapatan Penjualan','300.01',0,1,'',1,'',2,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(29,2,'300.01.3','Harga pokok Penjualan','300.01',0,0,'',0,'',0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(30,2,'400','BEBAN OPERASIONAL','400',0,0,'',0,'',3,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(31,2,'400.01','Beban Usaha','400.01',0,0,'',0,'',3,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(32,2,'400.01.01','Beban Tenaga Kerja','400.01',0,0,'',0,'',3,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(33,2,'400.01.02','Pembayaran Listrik + PAM + WIFI','400.01',0,0,'',0,'',3,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(34,2,'400.01.03','KEPERLUAN PERALATAN DAPUR','400.01',0,0,'',0,'',3,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(35,2,'400.01.04','Beban Operasional Lainnya','400.01',0,0,'',0,'',3,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(36,2,'400.01.05','PEMBELIAN BARANG DAGANGAN','400.01',0,0,'',0,'',3,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(37,2,'400.01.06','PEMBELIAN BAHAN MINUMAN','400.01',0,0,'',0,'',3,0,61,61,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(38,2,'400.01.07','PEMBELIAN PENDUKUNG','400.01',0,0,'',0,'',1,0,61,61,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(39,2,'400.01.08','LISTRIK + PAM + WIFI','400.01',0,0,'',0,'',1,1,61,61,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(40,2,'400.01.09','GAS','400.01',0,0,'',0,'',1,0,61,61,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(41,2,'400.01.10','TENAGA KERJA','400.01',0,0,'',0,'',1,1,61,61,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(42,2,'400.01.11','MARKETING','400.01',0,0,'',0,'',1,0,61,61,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(43,2,'400.01.12','PENGELUARAN LAIN-LAIN','400.01',0,0,'',0,'',1,1,61,61,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(44,2,'400.01.13','RETUR PEMBELIAN','400.01',0,1,'',1,'',1,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(45,2,'400.02','BEBAN NON OPERASIONAL','400.02',0,0,'',0,'',0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(46,2,'400.02.01','Pendapatan Lain Lain','400.02',0,1,'',1,'',2,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(47,2,'400.02.02','Beban Lain-Lain','400.02',0,0,'',0,'',3,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(48,2,'400.02.03','Pajak','400.02',0,0,'',0,'',3,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(49,2,'400.02.04','Transportasi/Parkir','400.02',0,0,NULL,0,NULL,3,0,55,55,NULL,NULL),
-(50,2,'400.02.05','Konsumsi','400.02',0,0,NULL,0,NULL,3,0,55,55,NULL,NULL),
-(51,2,'400.02.06','Utang PPN','400.02',0,1,NULL,1,NULL,3,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(52,2,'300.01.4','Pendapatan Konsinyasi','300.01',0,1,NULL,1,NULL,2,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(53,2,'400.01.10','KEPERLUAN ATK','400.01',0,0,NULL,0,NULL,3,0,67,67,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(54,2,'400.02.04','Pembayaran Pajak','400.02',0,0,NULL,0,NULL,3,0,NULL,NULL,NULL,NULL),
-(55,2,'400.01.15','TRF Ciomas','400.01',0,0,NULL,0,NULL,3,0,67,67,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(56,2,'300.01.7','Bu Tomo','300.01',0,1,NULL,1,NULL,2,0,67,67,'2024-05-15 10:30:00','2024-05-15 10:30:00');
+insert  into `acct_account`(`account_id`,`company_id`,`account_code`,`account_name`,`account_group`,`account_suspended`,`account_default_status`,`account_remark`,`account_status`,`account_token`,`parent_account_status`,`account_type_id`,`data_state`,`created_id`,`updated_id`,`created_at`,`updated_at`) values 
+(1,2,'100','ASET','100',0,0,'',0,'',0,0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(2,2,'101.00','ASET LANCAR','101.00',0,0,'',0,'',0,0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(3,2,'101.00.1','KAS BESAR','101.00',0,0,'',0,'',0,0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(4,2,'101.00.2','KAS KECIL','101.00',0,0,'',0,'',0,0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(5,2,'101.00.3','KAS DI BANK','101.00',0,0,'',0,'',0,0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(6,2,'101.00.4','Piutang Dagang','101.00',0,0,'',0,'',0,0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(7,2,'101.00.5','Piutang Lain Lain','101.00',0,0,'',0,'',0,0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(8,2,'101.00.6','Persediaan Barang','101.00',0,0,'',0,'',0,0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(9,2,'101.00.7','Biaya/Kontribusi Dibayar Dimuka','101.00',0,0,'',0,'',0,0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(10,2,'102','Aset Tidak Lancar','102',0,0,'',0,'',0,0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(11,2,'102.01','ASET TETAP','102.00',0,0,'',0,'',0,0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(12,2,'102.01.01','Aset Furniture','102.01',0,0,'',0,'',0,0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(13,2,'102.01.02','Aset Peralatan Masak','102.02',0,0,'',0,'',0,0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(14,2,'102.01.03','Depresiasi Akumulasi Aset','102.03',0,0,'',0,'',0,0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(15,2,'200.01','Liabilitas dan Ekuitas','200.01',0,0,'',0,'',0,0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(16,2,'200.01.1','Utang Lancar','200.01',0,1,'',1,'',0,1,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(17,2,'200.01.2','Utang Jangka Panjang','200.01',0,1,'',1,'',0,1,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(18,2,'200.01.3','MODAL/EKUITAS','200.01',0,1,'',1,'',0,1,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(19,2,'200.01.4','Modal','200.01',0,1,'',1,'',0,1,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(20,2,'200.01.5','Modal Belum Disetor','200.01',0,1,'',1,'',0,1,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(21,2,'200.01.6','Modal Disetor','200.01',0,1,'',1,'',0,1,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(22,2,'200.01.7','Saldo Laba','200.01',0,1,'',1,'',0,1,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(23,2,'200.01.8','Saldo Laba Tahun Lalu','200.01',0,1,'',1,'',0,1,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(24,2,'200.01.9','Laba/Rugi Bersih Tahun Berjalan','200.01',0,0,'',0,'',0,0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(25,2,'300','Pendapatan Usaha','300',0,1,'',1,'',0,2,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(26,2,'300.01','PENJUALAN','300.01',0,1,'',1,'',0,2,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(27,2,'300.01.1','Penjualan Bahan Baku','300.01',0,1,'',1,'',0,2,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(28,2,'300.01.2','Pendapatan Penjualan','300.01',0,1,'',1,'',0,2,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(29,2,'300.01.3','Harga pokok Penjualan','300.01',0,0,'',0,'',0,0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(30,2,'400','BEBAN OPERASIONAL','400',0,0,'',0,'',0,3,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(31,2,'400.01','Beban Usaha','400.01',0,0,'',0,'',0,3,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(32,2,'400.01.01','Beban Tenaga Kerja','400.01',0,0,'',0,'',0,3,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(33,2,'400.01.02','Pembayaran Listrik + PAM + WIFI','400.01',0,0,'',0,'',0,3,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(34,2,'400.01.03','KEPERLUAN PERALATAN DAPUR','400.01',0,0,'',0,'',0,3,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(35,2,'400.01.04','Beban Operasional Lainnya','400.01',0,0,'',0,'',0,3,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(36,2,'400.01.05','PEMBELIAN BARANG DAGANGAN','400.01',0,0,'',0,'',0,3,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(37,2,'400.01.06','PEMBELIAN BAHAN MINUMAN','400.01',0,0,'',0,'',0,3,0,61,61,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(38,2,'400.01.07','PEMBELIAN PENDUKUNG','400.01',0,0,'',0,'',0,1,0,61,61,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(39,2,'400.01.08','LISTRIK + PAM + WIFI','400.01',0,0,'',0,'',0,1,1,61,61,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(40,2,'400.01.09','GAS','400.01',0,0,'',0,'',0,1,0,61,61,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(41,2,'400.01.10','TENAGA KERJA','400.01',0,0,'',0,'',0,1,1,61,61,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(42,2,'400.01.11','MARKETING','400.01',0,0,'',0,'',0,1,0,61,61,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(43,2,'400.01.12','PENGELUARAN LAIN-LAIN','400.01',0,0,'',0,'',0,1,1,61,61,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(44,2,'400.01.13','RETUR PEMBELIAN','400.01',0,1,'',1,'',0,1,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(45,2,'400.02','BEBAN NON OPERASIONAL','400.02',0,0,'',0,'',0,0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(46,2,'400.02.01','Pendapatan Lain Lain','400.02',0,1,'',1,'',0,2,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(47,2,'400.02.02','Beban Lain-Lain','400.02',0,0,'',0,'',0,3,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(48,2,'400.02.03','Pajak','400.02',0,0,'',0,'',0,3,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(49,2,'400.02.04','Transportasi/Parkir','400.02',0,0,NULL,0,NULL,0,3,0,55,55,NULL,NULL),
+(50,2,'400.02.05','Konsumsi','400.02',0,0,NULL,0,NULL,0,3,0,55,55,NULL,NULL),
+(51,2,'400.02.06','Utang PPN','400.02',0,1,NULL,1,NULL,0,3,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(52,2,'300.01.4','Pendapatan Konsinyasi','300.01',0,1,NULL,1,NULL,0,2,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(53,2,'400.01.10','KEPERLUAN ATK','400.01',0,0,NULL,0,NULL,0,3,0,67,67,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(54,2,'400.02.04','Pembayaran Pajak','400.02',0,0,NULL,0,NULL,0,3,0,NULL,NULL,NULL,NULL),
+(55,2,'400.01.15','TRF Ciomas','400.01',0,0,NULL,0,NULL,0,3,0,67,67,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(56,2,'300.01.7','Bu Tomo','300.01',0,1,NULL,1,NULL,0,2,0,67,67,'2024-05-15 10:30:00','2024-05-15 10:30:00');
 
 /*Table structure for table `acct_account_balance` */
 
@@ -1160,6 +1157,7 @@ CREATE TABLE `acct_journal_voucher` (
   `journal_voucher_token` varchar(250) DEFAULT NULL,
   `journal_voucher_token_void` varchar(250) DEFAULT NULL,
   `journal_voucher_type_id` int DEFAULT '1',
+  `journal_voucher_status` int DEFAULT '1',
   `transaction_module_code` varchar(20) DEFAULT '',
   `posted` decimal(1,0) DEFAULT '0',
   `posted_id` int DEFAULT '0',
@@ -1183,8 +1181,8 @@ CREATE TABLE `acct_journal_voucher` (
 
 /*Data for the table `acct_journal_voucher` */
 
-insert  into `acct_journal_voucher`(`journal_voucher_id`,`company_id`,`branch_id`,`project_id`,`project_type_id`,`transaction_module_id`,`transaction_journal_id`,`transaction_journal_no`,`journal_voucher_title`,`journal_voucher_no`,`journal_voucher_period`,`journal_voucher_date`,`journal_voucher_description`,`journal_voucher_token`,`journal_voucher_token_void`,`journal_voucher_type_id`,`transaction_module_code`,`posted`,`posted_id`,`posted_on`,`voided`,`voided_id`,`voided_on`,`voided_remark`,`data_state`,`created_id`,`created_at`,`updated_at`,`reverse_state`) values 
-(4,2,1,0,0,63,1,'1','Penjualan 0','0001/JV/XII/2024',202412,'2024-12-10',NULL,NULL,NULL,1,'PPP',0,0,NULL,0,0,NULL,NULL,0,3,'2024-12-10 05:09:10','2024-12-10 05:09:10',0);
+insert  into `acct_journal_voucher`(`journal_voucher_id`,`company_id`,`branch_id`,`project_id`,`project_type_id`,`transaction_module_id`,`transaction_journal_id`,`transaction_journal_no`,`journal_voucher_title`,`journal_voucher_no`,`journal_voucher_period`,`journal_voucher_date`,`journal_voucher_description`,`journal_voucher_token`,`journal_voucher_token_void`,`journal_voucher_type_id`,`journal_voucher_status`,`transaction_module_code`,`posted`,`posted_id`,`posted_on`,`voided`,`voided_id`,`voided_on`,`voided_remark`,`data_state`,`created_id`,`created_at`,`updated_at`,`reverse_state`) values 
+(4,2,1,0,0,63,1,'1','Penjualan 0','0001/JV/XII/2024',202412,'2024-12-10',NULL,NULL,NULL,1,1,'PPP',0,0,NULL,0,0,NULL,NULL,0,3,'2024-12-10 05:09:10','2024-12-10 05:09:10',0);
 
 /*Table structure for table `acct_journal_voucher_item` */
 
@@ -1561,7 +1559,7 @@ CREATE TABLE `buyers_acknowledgment` (
 /*Data for the table `buyers_acknowledgment` */
 
 insert  into `buyers_acknowledgment`(`buyers_acknowledgment_id`,`sales_delivery_note_id`,`sales_delivery_order_id`,`account_id`,`sales_order_id`,`warehouse_id`,`customer_id`,`buyers_acknowledgment_no`,`buyers_acknowledgment_date`,`buyers_acknowledgment_remark`,`sales_invoice_status`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(285,1,2,6,1,0,176,'1','2024-12-10',NULL,0,0,3,'2024-12-10 05:09:09','2024-12-10 05:09:09');
+(285,1,2,6,1,0,176,'1','2024-12-10',NULL,1,0,3,'2024-12-10 05:09:09','2024-12-10 05:09:09');
 
 /*Table structure for table `buyers_acknowledgment_item` */
 
@@ -4428,7 +4426,7 @@ CREATE TABLE `preference_company` (
 /*Data for the table `preference_company` */
 
 insert  into `preference_company`(`company_id`,`company_name`,`company_address`,`company_phone_number`,`company_mobile_number`,`company_email`,`company_website`,`company_tax_number`,`company_account_receivable_due_date`,`company_account_payable_due_date`,`company_logo`,`CDBO_no`,`distribution_no`,`account_inventory_trade_id`,`account_vat_in_id`,`account_vat_out_id`,`account_payable_id`,`account_bank_or_cash_id`,`account_pdp_id`,`account_bank_cash_hpp_id`,`account_receivable_id`,`account_shortover_id`,`account_sales_id`,`ppn_amount_in`,`ppn_amount_out`,`sales_discount_id`,`purchase_discount_id`,`pharmacist_license_no`,`account_sales_return_id`,`account_hpp_id`,`account_bank_id`,`account_cash_id`,`account_cash_on_way_id`,`account_delivery_id`,`account_expense_id`,`created_at`,`updated_at`) values 
-(2,'TriptaTriTunggal','Karanganyar','( 024 ) 76623702','000000','TriptaTriTunggal@gmail.com','www.TriptaTriTunggal.id','',0,0,NULL,'CDOB1827/S/4-3306/09/2020','FP.01.04/IV/0118-/2019',79,99,48,211,0,82,0,46,11,308,11,11,0,0,'A1111111',340,356,0,5,5,535,0,NULL,'2024-06-24 05:39:25');
+(2,'TriptaTriTunggal','Karanganyar','( 024 ) 76623702','000000','TriptaTriTunggal@gmail.com','www.TriptaTriTunggal.id','',0,0,NULL,'CDOB1827/S/4-3306/09/2020','FP.01.04/IV/0118-/2019',79,99,48,17,0,82,0,6,4,308,11,11,0,0,'A1111111',340,356,0,4,4,9,0,NULL,'2024-12-12 07:42:16');
 
 /*Table structure for table `preference_transaction_module` */
 
@@ -8076,9 +8074,12 @@ CREATE TABLE `sales_invoice` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_invoice_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_invoice` */
+
+insert  into `sales_invoice`(`sales_invoice_id`,`branch_id`,`warehouse_id`,`customer_id`,`sales_order_id`,`sales_delivery_note_id`,`collection_method_account_id`,`services_income_id`,`sales_invoice_no`,`sales_invoice_reference_no`,`sales_invoice_date`,`sales_invoice_due_date`,`sales_invoice_remark`,`sales_invoice_status`,`services_income_amount`,`subtotal_item`,`subtotal_amount`,`subtotal_before_discount`,`discount_percentage`,`discount_amount`,`return_status`,`subtotal_after_discount`,`tax_percentage`,`tax_amount`,`goods_received_note_no`,`faktur_tax_no`,`buyers_acknowledgment_id`,`buyers_acknowledgment_no`,`ttf_no`,`kwitansi_status`,`total_amount`,`paid_amount`,`owing_amount`,`shortover_amount`,`last_balance`,`total_discount_amount`,`paid_discount_amount`,`owing_discount_amount`,`shortover_discount_amount`,`discount_last_balance`,`cash_advance_amount`,`change_amount`,`sales_return_amount`,`sales_collection_date`,`sales_invoice_token`,`sales_invoice_token_void`,`voided_id`,`voided_on`,`voided_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
+(1,1,8,176,1,1,0,0,'0001/TMO.ME/XII/2024','','2024-12-12','2024-12-12',NULL,0,0.00,100.00,166500,0,0.00,0,0,150000,0.00,16500.00,NULL,NULL,285,'1','',0,166500,0,166500,0,0,0,0,0,0,0,0,0,0.00,NULL,NULL,NULL,0,NULL,NULL,0,3,'2024-12-12 06:13:03','2024-12-12 06:13:03');
 
 /*Table structure for table `sales_invoice_item` */
 
@@ -8105,9 +8106,12 @@ CREATE TABLE `sales_invoice_item` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   KEY `sales_invoice_item_id` (`sales_invoice_item_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_invoice_item` */
+
+insert  into `sales_invoice_item`(`sales_invoice_item_id`,`sales_invoice_id`,`sales_order_id`,`sales_delivery_note_id`,`sales_delivery_note_item_id`,`item_id`,`item_type_id`,`item_unit_id`,`quantity`,`item_unit_price`,`item_unit_price_tax`,`discount_A`,`discount_B`,`subtotal_price_A`,`subtotal_price_B`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
+(1,1,1,1,1,0,1,10,100,1500,0,0,NULL,150000,166500,0,3,'2024-12-12 06:13:03','2024-12-12 06:13:03');
 
 /*Table structure for table `sales_kwitansi` */
 
@@ -8566,7 +8570,7 @@ CREATE TABLE `system_log_user` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=233 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=234 DEFAULT CHARSET=latin1;
 
 /*Data for the table `system_log_user` */
 
@@ -8802,7 +8806,8 @@ insert  into `system_log_user`(`user_log_id`,`user_id`,`username`,`id_previllage
 (229,0,'PBF',2141,'1','SalesInvoice.printSalesInvoice','PBF','Print Sales Invoice','2024-06-25 15:41:03','2024-06-25 15:41:03','2024-06-25 15:41:03'),
 (230,0,'PBF',2141,'1','SalesInvoice.printSalesInvoice','PBF','Print Sales Invoice','2024-06-25 15:42:50','2024-06-25 15:42:50','2024-06-25 15:42:50'),
 (231,0,'administrator',2141,'1','SalesInvoice.printSalesInvoice','administrator','Print Sales Invoice','2024-06-26 11:56:49','2024-06-26 11:56:49','2024-06-26 11:56:49'),
-(232,0,'PBF',2141,'1','SalesInvoice.printSalesInvoice','PBF','Print Sales Invoice','2024-06-28 09:16:41','2024-06-28 09:16:41','2024-06-28 09:16:41');
+(232,0,'PBF',2141,'1','SalesInvoice.printSalesInvoice','PBF','Print Sales Invoice','2024-06-28 09:16:41','2024-06-28 09:16:41','2024-06-28 09:16:41'),
+(233,0,'administrator',2141,'1','SalesInvoice.printSalesInvoice','administrator','Print Sales Invoice','2024-12-12 14:17:58','2024-12-12 14:17:58','2024-12-12 14:17:58');
 
 /*Table structure for table `system_menu` */
 
@@ -8910,7 +8915,7 @@ insert  into `system_menu`(`id_menu`,`id`,`type`,`indent_level`,`text`,`image`,`
 ('711','account','file',3,'No. Perkiraan',NULL,'2023-06-23 10:52:23'),
 ('72','#','folder',2,'Jurnal',NULL,'2023-06-23 10:52:23'),
 ('721','journal','file',3,'Jurnal Umum',NULL,'2023-06-23 10:52:23'),
-('722','journal-Purchase','file',3,'Jurnal Pembelian',NULL,'2023-07-22 10:49:27'),
+('722','journal-memorial','file',3,'Jurnal Memorial',NULL,'2024-12-12 11:37:16'),
 ('723','journal-Sales','file',3,'Jurnal Penjualan',NULL,'2023-07-24 11:35:43'),
 ('724','journal-CashBank','file',3,'Jurnal Kas Dan Bank',NULL,'2023-07-24 14:31:34'),
 ('73','ledger-report','file',2,'Buku Besar',NULL,'2023-12-07 14:17:07'),
@@ -8934,7 +8939,7 @@ CREATE TABLE `system_menu_mapping` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`menu_mapping_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1460 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=1461 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `system_menu_mapping` */
 
@@ -8999,7 +9004,8 @@ insert  into `system_menu_mapping`(`menu_mapping_id`,`user_group_level`,`id_menu
 (1456,1,'82','2024-10-23 06:44:51','2024-10-23 06:44:51'),
 (1457,1,'9','2024-10-23 06:44:51','2024-10-23 06:44:51'),
 (1458,1,'91','2024-10-23 06:44:51','2024-10-23 06:44:51'),
-(1459,1,'92','2024-10-23 06:44:51','2024-10-23 06:44:51');
+(1459,1,'92','2024-10-23 06:44:51','2024-10-23 06:44:51'),
+(1460,1,'722','2024-12-12 11:42:09','2024-12-12 11:42:11');
 
 /*Table structure for table `system_user` */
 
@@ -9063,7 +9069,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_bank_disbursement` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_bank_disbursement` BEFORE INSERT ON `acct_bank_disbursement` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_bank_disbursement` BEFORE INSERT ON `acct_bank_disbursement` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -9118,7 +9124,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_bank_receipt` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_bank_receipt` BEFORE INSERT ON `acct_bank_receipt` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_bank_receipt` BEFORE INSERT ON `acct_bank_receipt` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -9172,7 +9178,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_cash_disbursement` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_cash_disbursement` BEFORE INSERT ON `acct_cash_disbursement` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_cash_disbursement` BEFORE INSERT ON `acct_cash_disbursement` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -9227,7 +9233,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_cash_receipt` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_cash_receipt` BEFORE INSERT ON `acct_cash_receipt` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_cash_receipt` BEFORE INSERT ON `acct_cash_receipt` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -9281,7 +9287,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_check_disbursement` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_check_disbursement` BEFORE INSERT ON `acct_check_disbursement` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_check_disbursement` BEFORE INSERT ON `acct_check_disbursement` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -9336,7 +9342,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_check_receipt` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_check_receipt` BEFORE INSERT ON `acct_check_receipt` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_check_receipt` BEFORE INSERT ON `acct_check_receipt` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -9390,7 +9396,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_journal_voucher` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_journal_voucher` BEFORE INSERT ON `acct_journal_voucher` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_journal_voucher` BEFORE INSERT ON `acct_journal_voucher` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -9480,7 +9486,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_journal_voucher_item` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_journal_voucher_item` BEFORE INSERT ON `acct_journal_voucher_item` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_acct_journal_voucher_item` BEFORE INSERT ON `acct_journal_voucher_item` FOR EACH ROW BEGIN
 	DECLARE nAccountIDDefaultStatus		DECIMAL(1);
 	
 	DECLARE nAccountID		INT(10);
@@ -9559,7 +9565,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_goods_received_note` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_goods_received_note` BEFORE INSERT ON `inv_goods_received_note` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_inv_goods_received_note` BEFORE INSERT ON `inv_goods_received_note` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -9650,7 +9656,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_item_stock_card_in` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_item_stock_card_in` AFTER INSERT ON `inv_goods_received_note_item` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_inv_item_stock_card_in` AFTER INSERT ON `inv_goods_received_note_item` FOR EACH ROW BEGIN
 	DECLARE nOpeningBalance 		DECIMAL(20,5); 
 	DECLARE nLastOpeningBalance 		DECIMAL(20,5);  
 	DECLARE nLastBalance	 		DECIMAL(20,5);
@@ -9742,7 +9748,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_warehouse_in` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_in` BEFORE INSERT ON `inv_warehouse_in` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_inv_warehouse_in` BEFORE INSERT ON `inv_warehouse_in` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -9833,7 +9839,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_warehouse_out` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_out` BEFORE INSERT ON `inv_warehouse_out` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_inv_warehouse_out` BEFORE INSERT ON `inv_warehouse_out` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -9924,7 +9930,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_warehouse_transfer` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_transfer` BEFORE INSERT ON `inv_warehouse_transfer` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_inv_warehouse_transfer` BEFORE INSERT ON `inv_warehouse_transfer` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -10015,7 +10021,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_warehouse_transfer_received_note` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_transfer_received_note` BEFORE INSERT ON `inv_warehouse_transfer_received_note` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_inv_warehouse_transfer_received_note` BEFORE INSERT ON `inv_warehouse_transfer_received_note` FOR EACH ROW BEGIN
 	DECLARE year_period 				VARCHAR(20);
 	DECLARE month_period 				VARCHAR(20);
 	DECLARE PERIOD 					VARCHAR(20);
@@ -10106,7 +10112,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_purchase_invoice` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_purchase_invoice` BEFORE INSERT ON `purchase_invoice` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_purchase_invoice` BEFORE INSERT ON `purchase_invoice` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -10197,7 +10203,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_purchase_order` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_purchase_order` BEFORE INSERT ON `purchase_order` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_purchase_order` BEFORE INSERT ON `purchase_order` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -10288,7 +10294,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_purchase_order_return` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_purchase_order_return` BEFORE INSERT ON `purchase_order_return` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_purchase_order_return` BEFORE INSERT ON `purchase_order_return` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -10379,7 +10385,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_purchase_payment` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_purchase_payment` BEFORE INSERT ON `purchase_payment` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_purchase_payment` BEFORE INSERT ON `purchase_payment` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -10470,7 +10476,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_collection` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_collection` BEFORE INSERT ON `sales_collection` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_collection` BEFORE INSERT ON `sales_collection` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -10561,7 +10567,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_collection_discount` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_collection_discount` BEFORE INSERT ON `sales_collection_discount` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_collection_discount` BEFORE INSERT ON `sales_collection_discount` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -10652,7 +10658,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_delivery_note` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_delivery_note` BEFORE INSERT ON `sales_delivery_note` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_delivery_note` BEFORE INSERT ON `sales_delivery_note` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -10743,7 +10749,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_delivery_order` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_delivery_order` BEFORE INSERT ON `sales_delivery_order` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_delivery_order` BEFORE INSERT ON `sales_delivery_order` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -10834,7 +10840,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_invoice` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_invoice` BEFORE INSERT ON `sales_invoice` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_invoice` BEFORE INSERT ON `sales_invoice` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(50);
 	DECLARE month_period 		VARCHAR(50);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -10893,7 +10899,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_kwitansi` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_kwitansi` BEFORE INSERT ON `sales_kwitansi` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_kwitansi` BEFORE INSERT ON `sales_kwitansi` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(255);
 	DECLARE month_period 		VARCHAR(255);
 	DECLARE PERIOD 			VARCHAR(255);
@@ -10987,7 +10993,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_order` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_order` BEFORE INSERT ON `sales_order` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_order` BEFORE INSERT ON `sales_order` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -11078,7 +11084,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_quotation` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_quotation` BEFORE INSERT ON `sales_quotation` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50003 TRIGGER `insert_sales_quotation` BEFORE INSERT ON `sales_quotation` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
