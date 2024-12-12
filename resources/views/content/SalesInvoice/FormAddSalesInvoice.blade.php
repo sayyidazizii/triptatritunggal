@@ -278,7 +278,7 @@
                                                 <input style='text-align  : right !important;' class='form-control' type='text' name='subtotal_price_B_{{ $no }}' id='subtotal_price_B_{{ $no }}' value='{{$totalB}}' hidden/>
                                             </td>
                                             <td hidden style='text-align  : right !important;'>
-                                                <input style='text-align  : right !important;'  class='form-control' type='text' name='item_stock_id_{{$no}}' id='item_stock_id_{{$no}}' value='{{$SalesInvoice->getItemStock($val['sales_delivery_note_item_id'])}}' readonly/>
+                                                {{-- <input style='text-align  : right !important;'  class='form-control' type='text' name='item_stock_id_{{$no}}' id='item_stock_id_{{$no}}' value='{{$SalesInvoice->getItemStock($val['sales_delivery_note_item_id'])}}' readonly/> --}}
                                             </td>
                                             <td hidden style='text-align  : right !important;'>
                                                 <input style='text-align  : right !important;'  class='form-control' type='text' name='sales_delivery_note_item_id_{{ $no }}' id='sales_delivery_note_item_id_{{ $no }}' value='{{$val['sales_delivery_note_item_id']}}' readonly/>
