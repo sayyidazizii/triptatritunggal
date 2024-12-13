@@ -86,19 +86,19 @@
                     <tr>
                         <th style="text-align: left !important; width: 40% !important">Hutang</th>
                         <td style="text-align: left !important; width: 30% !important">
-                            {!! Form::select(0, $accountlist, $purchase_cash_account['account_id'], ['class' => 'selection-search-clear select-form','name'=>'account_credit_purchase_id','id'=>'account_credit_purchase_id']) !!}
+                            {!! Form::select(0, $accountlist, $purchase_credit_account['account_id'], ['class' => 'selection-search-clear select-form','name'=>'account_credit_purchase_id','id'=>'account_credit_purchase_id']) !!}
                         </td>
                         <td style="text-align: left !important; width: 30% !important">
-                            {!! Form::select(0, $status, $purchase_cash_account['account_setting_status'], ['class' => 'selection-search-clear select-form','name'=>'account_credit_purchase_status','id'=>'account_credit_purchase_status']) !!}
+                            {!! Form::select(0, $status, $purchase_credit_account['account_setting_status'], ['class' => 'selection-search-clear select-form','name'=>'account_credit_purchase_status','id'=>'account_credit_purchase_status']) !!}
                         </td>
                     </tr>
                     <tr>
                         <th style="text-align: left !important; width: 40% !important">Pembelian</th>
                         <td style="text-align: left !important; width: 30% !important">
-                            {!! Form::select(0, $accountlist, $purchase_account['account_id'],['class' => 'selection-search-clear select-form','name'=>'purchase_credit_account_id','id'=>'purchase_credit_account_id']) !!}
+                            {!! Form::select(0, $accountlist, $purchase_account_credit['account_id'],['class' => 'selection-search-clear select-form','name'=>'purchase_credit_account_id','id'=>'purchase_credit_account_id']) !!}
                         </td>
                         <td style="text-align: left !important; width: 30% !important">
-                            {!! Form::select(0, $status, $purchase_account['account_setting_status'],['class' => 'selection-search-clear select-form','name'=>'purchase_credit_account_status','id'=>'purchase_credit_account_status']) !!}
+                            {!! Form::select(0, $status, $purchase_account_credit['account_setting_status'],['class' => 'selection-search-clear select-form','name'=>'purchase_credit_account_status','id'=>'purchase_credit_account_status']) !!}
                         </td>
                     </tr>
 
@@ -108,10 +108,10 @@
                     <tr>
                         <th style="text-align: left !important; width: 40% !important">Pajak</th>
                         <td style="text-align: left !important; width: 30% !important">
-                            {!! Form::select(0, $accountlist, $sales_account['account_id'],['class' => 'selection-search-clear select-form','name'=>'purchase_tax_account_id','id'=>'purchase_tax_account_id']) !!}
+                            {!! Form::select(0, $accountlist, $purchase_tax_account_id['account_id'],['class' => 'selection-search-clear select-form','name'=>'purchase_tax_account_id','id'=>'purchase_tax_account_id']) !!}
                         </td>
                         <td style="text-align: left !important; width: 30% !important">
-                            {!! Form::select(0, $status, $sales_account['account_setting_status'],['class' => 'selection-search-clear select-form','name'=>'purchase_tax_account_status','id'=>'purchase_tax_account_status']) !!}
+                            {!! Form::select(0, $status, $purchase_tax_account_id['account_setting_status'],['class' => 'selection-search-clear select-form','name'=>'purchase_tax_account_status','id'=>'purchase_tax_account_status']) !!}
                         </td>
                     </tr>
 
@@ -168,19 +168,19 @@
                         <tr>
                             <th style="text-align: left !important; width: 40% !important">Piutang</th>
                             <td style="text-align: left !important; width: 30% !important">
-                                {!! Form::select(0, $accountlist, $sales_cash_account['account_id'],['class' => 'selection-search-clear select-form','name'=>'account_receivable_credit_account_id','id'=>'account_receivable_credit_account_id']) !!}
+                                {!! Form::select(0, $accountlist, $sales_credit_account['account_id'],['class' => 'selection-search-clear select-form','name'=>'account_receivable_credit_account_id','id'=>'account_receivable_credit_account_id']) !!}
                             </td>
                             <td style="text-align: left !important; width: 30% !important">
-                                {!! Form::select(0, $status, $sales_cash_account['account_setting_status'],['class' => 'selection-search-clear select-form','name'=>'account_receivable_account_credit_status','id'=>'account_receivable_account_credit_status']) !!}
+                                {!! Form::select(0, $status, $sales_credit_account['account_setting_status'],['class' => 'selection-search-clear select-form','name'=>'account_receivable_account_credit_status','id'=>'account_receivable_account_credit_status']) !!}
                             </td>
                         </tr>
                         <tr>
                             <th style="text-align: left !important; width: 40% !important">Penjualan</th>
                             <td style="text-align: left !important; width: 30% !important">
-                                {!! Form::select(0, $accountlist, $sales_account['account_id'],['class' => 'selection-search-clear select-form','name'=>'sales_credit_account_id','id'=>'sales_credit_account_id']) !!}
+                                {!! Form::select(0, $accountlist, $sales_account_credit['account_id'],['class' => 'selection-search-clear select-form','name'=>'sales_credit_account_id','id'=>'sales_credit_account_id']) !!}
                             </td>
                             <td style="text-align: left !important; width: 30% !important">
-                                {!! Form::select(0, $status, $sales_account['account_setting_status'],['class' => 'selection-search-clear select-form','name'=>'sales_credit_account_status','id'=>'sales_credit_account_status']) !!}
+                                {!! Form::select(0, $status, $sales_account_credit['account_setting_status'],['class' => 'selection-search-clear select-form','name'=>'sales_credit_account_status','id'=>'sales_credit_account_status']) !!}
                             </td>
                         </tr>
                         <tr>
@@ -189,10 +189,10 @@
                         <tr>
                             <th style="text-align: left !important; width: 40% !important">Pajak</th>
                             <td style="text-align: left !important; width: 30% !important">
-                                {!! Form::select(0, $accountlist, $sales_account['account_id'],['class' => 'selection-search-clear select-form','name'=>'sales_tax_account_id','id'=>'sales_tax_account_id']) !!}
+                                {!! Form::select(0, $accountlist, $sales_tax_credit['account_id'],['class' => 'selection-search-clear select-form','name'=>'sales_tax_account_id','id'=>'sales_tax_account_id']) !!}
                             </td>
                             <td style="text-align: left !important; width: 30% !important">
-                                {!! Form::select(0, $status, $sales_account['account_setting_status'],['class' => 'selection-search-clear select-form','name'=>'sales_tax_account_status','id'=>'sales_tax_account_status']) !!}
+                                {!! Form::select(0, $status, $sales_tax_credit['account_setting_status'],['class' => 'selection-search-clear select-form','name'=>'sales_tax_account_status','id'=>'sales_tax_account_status']) !!}
                             </td>
                         </tr>
                     </table>

@@ -21,7 +21,7 @@ class AcctAccountSettingController extends Controller
     {
         $accountlist = AcctAccount::select(DB::raw("CONCAT(account_code,' - ',account_name) AS full_account"),'account_id')
         ->where('data_state',0)
-        ->where('company_id',Auth::user()->company_id)
+        // ->where('company_id',Auth::user()->company_id)
         ->get()
         ->pluck('full_account','account_id');
 
@@ -30,36 +30,68 @@ class AcctAccountSettingController extends Controller
             '1' => 'Kredit'
         );
 
+        // *pembelian
         $purchase_cash_account = AcctAccountSetting::select('account_id', 'account_setting_status')
-        ->where('account_setting_name', 'purchase_cash_account')
+        ->where('account_setting_name', 'account_cash_purchase_id')
         ->first();
 
         $purchase_account = AcctAccountSetting::select('account_id', 'account_setting_status')
-        ->where('account_setting_name', 'purchase_account')
+        ->where('account_setting_name', 'purchase_cash_account_id')
         ->first();
 
-        $expenditure_cash_account = AcctAccountSetting::select('account_id', 'account_setting_status')
-        ->where('account_setting_name', 'expenditure_cash_account')
+        $purchase_credit_account = AcctAccountSetting::select('account_id', 'account_setting_status')
+        ->where('account_setting_name', 'account_cash_purchase_id')
         ->first();
 
-        $expenditure_account = AcctAccountSetting::select('account_id', 'account_setting_status')
-        ->where('account_setting_name', 'expenditure_account')
+        $purchase_account_credit = AcctAccountSetting::select('account_id', 'account_setting_status')
+        ->where('account_setting_name', 'purchase_credit_account_id')
         ->first();
 
+        $purchase_tax_account_id = AcctAccountSetting::select('account_id', 'account_setting_status')
+        ->where('account_setting_name', 'purchase_tax_account_id')
+        ->first();
+
+
+        // *Penjualan
         $sales_cash_account = AcctAccountSetting::select('account_id', 'account_setting_status')
-        ->where('account_setting_name', 'sales_cash_account')
+        ->where('account_setting_name', 'account_receivable_cash_account_id')
         ->first();
 
         $sales_account = AcctAccountSetting::select('account_id', 'account_setting_status')
-        ->where('account_setting_name', 'sales_account')
+        ->where('account_setting_name', 'sales_cash_account_id')
         ->first();
 
+        $sales_credit_account = AcctAccountSetting::select('account_id', 'account_setting_status')
+        ->where('account_setting_name', 'account_receivable_credit_account_id')
+        ->first();
+
+        $sales_account_credit = AcctAccountSetting::select('account_id', 'account_setting_status')
+        ->where('account_setting_name', 'sales_credit_account_id')
+        ->first();
+
+        $sales_tax_credit = AcctAccountSetting::select('account_id', 'account_setting_status')
+        ->where('account_setting_name', 'sales_tax_account_id')
+        ->first();
+
+
+
+        // *pengeluaran
+        $expenditure_cash_account = AcctAccountSetting::select('account_id', 'account_setting_status')
+        ->where('account_setting_name', 'expenditure_cash_account_id')
+        ->first();
+
+        $expenditure_account = AcctAccountSetting::select('account_id', 'account_setting_status')
+        ->where('account_setting_name', 'expenditure_account_id')
+        ->first();
+
+
+        // *retur pembelian
         $purchase_return_cash_account = AcctAccountSetting::select('account_id', 'account_setting_status')
-        ->where('account_setting_name', 'purchase_return_cash_account')
+        ->where('account_setting_name', 'account_payable_return_account_id')
         ->first();
 
         $purchase_return_account = AcctAccountSetting::select('account_id', 'account_setting_status')
-        ->where('account_setting_name', 'purchase_return_account')
+        ->where('account_setting_name', 'purchase_return_account_id')
         ->first();
 
         $consignee_cash_account = AcctAccountSetting::select('account_id', 'account_setting_status')
@@ -70,7 +102,8 @@ class AcctAccountSettingController extends Controller
         ->where('account_setting_name', 'consignee_account')
         ->first();
 
-        return view('content.AcctAccountSetting.AcctAccountSetting',compact('consignee_cash_account','consignee_account','accountlist', 'status', 'purchase_cash_account', 'purchase_account', 'expenditure_cash_account', 'expenditure_account', 'sales_cash_account', 'sales_account', 'purchase_return_cash_account', 'purchase_return_account'));
+
+        return view('content.AcctAccountSetting.AcctAccountSetting',compact('purchase_cash_account','purchase_account','purchase_credit_account','purchase_account_credit','purchase_tax_account_id','sales_cash_account','sales_cash_account','sales_account','sales_credit_account','sales_account_credit','sales_tax_credit','expenditure_cash_account','expenditure_account','purchase_return_cash_account','purchase_return_account','accountlist','status'));
     }
 
     public function processAddAcctAccountSetting(Request $request)
