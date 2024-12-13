@@ -387,7 +387,7 @@ class BuyersAcknowledgmentController extends Controller
 //--------------------------------------------------------JURNAL -----------------------------------------------------------------//
 
             $preferencecompany = PreferenceCompany::first();
-            $account_setting = AcctAccountSetting::where('account_setting_name','buyers_acknowledgment')->first();
+            $account_setting = AcctAccountSetting::where('account_setting_name','sales_credit_account_id')->first();
             $transaction_module_code = "PPP";
             $transactionmodule = PreferenceTransactionModule::where('transaction_module_code', $transaction_module_code)->first();
             $transaction_module_id = $transactionmodule['transaction_module_id'];
