@@ -2,31 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\PublicController;
-use App\Providers\RouteServiceProvider;
 use App\Models\AcctAccount;
-use App\Models\AcctJournalVoucher;
-use App\Models\AcctJournalVoucherItem;
-use App\Models\PurchaseOrder;
-use App\Models\PurchaseOrderItem;
-use App\Models\PurchaseOrderItemTemporary;
-use App\Models\InvWarehouse;
-use App\Models\CoreSupplier;
-use App\Models\InvItemCategory;
-use App\Models\InvItemUnit;
 use App\Models\InvItemType;
+use App\Models\InvItemUnit;
+use App\Models\CoreSupplier;
 use App\Models\InvItemStock;
-use App\Models\InvGoodsReceivedNote;
-use App\Models\InvGoodsReceivedNoteItem;
+use App\Models\InvWarehouse;
+use Illuminate\Http\Request;
+use App\Models\PurchaseOrder;
+use App\Models\InvItemCategory;
 use App\Models\PreferenceCompany;
-use App\Models\PreferenceTransactionModule;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
+use App\Models\PurchaseOrderItem;
+use App\Models\AcctJournalVoucher;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use App\Models\InvGoodsReceivedNote;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\AcctJournalVoucherItem;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Session;
+use App\Models\InvGoodsReceivedNoteItem;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\PublicController;
+use App\Models\PurchaseOrderItemTemporary;
+use App\Models\PreferenceTransactionModule;
 
 class InvGoodsReceivedNoteController extends Controller
 {
@@ -392,35 +393,35 @@ class InvGoodsReceivedNoteController extends Controller
                 $temprequest = $request->all();
                 // dd($temprequest);
     
-    //----------------------------------------------------------Journal Voucher-------------------------------------------------------------------//
+    // //----------------------------------------------------------Journal Voucher-------------------------------------------------------------------//
                 
-                $preferencecompany 			= PreferenceCompany::first();
+    //             $preferencecompany 			= PreferenceCompany::first();
             
-                $transaction_module_code 	= "GRN";
+    //             $transaction_module_code 	= "GRN";
         
-                $transactionmodule 		    = PreferenceTransactionModule::where('transaction_module_code', $transaction_module_code)
-                ->first();
+    //             $transactionmodule 		    = PreferenceTransactionModule::where('transaction_module_code', $transaction_module_code)
+    //             ->first();
         
-                $transaction_module_id 		= $transactionmodule['transaction_module_id'];
+    //             $transaction_module_id 		= $transactionmodule['transaction_module_id'];
     
-                $journal_voucher_period 	= date("Ym", strtotime($invgoodsreceivednote['goods_received_note_date']));
+    //             $journal_voucher_period 	= date("Ym", strtotime($invgoodsreceivednote['goods_received_note_date']));
     
-                $data_journal = array(
-                    'branch_id'						=> 1,
-                    'journal_voucher_period' 		=> $journal_voucher_period,
-                    'journal_voucher_date'			=> $invgoodsreceivednote['goods_received_note_date'],
-                    'journal_voucher_title'			=> 'Pembelian '.$goodsreceivednote['goods_received_note_no'],
-                    'journal_voucher_no'			=> $goodsreceivednote['goods_received_note_no'],
-                    'journal_voucher_description'	=> $invgoodsreceivednote['goods_received_note_remark'],
-                    'transaction_module_id'			=> $transaction_module_id,
-                    'transaction_module_code'		=> $transaction_module_code,
-                    'transaction_journal_id' 		=> $goodsreceivednote['goods_received_note_id'],
-                    'transaction_journal_no' 		=> $goodsreceivednote['goods_received_note_no'],
-                    'created_id' 					=> Auth::id(),
-                );
+    //             $data_journal = array(
+    //                 'branch_id'						=> 1,
+    //                 'journal_voucher_period' 		=> $journal_voucher_period,
+    //                 'journal_voucher_date'			=> $invgoodsreceivednote['goods_received_note_date'],
+    //                 'journal_voucher_title'			=> 'Pembelian '.$goodsreceivednote['goods_received_note_no'],
+    //                 'journal_voucher_no'			=> $goodsreceivednote['goods_received_note_no'],
+    //                 'journal_voucher_description'	=> $invgoodsreceivednote['goods_received_note_remark'],
+    //                 'transaction_module_id'			=> $transaction_module_id,
+    //                 'transaction_module_code'		=> $transaction_module_code,
+    //                 'transaction_journal_id' 		=> $goodsreceivednote['goods_received_note_id'],
+    //                 'transaction_journal_no' 		=> $goodsreceivednote['goods_received_note_no'],
+    //                 'created_id' 					=> Auth::id(),
+    //             );
                 
-                AcctJournalVoucher::create($data_journal);
-    //---------------------------------------------------------End Journal Voucher----------------------------------------------------------------//
+    //             AcctJournalVoucher::create($data_journal);
+    // //---------------------------------------------------------End Journal Voucher----------------------------------------------------------------//
     
                 $total_no = $request->total_no;
                 $total_received_item = $temprequest['quantity_received_total'];
@@ -437,18 +438,12 @@ class InvGoodsReceivedNoteController extends Controller
                         'quantity'					            => $temprequest['quantity_received_'.$i],
                         'quantity_ordered'					    => $temprequest['quantity_received_'.$i],
                         'quantity_received'					    => $temprequest['quantity_received_'.$i],
-                        'item_batch_number'                     => $temprequest['item_batch_number_'.$i],
-                        'item_expired_date'                     => $temprequest['item_expired_date_'.$i],
                         'created_id'                            => Auth::id(),
                     );
     
                     // dd($invgoodsreceivednoteitem);
                     InvGoodsReceivedNoteItem::create($invgoodsreceivednoteitem);
     
-                    //item unit cost
-                    // $item_unit_cost = array (
-                    //     'item_unit_cost'					    => $temprequest['item_unit_cost_'.$i],
-                    // );
     
                     //update purchase order item
                     $purchaseorderitem = PurchaseOrderItem::findOrFail($invgoodsreceivednoteitem['purchase_order_item_id']);
@@ -496,16 +491,12 @@ class InvGoodsReceivedNoteController extends Controller
                         'goods_received_note_id'        => $goodsreceivednote['goods_received_note_id'],
                         'goods_received_note_item_id'   => $goodsreceivednoteitem['goods_received_note_item_id'],
                         'item_stock_date'               => $invgoodsreceivednote['goods_received_note_date'],
-                        'item_batch_number'             => $invgoodsreceivednoteitem['item_batch_number'],
-                        'item_stock_expired_date'       => $invgoodsreceivednoteitem['item_expired_date'],
                         'warehouse_id'                  => $fields['warehouse_id'],
                         'item_total'                    => $temprequest['quantity_received_'.$i],
                         'item_unit_id_default' 		    => $item_unit_id_default,
                         'item_unit_cost'                => $temprequest['item_unit_cost_'.$i],
                         'quantity_unit' 		        => $quantity_unit,
                         'item_default_quantity_unit'    => $default_quantity,
-                        // 'item_weight_unit' 		        => $item_weight,
-                        // 'item_weight_default' 		    => $item_weight_default,
                         'purchase_order_item_id'        => $temprequest['purchase_order_item_id_'.$i],
                         'item_category_id'              => $temprequest['item_category_id_'.$i],
                         'item_type_id'                  => $temprequest['item_type_id_'.$i],
@@ -513,11 +504,8 @@ class InvGoodsReceivedNoteController extends Controller
                         'created_id'                    => Auth::id(),
                     );
     
-                    // dd($invitemstock);
     
-                    $data_item_stock = InvItemStock::where('item_type_id', $invitemstock['item_type_id'])
-                    ->where('item_batch_number', $invitemstock['item_batch_number'])->first();
-                    // dd($item);
+                    $data_item_stock = InvItemStock::where('item_type_id', $invitemstock['item_type_id'])->first();
                     
                     if($data_item_stock == null){
                         InvItemStock::create($invitemstock);
@@ -526,109 +514,106 @@ class InvGoodsReceivedNoteController extends Controller
                         $itemstockupdate->item_total += $invitemstock['item_total'];
                         $itemstockupdate->quantity_unit += $invitemstock['quantity_unit'];
                         $itemstockupdate->item_unit_cost = $invitemstock['item_unit_cost'];
-                        // $itemstockupdate->item_weight_unit += $invitemstock['item_weight_unit'];
-                        // $itemstockupdate->item_stock_date = $invitemstock['item_stock_date'];
                         $itemstockupdate->save();
                     }
-    
-                    // dd($invitemstock);
-    
-    //----------------------------------------------------------Journal Voucher Item-------------------------------------------------------------------//
-    
-    
+
                     $purchaseorderitem          = PurchaseOrderItem::where('purchase_order_item_id', $temprequest['purchase_order_item_id_'.$i])
                     ->first();
                 }
     
-                    $purchaseorder              = PurchaseOrder::findOrFail($invgoodsreceivednote['purchase_order_id']);
-                    $total_amount               = $purchaseorder['total_amount'];
-    
-                    $journalvoucher = AcctJournalVoucher::where('created_id', Auth::id())
-                    ->orderBy('journal_voucher_id', 'DESC')
-                    ->first();
-    
-                    
-                    $journal_voucher_id 	= $journalvoucher['journal_voucher_id'];
+    // //----------------------------------------------------------Journal Voucher Item-------------------------------------------------------------------//
     
     
-                    //------account_id Persediaan Barang Dagang------//
-                    $preference_company = PreferenceCompany::first();
-                    
-                    $account = AcctAccount::where('account_id', 82)
-                    ->where('data_state', 0)
-                    ->first();
+
     
-                    $account_id_default_status 		= $account['account_default_status'];
+    //                 $purchaseorder              = PurchaseOrder::findOrFail($invgoodsreceivednote['purchase_order_id']);
+    //                 $total_amount               = $purchaseorder['total_amount'];
+    
+    //                 $journalvoucher = AcctJournalVoucher::where('created_id', Auth::id())
+    //                 ->orderBy('journal_voucher_id', 'DESC')
+    //                 ->first();
     
                     
-                    $data_debit1 = array (
-                        'journal_voucher_id'			=> $journal_voucher_id,
-                        'account_id'					=> $account['account_id'],
-                        'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                        'journal_voucher_amount'		=> ABS($total_amount),
-                        'journal_voucher_debit_amount'	=> ABS($total_amount),
-                        'account_id_default_status'		=> $account_id_default_status,
-                        'account_id_status'				=> 1,
-                    );
+    //                 $journal_voucher_id 	= $journalvoucher['journal_voucher_id'];
+    
+    
+    //                 //------account_id Persediaan Barang Dagang------//
+    //                 $preference_company = PreferenceCompany::first();
                     
-                    // dd($data_debit1);
-                    
-                    AcctJournalVoucherItem::create($data_debit1);
+    //                 $account = AcctAccount::where('account_id', 82)
+    //                 ->where('data_state', 0)
+    //                 ->first();
+    
+    //                 $account_id_default_status 		= $account['account_default_status'];
     
                     
-                    //------account_id PPN Masukan------//
-                    $account = AcctAccount::where('account_id',106)
-                    ->where('data_state', 0)
-                    ->first();
-    
-                    $ppn_in_amount = $purchaseorder['ppn_in_amount'];
+    //                 $data_debit1 = array (
+    //                     'journal_voucher_id'			=> $journal_voucher_id,
+    //                     'account_id'					=> $account['account_id'],
+    //                     'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
+    //                     'journal_voucher_amount'		=> ABS($total_amount),
+    //                     'journal_voucher_debit_amount'	=> ABS($total_amount),
+    //                     'account_id_default_status'		=> $account_id_default_status,
+    //                     'account_id_status'				=> 1,
+    //                 );
                     
-                    $account_id_default_status 		= $account['account_default_status'];
-    
+    //                 // dd($data_debit1);
                     
-                    $data_debit2 = array (
-                        'journal_voucher_id'			=> $journal_voucher_id,
-                        'account_id'					=> 106,
-                        'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                        'journal_voucher_amount'		=> ABS($ppn_in_amount),
-                        'journal_voucher_debit_amount'	=> ABS($ppn_in_amount),
-                        'account_id_default_status'		=> $account_id_default_status,
-                        'account_id_status'				=> 1,
-                    );
-                    
-                    // dd($data_debit2);
-    
-                    AcctJournalVoucherItem::create($data_debit2);
+    //                 AcctJournalVoucherItem::create($data_debit1);
     
                     
-                    $account 		= AcctAccount::where('account_id', 205)
-                    ->where('data_state', 0)
-                    ->first();
+    //                 //------account_id PPN Masukan------//
+    //                 $account = AcctAccount::where('account_id',106)
+    //                 ->where('data_state', 0)
+    //                 ->first();
     
-                    $subtotal_after_ppn_in = $purchaseorder['subtotal_after_ppn_in'];
+    //                 $ppn_in_amount = $purchaseorder['ppn_in_amount'];
+                    
+    //                 $account_id_default_status 		= $account['account_default_status'];
     
-                    //hutang supplier
-                    $account_id_default_status 		= $account['account_default_status'];
+                    
+    //                 $data_debit2 = array (
+    //                     'journal_voucher_id'			=> $journal_voucher_id,
+    //                     'account_id'					=> 106,
+    //                     'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
+    //                     'journal_voucher_amount'		=> ABS($ppn_in_amount),
+    //                     'journal_voucher_debit_amount'	=> ABS($ppn_in_amount),
+    //                     'account_id_default_status'		=> $account_id_default_status,
+    //                     'account_id_status'				=> 1,
+    //                 );
+                    
+    //                 // dd($data_debit2);
     
-                    $data_credit = array (
-                        'journal_voucher_id'			=> $journal_voucher_id,
-                        'account_id'					=> 205,
-                        'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                        'journal_voucher_amount'		=> ABS($subtotal_after_ppn_in),
-                        'journal_voucher_credit_amount'	=> ABS($subtotal_after_ppn_in),
-                        'account_id_default_status'		=> $account_id_default_status,
-                        'account_id_status'				=> 0,
-                    );
-                    // dd($data_credit);
+    //                 AcctJournalVoucherItem::create($data_debit2);
+    
+                    
+    //                 $account 		= AcctAccount::where('account_id', 205)
+    //                 ->where('data_state', 0)
+    //                 ->first();
+    
+    //                 $subtotal_after_ppn_in = $purchaseorder['subtotal_after_ppn_in'];
+    
+    //                 //hutang supplier
+    //                 $account_id_default_status 		= $account['account_default_status'];
+    
+    //                 $data_credit = array (
+    //                     'journal_voucher_id'			=> $journal_voucher_id,
+    //                     'account_id'					=> 205,
+    //                     'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
+    //                     'journal_voucher_amount'		=> ABS($subtotal_after_ppn_in),
+    //                     'journal_voucher_credit_amount'	=> ABS($subtotal_after_ppn_in),
+    //                     'account_id_default_status'		=> $account_id_default_status,
+    //                     'account_id_status'				=> 0,
+    //                 );
+    //                 // dd($data_credit);
     
     
-                    AcctJournalVoucherItem::create($data_credit);
+    //                 AcctJournalVoucherItem::create($data_credit);
     
     
-    //--------------------------------------------------------End Journal Voucher-----------------------------------------------------------------//
+    // //--------------------------------------------------------End Journal Voucher-----------------------------------------------------------------//
     
-                
-    
+            
                 $purchaseorder = PurchaseOrder::findOrFail($invgoodsreceivednote['purchase_order_id']);
                 $purchaseorder->total_received_item = $purchaseorder['total_received_item'] + $total_received_item;
                 if($purchaseorder['total_item'] == $purchaseorder->total_received_item ){
@@ -645,7 +630,7 @@ class InvGoodsReceivedNoteController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             report($e);
-            
+
                 Log::error('Error in Tambah Penerimaan Barang: '.$e->getMessage(), [
                     'exception' => $e
                 ]);
