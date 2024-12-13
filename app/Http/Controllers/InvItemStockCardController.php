@@ -39,17 +39,14 @@ class InvItemStockCardController extends Controller
             $end_date = Session::get('end_date');
         }
 
-        // dd($itemstock);
         
         $itemstock = InvItemStock::where('inv_item_stock.data_state', 0)
-        ->where('inv_item_stock.updated_at', '>=', $start_date)
-        ->where('inv_item_stock.updated_at', '<=', $end_date)
-        // ->join('inv_item_stock_card', 'inv_item_stock_card.item_stock_id', '=', 'inv_item_stock.item_stock_id' )
+        ->where('inv_item_stock.created_at', '>=', $start_date)
+        ->where('inv_item_stock.created_at', '<=', $end_date)
         ->get();
 
-        // $data_stock = InvItemStock::findOrFail('item_stock_id', $itemstock['item_stock_id']);
         
-        // dd($itemstockcard);
+        // dd($itemstock);
         return view('content/InvItemStockCard/ListInvItemStockCard',compact('itemstock', 'start_date', 'end_date'));
     }
 
@@ -166,8 +163,8 @@ class InvItemStockCardController extends Controller
         }
 
         $itemstockcard = InvItemStockCard::where('data_state', 0)
-        ->where('updated_at', '>=', $start_date)
-        ->where('updated_at', '<=', $end_date)
+        ->where('transaction_date', '>=', $start_date)
+        ->where('transaction_date', '<=', $end_date)
         ->where('item_stock_id', $item_stock_id)
         ->sum('item_stock_card_in');
 
