@@ -55,7 +55,7 @@ insert  into `acct_account`(`account_id`,`company_id`,`account_code`,`account_na
 (13,2,'102.01.02','Aset Peralatan Masak','102.02',0,0,'',0,'',0,0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
 (14,2,'102.01.03','Depresiasi Akumulasi Aset','102.03',0,0,'',0,'',0,0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
 (15,2,'200.01','Liabilitas dan Ekuitas','200.01',0,0,'',0,'',0,0,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
-(16,2,'200.01.1','Utang Lancar','200.01',0,1,'',1,'',0,1,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
+(16,2,'200.01.1','Utang Usaha','200.01',0,1,'',1,'',0,1,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
 (17,2,'200.01.2','Utang Jangka Panjang','200.01',0,1,'',1,'',0,1,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
 (18,2,'200.01.3','MODAL/EKUITAS','200.01',0,1,'',1,'',0,1,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
 (19,2,'200.01.4','Modal','200.01',0,1,'',1,'',0,1,0,55,55,'2024-05-15 10:30:00','2024-05-15 10:30:00'),
@@ -372,118 +372,35 @@ DROP TABLE IF EXISTS `acct_account_setting`;
 
 CREATE TABLE `acct_account_setting` (
   `account_setting_id` int NOT NULL AUTO_INCREMENT,
-  `account_id` int DEFAULT '0',
-  `account_setting_code` varchar(20) DEFAULT '',
-  `account_setting_description` varchar(50) DEFAULT '',
-  `account_setting_name` varchar(50) DEFAULT '',
-  `account_setting_status` decimal(1,0) DEFAULT '0' COMMENT '1 = Debit, 0 = Credit',
-  `account_status` decimal(1,0) DEFAULT '0',
-  `data_state` decimal(1,0) DEFAULT '0',
+  `company_id` int DEFAULT NULL,
+  `account_id` int DEFAULT NULL,
+  `account_setting_name` varchar(225) DEFAULT NULL,
+  `account_setting_status` int DEFAULT NULL,
+  `account_default_status` int DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`account_setting_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=172 DEFAULT CHARSET=utf8mb3;
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`account_setting_id`),
+  KEY `FK_account_id` (`account_id`),
+  CONSTRAINT `FK_account_id` FOREIGN KEY (`account_id`) REFERENCES `acct_account` (`account_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=385 DEFAULT CHARSET=latin1;
 
 /*Data for the table `acct_account_setting` */
 
-insert  into `acct_account_setting`(`account_setting_id`,`account_id`,`account_setting_code`,`account_setting_description`,`account_setting_name`,`account_setting_status`,`account_status`,`data_state`,`created_at`,`updated_at`) values 
-(29,338,'POAC','Purchase Order Advanced Cash','purchase_advanced_cash',1,0,1,NULL,'2023-06-23 10:52:20'),
-(30,339,'POAC','Purchase Order Advanced Cash','cash_purchase_advanced',1,0,1,NULL,'2023-06-23 10:52:20'),
-(31,6423,'PPCS','Purchase Payment Cash','account_payable',0,0,1,NULL,'2023-06-23 10:52:20'),
-(32,6310,'PPCS','Purchase Payment Cash','cash_purchase_payment',0,0,1,NULL,'2023-06-23 10:52:20'),
-(33,0,'IGRN','Goods Receipt Note','goods_receipt_inventory',1,0,1,NULL,'2023-06-23 10:52:20'),
-(34,104,'IGRN','Goods Receipt Note','account_payable_inventory',1,0,1,NULL,'2023-06-23 10:52:20'),
-(61,360,'MTRS','Material Release','material_release_inventory',2,0,1,NULL,'2023-06-23 10:52:20'),
-(62,361,'MTRS','Material Release','material_release_raw',1,0,1,NULL,'2023-06-23 10:52:20'),
-(81,NULL,'POAB','Purchase Order Advanced Bank','purchase_advanced_bank',NULL,0,1,NULL,'2023-06-23 10:52:20'),
-(82,341,'POAB','Purchase Order Advanced Bank','bank_purchase_advanced',1,0,1,NULL,'2023-06-23 10:52:20'),
-(83,398,'PPBT','Purchase Payment Bank','lem_account_payable_bank',1,0,1,NULL,'2023-06-23 10:52:20'),
-(84,341,'PPBT','Purchase Payment Bank','lem_bank_purchase_payment',0,0,1,NULL,'2023-06-23 10:52:20'),
-(85,NULL,'PPBG','Purchase Payment BG','lem_account_payable_giro',NULL,0,1,NULL,'2023-06-23 10:52:20'),
-(86,NULL,'PPBG','Purchase Payment BG','lem_giro_purchase_payment',NULL,0,1,NULL,'2023-06-23 10:52:20'),
-(87,398,'PBGL','Purchase Pencairan BG','giro_purchase_liquefaction',1,0,1,NULL,'2023-06-23 10:52:20'),
-(88,341,'PBGL','Purchase Pencairan BG','bank_purchase_liquefaction',0,0,1,NULL,'2023-06-23 10:52:20'),
-(89,398,'PCRT','Purchase Return','lem_account_payable_return',1,0,1,NULL,'2023-06-23 10:52:20'),
-(90,418,'PCRT','Purchase Return','lem_bank_purchase_return',0,0,1,NULL,'2023-06-23 10:52:20'),
-(91,0,'PRSL','Production Result','production_result_finished',0,0,1,NULL,'2023-06-23 10:52:20'),
-(92,0,'PRSL','Production Result','production_result_inventory',1,0,1,NULL,'2023-06-23 10:52:20'),
-(93,0,'PRCL','Production Reclass','production_reclass_finished',1,0,1,NULL,'2023-06-23 10:52:20'),
-(94,0,'PRCL','Production Reclass','production_reclass_material',1,0,1,NULL,'2023-06-23 10:52:20'),
-(95,353,'SCCS','Sales Collection Cash','lem_account_receivable_cash',0,0,1,NULL,'2023-06-23 10:52:20'),
-(96,340,'SCCS','Sales Collection Cash','lem_cash_sales_collection',1,0,1,NULL,'2023-06-23 10:52:20'),
-(97,6328,'SCBT','Sales Collection Bank','account_receivable',1,0,1,NULL,'2023-06-23 10:52:20'),
-(98,6315,'SCBT','Sales Collection Bank','bank_sales_collection',1,0,1,NULL,'2023-06-23 10:52:20'),
-(99,6328,'SCBG','Sales Collection BG','account_receivable',1,0,1,NULL,'2023-06-23 10:52:20'),
-(100,6315,'SCBG','Sales Collection BG','giro_sales_collection',1,0,1,NULL,'2023-06-23 10:52:20'),
-(101,0,'SBGL','Sales Pencairan BG','giro_sales_liquefaction',1,0,1,NULL,'2023-06-23 10:52:20'),
-(102,0,'SBGL','Sales Pencairan BG','bank_sales_liquefaction',1,0,1,NULL,'2023-06-23 10:52:20'),
-(103,412,'SLRT','Sales Return','lem_bank_sales_return',1,0,1,NULL,'2023-06-23 10:52:20'),
-(104,353,'SLRT','Sales Return','lem_account_receivable_return',0,0,1,NULL,'2023-06-23 10:52:20'),
-(105,398,'PCRT','Purchase Return','plastik_account_payable_return',1,0,1,NULL,'2023-06-23 10:52:20'),
-(106,418,'PCRT','Purchase Return','plastik_bank_purchase_return',0,0,1,NULL,'2023-06-23 10:52:20'),
-(107,0,'MTRS','Material Release','plastik_material_release_inventory',1,0,1,NULL,'2023-06-23 10:52:20'),
-(108,0,'MTRS','Material Release','plastik_material_release_raw',1,0,1,NULL,'2023-06-23 10:52:20'),
-(109,398,'PPCS','Purchase Payment Cash','lem_account_payable_cash',1,0,1,NULL,'2023-06-23 10:52:20'),
-(110,338,'PPCS','Purchase Payment Cash','lem_cash_purchase_payment',0,0,1,NULL,'2023-06-23 10:52:20'),
-(111,398,'PPCS','Purchase Payment Cash','plastik_account_payable_cash',1,0,1,NULL,'2023-06-23 10:52:20'),
-(112,338,'PPCS','Purchase Payment Cash','plastik_cash_purchase_payment',0,0,1,NULL,'2023-06-23 10:52:20'),
-(113,398,'PPBT','Purchase Payment Bank','plastik_account_payable_bank',1,0,1,NULL,'2023-06-23 10:52:20'),
-(114,343,'PPBT','Purchase Payment Bank','plastik_bank_purchase_payment',0,0,1,NULL,'2023-06-23 10:52:20'),
-(115,NULL,'PPBG','Purchase Payment BG','plastik_account_payable_giro',NULL,0,1,NULL,'2023-06-23 10:52:20'),
-(116,NULL,'PPBG','Purchase Payment BG','plastik_giro_purchase_payment',NULL,0,1,NULL,'2023-06-23 10:52:20'),
-(117,360,'IGRN','Goods Received Note','lem_goods_receipt_inventory',1,0,1,NULL,'2023-06-23 10:52:20'),
-(118,392,'IGRN','Goods Received Note','lem_account_payable_inventory',1,0,1,NULL,'2023-06-23 10:52:20'),
-(119,598,'IGRN','Goods Received Note','plastik_goods_receipt_inventory',1,0,1,NULL,'2023-06-23 10:52:20'),
-(120,391,'IGRN','Goods Received Note','plastik_account_payable_inventory',1,0,1,NULL,'2023-06-23 10:52:20'),
-(121,409,'SDN','Sales Delivery Note','lem_sales_account',0,0,1,NULL,'2023-06-23 10:52:20'),
-(122,353,'SDN','Sales Delivery Note','lem_account_receivable',1,0,1,NULL,'2023-06-23 10:52:20'),
-(123,408,'SDN','Sales Delivery Note','plastik_sales_account',0,0,1,NULL,'2023-06-23 10:52:20'),
-(124,352,'SDN','Sales Delivery Note','plastik_account_receivable',1,0,1,NULL,'2023-06-23 10:52:20'),
-(127,352,'SCCS','Sales Collection','plastik_account_receivable_cash',0,0,1,NULL,'2023-06-23 10:52:20'),
-(128,340,'SCCS','Sales Collection','plastik_cash_sales_collection',1,0,1,NULL,'2023-06-23 10:52:20'),
-(129,411,'SLRT','Sales Return','plastik_bank_sales_return',1,0,1,NULL,'2023-06-23 10:52:20'),
-(130,352,'SLRT','Sales Return','plastik_account_receivable_return',0,0,1,NULL,'2023-06-23 10:52:20'),
-(131,476,'PERC','Purchase Exchange Rate Cost','purchase_exchange_rate_cost',1,0,1,NULL,'2023-06-23 10:52:20'),
-(132,341,'PERC','Purchase Exchange Rate Cost','purchase_bank_exchange_rate_cost',0,0,1,NULL,'2023-06-23 10:52:20'),
-(133,481,'PERI','Purchase Exchange Rate Income','purchase_exchange_rate_income',0,0,1,NULL,'2023-06-23 10:52:20'),
-(134,341,'PERI','Purchase Exchange Rate Income','purchase_bank_exchange_rate_income',1,0,1,NULL,'2023-06-23 10:52:20'),
-(135,0,'SERC','Sales Exchange Rate Cost','sales_exchange_rate_cost',0,0,1,NULL,'2023-06-23 10:52:20'),
-(136,0,'SERC','Sales Exchange Rate Cost','sales_bank_exchange_rate_cost',0,0,1,NULL,'2023-06-23 10:52:20'),
-(137,0,'SERI','Sales Exchange Rate Income','sales_exchange_rate_income',0,0,1,NULL,'2023-06-23 10:52:20'),
-(138,0,'SERI','Sales Exchange Rate Income','sales_bank_exchange_rate_income',0,0,1,NULL,'2023-06-23 10:52:20'),
-(139,411,'PSRU','Purchase Shortover Rounding Up','purchase_shortover_rounding_up',0,0,1,NULL,'2023-06-23 10:52:20'),
-(140,0,'PSRU','Purchase Shortover Rounding Up','purchase_bank_shortover_rounding_up',1,0,1,NULL,'2023-06-23 10:52:20'),
-(141,482,'PSRD','Purchase Shortover Rounding Down','purchase_shortover_rounding_down',1,0,1,NULL,'2023-06-23 10:52:20'),
-(142,0,'PSRD','Purchase Shortover Rounding Down','purchase_bank_shortover_rounding_down',0,0,1,NULL,'2023-06-23 10:52:20'),
-(143,412,'SSRU','Sales Shortover Rounding Up','sales_shortover_rounding_up',1,0,1,NULL,'2023-06-23 10:52:20'),
-(144,0,'SSRU','Sales Shortover Rounding Up','sales_bank_shortover_rounding_up',0,0,1,NULL,'2023-06-23 10:52:20'),
-(145,482,'SSRD','Sales Shortover Rounding Down','sales_shortover_rounding_down',0,0,1,NULL,'2023-06-23 10:52:20'),
-(146,0,'SSRD','Sales Shortover Rounding Down','sales_bank_shortover_rounding_down',1,0,1,NULL,'2023-06-23 10:52:20'),
-(147,6360,'PI','Purchase Invoice','purchase_payment',1,0,0,NULL,'2023-06-23 10:52:20'),
-(148,6423,'PI','Purchase Invoice','account_payable',0,0,0,NULL,'2023-06-23 10:52:20'),
-(149,6423,'PPCS','Purchase Payment Cash','account_payable_cash',1,0,0,NULL,'2023-06-23 10:52:20'),
-(150,6310,'PPCS','Purchase Payment Cash','cash_purchase_payment',0,0,0,NULL,'2023-06-23 10:52:20'),
-(151,6423,'PPBK','Purchase Payment Bank','account_payable_bank',1,0,0,NULL,'2023-06-23 10:52:20'),
-(152,6315,'PPBK','Purchase Payment Bank','bank_purchase_payment',0,0,0,NULL,'2023-06-23 10:52:20'),
-(153,6423,'PR','Purchase Return','account_payable_return',1,0,0,NULL,'2023-06-23 10:52:20'),
-(154,6587,'PR','Purchase Return','purchase_return',0,0,0,NULL,'2023-06-23 10:52:20'),
-(155,6328,'SI','Sales Invoice','account_receivable',1,0,0,NULL,'2023-06-23 10:52:20'),
-(156,6506,'SI','Sales Invoice','sales_account',0,0,0,NULL,'2023-06-23 10:52:20'),
-(157,412,'SR','Sales Return','sales_return',1,0,0,NULL,'2023-06-23 10:52:20'),
-(158,353,'SR','Sales Return','account_receivable_return',0,0,0,NULL,'2023-06-23 10:52:20'),
-(159,6423,'PPGR','Purchase Payment Giro','account_payable_giro',1,0,0,NULL,'2023-06-23 10:52:20'),
-(160,6315,'PPGR','Purchase Payment Giro','giro_purchase_payment',0,0,0,NULL,'2023-06-23 10:52:20'),
-(161,6310,'SCCS','Sales Collection Cash','cash_sales_collection',1,0,0,NULL,'2023-06-23 10:52:20'),
-(162,6328,'SCCS','Sales Collection Cash','account_receivable_cash',0,0,0,NULL,'2023-06-23 10:52:20'),
-(163,6315,'SCBK','Sales Collection Transfer','bank_sales_collection',1,0,0,NULL,'2023-06-23 10:52:20'),
-(164,6328,'SCBK','Sales Collection Transfer','account_receivable_bank',0,0,0,NULL,'2023-06-23 10:52:20'),
-(165,6315,'SCGR','Sales Collection Giro','giro_sales_collection',1,0,0,NULL,'2023-06-23 10:52:20'),
-(166,6328,'SCGR','Sales Collection giro','account_receivable_giro',0,0,0,NULL,'2023-06-23 10:52:20'),
-(167,6345,'PDP','Purchase Down Payment','purchase_down_payment',1,0,0,NULL,'2023-06-23 10:52:20'),
-(168,6310,'PDP','Purchase Down payment','account_cash_down_payment',0,0,0,NULL,'2023-06-23 10:52:20'),
-(169,6310,'SCA','Sales Cash Advance','account_cash_advance',1,0,0,NULL,'2023-06-23 10:52:20'),
-(170,6456,'SCA','Sales Cash Advance','sales_cash_advance',0,0,0,NULL,'2023-06-23 10:52:20'),
-(171,28,'BA','Buyers Acknowledgment','buyers_acknowledgment',0,0,0,NULL,'2024-12-10 11:53:34');
+insert  into `acct_account_setting`(`account_setting_id`,`company_id`,`account_id`,`account_setting_name`,`account_setting_status`,`account_default_status`,`created_at`,`updated_at`) values 
+(370,2,4,'account_cash_purchase_id',1,0,'2022-07-16 11:14:51','2023-12-12 23:54:05'),
+(371,2,8,'purchase_cash_account_id',0,0,'2022-07-16 11:14:51','2023-12-12 23:54:05'),
+(372,2,16,'account_credit_purchase_id',1,0,'2022-07-16 11:14:51','2023-12-12 23:54:05'),
+(373,2,8,'purchase_credit_account_id',0,0,'2022-07-16 11:14:51','2023-12-12 23:54:05'),
+(374,2,51,'purchase_tax_account_id',0,0,'2022-07-16 11:14:51','2023-12-12 23:54:05'),
+(375,2,4,'account_payable_return_account_id',1,1,'2022-07-16 11:14:51','2023-12-12 23:54:05'),
+(376,2,8,'purchase_return_account_id',0,0,'2023-07-25 10:44:25','2023-12-12 23:54:05'),
+(377,2,4,'account_receivable_cash_account_id',1,1,'2024-12-13 11:38:40','2023-12-12 23:54:05'),
+(378,2,28,'sales_cash_account_id',1,0,'2024-12-13 11:38:50','2024-12-13 11:38:52'),
+(379,2,6,'account_receivable_credit_account_id',0,1,'2024-12-13 11:38:42','2024-12-13 11:38:54'),
+(380,2,28,'sales_credit_account_id',1,1,'2024-12-13 11:38:46','2024-12-13 11:38:56'),
+(381,2,48,'sales_tax_account_id',0,0,'2024-12-13 11:38:48','2024-12-13 11:38:58'),
+(383,2,4,'expenditure_cash_account_id',1,1,'2024-12-13 11:38:44','2024-12-13 11:39:00'),
+(384,2,8,'expenditure_account_id',0,0,'2024-12-13 11:39:04','2024-12-13 11:39:02');
 
 /*Table structure for table `acct_account_type` */
 
@@ -4426,7 +4343,7 @@ CREATE TABLE `preference_company` (
 /*Data for the table `preference_company` */
 
 insert  into `preference_company`(`company_id`,`company_name`,`company_address`,`company_phone_number`,`company_mobile_number`,`company_email`,`company_website`,`company_tax_number`,`company_account_receivable_due_date`,`company_account_payable_due_date`,`company_logo`,`CDBO_no`,`distribution_no`,`account_inventory_trade_id`,`account_vat_in_id`,`account_vat_out_id`,`account_payable_id`,`account_bank_or_cash_id`,`account_pdp_id`,`account_bank_cash_hpp_id`,`account_receivable_id`,`account_shortover_id`,`account_sales_id`,`ppn_amount_in`,`ppn_amount_out`,`sales_discount_id`,`purchase_discount_id`,`pharmacist_license_no`,`account_sales_return_id`,`account_hpp_id`,`account_bank_id`,`account_cash_id`,`account_cash_on_way_id`,`account_delivery_id`,`account_expense_id`,`created_at`,`updated_at`) values 
-(2,'TriptaTriTunggal','Karanganyar','( 024 ) 76623702','000000','TriptaTriTunggal@gmail.com','www.TriptaTriTunggal.id','',0,0,NULL,'CDOB1827/S/4-3306/09/2020','FP.01.04/IV/0118-/2019',79,99,48,17,0,82,0,6,4,308,11,11,0,0,'A1111111',340,356,0,4,4,9,0,NULL,'2024-12-12 07:42:16');
+(2,'TriptaTriTunggal','Karanganyar','( 024 ) 76623702','08712813691','TriptaTriTunggal@gmail.com','www.TriptaTriTunggal.id','',0,0,NULL,'CDOB1827/S/4-3306/09/2020','FP.01.04/IV/0118-/2019',79,99,48,17,0,82,0,6,4,308,11,11,0,0,'A1111111',340,356,0,4,4,9,0,NULL,'2024-12-12 08:23:40');
 
 /*Table structure for table `preference_transaction_module` */
 
@@ -8913,6 +8830,7 @@ insert  into `system_menu`(`id_menu`,`id`,`type`,`indent_level`,`text`,`image`,`
 ('7','#','folder',1,'Akuntansi',NULL,'2023-06-23 10:52:23'),
 ('71','#','folder',2,'Preferensi',NULL,'2023-06-23 10:52:23'),
 ('711','account','file',3,'No. Perkiraan',NULL,'2023-06-23 10:52:23'),
+('712','account-setting','file',3,'Setting Jurnal',NULL,'2024-12-12 15:53:10'),
 ('72','#','folder',2,'Jurnal',NULL,'2023-06-23 10:52:23'),
 ('721','journal','file',3,'Jurnal Umum',NULL,'2023-06-23 10:52:23'),
 ('722','journal-memorial','file',3,'Jurnal Memorial',NULL,'2024-12-12 11:37:16'),
@@ -8939,7 +8857,7 @@ CREATE TABLE `system_menu_mapping` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`menu_mapping_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1461 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=1462 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `system_menu_mapping` */
 
@@ -9005,7 +8923,8 @@ insert  into `system_menu_mapping`(`menu_mapping_id`,`user_group_level`,`id_menu
 (1457,1,'9','2024-10-23 06:44:51','2024-10-23 06:44:51'),
 (1458,1,'91','2024-10-23 06:44:51','2024-10-23 06:44:51'),
 (1459,1,'92','2024-10-23 06:44:51','2024-10-23 06:44:51'),
-(1460,1,'722','2024-12-12 11:42:09','2024-12-12 11:42:11');
+(1460,1,'722','2024-12-12 11:42:09','2024-12-12 11:42:11'),
+(1461,1,'712','2024-12-12 15:52:49','2024-12-12 15:52:51');
 
 /*Table structure for table `system_user` */
 
