@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use App\Models\InvItemStockCard;
-use App\Models\InvItemUnit;
-use App\Models\InvItemCategory;
-use App\Models\InvItemStock;
+use Carbon\Carbon;
 use App\Models\InvItemType;
+use App\Models\InvItemUnit;
+use App\Models\InvItemStock;
+use Illuminate\Http\Request;
+use App\Models\InvItemCategory;
 use Elibyy\TCPDF\Facades\TCPDF;
+use App\Models\InvItemStockCard;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 
 class InvItemStockCardController extends Controller
@@ -27,23 +28,18 @@ class InvItemStockCardController extends Controller
      */
     public function index()
     {
-        if(!Session::get('start_date')){
-            $start_date     = date('Y-m-d');
-        }else{
-            $start_date = Session::get('start_date');
-        }
+        // Set default start_date and end_date if not set in session
+        $start_date = Session::get('start_date', Carbon::now()->startOfDay()->toDateTimeString());
+        $end_date = Session::get('end_date', Carbon::now()->endOfDay()->toDateTimeString());
 
-        if(!Session::get('end_date')){
-            $end_date     = date('Y-m-d');
-        }else{
-            $end_date = Session::get('end_date');
-        }
+        // Convert session dates to Carbon instances and format them
+        $start_date = Carbon::parse($start_date)->startOfDay()->toDateTimeString();
+        $end_date = Carbon::parse($end_date)->endOfDay()->toDateTimeString();
 
-        
-        $itemstock = InvItemStock::where('inv_item_stock.data_state', 0)
-        ->where('inv_item_stock.created_at', '>=', $start_date)
-        ->where('inv_item_stock.created_at', '<=', $end_date)
-        ->get();
+        // Query the InvItemStock model with timestamp filtering
+        $itemstock = InvItemStock::where('data_state', 0)
+            // ->whereBetween('updated_at', [$start_date, $end_date])
+            ->get();
 
         
         // dd($itemstock);
