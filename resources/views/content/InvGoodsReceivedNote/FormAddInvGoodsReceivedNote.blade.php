@@ -226,8 +226,6 @@
                                 <th style='text-align:center'>Qty Order</th>
                                 <th style='text-align:center'>Qty Outstanding</th>
                                 <th style='text-align:center'>Qty Diterima</th>
-                                <th style='text-align:center'>Batch Number</th>
-                                <th style='text-align:center'>Tanggal Kadaluarsa</th>
                             </tr>
                         </thead>
                         <tbody >
@@ -267,12 +265,6 @@
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='purchase_order_id_".$no."' id='purchase_order_id_".$no."' value='".$val['purchase_order_id']."'/>
 
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='purchase_order_item_id_".$no."' id='purchase_order_item_id_".$no."' value='".$val['purchase_order_item_id']."'/>
-                                                </td>
-                                                <td>
-                                                    <input class='form-control' style='text-align:right;'type='text' name='item_batch_number_".$no."' id='item_batch_number_".$no."' autocomplete='off' required/>
-                                                </td>
-                                                <td>
-                                                    <input class='form-control' style='text-align:right;'type='date' name='item_expired_date_".$no."' id='item_expired_date_".$no."' autocomplete='off' autocomplete='off'/>
                                                 </td>";
                                         $no++;
                                         // $total_price+=$val['total_price'];
@@ -301,12 +293,6 @@
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='purchase_order_id_".$no."' id='purchase_order_id_".$no."' value='".$val['purchase_order_id']."'/>
 
                                                     <input class='form-control' style='text-align:right;'type='hidden' name='purchase_order_item_id_".$no."' id='purchase_order_item_id_".$no."' value='".$val['purchase_order_item_id']."'/>
-                                                </td>
-                                                <td>
-                                                    <input class='form-control' style='text-align:right;'type='text' name='item_batch_number_".$no."' id='item_batch_number_".$no."' autocomplete='off'/>
-                                                </td>
-                                                <td>
-                                                    <input class='form-control' style='text-align:right;'type='date' name='item_expired_date_".$no."' id='item_expired_date_".$no."' autocomplete='off' required/>
                                                 </td>";
                                         $no++;
                                             }
@@ -322,7 +308,6 @@
                                             <input class='form-control' style='text-align:right;'type='text' name='quantity_received_total' id='quantity_received_total' value='' readonly/>
                                             <input class='form-control' style='text-align:right;'type='hidden' name='total_no' id='total_no' value='".$total_no."' readonly/>
                                         </th>
-                                        <th style='text-align  : center' colspan='2'></th>
                                         ";
                                 }
                             ?>
