@@ -54,6 +54,10 @@
             $("#customer_id").select2("val", "0");
         }
 
+        if(!elements['payment_method']){
+            $("#payment_method").select2("val", "0");
+        }
+
         $("#item_category_id").change(function(){
 			var item_category_id 	= $("#item_category_id").val();
 			var sales_quotation_id 	= $("#sales_quotation_id").val();
@@ -641,15 +645,32 @@
                 </div>
             </div>
             <div class="row form-group">
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <a class="text-dark">Nama Pelanggan<a class='red'> *</a></a>
                     {!! Form::select('customer_id',  $customer, $salesorderelements == null ? '' : $salesquotation['customer_id'], ['class' => 'selection-search-clear select-form', 'id' => 'customer_id', 'onchange' => 'elements_add(this.name , this.value);']) !!}
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <a class="text-dark">Jenis Sales Order<a class='red'> *</a></a>
                     {!! Form::select('sales_order_type_id',  $salesordertype, $salesorderelements == null ? '' : $salesorderelements['sales_order_type_id'], ['class' => 'selection-search-clear select-form', 'id' => 'sales_order_type_id', 'onchange' => 'elements_add(this.name , this.value);']) !!}
                 </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <a class="text-dark">Metode Pembayaran<a class='red'> *</a></a>
+                        {!! Form::select(
+                            'payment_method', 
+                            \App\Helpers\SalesHelper::getSalesPaymentMethodList(), 
+                            $salesorderelements == null ? '' : $salesorderelements['payment_method'], 
+                            [
+                                'class' => 'selection-search-clear select-form', 
+                                'id' => 'payment_method', 
+                                'onchange' => 'elements_add(this.name , this.value);'
+                            ]
+                        ) !!}
+                    </div>
+                </div>
+                
             </div>
             <div class="row form-group" id="receipt-image">
                 <div class="col-md-6">

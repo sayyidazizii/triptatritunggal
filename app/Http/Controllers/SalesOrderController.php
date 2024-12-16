@@ -182,6 +182,7 @@ class SalesOrderController extends Controller
         if(!$salesorderelements || $salesorderelements == ''){
             $salesorderelements['sales_order_date'] = '';
             $salesorderelements['sales_order_delivery_date'] = '';
+            $salesorderelements['payment_method'] = '';
             $salesorderelements['warehouse_id'] = '';
             $salesorderelements['customer_id'] = '';
             $salesorderelements['sales_order_type_id'] = '';
