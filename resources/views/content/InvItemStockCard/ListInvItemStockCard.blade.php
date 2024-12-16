@@ -90,7 +90,6 @@
                 <thead>
                     <tr>
                         <th width="2%" style='text-align:center'>No</th>
-                        <th width="8%" style='text-align:center'>Batch Number</th>
                         <th width="10%" style='text-align:center'>Kategori</th>
                         <th width="10%" style='text-align:center'>Nama Barang</th>
                         <th width="8%" style='text-align:center'>Unit</th>
@@ -118,7 +117,6 @@
                     ?>
                     <tr>
                         <td style='text-align:center'>{{$no}}</td>
-                        <td>{{$item['item_batch_number']}}</td>
                         <td>{{$InvItemStockCard->getItemCategoryName($item['item_category_id'])}}</td>
                         <td>{{$InvItemStockCard->getItemTypeName($item['item_type_id'])}}</td>
                         <td>{{$InvItemStockCard->getItemUnitName($item['item_type_id'])}}</td>

@@ -119,8 +119,8 @@ class InvItemStockCardController extends Controller
         }
 
         $itemstockcard = InvItemStockCard::where('data_state', 0)
-        ->where('updated_at', '>=', $start_date)
-        ->where('updated_at', '<=', $end_date)
+        ->where('transaction_date', '>=', $start_date)
+        ->where('transaction_date', '<=', $end_date)
         ->where('item_stock_id', $item_stock_id)
         ->first();
 
