@@ -316,14 +316,17 @@ Route::post('/supplier/filter', [CoreSupplierController::class, 'filterCoreSuppl
 Route::post('/supplier/city', [CoreSupplierController::class, 'getCoreCity'])->name('supplier-city');
 
 
-Route::get('/customer', [CoreCustomerController::class, 'index'])->name('customer');
-Route::get('/customer/add', [CoreCustomerController::class, 'addCoreCustomer'])->name('add-customer');
-Route::post('/customer/process-add-customer', [CoreCustomerController::class, 'processAddCoreCustomer'])->name('process-add-customer');
-Route::get('/customer/edit/{product_type_id}', [CoreCustomerController::class, 'editCoreCustomer'])->name('edit-customer');
-Route::post('/customer/process-edit-customer', [CoreCustomerController::class, 'processEditCoreCustomer'])->name('process-edit-customer');
-Route::get('/customer/delete-customer/{product_type_id}', [CoreCustomerController::class, 'deleteCoreCustomer'])->name('delete-customer');
-Route::post('/customer/filter', [CoreCustomerController::class, 'filterCoreCustomer'])->name('filter-customer');
-Route::post('/customer/city', [CoreCustomerController::class, 'getCoreCity'])->name('customer-city');
+Route::get('/core-customer', [CoreCustomerController::class, 'index'])->name('core-customer');
+Route::post('/core-customer/add-elements', [CoreCustomerController::class, 'addElementsCoreCustomer'])->name('add-elements-core-customer');
+Route::get('/core-customer/reset-elements', [CoreCustomerController::class, 'resetElementsCoreCustomer'])->name('reset-elements-core-customer');
+Route::get('/core-customer/add', [CoreCustomerController::class, 'addCoreCustomer'])->name('add-core-customer');
+Route::post('/core-customer/process-add', [CoreCustomerController::class, 'processAddCoreCustomer'])->name('process-add-core-customer');
+Route::get('/core-customer/edit/{customer_id}', [CoreCustomerController::class, 'editCoreCustomer'])->name('edit-core-customer');
+Route::post('/core-customer/process-edit', [CoreCustomerController::class, 'processEditCoreCustomer'])->name('process-edit-core-customer');
+Route::get('/core-customer/delete/{customer_id}', [CoreCustomerController::class, 'deleteCoreCustomer'])->name('delete-core-customer');
+Route::post('/core-customer/process-edit-limit', [CoreCustomerController::class, 'processEditLimitCoreCustomer'])->name('process-edit-limit-core-customer');
+Route::get('/core-customer/edit-limit', [CoreCustomerController::class, 'editlimitCoreCustomer'])->name('edit-limit-core-customer');
+Route::get('/core-customer/delete-debt', [CoreCustomerController::class, 'deletedebtCoreCustomer'])->name('delete-debt-core-customer');
 
 
 Route::get('/agency', [CoreAgencyController::class, 'index'])->name('agency');
@@ -714,7 +717,7 @@ Route::get('/purchase-payment/delete-transfer-array/{record_id}/{supplier_id}', 
 Route::get('/sales-collection', [SalesCollectionController::class, 'index'])->name('sales-collection');
 Route::post('/sales-collection/filter', [SalesCollectionController::class, 'filterSalesCollection'])->name('filter-sales-collection');
 Route::get('/sales-collection/search', [SalesCollectionController::class, 'searchCoreCustomer'])->name('search-core-supplier-sales-collection');
-Route::get('/sales-collection/add/{supplier_id}', [SalesCollectionController::class, 'addSalesCollection'])->name('add-sales-collection');
+Route::get('/sales-collection/add/{customer_id}', [SalesCollectionController::class, 'addSalesCollection'])->name('add-sales-collection');
 Route::get('/sales-collection/detail/{supplier_id}', [SalesCollectionController::class, 'detailSalesCollection'])->name('detail-sales-collection');
 Route::get('/sales-collection/delete/{supplier_id}', [SalesCollectionController::class, 'deleteSalesCollection'])->name('delete-sales-collection');
 Route::post('/sales-collection/process-delete', [SalesCollectionController::class, 'processVoidSalesCollection'])->name('process-delete-sales-collection');
@@ -725,18 +728,6 @@ Route::post('/sales-collection/add-transfer-array/', [SalesCollectionController:
 Route::get('/sales-collection/delete-transfer-array/{record_id}/{customer_id}', [SalesCollectionController::class, 'deleteTransferArray'])->name('delete-transfer-array-sales-collection');
 Route::get('/sales-collection/printing/{collection_id}', [SalesCollectionController::class, 'processPrintingSalesCollection'])->name('printing-sales-collection');
 
-Route::get('/sales-collection-piece', [SalesCollectionPieceController::class, 'index'])->name('sales-collection-piece');
-Route::post('/sales-collection-piece/add-piece', [SalesCollectionPieceController::class, 'processAddSalesCollectionPiece'])->name('add-sales-collection-piece');
-Route::post('/sales-collection-piece/delete-piece', [SalesCollectionPieceController::class, 'processDeleteSalesCollectionPiece'])->name('delete-sales-collection-piece');
-Route::post('/sales-collection-piece/filter', [SalesCollectionPieceController::class, 'filterSalesCollectionPiece'])->name('filter-sales-collection-piece');
-Route::get('/sales-collection-piece/filter-reset', [SalesCollectionPieceController::class, 'resetFilterSalesCollectionPiece'])->name('filter-reset-sales-collection-piece');
-Route::get('/sales-collection-piece/search-sales-collection-piece', [SalesCollectionPieceController::class, 'search'])->name('search-sales-collection-piece');
-Route::get('/sales-collection-piece/claim-sales-collection-piece/{sales_collection_piece_id}', [SalesCollectionPieceController::class, 'ClaimSalesCollectionPiece'])->name('claim-sales-collection-piece');
-Route::post('/sales-collection-piece/process-claim/', [SalesCollectionPieceController::class, 'processClaimSalesCollectionPiece'])->name('process-claim');
-Route::get('/sales-collection-piece/cancel-claim-sales-collection-piece/{sales_invoice_id}', [SalesCollectionPieceController::class, 'CancelClaimSalesCollectionPiece'])->name('cancel-claim-sales-collection-piece');
-Route::post('/sales-collection-piece/process-cancel-claim/', [SalesCollectionPieceController::class, 'processCancelClaimSalesCollectionPiece'])->name('process-batal-claim');
-Route::get('/sales-collection-piece/detail-claim-sales-collection-piece/{sales_collection_piece_id}', [SalesCollectionPieceController::class, 'detailClaimSalesCollectionPiece'])->name('detail-claim-sales-collection-piece');
-Route::get('/sales-collection-piece/detail-sales-collection-piece/{sales_invoice_id}', [SalesCollectionPieceController::class, 'detailClaimSalesCollection'])->name('detail-claim-sales-collection');
 
 Route::get('/sales-promotion', [SalesPromotionController::class, 'index'])->name('sales-promotion');
 Route::post('/sales-promotion/filter', [SalesPromotionController::class, 'filterSalesPromotion'])->name('filter-sales-promotion');
@@ -800,18 +791,6 @@ Route::get('/print-kwitansi/cetak-single/{sales_kwitansi_id}', [KwitansiControll
 Route::get('/print-kwitansi/cetak-pengantar/{sales_kwitansi_id}', [KwitansiController::class, 'printKwitansiPengantar'])->name('print-pengantar');
 Route::post('/print-kwitansi/filter-print', [KwitansiController::class, 'filterKwitansiAdd'])->name('filter-print-kwitansi-add');
 Route::get('/print-kwitansi/delete/{sales_kwitansi_id}', [KwitansiController::class, 'processDeleteKwitansi'])->name('process-delete-kwitansi');
-
-
-Route::get('/sales-discount-collection', [SalesCollectionDiscountController::class, 'index'])->name('sales-collection-discount');
-Route::get('/sales-discount-collection/add/{sales_kwitansi_id}', [SalesCollectionDiscountController::class, 'addSalesCollectionDiscount'])->name('add-sales-collection');
-Route::post('/sales-discount-collection/add-discount', [SalesCollectionDiscountController::class, 'processAddSalesCollectionDiscount'])->name('add-sales-discount-collection');
-Route::post('/sales-discount-collection/delete-discount', [SalesCollectionDiscountController::class, 'processDeleteSalesCollectionDiscount'])->name('delete-sales-discount-collection');
-Route::post('/sales-discount-collection/filter', [SalesCollectionDiscountController::class, 'filterSalesCollectionDiscount'])->name('filter-sales-discount-collection');
-Route::get('/sales-discount-collection/filter-reset', [SalesCollectionDiscountController::class, 'resetFilterSalesCollectionDiscount'])->name('filter-reset-sales-discount-collection');
-Route::get('/sales-discount-collection/search', [SalesCollectionDiscountController::class, 'searchCoreCustomer'])->name('search-core-supplier-sales-collection');
-Route::get('/sales-discount-collection/detail/{collection_id}', [SalesCollectionDiscountController::class, 'detailSalesCollectionDiscount'])->name('detail-sales-collection-discount');
-Route::get('/sales-discount-collection/print/{collection_id}', [SalesCollectionDiscountController::class, 'processPrintingSalescollectionDiscount'])->name('detail-sales-collection-discount');
-Route::get('/sales-discount-collection/delete-transfer-array/{record_id}/{sales_kwitansi_id}', [SalesCollectionDiscountController::class, 'deleteTransferArray'])->name('delete-transfer-array-sales-discount-collection');
 
 
 Route::get('/aging-account-payable', [AcctAgingApReportController::class, 'index'])->name('aging-account-payable');
