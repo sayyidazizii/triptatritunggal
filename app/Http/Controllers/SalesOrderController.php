@@ -402,24 +402,25 @@ class SalesOrderController extends Controller
         $validatedData = $request->validate($validationRules);
         $fileNameToStore = '';
 
-        if($request->hasFile('receipt_image')){
-
-            //Storage::delete('/public/receipt_images/'.$user->receipt_image);
-
-            // Get filename with the extension
-            $filenameWithExt = $request->file('receipt_image')->getClientOriginalName();
-            //Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = $request->file('receipt_image')->getClientOriginalExtension();
-            // Filename to store
-            $fileNameToStore = $filename.'_'.time().'.'.$extension;
-            // Upload Image
-            $path = $request->file('receipt_image')->storeAs('public/receipt',$fileNameToStore);
-        }
 
         try {
             DB::beginTransaction();
+            
+            if($request->hasFile('receipt_image')){
+
+                //Storage::delete('/public/receipt_images/'.$user->receipt_image);
+    
+                // Get filename with the extension
+                $filenameWithExt = $request->file('receipt_image')->getClientOriginalName();
+                //Get just filename
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                // Get just ext
+                $extension = $request->file('receipt_image')->getClientOriginalExtension();
+                // Filename to store
+                $fileNameToStore = $filename.'_'.time().'.'.$extension;
+                // Upload Image
+                $path = $request->file('receipt_image')->storeAs('public/receipt',$fileNameToStore);
+            }
 
             $sales_quotation_id = $request->sales_quotation_id;
             SalesQuotation::where('sales_quotation_id', $sales_quotation_id)->update(['approved' => 2, 'sales_quotation_status' => 1]);
@@ -434,6 +435,7 @@ class SalesOrderController extends Controller
                 'sales_order_remark'         => $request->sales_order_remark,
                 'discount_percentage'        => $request->discount_percentage,
                 'discount_amount'            => $request->discount_amount,
+                'payment_method'             => $request->payment_method,
                 'subtotal_after_discount'    => $request->subtotal_after_discount,
                 'ppn_out_percentage'	     => $request['ppn_out_percentage'],
                 'ppn_out_amount'	         => $request['ppn_out_amount'],

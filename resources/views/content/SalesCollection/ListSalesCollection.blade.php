@@ -2,14 +2,14 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'MOZAIC Yudistira')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 
 @section('js')
 <script>
 	$(document).ready(function(){
     var customer_id           = {!! json_encode($customer_id) !!};
-
+        
     if(customer_id == null){
         $("#customer_id").select2("val", "0");
     }
@@ -18,7 +18,7 @@
 @stop
 
 @section('content_header')
-
+    
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -43,7 +43,7 @@
                 Filter
             </h5>
         </div>
-
+    
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body">
                 <div class = "row">
@@ -70,8 +70,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
+                    <div class="col-md-6">	
+                        <div class="form-group">	
                             <a class="text-dark">Pelanggan<a class='red'> *</a></a>
                             {!! Form::select('customer_id',  $corecustomer, $customer_id, ['class' => 'selection-search-clear select-form', 'id' => 'customer_id']) !!}
                         </div>
@@ -93,7 +93,7 @@
 <div class="alert alert-info" role="alert">
     {{session('msg')}}
 </div>
-@endif
+@endif 
 <div class="card border border-dark">
   <div class="card-header bg-dark clearfix">
     <h5 class="mb-0 float-left">
@@ -114,7 +114,6 @@
                         <th width="13%" style='text-align:center'>Tanggal Pelunasan</th>
                         <th width="15%" style='text-align:center'>No Pelunasan</th>
                         <th width="15%" style='text-align:center'>Jumlah Pelunasan Tunai</th>
-                        <th width="15%" style='text-align:center'>Jumlah Pelunasan Transfer</th>
                         <th width="10%" style='text-align:center'>Aksi</th>
                     </tr>
                 </thead>
@@ -126,20 +125,12 @@
                         <td>{{$SalesCollection->getCoreCustomerName($collection['customer_id'])}}</td>
                         <td>{{$collection['collection_date']}}</td>
                         <td>{{$collection['collection_no']}}</td>
-                    <?php if($collection['collection_total_cash_amount']==null){?>
-                        <td style='text-align:right'>0.00</td>
-                    <?php }else{?>
-                        <td style='text-align:right'>{{number_format($collection['collection_total_cash_amount'], 2)}}</td>
-                    <?php } ?>
-                    <?php if($collection['collection_total_transfer_amount']==null){?>
-                        <td style='text-align:right'>0.00</td>
-                    <?php }else{?>
-                        <td style='text-align:right'>{{number_format($collection['collection_total_transfer_amount'], 2)}}</td>
-                    <?php } ?>
+                        <td>{{ number_format($collection['collection_allocated'], 2) }}</td>
                         <td class="">
-                            <a type="button" class="btn btn-outline-primary btn-sm" href="{{ url('/sales-collection/detail/'.$collection['collection_id']) }}">Detail</a>
-                            <a type="button" class="btn btn-outline-dark btn-sm" href="{{ url('/sales-collection/printing/'.$collection['collection_id']) }}"  target='_blank'>Print</a>
-                            <a type="button" class="btn btn-outline-danger btn-sm" href="{{ url('/sales-collection/delete/'.$collection['collection_id']) }}">Batal</a>
+                            <a type="button" class="btn btn-primary btn-sm" href="{{ url('/sales-collection/detail/'.$collection['collection_id']) }}">Detail</a>
+                            <a type="button" class="btn btn-danger btn-sm" href="{{ url('/sales-collection/printing/'.$collection['collection_id']) }}"  target='_blank'>Pdf</a>
+                            <a type="button" class="btn btn-success btn-sm" href="{{ url('/sales-collection/export/'.$collection['collection_id']) }}"  target='_blank'>Excel</a>
+                            <a hidden type="button" class="btn btn-danger btn-sm" href="{{ url('/sales-collection/delete/'.$collection['collection_id']) }}">Batal</a>
                         </td>
                     </tr>
                     <?php $no++; ?>
@@ -154,9 +145,9 @@
 @stop
 
 @section('footer')
-
+    
 @stop
 
 @section('css')
-
+    
 @stop

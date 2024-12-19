@@ -1,8 +1,8 @@
 @inject('SalesCollectionPiece', 'App\Http\Controllers\SalesCollectionPieceController')
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 @section('js')
     <script>
         function toRp(number) {
@@ -33,7 +33,7 @@
                 'sales_collection_piece_remark'         : sales_collection_piece_remark,
                 '_token'                                : '{{csrf_token()}}',
             },
-            success: function(return_data){
+            success: function(return_data){ 
                 window.location.replace('http://127.0.0.1:8000/sales-collection-piece');
                 console.log(data);
             },
@@ -128,7 +128,7 @@
                         </div>
                     </div>
                 </div>
-
+               
             </div>
     </div>
 
@@ -165,7 +165,7 @@
                             </tr>
                         </tbody>
                     </table>
-
+                  
                 </div>
             </div>
         </div>

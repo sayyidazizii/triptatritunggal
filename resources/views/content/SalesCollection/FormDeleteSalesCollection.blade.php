@@ -1,13 +1,13 @@
 @inject('SalesCollection', 'App\Http\Controllers\SalesCollectionController')
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 @section('js')
 <script>
 	function toRp(number) {
-		var number = number.toString(),
-		rupiah = number.split('.')[0],
+		var number = number.toString(), 
+		rupiah = number.split('.')[0], 
 		cents = (number.split('.')[1] || '') +'00';
 		rupiah = rupiah.split('').reverse().join('')
 			.replace(/(\d{3}(?!$))/g, '$1.')
@@ -17,7 +17,7 @@
 </script>
 @stop
 @section('content_header')
-
+    
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -113,7 +113,7 @@
                 Daftar Invoice
             </h5>
         </div>
-
+    
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -179,7 +179,7 @@
                 Daftar Transfer Bank
             </h5>
         </div>
-
+    
         <div class="card-body">
             <div class="form-body form">
                 <div class="table-responsive">
@@ -239,8 +239,8 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
+                    <div class="col-md-12">	
+                        <div class="form-group">	
                             <a class="text-dark">Keterangan</a>
                             <textarea class="form-control input-bb" type="text" name="voided_remark" id="voided_remark"></textarea>
                         </div>
@@ -258,9 +258,9 @@
 @stop
 
 @section('footer')
-
+    
 @stop
 
 @section('css')
-
+    
 @stop

@@ -2,11 +2,11 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 
 @section('content_header')
-
+    
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -27,7 +27,7 @@
 <div class="alert alert-info" role="alert">
     {{session('msg')}}
 </div>
-@endif
+@endif 
 <div class="card border border-dark">
   <div class="card-header bg-dark clearfix">
     <h5 class="mb-0 float-left">
@@ -54,8 +54,8 @@
                     @foreach($corecustomer as $item)
                     <tr>
                         <td style='text-align:center'>{{$no}}</td>
-                        <td>{{$item['customer_name']}}</td>
-                        <td>{{$item['customer_address']}}</td>
+                        <td>{{$SalesCollection->getCoreCustomerName($item['customer_id'])}}</td>
+                        <td>{{$item->Customer->customer_address}}</td>
                         <td style='text-align:right'>{{number_format($item['total_owing_amount'],2,',','.')}}</td>
                         <td style='text-align:center'>
                             <a type="button" class="btn btn-outline-primary btn-sm" href="{{ url('/sales-collection/add/'.$item['customer_id']) }}">Pilih</a>
@@ -73,13 +73,13 @@
 @stop
 
 @section('footer')
-
+    
 @stop
 
 @section('css')
-
+    
 @stop
 
 @section('js')
-
+    
 @stop

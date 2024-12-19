@@ -141,17 +141,10 @@ class SalesDeliveryOrderController extends Controller
             $stock = InvItemStock::select('inv_item_stock.item_stock_id', DB::raw('inv_item_type.item_type_name AS item_name'))
             ->join('inv_item_type', 'inv_item_type.item_type_id', 'inv_item_stock.item_type_id')
             ->join('inv_item_unit', 'inv_item_unit.item_unit_id', 'inv_item_stock.item_unit_id')
-            ->orderby('inv_item_stock.item_stock_expired_date', 'ASC')
             ->where('inv_item_stock.quantity_unit', '>', 0)
             ->where('inv_item_stock.data_state', 0)
-
             ->where('inv_item_stock.item_type_id' ,$type_id)
             ->get();
-            // ->pluck('item_name', 'item_stock_id');
-            // $datastockitem = array(
-            //     'item_stock_id' => $stock['item_stock_id'],
-            //     'item_stock_name' => $stock['item_name']
-            // );
 
         return ($stock);
     }
