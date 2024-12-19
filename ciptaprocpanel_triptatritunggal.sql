@@ -155,7 +155,7 @@ insert  into `acct_account_balance`(`account_balance_id`,`company_id`,`branch_id
 (32,2,0,535,-1026036.00,3,NULL,'2024-06-22 12:07:55'),
 (33,2,0,539,-10049.00,3,NULL,'2024-06-22 12:07:55'),
 (34,2,0,5,9753870.00,3,NULL,'2024-06-22 13:25:04'),
-(35,2,0,6,5183000.00,3,NULL,'2024-06-22 13:25:04'),
+(35,2,0,6,6293000.00,3,NULL,'2024-06-22 13:25:04'),
 (36,2,0,11,845105198.00,3,NULL,'2024-06-22 13:25:04'),
 (37,2,0,46,4083144668.00,3,NULL,'2024-06-22 13:25:04'),
 (38,2,0,47,1236496080.00,3,NULL,'2024-06-22 13:25:04'),
@@ -200,10 +200,10 @@ insert  into `acct_account_balance`(`account_balance_id`,`company_id`,`branch_id
 (77,2,0,338,150000.00,3,NULL,'2024-10-17 12:41:44'),
 (78,2,0,238,446.00,3,NULL,'2024-10-17 12:41:44'),
 (79,2,0,390,150000.00,3,NULL,'2024-10-17 12:41:44'),
-(80,2,0,28,-166500.00,3,NULL,'2024-12-10 11:45:44'),
+(80,2,0,28,-1166500.00,3,NULL,'2024-12-10 11:45:44'),
 (81,2,0,NULL,0.00,3,NULL,'2024-12-10 11:45:44'),
 (82,2,0,NULL,-16500.00,3,NULL,'2024-12-10 11:45:44'),
-(83,2,0,48,33000.00,3,NULL,'2024-12-10 12:01:26'),
+(83,2,0,48,143000.00,3,NULL,'2024-12-10 12:01:26'),
 (84,2,0,8,-150000.00,3,NULL,'2024-12-16 11:12:19'),
 (85,2,0,51,16500.00,3,NULL,'2024-12-16 11:12:19'),
 (86,2,0,4,166500.00,3,NULL,'2024-12-16 11:12:19');
@@ -234,7 +234,7 @@ CREATE TABLE `acct_account_balance_detail` (
   `created_id` int DEFAULT NULL,
   PRIMARY KEY (`account_balance_detail_id`),
   KEY `FK_acct_account_balance_detail_account_id` (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `acct_account_balance_detail` */
 
@@ -330,7 +330,10 @@ insert  into `acct_account_balance_detail`(`account_balance_detail_id`,`branch_i
 (89,0,2,63,'PPP','2024-12-10',4,48,16500.00,16500.00,0.00,0.00,0.00,0.00,0.00,33000.00,NULL,'2024-12-10 12:09:10',3),
 (90,0,2,20,'GRN','2024-12-16',9,8,0.00,0.00,150000.00,0.00,0.00,0.00,0.00,-150000.00,NULL,'2024-12-16 11:12:19',3),
 (91,0,2,20,'GRN','2024-12-16',9,51,0.00,16500.00,0.00,0.00,0.00,0.00,0.00,16500.00,NULL,'2024-12-16 11:12:19',3),
-(92,0,2,20,'GRN','2024-12-16',9,4,0.00,166500.00,0.00,0.00,0.00,0.00,0.00,166500.00,NULL,'2024-12-16 11:12:19',3);
+(92,0,2,20,'GRN','2024-12-16',9,4,0.00,166500.00,0.00,0.00,0.00,0.00,0.00,166500.00,NULL,'2024-12-16 11:12:19',3),
+(93,0,2,63,'PPP','2024-12-19',10,6,5183000.00,1110000.00,0.00,0.00,0.00,0.00,0.00,6293000.00,NULL,'2024-12-19 16:47:27',3),
+(94,0,2,63,'PPP','2024-12-19',10,28,-166500.00,0.00,1000000.00,0.00,0.00,0.00,0.00,-1166500.00,NULL,'2024-12-19 16:47:27',3),
+(95,0,2,63,'PPP','2024-12-19',10,48,33000.00,110000.00,0.00,0.00,0.00,0.00,0.00,143000.00,NULL,'2024-12-19 16:47:27',3);
 
 /*Table structure for table `acct_account_mutation` */
 
@@ -1063,6 +1066,53 @@ CREATE TABLE `acct_check_receipt_item` (
 
 /*Data for the table `acct_check_receipt_item` */
 
+/*Table structure for table `acct_debt_repayment` */
+
+DROP TABLE IF EXISTS `acct_debt_repayment`;
+
+CREATE TABLE `acct_debt_repayment` (
+  `debt_repayment_id` int NOT NULL AUTO_INCREMENT,
+  `company_id` int DEFAULT NULL,
+  `debt_repayment_date` datetime DEFAULT NULL,
+  `total_repayment` int DEFAULT NULL,
+  `data_state` int DEFAULT '0',
+  `updated_at` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_id` int DEFAULT NULL,
+  `created_id` int DEFAULT NULL,
+  PRIMARY KEY (`debt_repayment_id`),
+  KEY `FK_acct_debt_repayment_company_id` (`company_id`),
+  CONSTRAINT `FK_acct_debt_repayment_company_id` FOREIGN KEY (`company_id`) REFERENCES `preference_company` (`company_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*Data for the table `acct_debt_repayment` */
+
+/*Table structure for table `acct_debt_repayment_item` */
+
+DROP TABLE IF EXISTS `acct_debt_repayment_item`;
+
+CREATE TABLE `acct_debt_repayment_item` (
+  `debt_repayment_item_id` int NOT NULL AUTO_INCREMENT,
+  `company_id` int DEFAULT NULL,
+  `debt_repayment_id` int DEFAULT NULL,
+  `employee_id` int DEFAULT NULL,
+  `debt_repayment_amount` int DEFAULT NULL,
+  `data_state` int DEFAULT '0',
+  `updated_at` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_id` int DEFAULT NULL,
+  `created_id` int DEFAULT NULL,
+  PRIMARY KEY (`debt_repayment_item_id`),
+  KEY `FK_acct_debt_repayment_item_company_id` (`company_id`),
+  KEY `FK_acct_debt_repayment_item_debt_repayment_id` (`debt_repayment_id`),
+  KEY `FK_acct_debt_repayment_item_employee_id` (`employee_id`),
+  CONSTRAINT `FK_acct_debt_repayment_item_company_id` FOREIGN KEY (`company_id`) REFERENCES `preference_company` (`company_id`),
+  CONSTRAINT `FK_acct_debt_repayment_item_debt_repayment_id` FOREIGN KEY (`debt_repayment_id`) REFERENCES `acct_debt_repayment` (`debt_repayment_id`),
+  CONSTRAINT `FK_acct_debt_repayment_item_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `core_employee` (`employee_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*Data for the table `acct_debt_repayment_item` */
+
 /*Table structure for table `acct_journal_voucher` */
 
 DROP TABLE IF EXISTS `acct_journal_voucher`;
@@ -1104,13 +1154,14 @@ CREATE TABLE `acct_journal_voucher` (
   KEY `transaction_journal_no` (`transaction_journal_no`),
   KEY `project_id` (`project_id`),
   KEY `project_type_id` (`project_type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `acct_journal_voucher` */
 
 insert  into `acct_journal_voucher`(`journal_voucher_id`,`company_id`,`branch_id`,`project_id`,`project_type_id`,`transaction_module_id`,`transaction_journal_id`,`transaction_journal_no`,`journal_voucher_title`,`journal_voucher_no`,`journal_voucher_period`,`journal_voucher_date`,`journal_voucher_description`,`journal_voucher_token`,`journal_voucher_token_void`,`journal_voucher_type_id`,`journal_voucher_status`,`transaction_module_code`,`posted`,`posted_id`,`posted_on`,`voided`,`voided_id`,`voided_on`,`voided_remark`,`data_state`,`created_id`,`created_at`,`updated_at`,`reverse_state`) values 
 (4,2,1,0,0,63,1,'1','Penjualan 0','0001/JV/XII/2024',202412,'2024-12-10',NULL,NULL,NULL,1,1,'PPP',0,0,NULL,0,0,NULL,NULL,0,3,'2024-12-10 05:09:10','2024-12-10 05:09:10',0),
-(9,2,1,0,0,20,6,'0002/IGRN/XII/2024','Pembelian 0002/IGRN/XII/2024','0002/JV/XII/2024',202412,'2024-12-16',NULL,NULL,NULL,1,1,'GRN',0,0,NULL,0,0,NULL,NULL,0,3,'2024-12-16 04:12:19','2024-12-16 04:12:19',0);
+(9,2,1,0,0,20,6,'0002/IGRN/XII/2024','Pembelian 0002/IGRN/XII/2024','0002/JV/XII/2024',202412,'2024-12-16',NULL,NULL,NULL,1,1,'GRN',0,0,NULL,0,0,NULL,NULL,0,3,'2024-12-16 04:12:19','2024-12-16 04:12:19',0),
+(10,2,1,0,0,63,2,'10101010','Penjualan 0','0003/JV/XII/2024',202412,'2024-12-19','ICIBOS',NULL,NULL,1,1,'PPP',0,0,NULL,0,0,NULL,NULL,0,3,'2024-12-19 09:47:27','2024-12-19 09:47:27',0);
 
 /*Table structure for table `acct_journal_voucher_item` */
 
@@ -1138,7 +1189,7 @@ CREATE TABLE `acct_journal_voucher_item` (
   UNIQUE KEY `journal_voucher_item_token_void` (`journal_voucher_item_token_void`),
   KEY `FK_acct_journal_voucher_item_journal_voucher_id` (`journal_voucher_id`) USING BTREE,
   KEY `FK_acct_journal_voucher_item_account_id` (`account_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `acct_journal_voucher_item` */
 
@@ -1148,7 +1199,10 @@ insert  into `acct_journal_voucher_item`(`journal_voucher_item_id`,`journal_vouc
 (9,4,2,48,NULL,16500.00,0,0,0.00,16500.00,NULL,NULL,0,'2024-12-10 05:09:10','2024-12-10 05:09:10',0),
 (10,9,2,8,NULL,150000.00,1,0,150000.00,0.00,NULL,NULL,0,'2024-12-16 04:12:19','2024-12-16 04:12:19',0),
 (11,9,2,51,NULL,16500.00,1,1,16500.00,0.00,NULL,NULL,0,'2024-12-16 04:12:19','2024-12-16 04:12:19',0),
-(12,9,2,4,NULL,166500.00,0,0,0.00,166500.00,NULL,NULL,0,'2024-12-16 04:12:19','2024-12-16 04:12:19',0);
+(12,9,2,4,NULL,166500.00,0,0,0.00,166500.00,NULL,NULL,0,'2024-12-16 04:12:19','2024-12-16 04:12:19',0),
+(13,10,2,6,'ICIBOS',1110000.00,0,0,1110000.00,0.00,NULL,NULL,0,'2024-12-19 09:47:27','2024-12-19 09:47:27',0),
+(14,10,2,28,'ICIBOS',1000000.00,0,0,0.00,1000000.00,NULL,NULL,0,'2024-12-19 09:47:27','2024-12-19 09:47:27',0),
+(15,10,2,48,'ICIBOS',110000.00,0,0,0.00,110000.00,NULL,NULL,0,'2024-12-19 09:47:27','2024-12-19 09:47:27',0);
 
 /*Table structure for table `acct_journal_voucher_type` */
 
@@ -1485,12 +1539,13 @@ CREATE TABLE `buyers_acknowledgment` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`buyers_acknowledgment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=286 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=287 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `buyers_acknowledgment` */
 
 insert  into `buyers_acknowledgment`(`buyers_acknowledgment_id`,`sales_delivery_note_id`,`sales_delivery_order_id`,`account_id`,`sales_order_id`,`warehouse_id`,`customer_id`,`buyers_acknowledgment_no`,`buyers_acknowledgment_date`,`buyers_acknowledgment_remark`,`sales_invoice_status`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(285,1,2,6,1,0,176,'1','2024-12-10',NULL,1,0,3,'2024-12-10 05:09:09','2024-12-10 05:09:09');
+(285,1,2,6,1,0,176,'1','2024-12-10',NULL,1,0,3,'2024-12-10 05:09:09','2024-12-10 05:09:09'),
+(286,2,3,6,2,0,176,'10101010','2024-12-19','ICIBOS',1,0,3,'2024-12-19 09:47:27','2024-12-19 09:47:27');
 
 /*Table structure for table `buyers_acknowledgment_item` */
 
@@ -1519,12 +1574,13 @@ CREATE TABLE `buyers_acknowledgment_item` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`buyers_acknowledgment_item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=434 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=435 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `buyers_acknowledgment_item` */
 
 insert  into `buyers_acknowledgment_item`(`buyers_acknowledgment_item_id`,`buyers_acknowledgment_id`,`sales_delivery_note_id`,`sales_delivery_note_item_id`,`sales_order_id`,`sales_order_item_id`,`warehouse_id`,`supplier_id`,`item_category_id`,`item_type_id`,`item_stock_id`,`item_unit_id`,`quantity`,`quantity_received`,`item_unit_cost`,`item_unit_price`,`subtotal_price`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(433,285,1,1,1,1,NULL,NULL,1,1,1,10,100,100,1000,1500,150000,0,3,'2024-12-10 05:09:09','2024-12-10 05:09:09');
+(433,285,1,1,1,1,NULL,NULL,1,1,1,10,100,100,1000,1500,150000,0,3,'2024-12-10 05:09:09','2024-12-10 05:09:09'),
+(434,286,2,2,2,2,NULL,NULL,1,2,2,22,10,10,1000,100000,1000000,0,3,'2024-12-19 09:47:27','2024-12-19 09:47:27');
 
 /*Table structure for table `core_agency` */
 
@@ -2153,204 +2209,206 @@ CREATE TABLE `core_customer` (
   `customer_name` varchar(255) DEFAULT NULL,
   `customer_tax_no` varchar(255) DEFAULT NULL,
   `customer_address` varchar(255) DEFAULT NULL,
-  `customer_home_phone` varchar(255) DEFAULT NULL,
-  `customer_mobile_phone1` varchar(255) DEFAULT NULL,
-  `customer_mobile_phone2` varchar(255) DEFAULT NULL,
   `customer_email` varchar(255) DEFAULT NULL,
   `customer_fax_number` varchar(255) DEFAULT NULL,
   `customer_contact_person` varchar(255) DEFAULT NULL,
   `customer_payment_terms` decimal(10,0) DEFAULT NULL,
   `customer_remark` text,
+  `debt_limit` int DEFAULT '0',
+  `amount_debt` int DEFAULT '0',
+  `remaining_limit` int DEFAULT '0',
+  `from_store` int DEFAULT '0',
   `data_state` int DEFAULT '0',
   `created_id` int DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `data_dump` varchar(255) DEFAULT NULL,
+  `data_dump` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   PRIMARY KEY (`customer_id`),
   KEY `customer_id` (`customer_id`),
   KEY `FK_core_customer_province_id` (`province_id`),
   KEY `FK_core_customer_city_id` (`city_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=177 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=178 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `core_customer` */
 
-insert  into `core_customer`(`customer_id`,`province_id`,`city_id`,`customer_code`,`customer_name`,`customer_tax_no`,`customer_address`,`customer_home_phone`,`customer_mobile_phone1`,`customer_mobile_phone2`,`customer_email`,`customer_fax_number`,`customer_contact_person`,`customer_payment_terms`,`customer_remark`,`data_state`,`created_id`,`created_at`,`updated_at`,`data_dump`) values 
-(1,71,1045,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK SEMARANG',NULL,'JL. INDUSTRI TUGU I KAV 2-4, KWS. INDUSTRI TUGU WIJAYA KUSUMA, RANDUGARUT - SEMARANG, 024-8665660 / 8665657-58','024-8665660 / 8665657-58',NULL,NULL,NULL,NULL,'024-8665660 / 8665657-58',NULL,NULL,0,3,'0000-00-00 00:00:00','2023-08-05 05:52:28','Jawa Tengah'),
-(2,70,999,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK CIREBON',NULL,'JL. PANGERAN ANTASARI BLOK, PETAPAN RT. 02 / 01 DS. KEDUJEN, KEC. DEPOK - KAB. CIREBON, 0231-247195/247915','0231-247195/247915',NULL,NULL,NULL,NULL,'0231-247195/247915',NULL,NULL,0,3,'0000-00-00 00:00:00','2023-08-05 05:52:41','Jawa Barat'),
-(3,70,1008,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK BOGOR 2',NULL,'JL. RAYA BOGOR KM. 46,6, DESA NANGGEWER MEKAR KEC CIBINONG, BOGOR - JAWA BARAT',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,74,'0000-00-00 00:00:00','2023-08-05 05:52:49','Jawa Barat'),
-(4,70,1008,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK BOGOR',NULL,'JL. RAYA ALTERNATIF SENTUL KM 46, KEL. CIJUJUNG - KEC. SUKARAJA, KAB. BOGOR - 16710, 8796050','8796050',NULL,NULL,NULL,NULL,'8796050',NULL,NULL,0,74,'0000-00-00 00:00:00','2023-08-05 05:52:57','Jawa Barat'),
-(5,72,1067,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK GRESIK',NULL,'JL. RAYA DUDUK SAMPEYAN RT 11, RW 04, DS AMBENG-WATANGREJO, KEC. DUDUK SAMPEYAN - GRESIK',NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,0,0,'0000-00-00 00:00:00','2023-08-05 05:53:08','Jawa Timur'),
-(6,70,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK PARUNG','','JL. PEMBANGUNAN RAYA GUNUNG, SINDUR NO. 21A RT.01 RW.02, Gunung Sindur - Bogor 16340, 7563078 ','7563078','','','','','7563078',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(7,67,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK JAKARTA','','JL. ANCOL BARAT VIII NO. 2, JAKARTA UTARA, 14430, 6919971-74      ','6919971-74      ','','','','','6919971-74      ',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','DKI Jakarta'),
-(8,89,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK MAKASAR','','JL. KIMA 10 BLOK A5 - A5 A, KEL. DAYA KEC. BIRINGKANAYA, MAKASAR SUL-SEL 90241, TELP: 0411-512292 / 5781492 / 512335    ',' 0411-512292 / 5781492 / 512335    ','','','','',' 0411-512292 / 5781492 / 512335    ',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Selatan'),
-(9,72,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK SURABAYA','','JL. JENGGALA NO. 22, GEDANGAN, SIDOARJO - 61254, 8915000 / 8902222       ','8915000 / 8902222       ','','','','','8915000 / 8902222       ',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
-(10,70,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK SENTUL','','JL. RAYA ALTERNATIF SENTUL KM46, KEL. CIJUJUNG - KEC. SUKARAJA, KAB. BOGOR - 16710, 8796050 ','8796050','','','','','8796050',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(11,79,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK LAMPUNG','','JL. TEMBESU NO. 8 DESA CAMPANG, RAYA - KALI BALOK, BANDAR LAMPUNG - 35122, 0721 - 7699123  ','0721 - 7699123  ','','','','','0721 - 7699123  ',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Lampung'),
-(12,71,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA DC MINI LOMBOK','','JL. BY PASS BANDARA INTERNATIO, NAL LOMBOK, DESA / KEL : BATUJAI / UNGGA, KEC : PRAYA, BP. ARIEF INDARTO, 08562956206        ','8562956206','','','','','8562956206',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Nusa Tenggara Barat'),
-(13,71,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK YOGYAKARTA','','JL. RINGROAD BARAT NO. 99, PADUKUHAN SALAKAN RT.08 / RW.26, TRIHANGGO GAMPING - SLEMAN JGY, 0274-6499300    ','0274-6499300    ','','','','','0274-6499300    ',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Daerah Istimewa Yogyakarta'),
-(14,70,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK PURWAKARTA','','KAWASAN KOTA BUKIT INDAH, SEKTOR N BLOK N 1/5, CIKAMPEK - JAWA BARAT, 0264-8281901    ',' 0264-8281901    ','','','','',' 0264-8281901    ',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(15,72,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK JEMBER','','JL. PIERRE TENDEAN NO. 99A, DUSUN TEGAL BAI, KEL. KARANGREJO, KEC. SUMBERSARI, JEMBER - 68127         ','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
-(16,67,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK JAKARTA 2','','JL. ANCOL 8 NO. 2, ANCOL BARAT, JAKARTA 14430           ','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','DKI Jakarta'),
-(17,72,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK MALANG','','JL. MAYJEND SUNGKONO NO.99, KEL. WONOKOYO KEC. KDNG KANDANG, RT.01 RW.02 KODYA MALANG, JATIM   ','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
-(18,70,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK BANDUNG','','JL. JEND. A. YANI NO. 806, KIARACONDONG - CICAHEUM, BANDUNG 40282, 022-7215556     ','022-7215556     ','','','','','022-7215556     ',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(19,62,936,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK BALI',NULL,'JL. RAYA MENGWI - SINGARAJA  NO 17,BANJAR BINONG, DESA WERDHI BUANA, KEC. MENGWI KAB BADUNG, BALI, 0361-829329','0361-829329',NULL,NULL,NULL,NULL,'0361-829329',0,NULL,0,0,'0000-00-00 00:00:00','2024-05-16 02:02:09','Bali'),
-(20,73,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK DEPO PONTIANAK','','JL. TRANS KALIMANTAN KOMPLEK, PERGURUAN PRIMA LESTARI, BLOK D.2 NO. 1-3 - KUBURAYA, KALBAR  ','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kalimantan Barat'),
-(21,64,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK TANGERANG 2','','JL. GATOT SOEBROTO KM. 9, RT. 03/01 KEL. KADE KEC. CURUG, KAB. TANGERANG.         ','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
-(22,64,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK TANGERANG 1','','JL. RAYA SERANG RT. 003 / 001 KM 09, NO. 1A ZONA INDUSTRI MANIS, DS. KADU JAYA KEC. CURUG, TANGERANG       ','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
-(23,95,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK MEDAN','','JL. INDUSTRI DUSUN 1 NO. 60, KEL. TANJUNG MORAWA, KAB. DELI SERDANG 20582, 061-7877060, 7877731    ','061-7877060, 7877731    ','','','','','061-7877060, 7877731    ',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sumatera Utara'),
-(24,72,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK JOMBANG','','JL. PETERONGAN KM 71,3, DESA CANDI - DESA SAMBIREJO, KEC. JOGOROTO, KAB JOMBANG              ','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
-(25,70,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK BEKASI','','JL. JABABEKA RAYA BLOK A NO. 6-15, RT. 004 RW. 006 PASIR GOMBONG, CIKARANG UTARA - BEKASI, K       ','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(26,92,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK MANADO','','KOMP. GUDANG PUSKUD BLOK C2 / C3, JL. RY. MANADO BITUNG, KOLONGAN, TETEMPANGAN JAGA 7, KALAWAT             ','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Utara'),
-(27,94,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK PALEMBANG','','JL. PANGERAN AYIN NO. 326, KEL. SUKAMAJU KEC. SAKO, PALEMBANG - SUMSEL - 30361, 0711-822006     ','0711-822006     ','','','','','0711-822006     ',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sumatera Selatan'),
-(28,64,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK LEBAK','','JL. RANGKASBITUNG, PANDEGLANG KM 12 RT 14 RW 05, KP. CIBUAH KERTA MUKTI - BANTEN         ','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
-(29,87,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK PEKANBARU','','JL. RAYA KUBANG TERATAK BULUH, RT. 03 / 02 DUSUN II KERAMAT SAKTI, KUBANG JAYA, SIAK HULU - RIAU           ','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Riau'),
-(30,65,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK BENGKULU','','JL. DEPATI PAYUNG NEGARA, KEL, BETUNGAN   KEC, SELEBAR, KOTA BENGKULU           ','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Bengkulu'),
-(31,89,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK MAKASAR','','JL.KIMA 10 BLOK A5-A5 A, KEC.BIRINGKANAYA MAKASAR, SULAWESI SELATAN 90243, 0411-512292/5781492/512335      ',' 0411-512292/5781492/512335    ','','','','',' 0411-512292/5781492/512335    ',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Selatan'),
-(32,71,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK DEPO ACEH','','JL.LAKSAMANA MALAHYATI   DS.BAET, KEC. BAITUSSALAM   KAB. ACEH BESAR, NANGROE ACEH DARUSSALAM         ','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Aceh'),
-(33,71,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK KLATEN','','JL. RAYA PENGGUNG-JATINOM, DESA BLENCERAN, KEC. KARANGANOM, KAB. KLATEN, JAWA TENGAH                ','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Tengah'),
-(34,92,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK MANADO BARU','','JL. RAYA MANADO - BITUNG, AIRMADIDI ATAS KEC.AIRMADIDI, KAB.MINAHASA UTARA SULUT 95371          ','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Utara'),
-(35,89,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK PALOPO','','JL. POROS MAKASAR - PALOPO, DESA KARANG KARANGAN, KEC. BUA, KAB. LUWU, SUL-SEL 91991         ','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Selatan'),
-(36,73,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK PONTIANAK BARU','','JL. ARTERI SUPADIO  RT. 04  RW. 08, DESA JL.PARIT BARU SUNGAI RAYA, KAB. KUBU RAYA KALIMANTAN BARAT.                ','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kalimantan Barat'),
-(37,81,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK JATI TERNATE','','JL. SANTO PETRO JEMBATAN 6, NAIK KEDARA, KALUMATA, TERNATE, SELATAN-MALUKU UTARA 97718              ','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Maluku Utara'),
-(38,74,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK BANJARMASIN','','JL.A.YANI KM 12,2, KEL.GAMBUT BARAT KAB.BANJAR, BANJARMASIN, 70652   ','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kalimantan Selatan'),
-(39,71,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK BANGKA','','JL.KETAPANG KAWASAN TPI RT.001, TEMBERAN,BACANG,BUKIT INTAN, KOTA PANGKAL PINANG, KEP. BANGKA BELITUNG    ','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kepulauan Bangka Belitung'),
-(40,64,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Cikokol Branch','','Jl. MH. Thamrin No. 9, Cikokol Tangerang 15117, Banten, Indonesia','Phone   : 021-5575 5966    ','','','','','Phone   : 021-5575 5966    ',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
-(41,64,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Balaraja Branch','','Jl. Arya Jaya Santika No. 19, RT/RW 001/02, Kp. Seglok Desa Pasir Bolang, Kec. Tigaraksa, Tangerang 15720, Banten','Phone   : 021-5990 123    Fax        : 021-5990 388','','','','','Phone   : 021-5990 123    Fax        : 021-5990 388',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
-(42,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Cileungsi Branch 2','','Kawasan Industri Menara Permai Kav. 18 JL.RAYA NAROGONG RT 01/RW 01.KEL,DAYEH','Phone : 021-8249 8222, 8249 9234    Fax     : 021-8249 7200, 8249 7500','','','','','Phone : 021-8249 8222, 8249 9234    Fax     : 021-8249 7200, 8249 7500',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(43,64,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk DEPO Balaraja Branch','','Jl. Arya Jaya Santika No. 19, RT/RW 001/02, Kp. Seglok Desa Pasir Bolang, Kec. Tigaraksa, Tangerang 15720, Banten','Phone   : 021-5990 123    Fax        : 021-5990 388','','','','','Phone   : 021-5990 123    Fax        : 021-5990 388',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
-(44,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Bekasi Branch','','Kawasan Industri Jababeka 2 Jl. Industri Selatan VI Blok PP No. 6 Cikarang, Jawa Barat','Phone : 021- 8984 1456       Fax      : 021- 8984 1455','','','','','Phone : 021- 8984 1456       Fax      : 021- 8984 1455',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(45,72,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Sidoarjo BULKY BEREBEK (BBRK)','','Jl. BERBEK INDUSTRI VII No 3-5 WARU SIDOARJO','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
-(46,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Bandung Branch 1','','Jl. Soekarno Hatta No. 791, Cisaranten Wetan Bandung 40294, Jawa Barat','Fax : 022-7833 215, 7817 247    Fax : 022-7833 215, 7817 247','','','','','Fax : 022-7833 215, 7817 247    Fax : 022-7833 215, 7817 247',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(47,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Bandung Branch 2','','Jl. Nanjung RT/RW 006/11 (Blok Ajeng), Desa Utama, Kec. Cimahi Selatan Kota Cimahi, Kab. Bandung, Jawa Barat','Phone : 022- 6675 300    Fax      : 022- 6671 567','','','','','Phone : 022- 6675 300    Fax      : 022- 6671 567',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(48,71,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Cilacap Branch','','Jl. MT. Haryono No. 168 Kawasan Industri Cilacap 53221 Kelurahan Lomanis, Jawa Tengah','Phone    : 0282-548 345    Fax       : 0282-548 337','','','','','Phone    : 0282-548 345    Fax       : 0282-548 337',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Tengah'),
-(49,71,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Lombok Branch','','Jl. TGH Saleh Hambali Km 20 Dasan Cermen Sandubaya Mataram 83123','Phone : 0370-620994','','','','','Phone : 0370-620994',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Nusa Tenggara Barat'),
-(50,72,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Sidoarjo Branch','','Jl. Sukodono No.45 Desa Keboan Sikep Kec.Gedangan Sidoarjo 61254','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
-(51,71,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Semarang Branch','','Kawasan Industri Tugu Wijaya Kusuma Jl. Industri I No. 1, Randugarut, Tugu Semarang 50010, Jawa Tengah','Phone  : 031-8912 111    Fax      : 031-8911 845','','','','','Phone  : 031-8912 111    Fax      : 031-8911 845',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Tengah'),
-(52,79,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Lampung Branch','','Jl. Tembesu No.10 Rt.001 Rw. 001 Campang Raya, Sukabumi Kota Bandar Lampung 35122, Lampung','Phone : 024-8660 999    Fax       : 024-8660 888','','','','','Phone : 024-8660 999    Fax       : 024-8660 888',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Lampung'),
-(53,72,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Malang Branch','','Jl. Raya Singosari Km 16, Desa Losari Kec. Singosari, Kab. Malang, Jawa Timur','Phone : 0721-7699 111    Fax      : 0721-7699 100','','','','','Phone : 0721-7699 111    Fax      : 0721-7699 100',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
-(54,71,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Klaten Branch','','Jl. Solo - Yogya Km 22, Kaliwingko, Banaran Delanggu, Klaten, Jawa Tengah','Phone : 0341-7285 667    Fax    : 0341-454 777','','','','','Phone : 0341-7285 667    Fax    : 0341-454 777',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Tengah'),
-(55,62,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Bali Branch','','Jl. Bypass Ida Bagus Mantra Lingkungan Siut Desa Tulikup Kec. Gianyar Kab. Gianyar 80515','Phone : 0272-554 325    Fax      : 0272-557 000','','','','','Phone : 0272-554 325    Fax      : 0272-557 000',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Bali'),
-(56,72,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Jember Branch','','Jl. Brawijaya Komplek Rejo Agung Mangli - Jember 68153','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
-(57,95,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Medan Branch','','Jl. Kawasan Industri No 99 S Tanjung Morawa Kab. DELI SERDANG','Phone  : 0331-426333    Fax       : 0331-426555','','','','','Phone  : 0331-426333    Fax       : 0331-426555',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sumatera Utara'),
-(58,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Bogor Branch','','Jl. Raya Pemda - Karadenan RT 04/RW 10 Kel. Karadenan Kec. Cibinong - Bogor','phone  : 061-8050 8000 / 8050 8001    Fax  : 061-8050 8003','','','','','phone  : 061-8050 8000 / 8050 8001    Fax  : 061-8050 8003',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(59,64,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk DC.cikokol (Bulky Imam Bonjol)','','Jl. IMAM BONJOL No.198 NUSA JAYA KARAWACI TANGERANG','Phone : 021-2956 8456    Fax      : 021-2956 8444','','','','','Phone : 021-2956 8456    Fax      : 021-2956 8444',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
-(60,87,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Pekanbaru Branch','','Jl. Siak 2 Air Hitam, Kel. Simpang Baru Kec. Tampan, Pekanbaru','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Riau'),
-(61,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Plumbon Branch','','Jl. Pangeran Antasari Blok Kebuyan RT 013/ 005 Desa Lurah, Kec. Plumbon, Kabupaten Cirebon','Phone  : 0761-8417 106    Fax      : 0761-8417 102','','','','','Phone  : 0761-8417 106    Fax      : 0761-8417 102',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(62,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Parung Branch','','Jl. Raya Gunung Sindur RT 010 / RW 005 Kp. Tulang Kuning, Desa Waru, Kec, Parung Kabupaten Bogor, Jawa Barat','Phone : 0231-8290 001 / 8290 000    Fax      : 0231-8290 022 / 8290 024','','','','','Phone : 0231-8290 001 / 8290 000    Fax      : 0231-8290 022 / 8290 024',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(63,79,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Kotabumi Branch','','Jl. Lintas Sumatera RT/RW 001/001 Desa Kalibalangan, Kec. Abung Selatan Kotabumi Lampung Utara Depan Polsek Abung Selatan','Phone  : 0251-7554422    Fax        : 0251-7554423','','','','','Phone  : 0251-7554422    Fax        : 0251-7554423',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Lampung'),
-(64,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Karawang Branch','','Jl. Alternatif Tanjungpura-Klari RT 017 RW 004 Desa Mergasari, Kec. Karawang Timur Kabupaten Karawang 41351','Phone : 081511636553    Fax      : 0724-3260052','','','','','Phone : 081511636553    Fax      : 0724-3260052',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(65,64,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Serang Branch','','Jl. Raya Serang Cilegon Km 3.1 Desa Drangon Kec Taktakan Kab Serang','Phone  : 0267-8634161    Fax        : 0267-8634160','','','','','Phone  : 0267-8634161    Fax        : 0267-8634160',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
-(66,94,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk DC. PALEMBANG Branch','','Jl. Tembus Terminal Alang-Alang Lebar RT.12 RW. 05 Kel. Talang Kelapa Kec. Alang-Alang Lebar Palembang - 30154','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sumatera Selatan'),
-(67,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk DC.CIANJUR','','Alamat : JL.Cianjur Suka Bumi RT.01 / RW.01 Ds.Bunisari , Kec.Warung - Kondang','Telp : 02547913535','','','','','Telp : 02547913535',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(68,89,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk DC.MAKASAR','','JL.Kima Raya VIII Blok SS No.23 Kel.Bira Kec.Tamalanrea Kota Makasar','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Selatan'),
-(69,73,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRIJAYA, Tbk Branch DEPO PONTIANAK','','Kawasan Borneo Business Icon Jl.Mayor Alianyang ruko B no.6 kab. Kubu Raya prov.Kalimantan Barat 78241','Telp ; 081 58 500 4989','','','','','Telp ; 081 58 500 4989',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kalimantan Barat'),
-(70,69,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Jambi Branch','','Jl. Raya Palembang- Jambi KM 14 Pondok Meja Kec.Maestong Kab. Muaro Jambi Rov.Jambi','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jambi'),
-(71,92,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Manado Branch','','Jl. Raya Worang By Pass Desa Karegesan Jaga IV Kec.Kauditan Kab. Minahasa Utara','Telp : ( 0411 ) 4723201 / 4723210    Fax : ( 0411 ) 4733172','','','','','Telp : ( 0411 ) 4723201 / 4723210    Fax : ( 0411 ) 4733172',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Utara'),
-(72,74,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Banjarmasin Branch','','Jl. Raya Nusa Indah RT05/RW02 Kec. Bati bati, Tanah laut 70852 Kalimantan selatan Indonesia','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kalimantan Selatan'),
-(73,71,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk DC REMBANG','','Jl Raya Rembang Lasem KM 3 Rt.01/Rw.05.Desa Pasar Banggi,Sawah, Pasar Banggi, Kec. Rembang, Kab. Rembang Jawa Tengah 59219, Indonesia','Phone : 0741-5915999    CP : Choerul Anwar ( 08161621148 ext 49169)','','','','','Phone : 0741-5915999    CP : Choerul Anwar ( 08161621148 ext 49169)',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Tengah'),
-(74,73,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR PONTIANAK','','JL. ARTERI SUPADIO RT.04 / RW.08, DESA PARITBARU, KEC. SUNGAI RAYA, KAB. KUBU RAYA, KOTA PONTIANAK, L','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kalimantan Barat'),
-(75,70,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR BANDUNG','','JL. AHMAD YANI NO. 806, CICAHEUM BANDUNG, 40282, 022-7202711','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(76,95,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR MEDAN','','JL. SISINGAMANGARAJA KM 6.5, KEC. MEDAN AMPLAS, MEDAN - SUMUT, (061) 7877060, 7877731','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sumatera Utara'),
-(77,92,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR MANADO','','JL. AA MARAMIS NO. 15, KEL. PANIKI SATU, LINGKUNGAN 1, KEC. MAPANGET, MANADO, 95258','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Utara'),
-(78,76,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR SAMARINDA','','JL. A.W. SYAHRANIE NO. 51, KEL. SEMPAJA SELATAN, SAMARINDA - 75119, 7770734','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kalimantan Timur'),
-(79,70,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR BOGOR','','JL. RAYA BOGOR - JAKARTA KM 46.7, KEL. NANGEWER MEKAR, CIBINONG, KAB. BOGOR 16912','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(80,89,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR MAKASAR','','JL. PERINTIS KEMERDEKAAN NO. 17, KM. 18, KEL. PAI KEC. BIRINGKANAYA, KOTA MAKASAR, SULAWESI SELATAN','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Selatan'),
-(81,70,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR BINTARA','','JL. I GUSTI NGURAH RAI, KEL. BINTARA, KEC. BEKASI BARAT, KOTA BEKASI, 6909471','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(82,67,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR CIPINANG','','JL. PISANGAN TIMUR, CIPINANG, JAKARTA TIMUR, 4706455','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','DKI Jakarta'),
-(83,94,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR PALEMBANG','','JL. PANGERAN AYIN RT. 05 / RW. 03, KEL. SUKAMAJU, KEC. SAKO, PALEMBANG, 711822123','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sumatera Selatan'),
-(84,67,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR KEMAYORAN','','JL. TERUSAN ANGKASA B2 KAV 1, GUNUNG SAHARI SELATAN, KEMAYORAN JAKARTA PUSAT, 6909471','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','DKI Jakarta'),
-(85,71,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR SEMARANG','','JL.RAYA KALIGAWE 38KM 5.1, RT01/RW01 TERBOYO WETAN, GENUK SEMARANG, TELP: 024-76928282','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Tengah'),
-(86,91,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR KENDARI','','JL MADUSILA NO.19 KEC POASIA, KEL.ANDUONOHU, KENDARI SULAWESI TENGGARA','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Tenggara'),
-(87,64,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR CIPUTAT','','JL RAYA PARUNG CIPUTAT NO 21, RT02/04 KELURAHAN KEDAUNG, KEC, SAWANGAN, KOTA DEPOK','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
-(88,70,1044,'PT. INTI CAKRAWALA CITRA','CABANG KARAWANG','','JL. KEPUH No.22 KEL. NAGASARI, KEC. KARAWANG BARAT, KAB.KARAWANG JAWA BARAT','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(89,70,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR KARAWANG','','JL. KEPUH No.22, (JL. LINGKAR TANJUNGPURA), KEL.NAGASARI, KEC. KARAWANG BARAT, JAWA BARAT','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(90,80,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR AMBON','','JL. SYARANAMUAL NO. 20 desa HUNUTH, Atau KATE-KATE KEC. PULAU AMBON, KOTA AMBON PROVINSI, MALUKU','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Maluku'),
-(91,72,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR MALANG','','JL. S. SUPRIADI No 170 A, KEL. KEBONSARI KEC. SUKUN MALANG, MALANG JAWA TIMUR','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
-(92,79,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR BANDAR LAMPUNG','','JL. SUKARNO HATTA NO. 15, KEL. KAMPUNG BARU RAYA, KEC. LABUHAN RATU - BANDAR LAMPUNG','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Lampung'),
-(93,71,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR SOLO','','JL. RAYA SOLO - TAWANGMANGU, KM 7,2 DS DAGEN, KEC. JATEN, KAB. KARANGANYAR - JAWA TENGAH','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Tengah'),
-(94,70,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR SUKABUMI','','JL.LINGKAR SELATAN NO.26, KEL. SUDAJAYA HILIR KEC BAROS, SUKABUMI-JAWA BARAT 43161','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(95,78,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR BATAM','','JL. LETJEND SUPRAPTO (BATAMINDO MUKA KUNING), MUKA KUNING, SEI BEDUK','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kepulauan Riau'),
-(96,64,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR CIKOKOL','','JL.MH.THAMRIN RT.001/RW.002, KEL.CIKOKOL KEC.TANGERANG, TANGERANG - BANTEN 15117','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
-(97,72,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA SURABAYA','','Jl. BERBEK INDUSTRI VII NO.3 - 5, DESA KEPUH KIRIMAN, WARU, SIDOARJO - SURABAYA (65255), Tlp. (031) 7496 - 001/ 031-7494-001 (BAP) 031-8687-005 (GA), Fax. (031) 7480-006 (OFC) / 031-7480-0078 (DC)','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
-(98,90,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA DC PALU','','JL. TRANS SULAWESI KM.16, KEL. KAYUMALUE PAJEKO','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Tengah'),
-(99,92,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA BITUNG','','JL. INDUSTRI KM 12 KP. KADU DESA BUNDER, RT.03 CIKUPA, TANGERANG / EKS GUDANG BULOG','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Utara'),
-(100,70,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA MIDI PASURUHAN','','JL. RY BEJI, DS. CANGKRING, MALANG, RT 02 RW 01, PASURUHAN, PASURUHAN, MALANG, Tlp.(0343)6531973','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(101,70,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA BEKASI','','Jl. Jababeka XI Blok L 3-5, Kawasan Industri Jababeka, Cikarang Utara, Bekasi, Telp. (021) 8984-6688), Fax. (021) 8984-4588','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(102,80,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA DC AMBON','','JL. SISINGAMANGARAJA NO.88, KEL, PASSO, KEC, BAGULA, KOTA AMBON MALUKU 97232','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Maluku'),
-(103,95,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA MEDAN','','Jalan MG. Manurung, Kawasan Industri Amplas, KM 9,5. Kelurahan Timbang Deli, Kecamatan Medan, Amplas, Kota Medan','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sumatera Utara'),
-(104,90,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA DC PALU 2','','Jl. Karanjalemba no.16, Birobuli Selatan, Palu Selatan, Kota Palu, Sulawesi Tengah, Kode Pos 94364','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Tengah'),
-(105,92,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA DC MANADO','','JL. RAYA MANADO BITUNG KM 15, KOMPLEKS PERGUDANGAN OLIMPIK GRUP, KEL. KOLONGAN KEC KALAWAT, MINAHASA UTARA, MANADO SULUT','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Utara'),
-(106,71,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA DC YOGYAKARTA','','JL. JATI No. 262, TEGAL PASAR, BANGUN TAPAN, BANTUL YOGYAKARTA, Telp. 027404932186','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Daerah Istimewa Yogyakarta'),
-(107,89,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA DC MAKASSAR','','JL. Kima Raya KM.8 SS No. 23, Biringkanaya - Daya, Makasar 90245','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Selatan'),
-(108,76,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA DC SAMARINDA','','JL. SURYANATA RT 015 KOMPLEK B, SAMARINDA, Telp., Fax. (0541)111682','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kalimantan Timur'),
-(109,72,1044,'PT. SUMBER HIDUP SEHAT','PT. SUMBER HIDUP SEHAT DC. SIDOARJO','','Komplek Pergudangan dan Industri, Non B3 Meiko Abadi III Blok B 32.','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
-(110,71,1044,'PT. SUMBER HIDUP SEHAT','PT. SUMBER HIDUP SEHAT DC. SEMARANG','','Jl. Fatmawati No.18 RT. 03 RW 25 Kel. Sendangmulyo, kec. Tembalang.','','','','','','',0,'',0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Tengah'),
-(111,70,1006,'TOSERBA YOGYA/GRIYA','TOSERBA YOGYA/GRIYA  DC.BUAH BATU',NULL,'Jl.Terusan Buah Batu No.12  Rt.06/Rw.04 \r\nKel. Batununggal   Kec. Bandung Kidul\r\nKota Bandung\r\nBANDUNG',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-08-10 05:03:06','2023-08-10 05:03:06',NULL),
-(112,70,1006,'TOSERBA YOGYA/GRIYA','TOSERBA YOGYA/GRIYA  DC.GRIYA CENTER',NULL,'JL.JAKARTA  No.53 \r\nBANDUNG',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-08-10 05:04:18','2023-08-10 05:04:18',NULL),
-(113,66,973,'PT. INTI CAKRAWALA MAJU','PT. INTI CAKRAWALA MAJU DC.YOGYAKARTA',NULL,'JL. MAGELANG KM,6\r\nSINDUADI, MELATI, SLEMAN\r\nDAERAH ISTIMEWA YOGYAKARTA',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-08-10 05:07:26','2023-08-10 05:07:26',NULL),
-(114,64,956,'PT. INTI CAKRAWALA MAJU','PT. INTI CAKRAWALA MAJU DC.CIKOKOL',NULL,'JL.MH THAMRIN  RT 001/002\r\nKEL CIKOKOL , KEC TANGERANG\r\nBANTEN - 15117',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-08-10 05:08:38','2023-08-10 05:08:38',NULL),
-(115,64,956,'PT. INTI CAKRAWALA MAJU','PT. INTI CAKRAWALA MAJU DC.TANGERANG',NULL,'JL. GATOT SUBROTO KM. 5 NO. 4\r\nRT.001 / 001  JATI UWUNG\r\nTANGERANG,BANTEN 15138',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-08-10 05:09:33','2023-08-10 05:09:33',NULL),
-(116,70,1002,'PT. INTI CAKRAWALA MAJU','PT. INTI CAKRAWALA MAJU DC.SUKABUMI',NULL,'JL.LINGKAR SELATAN  NO.26\r\nSUDAJAYA HILIR, BAROS\r\nJAWA BARAT, SUKABUMI - 43161',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-08-10 05:10:37','2023-08-10 05:10:37',NULL),
-(117,94,1413,'PT. INTI CAKRAWALA MAJU','PT. INTI CAKRAWALA MAJU DC.PALEMBANG',NULL,'JL. PANGERAN AYIN NO.326 RT. 05 / RW. 03\r\nKEL. SUKAMAJU, KEC. SAKO\r\nPALEMBANG\r\n711822123',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-08-10 05:11:31','2023-08-10 05:11:31',NULL),
-(118,64,955,'PT.PERINTIS PELAYANAN PARIPURNA','PT.PERINTIS PELAYANAN PARIPURNA',NULL,'JL. Raya Serang KM.10 Pos Bitung, RT.017/004 \r\nDesa Kadu, Kec.Curug, Kab. Tangerang','021-59490686',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-08-10 05:14:23','2023-08-10 05:14:23',NULL),
-(119,64,955,'PT. CENTURY FRANCHISINDO UTAMA','PT. CENTURY FRANCHISINDO UTAMA',NULL,'JL. Raya Serang KM.10 , RT.017/004 \r\nDesa Kadu jaya, Kec.Curug, Kab. Tangerang','021-59490686',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-08-10 05:16:10','2023-08-10 05:16:10',NULL),
-(120,70,1021,'PT. Hero Supermarket, Tbk','PT. Hero Supermarket, Tbk',NULL,'JL. INDOFARMA  RT 01  RW 10 \r\nCIBITUNG - BEKASI',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-08-10 05:17:33','2023-08-10 05:17:33',NULL),
-(121,71,1048,'BOOTS','BOOTS DC SEMARANG',NULL,'Jl.Madukoro Raya, Kerobokan Kec, Semarang Barat Kota Semarang',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,75,'2023-08-16 04:14:41','2023-08-30 04:41:46',NULL),
-(122,87,1300,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR PEKANBARU',NULL,'JL.SOEKARNO HATTA NO,18\r\nRT01 RW,08 KEL SIDOMULYOBARAT\r\nKEC TAMPAN, PEKANBARU 28294','0761-564641',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-08-16 04:35:44','2023-08-16 04:35:44',NULL),
-(123,70,1014,'APT','PT.SAPTA PRIMA MEDIKA',NULL,'JL.KP MUARA BERES No.55 \r\nRT.02/RW 04 KEL.SUKAHATI\r\nCIBINONG-BOGOR',NULL,'085751000668',NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-08-22 04:40:10','2023-08-22 04:40:10',NULL),
-(124,72,1094,'PT. INTI CAKRAWALA CITRA','PT.INTI CAKRAWALA CITRA .DC SURABAYA',NULL,'JL. RAYA JEMURSARI NO. 351\r\nSURABAYA \r\nTELP. 8439988',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-08-24 03:34:48','2023-08-24 03:34:48',NULL),
-(125,64,955,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS THE BREEZE BSD CITY',NULL,'The Breeze BSD City # L.63A-Lake Level\r\nJl. BSD Green Office Park, Kelurahan Sampora\r\nKec, Cisauk. Kab, Tangerang Banten 15345','0812-5710-1891','Apj. Karla Violleta  (0812-5710-1891)',NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-08-25 02:20:49','2023-09-01 03:07:35',NULL),
-(126,69,990,'PT. INTI CAKRAWALA CITRA','PT.INTI CAKRAWALA CITRA .IDG JAMBI',NULL,'JL.LINGKAR SELATAN NO.18 RT.36\r\nKELURAHAN KENALI ASAM BAWAH\r\nKEC.KOTA BARU \r\nKOTA JAMBI',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-08-26 03:25:03','2023-08-26 03:25:03',NULL),
-(127,67,975,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS GANDARIA CITY MALL',NULL,'Jl.Sultan Iskandar Muda, Rt.10/Rw.6\r\nKebayora Lama Utara, Kec.Kebayoran Lama\r\nJakarta Selatan.DKI Jakarta 12240','021-27085901',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-08-30 04:44:20','2023-08-30 04:44:20',NULL),
-(128,70,1012,'PT.TEKNOLOGI MEDIKA PRATAMA','PT.TEKNOLOGI MEDIKA PRATAMA',NULL,'Komplek Pergudangan Kubik Logistics\r\nGudang E1 E2 E7\r\nJl. Tugu Raya Rt.10 /Rw.10\r\nDs / Kel Tugu. Kec Cimanggis,Kota Depok\r\nProv .Jawa Barat',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-08-31 04:40:38','2023-08-31 04:40:38',NULL),
-(129,67,975,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS BLOK M PLAZA',NULL,'Plaza Blok M, UG 03 – 04\r\nJl. Bulungan No.76, Kel, Kramat Pela\r\nKec, Kebayoran Baru, Kota Jakarta Selatan\r\nDKI Jakarta 12130\r\n021-7209175',NULL,'Apj. Arlin Wahyudi (0812-8568-6696)',NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-09-02 04:46:37','2023-09-02 04:46:37',NULL),
-(130,67,975,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS AEON TANJUNG BARAT',NULL,'AEON Mall Tanjung Barat # Level 3F,Unit No.3-12A\r\nJl.Raya Tanjung Barat No.163.Rt 12/Rw 4.\r\nKel, Tanjung Barat. Kec, Jagakarsa. Kota Administrasi \r\nJakarta Selatan. DKI Jakarta 12530',NULL,'Apj. Yudha Iswara Yunanto   (0812-1199-4725)',NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-09-06 02:27:52','2023-09-06 02:27:52',NULL),
-(131,67,978,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS CENTRAL PARK',NULL,'Central Park Mall Lantai LG No. Unit L-214A & L-215\r\nJl. Let.Jend.S. Parman Kav.28, Kel. Tanjung Duren Selatan\r\nKec. Grogol Petamburan, Kota Adm Jakarta Barat\r\nDKI Jakarta 11470',NULL,'Apj. Luh Jenny Wahyuni  ( 0878-4568-7002)',NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-09-08 03:45:05','2023-09-08 03:45:05',NULL),
-(132,67,975,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS RUKO KEMANG',NULL,'Jl. Kemang Raya No.24 A   Rt.10/Rw.05\r\nKel,Bangka.  Kec, Mampang Prapatan\r\nKota Jakarta Selatan.\r\nDKI Jakarta 12730\r\n0858-9235-1967',NULL,'Apj. Muhammad Rifky Firdaus (0858-9107-7885)',NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-09-19 06:40:09','2023-09-19 06:40:09',NULL),
-(133,72,1075,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, DC MADIUN',NULL,'JL. RAYA SURABAYA - MADIUN\r\nDUSUN IV, BONGSOPOTRO\r\nKEC. SARADAN, KAB. MADIUN\r\nJAWA TIMUR',NULL,'PIC. FRANSISKA TELP. 085646595127',NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-10-02 06:02:04','2024-05-17 02:58:52',NULL),
-(134,74,1113,'PT. INTI CAKRAWALA CITRA','INDOGROSIR BANJARMASIN',NULL,'JL.A.YANI KM 12,2\r\nKEL.GAMBUT BARAT KAB.BANJAR\r\nBANJARMASIN\r\n70652',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-10-07 03:21:40','2023-10-07 03:21:40',NULL),
-(135,95,1427,'PT. INDOMARCO PRISMATAMA','PT.INDOMARCO PRISMATAMA DC STABAT',NULL,'JL. LINTAS SUMATERA  KEL, KARANG REJO\r\nKEC, STABAT  KOTA STABAT\r\nKAB, LANGKAT SUMATERA UTARA 20811',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-10-09 04:38:20','2023-10-09 04:38:20',NULL),
-(136,67,977,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS SOGO PLAZA SENAYAN',NULL,'Mall Plaza Senayan,lantai 1 #101A0\r\nJl. Asia Afrika No.8, Kelurahan Glora, Kec. Tanah Abang\r\nKota Adm Jakarta Pusat\r\nDKI Jakarta 10270\r\n021-57900058',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-10-12 06:27:38','2023-10-12 06:27:38',NULL),
-(137,64,955,'PT.PERINTIS PELAYANAN PARIPURNA','PT.PERINTIS PELAYANAN PARIPURNA (GUDANG CENTURY)',NULL,'GUDANG CENTURY \r\n JL. Raya Serang KM.10 Pos Bitung, RT.017/004 \r\nDesa Kadu, Kec.Curug, Kab. Tangerang\r\nTelp. 021-59490686',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-10-16 08:19:11','2023-10-16 08:19:11',NULL),
-(138,71,1028,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA .DC BOYOLALI',NULL,'JL. NASIONAL 16 \r\n(JL. SEMARANG SURAKARTA)\r\nKEL.WINONG , KEC. BOYOLALI\r\nKAB.BOYOLALI, JAWA TENGAH',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-10-20 03:48:27','2023-10-20 03:48:27',NULL),
-(139,64,956,'PT. INTI CAKRAWALA CITRA','PT.INTI CAKRAWALA CITRA . IDG TANGERANG',NULL,'JL. GATOT SUBROTO KM. 5 NO. 4\r\nJATI UWUNG\r\nTANGERANG 15138',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-10-25 08:38:46','2023-10-25 08:38:46',NULL),
-(140,67,976,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS GOLF ISLAND BATAVIA PIK',NULL,'Rukan Beach View Batavia Golf Island Blok.A No.80\r\nJl. Pantai Indah Kapuk, Kel. Kamal Muara\r\nKec. Penjaringan, Kota Administrasi Jakarta Utara\r\nProv. DKI Jakarta 14470',NULL,'Apj. Asep Kurnia (081287854074)',NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-10-26 06:17:18','2023-10-26 06:17:18',NULL),
-(141,72,1077,'PT. INTI CAKRAWALA MAJU','PT. INTI CAKRAWALA MAJU DC.MALANG',NULL,'JL. S . SUPRIADI No 170 A\r\nKEL. KEBONSARI  KEC. SUKUN MALANG\r\nMALANG JAWA TIMUR',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-11-04 02:28:23','2023-11-04 02:28:23',NULL),
-(142,95,1427,'PT. INDOMARCO PRISMATAMA','PT.INDOMARCO PRISMATAMA DC STABAT',NULL,'JL. LINTAS SUMATERA  KEL. KARANG REJO\r\nKEC. STABAT KOTA STABAT\r\nKAB.LANGKAT SUMUT 20811',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-11-06 07:58:54','2023-11-06 07:58:54',NULL),
-(143,67,976,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS KELAPA GADING MALL',NULL,'Mall Kelapa Gading,lantai Ground G-73B\r\nJl. Bulevard Kelapa Gading Blok M,Rt 13/ Rw 18\r\nKel, Kelapa Gading Timur. Kec, Kelapa Gading\r\nKota Adm Jakarta Utara, DKI Jakarta 14241',NULL,'Apj. Maitri Vimala  (082350208680)',NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-11-11 03:06:15','2023-11-11 03:06:15',NULL),
-(144,64,955,'WAREHOUSE WATSONS','WAREHOUSE WATSONS',NULL,'KOMPLEK PERGUDANGAN NIHON SEIMA BLOK H \r\n JL. GATOT SUBROTO KM.8 \r\nDesa Kadujaya, Kec.Curug, Kab. Tangerang',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2023-11-21 04:10:02','2023-11-21 04:10:02',NULL),
-(145,67,977,'PT.GOGOBLI ASIA TEKNOLOGI','PT.GOGOBLI ASIA TEKNOLOGI',NULL,'Jl.Palmerah Utara  No.61A\r\nGelora Tanah Abang\r\nJakarta Pusat',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-01-20 02:46:38','2024-01-20 02:46:38',NULL),
-(146,71,1040,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, DC TEGAL',NULL,'DC TEGAL\r\nJl. Jalan Raya Lingkar Slawi,desa Paguyangan\r\nPenusupan,Kecamatan Pangkah\r\nKabupaten Tegal Jateng',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-01-20 04:45:13','2024-01-20 04:45:13',NULL),
-(147,89,1322,'APT','APT CHOPPER FARMA',NULL,'JL.PACCARAKANG NO.66 \r\nKEL,PACCERAKKANG\r\nKEC,BIRINGKANAYA  KOTA MAKASAR',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-01-29 12:21:10','2024-01-29 12:21:10',NULL),
-(148,72,1091,'APT','APT SYAKIRA FARMA',NULL,'RUKO VALENCIA BLOK AA NO.29\r\nKEC.GEDANGAN   KAB. SIDOARJO\r\nPROV.JAWA TIMUR',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-01-29 12:22:40','2024-01-29 12:22:40',NULL),
-(149,82,1212,'APT','APT MANDIRI',NULL,'JL.DARUSSALAM  NO.44\r\nGP JAWA BARU\r\nBANDA SAKTI LHOKSEUMAWE',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-01-29 12:24:19','2024-01-29 12:24:19',NULL),
-(150,93,1385,'APT','APT SYUHADA',NULL,'JL.TEUKU UMAR  NO.1A \r\nSIMPANG ALAI -  PADANG',NULL,'085375751616',NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-01-29 12:25:37','2024-01-29 12:25:37',NULL),
-(151,87,1300,'APT','APT AKASIA FARMA',NULL,'JL.UTAMA / TENGKU BEY KOMP BUMI SEJAHTERA\r\nBLOK A2  NO.05\r\nKEL.SIMPANG TIGA  KEC. BUKIT RAYA\r\nKOTA PEKANBARU',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-01-29 12:28:24','2024-01-29 12:28:24',NULL),
-(152,89,1322,'APT','APT ARKA MEDIKA',NULL,'JL.UJUNG BORI LAMA  NO.4\r\nKEL.ANTANG  KEC. MANGGALA\r\nKOTA MAKASAR',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-01-29 12:29:23','2024-01-29 12:29:23',NULL),
-(153,70,1006,'APT','APT KARNA FARMA',NULL,'JL.RAJAWALI BARAT  NO.7A\r\nKEL.MALEBER  KEC.ANDIR\r\nKOTA BANDUNG. JAWA BARAT',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-01-29 12:32:25','2024-01-29 12:32:25',NULL),
-(154,75,1132,'TO ','TO SUBUR MAKMUR',NULL,'JL.D.I PANJAITAN  NO.63\r\nMB KETAPANG\r\nKALIMANTAN TENGAH',NULL,'082255307575',NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-01-29 12:34:39','2024-01-29 12:34:39',NULL),
-(155,70,1006,'APT','APT ALMA FELIZ',NULL,'JL.SOMA  NO.16\r\nBABAKAN SARI\r\nKEC.KIARACONDONG. KOTA BANDUNG',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-01-29 12:35:24','2024-01-29 12:35:24',NULL),
-(156,92,1374,'APT','APT SEHAT FARMA IV',NULL,'JL.DURIAN RAYA \r\nKEL.PANIKI DUA  KEC.MAPANGET\r\nKOTA MANADO',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-01-29 12:38:31','2024-01-29 12:38:31',NULL),
-(157,71,1030,'TO ','TO ABADI',NULL,'JL.SUNAN KALIJAGA 33\r\nDEMAK',NULL,'082227111107',NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-01-29 12:39:12','2024-01-29 12:39:12',NULL),
-(158,71,1041,'TO ','TO BETA',NULL,'JL.JEND SUTOYO  NO.45\r\nKEC,PURWOKERTO BARAT \r\nKAB, BANYUMAS','089508940924',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-02-02 07:54:12','2024-02-02 07:54:12',NULL),
-(159,72,1087,'TO ','TO SUMBER SEHAT',NULL,'JL.GATOT SUBROTO  NO.47\r\nRT 02 / RW 02\r\nPAKUNDEN PONOROGO. JAWA TIMUR','08123433375',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-02-02 07:55:38','2024-02-02 07:55:38',NULL),
-(160,72,1091,'APT','APT BETRO',NULL,'JL.GARUDA  NO.100\r\nBETRO-SEDATI-SIDOARJO\r\nJAWA TIMUR',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-02-02 07:56:29','2024-02-02 07:56:29',NULL),
-(161,72,1097,'TO ','TO SAHABAT',NULL,'JL.KHR.ABDUL FATTAH\r\nDS/KEL.SEMBUNG\r\nKEC.TULUNGAGUNG. JAWA TIMUR',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-02-02 07:58:19','2024-02-02 07:58:19',NULL),
-(162,70,1009,'APT','APT FITAQA FARMA',NULL,'JL.Ir H.JUANDA\r\nDS / KEL.SUKAMULYA KEC. BUNGURSARI\r\nKOTA TASIKMALAYA. JAWA BARAT',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-02-02 07:59:34','2024-02-02 07:59:34',NULL),
-(163,63,948,'TO ','TO SEHAT',NULL,'JL.JEND SUDIRMAN  NO.23\r\nPASIR PADI,GIRIMAYA\r\nPANGKAL PINANG',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-02-02 08:02:05','2024-02-02 08:02:05',NULL),
-(164,95,1429,'APT','APT AK - JAYA',NULL,'JL.BESARDELI TUA KM.8,5  NO.8\r\nDS.SUKA MAKMUR\r\nKOMPLEK SUKA MAKMUR WALK.DELI TUA MEDAN',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-02-02 08:03:49','2024-02-02 08:03:49',NULL),
-(165,66,974,'APT','APT KARANG JATI',NULL,'JL.SUNGAPAN JETIS TAMANTIRTO\r\nKASIHAN,BANTUL\r\nYOGYAKARTA',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-02-02 08:05:47','2024-02-02 08:05:47',NULL),
-(166,67,978,'APT','APT DZAWIN',NULL,'JL.HAJI SELONG NO.54 B\r\nRT 01 / 01.DURI KOSAMBI - CENGKARENG\r\nJAKARTA  BARAT',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-02-02 08:22:49','2024-02-02 08:22:49',NULL),
-(167,94,1413,'APT','APT REFAH',NULL,'JL.SLAMET RIYADI LORONG MENTOK NO.27\r\nRT 08 / 03.  KEL.11 ILIR  KEC.ILIR TIMUR III\r\nKOTA PALEMBANG',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-02-02 08:27:04','2024-02-02 08:27:04',NULL),
-(168,71,1048,'TIRTA HUSADA FARMA','TIRTA HUSADA FARMA',NULL,'JL.SETIABUDI  NO.29\r\nSRONDOL KULON . BANYUMANIK\r\nSEMARANG',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-02-02 08:32:14','2024-02-02 08:32:14',NULL),
-(169,71,1041,'PT. INTI CAKRAWALA CITRA','PT.INTI CAKRAWALA CITRA .DC PURWOKERTO',NULL,'JL.RAYA GERILYA BARAT,TANJUNG\r\nKEDUNGWRINGIN,PURWOKERTO-SELATAN\r\nPATIKRAJA,BANYUMAS.',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-02-07 04:31:15','2024-02-07 04:31:15',NULL),
-(170,72,1069,'PT. INDOMARCO PRISMATAMA','PT.INDOMARCO PRISMATAMA DC JOMBANG 2',NULL,'JL. RAYA PETERONGAN KM 71,3\r\nDESA CANDI - DESA SAMBIREJO\r\nKEC. JOGOROTO, KAB JOMBANG  61485',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-03-05 03:17:55','2024-03-05 03:17:55',NULL),
-(171,70,1007,'PT. INTI CAKRAWALA MAJU','PT.INTI CAKRAWALA MAJU. DC KARAWANG',NULL,'JL. Lingkar Tanjung Pura No.22\r\nNagasari, Karawang Barat\r\nKarawang, Jawa Barat - 41312',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-04-05 02:06:59','2024-04-05 02:06:59',NULL),
-(172,71,1041,'PT. INTI CAKRAWALA MAJU','PT. INTI CAKRAWALA MAJU DC PURWOKERTO',NULL,'JL. RAYA GERILYA BARAT, TANJUNG\r\nKEDUNGWRINGIN, PURWOKERTO -\r\nSELATAN, PATIKRAJA, BANYUMAS',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-05-04 02:18:42','2024-05-04 02:18:42',NULL),
-(173,76,1148,'PT. INDOMARCO PRISMATAMA','PT.INDOMARCO PRISMATAMA DC SAMARINDA',NULL,'JL. EKONOMI    NO 1\r\nDESA LOA BUAH. KEC,SUNGAI KUNJANG\r\nKODYA SAMARINDA\r\n0541-7770734',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-06-11 02:16:57','2024-06-11 02:16:57',NULL),
-(174,91,1354,'PT. INTI CAKRAWALA MAJU','PT.INTI CAKRAWALA MAJU. DC KENDARI',NULL,'JL MADUSILA NO.19 KEC POASIA\r\nKEL.ANDUONOHU\r\nKENDARI SULAWESI TENGGARA',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-06-11 03:21:02','2024-06-11 03:21:02',NULL),
-(175,71,1048,'ICM SEMARANG','PT.INTI CAKRAWALA MAJU. DC SEMARANG',NULL,'JL.RAYA KALIGAWE NO.38 RT.01/01\r\nTERBOYO WETAN,GENUK,SEMARANG,JAWA TENGAH\r\n50112',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,75,'2024-07-02 03:13:37','2024-07-02 03:13:37',NULL),
-(176,71,1036,'daffa hanaris','daffa hanaris',NULL,'sumbulan lor rt 02 rw 13\r\nmakamhaji','04849484',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,3,'2024-10-17 04:42:38','2024-10-17 04:42:38',NULL);
+insert  into `core_customer`(`customer_id`,`province_id`,`city_id`,`customer_code`,`customer_name`,`customer_tax_no`,`customer_address`,`customer_email`,`customer_fax_number`,`customer_contact_person`,`customer_payment_terms`,`customer_remark`,`debt_limit`,`amount_debt`,`remaining_limit`,`from_store`,`data_state`,`created_id`,`created_at`,`updated_at`,`data_dump`) values 
+(1,71,1045,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK SEMARANG',NULL,'JL. INDUSTRI TUGU I KAV 2-4, KWS. INDUSTRI TUGU WIJAYA KUSUMA, RANDUGARUT - SEMARANG, 024-8665660 / 8665657-58',NULL,NULL,'024-8665660 / 8665657-58',NULL,NULL,0,0,0,0,0,3,'0000-00-00 00:00:00','2023-08-05 05:52:28','Jawa Tengah'),
+(2,70,999,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK CIREBON',NULL,'JL. PANGERAN ANTASARI BLOK, PETAPAN RT. 02 / 01 DS. KEDUJEN, KEC. DEPOK - KAB. CIREBON, 0231-247195/247915',NULL,NULL,'0231-247195/247915',NULL,NULL,0,0,0,0,0,3,'0000-00-00 00:00:00','2023-08-05 05:52:41','Jawa Barat'),
+(3,70,1008,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK BOGOR 2',NULL,'JL. RAYA BOGOR KM. 46,6, DESA NANGGEWER MEKAR KEC CIBINONG, BOGOR - JAWA BARAT',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,74,'0000-00-00 00:00:00','2023-08-05 05:52:49','Jawa Barat'),
+(4,70,1008,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK BOGOR',NULL,'JL. RAYA ALTERNATIF SENTUL KM 46, KEL. CIJUJUNG - KEC. SUKARAJA, KAB. BOGOR - 16710, 8796050',NULL,NULL,'8796050',NULL,NULL,0,0,0,0,0,74,'0000-00-00 00:00:00','2023-08-05 05:52:57','Jawa Barat'),
+(5,72,1067,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK GRESIK',NULL,'JL. RAYA DUDUK SAMPEYAN RT 11, RW 04, DS AMBENG-WATANGREJO, KEC. DUDUK SAMPEYAN - GRESIK',NULL,NULL,NULL,0,NULL,0,0,0,0,0,0,'0000-00-00 00:00:00','2023-08-05 05:53:08','Jawa Timur'),
+(6,70,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK PARUNG','','JL. PEMBANGUNAN RAYA GUNUNG, SINDUR NO. 21A RT.01 RW.02, Gunung Sindur - Bogor 16340, 7563078 ','','','7563078',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
+(7,67,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK JAKARTA','','JL. ANCOL BARAT VIII NO. 2, JAKARTA UTARA, 14430, 6919971-74      ','','','6919971-74      ',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','DKI Jakarta'),
+(8,89,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK MAKASAR','','JL. KIMA 10 BLOK A5 - A5 A, KEL. DAYA KEC. BIRINGKANAYA, MAKASAR SUL-SEL 90241, TELP: 0411-512292 / 5781492 / 512335    ','','',' 0411-512292 / 5781492 / 512335    ',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Selatan'),
+(9,72,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK SURABAYA','','JL. JENGGALA NO. 22, GEDANGAN, SIDOARJO - 61254, 8915000 / 8902222       ','','','8915000 / 8902222       ',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
+(10,70,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK SENTUL','','JL. RAYA ALTERNATIF SENTUL KM46, KEL. CIJUJUNG - KEC. SUKARAJA, KAB. BOGOR - 16710, 8796050 ','','','8796050',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
+(11,79,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK LAMPUNG','','JL. TEMBESU NO. 8 DESA CAMPANG, RAYA - KALI BALOK, BANDAR LAMPUNG - 35122, 0721 - 7699123  ','','','0721 - 7699123  ',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Lampung'),
+(12,71,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA DC MINI LOMBOK','','JL. BY PASS BANDARA INTERNATIO, NAL LOMBOK, DESA / KEL : BATUJAI / UNGGA, KEC : PRAYA, BP. ARIEF INDARTO, 08562956206        ','','','8562956206',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Nusa Tenggara Barat'),
+(13,71,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK YOGYAKARTA','','JL. RINGROAD BARAT NO. 99, PADUKUHAN SALAKAN RT.08 / RW.26, TRIHANGGO GAMPING - SLEMAN JGY, 0274-6499300    ','','','0274-6499300    ',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Daerah Istimewa Yogyakarta'),
+(14,70,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK PURWAKARTA','','KAWASAN KOTA BUKIT INDAH, SEKTOR N BLOK N 1/5, CIKAMPEK - JAWA BARAT, 0264-8281901    ','','',' 0264-8281901    ',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
+(15,72,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK JEMBER','','JL. PIERRE TENDEAN NO. 99A, DUSUN TEGAL BAI, KEL. KARANGREJO, KEC. SUMBERSARI, JEMBER - 68127         ','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
+(16,67,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK JAKARTA 2','','JL. ANCOL 8 NO. 2, ANCOL BARAT, JAKARTA 14430           ','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','DKI Jakarta'),
+(17,72,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK MALANG','','JL. MAYJEND SUNGKONO NO.99, KEL. WONOKOYO KEC. KDNG KANDANG, RT.01 RW.02 KODYA MALANG, JATIM   ','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
+(18,70,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK BANDUNG','','JL. JEND. A. YANI NO. 806, KIARACONDONG - CICAHEUM, BANDUNG 40282, 022-7215556     ','','','022-7215556     ',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
+(19,62,936,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK BALI',NULL,'JL. RAYA MENGWI - SINGARAJA  NO 17,BANJAR BINONG, DESA WERDHI BUANA, KEC. MENGWI KAB BADUNG, BALI, 0361-829329',NULL,NULL,'0361-829329',0,NULL,0,0,0,0,0,0,'0000-00-00 00:00:00','2024-05-16 02:02:09','Bali'),
+(20,73,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK DEPO PONTIANAK','','JL. TRANS KALIMANTAN KOMPLEK, PERGURUAN PRIMA LESTARI, BLOK D.2 NO. 1-3 - KUBURAYA, KALBAR  ','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kalimantan Barat'),
+(21,64,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK TANGERANG 2','','JL. GATOT SOEBROTO KM. 9, RT. 03/01 KEL. KADE KEC. CURUG, KAB. TANGERANG.         ','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
+(22,64,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK TANGERANG 1','','JL. RAYA SERANG RT. 003 / 001 KM 09, NO. 1A ZONA INDUSTRI MANIS, DS. KADU JAYA KEC. CURUG, TANGERANG       ','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
+(23,95,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK MEDAN','','JL. INDUSTRI DUSUN 1 NO. 60, KEL. TANJUNG MORAWA, KAB. DELI SERDANG 20582, 061-7877060, 7877731    ','','','061-7877060, 7877731    ',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sumatera Utara'),
+(24,72,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK JOMBANG','','JL. PETERONGAN KM 71,3, DESA CANDI - DESA SAMBIREJO, KEC. JOGOROTO, KAB JOMBANG              ','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
+(25,70,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK BEKASI','','JL. JABABEKA RAYA BLOK A NO. 6-15, RT. 004 RW. 006 PASIR GOMBONG, CIKARANG UTARA - BEKASI, K       ','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
+(26,92,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK MANADO','','KOMP. GUDANG PUSKUD BLOK C2 / C3, JL. RY. MANADO BITUNG, KOLONGAN, TETEMPANGAN JAGA 7, KALAWAT             ','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Utara'),
+(27,94,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK PALEMBANG','','JL. PANGERAN AYIN NO. 326, KEL. SUKAMAJU KEC. SAKO, PALEMBANG - SUMSEL - 30361, 0711-822006     ','','','0711-822006     ',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sumatera Selatan'),
+(28,64,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK LEBAK','','JL. RANGKASBITUNG, PANDEGLANG KM 12 RT 14 RW 05, KP. CIBUAH KERTA MUKTI - BANTEN         ','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
+(29,87,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK PEKANBARU','','JL. RAYA KUBANG TERATAK BULUH, RT. 03 / 02 DUSUN II KERAMAT SAKTI, KUBANG JAYA, SIAK HULU - RIAU           ','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Riau'),
+(30,65,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK BENGKULU','','JL. DEPATI PAYUNG NEGARA, KEL, BETUNGAN   KEC, SELEBAR, KOTA BENGKULU           ','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Bengkulu'),
+(31,89,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK MAKASAR','','JL.KIMA 10 BLOK A5-A5 A, KEC.BIRINGKANAYA MAKASAR, SULAWESI SELATAN 90243, 0411-512292/5781492/512335      ','','',' 0411-512292/5781492/512335    ',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Selatan'),
+(32,71,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK DEPO ACEH','','JL.LAKSAMANA MALAHYATI   DS.BAET, KEC. BAITUSSALAM   KAB. ACEH BESAR, NANGROE ACEH DARUSSALAM         ','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Aceh'),
+(33,71,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK KLATEN','','JL. RAYA PENGGUNG-JATINOM, DESA BLENCERAN, KEC. KARANGANOM, KAB. KLATEN, JAWA TENGAH                ','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Tengah'),
+(34,92,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK MANADO BARU','','JL. RAYA MANADO - BITUNG, AIRMADIDI ATAS KEC.AIRMADIDI, KAB.MINAHASA UTARA SULUT 95371          ','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Utara'),
+(35,89,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK PALOPO','','JL. POROS MAKASAR - PALOPO, DESA KARANG KARANGAN, KEC. BUA, KAB. LUWU, SUL-SEL 91991         ','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Selatan'),
+(36,73,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK PONTIANAK BARU','','JL. ARTERI SUPADIO  RT. 04  RW. 08, DESA JL.PARIT BARU SUNGAI RAYA, KAB. KUBU RAYA KALIMANTAN BARAT.                ','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kalimantan Barat'),
+(37,81,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK JATI TERNATE','','JL. SANTO PETRO JEMBATAN 6, NAIK KEDARA, KALUMATA, TERNATE, SELATAN-MALUKU UTARA 97718              ','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Maluku Utara'),
+(38,74,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK BANJARMASIN','','JL.A.YANI KM 12,2, KEL.GAMBUT BARAT KAB.BANJAR, BANJARMASIN, 70652   ','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kalimantan Selatan'),
+(39,71,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK BANGKA','','JL.KETAPANG KAWASAN TPI RT.001, TEMBERAN,BACANG,BUKIT INTAN, KOTA PANGKAL PINANG, KEP. BANGKA BELITUNG    ','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kepulauan Bangka Belitung'),
+(40,64,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Cikokol Branch','','Jl. MH. Thamrin No. 9, Cikokol Tangerang 15117, Banten, Indonesia','','','Phone   : 021-5575 5966    ',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
+(41,64,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Balaraja Branch','','Jl. Arya Jaya Santika No. 19, RT/RW 001/02, Kp. Seglok Desa Pasir Bolang, Kec. Tigaraksa, Tangerang 15720, Banten','','','Phone   : 021-5990 123    Fax        : 021-5990 388',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
+(42,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Cileungsi Branch 2','','Kawasan Industri Menara Permai Kav. 18 JL.RAYA NAROGONG RT 01/RW 01.KEL,DAYEH','','','Phone : 021-8249 8222, 8249 9234    Fax     : 021-8249 7200, 8249 7500',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
+(43,64,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk DEPO Balaraja Branch','','Jl. Arya Jaya Santika No. 19, RT/RW 001/02, Kp. Seglok Desa Pasir Bolang, Kec. Tigaraksa, Tangerang 15720, Banten','','','Phone   : 021-5990 123    Fax        : 021-5990 388',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
+(44,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Bekasi Branch','','Kawasan Industri Jababeka 2 Jl. Industri Selatan VI Blok PP No. 6 Cikarang, Jawa Barat','','','Phone : 021- 8984 1456       Fax      : 021- 8984 1455',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
+(45,72,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Sidoarjo BULKY BEREBEK (BBRK)','','Jl. BERBEK INDUSTRI VII No 3-5 WARU SIDOARJO','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
+(46,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Bandung Branch 1','','Jl. Soekarno Hatta No. 791, Cisaranten Wetan Bandung 40294, Jawa Barat','','','Fax : 022-7833 215, 7817 247    Fax : 022-7833 215, 7817 247',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
+(47,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Bandung Branch 2','','Jl. Nanjung RT/RW 006/11 (Blok Ajeng), Desa Utama, Kec. Cimahi Selatan Kota Cimahi, Kab. Bandung, Jawa Barat','','','Phone : 022- 6675 300    Fax      : 022- 6671 567',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
+(48,71,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Cilacap Branch','','Jl. MT. Haryono No. 168 Kawasan Industri Cilacap 53221 Kelurahan Lomanis, Jawa Tengah','','','Phone    : 0282-548 345    Fax       : 0282-548 337',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Tengah'),
+(49,71,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Lombok Branch','','Jl. TGH Saleh Hambali Km 20 Dasan Cermen Sandubaya Mataram 83123','','','Phone : 0370-620994',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Nusa Tenggara Barat'),
+(50,72,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Sidoarjo Branch','','Jl. Sukodono No.45 Desa Keboan Sikep Kec.Gedangan Sidoarjo 61254','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
+(51,71,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Semarang Branch','','Kawasan Industri Tugu Wijaya Kusuma Jl. Industri I No. 1, Randugarut, Tugu Semarang 50010, Jawa Tengah','','','Phone  : 031-8912 111    Fax      : 031-8911 845',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Tengah'),
+(52,79,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Lampung Branch','','Jl. Tembesu No.10 Rt.001 Rw. 001 Campang Raya, Sukabumi Kota Bandar Lampung 35122, Lampung','','','Phone : 024-8660 999    Fax       : 024-8660 888',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Lampung'),
+(53,72,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Malang Branch','','Jl. Raya Singosari Km 16, Desa Losari Kec. Singosari, Kab. Malang, Jawa Timur','','','Phone : 0721-7699 111    Fax      : 0721-7699 100',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
+(54,71,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Klaten Branch','','Jl. Solo - Yogya Km 22, Kaliwingko, Banaran Delanggu, Klaten, Jawa Tengah','','','Phone : 0341-7285 667    Fax    : 0341-454 777',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Tengah'),
+(55,62,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Bali Branch','','Jl. Bypass Ida Bagus Mantra Lingkungan Siut Desa Tulikup Kec. Gianyar Kab. Gianyar 80515','','','Phone : 0272-554 325    Fax      : 0272-557 000',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Bali'),
+(56,72,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Jember Branch','','Jl. Brawijaya Komplek Rejo Agung Mangli - Jember 68153','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
+(57,95,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Medan Branch','','Jl. Kawasan Industri No 99 S Tanjung Morawa Kab. DELI SERDANG','','','Phone  : 0331-426333    Fax       : 0331-426555',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sumatera Utara'),
+(58,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Bogor Branch','','Jl. Raya Pemda - Karadenan RT 04/RW 10 Kel. Karadenan Kec. Cibinong - Bogor','','','phone  : 061-8050 8000 / 8050 8001    Fax  : 061-8050 8003',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
+(59,64,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk DC.cikokol (Bulky Imam Bonjol)','','Jl. IMAM BONJOL No.198 NUSA JAYA KARAWACI TANGERANG','','','Phone : 021-2956 8456    Fax      : 021-2956 8444',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
+(60,87,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Pekanbaru Branch','','Jl. Siak 2 Air Hitam, Kel. Simpang Baru Kec. Tampan, Pekanbaru','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Riau'),
+(61,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Plumbon Branch','','Jl. Pangeran Antasari Blok Kebuyan RT 013/ 005 Desa Lurah, Kec. Plumbon, Kabupaten Cirebon','','','Phone  : 0761-8417 106    Fax      : 0761-8417 102',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
+(62,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Parung Branch','','Jl. Raya Gunung Sindur RT 010 / RW 005 Kp. Tulang Kuning, Desa Waru, Kec, Parung Kabupaten Bogor, Jawa Barat','','','Phone : 0231-8290 001 / 8290 000    Fax      : 0231-8290 022 / 8290 024',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
+(63,79,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Kotabumi Branch','','Jl. Lintas Sumatera RT/RW 001/001 Desa Kalibalangan, Kec. Abung Selatan Kotabumi Lampung Utara Depan Polsek Abung Selatan','','','Phone  : 0251-7554422    Fax        : 0251-7554423',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Lampung'),
+(64,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Karawang Branch','','Jl. Alternatif Tanjungpura-Klari RT 017 RW 004 Desa Mergasari, Kec. Karawang Timur Kabupaten Karawang 41351','','','Phone : 081511636553    Fax      : 0724-3260052',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
+(65,64,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Serang Branch','','Jl. Raya Serang Cilegon Km 3.1 Desa Drangon Kec Taktakan Kab Serang','','','Phone  : 0267-8634161    Fax        : 0267-8634160',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
+(66,94,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk DC. PALEMBANG Branch','','Jl. Tembus Terminal Alang-Alang Lebar RT.12 RW. 05 Kel. Talang Kelapa Kec. Alang-Alang Lebar Palembang - 30154','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sumatera Selatan'),
+(67,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk DC.CIANJUR','','Alamat : JL.Cianjur Suka Bumi RT.01 / RW.01 Ds.Bunisari , Kec.Warung - Kondang','','','Telp : 02547913535',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
+(68,89,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk DC.MAKASAR','','JL.Kima Raya VIII Blok SS No.23 Kel.Bira Kec.Tamalanrea Kota Makasar','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Selatan'),
+(69,73,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRIJAYA, Tbk Branch DEPO PONTIANAK','','Kawasan Borneo Business Icon Jl.Mayor Alianyang ruko B no.6 kab. Kubu Raya prov.Kalimantan Barat 78241','','','Telp ; 081 58 500 4989',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kalimantan Barat'),
+(70,69,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Jambi Branch','','Jl. Raya Palembang- Jambi KM 14 Pondok Meja Kec.Maestong Kab. Muaro Jambi Rov.Jambi','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jambi'),
+(71,92,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Manado Branch','','Jl. Raya Worang By Pass Desa Karegesan Jaga IV Kec.Kauditan Kab. Minahasa Utara','','','Telp : ( 0411 ) 4723201 / 4723210    Fax : ( 0411 ) 4733172',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Utara'),
+(72,74,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Banjarmasin Branch','','Jl. Raya Nusa Indah RT05/RW02 Kec. Bati bati, Tanah laut 70852 Kalimantan selatan Indonesia','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kalimantan Selatan'),
+(73,71,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk DC REMBANG','','Jl Raya Rembang Lasem KM 3 Rt.01/Rw.05.Desa Pasar Banggi,Sawah, Pasar Banggi, Kec. Rembang, Kab. Rembang Jawa Tengah 59219, Indonesia','','','Phone : 0741-5915999    CP : Choerul Anwar ( 08161621148 ext 49169)',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Tengah'),
+(74,73,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR PONTIANAK','','JL. ARTERI SUPADIO RT.04 / RW.08, DESA PARITBARU, KEC. SUNGAI RAYA, KAB. KUBU RAYA, KOTA PONTIANAK, L','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kalimantan Barat'),
+(75,70,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR BANDUNG','','JL. AHMAD YANI NO. 806, CICAHEUM BANDUNG, 40282, 022-7202711','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
+(76,95,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR MEDAN','','JL. SISINGAMANGARAJA KM 6.5, KEC. MEDAN AMPLAS, MEDAN - SUMUT, (061) 7877060, 7877731','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sumatera Utara'),
+(77,92,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR MANADO','','JL. AA MARAMIS NO. 15, KEL. PANIKI SATU, LINGKUNGAN 1, KEC. MAPANGET, MANADO, 95258','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Utara'),
+(78,76,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR SAMARINDA','','JL. A.W. SYAHRANIE NO. 51, KEL. SEMPAJA SELATAN, SAMARINDA - 75119, 7770734','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kalimantan Timur'),
+(79,70,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR BOGOR','','JL. RAYA BOGOR - JAKARTA KM 46.7, KEL. NANGEWER MEKAR, CIBINONG, KAB. BOGOR 16912','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
+(80,89,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR MAKASAR','','JL. PERINTIS KEMERDEKAAN NO. 17, KM. 18, KEL. PAI KEC. BIRINGKANAYA, KOTA MAKASAR, SULAWESI SELATAN','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Selatan'),
+(81,70,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR BINTARA','','JL. I GUSTI NGURAH RAI, KEL. BINTARA, KEC. BEKASI BARAT, KOTA BEKASI, 6909471','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
+(82,67,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR CIPINANG','','JL. PISANGAN TIMUR, CIPINANG, JAKARTA TIMUR, 4706455','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','DKI Jakarta'),
+(83,94,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR PALEMBANG','','JL. PANGERAN AYIN RT. 05 / RW. 03, KEL. SUKAMAJU, KEC. SAKO, PALEMBANG, 711822123','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sumatera Selatan'),
+(84,67,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR KEMAYORAN','','JL. TERUSAN ANGKASA B2 KAV 1, GUNUNG SAHARI SELATAN, KEMAYORAN JAKARTA PUSAT, 6909471','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','DKI Jakarta'),
+(85,71,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR SEMARANG','','JL.RAYA KALIGAWE 38KM 5.1, RT01/RW01 TERBOYO WETAN, GENUK SEMARANG, TELP: 024-76928282','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Tengah'),
+(86,91,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR KENDARI','','JL MADUSILA NO.19 KEC POASIA, KEL.ANDUONOHU, KENDARI SULAWESI TENGGARA','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Tenggara'),
+(87,64,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR CIPUTAT','','JL RAYA PARUNG CIPUTAT NO 21, RT02/04 KELURAHAN KEDAUNG, KEC, SAWANGAN, KOTA DEPOK','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
+(88,70,1044,'PT. INTI CAKRAWALA CITRA','CABANG KARAWANG','','JL. KEPUH No.22 KEL. NAGASARI, KEC. KARAWANG BARAT, KAB.KARAWANG JAWA BARAT','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
+(89,70,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR KARAWANG','','JL. KEPUH No.22, (JL. LINGKAR TANJUNGPURA), KEL.NAGASARI, KEC. KARAWANG BARAT, JAWA BARAT','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
+(90,80,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR AMBON','','JL. SYARANAMUAL NO. 20 desa HUNUTH, Atau KATE-KATE KEC. PULAU AMBON, KOTA AMBON PROVINSI, MALUKU','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Maluku'),
+(91,72,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR MALANG','','JL. S. SUPRIADI No 170 A, KEL. KEBONSARI KEC. SUKUN MALANG, MALANG JAWA TIMUR','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
+(92,79,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR BANDAR LAMPUNG','','JL. SUKARNO HATTA NO. 15, KEL. KAMPUNG BARU RAYA, KEC. LABUHAN RATU - BANDAR LAMPUNG','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Lampung'),
+(93,71,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR SOLO','','JL. RAYA SOLO - TAWANGMANGU, KM 7,2 DS DAGEN, KEC. JATEN, KAB. KARANGANYAR - JAWA TENGAH','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Tengah'),
+(94,70,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR SUKABUMI','','JL.LINGKAR SELATAN NO.26, KEL. SUDAJAYA HILIR KEC BAROS, SUKABUMI-JAWA BARAT 43161','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
+(95,78,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR BATAM','','JL. LETJEND SUPRAPTO (BATAMINDO MUKA KUNING), MUKA KUNING, SEI BEDUK','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kepulauan Riau'),
+(96,64,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR CIKOKOL','','JL.MH.THAMRIN RT.001/RW.002, KEL.CIKOKOL KEC.TANGERANG, TANGERANG - BANTEN 15117','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
+(97,72,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA SURABAYA','','Jl. BERBEK INDUSTRI VII NO.3 - 5, DESA KEPUH KIRIMAN, WARU, SIDOARJO - SURABAYA (65255), Tlp. (031) 7496 - 001/ 031-7494-001 (BAP) 031-8687-005 (GA), Fax. (031) 7480-006 (OFC) / 031-7480-0078 (DC)','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
+(98,90,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA DC PALU','','JL. TRANS SULAWESI KM.16, KEL. KAYUMALUE PAJEKO','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Tengah'),
+(99,92,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA BITUNG','','JL. INDUSTRI KM 12 KP. KADU DESA BUNDER, RT.03 CIKUPA, TANGERANG / EKS GUDANG BULOG','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Utara'),
+(100,70,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA MIDI PASURUHAN','','JL. RY BEJI, DS. CANGKRING, MALANG, RT 02 RW 01, PASURUHAN, PASURUHAN, MALANG, Tlp.(0343)6531973','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
+(101,70,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA BEKASI','','Jl. Jababeka XI Blok L 3-5, Kawasan Industri Jababeka, Cikarang Utara, Bekasi, Telp. (021) 8984-6688), Fax. (021) 8984-4588','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
+(102,80,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA DC AMBON','','JL. SISINGAMANGARAJA NO.88, KEL, PASSO, KEC, BAGULA, KOTA AMBON MALUKU 97232','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Maluku'),
+(103,95,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA MEDAN','','Jalan MG. Manurung, Kawasan Industri Amplas, KM 9,5. Kelurahan Timbang Deli, Kecamatan Medan, Amplas, Kota Medan','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sumatera Utara'),
+(104,90,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA DC PALU 2','','Jl. Karanjalemba no.16, Birobuli Selatan, Palu Selatan, Kota Palu, Sulawesi Tengah, Kode Pos 94364','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Tengah'),
+(105,92,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA DC MANADO','','JL. RAYA MANADO BITUNG KM 15, KOMPLEKS PERGUDANGAN OLIMPIK GRUP, KEL. KOLONGAN KEC KALAWAT, MINAHASA UTARA, MANADO SULUT','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Utara'),
+(106,71,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA DC YOGYAKARTA','','JL. JATI No. 262, TEGAL PASAR, BANGUN TAPAN, BANTUL YOGYAKARTA, Telp. 027404932186','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Daerah Istimewa Yogyakarta'),
+(107,89,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA DC MAKASSAR','','JL. Kima Raya KM.8 SS No. 23, Biringkanaya - Daya, Makasar 90245','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Selatan'),
+(108,76,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA DC SAMARINDA','','JL. SURYANATA RT 015 KOMPLEK B, SAMARINDA, Telp., Fax. (0541)111682','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kalimantan Timur'),
+(109,72,1044,'PT. SUMBER HIDUP SEHAT','PT. SUMBER HIDUP SEHAT DC. SIDOARJO','','Komplek Pergudangan dan Industri, Non B3 Meiko Abadi III Blok B 32.','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
+(110,71,1044,'PT. SUMBER HIDUP SEHAT','PT. SUMBER HIDUP SEHAT DC. SEMARANG','','Jl. Fatmawati No.18 RT. 03 RW 25 Kel. Sendangmulyo, kec. Tembalang.','','','',0,'',0,0,0,0,0,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Tengah'),
+(111,70,1006,'TOSERBA YOGYA/GRIYA','TOSERBA YOGYA/GRIYA  DC.BUAH BATU',NULL,'Jl.Terusan Buah Batu No.12  Rt.06/Rw.04 \r\nKel. Batununggal   Kec. Bandung Kidul\r\nKota Bandung\r\nBANDUNG',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-08-10 05:03:06','2023-08-10 05:03:06',NULL),
+(112,70,1006,'TOSERBA YOGYA/GRIYA','TOSERBA YOGYA/GRIYA  DC.GRIYA CENTER',NULL,'JL.JAKARTA  No.53 \r\nBANDUNG',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-08-10 05:04:18','2023-08-10 05:04:18',NULL),
+(113,66,973,'PT. INTI CAKRAWALA MAJU','PT. INTI CAKRAWALA MAJU DC.YOGYAKARTA',NULL,'JL. MAGELANG KM,6\r\nSINDUADI, MELATI, SLEMAN\r\nDAERAH ISTIMEWA YOGYAKARTA',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-08-10 05:07:26','2023-08-10 05:07:26',NULL),
+(114,64,956,'PT. INTI CAKRAWALA MAJU','PT. INTI CAKRAWALA MAJU DC.CIKOKOL',NULL,'JL.MH THAMRIN  RT 001/002\r\nKEL CIKOKOL , KEC TANGERANG\r\nBANTEN - 15117',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-08-10 05:08:38','2023-08-10 05:08:38',NULL),
+(115,64,956,'PT. INTI CAKRAWALA MAJU','PT. INTI CAKRAWALA MAJU DC.TANGERANG',NULL,'JL. GATOT SUBROTO KM. 5 NO. 4\r\nRT.001 / 001  JATI UWUNG\r\nTANGERANG,BANTEN 15138',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-08-10 05:09:33','2023-08-10 05:09:33',NULL),
+(116,70,1002,'PT. INTI CAKRAWALA MAJU','PT. INTI CAKRAWALA MAJU DC.SUKABUMI',NULL,'JL.LINGKAR SELATAN  NO.26\r\nSUDAJAYA HILIR, BAROS\r\nJAWA BARAT, SUKABUMI - 43161',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-08-10 05:10:37','2023-08-10 05:10:37',NULL),
+(117,94,1413,'PT. INTI CAKRAWALA MAJU','PT. INTI CAKRAWALA MAJU DC.PALEMBANG',NULL,'JL. PANGERAN AYIN NO.326 RT. 05 / RW. 03\r\nKEL. SUKAMAJU, KEC. SAKO\r\nPALEMBANG\r\n711822123',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-08-10 05:11:31','2023-08-10 05:11:31',NULL),
+(118,64,955,'PT.PERINTIS PELAYANAN PARIPURNA','PT.PERINTIS PELAYANAN PARIPURNA',NULL,'JL. Raya Serang KM.10 Pos Bitung, RT.017/004 \r\nDesa Kadu, Kec.Curug, Kab. Tangerang',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-08-10 05:14:23','2023-08-10 05:14:23',NULL),
+(119,64,955,'PT. CENTURY FRANCHISINDO UTAMA','PT. CENTURY FRANCHISINDO UTAMA',NULL,'JL. Raya Serang KM.10 , RT.017/004 \r\nDesa Kadu jaya, Kec.Curug, Kab. Tangerang',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-08-10 05:16:10','2023-08-10 05:16:10',NULL),
+(120,70,1021,'PT. Hero Supermarket, Tbk','PT. Hero Supermarket, Tbk',NULL,'JL. INDOFARMA  RT 01  RW 10 \r\nCIBITUNG - BEKASI',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-08-10 05:17:33','2023-08-10 05:17:33',NULL),
+(121,71,1048,'BOOTS','BOOTS DC SEMARANG',NULL,'Jl.Madukoro Raya, Kerobokan Kec, Semarang Barat Kota Semarang',NULL,NULL,NULL,NULL,NULL,0,0,0,0,1,75,'2023-08-16 04:14:41','2023-08-30 04:41:46',NULL),
+(122,87,1300,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR PEKANBARU',NULL,'JL.SOEKARNO HATTA NO,18\r\nRT01 RW,08 KEL SIDOMULYOBARAT\r\nKEC TAMPAN, PEKANBARU 28294',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-08-16 04:35:44','2023-08-16 04:35:44',NULL),
+(123,70,1014,'APT','PT.SAPTA PRIMA MEDIKA',NULL,'JL.KP MUARA BERES No.55 \r\nRT.02/RW 04 KEL.SUKAHATI\r\nCIBINONG-BOGOR',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-08-22 04:40:10','2023-08-22 04:40:10',NULL),
+(124,72,1094,'PT. INTI CAKRAWALA CITRA','PT.INTI CAKRAWALA CITRA .DC SURABAYA',NULL,'JL. RAYA JEMURSARI NO. 351\r\nSURABAYA \r\nTELP. 8439988',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-08-24 03:34:48','2023-08-24 03:34:48',NULL),
+(125,64,955,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS THE BREEZE BSD CITY',NULL,'The Breeze BSD City # L.63A-Lake Level\r\nJl. BSD Green Office Park, Kelurahan Sampora\r\nKec, Cisauk. Kab, Tangerang Banten 15345',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-08-25 02:20:49','2023-09-01 03:07:35',NULL),
+(126,69,990,'PT. INTI CAKRAWALA CITRA','PT.INTI CAKRAWALA CITRA .IDG JAMBI',NULL,'JL.LINGKAR SELATAN NO.18 RT.36\r\nKELURAHAN KENALI ASAM BAWAH\r\nKEC.KOTA BARU \r\nKOTA JAMBI',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-08-26 03:25:03','2023-08-26 03:25:03',NULL),
+(127,67,975,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS GANDARIA CITY MALL',NULL,'Jl.Sultan Iskandar Muda, Rt.10/Rw.6\r\nKebayora Lama Utara, Kec.Kebayoran Lama\r\nJakarta Selatan.DKI Jakarta 12240',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-08-30 04:44:20','2023-08-30 04:44:20',NULL),
+(128,70,1012,'PT.TEKNOLOGI MEDIKA PRATAMA','PT.TEKNOLOGI MEDIKA PRATAMA',NULL,'Komplek Pergudangan Kubik Logistics\r\nGudang E1 E2 E7\r\nJl. Tugu Raya Rt.10 /Rw.10\r\nDs / Kel Tugu. Kec Cimanggis,Kota Depok\r\nProv .Jawa Barat',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-08-31 04:40:38','2023-08-31 04:40:38',NULL),
+(129,67,975,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS BLOK M PLAZA',NULL,'Plaza Blok M, UG 03 – 04\r\nJl. Bulungan No.76, Kel, Kramat Pela\r\nKec, Kebayoran Baru, Kota Jakarta Selatan\r\nDKI Jakarta 12130\r\n021-7209175',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-09-02 04:46:37','2023-09-02 04:46:37',NULL),
+(130,67,975,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS AEON TANJUNG BARAT',NULL,'AEON Mall Tanjung Barat # Level 3F,Unit No.3-12A\r\nJl.Raya Tanjung Barat No.163.Rt 12/Rw 4.\r\nKel, Tanjung Barat. Kec, Jagakarsa. Kota Administrasi \r\nJakarta Selatan. DKI Jakarta 12530',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-09-06 02:27:52','2023-09-06 02:27:52',NULL),
+(131,67,978,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS CENTRAL PARK',NULL,'Central Park Mall Lantai LG No. Unit L-214A & L-215\r\nJl. Let.Jend.S. Parman Kav.28, Kel. Tanjung Duren Selatan\r\nKec. Grogol Petamburan, Kota Adm Jakarta Barat\r\nDKI Jakarta 11470',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-09-08 03:45:05','2023-09-08 03:45:05',NULL),
+(132,67,975,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS RUKO KEMANG',NULL,'Jl. Kemang Raya No.24 A   Rt.10/Rw.05\r\nKel,Bangka.  Kec, Mampang Prapatan\r\nKota Jakarta Selatan.\r\nDKI Jakarta 12730\r\n0858-9235-1967',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-09-19 06:40:09','2023-09-19 06:40:09',NULL),
+(133,72,1075,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, DC MADIUN',NULL,'JL. RAYA SURABAYA - MADIUN\r\nDUSUN IV, BONGSOPOTRO\r\nKEC. SARADAN, KAB. MADIUN\r\nJAWA TIMUR',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-10-02 06:02:04','2024-05-17 02:58:52',NULL),
+(134,74,1113,'PT. INTI CAKRAWALA CITRA','INDOGROSIR BANJARMASIN',NULL,'JL.A.YANI KM 12,2\r\nKEL.GAMBUT BARAT KAB.BANJAR\r\nBANJARMASIN\r\n70652',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-10-07 03:21:40','2023-10-07 03:21:40',NULL),
+(135,95,1427,'PT. INDOMARCO PRISMATAMA','PT.INDOMARCO PRISMATAMA DC STABAT',NULL,'JL. LINTAS SUMATERA  KEL, KARANG REJO\r\nKEC, STABAT  KOTA STABAT\r\nKAB, LANGKAT SUMATERA UTARA 20811',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-10-09 04:38:20','2023-10-09 04:38:20',NULL),
+(136,67,977,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS SOGO PLAZA SENAYAN',NULL,'Mall Plaza Senayan,lantai 1 #101A0\r\nJl. Asia Afrika No.8, Kelurahan Glora, Kec. Tanah Abang\r\nKota Adm Jakarta Pusat\r\nDKI Jakarta 10270\r\n021-57900058',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-10-12 06:27:38','2023-10-12 06:27:38',NULL),
+(137,64,955,'PT.PERINTIS PELAYANAN PARIPURNA','PT.PERINTIS PELAYANAN PARIPURNA (GUDANG CENTURY)',NULL,'GUDANG CENTURY \r\n JL. Raya Serang KM.10 Pos Bitung, RT.017/004 \r\nDesa Kadu, Kec.Curug, Kab. Tangerang\r\nTelp. 021-59490686',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-10-16 08:19:11','2023-10-16 08:19:11',NULL),
+(138,71,1028,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA .DC BOYOLALI',NULL,'JL. NASIONAL 16 \r\n(JL. SEMARANG SURAKARTA)\r\nKEL.WINONG , KEC. BOYOLALI\r\nKAB.BOYOLALI, JAWA TENGAH',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-10-20 03:48:27','2023-10-20 03:48:27',NULL),
+(139,64,956,'PT. INTI CAKRAWALA CITRA','PT.INTI CAKRAWALA CITRA . IDG TANGERANG',NULL,'JL. GATOT SUBROTO KM. 5 NO. 4\r\nJATI UWUNG\r\nTANGERANG 15138',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-10-25 08:38:46','2023-10-25 08:38:46',NULL),
+(140,67,976,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS GOLF ISLAND BATAVIA PIK',NULL,'Rukan Beach View Batavia Golf Island Blok.A No.80\r\nJl. Pantai Indah Kapuk, Kel. Kamal Muara\r\nKec. Penjaringan, Kota Administrasi Jakarta Utara\r\nProv. DKI Jakarta 14470',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-10-26 06:17:18','2023-10-26 06:17:18',NULL),
+(141,72,1077,'PT. INTI CAKRAWALA MAJU','PT. INTI CAKRAWALA MAJU DC.MALANG',NULL,'JL. S . SUPRIADI No 170 A\r\nKEL. KEBONSARI  KEC. SUKUN MALANG\r\nMALANG JAWA TIMUR',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-11-04 02:28:23','2023-11-04 02:28:23',NULL),
+(142,95,1427,'PT. INDOMARCO PRISMATAMA','PT.INDOMARCO PRISMATAMA DC STABAT',NULL,'JL. LINTAS SUMATERA  KEL. KARANG REJO\r\nKEC. STABAT KOTA STABAT\r\nKAB.LANGKAT SUMUT 20811',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-11-06 07:58:54','2023-11-06 07:58:54',NULL),
+(143,67,976,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS KELAPA GADING MALL',NULL,'Mall Kelapa Gading,lantai Ground G-73B\r\nJl. Bulevard Kelapa Gading Blok M,Rt 13/ Rw 18\r\nKel, Kelapa Gading Timur. Kec, Kelapa Gading\r\nKota Adm Jakarta Utara, DKI Jakarta 14241',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-11-11 03:06:15','2023-11-11 03:06:15',NULL),
+(144,64,955,'WAREHOUSE WATSONS','WAREHOUSE WATSONS',NULL,'KOMPLEK PERGUDANGAN NIHON SEIMA BLOK H \r\n JL. GATOT SUBROTO KM.8 \r\nDesa Kadujaya, Kec.Curug, Kab. Tangerang',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2023-11-21 04:10:02','2023-11-21 04:10:02',NULL),
+(145,67,977,'PT.GOGOBLI ASIA TEKNOLOGI','PT.GOGOBLI ASIA TEKNOLOGI',NULL,'Jl.Palmerah Utara  No.61A\r\nGelora Tanah Abang\r\nJakarta Pusat',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-01-20 02:46:38','2024-01-20 02:46:38',NULL),
+(146,71,1040,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, DC TEGAL',NULL,'DC TEGAL\r\nJl. Jalan Raya Lingkar Slawi,desa Paguyangan\r\nPenusupan,Kecamatan Pangkah\r\nKabupaten Tegal Jateng',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-01-20 04:45:13','2024-01-20 04:45:13',NULL),
+(147,89,1322,'APT','APT CHOPPER FARMA',NULL,'JL.PACCARAKANG NO.66 \r\nKEL,PACCERAKKANG\r\nKEC,BIRINGKANAYA  KOTA MAKASAR',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-01-29 12:21:10','2024-01-29 12:21:10',NULL),
+(148,72,1091,'APT','APT SYAKIRA FARMA',NULL,'RUKO VALENCIA BLOK AA NO.29\r\nKEC.GEDANGAN   KAB. SIDOARJO\r\nPROV.JAWA TIMUR',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-01-29 12:22:40','2024-01-29 12:22:40',NULL),
+(149,82,1212,'APT','APT MANDIRI',NULL,'JL.DARUSSALAM  NO.44\r\nGP JAWA BARU\r\nBANDA SAKTI LHOKSEUMAWE',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-01-29 12:24:19','2024-01-29 12:24:19',NULL),
+(150,93,1385,'APT','APT SYUHADA',NULL,'JL.TEUKU UMAR  NO.1A \r\nSIMPANG ALAI -  PADANG',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-01-29 12:25:37','2024-01-29 12:25:37',NULL),
+(151,87,1300,'APT','APT AKASIA FARMA',NULL,'JL.UTAMA / TENGKU BEY KOMP BUMI SEJAHTERA\r\nBLOK A2  NO.05\r\nKEL.SIMPANG TIGA  KEC. BUKIT RAYA\r\nKOTA PEKANBARU',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-01-29 12:28:24','2024-01-29 12:28:24',NULL),
+(152,89,1322,'APT','APT ARKA MEDIKA',NULL,'JL.UJUNG BORI LAMA  NO.4\r\nKEL.ANTANG  KEC. MANGGALA\r\nKOTA MAKASAR',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-01-29 12:29:23','2024-01-29 12:29:23',NULL),
+(153,70,1006,'APT','APT KARNA FARMA',NULL,'JL.RAJAWALI BARAT  NO.7A\r\nKEL.MALEBER  KEC.ANDIR\r\nKOTA BANDUNG. JAWA BARAT',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-01-29 12:32:25','2024-01-29 12:32:25',NULL),
+(154,75,1132,'TO ','TO SUBUR MAKMUR',NULL,'JL.D.I PANJAITAN  NO.63\r\nMB KETAPANG\r\nKALIMANTAN TENGAH',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-01-29 12:34:39','2024-01-29 12:34:39',NULL),
+(155,70,1006,'APT','APT ALMA FELIZ',NULL,'JL.SOMA  NO.16\r\nBABAKAN SARI\r\nKEC.KIARACONDONG. KOTA BANDUNG',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-01-29 12:35:24','2024-01-29 12:35:24',NULL),
+(156,92,1374,'APT','APT SEHAT FARMA IV',NULL,'JL.DURIAN RAYA \r\nKEL.PANIKI DUA  KEC.MAPANGET\r\nKOTA MANADO',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-01-29 12:38:31','2024-01-29 12:38:31',NULL),
+(157,71,1030,'TO ','TO ABADI',NULL,'JL.SUNAN KALIJAGA 33\r\nDEMAK',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-01-29 12:39:12','2024-01-29 12:39:12',NULL),
+(158,71,1041,'TO ','TO BETA',NULL,'JL.JEND SUTOYO  NO.45\r\nKEC,PURWOKERTO BARAT \r\nKAB, BANYUMAS',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-02-02 07:54:12','2024-02-02 07:54:12',NULL),
+(159,72,1087,'TO ','TO SUMBER SEHAT',NULL,'JL.GATOT SUBROTO  NO.47\r\nRT 02 / RW 02\r\nPAKUNDEN PONOROGO. JAWA TIMUR',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-02-02 07:55:38','2024-02-02 07:55:38',NULL),
+(160,72,1091,'APT','APT BETRO',NULL,'JL.GARUDA  NO.100\r\nBETRO-SEDATI-SIDOARJO\r\nJAWA TIMUR',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-02-02 07:56:29','2024-02-02 07:56:29',NULL),
+(161,72,1097,'TO ','TO SAHABAT',NULL,'JL.KHR.ABDUL FATTAH\r\nDS/KEL.SEMBUNG\r\nKEC.TULUNGAGUNG. JAWA TIMUR',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-02-02 07:58:19','2024-02-02 07:58:19',NULL),
+(162,70,1009,'APT','APT FITAQA FARMA',NULL,'JL.Ir H.JUANDA\r\nDS / KEL.SUKAMULYA KEC. BUNGURSARI\r\nKOTA TASIKMALAYA. JAWA BARAT',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-02-02 07:59:34','2024-02-02 07:59:34',NULL),
+(163,63,948,'TO ','TO SEHAT',NULL,'JL.JEND SUDIRMAN  NO.23\r\nPASIR PADI,GIRIMAYA\r\nPANGKAL PINANG',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-02-02 08:02:05','2024-02-02 08:02:05',NULL),
+(164,95,1429,'APT','APT AK - JAYA',NULL,'JL.BESARDELI TUA KM.8,5  NO.8\r\nDS.SUKA MAKMUR\r\nKOMPLEK SUKA MAKMUR WALK.DELI TUA MEDAN',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-02-02 08:03:49','2024-02-02 08:03:49',NULL),
+(165,66,974,'APT','APT KARANG JATI',NULL,'JL.SUNGAPAN JETIS TAMANTIRTO\r\nKASIHAN,BANTUL\r\nYOGYAKARTA',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-02-02 08:05:47','2024-02-02 08:05:47',NULL),
+(166,67,978,'APT','APT DZAWIN',NULL,'JL.HAJI SELONG NO.54 B\r\nRT 01 / 01.DURI KOSAMBI - CENGKARENG\r\nJAKARTA  BARAT',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-02-02 08:22:49','2024-02-02 08:22:49',NULL),
+(167,94,1413,'APT','APT REFAH',NULL,'JL.SLAMET RIYADI LORONG MENTOK NO.27\r\nRT 08 / 03.  KEL.11 ILIR  KEC.ILIR TIMUR III\r\nKOTA PALEMBANG',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-02-02 08:27:04','2024-02-02 08:27:04',NULL),
+(168,71,1048,'TIRTA HUSADA FARMA','TIRTA HUSADA FARMA',NULL,'JL.SETIABUDI  NO.29\r\nSRONDOL KULON . BANYUMANIK\r\nSEMARANG',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-02-02 08:32:14','2024-02-02 08:32:14',NULL),
+(169,71,1041,'PT. INTI CAKRAWALA CITRA','PT.INTI CAKRAWALA CITRA .DC PURWOKERTO',NULL,'JL.RAYA GERILYA BARAT,TANJUNG\r\nKEDUNGWRINGIN,PURWOKERTO-SELATAN\r\nPATIKRAJA,BANYUMAS.',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-02-07 04:31:15','2024-02-07 04:31:15',NULL),
+(170,72,1069,'PT. INDOMARCO PRISMATAMA','PT.INDOMARCO PRISMATAMA DC JOMBANG 2',NULL,'JL. RAYA PETERONGAN KM 71,3\r\nDESA CANDI - DESA SAMBIREJO\r\nKEC. JOGOROTO, KAB JOMBANG  61485',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-03-05 03:17:55','2024-03-05 03:17:55',NULL),
+(171,70,1007,'PT. INTI CAKRAWALA MAJU','PT.INTI CAKRAWALA MAJU. DC KARAWANG',NULL,'JL. Lingkar Tanjung Pura No.22\r\nNagasari, Karawang Barat\r\nKarawang, Jawa Barat - 41312',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-04-05 02:06:59','2024-04-05 02:06:59',NULL),
+(172,71,1041,'PT. INTI CAKRAWALA MAJU','PT. INTI CAKRAWALA MAJU DC PURWOKERTO',NULL,'JL. RAYA GERILYA BARAT, TANJUNG\r\nKEDUNGWRINGIN, PURWOKERTO -\r\nSELATAN, PATIKRAJA, BANYUMAS',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-05-04 02:18:42','2024-05-04 02:18:42',NULL),
+(173,76,1148,'PT. INDOMARCO PRISMATAMA','PT.INDOMARCO PRISMATAMA DC SAMARINDA',NULL,'JL. EKONOMI    NO 1\r\nDESA LOA BUAH. KEC,SUNGAI KUNJANG\r\nKODYA SAMARINDA\r\n0541-7770734',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-06-11 02:16:57','2024-06-11 02:16:57',NULL),
+(174,91,1354,'PT. INTI CAKRAWALA MAJU','PT.INTI CAKRAWALA MAJU. DC KENDARI',NULL,'JL MADUSILA NO.19 KEC POASIA\r\nKEL.ANDUONOHU\r\nKENDARI SULAWESI TENGGARA',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-06-11 03:21:02','2024-06-11 03:21:02',NULL),
+(175,71,1048,'ICM SEMARANG','PT.INTI CAKRAWALA MAJU. DC SEMARANG',NULL,'JL.RAYA KALIGAWE NO.38 RT.01/01\r\nTERBOYO WETAN,GENUK,SEMARANG,JAWA TENGAH\r\n50112',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,75,'2024-07-02 03:13:37','2024-07-02 03:13:37',NULL),
+(176,71,1036,'daffa hanaris','daffa hanaris',NULL,'sumbulan lor rt 02 rw 13\r\nmakamhaji',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,3,'2024-10-17 04:42:38','2024-10-17 04:42:38',NULL),
+(177,NULL,NULL,NULL,'Arka',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,NULL,'2024-12-19 09:31:42','2024-12-19 09:31:42',NULL);
 
 /*Table structure for table `core_expedition` */
 
@@ -2859,7 +2917,7 @@ CREATE TABLE `inv_item_stock` (
 
 insert  into `inv_item_stock`(`item_stock_id`,`goods_received_note_id`,`goods_received_note_item_id`,`item_stock_date`,`purchase_order_item_id`,`warehouse_id`,`purchase_order_no`,`buyers_acknowledgment_no`,`no_retur_barang`,`nota_retur_pajak`,`item_category_id`,`item_type_id`,`item_id`,`item_unit_id`,`category`,`barang`,`satuan`,`item_total`,`item_unit_cost`,`item_unit_total`,`item_unit_price`,`item_unit_id_default`,`item_default_quantity_unit`,`quantity_unit`,`item_weight_default`,`item_weight_unit`,`package_id`,`package_total`,`package_unit_id`,`package_price`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (1,0,0,'2024-12-13',0,1,'','','','',1,1,0,10,'','','',200,1000,0,0,10,0,200,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-16 04:12:19'),
-(2,0,0,'2024-12-13',0,1,'','','','',1,2,0,22,'','','',50,1000,0,0,22,0,50,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-16 04:12:19'),
+(2,0,0,'2024-12-13',0,1,'','','','',1,2,0,22,'','','',50,1000,0,0,22,0,40,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-19 09:46:26'),
 (3,0,0,'2024-12-13',0,1,'','','','',1,3,0,10,'','','',0,0,0,0,10,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-13 15:12:19'),
 (4,0,0,'2024-12-13',0,1,'','','','',1,4,0,23,'','','',0,0,0,0,23,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-13 15:12:19'),
 (5,0,0,'2024-12-13',0,1,'','','','',1,5,0,23,'','','',0,0,0,0,23,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-13 15:12:19'),
@@ -4644,28 +4702,6 @@ insert  into `purchase_payment`(`payment_id`,`branch_id`,`supplier_id`,`payment_
 (30,1,8,'2024-01-20','0001/PH/I/2024','',8,NULL,1066479553.00,1066479553.00,0.00,1066479553.00,'',0.00,1066479553.00,0.00,NULL,NULL,0,NULL,'','0',0,NULL,0,75,'2024-01-20 08:11:23','2024-01-20 08:11:23'),
 (31,1,8,'2024-01-20','0002/PH/I/2024','',8,NULL,1261217520.00,1261217520.00,0.00,1261217520.00,'',0.00,1261217520.00,0.00,NULL,NULL,0,NULL,'','0',0,NULL,0,75,'2024-01-20 08:18:08','2024-01-20 08:18:08');
 
-/*Table structure for table `purchase_payment_giro` */
-
-DROP TABLE IF EXISTS `purchase_payment_giro`;
-
-CREATE TABLE `purchase_payment_giro` (
-  `payment_giro_id` bigint NOT NULL AUTO_INCREMENT,
-  `payment_id` bigint DEFAULT '0',
-  `account_id` int NOT NULL DEFAULT '0',
-  `payment_giro_bank_name` varchar(50) DEFAULT '',
-  `payment_giro_account_name` varchar(100) DEFAULT '',
-  `payment_giro_number` varchar(50) DEFAULT '',
-  `payment_giro_amount` varchar(20) DEFAULT '0',
-  `payment_giro_token` varchar(250) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`payment_giro_id`),
-  UNIQUE KEY `payment_giro_token` (`payment_giro_token`),
-  KEY `FK_purchase_payment_giro_payment_id` (`payment_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
-/*Data for the table `purchase_payment_giro` */
-
 /*Table structure for table `purchase_payment_item` */
 
 DROP TABLE IF EXISTS `purchase_payment_item`;
@@ -4835,9 +4871,8 @@ DROP TABLE IF EXISTS `sales_collection`;
 
 CREATE TABLE `sales_collection` (
   `collection_id` bigint NOT NULL AUTO_INCREMENT,
-  `branch_id` int DEFAULT '0',
+  `customer_id` int DEFAULT '0',
   `salesman_id` int DEFAULT '0',
-  `customer_id` bigint DEFAULT NULL,
   `section_id` int DEFAULT NULL,
   `project_id` int DEFAULT '0',
   `cash_account_id` int NOT NULL DEFAULT '0',
@@ -4869,110 +4904,13 @@ CREATE TABLE `sales_collection` (
   PRIMARY KEY (`collection_id`),
   UNIQUE KEY `collection_token` (`collection_token`),
   UNIQUE KEY `collection_token_void` (`collection_token_void`),
-  KEY `FK_sales_collection_customer_id` (`customer_id`),
   KEY `FK_sales_collection_salesman_id` (`salesman_id`),
-  KEY `FK_sales_collection_section_id` (`section_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+  KEY `FK_sales_collection_section_id` (`section_id`),
+  KEY `FK_sales_collection_customer_id` (`customer_id`),
+  CONSTRAINT `FK_sales_collection_customer_id` FOREIGN KEY (`customer_id`) REFERENCES `core_customer` (`customer_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_collection` */
-
-insert  into `sales_collection`(`collection_id`,`branch_id`,`salesman_id`,`customer_id`,`section_id`,`project_id`,`cash_account_id`,`collection_no`,`collection_date`,`reference_number`,`collection_remark`,`collection_amount`,`collection_allocated`,`collection_shortover`,`collection_total_amount`,`collection_shortover_remark`,`collection_total_cash_amount`,`collection_total_transfer_amount`,`collection_total_giro_amount`,`collection_giro_status`,`collection_token`,`collection_token_void`,`voided_id`,`voided_on`,`voided_remark`,`posted`,`posted_by`,`posted_on`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(25,1,0,18,NULL,0,8,'0001/PP/I/2024','2024-01-20','',NULL,6010253.63,6010253.63,0.00,6010253.63,NULL,0.00,6010253.63,0.00,0,NULL,NULL,0,NULL,NULL,'0','',NULL,0,75,'2024-01-20 08:01:40','2024-01-20 08:01:40');
-
-/*Table structure for table `sales_collection_discount` */
-
-DROP TABLE IF EXISTS `sales_collection_discount`;
-
-CREATE TABLE `sales_collection_discount` (
-  `collection_id` bigint NOT NULL AUTO_INCREMENT,
-  `branch_id` int DEFAULT '0',
-  `salesman_id` int DEFAULT '0',
-  `customer_id` bigint DEFAULT NULL,
-  `section_id` int DEFAULT NULL,
-  `project_id` int DEFAULT '0',
-  `cash_account_id` int NOT NULL DEFAULT '0',
-  `collection_no` varchar(20) DEFAULT '',
-  `collection_date` date DEFAULT NULL,
-  `reference_number` varchar(20) DEFAULT '',
-  `collection_remark` text,
-  `collection_amount` decimal(20,2) DEFAULT '0.00',
-  `collection_allocated` decimal(20,2) DEFAULT '0.00',
-  `collection_shortover` decimal(20,2) DEFAULT '0.00',
-  `collection_total_amount` decimal(20,2) DEFAULT '0.00',
-  `collection_shortover_remark` text,
-  `collection_total_cash_amount` decimal(20,2) DEFAULT '0.00',
-  `collection_total_transfer_amount` decimal(20,2) DEFAULT '0.00',
-  `collection_total_giro_amount` decimal(20,2) DEFAULT '0.00',
-  `collection_giro_status` decimal(1,0) DEFAULT '0',
-  `collection_token` varchar(250) DEFAULT NULL,
-  `collection_token_void` varchar(250) DEFAULT NULL,
-  `voided_id` int DEFAULT '0',
-  `voided_on` datetime DEFAULT NULL,
-  `voided_remark` text,
-  `posted` enum('1','0') DEFAULT '0',
-  `posted_by` varchar(20) DEFAULT '',
-  `posted_on` datetime DEFAULT NULL,
-  `data_state` decimal(1,0) DEFAULT '0',
-  `created_id` int DEFAULT '0',
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`collection_id`),
-  UNIQUE KEY `collection_token` (`collection_token`),
-  UNIQUE KEY `collection_token_void` (`collection_token_void`),
-  KEY `FK_sales_collection_customer_id` (`customer_id`),
-  KEY `FK_sales_collection_salesman_id` (`salesman_id`),
-  KEY `FK_sales_collection_section_id` (`section_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
-
-/*Data for the table `sales_collection_discount` */
-
-/*Table structure for table `sales_collection_giro` */
-
-DROP TABLE IF EXISTS `sales_collection_giro`;
-
-CREATE TABLE `sales_collection_giro` (
-  `collection_giro_id` bigint NOT NULL AUTO_INCREMENT,
-  `collection_id` bigint DEFAULT '0',
-  `account_id` int NOT NULL DEFAULT '0',
-  `collection_giro_bank_name` varchar(50) DEFAULT '',
-  `collection_giro_number` varchar(20) DEFAULT '',
-  `collection_giro_amount` decimal(20,2) DEFAULT '0.00',
-  `collection_giro_due_date` date DEFAULT NULL,
-  `collection_giro_account_name` varchar(50) DEFAULT '',
-  `collection_giro_token` varchar(250) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`collection_giro_id`),
-  UNIQUE KEY `collection_giro_token` (`collection_giro_token`),
-  KEY `FK_sales_collection_giro_bank_id` (`collection_giro_bank_name`),
-  KEY `FK_sales_collection_giro_collection_id` (`collection_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
-/*Data for the table `sales_collection_giro` */
-
-/*Table structure for table `sales_collection_giro_discount` */
-
-DROP TABLE IF EXISTS `sales_collection_giro_discount`;
-
-CREATE TABLE `sales_collection_giro_discount` (
-  `collection_giro_id` bigint NOT NULL AUTO_INCREMENT,
-  `collection_id` bigint DEFAULT '0',
-  `account_id` int NOT NULL DEFAULT '0',
-  `collection_giro_bank_name` varchar(50) DEFAULT '',
-  `collection_giro_number` varchar(20) DEFAULT '',
-  `collection_giro_amount` decimal(20,2) DEFAULT '0.00',
-  `collection_giro_due_date` date DEFAULT NULL,
-  `collection_giro_account_name` varchar(50) DEFAULT '',
-  `collection_giro_token` varchar(250) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`collection_giro_id`),
-  UNIQUE KEY `collection_giro_token` (`collection_giro_token`),
-  KEY `FK_sales_collection_giro_bank_id` (`collection_giro_bank_name`),
-  KEY `FK_sales_collection_giro_collection_id` (`collection_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
-/*Data for the table `sales_collection_giro_discount` */
 
 /*Table structure for table `sales_collection_item` */
 
@@ -5004,126 +4942,9 @@ CREATE TABLE `sales_collection_item` (
   UNIQUE KEY `collection_item_token_void` (`collection_item_token_void`),
   KEY `FK_sales_collection_collection_id` (`collection_id`) USING BTREE,
   KEY `FK_sales_collection_sales_invoice_id` (`sales_invoice_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_collection_item` */
-
-insert  into `sales_collection_item`(`collection_item_id`,`collection_id`,`sales_invoice_id`,`sales_invoice_no`,`sales_invoice_date`,`sales_invoice_amount`,`subtotal_invoice_amount`,`discount_percentage`,`discount_amount`,`total_amount`,`paid_amount`,`owing_amount`,`shortover_amount`,`allocation_amount`,`collection_discount`,`last_balance`,`collection_item_token`,`collection_item_token_void`,`created_at`,`updated_at`) values 
-(35,25,20,'0002/TMO.ME/01/2024','2024-01-20',6510254,0,0,0,6510253.63,0.00,6510253.63,0.00,6010253.63,0.00,500000.00,NULL,NULL,'2024-01-20 08:01:40','2024-01-20 08:01:40');
-
-/*Table structure for table `sales_collection_item_discount` */
-
-DROP TABLE IF EXISTS `sales_collection_item_discount`;
-
-CREATE TABLE `sales_collection_item_discount` (
-  `collection_item_id` bigint NOT NULL AUTO_INCREMENT,
-  `collection_id` bigint DEFAULT '0',
-  `sales_invoice_id` bigint DEFAULT '0',
-  `sales_invoice_no` varchar(20) DEFAULT '',
-  `sales_invoice_date` date DEFAULT NULL,
-  `sales_invoice_amount` decimal(20,0) DEFAULT '0',
-  `subtotal_invoice_amount` decimal(20,0) DEFAULT '0',
-  `discount_percentage` decimal(20,0) DEFAULT '0',
-  `discount_amount` decimal(20,0) DEFAULT '0',
-  `total_amount` decimal(20,2) DEFAULT '0.00',
-  `paid_amount` decimal(20,2) DEFAULT '0.00',
-  `owing_amount` decimal(20,2) DEFAULT '0.00',
-  `shortover_amount` decimal(20,2) DEFAULT '0.00',
-  `allocation_amount` decimal(20,2) DEFAULT '0.00',
-  `collection_discount` decimal(20,2) DEFAULT '0.00',
-  `last_balance` decimal(20,2) DEFAULT '0.00',
-  `collection_item_token` varchar(250) DEFAULT NULL,
-  `collection_item_token_void` varchar(250) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`collection_item_id`),
-  UNIQUE KEY `collection_item_token` (`collection_item_token`),
-  UNIQUE KEY `collection_item_token_void` (`collection_item_token_void`),
-  KEY `FK_sales_collection_collection_id` (`collection_id`),
-  KEY `FK_sales_collection_sales_invoice_id` (`sales_invoice_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
-
-/*Data for the table `sales_collection_item_discount` */
-
-/*Table structure for table `sales_collection_piece` */
-
-DROP TABLE IF EXISTS `sales_collection_piece`;
-
-CREATE TABLE `sales_collection_piece` (
-  `sales_collection_piece_id` int NOT NULL AUTO_INCREMENT,
-  `sales_invoice_id` int DEFAULT NULL,
-  `sales_invoice_no` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `sales_collection_piece_remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `sales_collection_piece_type_id` int NOT NULL,
-  `memo_no` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `promotion_no` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `customer_id` int DEFAULT NULL,
-  `total_amount` int DEFAULT NULL,
-  `piece_amount` int DEFAULT NULL,
-  `total_amount_after_piece` int DEFAULT NULL,
-  `claim_date` date DEFAULT NULL,
-  `claim_status` int DEFAULT '0',
-  `data_state` int DEFAULT '0',
-  `created_id` int DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`sales_collection_piece_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-/*Data for the table `sales_collection_piece` */
-
-insert  into `sales_collection_piece`(`sales_collection_piece_id`,`sales_invoice_id`,`sales_invoice_no`,`sales_collection_piece_remark`,`sales_collection_piece_type_id`,`memo_no`,`promotion_no`,`customer_id`,`total_amount`,`piece_amount`,`total_amount_after_piece`,`claim_date`,`claim_status`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(21,64,'0002/SI/VIII/2023',NULL,0,'','',2,27700,1000,26700,NULL,0,0,3,'2023-08-03 07:36:37','2023-08-03 07:36:37'),
-(22,4,'0003/TMO.ME/08/2023',NULL,0,'','',40,6909282,100000,6809282,NULL,0,0,75,'2023-08-24 07:21:30','2023-08-24 07:21:30'),
-(23,4,'0003/TMO.ME/08/2023',NULL,0,'','',40,6909282,NULL,6909282,NULL,0,0,75,'2023-08-24 08:55:10','2023-08-24 08:55:10'),
-(24,4,'0003/TMO.ME/08/2023',NULL,0,'','',40,6909282,NULL,6909282,NULL,0,0,75,'2023-08-24 08:55:12','2023-08-24 08:55:12');
-
-/*Table structure for table `sales_collection_transfer` */
-
-DROP TABLE IF EXISTS `sales_collection_transfer`;
-
-CREATE TABLE `sales_collection_transfer` (
-  `collection_giro_id` bigint NOT NULL AUTO_INCREMENT,
-  `collection_id` bigint DEFAULT '0',
-  `account_id` int NOT NULL DEFAULT '0',
-  `collection_transfer_bank_name` varchar(50) DEFAULT '',
-  `collection_transfer_amount` decimal(20,2) DEFAULT '0.00',
-  `collection_transfer_account_name` varchar(100) DEFAULT '',
-  `collection_transfer_account_no` varchar(20) DEFAULT '0',
-  `collection_transfer_token` varchar(250) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`collection_giro_id`),
-  UNIQUE KEY `collection_transfer_token` (`collection_transfer_token`),
-  KEY `sales_collection_transfer_collection_id` (`collection_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb3;
-
-/*Data for the table `sales_collection_transfer` */
-
-insert  into `sales_collection_transfer`(`collection_giro_id`,`collection_id`,`account_id`,`collection_transfer_bank_name`,`collection_transfer_amount`,`collection_transfer_account_name`,`collection_transfer_account_no`,`collection_transfer_token`,`created_at`,`updated_at`) values 
-(16,25,11,NULL,6010253.63,NULL,NULL,NULL,'2024-01-20 08:01:40','2024-01-20 08:01:40');
-
-/*Table structure for table `sales_collection_transfer_discount` */
-
-DROP TABLE IF EXISTS `sales_collection_transfer_discount`;
-
-CREATE TABLE `sales_collection_transfer_discount` (
-  `collection_giro_id` bigint NOT NULL AUTO_INCREMENT,
-  `collection_id` bigint DEFAULT '0',
-  `account_id` int NOT NULL DEFAULT '0',
-  `collection_transfer_bank_name` varchar(50) DEFAULT '',
-  `collection_transfer_amount` decimal(20,2) DEFAULT '0.00',
-  `collection_transfer_account_name` varchar(100) DEFAULT '',
-  `collection_transfer_account_no` varchar(20) DEFAULT '0',
-  `collection_transfer_token` varchar(250) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`collection_giro_id`),
-  UNIQUE KEY `collection_transfer_token` (`collection_transfer_token`),
-  KEY `sales_collection_transfer_collection_id` (`collection_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
-
-/*Data for the table `sales_collection_transfer_discount` */
 
 /*Table structure for table `sales_customer` */
 
@@ -5228,12 +5049,13 @@ CREATE TABLE `sales_delivery_note` (
   KEY `FK_sales_delivery_note_sales_delivery_order_id` (`sales_delivery_order_id`),
   KEY `FK_sales_delivery_note_sales_order_id` (`sales_order_id`),
   KEY `FK_sales_delivery_note_warehouse_id` (`warehouse_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_delivery_note` */
 
 insert  into `sales_delivery_note`(`sales_delivery_note_id`,`sales_delivery_order_id`,`shipment_planning_id`,`sales_order_id`,`warehouse_id`,`section_id`,`salesman_id`,`customer_id`,`expedition_id`,`sales_delivery_note_cost`,`sales_delivery_note_no`,`ppn_out_amount`,`expedition_receipt_no`,`customer_name`,`customer_address`,`customer_city`,`customer_home_phone`,`customer_mobile_phone1`,`driver_name`,`fleet_police_number`,`purchase_order_no`,`salesman_name`,`sales_delivery_note_date`,`sales_delivery_note_status`,`sales_invoice_status`,`sales_delivery_note_remark`,`posted`,`posted_id`,`posted_on`,`voided_id`,`voided_on`,`voided_remark`,`rejected_id`,`rejected_on`,`rejected_remark`,`branch_id`,`return_status`,`pdp_lost_on_expedition_status`,`buyers_acknowledgment_status`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(1,2,0,1,8,NULL,NULL,176,11,0.00,'0001/SDN/XII/2024',0.00,'111111','',NULL,'','','','dafa','AD1234',NULL,'','2024-12-09',0,0,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,3,'2024-12-09 09:01:12','2024-12-09 09:01:12');
+(1,2,0,1,8,NULL,NULL,176,11,0.00,'0001/SDN/XII/2024',0.00,'111111','',NULL,'','','','dafa','AD1234',NULL,'','2024-12-09',0,0,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,3,'2024-12-09 09:01:12','2024-12-09 09:01:12'),
+(2,3,0,2,1,NULL,NULL,176,11,0.00,'0002/SDN/XII/2024',0.00,'1029102901920','',NULL,'','','','daffa','AD1201308123',NULL,'','2024-12-19',0,0,'ICIBOS',0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,3,'2024-12-19 09:46:25','2024-12-19 09:46:25');
 
 /*Table structure for table `sales_delivery_note_item` */
 
@@ -5276,12 +5098,13 @@ CREATE TABLE `sales_delivery_note_item` (
   KEY `account_id_hpp` (`hpp_account_id`),
   KEY `section_id` (`section_id`),
   KEY `FK_sales_delivery_note_item_sales_delivery_note_id` (`sales_delivery_note_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_delivery_note_item` */
 
 insert  into `sales_delivery_note_item`(`sales_delivery_note_item_id`,`sales_delivery_note_id`,`sales_order_id`,`sales_order_item_id`,`sales_delivery_order_id`,`sales_delivery_order_item_id`,`section_id`,`warehouse_id`,`supplier_id`,`item_category_id`,`item_id`,`item_type_id`,`item_unit_id`,`item_unit_id_unit`,`quantity`,`quantity_unit`,`item_default_quantity_unit`,`item_weight_unit`,`item_batch_number`,`sales_delivery_note_item_token`,`sales_delivery_note_item_token_void`,`return_item_status`,`data_state`,`item_unit_price`,`subtotal_price`,`hpp_amount`,`hpp_account_id`,`created_id`,`created_at`,`updated_at`) values 
-(1,1,1,1,2,2,0,0,0,0,NULL,1,10,0,'100.00','100.00','1','0',NULL,NULL,NULL,0,0,1500.00,150000.00,0.00,0,3,'2024-12-09 09:01:12','2024-12-09 09:01:12');
+(1,1,1,1,2,2,0,0,0,0,NULL,1,10,0,'100.00','100.00','1','0',NULL,NULL,NULL,0,0,1500.00,150000.00,0.00,0,3,'2024-12-09 09:01:12','2024-12-09 09:01:12'),
+(2,2,2,2,3,3,0,0,0,0,NULL,2,22,0,'10.00','10.00','1','0',NULL,NULL,NULL,0,0,100000.00,1000000.00,0.00,0,3,'2024-12-19 09:46:26','2024-12-19 09:46:26');
 
 /*Table structure for table `sales_delivery_note_item_stock` */
 
@@ -5345,12 +5168,13 @@ CREATE TABLE `sales_delivery_order` (
   `updated_remark` text,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_delivery_order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_delivery_order` */
 
 insert  into `sales_delivery_order`(`sales_delivery_order_id`,`warehouse_id`,`sales_order_id`,`sales_delivery_order_no`,`sales_delivery_order_date`,`sales_delivery_order_status`,`sales_delivery_order_remark`,`sales_delivery_note_status`,`sales_delivery_order_cost`,`ppn_out_amount`,`branch_id`,`data_state`,`created_id`,`created_at`,`voided_id`,`voided_on`,`voided_remark`,`updated_id`,`updated_on`,`updated_remark`,`updated_at`) values 
-(2,1,1,'0001/SDO/XII/2024','2024-12-09',0,NULL,1,NULL,0,1,0,3,'2024-12-09 09:00:35',0,NULL,NULL,0,NULL,NULL,'2024-12-09 09:01:12');
+(2,1,1,'0001/SDO/XII/2024','2024-12-09',0,NULL,1,NULL,0,1,0,3,'2024-12-09 09:00:35',0,NULL,NULL,0,NULL,NULL,'2024-12-09 09:01:12'),
+(3,1,2,'0002/SDO/XII/2024','2024-12-19',0,NULL,1,NULL,0,1,0,3,'2024-12-19 09:45:22',0,NULL,NULL,0,NULL,NULL,'2024-12-19 09:46:25');
 
 /*Table structure for table `sales_delivery_order_item` */
 
@@ -5380,12 +5204,13 @@ CREATE TABLE `sales_delivery_order_item` (
   `voided_remark` text,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_delivery_order_item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_delivery_order_item` */
 
 insert  into `sales_delivery_order_item`(`sales_delivery_order_item_id`,`sales_delivery_order_id`,`sales_order_id`,`sales_order_item_id`,`salesman_id`,`customer_id`,`item_id`,`item_unit_id`,`item_batch_number`,`item_type_id`,`quantity`,`quantity_ordered`,`item_unit_price`,`subtotal_price`,`sales_delivery_note_status`,`data_state`,`created_id`,`created_at`,`voided_id`,`voided_on`,`voided_remark`,`updated_at`) values 
-(2,2,1,1,0,176,0,10,'',1,'100.00','100.00',1500,150000.00,0,0,3,'2024-12-09 09:00:35',0,NULL,NULL,'2024-12-09 09:00:35');
+(2,2,1,1,0,176,0,10,'',1,'100.00','100.00',1500,150000.00,0,0,3,'2024-12-09 09:00:35',0,NULL,NULL,'2024-12-09 09:00:35'),
+(3,3,2,2,0,176,0,22,'',2,'10.00','10.00',100000,1000000.00,0,0,3,'2024-12-19 09:45:22',0,NULL,NULL,'2024-12-19 09:45:22');
 
 /*Table structure for table `sales_delivery_order_item_composition` */
 
@@ -7775,12 +7600,13 @@ CREATE TABLE `sales_invoice` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_invoice_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_invoice` */
 
 insert  into `sales_invoice`(`sales_invoice_id`,`branch_id`,`warehouse_id`,`customer_id`,`sales_order_id`,`sales_delivery_note_id`,`collection_method_account_id`,`services_income_id`,`sales_invoice_no`,`sales_invoice_reference_no`,`sales_invoice_date`,`sales_invoice_due_date`,`sales_invoice_remark`,`sales_invoice_status`,`services_income_amount`,`subtotal_item`,`subtotal_amount`,`subtotal_before_discount`,`discount_percentage`,`discount_amount`,`return_status`,`subtotal_after_discount`,`tax_percentage`,`tax_amount`,`goods_received_note_no`,`faktur_tax_no`,`buyers_acknowledgment_id`,`buyers_acknowledgment_no`,`ttf_no`,`kwitansi_status`,`total_amount`,`paid_amount`,`owing_amount`,`shortover_amount`,`last_balance`,`total_discount_amount`,`paid_discount_amount`,`owing_discount_amount`,`shortover_discount_amount`,`discount_last_balance`,`cash_advance_amount`,`change_amount`,`sales_return_amount`,`sales_collection_date`,`sales_invoice_token`,`sales_invoice_token_void`,`voided_id`,`voided_on`,`voided_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(1,1,8,176,1,1,0,0,'0001/TMO.ME/XII/2024','','2024-12-12','2024-12-12',NULL,0,0.00,100.00,166500,0,0.00,0,0,150000,0.00,16500.00,NULL,NULL,285,'1','',0,166500,0,166500,0,0,0,0,0,0,0,0,0,0.00,NULL,NULL,NULL,0,NULL,NULL,0,3,'2024-12-12 06:13:03','2024-12-12 06:13:03');
+(1,1,8,176,1,1,0,0,'0001/TMO.ME/XII/2024','','2024-12-12','2024-12-12',NULL,0,0.00,100.00,166500,0,0.00,0,0,150000,0.00,16500.00,NULL,NULL,285,'1','',0,166500,0,166500,0,0,0,0,0,0,0,0,0,0.00,NULL,NULL,NULL,0,NULL,NULL,0,3,'2024-12-12 06:13:03','2024-12-12 06:13:03'),
+(2,1,1,176,2,2,0,0,'0002/TMO.ME/XII/2024','','2024-12-19','2027-12-20',NULL,0,0.00,10.00,1110000,0,0.00,0,0,1000000,0.00,110000.00,NULL,'1',286,'10101010','',0,1110000,0,1110000,0,0,0,0,0,0,0,0,0,0.00,NULL,NULL,NULL,0,NULL,NULL,0,3,'2024-12-19 09:47:57','2024-12-19 09:47:57');
 
 /*Table structure for table `sales_invoice_item` */
 
@@ -7807,126 +7633,13 @@ CREATE TABLE `sales_invoice_item` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   KEY `sales_invoice_item_id` (`sales_invoice_item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_invoice_item` */
 
 insert  into `sales_invoice_item`(`sales_invoice_item_id`,`sales_invoice_id`,`sales_order_id`,`sales_delivery_note_id`,`sales_delivery_note_item_id`,`item_id`,`item_type_id`,`item_unit_id`,`quantity`,`item_unit_price`,`item_unit_price_tax`,`discount_A`,`discount_B`,`subtotal_price_A`,`subtotal_price_B`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(1,1,1,1,1,0,1,10,100,1500,0,0,NULL,150000,166500,0,3,'2024-12-12 06:13:03','2024-12-12 06:13:03');
-
-/*Table structure for table `sales_kwitansi` */
-
-DROP TABLE IF EXISTS `sales_kwitansi`;
-
-CREATE TABLE `sales_kwitansi` (
-  `sales_kwitansi_id` bigint NOT NULL AUTO_INCREMENT,
-  `sales_kwitansi_no` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `sales_tagihan_no` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `customer_id` int DEFAULT NULL,
-  `start_date` date DEFAULT NULL,
-  `end_date` date DEFAULT NULL,
-  `sales_kwitansi_date` date DEFAULT NULL,
-  `print_type` int DEFAULT NULL,
-  `data_state` int DEFAULT '0',
-  `created_id` int DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`sales_kwitansi_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-/*Data for the table `sales_kwitansi` */
-
-insert  into `sales_kwitansi`(`sales_kwitansi_id`,`sales_kwitansi_no`,`sales_tagihan_no`,`customer_id`,`start_date`,`end_date`,`sales_kwitansi_date`,`print_type`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(32,'0001/MO.ME/KMARGIN/I/2024','0001/MO.ME/TMARGIN/I/2024',1,'2024-01-20','2024-01-20','2024-01-20',NULL,0,75,'2024-01-20 04:21:53','2024-01-20 04:21:53'),
-(33,'0002/MO.ME/KMARGIN/I/2024','0002/MO.ME/TMARGIN/I/2024',18,'2024-01-01','2024-01-20','2024-01-20',NULL,0,75,'2024-01-20 05:01:48','2024-01-20 05:01:48'),
-(34,'0003/MO.ME/KMARGIN/I/2024','0003/MO.ME/TMARGIN/I/2024',18,'2024-01-01','2024-01-20','2024-01-20',NULL,0,75,'2024-01-20 05:29:31','2024-01-20 05:29:31'),
-(35,'0004/MO.ME/KMARGIN/I/2024','0004/MO.ME/TMARGIN/I/2024',50,'2024-01-29','2024-01-29','2024-01-29',NULL,0,75,'2024-01-29 06:45:07','2024-01-29 06:45:07'),
-(36,'0005/MO.ME/KMARGIN/I/2024','0005/MO.ME/TMARGIN/I/2024',50,'2024-01-29','2024-01-29','2024-01-29',NULL,0,75,'2024-01-29 06:46:29','2024-01-29 06:46:29'),
-(37,'0006/MO.ME/KMARGIN/VI/2024','0006/MO.ME/TMARGIN/VI/2024',100,'2024-06-12','2024-06-12','2024-06-13',NULL,0,75,'2024-06-13 01:16:36','2024-06-13 01:16:36'),
-(38,'0007/MO.ME/KMARGIN/VI/2024','0007/MO.ME/TMARGIN/VI/2024',100,'2024-06-12','2024-06-12','2024-06-13',NULL,0,75,'2024-06-13 01:18:17','2024-06-13 01:18:17'),
-(39,'0008/MO.ME/KMARGIN/VI/2024','0008/MO.ME/TMARGIN/VI/2024',41,'2024-06-12','2024-06-12','2024-06-13',NULL,0,75,'2024-06-13 01:21:39','2024-06-13 01:21:39'),
-(40,'0009/MO.ME/KMARGIN/VII/2024','0009/MO.ME/TMARGIN/VII/2024',100,'2024-01-01','2024-07-01','2024-07-01',NULL,0,75,'2024-07-01 09:32:06','2024-07-01 09:32:06'),
-(41,'0010/MO.ME/KMARGIN/VII/2024','0010/MO.ME/TMARGIN/VII/2024',40,'2024-05-01','2024-07-23','2024-07-23',NULL,0,3,'2024-07-23 08:21:03','2024-07-23 08:21:03'),
-(42,'0011/MO.ME/KMARGIN/VII/2024','0011/MO.ME/TMARGIN/VII/2024',1,'2024-05-01','2024-06-30','2024-07-30',NULL,0,75,'2024-07-30 07:11:42','2024-07-30 07:11:42'),
-(43,'0012/MO.ME/KMARGIN/VII/2024','0012/MO.ME/TMARGIN/VII/2024',40,'2024-05-01','2024-06-30','2024-07-30',NULL,0,75,'2024-07-30 07:11:49','2024-07-30 07:11:49'),
-(44,'0013/MO.ME/KMARGIN/VII/2024','0013/MO.ME/TMARGIN/VII/2024',40,'2024-06-01','2024-06-30','2024-07-30',NULL,0,75,'2024-07-30 07:25:18','2024-07-30 07:25:18'),
-(45,'0014/MO.ME/KMARGIN/VIII/2024','0014/MO.ME/TMARGIN/VIII/2024',40,'2024-06-01','2024-06-30','2024-08-02',NULL,0,75,'2024-08-02 03:36:46','2024-08-02 03:36:46');
-
-/*Table structure for table `sales_kwitansi_item` */
-
-DROP TABLE IF EXISTS `sales_kwitansi_item`;
-
-CREATE TABLE `sales_kwitansi_item` (
-  `sales_kwitansi_item_id` int NOT NULL AUTO_INCREMENT,
-  `sales_kwitansi_id` int DEFAULT NULL,
-  `sales_invoice_id` int DEFAULT NULL,
-  `buyers_acknowledgment_id` int DEFAULT NULL,
-  `checked` int DEFAULT NULL,
-  `created_id` int DEFAULT NULL,
-  `created_at` date DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`sales_kwitansi_item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-/*Data for the table `sales_kwitansi_item` */
-
-insert  into `sales_kwitansi_item`(`sales_kwitansi_item_id`,`sales_kwitansi_id`,`sales_invoice_id`,`buyers_acknowledgment_id`,`checked`,`created_id`,`created_at`,`updated_at`) values 
-(91,32,19,56,1,75,'2024-01-20','2024-01-20 04:21:53'),
-(92,33,20,57,1,75,'2024-01-20','2024-01-20 05:01:48'),
-(93,34,20,57,1,75,'2024-01-20','2024-01-20 05:29:31'),
-(94,34,21,58,1,75,'2024-01-20','2024-01-20 05:29:31'),
-(95,35,24,66,1,75,'2024-01-29','2024-01-29 06:45:07'),
-(96,35,30,73,1,75,'2024-01-29','2024-01-29 06:45:07'),
-(97,36,24,66,0,75,'2024-01-29','2024-01-29 06:46:29'),
-(98,36,30,73,1,75,'2024-01-29','2024-01-29 06:46:29'),
-(99,37,59,263,1,75,'2024-06-13','2024-06-13 01:16:36'),
-(100,37,60,264,1,75,'2024-06-13','2024-06-13 01:16:36'),
-(101,37,61,265,1,75,'2024-06-13','2024-06-13 01:16:36'),
-(102,38,59,263,1,75,'2024-06-13','2024-06-13 01:18:17'),
-(103,38,60,264,1,75,'2024-06-13','2024-06-13 01:18:17'),
-(104,38,61,265,1,75,'2024-06-13','2024-06-13 01:18:17'),
-(105,39,44,248,1,75,'2024-06-13','2024-06-13 01:21:39'),
-(106,39,45,249,1,75,'2024-06-13','2024-06-13 01:21:39'),
-(107,40,36,80,0,75,'2024-07-01','2024-07-01 09:32:06'),
-(108,40,59,263,1,75,'2024-07-01','2024-07-01 09:32:06'),
-(109,40,60,264,1,75,'2024-07-01','2024-07-01 09:32:06'),
-(110,40,61,265,1,75,'2024-07-01','2024-07-01 09:32:06'),
-(111,41,44,248,1,3,'2024-07-23','2024-07-23 08:21:03'),
-(112,41,45,249,1,3,'2024-07-23','2024-07-23 08:21:03'),
-(113,41,46,250,1,3,'2024-07-23','2024-07-23 08:21:03'),
-(114,41,47,251,1,3,'2024-07-23','2024-07-23 08:21:03'),
-(115,41,48,252,1,3,'2024-07-23','2024-07-23 08:21:03'),
-(116,41,49,253,1,3,'2024-07-23','2024-07-23 08:21:03'),
-(117,41,50,254,1,3,'2024-07-23','2024-07-23 08:21:03'),
-(118,41,51,255,1,3,'2024-07-23','2024-07-23 08:21:03'),
-(119,41,52,256,1,3,'2024-07-23','2024-07-23 08:21:03'),
-(120,43,44,248,1,75,'2024-07-30','2024-07-30 07:11:49'),
-(121,43,45,249,1,75,'2024-07-30','2024-07-30 07:11:49'),
-(122,43,46,250,1,75,'2024-07-30','2024-07-30 07:11:49'),
-(123,43,47,251,1,75,'2024-07-30','2024-07-30 07:11:49'),
-(124,43,48,252,1,75,'2024-07-30','2024-07-30 07:11:49'),
-(125,43,49,253,1,75,'2024-07-30','2024-07-30 07:11:49'),
-(126,43,50,254,1,75,'2024-07-30','2024-07-30 07:11:49'),
-(127,43,51,255,1,75,'2024-07-30','2024-07-30 07:11:49'),
-(128,43,52,256,1,75,'2024-07-30','2024-07-30 07:11:49'),
-(129,44,44,248,1,75,'2024-07-30','2024-07-30 07:25:18'),
-(130,44,45,249,1,75,'2024-07-30','2024-07-30 07:25:18'),
-(131,44,46,250,1,75,'2024-07-30','2024-07-30 07:25:18'),
-(132,44,47,251,1,75,'2024-07-30','2024-07-30 07:25:18'),
-(133,44,48,252,1,75,'2024-07-30','2024-07-30 07:25:18'),
-(134,44,49,253,1,75,'2024-07-30','2024-07-30 07:25:18'),
-(135,44,50,254,1,75,'2024-07-30','2024-07-30 07:25:18'),
-(136,44,51,255,1,75,'2024-07-30','2024-07-30 07:25:18'),
-(137,44,52,256,1,75,'2024-07-30','2024-07-30 07:25:18'),
-(138,45,44,248,1,75,'2024-08-02','2024-08-02 03:36:46'),
-(139,45,45,249,1,75,'2024-08-02','2024-08-02 03:36:46'),
-(140,45,46,250,1,75,'2024-08-02','2024-08-02 03:36:46'),
-(141,45,47,251,1,75,'2024-08-02','2024-08-02 03:36:46'),
-(142,45,48,252,1,75,'2024-08-02','2024-08-02 03:36:46'),
-(143,45,49,253,1,75,'2024-08-02','2024-08-02 03:36:46'),
-(144,45,50,254,1,75,'2024-08-02','2024-08-02 03:36:46'),
-(145,45,51,255,1,75,'2024-08-02','2024-08-02 03:36:46'),
-(146,45,52,256,1,75,'2024-08-02','2024-08-02 03:36:46');
+(1,1,1,1,1,0,1,10,100,1500,0,0,NULL,150000,166500,0,3,'2024-12-12 06:13:03','2024-12-12 06:13:03'),
+(2,2,2,2,2,0,2,22,10,100000,0,0,NULL,1000000,1110000,0,3,'2024-12-19 09:47:57','2024-12-19 09:47:57');
 
 /*Table structure for table `sales_order` */
 
@@ -7988,12 +7701,13 @@ CREATE TABLE `sales_order` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_order_id`),
   KEY `sales_order_id` (`sales_order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_order` */
 
 insert  into `sales_order`(`sales_order_id`,`sales_order_type_id`,`customer_id`,`salesman_id`,`receipt_image`,`sales_order_no`,`payment_method`,`purchase_order_no`,`sales_order_date`,`sales_order_delivery_date`,`sales_order_status`,`sales_order_over_limit`,`sales_order_over_due_status`,`purchase_order_status`,`work_order_status`,`purchase_requisition_status`,`sales_order_design_status`,`sales_delivery_order_status`,`customer_credit_limit_balance`,`sales_invoice_status`,`sales_invoice_last_balance`,`sales_order_remark`,`sales_order_over_remark`,`total_item`,`subtotal_before_discount`,`discount_percentage`,`discount_amount`,`subtotal_after_discount`,`ppn_out_percentage`,`ppn_out_amount`,`subtotal_after_ppn_out`,`sales_shipment_status`,`paid_amount`,`total_amount`,`last_balance`,`counter_edited`,`branch_id`,`data_state`,`created_id`,`created_at`,`approved`,`approved_id`,`approved_on`,`approved_remark`,`closed`,`closed_id`,`closed_on`,`closed_remark`,`voided_id`,`voided_on`,`voided_remark`,`customer_no`,`updated_at`) values 
-(1,2,176,0,'','0001/SO/XII/2024',0,'0','2024-12-09','2024-12-09',3,0.00,0,0,0,0,0,1,0.00,0,0.00,NULL,NULL,100.00,0.00,0.00,0.00,166500.00,0.00,0.00,166500.00,0,0.00,166500.00,0.00,0,1,0,0,'2024-12-09 08:09:54',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-12-10 05:09:10');
+(1,2,176,0,'','0001/SO/XII/2024',2,'0','2024-12-09','2024-12-09',3,0.00,0,0,0,0,0,1,0.00,0,0.00,NULL,NULL,100.00,0.00,0.00,0.00,166500.00,0.00,0.00,166500.00,0,0.00,166500.00,0.00,0,1,0,0,'2024-12-09 08:09:54',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-12-10 05:09:10'),
+(2,2,176,0,'','0002/SO/XII/2024',2,'0','2024-12-19','2024-12-19',3,0.00,0,0,0,0,0,1,0.00,0,0.00,'ICIBOS',NULL,10.00,0.00,0.00,0.00,1110000.00,0.00,0.00,1110000.00,0,0.00,1110000.00,0.00,0,1,0,0,'2024-12-19 09:43:20',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-12-19 09:47:27');
 
 /*Table structure for table `sales_order_item` */
 
@@ -8046,12 +7760,13 @@ CREATE TABLE `sales_order_item` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_order_item_id`),
   KEY `sales_order_item_id` (`sales_order_item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_order_item` */
 
 insert  into `sales_order_item`(`sales_order_item_id`,`sales_order_id`,`item_category_id`,`item_type_id`,`quantity`,`quantity_delivered`,`quantity_shipped`,`quantity_planned`,`quantity_outstanding`,`quantity_received`,`quantity_ordered`,`quantity_cavity`,`quantity_minimum`,`quantity_resulted`,`sales_order_item_status`,`item_substance_price`,`item_unit_id`,`item_unit_price`,`item_unit_price_adds`,`purchase_requisition_status`,`purchase_order_status`,`work_order_status`,`sales_delivery_order_status`,`sales_delivery_note_status`,`sales_invoice_status`,`quantity_minimum_status`,`subtotal_amount`,`subtotal_additional_amount`,`subtotal_item_amount`,`sales_order_no`,`sales_order_status`,`discount_percentage_item`,`discount_percentage_item_b`,`discount_amount_item`,`discount_amount_item_b`,`subtotal_after_discount_item_a`,`subtotal_after_discount_item_b`,`total_price_after_ppn_amount`,`ppn_amount_item`,`record_id`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(1,1,1,1,100.00,200.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,100.00,0,0.00,10,1500.00,0.00,0,0,0,1,0,0,0,150000.00,0.00,0.00,'',0,0.00,NULL,0.00,NULL,150000.00,NULL,166500.00,16500.00,0,0,0,'2024-12-09 08:09:54','2024-12-09 09:00:35');
+(1,1,1,1,100.00,200.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,100.00,0,0.00,10,1500.00,0.00,0,0,0,1,0,0,0,150000.00,0.00,0.00,'',0,0.00,NULL,0.00,NULL,150000.00,NULL,166500.00,16500.00,0,0,0,'2024-12-09 08:09:54','2024-12-09 09:00:35'),
+(2,2,1,2,10.00,10.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,10.00,0,0.00,22,100000.00,0.00,0,0,0,1,0,0,0,1000000.00,0.00,0.00,'',0,0.00,NULL,0.00,NULL,1000000.00,NULL,1110000.00,110000.00,0,0,0,'2024-12-19 09:43:20','2024-12-19 09:45:22');
 
 /*Table structure for table `sales_order_return` */
 
@@ -8190,13 +7905,14 @@ CREATE TABLE `sales_quotation` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_quotation_id`),
   KEY `sales_order_id` (`sales_quotation_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_quotation` */
 
 insert  into `sales_quotation`(`sales_quotation_id`,`sales_quotation_type_id`,`customer_id`,`salesman_id`,`receipt_image`,`sales_quotation_no`,`sales_quotation_date`,`sales_quotation_due_date`,`sales_quotation_status`,`sales_quotation_over_limit`,`sales_quotation_over_due_status`,`work_order_status`,`purchase_requisition_status`,`sales_quotation_design_status`,`sales_delivery_order_status`,`customer_credit_limit_balance`,`sales_invoice_status`,`sales_invoice_last_balance`,`sales_quotation_remark`,`sales_quotation_over_remark`,`total_item`,`subtotal_before_discount`,`discount_percentage`,`discount_amount`,`subtotal_after_discount`,`ppn_out_percentage`,`ppn_out_amount`,`subtotal_after_ppn_out`,`sales_shipment_status`,`paid_amount`,`total_amount`,`last_balance`,`counter_edited`,`branch_id`,`data_state`,`created_id`,`created_at`,`approved`,`approved_id`,`approved_on`,`approved_remark`,`closed`,`closed_id`,`closed_on`,`closed_remark`,`voided_id`,`voided_on`,`voided_remark`,`customer_no`,`updated_at`) values 
 (1,0,176,0,'','0001/QO/XII/2024','2024-12-09','2024-12-09',1,0.00,0,0,0,0,0,0.00,0,0.00,NULL,NULL,100.00,0.00,0.00,0.00,111000.00,0.00,0.00,111000.00,0,0.00,111000.00,0.00,0,1,0,0,'2024-12-09 08:00:10',2,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-12-09 08:09:54'),
-(2,0,3,0,'','0002/QO/XII/2024','2024-12-16','2024-12-18',0,0.00,0,0,0,0,0,0.00,0,0.00,'da',NULL,400.00,0.00,0.00,0.00,2442000.00,0.00,0.00,2442000.00,0,0.00,2442000.00,0.00,0,1,0,0,'2024-12-16 04:50:38',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-12-16 04:50:46');
+(2,0,3,0,'','0002/QO/XII/2024','2024-12-16','2024-12-18',0,0.00,0,0,0,0,0,0.00,0,0.00,'da',NULL,400.00,0.00,0.00,0.00,2442000.00,0.00,0.00,2442000.00,0,0.00,2442000.00,0.00,0,1,0,0,'2024-12-16 04:50:38',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-12-16 04:50:46'),
+(3,0,176,0,'','0003/QO/XII/2024','2024-12-19','2024-12-19',1,0.00,0,0,0,0,0,0.00,0,0.00,'ICIBOS',NULL,10.00,0.00,0.00,0.00,1110000.00,0.00,0.00,1110000.00,0,0.00,1110000.00,0.00,0,1,0,0,'2024-12-19 09:42:13',2,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2024-12-19 09:43:20');
 
 /*Table structure for table `sales_quotation_item` */
 
@@ -8249,13 +7965,14 @@ CREATE TABLE `sales_quotation_item` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_quotation_item_id`),
   KEY `sales_order_item_id` (`sales_quotation_item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_quotation_item` */
 
 insert  into `sales_quotation_item`(`sales_quotation_item_id`,`sales_quotation_id`,`item_category_id`,`item_type_id`,`quantity`,`quantity_delivered`,`quantity_shipped`,`quantity_planned`,`quantity_outstanding`,`quantity_received`,`quantity_ordered`,`quantity_cavity`,`quantity_minimum`,`quantity_resulted`,`sales_quotation_item_status`,`item_substance_price`,`item_unit_id`,`item_unit_price`,`item_unit_price_adds`,`purchase_requisition_status`,`purchase_order_status`,`work_order_status`,`sales_delivery_order_status`,`sales_delivery_note_status`,`sales_invoice_status`,`quantity_minimum_status`,`subtotal_amount`,`subtotal_additional_amount`,`subtotal_item_amount`,`sales_quotation_no`,`sales_quotation_status`,`discount_percentage_item`,`discount_percentage_item_b`,`discount_amount_item`,`discount_amount_item_b`,`subtotal_after_discount_item_a`,`subtotal_after_discount_item_b`,`total_price_after_ppn_amount`,`ppn_amount_item`,`record_id`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (1,1,1,1,100.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,100.00,0,0.00,10,1000.00,0.00,0,0,0,0,0,0,0,100000.00,0.00,0.00,'',0,0.00,NULL,0.00,NULL,100000.00,NULL,111000.00,11000.00,0,0,0,'2024-12-09 08:00:10','2024-12-09 08:00:10'),
-(2,2,1,3,400.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,400.00,0,0.00,10,5500.00,0.00,0,0,0,0,0,0,0,2200000.00,0.00,0.00,'',0,0.00,NULL,0.00,NULL,2200000.00,NULL,2442000.00,242000.00,0,0,0,'2024-12-16 04:50:38','2024-12-16 04:50:38');
+(2,2,1,3,400.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,400.00,0,0.00,10,5500.00,0.00,0,0,0,0,0,0,0,2200000.00,0.00,0.00,'',0,0.00,NULL,0.00,NULL,2200000.00,NULL,2442000.00,242000.00,0,0,0,'2024-12-16 04:50:38','2024-12-16 04:50:38'),
+(3,3,1,2,10.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,10.00,0,0.00,22,100000.00,0.00,0,0,0,0,0,0,0,1000000.00,0.00,0.00,'',0,0.00,NULL,0.00,NULL,1000000.00,NULL,1110000.00,110000.00,0,0,0,'2024-12-19 09:42:13','2024-12-19 09:42:13');
 
 /*Table structure for table `system_log_user` */
 
@@ -8568,7 +8285,7 @@ insert  into `system_menu`(`id_menu`,`id`,`type`,`indent_level`,`text`,`image`,`
 ('241','purchase-order-return','file',2,'Return Pembelian',NULL,'2023-06-23 10:52:23'),
 ('3','#','folder',1,'Penjualan',NULL,'2023-06-23 10:52:23'),
 ('31','#','folder',2,'Preferensi',NULL,'2023-06-23 10:52:23'),
-('311','customer','file',3,'Pelanggan',NULL,'2023-06-23 10:52:23'),
+('311','core-customer','file',3,'Pelanggan',NULL,'2024-12-19 16:10:16'),
 ('312','agency','file',3,'Agensi',NULL,'2023-06-23 10:52:23'),
 ('32','#','folder',2,'Quotation',NULL,'2024-10-17 13:36:10'),
 ('321','sales-quotation','file',3,'Sales Quotation',NULL,'2024-10-23 13:44:07'),
@@ -8602,7 +8319,6 @@ insert  into `system_menu`(`id_menu`,`id`,`type`,`indent_level`,`text`,`image`,`
 ('615','check-receipt','file',3,'Penerimaan Giro',NULL,'2023-06-23 10:52:23'),
 ('616','check-disbursement','file',3,'Pengeluaran Giro',NULL,'2023-06-23 10:52:23'),
 ('617','purchase-payment','file',3,'Pelunasan Hutang',NULL,'2023-06-23 10:52:23'),
-('618','sales-collection','file',3,'Pelunasan Piutang',NULL,'2023-06-23 10:52:23'),
 ('619','sales-discount-collection','file',3,'Pelunasan Piutang Diskon',NULL,'2023-12-11 12:09:13'),
 ('62','#','folder',2,'Laporan',NULL,'2023-06-23 10:52:23'),
 ('621','report-cash-receipt','file',3,'Laporan Penerimaan Kas',NULL,'2023-06-23 10:52:23'),
@@ -8614,6 +8330,9 @@ insert  into `system_menu`(`id_menu`,`id`,`type`,`indent_level`,`text`,`image`,`
 ('627','aging-account-receivable','file',3,'Laporan Aging Piutang ',NULL,'2023-12-27 16:40:57'),
 ('63','sales-collection-piece','file',2,'Potongan',NULL,'2023-09-06 11:39:36'),
 ('64','sales-promotion','file',2,'Cetak Promosi',NULL,'2023-09-06 12:02:42'),
+('65','#','file',2,'Kas dan Piutang',NULL,'2024-12-19 10:18:02'),
+('651','sales-collection','file',3,'Pelunasan Piutang',NULL,'2024-12-19 10:19:57'),
+('652','cash-report','file',3,'Laporan Kas',NULL,'2024-12-19 10:19:57'),
 ('7','#','folder',1,'Akuntansi',NULL,'2023-06-23 10:52:23'),
 ('71','#','folder',2,'Preferensi',NULL,'2023-06-23 10:52:23'),
 ('711','account','file',3,'No. Perkiraan',NULL,'2023-06-23 10:52:23'),
@@ -8644,74 +8363,80 @@ CREATE TABLE `system_menu_mapping` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`menu_mapping_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1462 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=1725 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `system_menu_mapping` */
 
 insert  into `system_menu_mapping`(`menu_mapping_id`,`user_group_level`,`id_menu`,`created_at`,`updated_at`) values 
 (1227,1,'0','2024-10-17 04:38:36','2024-10-17 04:38:36'),
-(1400,1,'1','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1401,1,'11','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1402,1,'111','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1403,1,'112','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1404,1,'113','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1405,1,'115','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1406,1,'12','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1407,1,'121','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1408,1,'122','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1409,1,'14','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1410,1,'15','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1411,1,'16','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1412,1,'17','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1413,1,'2','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1414,1,'21','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1415,1,'211','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1416,1,'22','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1417,1,'221','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1418,1,'222','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1419,1,'23','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1420,1,'231','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1421,1,'24','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1422,1,'240','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1423,1,'241','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1424,1,'3','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1425,1,'31','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1426,1,'311','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1427,1,'32','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1428,1,'321','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1429,1,'322','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1430,1,'33','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1431,1,'331','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1432,1,'332','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1433,1,'34','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1434,1,'341','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1435,1,'35','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1436,1,'351','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1437,1,'36','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1438,1,'37','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1439,1,'4','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1440,1,'41','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1441,1,'411','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1442,1,'42','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1443,1,'421','2024-10-23 06:44:50','2024-10-23 06:44:50'),
-(1444,1,'422','2024-10-23 06:44:51','2024-10-23 06:44:51'),
-(1445,1,'45','2024-10-23 06:44:51','2024-10-23 06:44:51'),
-(1446,1,'7','2024-10-23 06:44:51','2024-10-23 06:44:51'),
-(1447,1,'71','2024-10-23 06:44:51','2024-10-23 06:44:51'),
-(1448,1,'711','2024-10-23 06:44:51','2024-10-23 06:44:51'),
-(1449,1,'72','2024-10-23 06:44:51','2024-10-23 06:44:51'),
-(1450,1,'721','2024-10-23 06:44:51','2024-10-23 06:44:51'),
-(1451,1,'73','2024-10-23 06:44:51','2024-10-23 06:44:51'),
-(1452,1,'74','2024-10-23 06:44:51','2024-10-23 06:44:51'),
-(1453,1,'75','2024-10-23 06:44:51','2024-10-23 06:44:51'),
-(1454,1,'8','2024-10-23 06:44:51','2024-10-23 06:44:51'),
-(1455,1,'81','2024-10-23 06:44:51','2024-10-23 06:44:51'),
-(1456,1,'82','2024-10-23 06:44:51','2024-10-23 06:44:51'),
-(1457,1,'9','2024-10-23 06:44:51','2024-10-23 06:44:51'),
-(1458,1,'91','2024-10-23 06:44:51','2024-10-23 06:44:51'),
-(1459,1,'92','2024-10-23 06:44:51','2024-10-23 06:44:51'),
-(1460,1,'722','2024-12-12 11:42:09','2024-12-12 11:42:11'),
-(1461,1,'712','2024-12-12 15:52:49','2024-12-12 15:52:51');
+(1657,1,'1','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1658,1,'11','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1659,1,'111','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1660,1,'112','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1661,1,'113','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1662,1,'115','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1663,1,'12','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1664,1,'121','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1665,1,'122','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1666,1,'14','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1667,1,'15','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1668,1,'16','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1669,1,'17','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1670,1,'2','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1671,1,'21','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1672,1,'211','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1673,1,'22','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1674,1,'221','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1675,1,'222','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1676,1,'23','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1677,1,'231','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1678,1,'24','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1679,1,'240','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1680,1,'241','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1681,1,'3','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1682,1,'31','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1683,1,'311','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1684,1,'32','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1685,1,'321','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1686,1,'322','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1687,1,'33','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1688,1,'331','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1689,1,'332','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1690,1,'34','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1691,1,'341','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1692,1,'35','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1693,1,'351','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1694,1,'36','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1695,1,'37','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1696,1,'4','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1697,1,'41','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1698,1,'411','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1699,1,'42','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1700,1,'421','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1701,1,'422','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1702,1,'45','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1703,1,'6','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1704,1,'61','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1705,1,'619','2024-12-19 03:39:06','2024-12-19 03:39:06'),
+(1706,1,'65','2024-12-19 03:39:07','2024-12-19 03:39:07'),
+(1707,1,'651','2024-12-19 03:39:07','2024-12-19 03:39:07'),
+(1708,1,'652','2024-12-19 03:39:07','2024-12-19 03:39:07'),
+(1709,1,'7','2024-12-19 03:39:07','2024-12-19 03:39:07'),
+(1710,1,'71','2024-12-19 03:39:07','2024-12-19 03:39:07'),
+(1711,1,'711','2024-12-19 03:39:07','2024-12-19 03:39:07'),
+(1712,1,'712','2024-12-19 03:39:07','2024-12-19 03:39:07'),
+(1713,1,'72','2024-12-19 03:39:07','2024-12-19 03:39:07'),
+(1714,1,'721','2024-12-19 03:39:07','2024-12-19 03:39:07'),
+(1715,1,'722','2024-12-19 03:39:07','2024-12-19 03:39:07'),
+(1716,1,'73','2024-12-19 03:39:07','2024-12-19 03:39:07'),
+(1717,1,'74','2024-12-19 03:39:07','2024-12-19 03:39:07'),
+(1718,1,'75','2024-12-19 03:39:07','2024-12-19 03:39:07'),
+(1719,1,'8','2024-12-19 03:39:07','2024-12-19 03:39:07'),
+(1720,1,'81','2024-12-19 03:39:07','2024-12-19 03:39:07'),
+(1721,1,'82','2024-12-19 03:39:07','2024-12-19 03:39:07'),
+(1722,1,'9','2024-12-19 03:39:07','2024-12-19 03:39:07'),
+(1723,1,'91','2024-12-19 03:39:07','2024-12-19 03:39:07'),
+(1724,1,'92','2024-12-19 03:39:07','2024-12-19 03:39:07');
 
 /*Table structure for table `system_user` */
 
@@ -10172,188 +9897,6 @@ DELIMITER $$
 
 DELIMITER ;
 
-/* Trigger structure for table `sales_collection` */
-
-DELIMITER $$
-
-/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_collection` */$$
-
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_sales_collection` BEFORE INSERT ON `sales_collection` FOR EACH ROW BEGIN
-	DECLARE year_period 		VARCHAR(20);
-	DECLARE month_period 		VARCHAR(20);
-	DECLARE PERIOD 			VARCHAR(20);
-	DECLARE tPeriod			INT;
-	DECLARE nSalesCollectionNo	VARCHAR(20);
-	DECLARE monthPeriod		VARCHAR(20);
-	DECLARE lenSalesCollectionNo	DECIMAL(10);
-	
-	SET year_period = (YEAR(new.collection_date));
-	
-	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.collection_date)), 2));
-	
-	IF (month_period) = '01' THEN 
-		SET monthPeriod = 'I';
-	END IF;
-	
-	IF (month_period) = '02' THEN 
-		SET monthPeriod = 'II';
-	END IF;
-	
-	IF (month_period) = '03' THEN 
-		SET monthPeriod = 'III';
-	END IF;
-	
-	IF (month_period) = '04' THEN 
-		SET monthPeriod = 'IV';
-	END IF;	
-	
-	IF (month_period) = '05' THEN 
-		SET monthPeriod = 'V';
-	END IF;
-	
-	IF (month_period) = '06' THEN 
-		SET monthPeriod = 'VI';
-	END IF;
-	
-	IF (month_period) = '07' THEN 
-		SET monthPeriod = 'VII';
-	END IF;
-	
-	IF (month_period) = '08' THEN 
-		SET monthPeriod = 'VIII';
-	END IF;
-	
-	IF (month_period) = '09' THEN 
-		SET monthPeriod = 'IX';
-	END IF;
-	
-	IF (month_period) = '10' THEN 
-		SET monthPeriod = 'X';
-	END IF;
-	
-	IF (month_period) = '11' THEN 
-		SET monthPeriod = 'XI';
-	END IF;
-	
-	IF (month_period) = '12' THEN 
-		SET monthPeriod = 'XII';
-	END IF;
-		
-	SET PERIOD = (SELECT LEFT(TRIM(collection_no), 4) 
-			FROM sales_collection
-			WHERE RIGHT(TRIM(collection_no), 4) = year_period
-			ORDER BY collection_id DESC 
-			LIMIT 1);
-		
-	IF (PERIOD IS NULL ) THEN 
-		SET PERIOD = "0000";
-	END IF;
-	
-	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-	
-	SET tPeriod = tPeriod + 1;
-	
-	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-	
-	SET nSalesCollectionNo = CONCAT(PERIOD, '/PP/', monthPeriod, '/', year_period);
-		
-	SET new.collection_no = nSalesCollectionNo;
-    END */$$
-
-
-DELIMITER ;
-
-/* Trigger structure for table `sales_collection_discount` */
-
-DELIMITER $$
-
-/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_collection_discount` */$$
-
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_sales_collection_discount` BEFORE INSERT ON `sales_collection_discount` FOR EACH ROW BEGIN
-	DECLARE year_period 		VARCHAR(20);
-	DECLARE month_period 		VARCHAR(20);
-	DECLARE PERIOD 			VARCHAR(20);
-	DECLARE tPeriod			INT;
-	DECLARE nSalesCollectionNo	VARCHAR(20);
-	DECLARE monthPeriod		VARCHAR(20);
-	DECLARE lenSalesCollectionNo	DECIMAL(10);
-	
-	SET year_period = (YEAR(new.collection_date));
-	
-	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.collection_date)), 2));
-	
-	IF (month_period) = '01' THEN 
-		SET monthPeriod = 'I';
-	END IF;
-	
-	IF (month_period) = '02' THEN 
-		SET monthPeriod = 'II';
-	END IF;
-	
-	IF (month_period) = '03' THEN 
-		SET monthPeriod = 'III';
-	END IF;
-	
-	IF (month_period) = '04' THEN 
-		SET monthPeriod = 'IV';
-	END IF;	
-	
-	IF (month_period) = '05' THEN 
-		SET monthPeriod = 'V';
-	END IF;
-	
-	IF (month_period) = '06' THEN 
-		SET monthPeriod = 'VI';
-	END IF;
-	
-	IF (month_period) = '07' THEN 
-		SET monthPeriod = 'VII';
-	END IF;
-	
-	IF (month_period) = '08' THEN 
-		SET monthPeriod = 'VIII';
-	END IF;
-	
-	IF (month_period) = '09' THEN 
-		SET monthPeriod = 'IX';
-	END IF;
-	
-	IF (month_period) = '10' THEN 
-		SET monthPeriod = 'X';
-	END IF;
-	
-	IF (month_period) = '11' THEN 
-		SET monthPeriod = 'XI';
-	END IF;
-	
-	IF (month_period) = '12' THEN 
-		SET monthPeriod = 'XII';
-	END IF;
-		
-	SET PERIOD = (SELECT LEFT(TRIM(collection_no), 4) 
-			FROM `sales_collection_discount`
-			WHERE RIGHT(TRIM(collection_no), 4) = year_period
-			ORDER BY collection_id DESC 
-			LIMIT 1);
-		
-	IF (PERIOD IS NULL ) THEN 
-		SET PERIOD = "0000";
-	END IF;
-	
-	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-	
-	SET tPeriod = tPeriod + 1;
-	
-	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-	
-	SET nSalesCollectionNo = CONCAT(PERIOD, '/PPD/', monthPeriod, '/', year_period);
-		
-	SET new.collection_no = nSalesCollectionNo;
-    END */$$
-
-
-DELIMITER ;
-
 /* Trigger structure for table `sales_delivery_note` */
 
 DELIMITER $$
@@ -10590,100 +10133,6 @@ DELIMITER $$
 	SET nSalesInvoiceNo = CONCAT(PERIOD, '/TMO.ME/', roman_month, '/', year_period);
 		
 	SET new.sales_invoice_no = nSalesInvoiceNo;
-    END */$$
-
-
-DELIMITER ;
-
-/* Trigger structure for table `sales_kwitansi` */
-
-DELIMITER $$
-
-/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_kwitansi` */$$
-
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_sales_kwitansi` BEFORE INSERT ON `sales_kwitansi` FOR EACH ROW BEGIN
-	DECLARE year_period 		VARCHAR(255);
-	DECLARE month_period 		VARCHAR(255);
-	DECLARE PERIOD 			VARCHAR(255);
-	DECLARE tPeriod			INT;
-	DECLARE nSalesInvoiceNo		VARCHAR(255);
-	DECLARE nSalesTagihanNo		VARCHAR(255);
-	DECLARE monthPeriod		VARCHAR(255);
-	DECLARE lenSalesInvoiceNo	DECIMAL(10);
-	
-	SET year_period = (YEAR(new.sales_kwitansi_date));
-	
-	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.sales_kwitansi_date)), 2));
-	
-	IF (month_period) = '01' THEN 
-		SET monthPeriod = 'I';
-	END IF;
-	
-	IF (month_period) = '02' THEN 
-		SET monthPeriod = 'II';
-	END IF;
-	
-	IF (month_period) = '03' THEN 
-		SET monthPeriod = 'III';
-	END IF;
-	
-	IF (month_period) = '04' THEN 
-		SET monthPeriod = 'IV';
-	END IF;	
-	
-	IF (month_period) = '05' THEN 
-		SET monthPeriod = 'V';
-	END IF;
-	
-	IF (month_period) = '06' THEN 
-		SET monthPeriod = 'VI';
-	END IF;
-	
-	IF (month_period) = '07' THEN 
-		SET monthPeriod = 'VII';
-	END IF;
-	
-	IF (month_period) = '08' THEN 
-		SET monthPeriod = 'VIII';
-	END IF;
-	
-	IF (month_period) = '09' THEN 
-		SET monthPeriod = 'IX';
-	END IF;
-	
-	IF (month_period) = '10' THEN 
-		SET monthPeriod = 'X';
-	END IF;
-	
-	IF (month_period) = '11' THEN 
-		SET monthPeriod = 'XI';
-	END IF;
-	
-	IF (month_period) = '12' THEN 
-		SET monthPeriod = 'XII';
-	END IF;
-		
-	SET PERIOD = (SELECT LEFT(TRIM(sales_kwitansi_no), 4) 
-			FROM sales_kwitansi
-			WHERE RIGHT(TRIM(sales_kwitansi_no), 4) = year_period
-			ORDER BY sales_kwitansi_id DESC 
-			LIMIT 1);
-		
-	IF (PERIOD IS NULL ) THEN 
-		SET PERIOD = "0000";
-	END IF;
-	
-	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-	
-	SET tPeriod = tPeriod + 1;
-	
-	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-	
-	SET nSalesInvoiceNo = CONCAT(PERIOD, '/MO.ME/KMARGIN/', monthPeriod, '/', year_period);
-	SET nSalesTagihanNo = CONCAT(PERIOD, '/MO.ME/TMARGIN/', monthPeriod, '/', year_period);
-		
-	SET new.sales_kwitansi_no = nSalesInvoiceNo;
-	SET new.sales_tagihan_no  = nSalesTagihanNo;
     END */$$
 
 
