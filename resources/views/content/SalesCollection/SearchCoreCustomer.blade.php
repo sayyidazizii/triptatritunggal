@@ -43,6 +43,7 @@
                 <thead>
                     <tr>
                         <th width="2%" style='text-align:center'>No</th>
+                        <th width="30%" style='text-align:center'>Tanggal Transaksi</th>
                         <th width="30%" style='text-align:center'>Nama Pelanggan</th>
                         <th width="40%" style='text-align:center'>Alamat Pelanggan</th>
                         <th width="20%" style='text-align:center'>Jumlah Piutang</th>
@@ -54,11 +55,12 @@
                     @foreach($corecustomer as $item)
                     <tr>
                         <td style='text-align:center'>{{$no}}</td>
+                        <td>{{$item->sales_invoice_date}}</td>
                         <td>{{$SalesCollection->getCoreCustomerName($item['customer_id'])}}</td>
                         <td>{{$item->Customer->customer_address}}</td>
                         <td style='text-align:right'>{{number_format($item['total_owing_amount'],2,',','.')}}</td>
                         <td style='text-align:center'>
-                            <a type="button" class="btn btn-outline-primary btn-sm" href="{{ url('/sales-collection/add/'.$item['customer_id']) }}">Pilih</a>
+                            <a type="button" class="btn btn-outline-primary btn-sm" href="{{ url('/sales-collection/add/'.$item['sales_invoice_id'].'/'.$item['customer_id']) }}">Pilih</a>
                         </td>
                     </tr>
                     <?php $no++; ?>

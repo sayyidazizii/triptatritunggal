@@ -716,8 +716,8 @@ Route::get('/purchase-payment/delete-transfer-array/{record_id}/{supplier_id}', 
 
 Route::get('/sales-collection', [SalesCollectionController::class, 'index'])->name('sales-collection');
 Route::post('/sales-collection/filter', [SalesCollectionController::class, 'filterSalesCollection'])->name('filter-sales-collection');
-Route::get('/sales-collection/search', [SalesCollectionController::class, 'searchCoreCustomer'])->name('search-core-supplier-sales-collection');
-Route::get('/sales-collection/add/{customer_id}', [SalesCollectionController::class, 'addSalesCollection'])->name('add-sales-collection');
+Route::get('/sales-collection/search', [SalesCollectionController::class, 'searchInvoice'])->name('search-core-supplier-sales-collection');
+Route::get('/sales-collection/add/{sales_invoice_id}/{customer_id}', [SalesCollectionController::class, 'addSalesCollection'])->name('add-sales-collection');
 Route::get('/sales-collection/detail/{supplier_id}', [SalesCollectionController::class, 'detailSalesCollection'])->name('detail-sales-collection');
 Route::get('/sales-collection/delete/{supplier_id}', [SalesCollectionController::class, 'deleteSalesCollection'])->name('delete-sales-collection');
 Route::post('/sales-collection/process-delete', [SalesCollectionController::class, 'processVoidSalesCollection'])->name('process-delete-sales-collection');

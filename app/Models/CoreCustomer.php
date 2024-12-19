@@ -20,6 +20,10 @@ class CoreCustomer extends Model
         'customer_id',
     ];
 
+    public function SalesInvoice(){
+        return $this->hasMany(SalesInvoice::class, 'sales_invoice_id','sales_invoice_id');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

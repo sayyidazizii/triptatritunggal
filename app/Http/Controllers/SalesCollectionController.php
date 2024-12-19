@@ -123,22 +123,24 @@ class SalesCollectionController extends Controller
         Session::forget('salescollectionelements');
         Session::forget('datasalescollectiontransfer');
         
-        $invoice = SalesInvoice::with('SalesOrder')
+        $invoice = SalesInvoice::with('Customer')
+        ->where('data_state', 0)
         ->get();
         // echo json_encode('invoice');exit;
         return view('content/SalesCollection/SearchSalesInvoice',compact('invoice'));
     }
 
 
-    public function addSalesCollection($customer_id){
+    public function addSalesCollection($sales_invoice_id,$customer_id){
 
         $salesinvoiceowing = SalesInvoice::select('sales_invoice.sales_invoice_id', 'sales_invoice.sales_invoice_id', 'sales_invoice.owing_amount', 'sales_invoice.sales_invoice_date', 'sales_invoice.paid_amount', 'sales_invoice.sales_invoice_no', 'sales_invoice.subtotal_amount', 'sales_invoice.total_amount','sales_invoice.customer_id')
-        ->where('sales_invoice.sales_invoice_id', $customer_id)
+        ->where('sales_invoice.sales_invoice_id', $sales_invoice_id)
         ->where('sales_invoice.owing_amount', '>', 0)
         ->where('sales_invoice.data_state', 0)
         ->get(); 
 
-        $sales_invoice_id = SalesInvoice::findorFail($customer_id);
+        $sales_invoice_id = SalesInvoice::findorFail($sales_invoice_id);
+
 
         $acctaccount    = AcctAccount::select('account_id', DB::raw('CONCAT(account_code, " - ", account_name) AS full_name'))
         ->where('acct_account.data_state', 0)
