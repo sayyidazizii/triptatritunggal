@@ -389,6 +389,15 @@ class SalesInvoiceController extends Controller
 
         if (SalesInvoice::create($salesinvoice)) {
 
+            $coreCustomer = CoreCustomer::find($request->customer_id);
+
+            // Update debt limit if payment method is 2
+            if ($request->payment_method == 2 && $coreCustomer) {
+                $coreCustomer->amount_debt += (int)$request->total_amount;
+                $coreCustomer->save();
+            }
+        }
+
             $sales_invoice_id = SalesInvoice::select('*')
                 ->orderBy('created_at', 'DESC')
                 ->first();
