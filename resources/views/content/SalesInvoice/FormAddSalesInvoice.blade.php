@@ -105,7 +105,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <a class="text-dark">Pembeli</a>
-                        <input class="form-control input-bb" type="text" name="customer_name" id="customer_name" value="{{$SalesInvoice->getCustomername($buyersAcknowledgment['customer_id'])}}" readonly/>
+                        <input class="form-control input-bb" type="text" name="customer_name" id="customer_name" value="{{$SalesInvoice->getCustomerName($buyersAcknowledgment['customer_id'])}}" readonly/>
                         <input class="form-control input-bb" type="hidden" name="customer_id" id="customer_id" value="{{$buyersAcknowledgment['customer_id']}}" readonly/>
                     </div>
                 </div>
@@ -167,7 +167,7 @@
                 </div>
 
                     <input class="form-control input-bb" type="hidden" name="warehouse_id" id="warehouse_id" value="{{$buyersAcknowledgment == null ? : $buyersAcknowledgment['warehouse_id']}}" />
-                    <input class="form-control input-bb" type="text" name="payment_method" id="payment_method" value="{{$buyersAcknowledgment == null ? : $buyersAcknowledgment['payment_method']}}" />
+                    <input class="form-control input-bb" type="hidden" name="payment_method" id="payment_method" value="{{$buyersAcknowledgment == null ? : $buyersAcknowledgment['payment_method']}}" />
 
                 <div class="col-md-6">
                     <section class="control-label">No Faktur Pajak
