@@ -2,37 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\PublicController;
-use App\Providers\RouteServiceProvider;
-use App\Models\PurchaseOrder;
-use App\Models\PurchaseOrderItem;
-use App\Models\InvWarehouse;
-use App\Models\CoreSupplier;
 use App\Models\InvItem;
-use App\Models\InvItemUnit;
 use App\Models\CoreGrade;
-use App\Models\CorePackage;
-use App\Models\InvItemCategory;
-use App\Models\InvItemType;
-use App\Models\InvItemStock;
-use App\Models\SalesDeliveryOrder;
-use App\Models\SalesDeliveryOrderItem;
 use App\Models\SalesOrder;
-use App\Models\SalesOrderItem;
+use App\Models\CorePackage;
+use App\Models\InvItemType;
+use App\Models\InvItemUnit;
 use App\Models\CoreCustomer;
+use App\Models\CoreSupplier;
+use App\Models\InvItemStock;
+use App\Models\InvWarehouse;
+use Illuminate\Http\Request;
+use App\Models\PurchaseOrder;
+use App\Models\SalesOrderItem;
+use App\Models\InvItemCategory;
+use function PHPSTORM_META\type;
+use App\Models\PurchaseOrderItem;
+use App\Models\SalesDeliveryOrder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use App\Models\InvGoodsReceivedNote;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\SalesDeliveryOrderItem;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Session;
 use App\Models\InvGoodsReceivedNoteItem;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\PublicController;
+
 use App\Models\SalesDeliveryOrderItemStock;
 use App\Models\SalesDeliveryOrderItemStockTemporary;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\DB;
-
-use function PHPSTORM_META\type;
 
 class SalesDeliveryOrderController extends Controller
 {
@@ -422,22 +423,28 @@ class SalesDeliveryOrderController extends Controller
                         $salesorderitem->sales_delivery_order_status = 1;
                         $salesorderitem->quantity_delivered = $salesorderitem->quantity_delivered + $dataitem['quantity_delivered_'.$no];
                         $salesorderitem->save();
-                        // echo json_encode($salesorderitem);exit;
-                        // dd($salesorderitem);
 
                         $no++;
-
                     }
 
-
                 $msg = 'Tambah Sales Delivery Order Berhasil';
-
+                
             DB::commit();
+
+            // Log the successful update
+            Log::info('SalesQuotation updated successfully', [
+                'sales_delivery_order_id'	=> $sales_delivery_order_id['sales_delivery_order_id'],
+                'created_id'                => Auth::id(),
+            ]);
                 return redirect('/sales-delivery-order')->with('msg',$msg);
+
         } catch (\Exception $e) {
             DB::rollBack();
-            report($e);
 
+            Log::error('Tambah Sales Delivery Order Gagal: ' . $e->getMessage(), [
+                'exception' => $e, 
+                'trace' => $e->getTraceAsString()
+            ]);
                 $msg = 'Tambah Sales Delivery Order Gagal';
                 return redirect('/sales-delivery-order')->with('msg',$msg);
         }
