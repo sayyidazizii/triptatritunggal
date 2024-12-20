@@ -230,13 +230,14 @@ class SalesInvoiceController extends Controller
 
     public function addSalesInvoice($buyers_acknowledgment_id)
     {
-        $buyersAcknowledgment = BuyersAcknowledgment::select('buyers_acknowledgment.*', 'sales_order.*', 'sales_delivery_note.*')
+        $buyersAcknowledgment = BuyersAcknowledgment::select('buyers_acknowledgment.*', 'sales_order.*', 'sales_delivery_note.*','core_customer.*')
             ->where('buyers_acknowledgment.buyers_acknowledgment_id', $buyers_acknowledgment_id)
             ->join('sales_delivery_note', 'sales_delivery_note.sales_delivery_note_id', 'buyers_acknowledgment.sales_delivery_note_id')
             ->join('sales_order', 'sales_order.sales_order_id', 'buyers_acknowledgment.sales_order_id')
+            ->join('core_customer', 'core_customer.customer_id', 'buyers_acknowledgment.customer_id')
             ->where('buyers_acknowledgment.data_state', 0)
             ->first();
-
+            
         $coreexpedition = CoreExpedition::where('expedition_id', $buyersAcknowledgment['expedition_id'])
             ->first();
 
@@ -556,12 +557,12 @@ class SalesInvoiceController extends Controller
 
     public function getCustomerName($customer_id)
     {
-        $customer = CoreCustomer::select('customer_code')
+        $customer = CoreCustomer::select('customer_name')
             ->where('data_state', 0)
             ->where('customer_id', $customer_id)
             ->first();
 
-        return $customer['customer_code'] ?? '';
+        return $customer['customer_name'] ?? '';
     }
 
     public function getCustomerNameSalesOrderId($sales_order_id)
