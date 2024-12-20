@@ -390,9 +390,8 @@ class SalesDeliveryNoteController extends Controller
 
                 $no =1;
 
-                // dd($salesdeliveryorderitem);
                 $dataitem = $request->all();
-                //dd($dataitem);
+
                 foreach($salesdeliveryorderitem as $item){
 
 
@@ -421,17 +420,16 @@ class SalesDeliveryNoteController extends Controller
     
                     
                     /* pengurangan stock */
-                    $stock_item2 = InvItemStock::where('item_type_id',$dataitem['item_type_id_'.$no])
-                    ->where('item_unit_id', $dataitem['item_unit_id_'.$no])
-                    ->first();
+                        $stock_item2 = InvItemStock::where('item_type_id',$dataitem['item_type_id_'.$no])
+                        ->where('item_unit_id', $dataitem['item_unit_id_'.$no])
+                        ->first();
 
-
-                    $stock_item2->quantity_unit = $stock_item2['quantity_unit'] - $dataitem['quantity_'.$no];
-                    $stock_item2->save();
+                        $stock_item2->quantity_unit = $stock_item2['quantity_unit'] - $dataitem['quantity_'.$no];
+                        $stock_item2->save();
+                    /* end pengurangan stock */
 
                     $no++;
                     }
-
 
                 $msg = 'Tambah Sales Delivery Note Berhasil';
 
