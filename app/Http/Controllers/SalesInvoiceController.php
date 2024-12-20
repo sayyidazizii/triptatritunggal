@@ -234,7 +234,6 @@ class SalesInvoiceController extends Controller
             ->where('buyers_acknowledgment.buyers_acknowledgment_id', $buyers_acknowledgment_id)
             ->join('sales_delivery_note', 'sales_delivery_note.sales_delivery_note_id', 'buyers_acknowledgment.sales_delivery_note_id')
             ->join('sales_order', 'sales_order.sales_order_id', 'buyers_acknowledgment.sales_order_id')
-            // ->join('inv_warehouse', 'inv_warehouse.warehouse_id', 'buyers_acknowledgment.warehouse_id')
             ->where('buyers_acknowledgment.data_state', 0)
             ->first();
 
@@ -386,78 +385,91 @@ class SalesInvoiceController extends Controller
             'branch_id'                     => Auth::user()->branch_id,
             'created_id'                    => Auth::id(),
         );
+    
+        try{
+                DB::beginTransaction();
+                
+                    SalesInvoice::create($salesinvoice);
 
-        if (SalesInvoice::create($salesinvoice)) {
-
-            $coreCustomer = CoreCustomer::find($request->customer_id);
-
-            // Update debt limit if payment method is 2
-            if ($request->payment_method == 2 && $coreCustomer) {
-                $coreCustomer->amount_debt += (int)$request->total_amount;
-                $coreCustomer->save();
-            }
-        }
-
-            $sales_invoice_id = SalesInvoice::select('*')
-                ->orderBy('created_at', 'DESC')
-                ->first();
-
-            $dataItem = $request->all();
-            // $no = 1;
-            $total_no = $request->total_no;
-            for ($i = 1; $i <= $total_no; $i++) {
-                $data = array(
-                    'sales_invoice_id'              => $sales_invoice_id['sales_invoice_id'],
-                    'sales_order_id'                => $request['sales_order_id_' . $i],
-                    'sales_order_item_id'           => $request['sales_order_item_id_' . $i],
-                    'sales_delivery_note_id'        => $request->sales_delivery_note_id,
-                    'sales_delivery_note_item_id'   => $request['sales_delivery_note_item_id_' . $i],
-                    'item_type_id'                  => $request['item_type_id_' . $i],
-                    'item_unit_id'                  => $request['item_unit_id_' . $i],
-                    'quantity'                      => $request['quantity_' . $i],
-                    'item_unit_price'               => $request['item_unit_price_' . $i],
-                    'discount_A'                    => $request['discount_A_' . $i],
-                    'discount_B'                    => $request['discount_B_' . $i],
-                    'subtotal_price_A'              => $request['subtotal_price_A_' . $i],
-                    'subtotal_price_B'              => $request['subtotal_price_B_' . $i],
-                    'item_stock_id'                 => $request['item_stock_id_' . $i],
-                    'created_id'                    => Auth::id(),
-                );
-                //dd($data);
-                SalesInvoiceItem::create($data);
-
-            }
-            
-            DB::table('buyers_acknowledgment')
-		        ->where('buyers_acknowledgment_id',$request->buyers_acknowledgment_id)
-                ->update(['sales_invoice_status' => 1]);
-            
-
-                //Update Discount Sumary
-                $diskonA = DB::table('sales_order_item')
-		        ->where('sales_order_id', $request->sales_order_id)
-                ->sum('discount_amount_item');
+                    $coreCustomer = CoreCustomer::findOrFail($request->customer_id);
         
-                $diskonB = DB::table('sales_order_item')
-		        ->where('sales_order_id', $request->sales_order_id)
-                ->sum('discount_amount_item_b');
+                    // Update debt limit if payment method is 2
+                    if ($request->payment_method == 2 && $coreCustomer) {
+                        $coreCustomer->amount_debt += (int)$request->total_amount;
+                        $coreCustomer->save();
+                    }
+        
+                    $sales_invoice_id = SalesInvoice::select('*')
+                        ->orderBy('created_at', 'DESC')
+                        ->first();
+        
+                    $dataItem = $request->all();
+                    // $no = 1;
+                    $total_no = $request->total_no;
+                    for ($i = 1; $i <= $total_no; $i++) {
+                        $data = array(
+                            'sales_invoice_id'              => $sales_invoice_id['sales_invoice_id'],
+                            'sales_order_id'                => $request['sales_order_id_' . $i],
+                            'sales_order_item_id'           => $request['sales_order_item_id_' . $i],
+                            'sales_delivery_note_id'        => $request->sales_delivery_note_id,
+                            'sales_delivery_note_item_id'   => $request['sales_delivery_note_item_id_' . $i],
+                            'item_type_id'                  => $request['item_type_id_' . $i],
+                            'item_unit_id'                  => $request['item_unit_id_' . $i],
+                            'quantity'                      => $request['quantity_' . $i],
+                            'item_unit_price'               => $request['item_unit_price_' . $i],
+                            'discount_A'                    => $request['discount_A_' . $i],
+                            'discount_B'                    => $request['discount_B_' . $i],
+                            'subtotal_price_A'              => $request['subtotal_price_A_' . $i],
+                            'subtotal_price_B'              => $request['subtotal_price_B_' . $i],
+                            'item_stock_id'                 => $request['item_stock_id_' . $i],
+                            'created_id'                    => Auth::id(),
+                        );
+                        //dd($data);
+                        SalesInvoiceItem::create($data);
+        
+                    }
+                    
+                    DB::table('buyers_acknowledgment')
+                        ->where('buyers_acknowledgment_id',$request->buyers_acknowledgment_id)
+                        ->update(['sales_invoice_status' => 1]);
+                    
+        
+                        //Update Discount Sumary
+                        $diskonA = DB::table('sales_order_item')
+                        ->where('sales_order_id', $request->sales_order_id)
+                        ->sum('discount_amount_item');
+                
+                        $diskonB = DB::table('sales_order_item')
+                        ->where('sales_order_id', $request->sales_order_id)
+                        ->sum('discount_amount_item_b');
+        
+                        $totalDiscount = $diskonA + $diskonB;
+                        if($totalDiscount){
+                            DB::table('sales_invoice as a')
+                            ->where('sales_order_id', $request->sales_order_id)
+                            ->update([ 
+                                'a.total_discount_amount' => $totalDiscount, 
+                                'a.owing_discount_amount' => $totalDiscount 
+                            ]);
+                        }
+        
+                    $msg = 'Tambah Sales Invoice Berhasil';            
+                
+                DB::commit();
+                    return redirect('/sales-invoice')->with('msg', $msg);
+                        
+        } catch (\Exception $e) {
+            DB::rollBack();
 
-                $totalDiscount = $diskonA + $diskonB;
-                if($totalDiscount){
-                    DB::table('sales_invoice as a')
-		            ->where('sales_order_id', $request->sales_order_id)
-                    ->update([ 
-                        'a.total_discount_amount' => $totalDiscount, 
-                        'a.owing_discount_amount' => $totalDiscount 
-                    ]);
-                }
-
-            $msg = 'Tambah Sales Invoice Berhasil';
-            return redirect('/sales-invoice')->with('msg', $msg);
-        } else {
+            Log::error('Error saat membuat Sales Invoice: ' . $e->getMessage(), [
+                'exception' => $e,
+                'trace' => $e->getTraceAsString()
+            ]);
+            
             $msg = 'Tambah Sales Invoice Gagal';
-            return redirect('/sales-invoice/add/' . $request->sales_delivery_note_id)->with('msg', $msg);
+                return redirect('/sales-invoice/add/' . $request->sales_delivery_note_id)->with('msg', $msg);
         }
+        
     }
 
     public function processEditSalesInvoice(Request $request)

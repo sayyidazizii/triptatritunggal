@@ -167,6 +167,7 @@
                 </div>
 
                     <input class="form-control input-bb" type="hidden" name="warehouse_id" id="warehouse_id" value="{{$buyersAcknowledgment == null ? : $buyersAcknowledgment['warehouse_id']}}" />
+                    <input class="form-control input-bb" type="text" name="payment_method" id="payment_method" value="{{$buyersAcknowledgment == null ? : $buyersAcknowledgment['payment_method']}}" />
 
                 <div class="col-md-6">
                     <section class="control-label">No Faktur Pajak
@@ -222,23 +223,22 @@
                                 $no             = 1;
                                 $total_price    = 0;
                                 $total_item     = 0;
-                                $diskon = 0 ;
+                                $diskon         = 0;
                                 $total_discount = 0;
-                                $totalppn = 0;
-                                $total = 0;
-                                $totalBayar = 0;
-                                $DPP = 0;
+                                $totalppn       = 0;
+                                $total          = 0;
+                                $totalBayar     = 0;
+                                $DPP            = 0;
                             @endphp
                             @if(count($buyersAcknowledgmentitem)>0)
                                 @foreach($buyersAcknowledgmentitem as $val)
-                                @php
-                                     $total_discount += $SalesInvoice->getDiscount($val['sales_order_item_id']);
-                                     $totalA = $val['quantity_received']*$val['item_unit_price']-$SalesInvoice->getDiscount($val['sales_order_item_id']);
-                                     $totalB = $totalA + ($SalesInvoice->getDiscountB($val['sales_order_item_id']) + $SalesInvoice->getPpnItem($val['sales_order_item_id']));
-                                     $total = $val['quantity_received']*$val['item_unit_price'];
-                                     $totalBayar =  $total - ($SalesInvoice->getDiscount($val['sales_order_item_id']) + $SalesInvoice->getDiscountB($val['sales_order_item_id']));
-
-                              @endphp
+                                    @php
+                                        $total_discount += $SalesInvoice->getDiscount($val['sales_order_item_id']);
+                                        $totalA         = $val['quantity_received']*$val['item_unit_price']-$SalesInvoice->getDiscount($val['sales_order_item_id']);
+                                        $totalB         = $totalA + ($SalesInvoice->getDiscountB($val['sales_order_item_id']) + $SalesInvoice->getPpnItem($val['sales_order_item_id']));
+                                        $total          = $val['quantity_received']*$val['item_unit_price'];
+                                        $totalBayar     =  $total - ($SalesInvoice->getDiscount($val['sales_order_item_id']) + $SalesInvoice->getDiscountB($val['sales_order_item_id']));
+                                    @endphp
 
                                         <tr>
                                             <td style='text-align  : center'>{{$no}}</td>
@@ -291,12 +291,12 @@
                                             </td>
                                         </tr>
                                         @php
-                                            $total_no = $no;
+                                            $total_no       = $no;
                                             $no++;
                                             $total_price    += $totalB;
                                             $total_item     += $val['quantity_received'];
-                                            $totalppn += $SalesInvoice->getPpnItem($val['sales_order_item_id']);
-                                            $DPP += $totalBayar;
+                                            $totalppn       += $SalesInvoice->getPpnItem($val['sales_order_item_id']);
+                                            $DPP            += $totalBayar;
                                         @endphp
                                 @endforeach
                             @else

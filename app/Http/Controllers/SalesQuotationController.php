@@ -116,35 +116,54 @@ class SalesQuotationController extends Controller
             'sales_quotation_due_date'       => $request['sales_quotation_due_date'],
         );
 
-        if(SalesQuotation::create($salesquotation)){
-            $sales_quotation_id = SalesQuotation::orderBy('created_at','DESC')->first();
-            $salesquotationitem = Session::get('salesquotationitem');
-            foreach ($salesquotationitem AS $key => $val){
-                $datasalesquotationitem = array (
-                    'sales_quotation_id'            => $sales_quotation_id['sales_quotation_id'],
-                    'item_category_id'              => $val['item_category_id'],
-                    'item_type_id'                  => $val['item_type_id'],
-                    'item_unit_id'                  => $val['item_unit_id'],
-                    'quantity'                      => $val['quantity'],
-                    'quantity_resulted'             => $val['quantity'],
-                    'item_unit_price'               => $val['price'],
-                    'subtotal_amount'               => $val['total_price'],
-                    'discount_percentage_item'      => $val['discount_percentage_item'],
-                    'discount_amount_item'          => $val['discount_amount_item'],
-                    'subtotal_after_discount_item_a'=> $val['subtotal_after_discount_item_a'],
-                    'ppn_amount_item'               => $val['ppn_amount_item'],
-                    'total_price_after_ppn_amount'  => $val['total_price_after_ppn_amount'],
+        try {
+            DB::beginTransaction();
+            
+                SalesQuotation::create($salesquotation);
+                    $sales_quotation_id = SalesQuotation::orderBy('created_at','DESC')->first();
+                    $salesquotationitem = Session::get('salesquotationitem');
+                    foreach ($salesquotationitem AS $key => $val){
+                        $datasalesquotationitem = array (
+                            'sales_quotation_id'            => $sales_quotation_id['sales_quotation_id'],
+                            'item_category_id'              => $val['item_category_id'],
+                            'item_type_id'                  => $val['item_type_id'],
+                            'item_unit_id'                  => $val['item_unit_id'],
+                            'quantity'                      => $val['quantity'],
+                            'quantity_resulted'             => $val['quantity'],
+                            'item_unit_price'               => $val['price'],
+                            'subtotal_amount'               => $val['total_price'],
+                            'discount_percentage_item'      => $val['discount_percentage_item'],
+                            'discount_amount_item'          => $val['discount_amount_item'],
+                            'subtotal_after_discount_item_a'=> $val['subtotal_after_discount_item_a'],
+                            'ppn_amount_item'               => $val['ppn_amount_item'],
+                            'total_price_after_ppn_amount'  => $val['total_price_after_ppn_amount'],
+        
+                        );
+                        SalesQuotationItem::create($datasalesquotationitem);
+                }
 
-                );
-                //dd($datasalesquotationitem);
-                SalesQuotationItem::create($datasalesquotationitem);
-            }
-            $msg = 'Tambah Sales Quotation Berhasil';
-            return redirect('/sales-quotation')->with('msg',$msg);
-        }else{
+                // Log the successful update
+                Log::info('SalesQuotation updated successfully', [
+                    'sales_quotation_id'   => $sales_quotation_id['sales_quotation_id'],
+                ]);
+
+                $msg = 'Tambah Sales Quotation Berhasil';
+            
+            DB::commit();
+
+                return redirect('/sales-quotation')->with('msg',$msg);
+                
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Tambah Sales Quotation Gagal: ' . e->getMessage(), [
+                'exception' => e, 
+                'trace' => e->getTraceAsString()
+            ]);
+            
             $msg = 'Tambah Sales Quotation Gagal';
             return redirect('/sales-quotation/add')->with('msg',$msg);
         }
+
 
     }
 
