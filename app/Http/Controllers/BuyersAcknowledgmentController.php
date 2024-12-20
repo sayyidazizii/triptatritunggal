@@ -211,7 +211,6 @@ class BuyersAcknowledgmentController extends Controller
         return $unit['customer_name'];
     }
 
-
     public function getCustomerId($sales_order_id){
         $customer = SalesOrder::select('customer_id')
         ->where('sales_order_id', $sales_order_id)
@@ -312,7 +311,6 @@ class BuyersAcknowledgmentController extends Controller
         return $item['item_unit_cost'];
     }
 
-
     public function processAddBuyersAcknowledgment(Request $request){
         // dd($request->all());
         $request->validate([
@@ -339,18 +337,13 @@ class BuyersAcknowledgmentController extends Controller
             'buyers_acknowledgment_remark'              => $request->buyers_acknowledgment_remark,
             'created_id'                                => Auth::id(),
         );
-
-
         BuyersAcknowledgment::create($buyers_acknowledgment);
             $buyers_acknowledgment_id = BuyersAcknowledgment::select('buyers_acknowledgment_id')
             ->orderBy('created_at', 'DESC')
             ->first();
-
             $salesorderitem = SalesOrderItem::where('sales_order_id',$request->sales_order_id_1)
             ->get();
-
             $no =1;
-
             $dataitem = $request->all();
             $total    = 0;
             foreach($salesorderitem as $item){
@@ -375,19 +368,20 @@ class BuyersAcknowledgmentController extends Controller
                 ]);
             }
                 $no++;
-
-
 //--------------------------------------------------------JURNAL -----------------------------------------------------------------//
-
             $preferencecompany = PreferenceCompany::first();
-            $account_setting = AcctAccountSetting::where('account_setting_name','sales_credit_account_id')->first();
+            // *sales cash
+            $account_receivable_cash_account_id = AcctAccountSetting::where('account_setting_name','account_receivable_cash_account_id')->first();
+            $sales_cash_account_id = AcctAccountSetting::where('account_setting_name','sales_cash_account_id')->first();
+            // *sales credit
+            $account_receivable_credit_account_id = AcctAccountSetting::where('account_setting_name','account_receivable_credit_account_id')->first();
+            $sales_credit_account_id = AcctAccountSetting::where('account_setting_name','sales_credit_account_id')->first();
             $transaction_module_code = "PPP";
             $transactionmodule = PreferenceTransactionModule::where('transaction_module_code', $transaction_module_code)->first();
             $transaction_module_id = $transactionmodule['transaction_module_id'];
-
             $salesdeliverynote = SalesDeliveryNote::where('sales_delivery_note_id', $buyers_acknowledgment['sales_delivery_note_id'])->first();
             $journal_voucher_period = date("Ym", strtotime($salesdeliverynote['sales_delivery_note_date']));
-
+            // *journal parent
             $data_journal = array(
                 'branch_id'                     => 1,
                 'journal_voucher_period'        => $journal_voucher_period,
@@ -401,48 +395,82 @@ class BuyersAcknowledgmentController extends Controller
                 'transaction_journal_no'        => $buyers_acknowledgment['buyers_acknowledgment_no'],
                 'created_id'                    => Auth::id(),
             );
-
             $journal = AcctJournalVoucher::create($data_journal);
-
 //--------------------------------------------------------END JURNAL -----------------------------------------------------------------//
-
 //--------------------------------------------------------JURNAL ITEM -----------------------------------------------------------------//
-
                 $salesorderitem = SalesOrderItem::where('sales_order_item_id', $item['sales_order_item_id_'.$no])->first();
                 $salesorder = SalesOrder::findOrFail($buyers_acknowledgment['sales_order_id']);
                 $journal_voucher_id = $journal->journal_voucher_id;
 
                 $total_amount = SalesOrderItem::where('sales_order_id', $buyers_acknowledgment['sales_order_id'])->sum('subtotal_after_discount_item_a'); // Nilai total penjualan sebelum PPN
                 $ppn = SalesOrderItem::where('sales_order_id', $buyers_acknowledgment['sales_order_id'])->sum('ppn_amount_item');
-                $piutang = $ppn + $total_amount;
-
-                $account = AcctAccount::where('account_id', $buyers_acknowledgment['account_id'])
+                $owing = $ppn + $total_amount;
+                // *sales cash
+                if($salesorder['payment_method'] == 1){
+                    $sales_account_receivable = AcctAccount::where('account_id', $account_receivable_cash_account_id['account_id'])
+                    ->where('data_state', 0)
+                    ->first();
+                    $sales_account_receivable_status = $sales_account_receivable['account_default_status'];
+                    $data_debit = array(
+                        'journal_voucher_id'           => $journal_voucher_id,
+                        'account_id'                   => $account_receivable_cash_account_id['account_id'], // Akun Piutang Usaha
+                        'journal_voucher_description'  => $data_journal['journal_voucher_description'],
+                        'journal_voucher_amount'       => ABS($owing),
+                        'journal_voucher_debit_amount' => ABS($owing),
+                        'account_id_default_status'    => $sales_account_receivable_status,
+                        'account_id_status'            => 0,
+                    );
+                    AcctJournalVoucherItem::create($data_debit);
+                    $sales_cash_account = AcctAccount::where('account_id', $sales_cash_account_id['account_id'])
+                    ->where('data_state', 0)
+                    ->first();
+                    $sales_cash_account_status = $sales_cash_account['account_default_status'];
+                    $data_credit = array(
+                        'journal_voucher_id'           => $journal_voucher_id,
+                        'account_id'                   => $sales_cash_account_id['account_id'], // Akun Pendapatan
+                        'journal_voucher_description'  => $data_journal['journal_voucher_description'],
+                        'journal_voucher_amount'       => ABS($total_amount),
+                        'journal_voucher_credit_amount'=> ABS($total_amount),
+                        'account_id_default_status'    => $sales_cash_account_status,
+                        'account_id_status'            => 0,
+                    );
+                    AcctJournalVoucherItem::create($data_credit);
+                }else{
+                // *sales credit
+                    $account_receivable_credit = AcctAccount::where('account_id', $account_receivable_credit_account_id['account_id'])
+                    ->where('data_state', 0)
+                    ->first();
+                    $account_receivable_status = $account_receivable_credit['account_default_status'];
+                    $data_debit = array(
+                        'journal_voucher_id'           => $journal_voucher_id,
+                        'account_id'                   => $account_receivable_credit_account_id['account_id'], // Akun Piutang Usaha
+                        'journal_voucher_description'  => $data_journal['journal_voucher_description'],
+                        'journal_voucher_amount'       => ABS($owing),
+                        'journal_voucher_debit_amount' => ABS($owing),
+                        'account_id_default_status'    => $account_receivable_status,
+                        'account_id_status'            => 0,
+                    );
+                    AcctJournalVoucherItem::create($data_debit);
+                    $sales_credit_account = AcctAccount::where('account_id', $sales_credit_account_id['account_id'])
+                    ->where('data_state', 0)
+                    ->first();
+                    $sales_credit_account_status = $sales_credit_account['account_default_status'];
+                    $data_credit = array(
+                        'journal_voucher_id'           => $journal_voucher_id,
+                        'account_id'                   => $sales_credit_account_id['account_id'], // Akun Pendapatan
+                        'journal_voucher_description'  => $data_journal['journal_voucher_description'],
+                        'journal_voucher_amount'       => ABS($total_amount),
+                        'journal_voucher_credit_amount'=> ABS($total_amount),
+                        'account_id_default_status'    => $sales_credit_account_status,
+                        'account_id_status'            => 0,
+                    );
+                    AcctJournalVoucherItem::create($data_credit);
+                }
+                // *ppn
+                $account = AcctAccount::where('account_id', $preferencecompany->account_vat_out_id)
                     ->where('data_state', 0)
                     ->first();
                 $account_id_default_status = $account['account_default_status'];
-
-                $data_debit = array(
-                    'journal_voucher_id'           => $journal_voucher_id,
-                    'account_id'                   => $buyers_acknowledgment['account_id'], // Akun Piutang Usaha
-                    'journal_voucher_description'  => $data_journal['journal_voucher_description'],
-                    'journal_voucher_amount'       => ABS($piutang),
-                    'journal_voucher_debit_amount' => ABS($piutang),
-                    'account_id_default_status'    => $account_id_default_status,
-                    'account_id_status'            => 0,
-                );
-                AcctJournalVoucherItem::create($data_debit);
-
-                $data_credit_pendapatan = array(
-                    'journal_voucher_id'           => $journal_voucher_id,
-                    'account_id'                   => $account_setting['account_id'], // Akun Pendapatan
-                    'journal_voucher_description'  => $data_journal['journal_voucher_description'],
-                    'journal_voucher_amount'       => ABS($total_amount),
-                    'journal_voucher_credit_amount'=> ABS($total_amount),
-                    'account_id_default_status'    => $account_id_default_status,
-                    'account_id_status'            => 0,
-                );
-                AcctJournalVoucherItem::create($data_credit_pendapatan);
-
                 $data_credit_ppn = array(
                     'journal_voucher_id'           => $journal_voucher_id,
                     'account_id'                   => $preferencecompany->account_vat_out_id, // Akun PPN Keluaran
@@ -453,15 +481,12 @@ class BuyersAcknowledgmentController extends Controller
                     'account_id_status'            => 0,
                 );
                 AcctJournalVoucherItem::create($data_credit_ppn);
-
-
+                // *sales_order_status
                 SalesOrder::where('sales_order_id',$request->sales_order_id_1)
                 ->update(['sales_order_status' => 3]);
-
                 DB::commit();
                 $msg = 'Tambah Penerimaan Pihak Pembeli Berhasil';
                 return redirect('/buyers-acknowledgment')->with('msg',$msg);
-
         } catch (\Exception $e) {
                 DB::rollback();
                 Log::error('Error saat menambah penerimaan pihak pembeli: ' . $e->getMessage(), [
