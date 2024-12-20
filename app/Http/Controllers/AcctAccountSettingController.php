@@ -103,8 +103,25 @@ class AcctAccountSettingController extends Controller
         ->where('account_setting_name', 'consignee_account')
         ->first();
 
+        // *pelunasan
+        $sales_collection_cash_account = AcctAccountSetting::select('account_id', 'account_setting_status')
+        ->where('account_setting_name', 'sales_collection_cash_account_id')
+        ->first();
 
-        return view('content.AcctAccountSetting.AcctAccountSetting',compact('purchase_cash_account','purchase_account','purchase_credit_account','purchase_account_credit','purchase_tax_account_id','sales_cash_account','sales_cash_account','sales_account','sales_credit_account','sales_account_credit','sales_tax_credit','expenditure_cash_account','expenditure_account','purchase_return_cash_account','purchase_return_account','accountlist','status'));
+        $sales_collection_account = AcctAccountSetting::select('account_id', 'account_setting_status')
+        ->where('account_setting_name', 'sales_collection_account_id')
+        ->first();
+
+        $purchase_payment_cash_account = AcctAccountSetting::select('account_id', 'account_setting_status')
+        ->where('account_setting_name', 'purchase_payment_cash_account_id')
+        ->first();
+
+        $purchase_payment_account = AcctAccountSetting::select('account_id', 'account_setting_status')
+        ->where('account_setting_name', 'purchase_payment_account_id')
+        ->first();
+
+
+        return view('content.AcctAccountSetting.AcctAccountSetting',compact('purchase_cash_account','purchase_account','purchase_credit_account','purchase_account_credit','purchase_tax_account_id','sales_cash_account','sales_cash_account','sales_account','sales_credit_account','sales_account_credit','sales_tax_credit','expenditure_cash_account','expenditure_account','purchase_return_cash_account','purchase_return_account','sales_collection_cash_account','sales_collection_account','purchase_payment_cash_account','purchase_payment_account','accountlist','status'));
     }
 
     public function processAddAcctAccountSetting(Request $request)
@@ -188,7 +205,26 @@ class AcctAccountSettingController extends Controller
             '14_account_setting_name'     => 'expenditure_account_id',
             '14_account_default_status'   => $this->getAccountDefault($request->input('expenditure_account_id')),
 
+            // *pelunasan
+            '15_account_id'               => $request->input('sales_collection_cash_account_id'),
+            '15_account_setting_status'   => $request->input('sales_collection_cash_account_status'),
+            '15_account_setting_name'     => 'sales_collection_cash_account_id',
+            '15_account_default_status'   => $this->getAccountDefault($request->input('sales_collection_cash_account_id')),
 
+            '16_account_id'               => $request->input('sales_collection_account_id'),
+            '16_account_setting_status'   => $request->input('sales_collection_account_status'),
+            '16_account_setting_name'     => 'sales_collection_account_id',
+            '16_account_default_status'   => $this->getAccountDefault($request->input('sales_collection_account_id')),
+
+            '17_account_id'               => $request->input('purchase_payment_cash_account_id'),
+            '17_account_setting_status'   => $request->input('purchase_payment_cash_account_status'),
+            '17_account_setting_name'     => 'purchase_payment_cash_account_id',
+            '17_account_default_status'   => $this->getAccountDefault($request->input('purchase_payment_cash_account_id')),
+
+            '18_account_id'               => $request->input('purchase_payment_account_id'),
+            '18_account_setting_status'   => $request->input('purchase_payment_account_status'),
+            '18_account_setting_name'     => 'purchase_payment_account_id',
+            '18_account_default_status'   => $this->getAccountDefault($request->input('purchase_payment_account_id')),
         );
 
          // Debugging inputs

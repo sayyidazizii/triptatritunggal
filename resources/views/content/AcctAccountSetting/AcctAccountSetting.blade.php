@@ -53,6 +53,9 @@
                 <li class="nav-item">
                   <a class="nav-link" href="#pengeluaran" role="tab" data-toggle="tab">Pengeluaran</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#pelunasan" role="tab" data-toggle="tab">Pelunasan</a>
+                </li>
             </ul>
 
             <div class="tab-content">
@@ -209,7 +212,7 @@
                                 {!! Form::select(0, $accountlist, $expenditure_cash_account['account_id'],['class' => 'selection-search-clear select-form','name'=>'expenditure_cash_account_id','id'=>'expenditure_cash_account_id']) !!}
                             </td>
                             <td style="text-align: left !important; width: 30% !important">
-                                {!! Form::select(0, $status, $expenditure_cash_account['account_setting_status'],['class' => 'selection-search-clear select-form','name'=>'expenditure_cash_account_status','id'=>'expenditure_cash_account_status']) !!}
+                                {!! Form::select(0, $status, $expenditure_cash_account['account_setting_status'],['class' => 'selection-search-clear select-form','name'=>'purchase_payment_cash_account_status','id'=>'expenditure_cash_account_status']) !!}
                             </td>
                         </tr>
                         <tr>
@@ -219,6 +222,53 @@
                             </td>
                             <td style="text-align: left !important; width: 30% !important">
                                 {!! Form::select(0, $status, $expenditure_account['account_setting_status'],['class' => 'selection-search-clear select-form','name'=>'expenditure_account_status','id'=>'expenditure_account_status']) !!}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="pelunasan">
+                    <table class="table table-borderless">
+                        <tr>
+                            <th colspan="3" style="text-align: center !important ;width: 100% !important">Pelunasan Piutang</th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left !important; width: 40% !important">Kas</th>
+                            <td style="text-align: left !important; width: 30% !important">
+                                {!! Form::select(0, $accountlist, $sales_collection_cash_account['account_id'],['class' => 'selection-search-clear select-form','name'=>'sales_collection_cash_account_id','id'=>'sales_collection_cash_account_id']) !!}
+                            </td>
+                            <td style="text-align: left !important; width: 30% !important">
+                                {!! Form::select(0, $status, $sales_collection_cash_account['account_setting_status'],['class' => 'selection-search-clear select-form','name'=>'sales_collection_cash_account_status','id'=>'sales_collection_cash_account_status']) !!}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left !important; width: 40% !important">Piutang</th>
+                            <td style="text-align: left !important; width: 30% !important">
+                                {!! Form::select(0, $accountlist, $sales_collection_account['account_id'],['class' => 'selection-search-clear select-form','name'=>'sales_collection_account_id','id'=>'sales_collection_account_id']) !!}
+                            </td>
+                            <td style="text-align: left !important; width: 30% !important">
+                                {!! Form::select(0, $status, $sales_collection_account['account_setting_status'],['class' => 'selection-search-clear select-form','name'=>'sales_collection_account_status','id'=>'sales_collection_account_status']) !!}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th colspan="3" style="text-align: center !important ;width: 100% !important">Pelunasan Hutang</th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left !important; width: 40% !important">Kas</th>
+                            <td style="text-align: left !important; width: 30% !important">
+                                {!! Form::select(0, $accountlist, $purchase_payment_cash_account['account_id'],['class' => 'selection-search-clear select-form','name'=>'purchase_payment_cash_account_id','id'=>'purchase_payment_cash_account_id']) !!}
+                            </td>
+                            <td style="text-align: left !important; width: 30% !important">
+                                {!! Form::select(0, $status, $purchase_payment_cash_account['account_setting_status'],['class' => 'selection-search-clear select-form','name'=>'expenditure_cash_account_status','id'=>'purchase_payment_cash_account_status']) !!}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="text-align: left !important; width: 40% !important">Hutang</th>
+                            <td style="text-align: left !important; width: 30% !important">
+                                {!! Form::select(0, $accountlist, $purchase_payment_account['account_id'],['class' => 'selection-search-clear select-form','name'=>'purchase_payment_account_id','id'=>'purchase_payment_account_id']) !!}
+                            </td>
+                            <td style="text-align: left !important; width: 30% !important">
+                                {!! Form::select(0, $status, $purchase_payment_account['account_setting_status'],['class' => 'selection-search-clear select-form','name'=>'purchase_payment_account_status','id'=>'purchase_payment_account_status']) !!}
                             </td>
                         </tr>
                     </table>
