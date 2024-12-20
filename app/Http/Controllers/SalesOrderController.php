@@ -475,7 +475,11 @@ class SalesOrderController extends Controller
                 return redirect('/sales-order')->with('msg',$msg);
         }catch (\Exception $e) {
             DB::rollBack();
-            report($e);
+
+            Log::error('Tambah Sales Order Gagal: ' .$e->getMessage(), [
+                'exception' => $e, 
+                'trace' => $e->getTraceAsString()
+            ]);
                 $msg = 'Tambah Sales Order Gagal';
                 return redirect('/sales-order/add')->with('msg',$msg);
         }
