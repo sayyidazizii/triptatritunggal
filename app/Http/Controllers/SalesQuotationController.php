@@ -2,39 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\User;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use App\Models\CoreProvince;
 use App\Models\CoreCity;
 use App\Models\SalesOrder;
+use App\Models\InvItemType;
+use App\Models\InvItemUnit;
+use App\Models\CoreCustomer;
+use App\Models\CoreProvince;
+use App\Models\InvItemStock;
+use App\Models\InvWarehouse;
+use Illuminate\Http\Request;
 use App\Models\SalesOrderItem;
 use App\Models\SalesOrderType;
-use App\Models\PreferenceCompany;
-use App\Models\SalesOrderItemStock;
-use App\Models\SalesOrderItemStockTemporary;
-use App\Models\InvWarehouse;
-use App\Models\CoreCustomer;
+use App\Models\SalesQuotation;
 use App\Models\InvItemCategory;
 use Illuminate\Validation\Rule;
-use App\Models\InvItemUnit;
-use App\Models\InvItemType;
-use App\Models\InvItemStock;
-use App\Models\SalesQuotation;
+use App\Models\PreferenceCompany;
 use App\Models\SalesQuotationItem;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use App\Models\SalesOrderItemStock;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use Maatwebsite\Excel\Facades\Excel;
-use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
+use App\Models\SalesOrderItemStockTemporary;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
 
@@ -142,22 +143,22 @@ class SalesQuotationController extends Controller
                         SalesQuotationItem::create($datasalesquotationitem);
                 }
 
+                $msg = 'Tambah Sales Quotation Berhasil';
+            
+            DB::commit();
+
                 // Log the successful update
                 Log::info('SalesQuotation updated successfully', [
                     'sales_quotation_id'   => $sales_quotation_id['sales_quotation_id'],
                 ]);
 
-                $msg = 'Tambah Sales Quotation Berhasil';
-            
-            DB::commit();
-
                 return redirect('/sales-quotation')->with('msg',$msg);
                 
         } catch (\Exception $e) {
             DB::rollBack();
-            Log::error('Tambah Sales Quotation Gagal: ' . e->getMessage(), [
-                'exception' => e, 
-                'trace' => e->getTraceAsString()
+            Log::error('Tambah Sales Quotation Gagal: ' . $e->getMessage(), [
+                'exception' => $e, 
+                'trace' => $e->getTraceAsString()
             ]);
             
             $msg = 'Tambah Sales Quotation Gagal';
