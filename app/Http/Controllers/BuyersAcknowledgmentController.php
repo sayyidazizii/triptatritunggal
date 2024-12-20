@@ -6,6 +6,7 @@ use Log;
 use App\Models\SalesOrder;
 use App\Models\AcctAccount;
 use App\Models\InvItemType;
+use App\Models\CoreCustomer;
 use App\Models\InvItemStock;
 use App\Models\InvWarehouse;
 use Illuminate\Http\Request;
@@ -378,8 +379,6 @@ class BuyersAcknowledgmentController extends Controller
                     'quantity_received'		        => $dataitem['quantity_received_'.$no],
                     'created_id'                    => Auth::id(),
                 ]);
-
-
             }
                 $no++;
 
