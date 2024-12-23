@@ -2,35 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\InvWarehouse;
-use App\Models\CoreBank;
-use App\Models\CoreSupplier;
-use App\Models\CoreCustomer;
-use App\Models\AcctAccount;
-use App\Models\JournalVoucher;
-use App\Models\JournalVoucherItem;
-use App\Models\InvItemCategory;
-use App\Models\InvItemUnit;
-use App\Models\InvItemType;
-use App\Models\PreferenceCompany;
-use App\Models\PreferenceTransactionModule;
-use App\Models\SalesInvoice;
-use App\Models\SalesCollection;
-use App\Models\SalesCollectionItem;
-use App\Models\SalesCollectionPiece;
-use App\Models\SalesCollectionTransfer;
-use App\Models\AcctAccountSetting;
-use App\Models\AcctDebtRepayment;
-use App\Models\AcctDebtRepaymentItem;
-
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\DB;
-use Elibyy\TCPDF\Facades\TCPDF;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Carbon\Carbon;
+use App\Models\CoreBank;
+use App\Models\AcctAccount;
+use App\Models\InvItemType;
+use App\Models\InvItemUnit;
+use App\Models\CoreCustomer;
+use App\Models\CoreSupplier;
+use App\Models\InvWarehouse;
+use App\Models\SalesInvoice;
+use Illuminate\Http\Request;
+use App\Models\JournalVoucher;
+use App\Models\InvItemCategory;
+use App\Models\SalesCollection;
+use Elibyy\TCPDF\Facades\TCPDF;
+use App\Models\AcctDebtRepayment;
+use App\Models\PreferenceCompany;
+use App\Models\AcctAccountSetting;
+use App\Models\JournalVoucherItem;
+use Illuminate\Support\Facades\DB;
+use App\Models\SalesCollectionItem;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+
+use App\Models\SalesCollectionPiece;
+use Illuminate\Support\Facades\Auth;
+use App\Models\AcctDebtRepaymentItem;
+use App\Models\SalesCollectionTransfer;
+use Illuminate\Support\Facades\Session;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use App\Models\PreferenceTransactionModule;
 
 
 class SalesCollectionController extends Controller
@@ -72,7 +73,7 @@ class SalesCollectionController extends Controller
         $corecustomer       = CoreCustomer::where('data_state', 0)
         ->pluck('customer_name', 'customer_id');
 
-        
+
         $customer = CoreCustomer::select('*')
         ->where('customer_id', $customer_id)
         ->where('data_state',0)
@@ -106,14 +107,14 @@ class SalesCollectionController extends Controller
 
         Session::forget('salescollectionelements');
         Session::forget('datasalescollectiontransfer');
-        
+
         $corecustomer = SalesInvoice::with('Customer')
         ->select('*')
         ->selectRaw('SUM(owing_amount) as total_owing_amount, customer_id')
         ->where('data_state', 0)
         ->groupBy('customer_id')
         ->get();
-        
+
         // echo json_encode($corecustomer);exit;
         return view('content/SalesCollection/SearchCoreCustomer',compact('corecustomer'));
     }
@@ -122,7 +123,7 @@ class SalesCollectionController extends Controller
 
         Session::forget('salescollectionelements');
         Session::forget('datasalescollectiontransfer');
-        
+
         $invoice = SalesInvoice::with('Customer')
         ->where('data_state', 0)
         ->get();
@@ -137,7 +138,7 @@ class SalesCollectionController extends Controller
         ->where('sales_invoice.sales_invoice_id', $sales_invoice_id)
         ->where('sales_invoice.owing_amount', '>', 0)
         ->where('sales_invoice.data_state', 0)
-        ->get(); 
+        ->get();
 
         $sales_invoice_id = SalesInvoice::findorFail($sales_invoice_id);
 
@@ -154,7 +155,7 @@ class SalesCollectionController extends Controller
 
         $salescollectionelements = Session::get('salescollectionelements');
         $salescollectiontransfer = Session::get('datasalescollectiontransfer');
-        
+
         $payment_type_list = [
             0 => 'Tunai',
             1 => 'Transfer',
@@ -172,7 +173,7 @@ class SalesCollectionController extends Controller
         ->where('collection_id', $salescollection['collection_id'])
         ->get();
 
-        
+
         return view('content/SalesCollection/FormDetailSalesCollection',compact('collection_id', 'salescollection', 'salescollectionitem'));
     }
 
@@ -188,7 +189,7 @@ class SalesCollectionController extends Controller
         $customer = CoreCustomer::where('data_state', 0)
         ->where('customer_id', $salescollection['customer_id'])
         ->first();
-        
+
         return view('content/SalesCollection/FormDeleteSalesCollection',compact('collection_id', 'salescollection', 'salescollectionitem', 'customer'));
     }
 
@@ -203,7 +204,7 @@ class SalesCollectionController extends Controller
         $salescollectionelements[$request->name] = $request->value;
         Session::put('salescollectionelements', $salescollectionelements);
     }
-    
+
     public function processAddTransferArray(Request $request)
     {
         $salescollectiontransfer = array(
@@ -224,7 +225,7 @@ class SalesCollectionController extends Controller
             Session::push('datasalescollectiontransfer', $salescollectiontransfer);
         }
     }
-    
+
     public function processAddSalesCollection(Request $request)
     {
         $allrequest = $request->all();
@@ -253,7 +254,7 @@ class SalesCollectionController extends Controller
                 ->where('customer_id', $data['customer_id'])
                 ->where('data_state',0)
                 ->first();
-        
+
         if ($employee !== false) {
             // Employee found, proceed with processing
             $amount_debt = $data['collection_amount'] ;
@@ -261,7 +262,7 @@ class SalesCollectionController extends Controller
         }
 
         try {
-            
+
             DB::beginTransaction();
 
             $debtrepayment = array(
@@ -270,7 +271,7 @@ class SalesCollectionController extends Controller
                 'updated_id'                      => Auth::id(),
                 'created_id'                      => Auth::id(),
             );
-            
+
             AcctDebtRepayment::create($debtrepayment);
 
                 $lastdebtrepayment = AcctDebtRepayment::where('created_id',Auth::id())
@@ -281,171 +282,171 @@ class SalesCollectionController extends Controller
                 ->where('customer_id', $request['customer_id'])
                 ->where('data_state',0)
                 ->first();
-        
+
                 if($customer){
                     $amount_debt    =  $customer['amount_debt'];
                     $customer_id    = $request['customer_id'] = $customer['customer_id'];
                     $customer->amount_debt = $amount_debt;
                     $customer->customer_id = $customer_id;
 
-            
+
                     $debtrepayment = array(
                         'debt_repayment_id'      => $lastdebtrepayment['debt_repayment_id'],
                         'customer_id'            => $request->customer_id,
                         'debt_repayment_amount'  => $request->allocation_total,
                         'updated_id'             => Auth::id(),
-                        'created_id'             => Auth::id(),    
+                        'created_id'             => Auth::id(),
                     );
                     AcctDebtRepaymentItem::create($debtrepayment);
                 }
-                
+
 
             // hapus pelunasan hutang customer
                 $customer = CoreCustomer::select('*')
                 ->where('customer_id', $request['customer_id'])
                 ->where('data_state',0)
                 ->first();
-                
+
                 if($customer) {
                     $customer->amount_debt     = $customer['amount_debt'] - $request->allocation_total ;
                     $customer->updated_id      = Auth::id();
                     $customer->save();
                 }
-                
+
             /* Create Jurnal  */
-            // $transaction_module_code 	= "PP";
+            $transaction_module_code 	= "PP";
 
-            // $transactionmodule 		    = PreferenceTransactionModule::where('transaction_module_code', $transaction_module_code)
-            // ->first();
+            $transactionmodule 		    = PreferenceTransactionModule::where('transaction_module_code', $transaction_module_code)
+            ->first();
 
-            // $transaction_module_id 		= $transactionmodule['transaction_module_id'];
+            $transaction_module_id 		= $transactionmodule['transaction_module_id'];
 
-            // $preferencecompany 			= PreferenceCompany::first();
-            
-            // SalesCollection::create($data);
+            $preferencecompany 			= PreferenceCompany::first();
 
-            //     $SalesCollection_last 		= SalesCollection::select('collection_id', 'collection_no')
-            //         ->where('created_id', $data['created_id'])
-            //         ->orderBy('collection_id', 'DESC')
-            //         ->first();
+            SalesCollection::create($data);
 
-            //         $SalesCollection_Cust 		= SalesCollection::select('*')
-            //         ->where('created_id', $data['created_id'])
-            //         ->first();
-                
-                
-                
-            //     $journal_voucher_period 	= date("Ym", strtotime($data['collection_date']));
+                $SalesCollection_last 		= SalesCollection::select('collection_id', 'collection_no')
+                    ->where('created_id', $data['created_id'])
+                    ->orderBy('collection_id', 'DESC')
+                    ->first();
 
-            //     $data_journal = array(
-            //         'company_id'                    => Auth::user()->company_id,
-            //         'journal_voucher_status'        => 1,
-            //         'journal_voucher_description'   => $this->getTransactionModuleName($transaction_module_code) ." ".$request->customer_name ." ".$request->sales_invoice_no,
-            //         'journal_voucher_title'         => $this->getTransactionModuleName($transaction_module_code) ." ".$request->customer_name ." ".$request->sales_invoice_no,
-            //         'transaction_module_id'         => $transaction_module_id,
-            //         'transaction_module_code'       => $transaction_module_code,
-            //         'journal_voucher_date'			=> $data['collection_date'],
-            //         'journal_voucher_period'        => date('Ym'),
-            //         'updated_id'                    => Auth::id(),
-            //         'created_id'                    => Auth::id()
-            //     );
-                
-            //     JournalVoucher::create($data_journal);		
+                    $SalesCollection_Cust 		= SalesCollection::select('*')
+                    ->where('created_id', $data['created_id'])
+                    ->first();
 
-            //     $journalvoucher = JournalVoucher::where('created_id', $data['created_id'])
-            //     ->orderBy('journal_voucher_id', 'DESC')
-            //     ->first();
 
-            //     $journal_voucher_id 	= $journalvoucher['journal_voucher_id'];
 
-            //     $collection = SalesCollection::where('created_id', $data['created_id'])
-            //     ->orderBy('collection_id', 'DESC')
-            //     ->first();
+                $journal_voucher_period 	= date("Ym", strtotime($data['collection_date']));
 
-            //     $collection_id = $collection['collection_id'];
+                $data_journal = array(
+                    'company_id'                    => Auth::user()->company_id,
+                    'journal_voucher_status'        => 1,
+                    'journal_voucher_description'   => $this->getTransactionModuleName($transaction_module_code) ." ".$request->customer_name ." ".$request->sales_invoice_no,
+                    'journal_voucher_title'         => $this->getTransactionModuleName($transaction_module_code) ." ".$request->customer_name ." ".$request->sales_invoice_no,
+                    'transaction_module_id'         => $transaction_module_id,
+                    'transaction_module_code'       => $transaction_module_code,
+                    'journal_voucher_date'			=> $data['collection_date'],
+                    'journal_voucher_period'        => date('Ym'),
+                    'updated_id'                    => Auth::id(),
+                    'created_id'                    => Auth::id()
+                );
 
-            //     for($i = 1; $i < $request->item_total; $i++){
-            //         $data_collectionitem = array(
-            //             'collection_id'		 		=> $collection_id,
-            //             'sales_invoice_id' 		    => $allrequest[$i.'_sales_invoice_id'],
-            //             'sales_invoice_no' 		    => $allrequest[$i.'_sales_invoice_no'],
-            //             'sales_invoice_date' 	    => $allrequest[$i.'_sales_invoice_date'],
-            //             'sales_invoice_amount'	    => $allrequest[$i.'_sales_invoice_amount'],
-            //             'total_amount' 				=> $allrequest[$i.'_total_amount'],
-            //             'paid_amount' 				=> $allrequest[$i.'_paid_amount'],
-            //             'owing_amount' 				=> $allrequest[$i.'_owing_amount'],
-            //             'allocation_amount' 		=> $allrequest[$i.'_allocation'],
-            //             'shortover_amount'	 		=> 0,
-            //             'last_balance' 				=> $allrequest[$i.'_last_balance']
-            //         );
+                JournalVoucher::create($data_journal);
 
-            //         if($data_collectionitem['allocation_amount'] > 0){
-            //             if(SalesCollectionItem::create($data_collectionitem)){
+                $journalvoucher = JournalVoucher::where('created_id', $data['created_id'])
+                ->orderBy('journal_voucher_id', 'DESC')
+                ->first();
 
-            //                 $salesinvoice = SalesInvoice::where('data_state', 0)
-            //                 ->where('sales_invoice_id', $data_collectionitem['sales_invoice_id'])
-            //                 ->first();
+                $journal_voucher_id 	= $journalvoucher['journal_voucher_id'];
 
-            //                 $salesinvoice->paid_amount       = $salesinvoice['paid_amount'] + $data_collectionitem['allocation_amount'] + $data_collectionitem['shortover_amount'];
-            //                 $salesinvoice->owing_amount      = $data_collectionitem['last_balance'];
-            //                 $salesinvoice->shortover_amount  = $salesinvoice['shortover_amount'] + $data_collectionitem['shortover_amount'];
-            //                 $salesinvoice->save();
+                $collection = SalesCollection::where('created_id', $data['created_id'])
+                ->orderBy('collection_id', 'DESC')
+                ->first();
 
-            //                 $msg = "Tambah Pelunasan Piutang Berhasil";
-            //                 continue;
-            //             }else{
-            //                 $msg = "Tambah Pelunasan Piutang Gagal";
-            //                 return redirect('/sales-collection/add/'.$data['customer_id'])->with('msg',$msg);
-            //             }
-            //         }
-            //     }
+                $collection_id = $collection['collection_id'];
 
-            //         $account_setting_name = 'sales_cash_account';
-            //         $account_id = $this->getAccountId($account_setting_name);
-            //         $account_setting_status = $this->getAccountSettingStatus($account_setting_name);
-            //         $account_default_status = $this->getAccountDefaultStatus($account_id);
-            //         if ($account_setting_status == 0){
-            //             $debit_amount = $data_collectionitem['allocation_amount'];
-            //             $credit_amount = 0;
-            //         } else {
-            //             $debit_amount = 0;
-            //             $credit_amount = $data_collectionitem['allocation_amount'];
-            //         }
-            //         $journal_debit = array(
-            //             'company_id'                    => Auth::user()->company_id,
-            //             'journal_voucher_id'            => $journal_voucher_id,
-            //             'account_id'                    => $account_id,
-            //             'journal_voucher_amount'        => $data_collectionitem['allocation_amount'],
-            //             'account_id_default_status'     => $account_default_status,
-            //             'account_id_status'             => $account_setting_status,
-            //             'journal_voucher_debit_amount'  => $debit_amount,
-            //             'journal_voucher_credit_amount' => $credit_amount,
-            //             'updated_id'                    => Auth::id(),
-            //             'created_id'                    => Auth::id()
-            //         );
-            //         JournalVoucherItem::create($journal_debit);
+                for($i = 1; $i < $request->item_total; $i++){
+                    $data_collectionitem = array(
+                        'collection_id'		 		=> $collection_id,
+                        'sales_invoice_id' 		    => $allrequest[$i.'_sales_invoice_id'],
+                        'sales_invoice_no' 		    => $allrequest[$i.'_sales_invoice_no'],
+                        'sales_invoice_date' 	    => $allrequest[$i.'_sales_invoice_date'],
+                        'sales_invoice_amount'	    => $allrequest[$i.'_sales_invoice_amount'],
+                        'total_amount' 				=> $allrequest[$i.'_total_amount'],
+                        'paid_amount' 				=> $allrequest[$i.'_paid_amount'],
+                        'owing_amount' 				=> $allrequest[$i.'_owing_amount'],
+                        'allocation_amount' 		=> $allrequest[$i.'_allocation'],
+                        'shortover_amount'	 		=> 0,
+                        'last_balance' 				=> $allrequest[$i.'_last_balance']
+                    );
 
-            //         $account_setting_name = 'sales_credit_account';
-            //         $account_id = $this->getAccountId($account_setting_name);
-            //         $account_setting_status = $this->getAccountSettingStatus($account_setting_name);
-            //         $account_default_status = $this->getAccountDefaultStatus($account_id);
+                    if($data_collectionitem['allocation_amount'] > 0){
+                        if(SalesCollectionItem::create($data_collectionitem)){
 
-            //         $journal_credit = array(
-            //             'company_id'                    => Auth::user()->company_id,
-            //             'journal_voucher_id'            => $journal_voucher_id ,
-            //             'account_id'                    => $account_id,
-            //             'journal_voucher_amount'        => $data_collectionitem['allocation_amount'],
-            //             'account_id_default_status'     => 1,
-            //             'account_id_status'             => 1,
-            //             'journal_voucher_debit_amount'  => 0,
-            //             'journal_voucher_credit_amount' => $data_collectionitem['allocation_amount'],
-            //             'updated_id'                    => Auth::id(),
-            //             'created_id'                    => Auth::id()
-            //         );
-            //         JournalVoucherItem::create($journal_credit);
-                
+                            $salesinvoice = SalesInvoice::where('data_state', 0)
+                            ->where('sales_invoice_id', $data_collectionitem['sales_invoice_id'])
+                            ->first();
+
+                            $salesinvoice->paid_amount       = $salesinvoice['paid_amount'] + $data_collectionitem['allocation_amount'] + $data_collectionitem['shortover_amount'];
+                            $salesinvoice->owing_amount      = $data_collectionitem['last_balance'];
+                            $salesinvoice->shortover_amount  = $salesinvoice['shortover_amount'] + $data_collectionitem['shortover_amount'];
+                            $salesinvoice->save();
+
+                            $msg = "Tambah Pelunasan Piutang Berhasil";
+                            continue;
+                        }else{
+                            $msg = "Tambah Pelunasan Piutang Gagal";
+                            return redirect('/sales-collection/add/'.$data['customer_id'])->with('msg',$msg);
+                        }
+                    }
+                }
+
+                    $account_setting_name = 'account_receivable_cash_account_id';
+                    $account_id = $this->getAccountId($account_setting_name);
+                    $account_setting_status = $this->getAccountSettingStatus($account_setting_name);
+                    $account_default_status = $this->getAccountDefaultStatus($account_id);
+                    if ($account_setting_status == 0){
+                        $debit_amount = $data_collectionitem['allocation_amount'];
+                        $credit_amount = 0;
+                    } else {
+                        $debit_amount = 0;
+                        $credit_amount = $data_collectionitem['allocation_amount'];
+                    }
+                    $journal_debit = array(
+                        'company_id'                    => Auth::user()->company_id,
+                        'journal_voucher_id'            => $journal_voucher_id,
+                        'account_id'                    => $account_id,
+                        'journal_voucher_amount'        => $data_collectionitem['allocation_amount'],
+                        'account_id_default_status'     => $account_default_status,
+                        'account_id_status'             => $account_setting_status,
+                        'journal_voucher_debit_amount'  => $debit_amount,
+                        'journal_voucher_credit_amount' => $credit_amount,
+                        'updated_id'                    => Auth::id(),
+                        'created_id'                    => Auth::id()
+                    );
+                    JournalVoucherItem::create($journal_debit);
+
+                    $account_setting_name = 'sales_credit_account_id';
+                    $account_id = $this->getAccountId($account_setting_name);
+                    $account_setting_status = $this->getAccountSettingStatus($account_setting_name);
+                    $account_default_status = $this->getAccountDefaultStatus($account_id);
+
+                    $journal_credit = array(
+                        'company_id'                    => Auth::user()->company_id,
+                        'journal_voucher_id'            => $journal_voucher_id ,
+                        'account_id'                    => $account_id,
+                        'journal_voucher_amount'        => $data_collectionitem['allocation_amount'],
+                        'account_id_default_status'     => 1,
+                        'account_id_status'             => 1,
+                        'journal_voucher_debit_amount'  => 0,
+                        'journal_voucher_credit_amount' => $data_collectionitem['allocation_amount'],
+                        'updated_id'                    => Auth::id(),
+                        'created_id'                    => Auth::id()
+                    );
+                    JournalVoucherItem::create($journal_credit);
+
                     $msg = "Tambah Pelunasan Piutang Berhasil";
-            
+
                 DB::commit();
 
                     return redirect('/sales-collection')->with('msg',$msg);
@@ -460,19 +461,19 @@ class SalesCollectionController extends Controller
             $msg = "Tambah Pelunasan Piutang Gagal";
             return redirect('/sales-collection/add/'.$data['customer_id'])->with('msg',$msg);
         }
-        
+
     }
 
     public function processVoidSalesCollection(Request $request){
 
         $collection_no 			        = $request->collection_no;
-        
+
         $salescollection                = SalesCollection::findOrFail($request->collection_id);
         $salescollection->voided_remark = $request->voided_remark;
         $salescollection->voided_on     = date('Y-m-d H:i:s');
         $salescollection->voided_id     = Auth::id();
         $salescollection->data_state    = 2;
-        
+
 
         if($salescollection->save()){
             $salescollectionitem 	= SalesCollectionItem::where('collection_id', $request->collection_id)->get();
@@ -536,12 +537,12 @@ class SalesCollectionController extends Controller
             return redirect('/sales-collection/delete/'.$request->collection_id)->with('msg',$msg);
         }
     }
-    
+
     public function deleteTransferArray($record_id, $supplier_id)
     {
         $arrayBaru			= array();
         $dataArrayHeader	= Session::get('datasalescollectiontransfer');
-        
+
         foreach($dataArrayHeader as $key=>$val){
             if($key != $record_id){
                 $arrayBaru[$key] = $val;
@@ -617,7 +618,7 @@ class SalesCollectionController extends Controller
 
         return $bank['bank_name'];
     }
-    
+
 
     public function addCoreBank(Request $request){
         $bank_code          = $request->bank_code;
@@ -625,8 +626,8 @@ class SalesCollectionController extends Controller
         $account_id         = $request->account_id;
         $bank_remark        = $request->bank_remark;
         $data               = '';
-        
-        $corebank = CoreBank::create([  
+
+        $corebank = CoreBank::create([
             'bank_code'     => $bank_code,
             'bank_name'     => $bank_name,
             'account_id'    => $account_id,
@@ -639,7 +640,7 @@ class SalesCollectionController extends Controller
 
         $data .= "<option value=''>--Choose One--</option>";
         foreach ($corebank as $mp){
-            $data .= "<option value='$mp[bank_id]'>$mp[bank_name]</option>\n";	
+            $data .= "<option value='$mp[bank_id]'>$mp[bank_name]</option>\n";
         }
 
         return $data;
@@ -650,12 +651,12 @@ class SalesCollectionController extends Controller
 	    $tsingle = array("","satu ","dua ","tiga ","empat ","lima ",
 		"enam ","tujuh ","delapan ","sembilan ");
 	      return strtoupper($tsingle[$onestr]);
-	}	
-	 
+	}
+
 	function doone($onestr) {
 	    $tsingle = array("","se","dua ","tiga ","empat ","lima ", "enam ","tujuh ","delapan ","sembilan ");
 	      return strtoupper($tsingle[$onestr]);
-	}	
+	}
 
 	function dotwo($twostr) {
 	    $tdouble = array("","puluh ","dua puluh ","tiga puluh ","empat puluh ","lima puluh ", "enam puluh ","tujuh puluh ","delapan puluh ","sembilan puluh ");
@@ -669,7 +670,7 @@ class SalesCollectionController extends Controller
 	    }
 	    return strtoupper($ret);
 	}
-    
+
 
 	function numtotxt($num) {
 		$tdiv 	= array("","","ratus ","ribu ", "ratus ", "juta ", "ratus ","miliar ");
@@ -677,7 +678,7 @@ class SalesCollectionController extends Controller
 		$pos 	= 0; // index into tdiv;
 		// make num a string, and reverse it, because we run through it backwards
 		// bikin num ke string dan dibalik, karena kita baca dari arah balik
-		$num 	= strval(strrev(number_format($num, 2, '.',''))); 
+		$num 	= strval(strrev(number_format($num, 2, '.','')));
 		$answer = ""; // mulai dari sini
 		while (strlen($num)) {
 			if ( strlen($num) == 1 || ($pos >2 && $pos % 2 == 1))  {
@@ -723,16 +724,16 @@ class SalesCollectionController extends Controller
 	    }
 	    return strtoupper($answer.'rupiah');
 	}
-    
+
     public function processPrintingSalescollection($collection_id){
 
         $preference_company = PreferenceCompany::first();
-        
+
         $salescollection = SalesCollection::select('sales_collection.*', 'core_customer.*')
         ->join('core_customer', 'core_customer.customer_id', 'sales_collection.customer_id')
         ->where('collection_id', $collection_id)
         ->first();
-        
+
         $city = PreferenceCompany::where('company_id', Auth::user()->company_id)
         ->first();
         // echo json_encode($preference_company);exit;
@@ -783,7 +784,7 @@ class SalesCollectionController extends Controller
         </table>";
 
         $pdf::writeHTML($tbl, true, false, false, false, '');
-        
+
 
         $tbl1 = "
         Telah diterima uang dari :
@@ -825,7 +826,7 @@ class SalesCollectionController extends Controller
                 <td width=\"30%\"><div style=\"text-align: center;\">Penyetor</div></td>
                 <td width=\"20%\"><div style=\"text-align: center;\"></div></td>
                 <td width=\"30%\"><div style=\"text-align: center;\">Penerima</div></td>
-            </tr>				
+            </tr>
         </table>";
 
         $pdf::writeHTML($tbl1.$tbl2, true, false, false, false, '');
@@ -843,7 +844,7 @@ class SalesCollectionController extends Controller
 
         // set javascript
         $pdf::IncludeJS($js);
-        
+
         $pdf::Output($filename, 'I');
 
         //============================================================+
@@ -892,7 +893,7 @@ class SalesCollectionController extends Controller
         ->join('core_customer', 'core_customer.customer_id', 'sales_collection.customer_id')
         ->where('collection_id', $collection_id)
         ->first();
-        
+
         $city = PreferenceCompany::where('company_id', Auth::user()->company_id)
         ->first();
 
@@ -906,7 +907,7 @@ class SalesCollectionController extends Controller
                                         ->setDescription("Laporan Pembayaran")
                                         ->setKeywords("Laporan, Pembayaran")
                                         ->setCategory("Laporan Pembayaran");
-                                
+
             $sheet = $spreadsheet->getActiveSheet(0);
             $spreadsheet->getActiveSheet()->getPageSetup()->setFitToWidth(1);
             $spreadsheet->getActiveSheet()->getPageSetup()->setFitToWidth(1);
@@ -920,7 +921,7 @@ class SalesCollectionController extends Controller
             $spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(20);
             $spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(20);
 
-    
+
             $spreadsheet->getActiveSheet()->mergeCells("B1:J1");
             $spreadsheet->getActiveSheet()->getStyle('B1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
             $spreadsheet->getActiveSheet()->getStyle('B1')->getFont()->setBold(true)->setSize(16);
@@ -928,7 +929,7 @@ class SalesCollectionController extends Controller
             $spreadsheet->getActiveSheet()->getStyle('B3:J3')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
             $spreadsheet->getActiveSheet()->getStyle('B3:J3')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-            $sheet->setCellValue('B1',"Laporan Penjualan Dari Periode ".date('d M Y', strtotime($start_date))." s.d. ".date('d M Y', strtotime($end_date)));	
+            $sheet->setCellValue('B1',"Laporan Penjualan Dari Periode ".date('d M Y', strtotime($start_date))." s.d. ".date('d M Y', strtotime($end_date)));
             $sheet->setCellValue('B3',"No");
             $sheet->setCellValue('C3',"Tanggal");
             $sheet->setCellValue('D3',"No. Invoice");
@@ -939,17 +940,17 @@ class SalesCollectionController extends Controller
             $sheet->setCellValue('I3',"Total Dibayar");
             $sheet->setCellValue('J3',"Max Hutang");
 
-            
+
             $j  =   4;
             $no =   0;
 
 
-                    
+
                     $sheet = $spreadsheet->getActiveSheet(0);
                     $spreadsheet->getActiveSheet()->setTitle("Laporan Penjualan");
                     $spreadsheet->getActiveSheet()->getStyle('B'.$j.':J'.$j)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
 
-            
+
                     $spreadsheet->getActiveSheet()->getStyle('B'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                     $spreadsheet->getActiveSheet()->getStyle('C'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
                     $spreadsheet->getActiveSheet()->getStyle('D'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
