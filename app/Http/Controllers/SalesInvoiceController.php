@@ -470,7 +470,6 @@ class SalesInvoiceController extends Controller
             $msg = 'Tambah Sales Invoice Gagal';
                 return redirect('/sales-invoice/add/' . $request->sales_delivery_note_id)->with('msg', $msg);
         }
-        
     }
 
     public function processEditSalesInvoice(Request $request)
