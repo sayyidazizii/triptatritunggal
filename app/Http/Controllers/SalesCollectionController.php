@@ -239,7 +239,7 @@ class SalesCollectionController extends Controller
             'collection_remark'					=> $request->collection_remark,
             'collection_amount'					=> $request->allocation_total,
             'collection_allocated'			    => $request->allocation_total,
-            'collection_shortover'			    => $request->shortover_total,
+            'collection_shortover'			    => 0,
             'collection_total_amount'		    => $request->collection_amount,
             'collection_total_cash_amount'	    => $request->collection_total_cash_amount,
             'collection_total_transfer_amount'  => $request->collection_total_transfer_amount,
@@ -453,7 +453,10 @@ class SalesCollectionController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             report($e);
-            
+            Log::error('Error saat membuat Sales Invoice: ' . $e->getMessage(), [
+                'exception' => $e,
+                'trace' => $e->getTraceAsString()
+            ]);
             $msg = "Tambah Pelunasan Piutang Gagal";
             return redirect('/sales-collection/add/'.$data['customer_id'])->with('msg',$msg);
         }
