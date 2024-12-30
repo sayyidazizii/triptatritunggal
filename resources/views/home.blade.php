@@ -12,7 +12,6 @@
     $(window).on('load', function() {
         jQuery.noConflict();
         $('#alert').modal('show');
-
         function close()
         {
             jQuery.noConflict();
@@ -23,14 +22,35 @@
 
 
 {{-- @section('content_header')
-    
-Dashboard
 
+Dashboard
 @stop --}}
 
 @section('content')
 
     <br>
+    <div class="modal fade bs-modal-md text-dark" id="alert" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header"  style='text-align:left !important'>
+                    <h4>Notifikasi</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <table class="table table-bordered table-hover">
+                                <p>Hari ini  ada {{ count($purchaseinvoice) }} Purchase Invoice dan {{ count($salesinvoice) }} Sales Invoice Jatuh Tempo</p>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" data-dismiss="modal" aria-label="Close">close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="card border border-dark">
         <div class="card-header border-dark bg-dark">
             <h5 class="mb-0 float-left">
@@ -59,9 +79,9 @@ Dashboard
                                 <li class="list-group-item main-menu-item"
                                     onClick="location.href='{{ route('purchase-order-approval') }}'"> <i
                                         class="fa fa-angle-right"></i> Persetujuan Purchase Order</li>
-                                <?php 
+                                <?php
                             }
-                        } 
+                        }
                     ?>
                             </ul>
                         </div>
@@ -110,9 +130,9 @@ Dashboard
                                 <li class="list-group-item main-menu-item-b"
                                     onClick="location.href='{{ route('item-stock') }}'"> <i class="fa fa-angle-right"></i>
                                     Stock Barang</li>
-                                <?php 
+                                <?php
                                 }
-                            } 
+                            }
                         ?>
                             </ul>
                         </div>
@@ -129,10 +149,10 @@ Dashboard
                             if($menu['id_menu']==51){
                     ?>
                         <li class="list-group-item main-menu-item-b" onClick="location.href='{{route('grading')}}'"> <i class="fa fa-angle-right"></i> Grading Barang</li>
-                    <?php 
+                    <?php
                             }
-                        } 
-                    ?>     
+                        }
+                    ?>
                     </ul>
                 </div>
                 </div>
@@ -164,9 +184,9 @@ Dashboard
                                 <li class="list-group-item main-menu-item"
                                     onClick="location.href='{{ route('sales-invoice') }}'"> <i
                                         class="fa fa-angle-right"></i> Sales Order Invoice</li>
-                                <?php 
+                                <?php
                             }
-                        } 
+                        }
                     ?>
                             </ul>
                         </div>
@@ -191,9 +211,9 @@ Dashboard
                                 <li class="list-group-item main-menu-item-b"
                                     onClick="location.href='{{ route('sales-delivery-note') }}'"> <i
                                         class="fa fa-angle-right"></i> Sales Delivery Note</li>
-                                <?php 
+                                <?php
                             }
-                        } 
+                        }
                     ?>
                             </ul>
                         </div>
@@ -230,9 +250,9 @@ Dashboard
                                 <li class="list-group-item main-menu-item"
                                     onClick="location.href='{{ route('sales-collection') }}'"> <i
                                         class="fa fa-angle-right"></i> Pelunasan Piutang</li>
-                                <?php 
+                                <?php
                             }
-                        } 
+                        }
                     ?>
                             </ul>
                         </div>
