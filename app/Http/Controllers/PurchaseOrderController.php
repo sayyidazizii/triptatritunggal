@@ -95,8 +95,6 @@ class PurchaseOrderController extends Controller
         $purchaseorderelements  = Session::get('purchaseorderelements');
         $purchaseorderitem      = Session::get('purchaseorderitem');
 
-        // dd($purchaseorderelements);
-        //dd($purchaseorderitem);
 
         $warehouse              = InvWarehouse::where('data_state', '=', 0)->pluck('warehouse_name', 'warehouse_id');
         $supplier               = CoreSupplier::where('data_state', '=', 0)->pluck('supplier_name', 'supplier_id');
@@ -182,7 +180,6 @@ class PurchaseOrderController extends Controller
 
         return view('content/PurchaseOrder/FormDetailPurchaseOrder', compact('purchaseorderitem', 'purchaseorder'));
     }
-
 
     public function cetakPurchaseOrder($purchase_order_id)
     {
@@ -304,57 +301,57 @@ class PurchaseOrderController extends Controller
             </td>
             </tr>
         </table>
-    </table>
-        ";
-        $pdf::writeHTML($tbl, true, false, false, false, '');
+            </table>
+                ";
+                $pdf::writeHTML($tbl, true, false, false, false, '');
 
-        $html2 = "<table cellspacing=\"0\" cellpadding=\"1\" border=\"1\" width=\"100%\">
-                        <tr style=\"text-align: center;\">
-                            <td width=\"4%\" ><div style=\"text-align: center;\">No</div></td>
-                            <td width=\"20%\" ><div style=\"text-align: center;\">Nama Barang</div></td>
-                            <td width=\"10%\" ><div style=\"text-align: center;\">Qty</div></td>
-                            <td width=\"10%\" ><div style=\"text-align: center;\">Harga </div></td>
-                            <td width=\"9%\" ><div style=\"text-align: center;\">Diskon </div></td>
-                            <td width=\"10%\" ><div style=\"text-align: center;\">Jumlah(DPP) </div></td>
-                            <td width=\"10%\" ><div style=\"text-align: center;\">Total </div></td>
-                            <td width=\"10%\" ><div style=\"text-align: center;\">Ket </div></td>
-                        </tr>";
-        $no = 1;
-        $total = 0;
-        $totalJumlah = 0;
-        foreach ($purchaseorderitem as $key => $val) {
-            $Jumlah = $val['quantity'] * $val['item_unit_cost'] - $val['discount_amount'] ;
-            $totalJumlah += $Jumlah;
-            $total = $totalJumlah  + $purchaseorder['ppn_in_amount'];
-            $html2 .= "<tr>
-                            <td>" . $no . "</td>
-                            <td>" . $this->getItemCategoryName($val['item_category_id']) . "-" . $this->getItemTypeName($val['item_type_id']) . "</td>
-                            <td style=\"text-align: right;\">" . $val['quantity'] . "</td>
-                            <td style=\"text-align: right;\">" . number_format($val['item_unit_cost'], 2) . "</td>
-                            <td style=\"text-align: right;\">" . $val['discount_percentage']  . "%</td>
-                            <td style=\"text-align: right;\">" . number_format($val['subtotal_amount'], 2) . "</td>
-                            <td style=\"text-align: right;\">" .  number_format($Jumlah , 2)  . "</td>
-                            <td style=\"text-align: right;\">" . $purchaseorder['purchase_order_remark'] . "</td>
-                        </tr>
-                        ";
-            $no++;
-        }
+                $html2 = "<table cellspacing=\"0\" cellpadding=\"1\" border=\"1\" width=\"100%\">
+                                <tr style=\"text-align: center;\">
+                                    <td width=\"4%\" ><div style=\"text-align: center;\">No</div></td>
+                                    <td width=\"20%\" ><div style=\"text-align: center;\">Nama Barang</div></td>
+                                    <td width=\"10%\" ><div style=\"text-align: center;\">Qty</div></td>
+                                    <td width=\"10%\" ><div style=\"text-align: center;\">Harga </div></td>
+                                    <td width=\"9%\" ><div style=\"text-align: center;\">Diskon </div></td>
+                                    <td width=\"10%\" ><div style=\"text-align: center;\">Jumlah(DPP) </div></td>
+                                    <td width=\"10%\" ><div style=\"text-align: center;\">Total </div></td>
+                                    <td width=\"10%\" ><div style=\"text-align: center;\">Ket </div></td>
+                                </tr>";
+                $no = 1;
+                $total = 0;
+                $totalJumlah = 0;
+                foreach ($purchaseorderitem as $key => $val) {
+                    $Jumlah = $val['quantity'] * $val['item_unit_cost'] - $val['discount_amount'] ;
+                    $totalJumlah += $Jumlah;
+                    $total = $totalJumlah  + $purchaseorder['ppn_in_amount'];
+                    $html2 .= "<tr>
+                                    <td>" . $no . "</td>
+                                    <td>" . $this->getItemCategoryName($val['item_category_id']) . "-" . $this->getItemTypeName($val['item_type_id']) . "</td>
+                                    <td style=\"text-align: right;\">" . $val['quantity'] . "</td>
+                                    <td style=\"text-align: right;\">" . number_format($val['item_unit_cost'], 2) . "</td>
+                                    <td style=\"text-align: right;\">" . $val['discount_percentage']  . "%</td>
+                                    <td style=\"text-align: right;\">" . number_format($val['subtotal_amount'], 2) . "</td>
+                                    <td style=\"text-align: right;\">" .  number_format($Jumlah , 2)  . "</td>
+                                    <td style=\"text-align: right;\">" . $purchaseorder['purchase_order_remark'] . "</td>
+                                </tr>
+                                ";
+                    $no++;
+                }
 
-        $html2  .= " <tr>
-                        <td colspan=\"6\" style=\"text-align: center;font-weight: bold\";>PPN</td>
-                        <td style=\"text-align: right;\">" . number_format($purchaseorder['ppn_in_amount'], 2) . "</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colspan=\"6\" style=\"text-align: center;font-weight: bold\";>Total</td>
-                        <td style=\"text-align: right;\">" . number_format($total, 2) . "</td>
-                        <td></td>
-                    </tr>
-                    ";
-        $html2 .= "</table>";
-        $path = '<img width="60"; height="60" src="resources/assets/img/ttd.png">';
-        //dd($path);
-        $html2 .= "
+                $html2  .= " <tr>
+                                <td colspan=\"6\" style=\"text-align: center;font-weight: bold\";>PPN</td>
+                                <td style=\"text-align: right;\">" . number_format($purchaseorder['ppn_in_amount'], 2) . "</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan=\"6\" style=\"text-align: center;font-weight: bold\";>Total</td>
+                                <td style=\"text-align: right;\">" . number_format($total, 2) . "</td>
+                                <td></td>
+                            </tr>
+                            ";
+                $html2 .= "</table>";
+                $path = '<img width="60"; height="60" src="resources/assets/img/ttd.png">';
+                //dd($path);
+                $html2 .= "
                     <table style=\"text-align: center;font-weight: bold\" cellspacing=\"20\";>
                         <tr>
                             <th>Disiapkan Oleh:</th>
@@ -388,9 +385,6 @@ class PurchaseOrderController extends Controller
         $pdf::Output($filename, 'I');
     }
 
-
-
-
     public function elements_add(Request $request)
     {
         $purchaseorderelements = Session::get('purchaseorderelements');
@@ -399,6 +393,7 @@ class PurchaseOrderController extends Controller
             $purchaseorderelements['purchase_order_shipment_date'] = '';
             $purchaseorderelements['warehouse_id'] = '';
             $purchaseorderelements['supplier_id'] = '';
+            $purchaseorderelements['payment_method'] = '';
             $purchaseorderelements['purchase_order_remark'] = '';
         }
         $purchaseorderelements[$request->name] = $request->value;
@@ -472,15 +467,6 @@ class PurchaseOrderController extends Controller
             return redirect('/purchase-order')->with('msg', $msg);
         }
     }
-
-
-    // public function getPPNIn(Request $request){
-
-    // }
-
-
-
-
 
     public function getItemCategoryName($item_category_id)
     {
@@ -683,6 +669,7 @@ class PurchaseOrderController extends Controller
             'supplier_id'                       => 'required',
             'total_item_all'                    => 'required',
             'total_amount'                      => 'required',
+            'payment_method'                    => 'required',
         ]);
 
         $purchaseorder = array(
@@ -690,6 +677,7 @@ class PurchaseOrderController extends Controller
             'purchase_order_shipment_date'  => $fields['purchase_order_shipment_date'],
             'warehouse_id'                  => $fields['warehouse_id'],
             'supplier_id'                   => $fields['supplier_id'],
+            'payment_method'                => $fields['payment_method'],
             'total_item'                    => $fields['total_item_all'],
             'total_amount'                  => $fields['total_amount'],
             'ppn_in_percentage'             => $request['ppn_in_percentage'],
@@ -698,7 +686,7 @@ class PurchaseOrderController extends Controller
             'purchase_order_remark'         => $request->purchase_order_remark,
             'branch_id'                     => Auth::user()->branch_id,
         );
-        //dd($purchaseorder);
+        dd($purchaseorder);
 
         if (PurchaseOrder::create($purchaseorder)) {
             $purchase_order_id = PurchaseOrder::orderBy('created_at', 'DESC')->first();
@@ -716,7 +704,7 @@ class PurchaseOrderController extends Controller
                     'discount_percentage'            => $val['discount_percentage'],
                     'discount_amount'                => $val['discount_amount'],
                 );
-                //dd($datapurchaseorderitem);
+                dd($datapurchaseorderitem);
                 PurchaseOrderItem::create($datapurchaseorderitem);
             }
             $msg = 'Tambah Purchase Order Berhasil';

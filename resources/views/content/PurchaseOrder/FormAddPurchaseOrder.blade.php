@@ -535,7 +535,7 @@
                 </div>
             </div>
             <div class="row form-group">
-                <div class="col-md-5">
+                <div class="col-md-3">
                     <a class="text-dark">Gudang<a class='red'> *</a></a>
                     {!! Form::select('warehouse_id',  $warehouse, $purchaseorderelements == null ? '' : $purchaseorderelements['warehouse_id'] , ['class' => 'selection-search-clear select-form', 'id' => 'warehouse_id', 'onchange' => 'elements_add(this.name , this.value);']) !!}
                 </div>
@@ -543,13 +543,26 @@
                     <a class="text-dark"></a>
                     <a href='#addwarehouse' data-toggle='modal' name="Find" class="btn btn-success add-btn btn-sm" title="Add Data">Tambah</a>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-3">
                     <a class="text-dark">Pemasok<a class='red'> *</a></a>
                     {!! Form::select('supplier_id',  $supplier, $purchaseorderelements == null ? '' : $purchaseorderelements['supplier_id'], ['class' => 'selection-search-clear select-form', 'id' => 'supplier_id', 'onchange' => 'elements_add(this.name , this.value);']) !!}
                 </div>
                 <div class="col-md-1" style="margin-top: 0.3%">
                     <a class="text-dark"></a>
                     <a href='#addsupplier' data-toggle='modal' name="Find" class="btn btn-success add-btn btn-sm" title="Add Data">Tambah</a>
+                </div>
+                <div class="col-md-3">
+                    <a class="text-dark">Metode Pembayaran<a class='red'> *</a></a>
+                        {!! Form::select(
+                            'payment_method',
+                            \App\Helpers\PurchaseHelper::getPaymentMethodList(),
+                            $purchaseorderelements == null ? '' : $purchaseorderelements['payment_method'],
+                            [
+                                'class' => 'selection-search-clear select-form',
+                                'id' => 'payment_method',
+                                'onchange' => 'elements_add(this.name , this.value);'
+                            ]
+                        ) !!}
                 </div>
             </div>
             <div class="row form-group">
