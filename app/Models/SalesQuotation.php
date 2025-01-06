@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\CoreCustomer;
+use App\Models\SalesQuotationItem;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SalesQuotation extends Model
-{   
+{
     use HasFactory;
     /**
      * The attributes that are mass assignable.
@@ -19,4 +21,15 @@ class SalesQuotation extends Model
     protected $guarded = [
         'sales_quotation_id',
     ];
+
+    public function customer()
+{
+    return $this->belongsTo(CoreCustomer::class, 'customer_id', 'customer_id');
+}
+
+public function items()
+{
+    return $this->hasMany(SalesQuotationItem::class, 'sales_quotation_id', 'sales_quotation_id');
+}
+
 }

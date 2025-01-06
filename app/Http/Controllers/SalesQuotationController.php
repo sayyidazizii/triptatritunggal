@@ -30,6 +30,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -119,7 +120,7 @@ class SalesQuotationController extends Controller
 
         try {
             DB::beginTransaction();
-            
+
                 SalesQuotation::create($salesquotation);
                     $sales_quotation_id = SalesQuotation::orderBy('created_at','DESC')->first();
                     $salesquotationitem = Session::get('salesquotationitem');
@@ -138,13 +139,13 @@ class SalesQuotationController extends Controller
                             'subtotal_after_discount_item_a'=> $val['subtotal_after_discount_item_a'],
                             'ppn_amount_item'               => $val['ppn_amount_item'],
                             'total_price_after_ppn_amount'  => $val['total_price_after_ppn_amount'],
-        
+
                         );
                         SalesQuotationItem::create($datasalesquotationitem);
                 }
 
                 $msg = 'Tambah Sales Quotation Berhasil';
-            
+
             DB::commit();
 
                 // Log the successful update
@@ -153,14 +154,14 @@ class SalesQuotationController extends Controller
                 ]);
 
                 return redirect('/sales-quotation')->with('msg',$msg);
-                
+
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Tambah Sales Quotation Gagal: ' . $e->getMessage(), [
-                'exception' => $e, 
+                'exception' => $e,
                 'trace' => $e->getTraceAsString()
             ]);
-            
+
             $msg = 'Tambah Sales Quotation Gagal';
             return redirect('/sales-quotation/add')->with('msg',$msg);
         }
@@ -283,13 +284,13 @@ class SalesQuotationController extends Controller
 
     public function export($quotation_id)
     {
-
         // Ambil data sales quotation
-        $salesquotation = SalesQuotation::join('core_customer', 'core_customer.customer_id', 'sales_quotation.customer_id')
-            ->join('sales_quotation_item', 'sales_quotation_item.sales_quotation_id', 'sales_quotation.sales_quotation_id')
-            ->where('sales_quotation.data_state', '=', 0)
-            ->where('sales_quotation.sales_quotation_id', $quotation_id)
-            ->first();
+        $salesquotation = SalesQuotation::with([
+            'customer',
+            'items.itemType',
+        ])->where('data_state', 0)
+        ->where('sales_quotation_id', $quotation_id)
+        ->first();
 
         if (!$salesquotation) {
             echo "Maaf, data yang diekspor tidak ada!";
@@ -297,7 +298,6 @@ class SalesQuotationController extends Controller
         }
 
         $preference_company = PreferenceCompany::first();
-
 
         // Buat objek Spreadsheet
         $spreadsheet = new Spreadsheet();
@@ -319,9 +319,9 @@ class SalesQuotationController extends Controller
         $drawing = new Drawing();
         $drawing->setName('Logo');
         $drawing->setDescription('Logo Tripta');
-        $drawing->setPath(public_path('img/logo_tripta.png')); // Pastikan path sudah benar
-        $drawing->setHeight(50); // Sesuaikan ukuran tinggi logo
-        $drawing->setCoordinates('B4'); // Set lokasi untuk logo (di bawah "SERVING BETTER")
+        $drawing->setPath(public_path('img/logo_tripta.png'));
+        $drawing->setHeight(50);
+        $drawing->setCoordinates('B4');
         $drawing->setOffsetX(10);
         $drawing->setWorksheet($sheet);
 
@@ -333,7 +333,12 @@ class SalesQuotationController extends Controller
         $sheet->setCellValue("E4", "Date");
         $sheet->setCellValue("E5", "Valid Until");
         $sheet->setCellValue("E6", "Quote #");
-        $sheet->setCellValue("E7", "Customer ID");
+        $sheet->setCellValue("E7", "Customer");
+
+        $sheet->setCellValue("F4", $salesquotation->sales_quotation_date);
+        $sheet->setCellValue("F5", "-");
+        $sheet->setCellValue("F6", "Quote #");
+        $sheet->setCellValue("F7", $salesquotation->customer->name);
 
         $sheet->getStyle("E4:E7")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
         $sheet->getStyle("F4:F7")->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THIN);
@@ -345,7 +350,7 @@ class SalesQuotationController extends Controller
         $sheet->setCellValue("D9", "Quote/Project Description");
         $sheet->getStyle("B9:G9")->getFont()->setBold(true)->getColor()->setRGB("FFFFFF");
         $sheet->getStyle("B9:G9")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle("B9:G9")->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+        $sheet->getStyle("B9:G9")->getFill()->setFillType(Fill::FILL_SOLID)
             ->getStartColor()->setARGB('4F81BD');
 
         $sheet->mergeCells("B10:C15"); // Area Customer
@@ -360,15 +365,33 @@ class SalesQuotationController extends Controller
         $sheet->getStyle("B17:G17")->getFont()->setBold(true);
         $sheet->getStyle("B17:G17")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
         $sheet->getStyle("B17:G17")->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
-        $sheet->getStyle("B18:G28")->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
 
-        // Contoh Data Kosong di Tabel
-        for ($row = 18; $row <= 28; $row++) {
-            $sheet->mergeCells("B{$row}:D{$row}"); // Kolom Description memanjang
-            $sheet->setCellValue("E{$row}", ""); // QTY
-            $sheet->setCellValue("F{$row}", ""); // Harga
-            $sheet->setCellValue("G{$row}", ""); // Line Total
+        // Looping data item
+        $startRow = 18; // Baris awal untuk item
+        $subtotal = 0; // Inisialisasi subtotal
+
+        foreach ($salesquotation->items as $index => $item) {
+            $currentRow = $startRow + $index;
+            $lineTotal = $item->quantity * $item->item_unit_price; // Hitung line total
+            $subtotal += $lineTotal; // Tambahkan ke subtotal
+
+            $sheet->mergeCells("B{$currentRow}:D{$currentRow}"); // Kolom Description memanjang
+            $sheet->setCellValue("B{$currentRow}", $item->itemType->item_type_name);
+            $sheet->setCellValue("E{$currentRow}", $item->quantity);
+            $sheet->setCellValue("F{$currentRow}", $item->item_unit_price);
+            $sheet->setCellValue("G{$currentRow}", $lineTotal);
         }
+
+        $endRow = $startRow + count($salesquotation->items) - 1;
+        $sheet->getStyle("B17:G{$endRow}")->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
+
+        // Hitung ringkasan total
+        $discountRate = 10; // Diskon dalam persen
+        $discount = $subtotal * ($discountRate / 100);
+        $dpp = $subtotal - $discount;
+        $vatRate = 11; // VAT dalam persen
+        $vat = $dpp * ($vatRate / 100);
+        $total = $dpp + $vat;
 
         // Bagian Special Notes and Instructions
         $sheet->mergeCells("B30:D30");
@@ -384,8 +407,15 @@ class SalesQuotationController extends Controller
         $sheet->setCellValue("E33", "VAT Rate 11%");
         $sheet->setCellValue("E34", "Total");
 
+        $sheet->setCellValue("F30", $subtotal); // Subtotal
+        $sheet->setCellValue("F31", $discount); // Discount
+        $sheet->setCellValue("F32", $dpp); // DPP
+        $sheet->setCellValue("F33", $vat); // VAT Rate 11%
+        $sheet->setCellValue("F34", $total); // Total
+
         $sheet->getStyle("E30:E34")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
         $sheet->getStyle("F30:F34")->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THIN);
+        $sheet->getStyle("F30:F34")->getNumberFormat()->setFormatCode('#,##0.00');
 
         // Footer
         $sheet->mergeCells("B37:G37");

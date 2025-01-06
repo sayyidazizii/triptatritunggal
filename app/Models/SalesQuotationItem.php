@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\InvItemType;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SalesQuotationItem extends Model
 {
@@ -18,5 +19,10 @@ class SalesQuotationItem extends Model
     protected $guarded = [
         'sales_quotation_item_id',
     ];
-    
+
+    public function itemType()
+    {
+        return $this->belongsTo(InvItemType::class, 'item_type_id', 'item_type_id');
+    }
+
 }
