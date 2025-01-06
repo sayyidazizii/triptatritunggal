@@ -371,7 +371,6 @@ class SalesOrderController extends Controller
         return $salesorderitem['subtotal_after_discount'];
     }
 
-
     public function filterSalesOrder(Request $request){
         $start_date     = $request->start_date;
         $end_date       = $request->end_date;
@@ -405,11 +404,11 @@ class SalesOrderController extends Controller
 
         try {
             DB::beginTransaction();
-            
+
             if($request->hasFile('receipt_image')){
 
                 //Storage::delete('/public/receipt_images/'.$user->receipt_image);
-    
+
                 // Get filename with the extension
                 $filenameWithExt = $request->file('receipt_image')->getClientOriginalName();
                 //Get just filename
@@ -477,7 +476,7 @@ class SalesOrderController extends Controller
             DB::rollBack();
 
             Log::error('Tambah Sales Order Gagal: ' .$e->getMessage(), [
-                'exception' => $e, 
+                'exception' => $e,
                 'trace' => $e->getTraceAsString()
             ]);
                 $msg = 'Tambah Sales Order Gagal';
@@ -561,24 +560,23 @@ class SalesOrderController extends Controller
             }
     }
 
-        public function getItemUnitPrice(Request $request){
-            $item_stock_id    = $request->item_stock_id;
+    public function getItemUnitPrice(Request $request){
+        $item_stock_id    = $request->item_stock_id;
 
-            $itemstock  = InvItemStock::select('item_unit_price')
-            ->where('inv_item_stock.data_state', 0)
-            ->where('inv_item_stock.item_stock_id', $item_stock_id)
-            ->where('inv_item_stock.warehouse_id',6)
-            ->first();
+        $itemstock  = InvItemStock::select('item_unit_price')
+        ->where('inv_item_stock.data_state', 0)
+        ->where('inv_item_stock.item_stock_id', $item_stock_id)
+        ->where('inv_item_stock.warehouse_id',6)
+        ->first();
 
-            if($itemstock == null){
+        if($itemstock == null){
                 $return_data =  'kosong';
                 return $return_data;
-            }else{
+        }else{
                 $return_data =  $itemstock;
                 return $return_data['item_unit_price'];
-            }
         }
-
+    }
 
     public function getInvItemType(Request $request)
     {
@@ -612,8 +610,7 @@ class SalesOrderController extends Controller
                 $data .= "<option value='{$mp->item_stock_id}'>{$mp->item_type_name}-{$mp->item_batch_number}</option>\n";
             }
             return $data;
-     }
-
+    }
 
     public function getInvItemTypeId(Request $request)
     {
@@ -627,7 +624,6 @@ class SalesOrderController extends Controller
 
         return $type['item_type_id'];
     }
-
 
     public function getSelectDataStock(Request $request){
 
