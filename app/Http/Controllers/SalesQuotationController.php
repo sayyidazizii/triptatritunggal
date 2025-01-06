@@ -338,7 +338,7 @@ class SalesQuotationController extends Controller
         $sheet->setCellValue("F4", $salesquotation->sales_quotation_date);
         $sheet->setCellValue("F5", "-");
         $sheet->setCellValue("F6", "Quote #");
-        $sheet->setCellValue("F7", $salesquotation->customer->name);
+        $sheet->setCellValue("F7", $salesquotation->customer->customer_name);
 
         $sheet->getStyle("E4:E7")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
         $sheet->getStyle("F4:F7")->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THIN);
