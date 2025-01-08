@@ -14,7 +14,7 @@
         <link href="{{ asset('resources/css/styles.css') }}" rel="stylesheet" />
     </head>
 
-    <body style="background-image: url('img/bg-mobile-fallback.jpg'); opacity:0.9; background-size: cover">        
+    <body style="background-image: url('img/bg_tripta.jpg'); opacity:0.9; background-size: cover">
         <div class="masthead">
             <div class="masthead-content text-white">
                 <div class="container-fluid px-3 px-lg-0">
