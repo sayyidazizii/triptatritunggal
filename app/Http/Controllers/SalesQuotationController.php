@@ -116,6 +116,8 @@ class SalesQuotationController extends Controller
             'subtotal_after_ppn_out'	     => $request['subtotal_after_ppn_out'],
             'branch_id'                      => Auth::user()->branch_id,
             'sales_quotation_due_date'       => $request['sales_quotation_due_date'],
+            'approved'                       => 1,
+
         );
 
         try {

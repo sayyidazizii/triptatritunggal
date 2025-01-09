@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SalesQuotation;
+use App\Models\SalesQuotationItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\PublicController;
@@ -86,46 +88,6 @@ class SalesDeliveryNoteController extends Controller
         return view('content/SalesDeliveryNote/ListSalesDeliveryNote', compact('salesdeliverynote', 'start_date', 'end_date'));
     }
 
-    public function addSalesDeliveryNote($sales_delivery_order_id)
-    {
-
-        $salesdeliveryordernoteelements  = Session::get('salesdeliveryordernoteelements');
-
-        $warehouse = InvWarehouse::select('warehouse_id', 'warehouse_name')
-        ->where('data_state', 0)
-        ->pluck('warehouse_name', 'warehouse_id');
-
-        $salesdeliveryorder     = SalesDeliveryOrder::findOrFail($sales_delivery_order_id);
-
-        $salesdeliveryorderitem = SalesDeliveryOrderItem::select('sales_delivery_order_item.*')
-        ->where('sales_delivery_order_item.sales_delivery_order_id', $sales_delivery_order_id)
-        ->where('sales_delivery_order_item.data_state', 0)
-        ->get();
-
-        $salesdeliverynoteitem_view  = SalesDeliveryOrderItem::select('sales_delivery_order_item.*')
-        ->where('sales_delivery_order_id', $sales_delivery_order_id)
-        ->where('data_state', 0)
-        ->get();
-
-
-        $expedition = CoreExpedition::select('expedition_name', 'expedition_id')
-        ->where('data_state', 0)
-        ->pluck('expedition_name', 'expedition_id');
-
-        $city = CoreCity::where('data_state', 0)
-        ->pluck('city_name', 'city_id');
-
-        $null_warehouse_id = Session::get('warehouse_id');
-
-        $status = array(
-            1 => 'Active',
-            2 => 'Non Active',
-            3 => 'All',
-        );
-
-        return view('content/SalesDeliveryNote/FormAddSalesDeliveryNote',compact('warehouse','null_warehouse_id','salesdeliveryordernoteelements', 'salesdeliveryorder', 'salesdeliveryorderitem','salesdeliverynoteitem_view', 'sales_delivery_order_id', 'expedition', 'city', 'status'));
-    }
-
     public function filterSalesDeliveryNote(Request $request){
         $start_date     = $request->start_date;
         $end_date       = $request->end_date;
@@ -138,6 +100,17 @@ class SalesDeliveryNoteController extends Controller
 
     public function search()
     {
+        $salesquotation = SalesQuotation::select('sales_quotation.*')
+            ->where('sales_quotation.data_state','=',0)
+//            ->where('sales_delivery_note_status','=',0)
+            ->get();
+
+        Session::forget('salesdeliveryordernoteelements');
+
+        return view('content/SalesDeliveryNote/SearchSalesQuotation',compact('salesquotation'));
+    }
+    public function searchold()
+    {
         $salesdeliveryorder = SalesDeliveryOrder::select('sales_delivery_order.*')
         ->where('sales_delivery_order.data_state','=',0)
         ->where('sales_delivery_note_status','=',0)
@@ -147,6 +120,7 @@ class SalesDeliveryNoteController extends Controller
 
         return view('content/SalesDeliveryNote/SearchSalesDeliveryOrder',compact('salesdeliveryorder'));
     }
+
 
 
     public function getPpnOut($sales_delivery_order_id){
@@ -159,6 +133,7 @@ class SalesDeliveryNoteController extends Controller
         return $sales_delivery_order['ppn_out_amount'];
     }
 
+
     public function getPOnum($sales_order_id){
 
         $poNum = SalesOrder::select('purchase_order_no')
@@ -167,6 +142,46 @@ class SalesDeliveryNoteController extends Controller
         ->first();
 
         return $poNum['purchase_order_no'] ?? '';
+    }
+
+    public function addSalesDeliveryNote($sales_quotation_id)
+    {
+
+        $salesdeliveryordernoteelements  = Session::get('salesdeliveryordernoteelements');
+
+        $warehouse = InvWarehouse::select('warehouse_id', 'warehouse_name')
+            ->where('data_state', 0)
+            ->pluck('warehouse_name', 'warehouse_id');
+
+        $salesquotation     = SalesQuotation::findOrFail($sales_quotation_id);
+
+        $salesquotationitem = SalesQuotationItem::select('sales_quotation_item.*')
+            ->where('sales_quotation_item.sales_quotation_id', $sales_quotation_id)
+            ->where('sales_quotation_item.data_state', 0)
+            ->get();
+
+        $salesdeliverynoteitem_view  = SalesQuotationItem::select('sales_quotation_item.*')
+            ->where('sales_quotation_item.sales_quotation_id', $sales_quotation_id)
+            ->where('data_state', 0)
+            ->get();
+
+
+        $expedition = CoreExpedition::select('expedition_name', 'expedition_id')
+            ->where('data_state', 0)
+            ->pluck('expedition_name', 'expedition_id');
+
+        $city = CoreCity::where('data_state', 0)
+            ->pluck('city_name', 'city_id');
+
+        $null_warehouse_id = Session::get('warehouse_id');
+
+        $status = array(
+            1 => 'Active',
+            2 => 'Non Active',
+            3 => 'All',
+        );
+
+        return view('content/SalesDeliveryNote/FormAddSalesDeliveryNote',compact('warehouse','null_warehouse_id','salesdeliveryordernoteelements', 'salesquotation', 'salesquotationitem','salesdeliverynoteitem_view', 'sales_quotation_id', 'expedition', 'city', 'status'));
     }
 
     public function getdataItemStok($sales_delivery_order_item_id){
@@ -417,8 +432,8 @@ class SalesDeliveryNoteController extends Controller
                         'quantity_ordered'		        => $dataitem['quantity_'.$no],
                         'created_id'                    => Auth::id(),
                     ]);
-    
-                    
+
+
                     /* pengurangan stock */
                         $stock_item2 = InvItemStock::where('item_type_id',$dataitem['item_type_id_'.$no])
                         ->where('item_unit_id', $dataitem['item_unit_id_'.$no])

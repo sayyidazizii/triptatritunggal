@@ -168,16 +168,16 @@ function elements_add(name, value){
                 <div class="col-md-6">
                     <div class="form-group">
                         <a class="text-dark">Delivery Order No</a>
-                        <input class="form-control input-bb" type="text" name="sales_delivery_order_no" id="sales_delivery_order_no" onChange="function_elements_add(this.name, this.value);" value="{{$salesdeliveryorder['sales_delivery_order_no']}}" readonly/>
-                        <input class="form-control input-bb" type="hidden" name="sales_delivery_order_id" id="sales_delivery_order_id" onChange="function_elements_add(this.name, this.value);" value="{{$salesdeliveryorder['sales_delivery_order_id']}}" readonly/>
-                        <input class="form-control input-bb" type="hidden" name="purchase_order_no" id="purchase_order_no" onChange="function_elements_add(this.name, this.value);" value="{{$SalesDeliveryNote->getPonum($salesdeliveryorder['sales_order_id'])}}" readonly/>
+                        <input class="form-control input-bb" type="text" name="sales_delivery_order_no" id="sales_delivery_order_no" onChange="function_elements_add(this.name, this.value);" value="{{$salesquotation['sales_delivery_order_no']}}" readonly/>
+                        <input class="form-control input-bb" type="hidden" name="sales_delivery_order_id" id="sales_delivery_order_id" onChange="function_elements_add(this.name, this.value);" value="{{$salesquotation['sales_delivery_order_id']}}" readonly/>
+                        <input class="form-control input-bb" type="hidden" name="purchase_order_no" id="purchase_order_no" onChange="function_elements_add(this.name, this.value);" value="{{$SalesDeliveryNote->getPonum($salesquotation['sales_order_id'])}}" readonly/>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <a class="text-dark">Pelanggan</a>
-                        <input class="form-control input-bb" type="text" name="customer_id_view" id="customer_id_view" onChange="function_elements_add(this.name, this.value);" value="{{$SalesDeliveryNote->getCustomerNameSalesOrderId($salesdeliveryorder['sales_order_id'])}}" readonly/>
-                        <input class="form-control input-bb" type="text" name="customer_id" id="customer_id" onChange="function_elements_add(this.name, this.value);" hidden value="{{$SalesDeliveryNote->getCustomerId($salesdeliveryorder['sales_order_id'])}}" readonly/>
+                        <input class="form-control input-bb" type="text" name="customer_id_view" id="customer_id_view" onChange="function_elements_add(this.name, this.value);" value="{{$SalesDeliveryNote->getCustomerNameSalesOrderId($salesquotation['sales_order_id'])}}" readonly/>
+                        <input class="form-control input-bb" type="text" name="customer_id" id="customer_id" onChange="function_elements_add(this.name, this.value);" hidden value="{{$SalesDeliveryNote->getCustomerId($salesquotation['sales_order_id'])}}" readonly/>
                     </div>
                 </div>
             </div>
@@ -185,20 +185,20 @@ function elements_add(name, value){
                 <div class="col-md-6">
                     <div class="form-group">
                         <a class="text-dark">Gudang</a>
-                        <input class="form-control input-bb" type="text" name="warehouse_id" id="warehouse_id" onChange="function_elements_add(this.name, this.value);" value="{{$SalesDeliveryNote->getInvWarehouseName($salesdeliveryorder['warehouse_id'])}}" readonly/>
+                        <input class="form-control input-bb" type="text" name="warehouse_id" id="warehouse_id" onChange="function_elements_add(this.name, this.value);" value="{{$SalesDeliveryNote->getInvWarehouseName($salesquotation['warehouse_id'])}}" readonly/>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <a class="text-dark">Tanggal Delivery Order</a>
-                        <input class="form-control input-bb" type="text" name="sales_delivery_order_date" id="sales_delivery_order_date" onChange="function_elements_add(this.name, this.value);" value="{{date('d/m/Y', strtotime($salesdeliveryorder['sales_delivery_order_date']))}}" readonly/>
+                        <a class="text-dark">Tanggal Quotation</a>
+                        <input class="form-control input-bb" type="text" name="sales_quotation_date" id="sales_delivery_order_date" onChange="function_elements_add(this.name, this.value);" value="{{date('d/m/Y', strtotime($salesquotation['sales_delivery_order_date']))}}" readonly/>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         <a class="text-dark">Deskripsi</a>
                         <div class="">
-                            <textarea rows="3" type="text" class="form-control input-bb" name="sales_delivery_order_remark" id="sales_delivery_order_remark" onChange="function_elements_add(this.name, this.value);" readonly>{{$salesdeliveryorder['sales_delivery_order_remark']}}</textarea>
+                            <textarea rows="3" type="text" class="form-control input-bb" name="sales_delivery_order_remark" id="sales_delivery_order_remark" onChange="function_elements_add(this.name, this.value);" readonly>{{$salesquotation['sales_delivery_order_remark']}}</textarea>
                         </div>
                     </div>
                 </div>
