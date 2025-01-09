@@ -102,13 +102,14 @@ class SalesDeliveryNoteController extends Controller
     {
         $salesquotation = SalesQuotation::select('sales_quotation.*')
             ->where('sales_quotation.data_state','=',0)
-//            ->where('sales_delivery_note_status','=',0)
+           ->where('sales_quotation.sales_delivery_note_status','=',0)
             ->get();
 
         Session::forget('salesdeliveryordernoteelements');
 
         return view('content/SalesDeliveryNote/SearchSalesQuotation',compact('salesquotation'));
     }
+
     public function searchold()
     {
         $salesdeliveryorder = SalesDeliveryOrder::select('sales_delivery_order.*')
@@ -121,8 +122,6 @@ class SalesDeliveryNoteController extends Controller
         return view('content/SalesDeliveryNote/SearchSalesDeliveryOrder',compact('salesdeliveryorder'));
     }
 
-
-
     public function getPpnOut($sales_delivery_order_id){
 
         $sales_delivery_order = SalesDeliveryOrder::select('ppn_out_amount')
@@ -132,7 +131,6 @@ class SalesDeliveryNoteController extends Controller
 
         return $sales_delivery_order['ppn_out_amount'];
     }
-
 
     public function getPOnum($sales_order_id){
 
@@ -193,7 +191,6 @@ class SalesDeliveryNoteController extends Controller
         return $salesdeliveryorderitemstok[0]['item_total_stock'];
     }
 
-
     public function getdataItemStokNote($sales_delivery_order_item_id){
         $salesdeliveryorderitemstok = SalesDeliveryOrderItemStock::select('*')
         ->where('sales_delivery_order_item_id', $sales_delivery_order_item_id)
@@ -202,7 +199,6 @@ class SalesDeliveryNoteController extends Controller
 
         return $salesdeliveryorderitemstok;
     }
-
 
     public function getItemUnitprice($sales_delivery_order_item_id){
         $item = SalesDeliveryOrderItem::select('item_unit_price')
@@ -223,7 +219,6 @@ class SalesDeliveryNoteController extends Controller
         return $item;
     }
 
-
     public function elements_add(Request $request){
         $salesdeliveryordernoteelements= Session::get('salesdeliveryordernoteelements');
         if(!$salesdeliveryordernoteelements || $salesdeliveryordernoteelements == ''){
@@ -234,7 +229,6 @@ class SalesDeliveryNoteController extends Controller
         $salesdeliveryordernoteelements[$request->name] = $request->value;
         Session::put('salesdeliveryordernoteelements', $salesdeliveryordernoteelements);
     }
-
 
     public function editSalesDeliveryNote($sales_delivery_note_id)
     {
@@ -311,7 +305,6 @@ class SalesDeliveryNoteController extends Controller
         return view('content/SalesDeliveryNote/FormVoidSalesDeliveryNote',compact('warehouse', 'expedition', 'salesdeliveryorderitem', 'salesdeliveryorder', 'sales_delivery_note_id', 'salesdeliverynote'));
     }
 
-
     public function addArrayInvItemStock(Request $request)
     {
         $dataarrayinvitemstock = array(
@@ -336,7 +329,6 @@ class SalesDeliveryNoteController extends Controller
         // return redirect('/grading/add');
     }
 
-
     public function deleteArrayInvItemStock($record_id, $item_stock_id)
     {
         $arrayBaru			= array();
@@ -354,7 +346,6 @@ class SalesDeliveryNoteController extends Controller
         return redirect('/grading/add/'.$item_stock_id);
     }
 
-
     public function resetArrayInvItemStock($item_stock_id)
     {
         Session::forget('dataarrayinvitemstock');
@@ -364,14 +355,10 @@ class SalesDeliveryNoteController extends Controller
 
     public function processAddSalesDeliveryNote(Request $request)
     {
-        $sales_order_status_cek = 0;
-
-
-
+        // dd(request()->all());
         $salesdeliverynote = array(
-            'sales_delivery_order_id'       => $request->sales_delivery_order_id,
-            'sales_order_id'                => $request->sales_order_id__1,
-            'customer_id' 				    => $request->customer_id,
+            'sales_quotation_id'            => $request->sales_quotation_id,
+            'customer_id'                   => $request->customer_id,
             'warehouse_id'                  => 1,
             'expedition_id'                 => $request->expedition_id,
             'driver_name'                   => $request->driver_name,
@@ -379,7 +366,6 @@ class SalesDeliveryNoteController extends Controller
             'sales_delivery_note_remark'    => $request->sales_delivery_note_remark,
             'sales_delivery_note_date'      => $request->sales_delivery_note_date,
             'expedition_receipt_no'         => $request->expedition_receipt_no,
-            'ppn_out_amount'                => $request->ppn_out_amount,
             'branch_id'                     => Auth::user()->branch_id,
             'created_id'                    => Auth::id(),
         );
@@ -387,86 +373,75 @@ class SalesDeliveryNoteController extends Controller
         try {
             DB::beginTransaction();
 
-            $salesdeliveryorder = SalesDeliveryOrder::findOrFail($request->sales_delivery_order_id);
-            $salesdeliveryorder->sales_delivery_note_status = 1;
-            $salesdeliveryorder->save();
+            // Buat Sales Delivery Note dan dapatkan instance-nya
+            $salesDeliveryNote = SalesDeliveryNote::create($salesdeliverynote);
 
-            SalesDeliveryNote::create($salesdeliverynote);
-                $salesdeliverynoteid = SalesDeliveryNote::select('sales_delivery_note_id', 'sales_order_id', 'sales_delivery_note_no')
-                ->orderBy('created_at', 'DESC')
-                ->first();
+            // Dapatkan sales_quotation_id dari request
+            $sales_quotation_id = $request->sales_quotation_id;
 
-                $salesdeliveryorderitem = SalesDeliveryOrderItem::select('sales_delivery_order_item.*', 'inv_item_type.*')
-                ->join('inv_item_type', 'inv_item_type.item_type_id', '=', 'sales_delivery_order_item.item_type_id')
-                ->where('sales_delivery_order_item.sales_delivery_order_id', $request->sales_delivery_order_id)
-                ->where('sales_delivery_order_item.data_state', 0)
-                ->orderBy('sales_delivery_order_item.sales_delivery_order_item_id', 'DESC')
+            // Ambil data item berdasarkan sales_quotation_id
+            $salesquotationitem = SalesQuotationItem::select('sales_quotation_item.*')
+                ->join('inv_item_type', 'inv_item_type.item_type_id', '=', 'sales_quotation_item.item_type_id')
+                ->where('sales_quotation_item.sales_quotation_id', $sales_quotation_id)
+                ->where('sales_quotation_item.data_state', 0)
                 ->get();
 
-                $no =1;
+            foreach ($salesquotationitem as $item) {
+                // Validasi stok sebelum pengurangan
+                $stock_item = InvItemStock::where('item_type_id', $item->item_type_id)
+                    ->where('item_unit_id', $item->item_unit_id)
+                    ->first();
 
-                $dataitem = $request->all();
+                if (!$stock_item || $stock_item->quantity_unit < $item->quantity) {
+                    throw new \Exception('Stok tidak mencukupi untuk item ID: ' . $item->item_type_id);
+                }
 
-                foreach($salesdeliveryorderitem as $item){
+                // Buat Sales Delivery Note Item
+                SalesDeliveryNoteItem::create([
+                    'sales_delivery_note_id'      => $salesDeliveryNote->sales_delivery_note_id, // Langsung ambil dari instance
+                    'warehouse_id'                => $request->warehouse_id,
+                    'sales_order_id'              => 0,
+                    'sales_order_item_id'         => 0,
+                    'sales_delivery_order_id'     => 0,
+                    'sales_delivery_order_item_id'=> 0,
+                    'customer_id'                 => $item->customer_id,
+                    'item_type_id'                => $item->item_type_id,
+                    'item_unit_id'                => $item->item_unit_id,
+                    'item_unit_id_unit'           => 0,
+                    'quantity_unit'               => $item->quantity_delivered,
+                    'item_default_quantity_unit'  => 1,
+                    'item_weight_unit'            => 0,
+                    'item_unit_price'             => $item->item_unit_price,
+                    'subtotal_price'              => $item->subtotal_amount,
+                    'quantity'                    => $item->quantity,
+                    'quantity_ordered'            => $item->quantity,
+                    'created_id'                  => Auth::id(),
+                ]);
 
+                // Pengurangan stok
+                $stock_item->quantity_unit -= $item->quantity;
+                $stock_item->save();
+            }
 
-                    $data = SalesDeliveryNoteItem::create([
-                        'sales_delivery_note_id'	    => $salesdeliverynoteid['sales_delivery_note_id'],
-                        'warehouse_id'                  => $request->warehouse_id,
-                        'sales_order_id' 			    => $dataitem['sales_order_id__'.$no],
-                        'sales_order_item_id' 		    => $dataitem['sales_order_item_id__'.$no],
-                        'sales_delivery_order_id' 	    => $dataitem['sales_delivery_order_id__'.$no],
-                        'sales_delivery_order_item_id'  => $dataitem['sales_delivery_order_item_id__'.$no],
-                        'customer_id' 				    => $dataitem['customer_id'],
-                        'item_id' 		                => $dataitem['item_id_'.$no],
-                        'item_type_id' 		            => $dataitem['item_type_id_'.$no],
-                        'item_unit_id' 		            => $dataitem['item_unit_id_'.$no],
-                        'item_unit_id_unit' 		    => 0,
-                        'quantity_unit' 		        => $dataitem['quantity_delivered_'.$no],
-                        'item_default_quantity_unit'    => 1,
-                        'item_weight_unit' 		        => 0,
-                        'item_unit_price' 		        => $dataitem['item_unit_price_'.$no],
-                        'subtotal_price' 		        => $dataitem['subtotal_price_'.$no],
-                        'item_stock_id' 		        => '',
-                        'quantity'					    => $dataitem['quantity_delivered_'.$no],
-                        'quantity_ordered'		        => $dataitem['quantity_'.$no],
-                        'created_id'                    => Auth::id(),
-                    ]);
+            $msg = 'Tambah Sales Delivery Note Berhasil';
 
-
-                    /* pengurangan stock */
-                        $stock_item2 = InvItemStock::where('item_type_id',$dataitem['item_type_id_'.$no])
-                        ->where('item_unit_id', $dataitem['item_unit_id_'.$no])
-                        ->first();
-
-                        $stock_item2->quantity_unit = $stock_item2['quantity_unit'] - $dataitem['quantity_'.$no];
-                        $stock_item2->save();
-                    /* end pengurangan stock */
-
-                    $no++;
-                    }
-
-                $msg = 'Tambah Sales Delivery Note Berhasil';
-
-                DB::commit();
-                return redirect('/sales-delivery-note')->with('msg',$msg);
+            DB::commit();
+            return redirect('/sales-delivery-note')->with('msg', $msg);
         } catch (\Exception $e) {
             DB::rollBack();
             report($e);
 
             Log::error('Error saat menambah Sales Delivery Note: ' . $e->getMessage(), [
                 'exception' => $e,
-                'user_id' => auth()->user()->id, // Contoh menambahkan informasi tambahan
-                'url' => request()->url(), // Contoh menambahkan informasi tambahan
+                'user_id' => auth()->user()->id,
+                'url' => request()->url(),
             ]);
 
             $msg = 'Tambah Sales Delivery Note Gagal';
-            return redirect('/sales-delivery-note')->with('msg',$msg);
+            return redirect('/sales-delivery-note')->with('msg', $msg);
         }
-
-
-
     }
+
 
     public function processEditSalesDeliveryNote(Request $request)
     {
@@ -489,7 +464,6 @@ class SalesDeliveryNoteController extends Controller
         }
 
     }
-
 
     public function processVoidSalesDeliveryNote(Request $request)
     {
@@ -603,7 +577,6 @@ class SalesDeliveryNoteController extends Controller
         return $unit['sales_delivery_order_date'];
     }
 
-
     public function getSalesDeliveryOrderItemStock($sales_delivery_order_id){
         $unit = SalesDeliveryOrderItemStock::select('item_stock_id')
         ->where('sales_delivery_order_id', $sales_delivery_order_id)
@@ -700,7 +673,6 @@ class SalesDeliveryNoteController extends Controller
 
         return $salesorder['purchase_order_no'];
     }
-
 
     public function getSalesOrderDate($sales_order_id){
         $salesorder = SalesOrder::select('sales_order_date')
