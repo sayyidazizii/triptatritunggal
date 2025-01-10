@@ -826,7 +826,8 @@ class SalesDeliveryNoteController extends Controller
         return $type['item_name'];
     }
 
-   public function getWeight($sales_delivery_note_item_id){
+    public function getWeight($sales_delivery_note_item_id)
+    {
         $weight = SalesDeliveryNoteItem::select('item_weight_unit')
         ->where('sales_delivery_note_item.data_state', 0)
         ->where('sales_delivery_note_item.sales_delivery_note_item_id', $sales_delivery_note_item_id)
@@ -834,7 +835,6 @@ class SalesDeliveryNoteController extends Controller
 
         return $weight['item_weight_unit'];
     }
-
 
     public function getSelectInvItemStock2($item_stock_id){
         $stock = InvItemStock::select('inv_item_stock.item_stock_id', DB::raw('CONCAT(inv_item_type.item_type_name, " - ", inv_item_stock.item_batch_number) AS item_name'))
@@ -858,62 +858,32 @@ class SalesDeliveryNoteController extends Controller
         return $addres['customer_name'];
     }
 
-    public function processPrintingSalesDeliveryNote ($sales_delivery_note_id)
+    public function processPrintingSalesDeliveryNote($sales_delivery_note_id)
     {
         $salesdeliverynote      = SalesDeliveryNote::findOrFail($sales_delivery_note_id);
         $salesdeliverynoteitem  = SalesDeliveryNoteItem::where('sales_delivery_note_item.sales_delivery_note_id', $sales_delivery_note_id)
-        ->first();
-
-        $sdn_item_stock  = SalesDeliveryNoteItemStock::select('sales_delivery_note_item_stock.*', 'inv_item_stock.item_batch_number', 'inv_item_stock.item_stock_expired_date')
-        ->where('sales_delivery_note_item_stock.data_state', 0)
-        ->join('inv_item_stock', 'sales_delivery_note_item_stock.item_stock_id', 'inv_item_stock.item_stock_id')
-        ->where('sales_delivery_note_item_stock.sales_delivery_note_id', $salesdeliverynoteitem['sales_delivery_note_id'])
-        ->orderby('sales_delivery_note_item_stock.sales_delivery_order_item_id', 'ASC')
         ->get();
-        // dd($sdn_item_stock);
+        $customer = CoreCustomer::select('core_customer.*')
+        ->where('customer_id', $salesdeliverynote->customer_id)
+        ->where('core_customer.data_state', 0)
+        ->first();
         $company = PreferenceCompany::select('*')
             ->first();
-
         $pdf = new TCPDF('P', PDF_UNIT, 'F4', true, 'UTF-8', false);
-
         $pdf::SetPrintHeader(false);
         $pdf::SetPrintFooter(false);
-
         $pdf::SetMargins(10, 10, 10, 10); // put space of 10 on top
-
         $pdf::setImageScale(PDF_IMAGE_SCALE_RATIO);
-
         if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
             require_once(dirname(__FILE__).'/lang/eng.php');
             $pdf::setLanguageArray($l);
         }
-
         $pdf::SetFont('helvetica', 'B', 20);
-
         $pdf::AddPage();
-
         $pdf::SetFont('helvetica', '', 8);$tbl = "";
 
             $tbl = "
                 <table id=\"items\" width=\"100%\" cellspacing=\"1\" cellpadding=\"0\" >
-                <tr>
-                <td><div style=\"text-align: left; font-size:12px; font-weight: bold\">PBF MENJANGAN ENAM</div></td>
-            </tr>
-            <tr>
-                <td><div style=\"text-align: left; font-size:10px\">Jl.Puspowarno Raya No 55D RT 06 RW 09</div></td>
-            </tr>
-            <tr>
-                <td><div style=\"text-align: left; font-size:10px\">APJ : " . Auth::user()->name . "</div></td>
-            </tr>
-            <tr>
-                <td><div style=\"text-align: left; font-size:10px\">" . $company['CDBO_no'] . "</div></td>
-            </tr>
-            <tr>
-                <td><div style=\"text-align: left; font-size:10px\">" . $company['distribution_no'] . "</div></td>
-            </tr>
-            <tr>
-                <td><div style=\"text-align: left; font-size:10px\">SIPA: 449.2/16/DPM-PTSP/SIKA.16/11/2019</div></td>
-            </tr>
                     <tr>
                         <td style=\"text-align:center;width:100%\">
                             <div style=\"font-size:25px\"><b>SURAT JALAN</b></div>
@@ -936,9 +906,9 @@ class SalesDeliveryNoteController extends Controller
             </tr>
             <tr>
                 <td style=\"text-align:left;width:50%\">
-                    <b style=\"font-size:14px\">".$this->getCustomerNameSalesOrderId($salesdeliverynote['sales_order_id'])."</b>
+                    <b style=\"font-size:14px\">".$customer['customer_name']."</b>
                     <br>
-                    ".$this->getCustomerAddressSalesOrderId($salesdeliverynote['sales_order_id'])."
+                    ".$customer['customer_address']."
                 </td>
             </tr>
         </table>";
@@ -946,17 +916,14 @@ class SalesDeliveryNoteController extends Controller
         $pdf::writeHTML($tbl, true, false, false, false, '');
 
         $tbl1 = "
-        <b><div style=\"font-size:13px\">  Remarks : Pengiriman atas pesanan nomor ".$this->getPurchaseOrderNo($salesdeliverynote['sales_order_id'])." tanggal ".date('d/m/Y', strtotime($this->getSalesOrderDate($salesdeliverynote['sales_order_id'])))."</div></b><br>
+        <b><div style=\"font-size:13px\">  Remark : Pengiriman pesanan tanggal ".date('d/m/Y', strtotime($salesdeliverynote['sales_delivery_note_date']))."</div></b><br>
         <table cellspacing=\"1\" cellpadding=\"0\" border=\"1\">
             <tr>
                 <th style=\"text-align:center;\" width=\"5%\"><div style=\"font-size:13px\">No.</div></th>
-                <th style=\"text-align:center;\" width=\"15%\"><div style=\"font-size:13px\">Batch Number</div></th>
-                <th style=\"text-align:center;\" width=\"15%\"><div style=\"font-size:13px\">Expired Date</div></th>
-                <th style=\"text-align:center;\" width=\"10%\"><div style=\"font-size:13px\">Kategori</div></th>
-                <th style=\"text-align:center;\" width=\"25%\"><div style=\"font-size:13px\">Nama Barang</div></th>
-                <th style=\"text-align:center;\" width=\"10%\"><div style=\"font-size:13px\">Unit</div></th>
-                <th style=\"text-align:center;\" width=\"10%\"><div style=\"font-size:13px\">Berat (Kg)</div></th>
-                <th style=\"text-align:center;\" width=\"10%\"><div style=\"font-size:13px\">Qty</div></th>
+                <th style=\"text-align:center;\" width=\"30%\"><div style=\"font-size:13px\">Barang</div></th>
+                <th style=\"text-align:center;\" width=\"20%\"><div style=\"font-size:13px\">Unit</div></th>
+                <th style=\"text-align:center;\" width=\"20%\"><div style=\"font-size:13px\">Berat (Kg)</div></th>
+                <th style=\"text-align:center;\" width=\"20%\"><div style=\"font-size:13px\">Qty</div></th>
             </tr>
             ";
         $no = 1;
@@ -964,28 +931,25 @@ class SalesDeliveryNoteController extends Controller
         $totalweight = 0;
         $totalamount = 0;
         $tbl2 = "";
-            foreach ($sdn_item_stock as $key => $val) {
+            foreach ($salesdeliverynoteitem as $key => $val) {
                 $tbl2 .= "
                     <tr>
                         <td style=\"text-align:center;\"><div style=\"font-size:12px\">$no</div></td>
-                        <td style=\"text-align:left;\"><div style=\"font-size:12px\"> ".$val['item_batch_number']."</div></td>
-                        <td style=\"text-align:center;\"><div style=\"font-size:12px\">".$val['item_stock_expired_date']."</div></td>
-                        <td style=\"text-align:left;\"><div style=\"font-size:12px\"> ".$this->getSalesOrderItemStock2($val['sales_order_item_id'])."</div></td>
                         <td style=\"text-align:left;\"><div style=\"font-size:12px\"> ".$this->getInvItemTypeName($val['item_type_id'])."</div></td>
                         <td style=\"text-align:left;\"><div style=\"font-size:12px\"> ".$this->getItemUnitName($val['item_unit_id'])." &nbsp;</div></td>
                         <td style=\"text-align:right;\"><div style=\"font-size:12px\"> ".$this->getWeight($val['sales_delivery_note_item_id'])." &nbsp;</div></td>
-                        <td style=\"text-align:right;\"><div style=\"font-size:12px\">".$val['quantity_unit']." &nbsp;</div></td>
+                        <td style=\"text-align:right;\"><div style=\"font-size:12px\">".$val['quantity']." &nbsp;</div></td>
                     </tr>
                 ";
 
                 $totalweight += $this->getWeight($val['sales_delivery_note_item_id']);
-                $totalqty += $val['quantity_unit'];
+                $totalqty += $val['quantity'];
                 $no++;
             }
 
         $tbl4 = "
             <tr>
-                <td colspan=\"6\" style=\"text-align:right;\" > Total : &nbsp;</td>
+                <td colspan=\"3\" style=\"text-align:right;\" > Total : &nbsp;</td>
                 <td style=\"text-align:right;font-size:10px\" >".$totalweight." &nbsp; </td>
                 <td style=\"text-align:right;font-size:10px\" >".$totalqty." &nbsp; </td>
 
@@ -998,36 +962,30 @@ class SalesDeliveryNoteController extends Controller
         $tbl7 = "
         <br>
             <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\">
-
                 <tr>
                     <th style=\"text-align:center;\">< style=\"font-size:12px\">Penerima/Cap</div></th>
                     <th style=\"text-align:center;\"><div style=\"font-size:12px\">Penerima Barang </div></th>
                     <th style=\"text-align:center;\"><div style=\"font-size:12px\">Dikeluarkan Oleh </div></th>
                     <th style=\"text-align:center;\"><div style=\"font-size:12px\">Semarang , ".date('d M Y')." &nbsp;&nbsp; </div></th>
                  </tr>
-<tr>
-	            <td></td>
+                <tr>
                     <td></td>
                     <td></td>
                     <td></td>
-
-</tr>
-<tr>
-	            <td></td>
+                    <td></td>
+                </tr>
+                <tr>
                     <td></td>
                     <td></td>
                     <td></td>
-
-</tr>
-<tr>
-	            <td></td>
+                    <td></td>
+                </tr>
+                <tr>
                     <td></td>
                     <td></td>
                     <td></td>
-
-</tr>
-
-
+                    <td></td>
+                </tr>
                 <tr>
                     <td style=\"text-align:center;\"><div style=\"font-size:12px\">Angkutan </div></td>
                     <td style=\"text-align:center;\"><div style=\"font-size:12px\"> (Tanda Tangan, Cap, Nama Jelas) </div></td>
@@ -1044,9 +1002,7 @@ class SalesDeliveryNoteController extends Controller
         ";
 
         $pdf::writeHTML($tbl7, true, false, false, false, '');
-
-        // ob_clean();
-
+        ob_clean();
         $filename = 'Surat Jalan'.$salesdeliverynote['sales_delivery_note_no'].'.pdf';
         $pdf::Output($filename, 'I');
     }
