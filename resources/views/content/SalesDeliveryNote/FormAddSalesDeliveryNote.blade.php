@@ -121,7 +121,6 @@ function elements_add(name, value){
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
         <li class="breadcrumb-item"><a href="{{ url('sales-delivery-note') }}">Daftar Sales Delivery Note</a></li>
-        <li class="breadcrumb-item"><a href="{{ url('sales-delivery-note/search-sales-delivery-order') }}">Daftar Sales Delivery Order</a></li>
         <li class="breadcrumb-item active" aria-current="page">Tambah Sales Delivery Note</li>
     </ol>
 </nav>
@@ -160,24 +159,23 @@ function elements_add(name, value){
         @csrf
         <div class="card-body">
             <div class="row">
-                <h5 class="form-section"><b>Detail Sales Delivery Order</b></h5>
+                <h5 class="form-section"><b>Detail Sales Quotation</b></h5>
             </div>
             <hr style="margin:0;">
             <br/>
             <div class="row form-group">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <a class="text-dark">Delivery Order No</a>
-                        <input class="form-control input-bb" type="text" name="sales_delivery_order_no" id="sales_delivery_order_no" onChange="function_elements_add(this.name, this.value);" value="{{$salesdeliveryorder['sales_delivery_order_no']}}" readonly/>
-                        <input class="form-control input-bb" type="hidden" name="sales_delivery_order_id" id="sales_delivery_order_id" onChange="function_elements_add(this.name, this.value);" value="{{$salesdeliveryorder['sales_delivery_order_id']}}" readonly/>
-                        <input class="form-control input-bb" type="hidden" name="purchase_order_no" id="purchase_order_no" onChange="function_elements_add(this.name, this.value);" value="{{$SalesDeliveryNote->getPonum($salesdeliveryorder['sales_order_id'])}}" readonly/>
+                        <a class="text-dark">Quotation No</a>
+                        <input class="form-control input-bb" type="text" name="sales_quotation_no" id="sales_quotation_no" onChange="function_elements_add(this.name, this.value);" value="{{$salesquotation['sales_quotation_no']}}" readonly/>
+                        <input class="form-control input-bb" type="hidden" name="sales_quotation_id" id="sales_quotation_id" onChange="function_elements_add(this.name, this.value);" value="{{$salesquotation['sales_quotation_id']}}" readonly/>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <a class="text-dark">Pelanggan</a>
-                        <input class="form-control input-bb" type="text" name="customer_id_view" id="customer_id_view" onChange="function_elements_add(this.name, this.value);" value="{{$SalesDeliveryNote->getCustomerNameSalesOrderId($salesdeliveryorder['sales_order_id'])}}" readonly/>
-                        <input class="form-control input-bb" type="text" name="customer_id" id="customer_id" onChange="function_elements_add(this.name, this.value);" hidden value="{{$SalesDeliveryNote->getCustomerId($salesdeliveryorder['sales_order_id'])}}" readonly/>
+                        <input class="form-control input-bb" type="text" name="customer_id_view" id="customer_id_view" onChange="function_elements_add(this.name, this.value);" value="{{$SalesDeliveryNote->getCustomerName($salesquotation['customer_id'] ?? '')}}" readonly/>
+                        <input class="form-control input-bb" type="text" name="customer_id" id="customer_id" onChange="function_elements_add(this.name, this.value);" hidden value="{{$salesquotation['customer_id']}}" readonly/>
                     </div>
                 </div>
             </div>
@@ -185,20 +183,20 @@ function elements_add(name, value){
                 <div class="col-md-6">
                     <div class="form-group">
                         <a class="text-dark">Gudang</a>
-                        <input class="form-control input-bb" type="text" name="warehouse_id" id="warehouse_id" onChange="function_elements_add(this.name, this.value);" value="{{$SalesDeliveryNote->getInvWarehouseName($salesdeliveryorder['warehouse_id'])}}" readonly/>
+                        <input class="form-control input-bb" type="text" name="warehouse_id" id="warehouse_id" onChange="function_elements_add(this.name, this.value);" value="{{$SalesDeliveryNote->getInvWarehouseName($salesquotation['warehouse_id'])}}" readonly/>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <a class="text-dark">Tanggal Delivery Order</a>
-                        <input class="form-control input-bb" type="text" name="sales_delivery_order_date" id="sales_delivery_order_date" onChange="function_elements_add(this.name, this.value);" value="{{date('d/m/Y', strtotime($salesdeliveryorder['sales_delivery_order_date']))}}" readonly/>
+                        <a class="text-dark">Tanggal Quotation</a>
+                        <input class="form-control input-bb" type="text" name="sales_quotation_date" id="sales_quotation_date" onChange="function_elements_add(this.name, this.value);" value="{{date('d/m/Y', strtotime($salesquotation['sales_quotation_date']))}}" readonly/>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         <a class="text-dark">Deskripsi</a>
                         <div class="">
-                            <textarea rows="3" type="text" class="form-control input-bb" name="sales_delivery_order_remark" id="sales_delivery_order_remark" onChange="function_elements_add(this.name, this.value);" readonly>{{$salesdeliveryorder['sales_delivery_order_remark']}}</textarea>
+                            <textarea rows="3" type="text" class="form-control input-bb" name="sales_delivery_order_remark" id="sales_delivery_order_remark" onChange="function_elements_add(this.name, this.value);" readonly>{{$salesquotation['sales_delivery_order_remark']}}</textarea>
                         </div>
                     </div>
                 </div>
@@ -223,15 +221,9 @@ function elements_add(name, value){
                     <div class="form-group">
                         <a hidden class="text-dark">Gudang</a>
                         <br/>
-				<input hidden class="form-control form-control-inline input-medium date-picker input-date" type="text" name="warehouse_id' " id="warehouse_id' " onChange="function_elements_add(this.name, this.value);" value="8"/>
-			</div>
-                </div>
-                {{-- <div class="col-md-6">
-                    <div class="form-group">
-                        <a class="text-dark">Biaya Ekspedisi</a>
-                        <input type ="number" class="form-control input-bb" name="sales_delivery_note_cost" id="sales_delivery_note_cost" onChange="" value="0"/>
+				        <input hidden class="form-control form-control-inline input-medium date-picker input-date" type="text" name="warehouse_id' " id="warehouse_id' " onChange="function_elements_add(this.name, this.value);" value="8"/>
                     </div>
-                </div> --}}
+                </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <a class="text-dark">Tanggal Delivery Note<a class='red'></a> *</a></a>
@@ -290,20 +282,15 @@ function elements_add(name, value){
                         <thead class="thead-light">
                             <tr>
                                 <th style='text-align:center'>No.</th>
-                                <th style='text-align:center'>Pelanggan</th>
-                                <th style='text-align:center'>No. Sales Order</th>
-                                <th style='text-align:center'>Tanggal SO</th>
                                 <th style='text-align:center'>Barang</th>
-                                <th style='text-align:center'>Qty</th>
                                 <th style='text-align:center'>Qty Proses</th>
                                 <th style='text-align:center'>Qty Kirim</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <label hidden style='text-align  : left !important;'>Ppn Out<input class='form-control' style='text-align:right;'type='text' name='ppn_out_amount' id='ppn_out_amount' value='{{ $SalesDeliveryNote->getPpnOut($salesdeliveryorder['sales_delivery_order_id']) }}' readonly/>
                             </label>
 
-                            @if(count($salesdeliveryorderitem)==0)
+                            @if(count($salesquotationitem)==0)
                             <tr><th colspan='9' style='text-align  : center !important;'>Data Kosong</th></tr>
                         @else
                         @php
@@ -311,18 +298,13 @@ function elements_add(name, value){
                         @endphp
                             @foreach ($salesdeliverynoteitem_view AS $key => $val)
                             @php
-                                $item = $SalesDeliveryNote->getSalesOrderItem($val['sales_order_item_id']);
                             @endphp
                                     <tr>
                                         <td style='text-align  : center'>{{$no}}.</td>
-                                        <td style='text-align  : left !important;'>{{$SalesDeliveryNote->getCustomerName($item['customer_id'])}}</td>
-                                        <td style='text-align  : left !important;'>{{$item['sales_order_no']}}</td>
-                                        <td style='text-align  : left !important;'>{{date('d/m/Y', strtotime($item['sales_order_date']))}}</td>
-                                        <td style='text-align  : left !important;'>{{$item['item_name']}}</td>
-                                        <td style='text-align  : right !important;'>{{$item['quantity']}}</td>
-                                        <td style='text-align  : right !important;'>{{$item['quantity_resulted']}}</td>
-                                        <td style='text-align  : right !important;'>
-                                            <input class='form-control' style='text-align:right;'type='text' name='quantity_delivered_{{$no}}' id='quantity_delivered_{{$no}}' value='{{$val['quantity']}}' readonly/>
+                                        <td style='text-align  : left !important;'>{{$SalesDeliveryNote->getInvItemTypeName($val['item_type_id'])}}</td>
+                                        <td style='text-align  : right !important;'>{{$val['quantity']}}</td>
+                                        <td style='text-align  : right !important;'>{{$val['quantity_resulted']}}</td>
+                                            {{-- <input class='form-control' style='text-align:right;'type='text' name='quantity_delivered_{{$no}}' id='quantity_delivered_{{$no}}' value='{{$val['quantity']}}' readonly/>
 
                                             <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id__{{$no}}' id='sales_order_id__{{$no}}' value='{{$val['sales_order_id']}}'/>
                                             <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id__{{$no}}' id='sales_order_item_id__{{$no}}' value='{{$val['sales_order_item_id']}}'/>
@@ -336,8 +318,7 @@ function elements_add(name, value){
                                             <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_price_{{ $no }}' id='item_unit_price_{{ $no }}' value='{{$SalesDeliveryNote->getItemUnitprice($val->sales_delivery_order_item_id)}}'/>
                                             <input class='form-control' style='text-align:right;'type='hidden' name='subtotal_price_{{ $no }}' id='subtotal_price_{{ $no }}' value='{{$val->subtotal_price}}'/>
                                             <input class='form-control' style='text-align:right;'type='hidden' name='discount_amount_item_{{ $no }}' id='discount_amount_item_{{ $no }}' value='{{$item['discount_amount_item']}}'/>
-                                            <input class='form-control' style='text-align:right;'type='hidden' name='subtotal_after_discount_item_{{ $no }}' id='subtotal_after_discount_item_{{ $no }}' value='{{$item['subtotal_after_discount_item']}}'/>
-                                        </td>
+                                            <input class='form-control' style='text-align:right;'type='hidden' name='subtotal_after_discount_item_{{ $no }}' id='subtotal_after_discount_item_{{ $no }}' value='{{$item['subtotal_after_discount_item']}}'/> --}}
                                     </tr>
                                 @php
                                     $no++;
@@ -345,45 +326,26 @@ function elements_add(name, value){
                             @endforeach
                         @endif
 
-
-
-
-
-
-
-
-
-                                @if(count($salesdeliveryorderitem)==0)
+                        @if(count($salesquotationitem)==0)
                                     <tr><th colspan='9' style='text-align  : center !important;'>Data Kosong</th></tr>
-                                @else
-                                    @php
-                                        $no =1;
-                                        // dd($salesdeliveryorderitem);
-                                    @endphp
-                                    @foreach ($salesdeliveryorderitem AS $key => $val)
+                        @else
+                        @php
+                                $no =1;
+                        @endphp
+                            @foreach ($salesdeliverynoteitem_view AS $key => $val)
+                                    <tr hidden>
+                                        <td style='text-align  : center'>{{$no}}.</td>
+                                        <td style='text-align  : left !important;'>{{$SalesDeliveryNote->getInvItemTypeName($val['item_type_id'])}}</td>
+                                        <td style='text-align  : right !important;'>{{$val['quantity']}}</td>
+                                        <td style='text-align  : right !important;'>{{$val['quantity_resulted']}}</td>
+                                    </tr>
+                        @php
+                                        $total_no = $no;
+                                    $no++;
 
-                                    @php
-                                            $item = $SalesDeliveryNote->getSalesOrderItem($val->sales_order_item_id);
-                                        @endphp
-                                            <tr hidden>
-                                                <td style='text-align  : center'>{{$no}}</td>
-                                                <td style='text-align  : left !important;'>{{$SalesDeliveryNote->getCustomerName($item['customer_id'])}}</td>
-                                                <td style='text-align  : left !important;'>{{$item['sales_order_no']}}</td>
-                                                <td style='text-align  : left !important;'>{{date('m/d/Y', strtotime($SalesDeliveryNote->getSalesOrderDate($item['sales_order_id'])))}}</td>
-                                                <td style='text-align  : left !important;'>{{$item['item_name']}}</td>
-                                                <td style='text-align  : right !important;'>{{$item['quantity']}}</td>
-                                                <td style='text-align  : right !important;'>{{$item['quantity_resulted']}}</td>
-                                                <td style='text-align  : right !important;'>
-                                                    <input class='form-control' style='text-align:right;'type='text' name='quantity_delivered_{{$no}}' id='quantity_delivered_{{$no}}' value='{{$item['quantity']}}' readonly/>
-                                                </td>
-                                            </tr>
-                                        @php
-                                            $total_no = $no;
-                                            $no++;
+                        @endphp
 
-                                        @endphp
-
-                                        <input class='form-control' style='text-align:right;'type='hidden' name='sales_delivery_order_id_{{$total_no}}' id='sales_delivery_order_id_{{$total_no}}' value='{{$val->sales_delivery_order_id}}'/>
+                                        {{-- <input class='form-control' style='text-align:right;'type='hidden' name='sales_delivery_order_id_{{$total_no}}' id='sales_delivery_order_id_{{$total_no}}' value='{{$val->sales_delivery_order_id}}'/>
                                         <input class='form-control' style='text-align:right;'type='hidden' readonly name='sales_delivery_order_item_id_{{$total_no}}' id='sales_delivery_order_item_id_{{$total_no}}' value='{{$val->sales_delivery_order_item_id}}'/>
                                         <input class='form-control' style='text-align:right;'type='hidden' name='sales_delivery_order_item_stock_id_{{$total_no}}' id='sales_delivery_order_item_stock_id_{{$total_no}}' value='{{$val->sales_delivery_order_item_stock_id}}'/>
                                         <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id_{{$total_no}}' id='sales_order_id_{{$total_no}}' value='{{$item['sales_order_id']}}'/>
@@ -393,9 +355,9 @@ function elements_add(name, value){
                                         <input class='form-control' style='text-align:right;'type='hidden' name='item_type_id_{{$total_no}}' id='item_type_id_{{$total_no}}' value='{{$item['item_type_id']}}'/>
                                         <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_id_{{$total_no}}' id='item_unit_id_{{$total_no}}' value='{{$item['item_unit_id']}}'/>
                                         <input class='form-control' style='text-align:right;'type='hidden' name='item_stock_id_{{$total_no}}' id='item_stock_id_{{$total_no}}' value='{{$val->item_stock_id}}'/>
-                                        <input class='form-control' style='text-align:right;'type='hidden' name='total_no' id='total_no' value='{{$total_no}}'/>
-                                    @endforeach
-                                @endif
+                                        <input class='form-control' style='text-align:right;'type='hidden' name='total_no' id='total_no' value='{{$total_no}}'/> --}}
+                            @endforeach
+                        @endif
                         </tbody>
                     </table>
                 </div>
@@ -404,7 +366,6 @@ function elements_add(name, value){
 
         <div class="card-footer text-muted">
             <div class="form-actions float-right">
-                <a href="{{route('add-sales-delivery-note', ['sales_delivery_order_id' => $sales_delivery_order_id])}}" name='Reset' class='btn btn-danger btn-sm' onClick='javascript:return confirm(\"apakah yakin ingin dihapus ?\")'><i class="fa fa-times"></i> Reset</a>
                 <button type="submit" name="Save" class="btn btn-primary btn-sm" title="Save"><i class="fa fa-check"></i> Simpan</button>
             </div>
         </div>

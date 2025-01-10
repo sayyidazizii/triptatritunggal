@@ -83,7 +83,7 @@
             Daftar
         </h5>
         <div class="form-actions float-right">
-            <button onclick="location.href='{{ url('/sales-delivery-note/search-sales-delivery-order') }}'" name="Find" class="btn btn-sm btn-info" title="Add Data"><i class="fa fa-plus"></i> Tambah Sales Delivery Note</button>
+            <button onclick="location.href='{{ url('/sales-delivery-note/search-sales-quotation') }}'" name="Find" class="btn btn-sm btn-info" title="Add Data"><i class="fa fa-plus"></i> Tambah Sales Delivery Note</button>
         </div>
     </div>
 
@@ -95,9 +95,8 @@
                         <th width="2%" style='text-align:center'>No</th>
                         <th width="10%" style='text-align:center'>Tanggal</th>
                         <th width="15%" style='text-align:center'>No. Delivery Note</th>
-                        <th width="15%" style='text-align:center'>No. Po Customer</th>
+                        <th width="10%" style='text-align:center'>Pelanggan</th>
                         <th width="10%" style='text-align:center'>Gudang</th>
-                        {{-- <th width="10%" style='text-align:center'>Pelanggan</th> --}}
                         <th width="10%" style='text-align:center'>Aksi</th>
                     </tr>
                 </thead>
@@ -111,9 +110,8 @@
                         <td style='text-align:center'>{{$no}}</td>
                         <td>{{$item['sales_delivery_note_date']}}</td>
                         <td>{{$item['sales_delivery_note_no']}}</td>
-                        <td>{{$SalesDeliveryNote->getPOnum($item['sales_order_id'])}}</td>
+                        <td>{{$SalesDeliveryNote->getCustomerName($item['customer_id'])}}</td>
                         <td>{{$SalesDeliveryNote->getInvWarehouseName($item['warehouse_id'])}}</td>
-                        {{-- <td>{{$item['customer_id']}}</td> --}}
                         <td style='text-align:center'>
                             <a type="button" class="btn btn-outline-warning btn-sm" href="{{ url('/sales-delivery-note/edit/'.$item['sales_delivery_note_id']) }}">Edit</a>
                             <a type="button" class="btn btn-outline-primary btn-sm" href="{{ url('/sales-delivery-note/detail/'.$item['sales_delivery_note_id']) }}">Detail</a>

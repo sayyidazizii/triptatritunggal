@@ -587,7 +587,8 @@ Route::post('/sales-delivery-order/select-data-unit', [SalesDeliveryOrderControl
 
 
 Route::get('/sales-delivery-note', [SalesDeliveryNoteController::class, 'index'])->name('sales-delivery-note');
-Route::get('/sales-delivery-note/search-sales-delivery-order', [SalesDeliveryNoteController::class, 'search'])->name('sales-delivery-note-search-sales-delivery-order');
+//Route::get('/sales-delivery-note/search-sales-delivery-order', [SalesDeliveryNoteController::class, 'search'])->name('sales-delivery-note-search-sales-delivery-order');
+Route::get('/sales-delivery-note/search-sales-quotation', [SalesDeliveryNoteController::class, 'search'])->name('sales-delivery-note-search-sales-quotation');
 Route::get('/sales-delivery-note/add/{sales_delivery_order_id}', [SalesDeliveryNoteController::class, 'addSalesDeliveryNote'])->name('add-sales-delivery-note');
 Route::post('/sales-delivery-note/add-elements', [SalesDeliveryNoteController::class, 'elements_add'])->name('elements-add-sales-delivery-order-note');
 Route::post('/sales-delivery-note/process-add-sales-delivery-note', [SalesDeliveryNoteController::class, 'processAddSalesDeliveryNote'])->name('process-add-sales-delivery-note');
