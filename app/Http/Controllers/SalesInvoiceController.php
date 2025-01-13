@@ -122,12 +122,25 @@ class SalesInvoiceController extends Controller
 
     public function search()
     {
-        $buyersAcknowledgment = BuyersAcknowledgment::where('data_state', 0)
-            ->where('sales_invoice_status', 0)
-            ->get();
-        //dd($BuyersAcknowledgment);
+        if(!Session::get('start_date')){
+            $start_date     = date('Y-m-d');
+        }else{
+            $start_date = Session::get('start_date');
+        }
 
-        return view('content/SalesInvoice/SearchBuyersAcknowledgment', compact('buyersAcknowledgment'));
+        if(!Session::get('end_date')){
+            $end_date     = date('Y-m-d');
+        }else{
+            $end_date = Session::get('end_date');
+        }
+
+        $salesdeliverynote = SalesDeliveryNote::where('data_state','=',0)
+        ->where('sales_delivery_note_date', '>=', $start_date)
+        ->where('sales_delivery_note_date', '<=', $end_date)
+        ->get();
+        Session::forget('salesdeliveryordernoteelements');
+
+        return view('content/SalesInvoice/SearchBuyersAcknowledgment', compact('salesdeliverynote'));
     }
 
     public function getPpnOut($sales_delivery_note_id)
@@ -140,7 +153,7 @@ class SalesInvoiceController extends Controller
 
         return $sales_delivery_note['ppn_out_amount'];
     }
-    
+
     public function getPpnItem($sales_order_item_id)
     {
 
@@ -237,7 +250,7 @@ class SalesInvoiceController extends Controller
             ->join('core_customer', 'core_customer.customer_id', 'buyers_acknowledgment.customer_id')
             ->where('buyers_acknowledgment.data_state', 0)
             ->first();
-            
+
         $coreexpedition = CoreExpedition::where('expedition_id', $buyersAcknowledgment['expedition_id'])
             ->first();
 
@@ -245,7 +258,7 @@ class SalesInvoiceController extends Controller
             ->where('buyers_acknowledgment_item.buyers_acknowledgment_id', $buyers_acknowledgment_id)
             ->where('data_state', 0)
             ->get();
-    
+
         return view('content/SalesInvoice/FormAddSalesInvoice', compact('buyersAcknowledgment', 'buyersAcknowledgmentitem', 'buyers_acknowledgment_id', 'coreexpedition'));
     }
 
@@ -386,24 +399,24 @@ class SalesInvoiceController extends Controller
             'branch_id'                     => Auth::user()->branch_id,
             'created_id'                    => Auth::id(),
         );
-    
+
         try{
                 DB::beginTransaction();
-                
+
                     SalesInvoice::create($salesinvoice);
 
                     $coreCustomer = CoreCustomer::findOrFail($request->customer_id);
-        
+
                     // Update debt limit if payment method is 2
                     if ($request->payment_method == 2 && $coreCustomer) {
                         $coreCustomer->amount_debt += (int)$request->total_amount;
                         $coreCustomer->save();
                     }
-        
+
                     $sales_invoice_id = SalesInvoice::select('*')
                         ->orderBy('created_at', 'DESC')
                         ->first();
-        
+
                     $dataItem = $request->all();
                     // $no = 1;
                     $total_no = $request->total_no;
@@ -427,38 +440,38 @@ class SalesInvoiceController extends Controller
                         );
                         //dd($data);
                         SalesInvoiceItem::create($data);
-        
+
                     }
-                    
+
                     DB::table('buyers_acknowledgment')
                         ->where('buyers_acknowledgment_id',$request->buyers_acknowledgment_id)
                         ->update(['sales_invoice_status' => 1]);
-                    
-        
+
+
                         //Update Discount Sumary
                         $diskonA = DB::table('sales_order_item')
                         ->where('sales_order_id', $request->sales_order_id)
                         ->sum('discount_amount_item');
-                
+
                         $diskonB = DB::table('sales_order_item')
                         ->where('sales_order_id', $request->sales_order_id)
                         ->sum('discount_amount_item_b');
-        
+
                         $totalDiscount = $diskonA + $diskonB;
                         if($totalDiscount){
                             DB::table('sales_invoice as a')
                             ->where('sales_order_id', $request->sales_order_id)
-                            ->update([ 
-                                'a.total_discount_amount' => $totalDiscount, 
-                                'a.owing_discount_amount' => $totalDiscount 
+                            ->update([
+                                'a.total_discount_amount' => $totalDiscount,
+                                'a.owing_discount_amount' => $totalDiscount
                             ]);
                         }
-        
-                    $msg = 'Tambah Sales Invoice Berhasil';            
-                
+
+                    $msg = 'Tambah Sales Invoice Berhasil';
+
                 DB::commit();
                     return redirect('/sales-invoice')->with('msg', $msg);
-                        
+
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -466,7 +479,7 @@ class SalesInvoiceController extends Controller
                 'exception' => $e,
                 'trace' => $e->getTraceAsString()
             ]);
-            
+
             $msg = 'Tambah Sales Invoice Gagal';
                 return redirect('/sales-invoice/add/' . $request->sales_delivery_note_id)->with('msg', $msg);
         }
@@ -499,7 +512,7 @@ class SalesInvoiceController extends Controller
                 $salesinvoiceitem->discount_B       = $request['discount_B_'.$i];
                 $salesinvoiceitem->subtotal_price_B = $request['bayar_'.$i];
                 $salesinvoiceitem->save();
-                
+
             }
 
             $msg = 'Edit Sales Invoice Berhasil';
@@ -554,14 +567,13 @@ class SalesInvoiceController extends Controller
         return $item['item_stock_id'];
     }
 
-    public function getCustomerName($customer_id)
-    {
+    public function getCustomerName($customer_id){
         $customer = CoreCustomer::select('customer_name')
-            ->where('data_state', 0)
-            ->where('customer_id', $customer_id)
-            ->first();
+        ->where('customer_id', $customer_id)
+        ->where('data_state', 0)
+        ->first();
 
-        return $customer['customer_name'] ?? '';
+        return $customer['customer_name'];
     }
 
     public function getCustomerNameSalesOrderId($sales_order_id)
@@ -878,7 +890,7 @@ class SalesInvoiceController extends Controller
                             <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\">
                             <tr>
                                 <td><div style=\"text-align: center; font-size:20px; font-weight: bold\">I N V O I C E</div></td>
-                           
+
                             </tr>
                         </table>
                             </td>
@@ -902,7 +914,7 @@ class SalesInvoiceController extends Controller
                             <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\">
                             <tr>
                                 <td><div style=\"text-align: center; font-size:20px; font-weight: bold\">I N V O I C E</div></td>
-                           
+
                             </tr>
                         </table>
                             </td>
@@ -916,7 +928,7 @@ class SalesInvoiceController extends Controller
             <tr>
 
             <td>
-               
+
             </td>
 
             <td>
@@ -988,10 +1000,10 @@ class SalesInvoiceController extends Controller
                 <tr>
                     <td><div style=\"text-align: left; font-size:10px\"></div></td>
                 </tr>
-              
+
             </table>
                 </td>
-              
+
             </tr>
 
             <tr>
@@ -1010,7 +1022,7 @@ class SalesInvoiceController extends Controller
             </tr>
             </table>
                 </td>
-              
+
             </tr>
         </table>";
 
@@ -1037,7 +1049,7 @@ class SalesInvoiceController extends Controller
         $dpp = 0;
         $ppn = 0;
         $totalBayar = 0;
-        foreach ($salesinvoiceitem as $key => $val) {   
+        foreach ($salesinvoiceitem as $key => $val) {
             $qtyTotal = $this->getQtyBpb($val['sales_order_item_id']) * $this->getItemUnitPrice($val['sales_invoice_item_id']);
             $totalBayar = $val['subtotal_price_A'] - $val['discount_B'];
             if ($val['quantity'] != 0) {
@@ -1054,11 +1066,11 @@ class SalesInvoiceController extends Controller
                     <td style=\"text-align: right;\">" . number_format($val['discount_A']) . "</td>
                     <td style=\"text-align: right;\">" . number_format($val['discount_B']) . "</td>
                     <td style=\"text-align: right;\">" .number_format($totalBayar)."</td>
-                </tr> 
+                </tr>
                 ";
-                
+
                 $total_price += ($val['subtotal_price_B']);
-                
+
                 $dpp += $totalBayar;
                 $ppn += $this->getPpn($val['sales_order_item_id']);
                 $no++;
@@ -1147,12 +1159,12 @@ class SalesInvoiceController extends Controller
                     <tr>
                         <td><div style=\"text-align: left; font-size:10px\">Demikian Tagihan ini kami sampaikan atas kerjasamanya kami ucapakan terimakasih.</div></td>
                     </tr>
-                  
+
                     </table>
                     </th>
                 </tr>
             </table>
-            <table style=\"text-align: center;\" cellspacing=\"5\";>            
+            <table style=\"text-align: center;\" cellspacing=\"5\";>
             <tr>
                 <th>Semarang , ".$formatted_date." &nbsp;&nbsp;</th>
                 <th></th>
@@ -1190,7 +1202,7 @@ class SalesInvoiceController extends Controller
             //============================================================+
             // END OF FILE
             //============================================================+
-        
+
     }
 
     //Report
@@ -1208,7 +1220,7 @@ class SalesInvoiceController extends Controller
 
         //customer id
         $customer_id = CoreCustomer::where('customer_code', '=', $customer_code)->first();
-        
+
         Session::put('start_date', $start_date);
         Session::put('end_date', $end_date);
         Session::put('customer_code', $customer_code);
@@ -1255,7 +1267,7 @@ class SalesInvoiceController extends Controller
             }
         }
 
-        
+
         return redirect('/sales-invoice-report');
     }
     //Report
@@ -1268,7 +1280,7 @@ class SalesInvoiceController extends Controller
 
         return redirect('/sales-invoice-report');
     }
-    //Report 
+    //Report
     public function ReportSalesInvoice()
     {
         if (!Session::get('start_date')) {
@@ -1308,7 +1320,7 @@ class SalesInvoiceController extends Controller
 
         return view('content/SalesInvoice/FormSalesInvoiceReport', compact('checkbox','salesinvoice', 'start_date', 'end_date', 'customer_code', 'customer'));
     }
-    
+
     public function export(){
         if (!Session::get('start_date')) {
             $start_date = date('Y-m-d');
@@ -1349,7 +1361,7 @@ class SalesInvoiceController extends Controller
             $spreadsheet->getProperties()->setCreator("TRADING SYSTEM")
                 ->setLastModifiedBy("TRADING SYSTEM")
                 ->setTitle("SALES INVOICE REPORT")
-                ->setSubject("") 
+                ->setSubject("")
                 ->setDescription("SALES INVOICE REPORT")
                 ->setKeywords("SALES INVOICE REPORT")
                 ->setCategory("SALES INVOICE REPORT");
@@ -1359,7 +1371,7 @@ class SalesInvoiceController extends Controller
             foreach ($groupedInvoices as $customer_code => $invoices) {
                 $sheet = $spreadsheet->createSheet();
                 $sheet->setTitle($customer_code);
-                
+
                 $sheet->mergeCells("B5:O5");
                 $sheet->mergeCells("B6:O6");
                 $sheet->mergeCells("B7:O7");
@@ -1379,13 +1391,13 @@ class SalesInvoiceController extends Controller
                 $sheet->getStyle('B12:O12')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                 $sheet->getStyle('B12:O12')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-                $sheet->setCellValue('B5', "PBF MENJANGAN ENAM ");	
+                $sheet->setCellValue('B5', "PBF MENJANGAN ENAM ");
                 $sheet->setCellValue('B6', "Jl.Puspowarno Raya No 55D Bojong Salaman,Semarang Barat");
                 $sheet->setCellValue('B7', "APA : ISTI RAHMADANI,S.Farm, Apt.");
                 $sheet->setCellValue('B8', " SIKA: 449.2/16/DPM-PTSP/SIKA.16/III/2019 ");
                 $sheet->setCellValue('B9', "");
                 $sheet->setCellValue('B10', "REKAPITULASI PENJUALAN TANGGAL ".$start_date." - ".$end_date);
-                $sheet->setCellValue('B11', "$customer_code");	
+                $sheet->setCellValue('B11', "$customer_code");
                 $sheet->setCellValue('B12', "No");
                 $sheet->setCellValue('C12', "TGL INV");
                 $sheet->setCellValue('D12', "NOMOR FPP");
@@ -1400,7 +1412,7 @@ class SalesInvoiceController extends Controller
                 $sheet->setCellValue('M12', "PPN");
                 $sheet->setCellValue('N12', "TOTAL BAYAR");
                 $sheet->setCellValue('O12', "%DISKON");
-            
+
                 $j  = 13;
                 $no = 1;
 
@@ -1530,14 +1542,14 @@ class SalesInvoiceController extends Controller
         foreach ($saleskwitansiItem as $key => $val) {
             $total = $val['item_unit_price'] * $val['quantity'];
             $diskon = $val['discount_A'] + $val['discount_B'];
-            $dpp = $total - $diskon ; 
+            $dpp = $total - $diskon ;
             $totaldpp += $total - $diskon ;
             $ppn = $this->getPpnItem($val['sales_delivery_note_item_id']);
             $totalppn += $this->getPpnItem($val['sales_delivery_note_item_id']);
             $totalbayar += $total - $diskon  + $ppn;
             $totalDiskon += $val['discount_A'] + $val['discount_B'];
-            
-           
+
+
             $no++;
         }
         $materai = 0;
@@ -1546,7 +1558,7 @@ class SalesInvoiceController extends Controller
         }else{
             $materai = 0;
         }
-        
+
         // Asumsi $saleskwitansi['start_date'] dan $saleskwitansi['end_date'] berformat 'YYYY-MM-DD'
         $startDate = new DateTime($saleskwitansi['start_date']);
         $endDate = new DateTime($saleskwitansi['end_date']);
@@ -1574,7 +1586,7 @@ class SalesInvoiceController extends Controller
             $tbl = "
             <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\">
                 <tr>
-    
+
                 <td>
                     <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\">
                         <tr>
@@ -1597,22 +1609,22 @@ class SalesInvoiceController extends Controller
                         </tr>
                     </table>
                 </td>
-    
+
                 <td>
                     <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\">
-                       
+
                     </table>
                 </td>
-    
+
                 </tr>
                 <tr>
-    
+
                 <td>
                     <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\">
-                      
+
                     </table>
                 </td>
-    
+
                 <td>
                     <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\">
                         <tr>
@@ -1628,14 +1640,14 @@ class SalesInvoiceController extends Controller
                         </tr>
                     </table>
                 </td>
-    
+
                 </tr>
-    
+
             </table>
             <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\">
             <tr>
                 <td>
-                    Telah Terima Dari 
+                    Telah Terima Dari
                 </td>
                 <td colspan=\"4\" style=\"text-align: left; font-size:10px;border-bottom-width:0.1px;\">PT. PHAPROS TBK</td>
             </tr>
@@ -1709,7 +1721,7 @@ class SalesInvoiceController extends Controller
 
                 <td>
                     <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\">
-                    
+
                     </table>
                 </td>
 
@@ -1718,7 +1730,7 @@ class SalesInvoiceController extends Controller
 
                 <td>
                     <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\">
-                    
+
                     </table>
                 </td>
 
@@ -1744,7 +1756,7 @@ class SalesInvoiceController extends Controller
             <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\">
             <tr>
                 <td>
-                    Telah Terima Dari 
+                    Telah Terima Dari
                 </td>
                 <td colspan=\"4\" style=\"text-align: left; font-size:10px;border-bottom-width:0.1px;\">PT. PHAPROS TBK</td>
             </tr>
@@ -1793,7 +1805,7 @@ class SalesInvoiceController extends Controller
         }
         $pdf::writeHTML($tbl, true, false, false, false, '');
 
-       
+
         $path = '<img width="60"; height="60" src="resources/assets/img/ttd.png">';
         $html2 = "
                     <table style=\"text-align: left;\" cellspacing=\"20\";>
@@ -1834,15 +1846,15 @@ class SalesInvoiceController extends Controller
         $pdf::writeHTML($html2, true, false, true, false, '');
         $pdf::AddPage();
 
-        $pdf::SetFont('helvetica', '', 8); 
-        
+        $pdf::SetFont('helvetica', '', 8);
+
         $tbl = "
         <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\">
             <tr>
 
             <td>
                 <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\">
-                   
+
                 </table>
             </td>
 
@@ -1915,10 +1927,10 @@ class SalesInvoiceController extends Controller
                 <tr>
                     <td><div style=\"text-align: left; font-size:10px\">MANAJER KEUANGAN</div></td>
                 </tr>
-              
+
             </table>
                 </td>
-              
+
             </tr>
             <br/>
             <tr>
@@ -1991,7 +2003,7 @@ class SalesInvoiceController extends Controller
         ";
         $pdf::writeHTML($tbl, true, false, false, false, '');
 
-       
+
         $path = '<img width="60"; height="60" src="resources/assets/img/ttd.png">';
         $html2 = "
         <table style=\"text-align: center;\" cellspacing=\"0\";>
@@ -2013,12 +2025,12 @@ class SalesInvoiceController extends Controller
                 <tr>
                     <td><div style=\"text-align: left; font-size:10px\">Demikian Tagihan ini kami sampaikan atas kerjasamanya kami ucapakan terimakasih.</div></td>
                 </tr>
-            
+
                 </table>
                 </th>
             </tr>
         </table>
-        <table style=\"text-align: left;\" cellspacing=\"5\";>            
+        <table style=\"text-align: left;\" cellspacing=\"5\";>
             <tr>
                 <th>Semarang , ".date('d M Y')." &nbsp;&nbsp;</th>
                 <th></th>
@@ -2042,7 +2054,7 @@ class SalesInvoiceController extends Controller
                 <th></th>
             </tr>
         </table>";
-                                      
+
         $pdf::writeHTML($html2, true, false, true, false, '');
         $filename = 'SK_'.$saleskwitansi['sales_kwitansi_no'].'.pdf';
         $pdf::Output($filename, 'I');
@@ -2053,12 +2065,12 @@ class SalesInvoiceController extends Controller
 	    $tsingle = array("","satu ","dua ","tiga ","empat ","lima ",
 		"enam ","tujuh ","delapan ","sembilan ");
 	      return strtoupper($tsingle[$onestr]);
-	}	
-	 
+	}
+
 	function doone($onestr) {
 	    $tsingle = array("","se","dua ","tiga ","empat ","lima ", "enam ","tujuh ","delapan ","sembilan ");
 	      return strtoupper($tsingle[$onestr]);
-	}	
+	}
 
 	function dotwo($twostr) {
 	    $tdouble = array("","puluh ","dua puluh ","tiga puluh ","empat puluh ","lima puluh ", "enam puluh ","tujuh puluh ","delapan puluh ","sembilan puluh ");
@@ -2072,7 +2084,7 @@ class SalesInvoiceController extends Controller
 	    }
 	    return strtoupper($ret);
 	}
-    
+
 
 	function numtotxt($num) {
 		$tdiv 	= array("","","ratus ","ribu ", "ratus ", "juta ", "ratus ","miliar ");
@@ -2080,7 +2092,7 @@ class SalesInvoiceController extends Controller
 		$pos 	= 0; // index into tdiv;
 		// make num a string, and reverse it, because we run through it backwards
 		// bikin num ke string dan dibalik, karena kita baca dari arah balik
-		$num 	= strval(strrev(number_format($num, 2, '.',''))); 
+		$num 	= strval(strrev(number_format($num, 2, '.','')));
 		$answer = ""; // mulai dari sini
 		while (strlen($num)) {
 			if ( strlen($num) == 1 || ($pos >2 && $pos % 2 == 1))  {
@@ -2135,7 +2147,7 @@ class SalesInvoiceController extends Controller
 
         return $item['item_type_name'];
     }
-    
+
     public function getNoteStokID($sales_delivery_note_item_id)
     {
         $unit = SalesDeliveryNoteItemStock::where('sales_delivery_note_item_id', $sales_delivery_note_item_id)
@@ -2144,7 +2156,7 @@ class SalesInvoiceController extends Controller
 
         return $unit['item_stock_id'] ?? '';
     }
-    
+
     public function getItemBatchNumber($item_stock_id){
         $item = InvItemStock::select('item_batch_number')
         ->where('item_stock_id', $item_stock_id)

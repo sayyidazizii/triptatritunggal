@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class BuyersAcknowledgment extends Model
 {
-    protected $table        = 'buyers_acknowledgment'; 
+    protected $table        = 'buyers_acknowledgment';
     protected $primaryKey   = 'buyers_acknowledgment_id';
-    
+
     protected $guarded = [
         'buyers_acknowledgment_id',
     ];
