@@ -103,6 +103,29 @@ class InvItemController extends Controller
         return redirect('/inv-item/add')->with('msg',$msg);
     }
 
+    public function processAddInvItemModal(Request $request)
+    {
+        $fields = $request->validate([
+            'item_category_id'                => 'required',
+            'item_unit_id'                    => 'required',
+            'item_type_name'                  => 'required',
+        ]);
+
+        // dd($request->all());
+
+        $item = InvItemtype::create([
+            'item_category_id'              => $fields['item_category_id'],   
+            'item_unit_id'                  => $fields['item_unit_id'],
+            'item_barcode'                  => $request->item_barcode,
+            'item_type_name'                => $fields['item_type_name'], 
+            'item_remark'                   => $request->item_remark,
+            'created_id'                    => Auth::id()
+        ]);
+
+        $msg = 'Tambah Barang Berhasil';
+        return redirect('/sales-quotation/add')->with('msg',$msg);
+    }
+
     public function editInvItem($item_id)
     {
         $acctaccountcode            = AcctAccount::select('account_id', DB::raw('CONCAT(account_code, " - ", account_name) AS full_name'))

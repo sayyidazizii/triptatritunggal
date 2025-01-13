@@ -79,7 +79,7 @@ class SalesQuotationController extends Controller
         $itemcategory       = InvItemCategory::where('data_state','=',0)->pluck('item_category_name', 'item_category_id');
         $itemunit           = InvItemUnit::where('data_state','=',0)->pluck('item_unit_name', 'item_unit_id');
         $itemtype           = [];
-            // echo json_encode($itemtype);exit;
+            // echo json_encode($itemcategory);exit;
 
         $coreprovince       = CoreProvince::where('data_state', 0)->pluck('province_name', 'province_id');
         $corecity           = CoreCity::where('data_state', 0)->pluck('city_name', 'city_id');

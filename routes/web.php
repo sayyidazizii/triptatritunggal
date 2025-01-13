@@ -294,6 +294,7 @@ Route::post('/inv-item/add-category', [InvItemController::class, 'addInvItemCate
 Route::post('/inv-item/add-type', [InvItemController::class, 'addInvItemType'])->name('inv-item-add-type');
 Route::post('/inv-item/add-grade', [InvItemController::class, 'addCoreGrade'])->name('inv-item-add-grade');
 Route::post('/inv-item/add-unit', [InvItemController::class, 'addInvItemUnit'])->name('inv-item-add-unit');
+Route::post('/inv-item/add-item', [InvItemController::class, 'processAddInvItemModal'])->name('inv-item-modal');
 
 
 Route::get('/inv-item-unit', [InvItemUnitController::class, 'index'])->name('inv-item-unit');
