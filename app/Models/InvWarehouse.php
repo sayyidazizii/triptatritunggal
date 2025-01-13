@@ -13,9 +13,9 @@ class InvWarehouse extends Model
      * @var string[]
      */
 
-    protected $table        = 'inv_warehouse'; 
+    protected $table        = 'inv_warehouse';
     protected $primaryKey   = 'warehouse_id';
-    
+
     protected $guarded = [
         'warehouse_id',
     ];

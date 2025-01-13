@@ -13,9 +13,9 @@ class CoreCustomer extends Model
      * @var string[]
      */
 
-    protected $table        = 'core_customer'; 
+    protected $table        = 'core_customer';
     protected $primaryKey   = 'customer_id';
-    
+
     protected $guarded = [
         'customer_id',
     ];
