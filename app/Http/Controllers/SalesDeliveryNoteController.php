@@ -102,7 +102,7 @@ class SalesDeliveryNoteController extends Controller
     {
         $salesquotation = SalesQuotation::select('sales_quotation.*')
             ->where('sales_quotation.data_state','=',0)
-           ->where('sales_quotation.sales_delivery_note_status','=',0)
+            ->where('sales_quotation.sales_delivery_note_status','=',0)
             ->get();
 
         Session::forget('salesdeliveryordernoteelements');
@@ -233,54 +233,42 @@ class SalesDeliveryNoteController extends Controller
     public function editSalesDeliveryNote($sales_delivery_note_id)
     {
         $salesdeliverynote = SalesDeliveryNote::findOrFail($sales_delivery_note_id);
-
-        $salesdeliveryorderitem = SalesDeliveryOrderItem::select('sales_delivery_order_item.*')
-        ->where('sales_delivery_order_id', $salesdeliverynote['sales_delivery_order_id'])
+        $salesdeliverynoteitem = SalesDeliveryNoteItem::select('sales_delivery_note_item.*')
+        ->where('sales_delivery_note_id', $salesdeliverynote['sales_delivery_note_id'])
         ->where('data_state', 0)
         ->get();
-
-        $salesdeliveryorder = SalesDeliveryOrder::findOrFail($salesdeliverynote['sales_delivery_order_id']);
-
         $warehouse = InvWarehouse::select('warehouse_id', 'warehouse_name')
         ->where('data_state', 0)
         ->pluck('warehouse_name', 'warehouse_id');
-
         $expedition = CoreExpedition::select('expedition_name', 'expedition_id')
         ->where('data_state', 0)
         ->pluck('expedition_name', 'expedition_id');
-
         $city = CoreCity::where('data_state', 0)
         ->pluck('city_name', 'city_id');
-
         $status = array(
             1 => 'Active',
             2 => 'Non Active',
             3 => 'All',
         );
 
-        return view('content/SalesDeliveryNote/FormEditSalesDeliveryNote',compact('warehouse', 'expedition', 'salesdeliveryorderitem', 'salesdeliveryorder', 'sales_delivery_note_id', 'salesdeliverynote', 'city', 'status'));
+        return view('content/SalesDeliveryNote/FormEditSalesDeliveryNote',compact('warehouse', 'expedition', 'salesdeliverynoteitem', 'sales_delivery_note_id', 'salesdeliverynote', 'city', 'status'));
     }
 
     public function detailSalesDeliveryNote($sales_delivery_note_id)
     {
         $salesdeliverynote = SalesDeliveryNote::findOrFail($sales_delivery_note_id);
-
-        $salesdeliveryorderitem = SalesDeliveryOrderItem::select('sales_delivery_order_item.*')
-        ->where('sales_delivery_order_id', $salesdeliverynote['sales_delivery_order_id'])
+        $salesdeliverynoteitem = SalesDeliveryNoteItem::select('sales_delivery_note_item.*')
+        ->where('sales_delivery_note_id', $salesdeliverynote['sales_delivery_note_id'])
         ->where('data_state', 0)
         ->get();
-
-        $salesdeliveryorder = SalesDeliveryOrder::findOrFail($salesdeliverynote['sales_delivery_order_id']);
-
         $warehouse = InvWarehouse::select('warehouse_id', 'warehouse_name')
         ->where('data_state', 0)
         ->pluck('warehouse_name', 'warehouse_id');
-
         $expedition = CoreExpedition::select('expedition_name', 'expedition_id')
         ->where('data_state', 0)
         ->pluck('expedition_name', 'expedition_id');
 
-        return view('content/SalesDeliveryNote/FormDetailSalesDeliveryNote',compact('warehouse', 'expedition', 'salesdeliveryorderitem', 'salesdeliveryorder', 'sales_delivery_note_id', 'salesdeliverynote'));
+        return view('content/SalesDeliveryNote/FormDetailSalesDeliveryNote',compact('warehouse', 'expedition', 'salesdeliverynoteitem', 'sales_delivery_note_id', 'salesdeliverynote'));
     }
 
     public function voidSalesDeliveryNote($sales_delivery_note_id)
@@ -355,7 +343,6 @@ class SalesDeliveryNoteController extends Controller
 
     public function processAddSalesDeliveryNote(Request $request)
     {
-        // dd(request()->all());
         $salesdeliverynote = array(
             'sales_quotation_id'            => $request->sales_quotation_id,
             'customer_id'                   => $request->customer_id,
@@ -398,7 +385,7 @@ class SalesDeliveryNoteController extends Controller
 
                 // Buat Sales Delivery Note Item
                 SalesDeliveryNoteItem::create([
-                    'sales_delivery_note_id'      => $salesDeliveryNote->sales_delivery_note_id, // Langsung ambil dari instance
+                    'sales_delivery_note_id'      => $salesDeliveryNote->sales_delivery_note_id,
                     'warehouse_id'                => $request->warehouse_id,
                     'sales_order_id'              => 0,
                     'sales_order_item_id'         => 0,
@@ -423,6 +410,10 @@ class SalesDeliveryNoteController extends Controller
                 $stock_item->save();
             }
 
+            // Update sales_quotation untuk menandai sudah dibuatkan delivery note
+            SalesQuotation::where('sales_quotation_id', $sales_quotation_id)
+                ->update(['sales_delivery_note_status' => 1]);
+
             $msg = 'Tambah Sales Delivery Note Berhasil';
 
             DB::commit();
@@ -441,7 +432,6 @@ class SalesDeliveryNoteController extends Controller
             return redirect('/sales-delivery-note')->with('msg', $msg);
         }
     }
-
 
     public function processEditSalesDeliveryNote(Request $request)
     {
@@ -860,150 +850,102 @@ class SalesDeliveryNoteController extends Controller
 
     public function processPrintingSalesDeliveryNote($sales_delivery_note_id)
     {
-        $salesdeliverynote      = SalesDeliveryNote::findOrFail($sales_delivery_note_id);
-        $salesdeliverynoteitem  = SalesDeliveryNoteItem::where('sales_delivery_note_item.sales_delivery_note_id', $sales_delivery_note_id)
-        ->get();
+        $salesdeliverynote = SalesDeliveryNote::findOrFail($sales_delivery_note_id);
+        $salesdeliverynoteitem = SalesDeliveryNoteItem::where('sales_delivery_note_item.sales_delivery_note_id', $sales_delivery_note_id)
+            ->get();
         $customer = CoreCustomer::select('core_customer.*')
-        ->where('customer_id', $salesdeliverynote->customer_id)
-        ->where('core_customer.data_state', 0)
-        ->first();
-        $company = PreferenceCompany::select('*')
+            ->where('customer_id', $salesdeliverynote->customer_id)
+            ->where('core_customer.data_state', 0)
             ->first();
+        $company = PreferenceCompany::select('*')->first();
+
         $pdf = new TCPDF('P', PDF_UNIT, 'F4', true, 'UTF-8', false);
         $pdf::SetPrintHeader(false);
         $pdf::SetPrintFooter(false);
-        $pdf::SetMargins(10, 10, 10, 10); // put space of 10 on top
+        $pdf::SetMargins(10, 10, 10, 10);
         $pdf::setImageScale(PDF_IMAGE_SCALE_RATIO);
-        if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-            require_once(dirname(__FILE__).'/lang/eng.php');
-            $pdf::setLanguageArray($l);
-        }
-        $pdf::SetFont('helvetica', 'B', 20);
+        $pdf::SetFont('helvetica', '', 8);
+
+        // Mengubah format tanggal dengan nama bulan
+        $bulan = [
+            '01' => 'Januari', '02' => 'Februari', '03' => 'Maret', '04' => 'April',
+            '05' => 'Mei', '06' => 'Juni', '07' => 'Juli', '08' => 'Agustus',
+            '09' => 'September', '10' => 'Oktober', '11' => 'November', '12' => 'Desember'
+        ];
+        $tanggal = date('d') . ' ' . $bulan[date('m')] . ' ' . date('Y');
+
+        // Header
         $pdf::AddPage();
-        $pdf::SetFont('helvetica', '', 8);$tbl = "";
-
-            $tbl = "
-                <table id=\"items\" width=\"100%\" cellspacing=\"1\" cellpadding=\"0\" >
-                    <tr>
-                        <td style=\"text-align:center;width:100%\">
-                            <div style=\"font-size:25px\"><b>SURAT JALAN</b></div>
-                            <b style=\"font-size:14px\">".$salesdeliverynote['sales_delivery_note_no']."</b>
-                        </td>
-                    </tr>
-                </table>
-            ";
-
-        $pdf::writeHTML($tbl, true, false, false, false, '');
-
         $tbl = "
-        <table cellspacing=\"0\" cellspacing=\"1\" cellpadding=\"0\" border=\"0\">
-
-            <br>
-            <tr>
-                <td style=\"text-align:left;width:65%\">
-                    <b>Kepada : </b>
-                </td>
-            </tr>
-            <tr>
-                <td style=\"text-align:left;width:50%\">
-                    <b style=\"font-size:14px\">".$customer['customer_name']."</b>
-                    <br>
-                    ".$customer['customer_address']."
-                </td>
-            </tr>
-        </table>";
-
-        $pdf::writeHTML($tbl, true, false, false, false, '');
-
-        $tbl1 = "
-        <b><div style=\"font-size:13px\">  Remark : Pengiriman pesanan tanggal ".date('d/m/Y', strtotime($salesdeliverynote['sales_delivery_note_date']))."</div></b><br>
-        <table cellspacing=\"1\" cellpadding=\"0\" border=\"1\">
-            <tr>
-                <th style=\"text-align:center;\" width=\"5%\"><div style=\"font-size:13px\">No.</div></th>
-                <th style=\"text-align:center;\" width=\"30%\"><div style=\"font-size:13px\">Barang</div></th>
-                <th style=\"text-align:center;\" width=\"20%\"><div style=\"font-size:13px\">Unit</div></th>
-                <th style=\"text-align:center;\" width=\"20%\"><div style=\"font-size:13px\">Berat (Kg)</div></th>
-                <th style=\"text-align:center;\" width=\"20%\"><div style=\"font-size:13px\">Qty</div></th>
-            </tr>
-            ";
-        $no = 1;
-        $totalqty = 0;
-        $totalweight = 0;
-        $totalamount = 0;
-        $tbl2 = "";
-            foreach ($salesdeliverynoteitem as $key => $val) {
-                $tbl2 .= "
-                    <tr>
-                        <td style=\"text-align:center;\"><div style=\"font-size:12px\">$no</div></td>
-                        <td style=\"text-align:left;\"><div style=\"font-size:12px\"> ".$this->getInvItemTypeName($val['item_type_id'])."</div></td>
-                        <td style=\"text-align:left;\"><div style=\"font-size:12px\"> ".$this->getItemUnitName($val['item_unit_id'])." &nbsp;</div></td>
-                        <td style=\"text-align:right;\"><div style=\"font-size:12px\"> ".$this->getWeight($val['sales_delivery_note_item_id'])." &nbsp;</div></td>
-                        <td style=\"text-align:right;\"><div style=\"font-size:12px\">".$val['quantity']." &nbsp;</div></td>
-                    </tr>
-                ";
-
-                $totalweight += $this->getWeight($val['sales_delivery_note_item_id']);
-                $totalqty += $val['quantity'];
-                $no++;
-            }
-
-        $tbl4 = "
-            <tr>
-                <td colspan=\"3\" style=\"text-align:right;\" > Total : &nbsp;</td>
-                <td style=\"text-align:right;font-size:10px\" >".$totalweight." &nbsp; </td>
-                <td style=\"text-align:right;font-size:10px\" >".$totalqty." &nbsp; </td>
-
-            </tr>
-
-        </table>";
-
-        $pdf::writeHTML($tbl1.$tbl2.$tbl4, true, false, false, '');
-
-        $tbl7 = "
-        <br>
-            <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\">
+            <table width=\"100%\">
                 <tr>
-                    <th style=\"text-align:center;\">< style=\"font-size:12px\">Penerima/Cap</div></th>
-                    <th style=\"text-align:center;\"><div style=\"font-size:12px\">Penerima Barang </div></th>
-                    <th style=\"text-align:center;\"><div style=\"font-size:12px\">Dikeluarkan Oleh </div></th>
-                    <th style=\"text-align:center;\"><div style=\"font-size:12px\">Semarang , ".date('d M Y')." &nbsp;&nbsp; </div></th>
-                 </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td style=\"text-align:left; font-size:16px;\"><b>PT. TRIPTA TRI TUNGGAL</b></td>
+                    <td style=\"text-align:right; font-size:12px;\">Tanggal: " . $tanggal . "</td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td style=\"text-align:center;\"><div style=\"font-size:12px\">Angkutan </div></td>
-                    <td style=\"text-align:center;\"><div style=\"font-size:12px\"> (Tanda Tangan, Cap, Nama Jelas) </div></td>
-                    <td style=\"text-align:center;\"><div style=\"font-size:12px\">Pelaksana </div></td>
-                    <td style=\"text-align:center;\"><div style=\"font-size:12px\">Hormat Kami, </div></td>
-                </tr>
-                <tr>
-                `   <td></td>
-                    <td></td>
-                    <td></td>
+                    <td style=\"text-align:left; font-size:12px;\">PERUM. BUMI WONOREJO - KARANGANYAR</td>
                     <td></td>
                 </tr>
             </table>
+            <table width=\"100%\">
+                <tr>
+                    <td style=\"text-align:left; font-size:12px;\">No: 24184/3T/SJ/XII/2024</td>
+                    <td style=\"text-align:left; font-size:12px;\"><b>Kepada:</b></td>
+                </tr>
+                <tr>
+                    <td style=\"text-align:left; font-size:12px;\">PO: 1887040321</td>
+                    <td style=\"text-align:left; font-size:12px;\"><b>" . $customer['customer_name'] . "</b></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td style=\"text-align:left; font-size:12px;\">" . $customer['customer_address'] . "</td>
+                </tr>
+            </table>
+            <br>
         ";
+        $pdf::writeHTML($tbl, true, false, false, false, '');
 
-        $pdf::writeHTML($tbl7, true, false, false, false, '');
+        // Item Table
+        $tbl = "
+            <table border=\"1\" cellspacing=\"0\" cellpadding=\"4\" width=\"100%\">
+                <tr>
+                    <th style=\"text-align:center; font-size:12px;\" width=\"20%\">Qty</th>
+                    <th style=\"text-align:center; font-size:12px;\" width=\"80%\">Item Description</th>
+                </tr>
+        ";
+        foreach ($salesdeliverynoteitem as $item) {
+            $tbl .= "
+                <tr>
+                    <td style=\"text-align:center; font-size:12px;\">" . $item['quantity'] . " PC</td>
+                    <td style=\"text-align:left; font-size:12px;\">" . $this->getInvItemTypeName($item['item_type_id']) . "</td>
+                </tr>
+            ";
+        }
+        $tbl .= "</table>";
+        $pdf::writeHTML($tbl, true, false, false, false, '');
+
+        // Footer Section
+        $tbl = "
+            <br>
+            <table width=\"100%\">
+                <tr>
+                    <td style=\"text-align:center; font-size:12px;\">Penerima</td>
+                    <td style=\"text-align:center; font-size:12px;\"></td>
+                    <td style=\"text-align:center; font-size:12px;\"></td>
+                    <td style=\"text-align:center; font-size:12px;\">Hormat Kami</td>
+                </tr>
+                <tr>
+                    <td style=\"text-align:center; font-size:12px; height:50px;\"><br><br>(____________________)</td>
+                    <td></td>
+                    <td></td>
+                    <td style=\"text-align:center; font-size:12px;\"><br><br>ELLY</td>
+                </tr>
+            </table>
+        ";
+        $pdf::writeHTML($tbl, true, false, false, false, '');
+
         ob_clean();
-        $filename = 'Surat Jalan'.$salesdeliverynote['sales_delivery_note_no'].'.pdf';
+        $filename = 'Surat Jalan ' . $salesdeliverynote['sales_delivery_note_no'] . '.pdf';
         $pdf::Output($filename, 'I');
     }
 
