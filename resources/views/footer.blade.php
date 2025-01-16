@@ -1,9 +1,11 @@
 <footer class="main-footer text-center">
     {{-- @yield('footer') --}}
-    Copyright © 2023 Cipta Solutindo Tech.
+    Copyright © @php
+        echo date('Y');
+    @endphp() Cipta Solutindo Tech.
 </footer>
-<?php 
-use Carbon\Carbon;  
+<?php
+use Carbon\Carbon;
 use App\Models\PurchaseInvoice;
 use App\Models\SalesInvoice;
     $startDate = Carbon::today();
