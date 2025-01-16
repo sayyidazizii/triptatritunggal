@@ -850,7 +850,10 @@ class SalesDeliveryNoteController extends Controller
 
     public function processPrintingSalesDeliveryNote($sales_delivery_note_id)
     {
-        $salesdeliverynote = SalesDeliveryNote::findOrFail($sales_delivery_note_id);
+        $salesdeliverynote = SalesDeliveryNote::with(['salesQuotation'])
+        ->where('data_state', 0)
+        ->where('sales_delivery_note_id', $sales_delivery_note_id)
+        ->first();
         $salesdeliverynoteitem = SalesDeliveryNoteItem::where('sales_delivery_note_item.sales_delivery_note_id', $sales_delivery_note_id)
             ->get();
         $customer = CoreCustomer::select('core_customer.*')
@@ -889,11 +892,15 @@ class SalesDeliveryNoteController extends Controller
             </table>
             <table width=\"100%\">
                 <tr>
-                    <td style=\"text-align:left; font-size:12px;\">No: 24184/3T/SJ/XII/2024</td>
+                    <td style=\"text-align:left; font-size:12px;\"><b>SURAT JALAN</b></td>
+                    <td style=\"text-align:left; font-size:12px;\"></td>
+                </tr>
+                <tr>
+                    <td style=\"text-align:left; font-size:12px;\"><b>No: ".$salesdeliverynote['sales_delivery_note_no']."</b></td>
                     <td style=\"text-align:left; font-size:12px;\"><b>Kepada:</b></td>
                 </tr>
                 <tr>
-                    <td style=\"text-align:left; font-size:12px;\">PO: 1887040321</td>
+                    <td style=\"text-align:left; font-size:12px;\"><b>PO: ".$salesdeliverynote->salesQuotation->purchase_order_customer."</b></td>
                     <td style=\"text-align:left; font-size:12px;\"><b>" . $customer['customer_name'] . "</b></td>
                 </tr>
                 <tr>
