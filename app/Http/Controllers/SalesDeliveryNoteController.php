@@ -386,6 +386,7 @@ class SalesDeliveryNoteController extends Controller
                 // Buat Sales Delivery Note Item
                 SalesDeliveryNoteItem::create([
                     'sales_delivery_note_id'      => $salesDeliveryNote->sales_delivery_note_id,
+                    'sales_quotation_item_id'     => $quotationItem->sales_quotation_item_id,
                     'warehouse_id'                => $request->warehouse_id,
                     'sales_order_id'              => 0,
                     'sales_order_item_id'         => 0,
