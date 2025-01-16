@@ -16,7 +16,7 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
         <li class="breadcrumb-item"><a href="{{ url('sales-invoice') }}">Daftar Sales invoice</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Daftar Buyers Acknowledgment</li>
+        <li class="breadcrumb-item active" aria-current="page">Daftar Sales Invoce Note</li>
     </ol>
 </nav>
 
@@ -25,7 +25,7 @@
 @section('content')
 
 <h3 class="page-title">
-    <b>Daftar Buyers Acknowledgment</b>
+    <b>Daftar Invoce Note</b>
 </h3>
 <br/>
 
@@ -69,7 +69,7 @@
                         <td>{{$SalesDeliveryNote->getCustomerName($item['customer_id'])}}</td>
                         <td>{{$SalesDeliveryNote->getInvWarehouseName($item['warehouse_id'])}}</td>
                         <td style='text-align:center'>
-                            <a type="button" class="btn btn-outline-primary btn-sm" href="{{ url('/sales-invoice/add/'.$item['buyers_acknowledgment_id']) }}"><i class="fa fa-plus"></i></a>
+                            <a type="button" class="btn btn-outline-primary btn-sm" href="{{ url('/sales-invoice/add/'.$item['sales_delivery_note_id']) }}"><i class="fa fa-plus"></i></a>
                         </td>
                     </tr>
                     <?php $no++; ?>
