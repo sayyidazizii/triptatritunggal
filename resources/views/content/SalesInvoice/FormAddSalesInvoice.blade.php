@@ -98,30 +98,14 @@
             <div class="row form-group">
                 <div class="col-md-6">
                     <a class="text-dark">Delivery Note No</a>
-                    <input class="form-control input-bb" type="text" name="sales_delivery_note_no" id="sales_delivery_note_no" value="{{$buyersAcknowledgment == null ? : $buyersAcknowledgment['sales_delivery_note_no']}}" readonly/>
-                    <input class="form-control input-bb" type="hidden" name="buyers_acknowledgment_id" id="buyers_acknowledgment_id" value="{{$buyersAcknowledgment == null ? : $buyersAcknowledgment['buyers_acknowledgment_id']}}" readonly/>
-                    <input class="form-control input-bb" type="hidden" name="sales_delivery_note_id" id="sales_delivery_note_id" value="{{$buyersAcknowledgment == null ? : $buyersAcknowledgment['sales_delivery_note_id']}}" readonly/>
+                    <input class="form-control input-bb" type="text" name="sales_delivery_note_no" id="sales_delivery_note_no" value="{{$salesdeliverynote == null ? : $salesdeliverynote['sales_delivery_note_no']}}" readonly/>
+                    <input class="form-control input-bb" type="hidden" name="sales_delivery_note_id" id="sales_delivery_note_id" value="{{$salesdeliverynote == null ? : $salesdeliverynote['sales_delivery_note_id']}}" readonly/>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <a class="text-dark">Pembeli</a>
-                        <input class="form-control input-bb" type="text" name="customer_name" id="customer_name" value="{{$SalesInvoice->getCustomerName($buyersAcknowledgment['customer_id'])}}" readonly/>
-                        <input class="form-control input-bb" type="hidden" name="customer_id" id="customer_id" value="{{$buyersAcknowledgment['customer_id']}}" readonly/>
-                    </div>
-                </div>
-            </div>
-            <div class="row form-group">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <a class="text-dark">No Sales Order</a>
-                        <input class="form-control input-bb" type="text" name="sales_order_no" id="sales_order_no" value="{{$buyersAcknowledgment == null ? : $buyersAcknowledgment['sales_order_no']}}" readonly/>
-                        <input class="form-control input-bb" type="hidden" name="sales_order_id" id="sales_order_id" value="{{$buyersAcknowledgment == null ? : $buyersAcknowledgment['sales_order_id']}}" readonly/>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <a class="text-dark">Tanggal Sales Order</a>
-                        <input class="form-control input-bb" type="text" name="sales_order_date" id="sales_order_date" value="{{$buyersAcknowledgment == null ? : date('d/m/Y', strtotime($buyersAcknowledgment['sales_order_date']))}}" readonly/>
+                        <input class="form-control input-bb" type="text" name="customer_name" id="customer_name" value="{{$SalesInvoice->getCustomerName($salesdeliverynote['customer_id'])}}" readonly/>
+                        <input class="form-control input-bb" type="hidden" name="customer_id" id="customer_id" value="{{$salesdeliverynote['customer_id']}}" readonly/>
                     </div>
                 </div>
             </div>
@@ -135,7 +119,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <a class="text-dark">Biaya Ekspedisi</a>
-                        <input class="form-control input-bb" type="text" name="sales_delivery_note_cost" id="sales_delivery_note_cost" value="{{number_format($buyersAcknowledgment['sales_delivery_note_cost'],2,',','.')}}" readonly/>
+                        <input class="form-control input-bb" type="text" name="sales_delivery_note_cost" id="sales_delivery_note_cost" value="{{number_format($salesdeliverynote['sales_delivery_note_cost'],2,',','.')}}" readonly/>
                     </div>
                 </div>
             </div>
@@ -143,13 +127,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <a class="text-dark">Nama Pengemudi</a>
-                        <input class="form-control input-bb" type="text" name="driver_name" id="driver_name" value="{{$buyersAcknowledgment == null ? : $buyersAcknowledgment['driver_name']}}" readonly/>
+                        <input class="form-control input-bb" type="text" name="driver_name" id="driver_name" value="{{$salesdeliverynote == null ? : $salesdeliverynote['driver_name']}}" readonly/>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <a class="text-dark">Plat Nomor Kendaraan</a>
-                        <input class="form-control input-bb" type="text" name="fleet_police_number" id="fleet_police_number" value="{{$buyersAcknowledgment == null ? : $buyersAcknowledgment['fleet_police_number']}}" readonly/>
+                        <input class="form-control input-bb" type="text" name="fleet_police_number" id="fleet_police_number" value="{{$salesdeliverynote == null ? : $salesdeliverynote['fleet_police_number']}}" readonly/>
                     </div>
                 </div>
             </div>
@@ -157,7 +141,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <a class="text-dark">Tanggal Delivery Note</a>
-                        <input class="form-control input-bb" type="text" name="sales_delivery_note_date" id="sales_delivery_note_date" value="{{$buyersAcknowledgment == null ? : date('d/m/Y', strtotime($buyersAcknowledgment['sales_delivery_note_date']))}}" readonly/>
+                        <input class="form-control input-bb" type="text" name="sales_delivery_note_date" id="sales_delivery_note_date" value="{{$salesdeliverynote == null ? : date('d/m/Y', strtotime($salesdeliverynote['sales_delivery_note_date']))}}" readonly/>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -166,8 +150,8 @@
                     <input type ="date" class="form-control form-control-inline input-medium date-picker input-date" data-date-format="dd-mm-yyyy" type="text" name="sales_invoice_due_date" id="sales_invoice_due_date" onChange="elements_add(this.name, this.value);" value=""/>
                 </div>
 
-                    <input class="form-control input-bb" type="hidden" name="warehouse_id" id="warehouse_id" value="{{$buyersAcknowledgment == null ? : $buyersAcknowledgment['warehouse_id']}}" />
-                    <input class="form-control input-bb" type="hidden" name="payment_method" id="payment_method" value="{{$buyersAcknowledgment == null ? : $buyersAcknowledgment['payment_method']}}" />
+                    <input class="form-control input-bb" type="hidden" name="warehouse_id" id="warehouse_id" value="{{$salesdeliverynote == null ? : $salesdeliverynote['warehouse_id']}}" />
+                    <input class="form-control input-bb" type="hidden" name="payment_method" id="payment_method" value="{{$salesdeliverynote == null ? : $salesdeliverynote['payment_method']}}" />
 
                 <div class="col-md-6">
                     <section class="control-label">No Faktur Pajak
@@ -177,7 +161,7 @@
                 <div class="col-md-6">
                     <section class="control-label">No Penerimaan Pembeli
                     </section>
-                    <input class="form-control input-bb" name="buyers_acknowledgment_no"  id="buyers_acknowledgment_no" value="{{$buyersAcknowledgment['buyers_acknowledgment_no']}}"  type="text"/>
+                    <input class="form-control input-bb" name="buyers_acknowledgment_no"  id="buyers_acknowledgment_no" value="{{$salesdeliverynote['buyers_acknowledgment_no']}}"  type="text"/>
                 </div>
             </div>
             <div class="row form-group">
@@ -206,97 +190,39 @@
                         <thead class="thead-light">
                             <tr>
                                 <th style='text-align:center'>No.</th>
-                                <th style='text-align:center'>Barang</th>
-                                <th style='text-align:center'>Qty BPB</th>
-                                <th style='text-align:center'>Harga Satuan</th>
-                                <th style='text-align:center'>Satuan</th>
-                                <th style='text-align:center'>Total</th>
-                                <th style='text-align:center'>Diskon 1</th>
-                                <th hidden style='text-align:center'>Subtotal Setelah Diskon 1</th>
-                                <th style='text-align:center'>Diskon 2</th>
-                                <th hidden style='text-align:center'>Subtotal Setelah Diskon 2</th>
-                                <th  style='text-align:center'>Total Bayar</th>
+                                <th style='text-align:center'>Description</th>
+                                <th style='text-align:center'>Qty</th>
+                                <th style='text-align:center'>Harga</th>
+                                <th style='text-align:center'>Diskon</th>
+                                <th style='text-align:center'>Total Rupiah(Rp.)</th>
                             </tr>
                         </thead>
                         <tbody id='tablebody'>
                             @php
                                 $no             = 1;
-                                $total_price    = 0;
-                                $total_item     = 0;
-                                $diskon         = 0;
-                                $total_discount = 0;
-                                $totalppn       = 0;
-                                $total          = 0;
-                                $totalBayar     = 0;
-                                $DPP            = 0;
                             @endphp
-                            @if(count($buyersAcknowledgmentitem)>0)
-                                @foreach($buyersAcknowledgmentitem as $val)
-                                    @php
-                                        $total_discount += $SalesInvoice->getDiscount($val['sales_order_item_id']);
-                                        $totalA         = $val['quantity_received']*$val['item_unit_price']-$SalesInvoice->getDiscount($val['sales_order_item_id']);
-                                        $totalB         = $totalA + ($SalesInvoice->getDiscountB($val['sales_order_item_id']) + $SalesInvoice->getPpnItem($val['sales_order_item_id']));
-                                        $total          = $val['quantity_received']*$val['item_unit_price'];
-                                        $totalBayar     =  $total - ($SalesInvoice->getDiscount($val['sales_order_item_id']) + $SalesInvoice->getDiscountB($val['sales_order_item_id']));
-                                    @endphp
-
+                            @if(count($salesdeliverynoteitem)>0)
+                                @foreach($salesdeliverynoteitem as $val)
                                         <tr>
                                             <td style='text-align  : center'>{{$no}}</td>
                                             <td style='text-align  : left !important;'>
-                                                <input class='form-control' type='text' name='item_id_{{ $no }}' id='item_id_{{ $no }}' value='{{$SalesInvoice->getItemTypeName($val['item_type_id'])}}' readonly/>
-                                                <input class='form-control' type='text' name='item_type_id_{{ $no }}' id='item_type_id_{{ $no }}' value='{{$val['item_type_id']}}' hidden/>
+                                                {{$SalesInvoice->getItemTypeName($val->item_type_id)}}
                                             </td>
                                             <td style='text-align  : right !important;'>
-                                                <input style='text-align  : right !important;' class='form-control' type='text' name='quantity_{{ $no }}' id='quantity_{{ $no }}' value='{{$val['quantity_received']}}' readonly/>
+                                               {{$val['quantity']." ". $SalesInvoice->getItemUnitName($val->item_unit_id)}}
                                             </td>
                                             <td style='text-align  : right !important;'>
-                                                <input style='text-align  : right !important;' class='form-control' type='text' name='item_unit_price_view{{ $no }}' id='item_unit_price_view{{ $no }}' value='{{number_format($val['item_unit_price'],2,',','.')}}' readonly/>
-                                                <input style='text-align  : right !important;' hidden class='form-control' type='text' name='item_unit_price_{{ $no }}' id='item_unit_price_{{ $no }}' value='{{$val['item_unit_price']}}' readonly/>
+                                              {{number_format($val->item_unit_price,2,',','.')}}
                                             </td>
                                             <td style='text-align  : left !important;'>
-                                                <input class='form-control' type='text' name='item_unit_id_view{{ $no }}' id='item_unit_id_view{{ $no }}' value='{{$SalesInvoice->getItemUnitName($val['item_unit_id'])}}' readonly/>
-                                            </td>
-                                            <td style='text-align  : left !important;'>
-                                                <input class='form-control' type='text' name='' id='' value='{{number_format(($total),2)}}' readonly/>
-                                            </td>
-                                                <input class='form-control' type='hidden' name='item_unit_id_{{ $no }}' id='item_unit_id_{{ $no }}' value='{{$val['item_unit_id']}}' readonly/>
-                                            <td style='text-align  : left !important;'>
-                                                <input class='form-control' type='text' name='discount_A_{{ $no }}' id='discount_A_{{ $no }}' value='{{$SalesInvoice->getDiscount($val['sales_order_item_id'])}}' readonly/>
-                                            </td>
-                                            <td hidden style='text-align  : right !important;'>
-                                                <input style='text-align  : right !important;' class='form-control' type='text' name='subtotal_price_A__view{{ $no }}' id='subtotal_price_A__view{{ $no }}' value='{{number_format(($totalA), 2)}}' readonly/>
-                                                <input style='text-align  : right !important;' class='form-control' type='text' name='subtotal_price_A_{{ $no }}' id='subtotal_price_A_{{ $no }}' value='{{$totalA}}' hidden/>
-                                            </td>
-                                            <td style='text-align  : left !important;'>
-                                                <input class='form-control' type='text' name='discount_B_{{ $no }}' id='discount_B_{{ $no }}' value='{{$SalesInvoice->getDiscountB($val['sales_order_item_id'])}}' readonly/>
-                                            </td>
-					                        <td hidden style='text-align  : left !important;'>
-                                                <input class='form-control' type='text' name='ppn_item_{{ $no }}' id='ppn_item_{{ $no }}' value='{{$SalesInvoice->getPpnItem($val['sales_order_item_id'])}}' readonly/>
-                                            </td>
-                                            <td hidden style='text-align  : right !important;'>
-                                                <input style='text-align  : right !important;' class='form-control' type='text' name='subtotal_price_B__view{{ $no }}' id='subtotal_price_B_view{{ $no }}' value='{{number_format(($totalB), 2)}}' readonly/>
-                                                <input style='text-align  : right !important;' class='form-control' type='text' name='subtotal_price_B_{{ $no }}' id='subtotal_price_B_{{ $no }}' value='{{$totalB}}' hidden/>
-                                            </td>
-                                            <td hidden style='text-align  : right !important;'>
-                                                {{-- <input style='text-align  : right !important;'  class='form-control' type='text' name='item_stock_id_{{$no}}' id='item_stock_id_{{$no}}' value='{{$SalesInvoice->getItemStock($val['sales_delivery_note_item_id'])}}' readonly/> --}}
-                                            </td>
-                                            <td hidden style='text-align  : right !important;'>
-                                                <input style='text-align  : right !important;'  class='form-control' type='text' name='sales_delivery_note_item_id_{{ $no }}' id='sales_delivery_note_item_id_{{ $no }}' value='{{$val['sales_delivery_note_item_id']}}' readonly/>
-                                            </td>
-                                            <td hidden style='text-align  : right !important;'>
-                                                <input style='text-align  : right !important;'  class='form-control' type='text' name='sales_order_id_{{ $no }}' id='sales_order_id_{{ $no }}' value='{{$val['sales_order_id']}}' readonly/>
+                                                {{$val->quotationItem->discount_amount_item}}
                                             </td>
                                             <td  style='text-align  : right !important;'>
-                                                <input style='text-align  : right !important;'  class='form-control' type='text' name='' id='' value='{{number_format(($totalBayar),2)}}' readonly/>
+                                                {{number_format(($val->quotationItem->subtotal_after_discount_item_a), 2)}}
                                             </td>
                                         </tr>
                                         @php
-                                            $total_no       = $no;
                                             $no++;
-                                            $total_price    += $totalB;
-                                            $total_item     += $val['quantity_received'];
-                                            $totalppn       += $SalesInvoice->getPpnItem($val['sales_order_item_id']);
-                                            $DPP            += $totalBayar;
                                         @endphp
                                 @endforeach
                             @else
@@ -304,35 +230,42 @@
                                     <td style='text-align  : center; font-weight: bold;' colspan='6'>Data Kosong</td>
                                 </tr>
                             @endif
-                                <th style='text-align  : center; font-weight: bold;' colspan='7'>
-                                    TOTAL
+                                <th style='text-align  : center; font-weight: bold;' colspan='4'>
+                                    
                                 </th>
                                 <th style='text-align  : left'>
                                     <div class="row mt-4">
-                                        Total
+                                        Sub Total
                                     </div>
                                     <div class="row mt-4">
-                                        Total PPN
+                                        Discount
                                     </div>
                                     <div class="row mt-4">
-                                        Subtotal
+                                        DPP
+                                    </div>
+                                    <div class="row mt-4">
+                                        PPN
+                                    </div>
+                                    <div class="row mt-4">
+                                        Total Due
                                     </div>
                                 </th>
                                 <th style='text-align  : right'>
                                     <div class="row mt-2">
-                                            <input  class='form-control' style='text-align  : right !important;' type='text' name='subtotal_after_discount_view' id='subtotal_after_discount_view' value='{{number_format($DPP,2,',','.')}}' readonly/>
-                                            <input hidden class='form-control' style='text-align  : right !important;' type='text' name='subtotal_after_discount' id='subtotal_after_discount' value='{{ $DPP }}' readonly/>
+                                            <input  class='form-control' style='text-align  : right !important;' type='text' name='subtotal_after_discount_view' id='subtotal_after_discount_view' value='' readonly/>
                                     </div>
                                     <div class="row mt-2">
-                                            <input class='form-control' style='text-align:right;'type='text' name='ppn' id='ppn' value='{{ number_format($totalppn,2,',','.' )}}' readonly/>
-                                            <input class='form-control' style='text-align:right;'type='hidden' name='tax_amount' id='tax_amount' value='{{ $totalppn }}' readonly/>
+                                            <input class='form-control' style='text-align:right;'type='text' name='ppn' id='ppn' value='' readonly/>
                                     </div>
                                     <div class="row mt-2">
-                                            <input class='form-control' style='text-align:right;'type='text' name='subtotal_after_ppn_out' id='subtotal_after_ppn_out' value='{{ number_format($DPP + $totalppn,2,',','.') }}' readonly/>
+                                            <input class='form-control' style='text-align:right;'type='text' name='subtotal_after_ppn_out' id='subtotal_after_ppn_out' value='' readonly/>
                                     </div>
-                                            <input class='form-control' type='hidden' name='total_amount' id='total_amount' value='{{ $DPP + $totalppn }}'/>
-                                            <input class='form-control' type='hidden' name='total_item' id='total_item' value='{{$total_item}}'/>
-                                            <input class='form-control' type='hidden' name='total_no' id='total_no' value='{{$total_no}}'/>
+                                    <div class="row mt-2">
+                                        <input class='form-control' style='text-align:right;'type='text' name='ppn' id='ppn' value='' readonly/>
+                                    </div>
+                                    <div class="row mt-2">
+                                            <input class='form-control' style='text-align:right;'type='text' name='subtotal_after_ppn_out' id='subtotal_after_ppn_out' value='' readonly/>
+                                    </div>
                                 </th>
                         </tbody>
                     </table>

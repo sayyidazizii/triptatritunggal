@@ -241,25 +241,24 @@ class SalesInvoiceController extends Controller
         return $salesorder['ppn_amount_item'] ?? '';
     }
 
-    public function addSalesInvoice($buyers_acknowledgment_id)
+    public function addSalesInvoice($sales_delivery_note_id)
     {
-        $buyersAcknowledgment = BuyersAcknowledgment::select('buyers_acknowledgment.*', 'sales_order.*', 'sales_delivery_note.*','core_customer.*')
-            ->where('buyers_acknowledgment.buyers_acknowledgment_id', $buyers_acknowledgment_id)
-            ->join('sales_delivery_note', 'sales_delivery_note.sales_delivery_note_id', 'buyers_acknowledgment.sales_delivery_note_id')
-            ->join('sales_order', 'sales_order.sales_order_id', 'buyers_acknowledgment.sales_order_id')
-            ->join('core_customer', 'core_customer.customer_id', 'buyers_acknowledgment.customer_id')
-            ->where('buyers_acknowledgment.data_state', 0)
+        $salesdeliverynote = SalesDeliveryNote::select('sales_delivery_note.*', 'sales_quotation.*')
+        ->join('sales_quotation', 'sales_quotation.sales_quotation_id', 'sales_delivery_note.sales_quotation_id')
+        ->where('sales_delivery_note.data_state', 0)
+        ->where('sales_delivery_note.sales_delivery_note_id', $sales_delivery_note_id)
+        ->first();
+        $acctaccount = AcctAccount::where('acct_account.data_state','=','0')
+        ->select('account_id', DB::raw('CONCAT(account_code, " - ", account_name) AS account_code'))
+        ->pluck('account_code', 'account_id');
+        $salesdeliverynoteitem = SalesDeliveryNoteItem::with('quotationItem')
+        ->where('sales_delivery_note_id', $sales_delivery_note_id)
+        ->get();
+
+        $coreexpedition = CoreExpedition::where('expedition_id', $salesdeliverynote['expedition_id'])
             ->first();
 
-        $coreexpedition = CoreExpedition::where('expedition_id', $buyersAcknowledgment['expedition_id'])
-            ->first();
-
-        $buyersAcknowledgmentitem = BuyersAcknowledgmentItem::select('*')
-            ->where('buyers_acknowledgment_item.buyers_acknowledgment_id', $buyers_acknowledgment_id)
-            ->where('data_state', 0)
-            ->get();
-
-        return view('content/SalesInvoice/FormAddSalesInvoice', compact('buyersAcknowledgment', 'buyersAcknowledgmentitem', 'buyers_acknowledgment_id', 'coreexpedition'));
+        return view('content/SalesInvoice/FormAddSalesInvoice', compact('salesdeliverynote', 'salesdeliverynoteitem', 'sales_delivery_note_id', 'coreexpedition'));
     }
 
     public function editSalesInvoice($sales_invoice_id)
