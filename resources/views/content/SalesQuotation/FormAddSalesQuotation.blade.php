@@ -819,7 +819,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <a class="text-dark">PPN %</a>
-                        <input class="form-control input-bb" type="text"name="ppn_out_percentage" id="ppn_out_percentage" readonly value="{{ $ppnOut['ppn_amount_out'] }}"  placeholder="isi 0 jika kosong"></td>
+                        <input class="form-control input-bb" type="text"name="ppn_out_percentage" id="ppn_out_percentage" value="0"  placeholder="isi 0 jika kosong"></td>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -895,9 +895,8 @@
                                                 <td style='text-align  : center'>
                                                     <a href="{{route('sales-order-delete-array', ['record_id' => $key])}}" name='Reset' class='btn btn-danger btn-sm' onClick='javascript:return confirm(\"apakah yakin ingin dihapus ?\")'></i> Hapus</a>
                                                 </td>
-
-
                                             </tr>
+
                                         @php
                                             $no++;
                                             $total_price_after_discount_item += $val['total_price_after_ppn_amount'];
@@ -935,7 +934,7 @@
                                             </td>
                                             <td></td>
                                         </tr>
-                                        <tr hidden>
+                                        <tr>
                                             <td  style='text-align  : center' colspan='2'><b>PPN Keluar (%)</b></td>
                                             <td  style='text-align  : center'><b>:</b></td>
                                             <td  colspan='4'></td>
