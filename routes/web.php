@@ -443,6 +443,8 @@ Route::post('/sales-quotation/quotation-stock', [SalesQuotationController::class
 Route::get('/sales-quotation/export/{sales_quotation_id}', [SalesQuotationController::class, 'export'])->name('select-quotation-export');
 Route::post('/sales-quotation/select-data-unit-quotation', [SalesQuotationController::class, 'getSelectDataUnit'])->name('select-data-unit-quotation');
 Route::post('/sales-quotation/available-stock-sales-quotation', [SalesQuotationController::class, 'getAvailableStock'])->name('available-stock-sales-quotation');
+Route::post('/sales-quotation/add-inv-type', [SalesQuotationController::class, 'addInvType'])->name('add-inv-type-sales-quotation');
+
 
 
 Route::get('/sales-quotation-approval', [SalesQuotationApprovalController::class, 'index'])->name('sales-quotation-approval');

@@ -522,4 +522,8 @@ class SalesQuotationController extends Controller
             return $return_data;
         }
     }
+
+    public function addInvType(Request $request){
+        
+    }
 }
