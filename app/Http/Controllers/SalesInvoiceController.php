@@ -248,17 +248,21 @@ class SalesInvoiceController extends Controller
         ->where('sales_delivery_note.data_state', 0)
         ->where('sales_delivery_note.sales_delivery_note_id', $sales_delivery_note_id)
         ->first();
-        $acctaccount = AcctAccount::where('acct_account.data_state','=','0')
-        ->select('account_id', DB::raw('CONCAT(account_code, " - ", account_name) AS account_code'))
-        ->pluck('account_code', 'account_id');
         $salesdeliverynoteitem = SalesDeliveryNoteItem::with('quotationItem')
         ->where('sales_delivery_note_id', $sales_delivery_note_id)
         ->get();
-
         $coreexpedition = CoreExpedition::where('expedition_id', $salesdeliverynote['expedition_id'])
-            ->first();
+        ->first();
+        $total = 0;
+        foreach($salesdeliverynoteitem as $val){
+                $total += $val->quotationItem->subtotal_after_discount_item_a;
+        }
+        $discount_amount = $total * $salesdeliverynote['discount_percentage'] / 100;
+        $total_after_discount = $total - $discount_amount;
+        $ppn_amount = $total_after_discount * $salesdeliverynote['ppn_out_percentage'] / 100;
+        $total_due = $total_after_discount + $ppn_amount;
 
-        return view('content/SalesInvoice/FormAddSalesInvoice', compact('salesdeliverynote', 'salesdeliverynoteitem', 'sales_delivery_note_id', 'coreexpedition'));
+        return view('content/SalesInvoice/FormAddSalesInvoice', compact('salesdeliverynote', 'salesdeliverynoteitem', 'sales_delivery_note_id', 'coreexpedition','total','discount_amount','total_after_discount','ppn_amount','total_due'));
     }
 
     public function editSalesInvoice($sales_invoice_id)

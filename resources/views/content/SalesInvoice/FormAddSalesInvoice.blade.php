@@ -231,7 +231,7 @@
                                 </tr>
                             @endif
                                 <th style='text-align  : center; font-weight: bold;' colspan='4'>
-                                    
+
                                 </th>
                                 <th style='text-align  : left'>
                                     <div class="row mt-4">
@@ -252,19 +252,19 @@
                                 </th>
                                 <th style='text-align  : right'>
                                     <div class="row mt-2">
-                                            <input  class='form-control' style='text-align  : right !important;' type='text' name='subtotal_after_discount_view' id='subtotal_after_discount_view' value='' readonly/>
+                                            <input  class='form-control' style='text-align  : right !important;' type='text' name='subtotal_after_discount_view' id='subtotal_after_discount_view' value='{{ number_format(($total),2) }}' readonly/>
                                     </div>
                                     <div class="row mt-2">
-                                            <input class='form-control' style='text-align:right;'type='text' name='ppn' id='ppn' value='' readonly/>
+                                            <input class='form-control' style='text-align:right;'type='text' name='discount_amount' id='discount_amount' value='{{ number_format(($discount_amount),2) }}' readonly/>
                                     </div>
                                     <div class="row mt-2">
-                                            <input class='form-control' style='text-align:right;'type='text' name='subtotal_after_ppn_out' id='subtotal_after_ppn_out' value='' readonly/>
+                                            <input class='form-control' style='text-align:right;'type='text' name='total_after_discount' id='total_after_discount' value='{{ number_format(($total_after_discount),2) }}' readonly/>
                                     </div>
                                     <div class="row mt-2">
-                                        <input class='form-control' style='text-align:right;'type='text' name='ppn' id='ppn' value='' readonly/>
+                                        <input class='form-control' style='text-align:right;'type='text' name='ppn_amount' id='ppn_amount' value='{{ number_format(($ppn_amount),2) }}' readonly/>
                                     </div>
                                     <div class="row mt-2">
-                                            <input class='form-control' style='text-align:right;'type='text' name='subtotal_after_ppn_out' id='subtotal_after_ppn_out' value='' readonly/>
+                                            <input class='form-control' style='text-align:right;'type='text' name='total_due' id='total_due' value='{{ number_format(($total_due),2) }}' readonly/>
                                     </div>
                                 </th>
                         </tbody>
