@@ -524,6 +524,6 @@ class SalesQuotationController extends Controller
     }
 
     public function addInvType(Request $request){
-        
+
     }
 }
