@@ -506,16 +506,13 @@
 			var discount_percentage 	            = $("#discount_percentage").val();
 			var total_price_all 	                = $("#total_price_all").val();
 
-            var ppn_out_percentage 	                = $("#ppn_out_percentage").val();
-			//var total_price_after_discount          = $("#subtotal_after_discount").val();
-
             var discount                            = discount_percentage * 1/100;
             var discount_amount                     = discount * total_price_all;
             var total_price_after_discount	        = total_price_all - discount_amount;
 
-
-
-            var ppn_out_amount                      = 0;
+            
+            var ppn_out_percentage 	                = $("#ppn_out_percentage").val();
+            var ppn_out_amount                      = total_price_after_discount  * ppn_out_percentage/100;
             var total_price_after_ppn_out           = Number(total_price_after_discount) + ppn_out_amount;
 
 
@@ -815,11 +812,11 @@
                     </div>
                 </div>
             </div>
-            <div class="row form-group">
+            <div class="row form-group"hidden>
                 <div class="col-md-4">
                     <div class="form-group">
                         <a class="text-dark">PPN %</a>
-                        <input class="form-control input-bb" type="text"name="ppn_out_percentage" id="ppn_out_percentage" value="0"  placeholder="isi 0 jika kosong"></td>
+                        <input class="form-control input-bb" type="text"name="ppn_out_percentage_item" id="ppn_out_percentage_item" value="0"  placeholder="isi 0 jika kosong"></td>
                     </div>
                 </div>
                 <div class="col-md-4">
