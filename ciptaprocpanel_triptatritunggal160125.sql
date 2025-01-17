@@ -2007,7 +2007,7 @@ CREATE TABLE `core_customer` (
   KEY `customer_id` (`customer_id`),
   KEY `FK_core_customer_province_id` (`province_id`),
   KEY `FK_core_customer_city_id` (`city_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=178 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=180 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `core_customer` */
 
@@ -2188,7 +2188,9 @@ insert  into `core_customer`(`customer_id`,`province_id`,`city_id`,`customer_cod
 (174,91,1354,'PT. INTI CAKRAWALA MAJU','PT.INTI CAKRAWALA MAJU. DC KENDARI',NULL,'JL MADUSILA NO.19 KEC POASIA\r\nKEL.ANDUONOHU\r\nKENDARI SULAWESI TENGGARA',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-06-11 03:21:02','2024-06-11 03:21:02',NULL),
 (175,71,1048,'ICM SEMARANG','PT.INTI CAKRAWALA MAJU. DC SEMARANG',NULL,'JL.RAYA KALIGAWE NO.38 RT.01/01\r\nTERBOYO WETAN,GENUK,SEMARANG,JAWA TENGAH\r\n50112',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-07-02 03:13:37','2024-07-02 03:13:37',NULL),
 (176,71,1036,'daffa hanaris','daffa hanaris',NULL,'sumbulan lor rt 02 rw 13\r\nmakamhaji',NULL,NULL,NULL,NULL,NULL,0,-432300,0,0,0,3,3,'2024-10-17 04:42:38','2024-12-23 05:29:32',NULL),
-(177,NULL,NULL,NULL,'Arka',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,333000,0,0,0,NULL,NULL,'2024-12-19 09:31:42','2024-12-20 07:52:03',NULL);
+(177,NULL,NULL,NULL,'Arka',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,333000,0,0,0,NULL,NULL,'2024-12-19 09:31:42','2024-12-20 07:52:03',NULL),
+(178,71,1027,NULL,'Arip Elek',NULL,'bo',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,3,'2025-01-17 06:37:34','2025-01-17 06:37:34',NULL),
+(179,71,1027,NULL,'Arip Elek',NULL,'bo',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,3,'2025-01-17 06:38:28','2025-01-17 06:38:28',NULL);
 
 /*Table structure for table `core_expedition` */
 
@@ -4092,7 +4094,7 @@ CREATE TABLE `preference_company` (
 /*Data for the table `preference_company` */
 
 insert  into `preference_company`(`company_id`,`company_name`,`company_address`,`company_phone_number`,`company_mobile_number`,`company_email`,`company_website`,`company_tax_number`,`company_account_receivable_due_date`,`company_account_payable_due_date`,`company_logo`,`CDBO_no`,`distribution_no`,`account_inventory_trade_id`,`account_vat_in_id`,`account_vat_out_id`,`account_payable_id`,`account_bank_or_cash_id`,`account_pdp_id`,`account_bank_cash_hpp_id`,`account_receivable_id`,`account_shortover_id`,`account_sales_id`,`ppn_amount_in`,`ppn_amount_out`,`sales_discount_id`,`purchase_discount_id`,`pharmacist_license_no`,`account_sales_return_id`,`account_hpp_id`,`account_bank_id`,`account_cash_id`,`account_cash_on_way_id`,`account_delivery_id`,`account_expense_id`,`created_at`,`updated_at`) values 
-(2,'TriptaTriTunggal','PERUM. BUMI WONOREJO - KARANGANYAR','( 024 ) 76623702','08712813691','TriptaTriTunggal@gmail.com','www.TriptaTriTunggal.id','',0,0,NULL,'CDOB1827/S/4-3306/09/2020','FP.01.04/IV/0118-/2019',79,99,48,17,0,82,0,6,4,308,11,11,0,0,'A1111111',340,356,0,4,4,9,0,NULL,'2024-12-12 08:23:40');
+(2,'TriptaTriTunggal','PERUM. BUMI WONOREJO - KARANGANYAR','( 024 ) 76623702','08712813691','TriptaTriTunggal@gmail.com','www.TriptaTriTunggal.id','',0,0,NULL,'CDOB1827/S/4-3306/09/2020','FP.01.04/IV/0118-/2019',79,99,48,17,0,82,0,6,4,308,11,11,0,0,'A1111111',340,356,0,4,4,9,0,NULL,'2025-01-17 09:17:38');
 
 /*Table structure for table `preference_transaction_module` */
 
@@ -5027,44 +5029,6 @@ CREATE TABLE `sales_delivery_order_item_composition` (
 
 /*Data for the table `sales_delivery_order_item_composition` */
 
-/*Table structure for table `sales_delivery_order_item_piece` */
-
-DROP TABLE IF EXISTS `sales_delivery_order_item_piece`;
-
-CREATE TABLE `sales_delivery_order_item_piece` (
-  `sales_delivery_order_item_piece_id` bigint NOT NULL AUTO_INCREMENT,
-  `sales_delivery_order_id` bigint DEFAULT '0',
-  `sales_delivery_order_item_id` bigint DEFAULT '0',
-  `sales_order_id` bigint DEFAULT '0',
-  `sales_order_item_id` bigint DEFAULT '0',
-  `salesman_id` int DEFAULT '0',
-  `customer_id` bigint DEFAULT '0',
-  `warehouse_id` int DEFAULT '0',
-  `item_model_id` int DEFAULT '0',
-  `item_flute_id` int DEFAULT '0',
-  `item_substance_id` int DEFAULT '0',
-  `item_category_id` int DEFAULT '0',
-  `item_id` int DEFAULT '0',
-  `item_unit_id` int DEFAULT '0',
-  `item_stock_id` bigint DEFAULT '0',
-  `quantity` decimal(10,2) DEFAULT '0.00',
-  `item_batch_number` varchar(50) DEFAULT '',
-  `sales_order_item_length` int DEFAULT '0',
-  `sales_order_item_width` int DEFAULT '0',
-  `sales_order_item_height` int DEFAULT '9',
-  `sales_delivery_order_item_piece_token` varchar(250) DEFAULT '',
-  `sales_delivery_order_item_piece_token_void` varchar(250) DEFAULT '',
-  `data_state` int DEFAULT '0',
-  `created_id` int DEFAULT '0',
-  `created_at` datetime DEFAULT NULL,
-  `voided_id` int DEFAULT '0',
-  `voided_on` datetime DEFAULT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`sales_delivery_order_item_piece_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
-
-/*Data for the table `sales_delivery_order_item_piece` */
-
 /*Table structure for table `sales_delivery_order_item_stock` */
 
 DROP TABLE IF EXISTS `sales_delivery_order_item_stock`;
@@ -5484,12 +5448,13 @@ CREATE TABLE `sales_quotation` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_quotation_id`),
   KEY `sales_order_id` (`sales_quotation_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_quotation` */
 
 insert  into `sales_quotation`(`sales_quotation_id`,`sales_quotation_type_id`,`purchase_order_customer`,`customer_id`,`salesman_id`,`receipt_image`,`sales_quotation_no`,`sales_quotation_date`,`sales_quotation_due_date`,`sales_quotation_status`,`sales_quotation_over_limit`,`sales_quotation_over_due_status`,`work_order_status`,`purchase_requisition_status`,`sales_quotation_design_status`,`sales_delivery_order_status`,`sales_delivery_note_status`,`customer_credit_limit_balance`,`sales_invoice_status`,`sales_invoice_last_balance`,`sales_quotation_remark`,`sales_quotation_over_remark`,`total_item`,`subtotal_before_discount`,`discount_percentage`,`discount_amount`,`subtotal_after_discount`,`ppn_out_percentage`,`ppn_out_amount`,`subtotal_after_ppn_out`,`sales_shipment_status`,`paid_amount`,`total_amount`,`last_balance`,`counter_edited`,`branch_id`,`data_state`,`created_id`,`created_at`,`approved`,`approved_id`,`approved_on`,`approved_remark`,`closed`,`closed_id`,`closed_on`,`closed_remark`,`voided_id`,`voided_on`,`voided_remark`,`customer_no`,`updated_at`) values 
-(1,0,'test',176,0,'','0001/QO/I/2025','2025-01-16','2025-01-31',0,0.00,0,0,0,0,0,1,0.00,0,0.00,'Test',NULL,200.00,0.00,0.00,0.00,330780.00,0.00,0.00,330780.00,0,0.00,330780.00,0.00,0,1,0,0,'2025-01-16 08:48:38',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2025-01-16 08:49:21');
+(1,0,'test',176,0,'','0001/QO/I/2025','2025-01-16','2025-01-31',0,0.00,0,0,0,0,0,1,0.00,0,0.00,'Test',NULL,200.00,0.00,0.00,0.00,330780.00,0.00,0.00,330780.00,0,0.00,330780.00,0.00,0,1,0,0,'2025-01-16 08:48:38',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2025-01-16 08:49:21'),
+(2,0,'0',178,0,'','0002/QO/I/2025','2025-01-17','2025-01-17',0,0.00,0,0,0,0,0,0,0.00,0,0.00,NULL,NULL,100.00,0.00,0.00,0.00,97000.00,11.00,10670.00,107670.00,0,0.00,97000.00,0.00,0,1,0,0,'2025-01-17 09:52:35',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2025-01-17 09:52:35');
 
 /*Table structure for table `sales_quotation_item` */
 
@@ -5542,13 +5507,14 @@ CREATE TABLE `sales_quotation_item` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_quotation_item_id`),
   KEY `sales_order_item_id` (`sales_quotation_item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_quotation_item` */
 
 insert  into `sales_quotation_item`(`sales_quotation_item_id`,`sales_quotation_id`,`item_category_id`,`item_type_id`,`quantity`,`quantity_delivered`,`quantity_shipped`,`quantity_planned`,`quantity_outstanding`,`quantity_received`,`quantity_ordered`,`quantity_cavity`,`quantity_minimum`,`quantity_resulted`,`sales_quotation_item_status`,`item_substance_price`,`item_unit_id`,`item_unit_price`,`item_unit_price_adds`,`purchase_requisition_status`,`purchase_order_status`,`work_order_status`,`sales_delivery_order_status`,`sales_delivery_note_status`,`sales_invoice_status`,`quantity_minimum_status`,`subtotal_amount`,`subtotal_additional_amount`,`subtotal_item_amount`,`sales_quotation_no`,`sales_quotation_status`,`discount_percentage_item`,`discount_percentage_item_b`,`discount_amount_item`,`discount_amount_item_b`,`subtotal_after_discount_item_a`,`subtotal_after_discount_item_b`,`total_price_after_ppn_amount`,`ppn_amount_item`,`record_id`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (1,1,1,1,100.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,100.00,0,0.00,10,1000.00,0.00,0,0,0,0,0,0,0,100000.00,0.00,0.00,'',0,0.00,NULL,0.00,NULL,100000.00,NULL,111000.00,11000.00,0,0,0,'2025-01-16 08:48:38','2025-01-16 08:48:38'),
-(2,1,1,2,100.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,100.00,0,0.00,22,2000.00,0.00,0,0,0,0,0,0,0,200000.00,0.00,0.00,'',0,1.00,NULL,2000.00,NULL,198000.00,NULL,219780.00,21780.00,0,0,0,'2025-01-16 08:48:38','2025-01-16 08:48:38');
+(2,1,1,2,100.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,100.00,0,0.00,22,2000.00,0.00,0,0,0,0,0,0,0,200000.00,0.00,0.00,'',0,1.00,NULL,2000.00,NULL,198000.00,NULL,219780.00,21780.00,0,0,0,'2025-01-16 08:48:38','2025-01-16 08:48:38'),
+(3,2,1,1,100.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,100.00,0,0.00,10,1000.00,0.00,0,0,0,0,0,0,0,100000.00,0.00,0.00,'',0,3.00,NULL,3000.00,NULL,97000.00,NULL,97000.00,0.00,0,0,0,'2025-01-17 09:52:35','2025-01-17 09:52:35');
 
 /*Table structure for table `system_log_user` */
 
