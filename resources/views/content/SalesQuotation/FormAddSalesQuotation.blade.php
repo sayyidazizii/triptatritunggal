@@ -365,11 +365,11 @@
     $(document).ready(function(){
             var discount_percentage 	            = $("#discount_percentage").val();
 			var total_price_all 	                = $("#total_price_all").val();
-            var ppn_out_percentage 	                = $("#ppn_out_percentage").val();
             var discount                            = discount_percentage * 1/100;
             var discount_amount                     = discount * total_price_all;
             var total_price_after_discount	        = total_price_all - discount_amount;
-            var ppn_out_amount                      = 0;
+            var ppn_out_percentage 	                = $("#ppn_out_percentage").val();
+            var ppn_out_amount                      = total_price_after_discount  * ppn_out_percentage/100;
             var total_price_after_ppn_out           = Number(total_price_after_discount) + ppn_out_amount;
             $("#discount_amount").val(discount_amount);
             $("#discount_amount_view").val(toRp(discount_amount));
@@ -786,9 +786,9 @@
                                             <td  style='text-align  : center'><b>:</b></td>
                                             <td  colspan='3'></td>
                                             <td>
-                                                <input  style='text-align  : right' type="text" class="form-control" name="ppn_out_percentage" id="ppn_out_percentage" value="0" placeholder="isi 0 jika kosong"></td>
+                                                <input  style='text-align  : right' type="text" class="form-control" name="ppn_out_percentage" id="ppn_out_percentage" value="{{ $ppn_out_percentage['ppn_amount_out'] }}" placeholder="isi 0 jika kosong"></td>
                                             <td>
-                                                <input  type="hidden" class="form-control" name="ppn_out_amount" id="ppn_out_amount" readonly>
+                                                <input  type="hidden" class="form-control" name="ppn_out_amount" id="ppn_out_amount" value="{{ $ppn_out_percentage['ppn_amount_out'] }}" readonly>
                                                 <input  style='text-align  : right;  font-weight: bold;' type="text" class="form-control" name="ppn_out_amount_view" id="ppn_out_amount_view" readonly>
                                             </td>
                                         </tr>

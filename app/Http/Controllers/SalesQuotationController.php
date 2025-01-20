@@ -67,27 +67,21 @@ class SalesQuotationController extends Controller
     public function addSalesQuotation(){
         $salesquotationelements  = Session::get('salesquotationelements');
         $salesquotationitem      = Session::get('salesquotationitem');
-
         $invitemtype = InvItemType::where('inv_item_type.data_state','=',0)
         ->select('*')
         ->join('inv_item_category', 'inv_item_category.item_category_id', 'inv_item_type.item_category_id')
         ->join('inv_item_stock', 'inv_item_type.item_type_id', 'inv_item_stock.item_type_id')
         ->pluck('inv_item_type.item_type_name','inv_item_type.item_type_id');
-
         $warehouse          = InvWarehouse::where('data_state','=',0)->pluck('warehouse_name', 'warehouse_id');
         $customer           = CoreCustomer::where('data_state','=',0)->pluck('customer_name', 'customer_id');
         $itemcategory       = InvItemCategory::where('data_state','=',0)->pluck('item_category_name', 'item_category_id');
         $itemunit           = InvItemUnit::where('data_state','=',0)->pluck('item_unit_name', 'item_unit_id');
         $itemtype           = [];
-            // echo json_encode($itemcategory);exit;
-
         $coreprovince       = CoreProvince::where('data_state', 0)->pluck('province_name', 'province_id');
         $corecity           = CoreCity::where('data_state', 0)->pluck('city_name', 'city_id');
-
-        $null_item_type_id = Session::get('item_type_id');
-        $ppnOut            = PreferenceCompany::select('ppn_amount_out')->first();
-
-        return view('content/SalesQuotation/FormAddSalesQuotation',compact('ppnOut','null_item_type_id', 'warehouse', 'customer', 'itemcategory', 'itemtype', 'salesquotationitem', 'itemunit', 'salesquotationelements', 'invitemtype', 'coreprovince', 'corecity'));
+        $null_item_type_id  = Session::get('item_type_id');
+        $ppn_out_percentage     = PreferenceCompany::select('ppn_amount_out')->first();
+        return view('content/SalesQuotation/FormAddSalesQuotation',compact('ppn_out_percentage','null_item_type_id', 'warehouse', 'customer', 'itemcategory', 'itemtype', 'salesquotationitem', 'itemunit', 'salesquotationelements', 'invitemtype', 'coreprovince', 'corecity'));
     }
 
     public function processAddSalesQuotation(Request $request){
