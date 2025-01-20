@@ -6,7 +6,7 @@
 <link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -31,7 +31,7 @@
                 Filter
             </h5>
         </div>
-    
+
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body">
                 <div class = "row">
@@ -73,7 +73,7 @@
 <div class="alert alert-info" role="alert">
     {{session('msg')}}
 </div>
-@endif 
+@endif
 <div class="card border border-dark">
     <div class="card-header bg-dark clearfix">
         <h5 class="mb-0 float-left">
@@ -111,24 +111,24 @@
                             @elseif($item['sales_quotation_status'] == 0)
                                 <td>Dalam Proses</td>
                             @elseif($item['sales_quotation_status'] == 1)
-                                <td>Sales Order</td>
+                                <td>Sales Quotation</td>
                             @else
                                 <td></td>
                             @endif
                             <td class="" style='text-align:center'>
-                                <a type="button" class="btn btn-outline-primary btn-sm" href="{{ url('/sales-order/detail/'.$item['sales_order_id']) }}">Detail</a>
-                                
+                                <a type="button" class="btn btn-outline-primary btn-sm" href="{{ url('/sales-quotation/detail/'.$item['sales_quotation_id']) }}">Detail</a>
+
                                 @if($item['approved'] == 0)
-                                    <a type="button" class="btn btn-outline-danger btn-sm" href="{{ url('/sales-order/delete/'.$item['sales_order_id']) }}">Hapus</a>
+                                    <a type="button" class="btn btn-outline-danger btn-sm" href="{{ url('/sales-quotation/delete/'.$item['sales_quotation_id']) }}">Hapus</a>
                                 @elseif($item['approved'] == 1)
                                     <a type="button" class="btn btn-outline-success btn-sm">Approved</a>
                                 @elseif($item['approved'] == 2)
                                     <a type="button" class="btn btn-outline-danger btn-sm">Disapproved</a>
                                 @endif
-                                
+
                                     <a type="button" class="btn btn-outline-info btn-sm" target="_blank" href="{{ url('/sales-quotation/export/'.$item['sales_quotation_id']) }}">Cetak</a>
                             </td>
-                            
+
                     </tr>
                     @php $no++; @endphp
                     @endforeach
@@ -147,9 +147,9 @@
 @stop
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
+
 @stop

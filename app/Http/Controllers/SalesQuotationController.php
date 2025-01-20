@@ -95,7 +95,7 @@ class SalesQuotationController extends Controller
             'sales_quotation_date'           => 'required',
             'customer_id'                    => 'required',
             'total_item_all'                 => 'required',
-            'total_price_all'                => 'required',
+            'subtotal_after_ppn_out'         => 'required',
         ];
 
 
@@ -106,7 +106,7 @@ class SalesQuotationController extends Controller
             'sales_quotation_date'           => $validatedData['sales_quotation_date'],
             'customer_id'                    => $validatedData['customer_id'],
             'total_item'                     => $validatedData['total_item_all'],
-            'total_amount'                   => $validatedData['total_price_all'],
+            'total_amount'                   => $validatedData['subtotal_after_ppn_out'],
             'sales_quotation_remark'         => $request->sales_quotation_remark,
             'discount_percentage'            => $request->discount_percentage,
             'discount_amount'                => $request->discount_amount,
@@ -196,8 +196,6 @@ class SalesQuotationController extends Controller
             'total_price_after_ppn_amount'  => $request->total_price_after_ppn_amount,
         );
 
-        // echo json_encode($salesquotationitem);exit;
-
         $lastsalesquotationitem= Session::get('salesquotationitem');
         if($lastsalesquotationitem!== null){
             array_push($lastsalesquotationitem, $salesquotationitem);
@@ -209,6 +207,36 @@ class SalesQuotationController extends Controller
         }
 
         Session::put('editarraystate', 1);
+
+        return redirect('/sales-quotation/add');
+    }
+
+    public function detailSalesQuotation($sales_quotation_id)
+    {
+        $salesquotation= SalesQuotation::where('data_state',0)
+        ->where('sales_quotation_id', $sales_quotation_id)
+        ->first();
+
+        $salesQuotationItems = SalesQuotationItem::with(['itemType', 'itemUnit'])
+        ->where('data_state', 0)
+        ->where('sales_quotation_id', $sales_quotation_id)
+        ->get();
+
+        return view('content/SalesQuotation/FormDetailSalesQuotation',compact('salesQuotationItems', 'salesquotation'));
+    }
+
+    public function deleteArraySalesQuotationItem ($record_id)
+    {
+        $arrayBaru			= array();
+        $dataArrayHeader	= Session::get('salesquotationitem');
+
+        foreach($dataArrayHeader as $key=>$val){
+            if($key != $record_id){
+                $arrayBaru[$key] = $val;
+            }
+        }
+        Session::forget('salesquotationitem');
+        Session::put('salesquotationitem', $arrayBaru);
 
         return redirect('/sales-quotation/add');
     }
@@ -241,6 +269,20 @@ class SalesQuotationController extends Controller
         }
         $salesquotationelements[$request->name] = $request->value;
         Session::put('salesquotationelements', $salesquotationelements);
+    }
+
+    public function deleteSalesQuotation($sales_quotation_id)
+    {
+        $salesquotation = SalesQuotation::findOrFail($sales_quotation_id);
+        $salesquotation->data_state = 1;
+
+        if($salesquotation->save()){
+            $msg = 'Hapus Sales Quotation Berhasil';
+            return redirect('/sales-quotation')->with('msg',$msg);
+        }else{
+            $msg = 'Hapus Sales Quotation Gagal';
+            return redirect('/sales-quotation')->with('msg',$msg);
+        }
     }
 
     public function getInvItemTypeQuotation(Request $request)

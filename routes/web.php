@@ -444,6 +444,9 @@ Route::get('/sales-quotation/export/{sales_quotation_id}', [SalesQuotationContro
 Route::post('/sales-quotation/select-data-unit-quotation', [SalesQuotationController::class, 'getSelectDataUnit'])->name('select-data-unit-quotation');
 Route::post('/sales-quotation/available-stock-sales-quotation', [SalesQuotationController::class, 'getAvailableStock'])->name('available-stock-sales-quotation');
 Route::post('/sales-quotation/add-inv-type', [SalesQuotationController::class, 'addInvType'])->name('add-inv-type-sales-quotation');
+Route::get('/sales-quotation/delete-array/{record_id}', [SalesQuotationController::class, 'deleteArraySalesQuotationItem'])->name('sales-quotation-delete-array');
+Route::get('/sales-quotation/detail/{sales_quotation_id}', [SalesQuotationController::class, 'detailSalesQuotation'])->name('detail-sales-quotation');
+Route::get('/sales-quotation/delete/{sales_quotation_id}', [SalesQuotationController::class, 'deleteSalesQuotation'])->name('delete-sales-quotation');
 
 
 
