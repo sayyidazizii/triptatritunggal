@@ -92,7 +92,7 @@ class AcctLedgerReportController extends Controller
 
         $dataaccountbalancedetail = AcctAccountBalanceDetail::join('acct_account', 'acct_account.account_id', '=', 'acct_account_balance_detail.account_id')
             ->select('acct_account_balance_detail.last_balance')
-            ->where('acct_account_balance_detail.account_id', $account_id) 
+            ->where('acct_account_balance_detail.account_id', $account_id)
             ->whereMonth('acct_account_balance_detail.transaction_date', $start_month - 1)
             ->whereYear('acct_account_balance_detail.transaction_date', $year)
             // ->where('acct_account_balance_detail.company_id', Auth::user()->company_id)
@@ -102,7 +102,7 @@ class AcctLedgerReportController extends Controller
             if(isset($dataaccountbalancedetail)){
                 $accountbalancedetail_old = AcctAccountBalanceDetail::join('acct_account', 'acct_account.account_id', '=', 'acct_account_balance_detail.account_id')
                 ->select('acct_account_balance_detail.last_balance')
-                ->where('acct_account_balance_detail.account_id', $account_id) 
+                ->where('acct_account_balance_detail.account_id', $account_id)
                 ->whereMonth('acct_account_balance_detail.transaction_date', $start_month - 1)
                 ->whereYear('acct_account_balance_detail.transaction_date', $year)
                 // ->where('acct_account_balance_detail.company_id', Auth::user()->company_id)
@@ -123,13 +123,10 @@ class AcctLedgerReportController extends Controller
             if($accountbalancedetail_old){
                 $last_balance 		= $accountbalancedetail_old['opening_balance'];
             }else{
-                $last_balance 		= 0;    
+                $last_balance 		= 0;
 
             }
             foreach ($accountbalancedetail as $key => $val) {
-            $description = JournalVoucher::where('journal_voucher_id', $val['transaction_id'])->first('journal_voucher_description');
-            $no_journal = JournalVoucher::where('journal_voucher_id', $val['transaction_id'])->first('journal_voucher_no');
-            $data_state = JournalVoucher::where('journal_voucher_id', $val['transaction_id'])->first('data_state');
 
             if ($account['account_default_status'] == 0 || $val['last_balance'] >= 0) {
                 $debit     = $val['account_in'];
@@ -158,19 +155,18 @@ class AcctLedgerReportController extends Controller
 
             $acctgeneralledgerreport_detail = array(
                 'date' => $val['transaction_date'],
-                'no_journal' => $no_journal['journal_voucher_no'],
-                'description' => $description['journal_voucher_description'],
+                'no_journal' => $val['journal_voucher_no'],
+                'description' => $val['journal_voucher_description'],
                 'account_id' => $val['account_id'],
                 'account_in' => $debit,
                 'account_out' => $credit,
                 'last_balance_debit' => $last_balance_debit,
                 'last_balance_credit' => $last_balance_credit,
-                'data_state' => $data_state['data_state']
+                'data_state' => $val['data_state']
             );
             array_push($acctgeneralledgerreport, $acctgeneralledgerreport_detail);
         }
     }
-    // dd($accountbalancedetail,$accountbalancedetail_old,$start_month,$year,$account_id);
 
         return view('content.AcctGeneralLedgerReport.ListLedgerReport', compact('monthlist', 'yearlist', 'accountlist', 'acctgeneralledgerreport', 'accountbalancedetail_old', 'account', 'year', 'start_month', 'end_month', 'account_id'));
     }
@@ -295,18 +291,14 @@ class AcctLedgerReportController extends Controller
 
         $acctgeneralledgerreport = array();
         foreach ($accountbalancedetail as $val) {
-            $description = JournalVoucher::where('journal_voucher_id', $val['transaction_id'])->first('journal_voucher_description');
-            $no_journal = JournalVoucher::where('journal_voucher_id', $val['transaction_id'])->first('journal_voucher_no');
-            $data_state = JournalVoucher::where('journal_voucher_id', $val['transaction_id'])->first('data_state');
-
             $acctgeneralledgerreport_detail = array(
                 'date' => $val['transaction_date'],
-                'no_journal' => $no_journal['journal_voucher_no'],
-                'description' => $description['journal_voucher_description'],
+                'no_journal' => $val['journal_voucher_no'],
+                'description' => $val['journal_voucher_description'],
                 'account_id' => $val['account_id'],
                 'account_in' => $val['account_in'],
                 'account_out' => $val['account_out'],
-                'data_state' => $data_state['data_state']
+                'data_state' => $val['data_state']
             );
             array_push($acctgeneralledgerreport, $acctgeneralledgerreport_detail);
         }
@@ -323,7 +315,7 @@ class AcctLedgerReportController extends Controller
                         <td width=\"10%\"><div style=\"text-align: left;\">Halaman</div></td>
                         <td width=\"2%\"><div style=\"text-align: center;\">:</div></td>
                         <td width=\"12%\"><div style=\"text-align: left;\">" . $pdf->getAliasNumPage() . " / " . $pdf->getAliasNbPages() . "</div></td>
-                    </tr>  
+                    </tr>
                     <tr>
                         <td width=\"10%\"><div style=\"text-align: left;\">Dicetak</div></td>
                         <td width=\"2%\"><div style=\"text-align: center;\">:</div></td>
@@ -421,7 +413,7 @@ class AcctLedgerReportController extends Controller
             }
 
             $tblStock2 .= "
-                    <tr nobr=\"true\">			
+                    <tr nobr=\"true\">
                         <td style=\"text-align:center\">$no.</td>
                         <td>" . date('d-m-Y', strtotime($val['date'])) . "</td>
                         <td>" . $val['description'] . "</td>
@@ -433,7 +425,7 @@ class AcctLedgerReportController extends Controller
             $no++;
         }
 
-        $tblStock4 = " 
+        $tblStock4 = "
         <tr>
             <td colspan=\"3\"><div style=\"text-align: center; font-weight: bold\">Total Debet Kredit</div></td>
             <td><div style=\"text-align: right; font-weight: bold\">" . number_format($total_debit, 2, '.', ',') . "</div></td>
@@ -520,18 +512,14 @@ class AcctLedgerReportController extends Controller
 
         $acctgeneralledgerreport = array();
         foreach ($accountbalancedetail as $val) {
-            $description = JournalVoucher::where('journal_voucher_id', $val['transaction_id'])->first('journal_voucher_description');
-            $no_journal = JournalVoucher::where('journal_voucher_id', $val['transaction_id'])->first('journal_voucher_no');
-            $data_state = JournalVoucher::where('journal_voucher_id', $val['transaction_id'])->first('data_state');
-
             $acctgeneralledgerreport_detail = array(
                 'date' => $val['transaction_date'],
-                'no_journal' => $no_journal['journal_voucher_no'],
-                'description' => $description['journal_voucher_description'],
+                'no_journal' => $val['journal_voucher_no'],
+                'description' => $val['journal_voucher_description'],
                 'account_id' => $val['account_id'],
                 'account_in' => $val['account_in'],
                 'account_out' => $val['account_out'],
-                'data_state' => $data_state['data_state']
+                'data_state' => $val['data_state']
             );
             array_push($acctgeneralledgerreport, $acctgeneralledgerreport_detail);
         }
