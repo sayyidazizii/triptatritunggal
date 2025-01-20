@@ -91,36 +91,33 @@
         </div>
     </div>
 
-    <form method="post" action="{{route('process-void-sales-invoice')}}" enctype="multipart/form-data">
+    <form method="post" action="{{route('process-edit-sales-invoice')}}" enctype="multipart/form-data">
         @csrf
+        <input class="form-control input-bb" type="hidden" name="sales_invoice_id" id="sales_invoice_id" value="{{$salesinvoice->sales_invoice_id}}" readonly/>
         <div class="card-body">
             <div class="row form-group">
                 <div class="col-md-6">
                     <a class="text-dark">Delivery Note No</a>
-                    <input class="form-control input-bb" type="text" name="sales_delivery_note_no" id="sales_delivery_note_no" value="{{$salesdeliverynote['sales_delivery_note_no']}}" readonly/>
-                    <input class="form-control input-bb" type="hidden" name="sales_delivery_note_id" id="sales_delivery_note_id" value="{{$salesdeliverynote['sales_delivery_note_id']}}" readonly/>
-                    <input class="form-control input-bb" type="hidden" name="sales_invoice_id" id="sales_invoice_id" value="{{$sales_invoice_id}}" readonly/>
+                    <input class="form-control input-bb" type="text" name="sales_delivery_note_no" id="sales_delivery_note_no" value="{{$salesinvoice->SalesDeliveryNote->sales_delivery_note_no}}" readonly/>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <a class="text-dark">Pembeli</a>
                         <input class="form-control input-bb" type="text" name="customer_name" id="customer_name" value="{{$SalesInvoice->getCustomername($salesinvoice['customer_id'])}}" readonly/>
-                        <input class="form-control input-bb" type="hidden" name="customer_id" id="customer_id" value="{{$salesinvoice['customer_id']}}" readonly/>
                     </div>
                 </div>
             </div>
             <div class="row form-group">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <a class="text-dark">No Sales Order</a>
-                        <input class="form-control input-bb" type="text" name="sales_order_no" id="sales_order_no" value="{{$salesorder['sales_order_no']}}" readonly/>
-                        <input class="form-control input-bb" type="hidden" name="sales_order_id" id="sales_order_id" value="{{$salesorder['sales_order_id']}}" readonly/>
+                        <a class="text-dark">No Sales Quotation</a>
+                        <input class="form-control input-bb" type="text" name="sales_quotation_no" id="sales_quotation_no" value="{{$salesinvoice->SalesQuotation->sales_quotation_no}}" readonly/>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <a class="text-dark">Tanggal Sales Order</a>
-                        <input class="form-control input-bb" type="text" name="sales_order_date" id="sales_order_date" value="{{$salesorder['sales_order_date']}}" readonly/>
+                        <a class="text-dark">Tanggal Sales Quotation</a>
+                        <input class="form-control input-bb" type="text" name="sales_quotation_date" id="sales_quotation_date" value="{{$salesinvoice->SalesQuotation->sales_quotation_date}}" readonly/>
                     </div>
                 </div>
             </div>
@@ -128,13 +125,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <a class="text-dark">Nama Ekspedisi</a>
-                        <input class="form-control input-bb" type="text" name="expedition_id" id="expedition_id" value="{{$SalesInvoice->getExpeditionName($salesdeliverynote['expedition_id'])}}" readonly/>
+                        <input class="form-control input-bb" type="text" name="expedition_id" id="expedition_id" value="{{$SalesInvoice->getExpeditionName($salesinvoice->SalesDeliveryNote->expedition_id) }}" readonly/>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <a class="text-dark">Biaya Ekspedisi</a>
-                        <input class="form-control input-bb" type="text" name="sales_delivery_note_cost" id="sales_delivery_note_cost" value="{{number_format($salesdeliverynote['sales_delivery_note_cost'],2,',','.')}}" readonly/>
+                        <input class="form-control input-bb" type="text" name="sales_delivery_note_cost" id="sales_delivery_note_cost" value="{{number_format($salesinvoice->SalesDeliveryNote->sales_delivery_note_cost,2,',','.')}}" readonly/>
                     </div>
                 </div>
             </div>
@@ -142,28 +139,38 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <a class="text-dark">Nama Pengemudi</a>
-                        <input class="form-control input-bb" type="text" name="driver_name" id="driver_name" value="{{$salesdeliverynote['driver_name']}}" readonly/>
+                        <input class="form-control input-bb" type="text" name="driver_name" id="driver_name" value="{{$salesinvoice->SalesDeliveryNote->driver_name}}" readonly/>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <a class="text-dark">Plat Nomor Kendaraan</a>
-                        <input class="form-control input-bb" type="text" name="fleet_police_number" id="fleet_police_number" value="{{$salesdeliverynote['fleet_police_number']}}" readonly/>
+                        <input class="form-control input-bb" type="text" name="fleet_police_number" id="fleet_police_number" value="{{$salesinvoice->SalesDeliveryNote->fleet_police_number}}" readonly/>
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row form-group">
                 <div class="col-md-6">
                     <div class="form-group">
                         <a class="text-dark">Tanggal Delivery Note</a>
-                        <input class="form-control input-bb" type="text" name="sales_delivery_note_date" id="sales_delivery_note_date" value="{{$salesdeliverynote['sales_delivery_note_date']}}" readonly/>
+                        <input class="form-control input-bb" type="text" name="sales_delivery_note_date" id="sales_delivery_note_date" value="{{$salesinvoice->SalesDeliveryNote->sales_delivery_note_date}}" readonly/>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <a class="text-dark">Jatuh Tempo</a>
-                        <input class="form-control input-bb" type="text" name="sales_invoice_due_date" id="sales_invoice_due_date" value="{{$salesinvoice['sales_invoice_due_date']}}" readonly/>
+                        <input class="form-control input-bb" type="text" name="sales_invoice_due_date" id="sales_invoice_due_date" value="{{$salesinvoice->SalesDeliveryNote->sales_invoice_due_date}}" readonly/>
                     </div>
+                </div>
+                <div class="col-md-6">
+                    <section class="control-label">No Faktur Pajak
+                    </section>
+                    <input class="form-control input-bb" name="faktur_tax_no"  id="faktur_tax_no"  type="text"  value="{{$salesinvoice['faktur_tax_no']}}" />
+                </div>
+                <div class="col-md-6">
+                    <section class="control-label">Gudang
+                    </section>
+                    <input class="form-control input-bb" type="text"  value="{{$salesinvoice['warehouse_name']}}" readonly/>
                 </div>
             </div>
             <div class="row form-group">
@@ -175,95 +182,130 @@
                 </div>
             </div>
         </div>
-    </div>
-    </div>
-
-    <br/>
-    <div class="card border border-dark">
-        <div class="card-header border-dark bg-dark">
-            <h5 class="mb-0 float-left">
-                Daftar
-            </h5>
         </div>
+        </div>
+        <br/>
+        <div class="card border border-dark">
+            <div class="card-header border-dark bg-dark">
+                <h5 class="mb-0 float-left">
+                    Daftar
+                </h5>
+            </div>
 
-        <div class="card-body">
-            <div class="form-body form">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-advance table-hover">
-                        <thead class="thead-light">
-                            <tr>
-                                <th style='text-align:center'>No.</th>
-                                <th style='text-align:center'>Barang</th>
-                                <th style='text-align:center'>Quantity</th>
-                                <th style='text-align:center'>Satuan</th>
-                                <th style='text-align:center'>Harga Satuan</th>
-                                <th style='text-align:center'>Subtotal</th>
-                            </tr>
-                        </thead>
-                        <tbody id='tablebody'>
-                            <?php
-                            // print_r($salesdeliverynote);
-                            $no             = 1;
-                            $total_price    = 0;
-                            $total_item     = 0;
-                            if(count($salesinvoiceitem)>0){
-                                foreach($salesinvoiceitem as $val){
-                                    $item = $SalesInvoice->getSalesDeliveryNoteItem($val['sales_delivery_note_item_id']);
-                                    echo"
-                                        <tr>
-                                            <td style='text-align  : center'>".$no."</td>
-                                            <td style='text-align  : left !important;'>
-                                                <input class='form-control' type='text' name='item_id' id='item_id' value='".$SalesInvoice->getItemName($item['item_id'])."' readonly/>
-                                            </td>
-                                            <td style='text-align  : right !important;'>
-                                                <input style='text-align  : right !important;' class='form-control' type='text' name='quantity' id='quantity' value='".$item['quantity']."' readonly/>
-                                            </td>
-                                            <td style='text-align  : left !important;'>
-                                                <input class='form-control' type='text' name='item_unit' id='item_unit' value='".$SalesInvoice->getItemUnitName($item['item_unit_id'])."' readonly/>
-                                            </td>
-                                            <td style='text-align  : right !important;'>
-                                                <input style='text-align  : right !important;' class='form-control' type='text' name='item_unit_price' id='item_unit_price' value='".number_format($item['item_unit_price'],2,',','.')."' readonly/>
-                                            </td>
-                                            <td style='text-align  : right !important;'>
-                                                <input style='text-align  : right !important;' class='form-control' type='text' name='subtotal_price' id='subtotal_price' value='".number_format(($val['quantity']*$val['item_unit_price']), 2)."' readonly/>
-                                            </td>";
-                                            echo"
-                                        </tr>
-                                    ";
-                                    $no++;
-                                    $total_price    += ($val['quantity']*$val['item_unit_price']);
-                                    $total_item     += $item['quantity'];
-                                }
-                            }else{
-                                echo"
+            <div class="card-body">
+                <div class="form-body form">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-advance table-hover">
+                            <thead class="thead-light">
                                 <tr>
-                                    <td style='text-align  : center; font-weight: bold;' colspan='6'>Data Kosong</td>
+                                    <th style='text-align:center'>No.</th>
+                                    <th style='text-align:center'>Barang</th>
+                                    <th style='text-align:center'>Quantity</th>
+                                    <th style='text-align:center'>Satuan</th>
+                                    <th style='text-align:center'>Harga</th>
+                                    <th style='text-align:center'>Diskon</th>
+                                    <th style='text-align:center'>Total</th>
                                 </tr>
-                                ";
-                            }
-                                echo"
-                                <th style='text-align  : left' colspan='5'>Total</th>
-                                <th style='text-align  : right'>
-                                    <input class='form-control' style='text-align  : right !important;' type='text' name='total_amount_view' id='total_amount_view' value='".number_format($total_price,2,',','.')."' readonly/>
-                                    <input class='form-control' type='hidden' name='total_amount' id='total_amount' value='".$total_price."'/>
-                                    <input class='form-control' type='hidden' name='total_item' id='total_item' value='".$total_item."'/>
-                                </th>
-                                ";
-                            ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody id='tablebody'>
+                                <?php
+                                $no             = 1;
+                                $total_price    = 0;
+                                $total_item     = 0;
+                                $total = 0;
+                                $totalBayar = 0;
+                                $ppn = 0;
+                                $DPP = 0;
+                                if(count($salesinvoiceitem)>0){
+                                    foreach($salesinvoiceitem as $val){
+                                        echo"
+                                        <tr>
+                                                <td style='text-align  : center'>".$no."</td>
+                                                <td style='text-align  : left !important;'>
+                                                    ".$SalesInvoice->getItemtypeName($val['item_type_id'])."
+                                                </td>
+                                                <td style='text-align  : right !important;'>
+                                                    ".$val['quantity']."
+                                                </td>
+                                                <td style='text-align  : left !important;'>
+                                                    ".$SalesInvoice->getItemUnitName($val['item_unit_id'])."
+                                                </td>
+                                                <td style='text-align  : right !important;'>
+                                                    ".number_format($val['item_unit_price'],2,',','.')."
+                                                </td>
+                                                <td style='text-align  : right !important;'>
+                                                    ".number_format(($val['discount_A']))."
+                                                </td>
+                                                <td style='text-align  : right !important;'>
+                                                ".number_format($val['subtotal_price_A'])."
+                                                </td>";
+                                                echo"
+                                            </tr>
+                                        ";
+                                        $no++;
+                                        $total_price    += ($val['subtotal_price_A']);
+                                        $total_item     += $val['quantity'];
+                                    }
+                                }else{
+                                    echo"
+                                    <tr>
+                                        <td style='text-align  : center; font-weight: bold;' colspan='6'>Data Kosong</td>
+                                    </tr>
+                                    ";
+                                }
+                                    echo"
+                                    <th style='text-align  : left' colspan='6'></th>
+                                    <th style='text-align  : right' colspan='2'>
+                                        <div class='row mt-2'>
+                                            <div class='col'>
+                                                <label style='text-align  : left !important;'>Total</label>
+                                            </div>
+                                            <div class='col'>
+                                                ".number_format($total_price)."
+                                            </div>
+                                        </div>
+                                        <div class='row mt-2'>
+                                            <div class='col'>
+                                                <label style='text-align  : left !important;'>Discount</label>
+                                            </div>
+                                            <div class='col'>
+                                                ".number_format($discount_amount)."
+                                            </div>
+                                        </div>
+                                        <div class='row mt-2'>
+                                            <div class='col'>
+                                                <label style='text-align  : left !important;'>PPN</label>
+                                            </div>
+                                            <div class='col'>
+                                                ".number_format($ppn_amount)."
+                                            </div>
+                                        </div>
+                                        <div class='row mt-2'>
+                                            <div class='col'>
+                                                <label style='text-align  : left !important;'>Total Due</label>
+                                            </div>
+                                            <div class='col'>
+                                                ".number_format($total_due)."
+                                            </div>
+                                        </div>
+                                    </th>
+                                    ";
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-muted">
+                <div class="form-actions float-right">
+                    <button type="submit" name="Save" class="btn btn-danger" title="Save"><i class="fa fa-times"></i> Hapus</button>
                 </div>
             </div>
         </div>
-
-        <div class="card-footer text-muted">
-            <div class="form-actions float-right">
-                <button type="submit" name="Save" class="btn btn-danger" title="Save"><i class="fa fa-times"></i> Hapus</button>
-            </div>
-        </div>
-    </div>
-</form>
+    </form>
 <br/>
+
+
 
 @stop
 

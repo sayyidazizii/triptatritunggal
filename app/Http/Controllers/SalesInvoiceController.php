@@ -203,44 +203,38 @@ class SalesInvoiceController extends Controller
     public function detailSalesInvoice($sales_invoice_id)
     {
         $salesinvoice = SalesInvoice::findOrFail($sales_invoice_id);
-
-        $salesorder = SalesOrder::where('sales_order_id', $salesinvoice['sales_order_id'])
-            ->where('data_state', 0)
-            ->first();
-
-        $salesinvoiceitem = SalesInvoiceItem::select('sales_invoice_item.*')
+        $salesinvoiceitem = SalesInvoiceItem::with(['salesQuotationItems', 'salesDeliveryNoteItems'])
             ->where('data_state', 0)
             ->where('sales_invoice_id', $sales_invoice_id)
             ->get();
-
-        $salesdeliverynote = SalesDeliveryNote::select('sales_delivery_note.*', 'inv_warehouse.*')
-            ->join('inv_warehouse', 'inv_warehouse.warehouse_id', 'sales_delivery_note.warehouse_id')
-            ->where('sales_delivery_note.data_state', 0)
-            ->where('sales_delivery_note.sales_delivery_note_id', $salesinvoice['sales_delivery_note_id'])
-            ->first();
-
-        return view('content/SalesInvoice/FormDetailSalesInvoice', compact('salesinvoice', 'salesinvoiceitem', 'salesdeliverynote', 'salesorder', 'sales_invoice_id'));
+        $total = 0;
+        foreach($salesinvoiceitem as $val){
+                $total += $val->salesQuotationItems->subtotal_after_discount_item_a;
+        }
+        $discount_amount = $total * $salesinvoice->SalesQuotation->discount_percentage / 100;
+        $total_after_discount = $total - $discount_amount;
+        $ppn_amount = $total_after_discount * $salesinvoice->SalesQuotation->ppn_out_percentage / 100;
+        $total_due = $total_after_discount + $ppn_amount;
+        return view('content/SalesInvoice/FormDetailSalesInvoice', compact('salesinvoice', 'salesinvoiceitem', 'sales_invoice_id','discount_amount','total_after_discount','ppn_amount','total_due'));
     }
 
     public function voidSalesInvoice($sales_invoice_id)
     {
         $salesinvoice = SalesInvoice::findOrFail($sales_invoice_id);
-
-        $salesorder = SalesOrder::where('sales_order_id', $salesinvoice['sales_order_id'])
-            ->where('data_state', 0)
-            ->first();
-
-        $salesinvoiceitem = SalesInvoiceItem::select('sales_invoice_item.*')
+        $salesinvoiceitem = SalesInvoiceItem::with(['salesQuotationItems', 'salesDeliveryNoteItems'])
             ->where('data_state', 0)
             ->where('sales_invoice_id', $sales_invoice_id)
             ->get();
+        $total = 0;
+        foreach($salesinvoiceitem as $val){
+                $total += $val->salesQuotationItems->subtotal_after_discount_item_a;
+        }
+        $discount_amount = $total * $salesinvoice->SalesQuotation->discount_percentage / 100;
+        $total_after_discount = $total - $discount_amount;
+        $ppn_amount = $total_after_discount * $salesinvoice->SalesQuotation->ppn_out_percentage / 100;
+        $total_due = $total_after_discount + $ppn_amount;
 
-        $salesdeliverynote = SalesDeliveryNote::select('sales_delivery_note.*')
-            ->where('data_state', 0)
-            ->where('sales_delivery_note_id', $salesinvoice['sales_delivery_note_id'])
-            ->first();
-
-        return view('content/SalesInvoice/FormVoidSalesInvoice', compact('salesinvoice', 'salesinvoiceitem', 'salesdeliverynote', 'salesorder', 'sales_invoice_id'));
+        return view('content/SalesInvoice/FormVoidSalesInvoice', compact('salesinvoice', 'salesinvoiceitem', 'sales_invoice_id','discount_amount','total_after_discount','ppn_amount','total_due'));
     }
 
     public function closedSalesInvoice($sales_invoice_id)
@@ -301,6 +295,7 @@ class SalesInvoiceController extends Controller
             'sales_invoice_date'            => date('Y-m-d'),
             'sales_invoice_due_date'        => $request->sales_invoice_due_date,
             'customer_id'                   => $request->customer_id,
+            'sales_quotation_id'            => $salesdeliverynote->sales_quotation_id,
             'sales_delivery_note_id'        => $request->sales_delivery_note_id,
             'subtotal_item'                 => $request->total_item,
             'discount_amount'               => $discount_amount,
@@ -339,6 +334,8 @@ class SalesInvoiceController extends Controller
                     'sales_invoice_id'              => $SalesInvoice->sales_invoice_id,
                     'sales_order_id'                => $val->quotationItem->sales_order_id,
                     'sales_order_item_id'           => $val->quotationItem->sales_order_item_id,
+                    'sales_quotation_id'            => $val->quotationItem->sales_quotation_id,
+                    'sales_quotation_item_id'       => $val->quotationItem->sales_quotation_item_id,
                     'sales_delivery_note_id'        => $val->sales_delivery_note_id,
                     'sales_delivery_note_item_id'   => $val->sales_delivery_note_item_id,
                     'item_type_id'                  => $val->item_type_id,
@@ -458,8 +455,6 @@ class SalesInvoiceController extends Controller
         $fields = $request->validate([
             'sales_invoice_id'   => 'required',
         ]);
-
-        print_r($fields['sales_invoice_id']);
 
         $salesinvoice = SalesInvoice::findOrFail($request->sales_invoice_id);
         $salesinvoice->voided_id     = Auth::id();

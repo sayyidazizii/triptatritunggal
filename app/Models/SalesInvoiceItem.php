@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\SalesQuotationItem;
+use App\Models\SalesDeliveryNoteItem;
 use Illuminate\Database\Eloquent\Model;
 
 class SalesInvoiceItem extends Model
@@ -13,12 +15,20 @@ class SalesInvoiceItem extends Model
      * @var string[]
      */
 
-    protected $table        = 'sales_invoice_item'; 
+    protected $table        = 'sales_invoice_item';
     protected $primaryKey   = 'sales_invoice_item_id';
-    
+
     protected $guarded = [
         'sales_invoice_item_id',
     ];
+
+    public function SalesQuotationItems(){
+        return  $this->belongsTo(SalesQuotationItem::class, 'sales_quotation_item_id', 'sales_quotation_item_id');
+    }
+
+    public function SalesDeliveryNoteItems(){
+        return  $this->belongsTo(SalesDeliveryNoteItem::class, 'sales_delivery_note_item_id', 'sales_delivery_note_item_id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
