@@ -25,7 +25,7 @@
 @section('content')
 
 <h3 class="page-title">
-    <b>Daftar Invoce Note</b>
+    <b>Daftar Sales Invoce Note</b>
 </h3>
 <br/>
 

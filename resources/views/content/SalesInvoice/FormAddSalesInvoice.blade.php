@@ -252,7 +252,7 @@
                                 </th>
                                 <th style='text-align  : right'>
                                     <div class="row mt-2">
-                                            <input  class='form-control' style='text-align  : right !important;' type='text' name='subtotal_after_discount_view' id='subtotal_after_discount_view' value='{{ number_format(($total),2) }}' readonly/>
+                                            <input  class='form-control' style='text-align  : right !important;' type='text' name='subtotal_amount' id='subtotal_amount' value='{{ number_format(($total),2) }}' readonly/>
                                     </div>
                                     <div class="row mt-2">
                                             <input class='form-control' style='text-align:right;'type='text' name='discount_amount' id='discount_amount' value='{{ number_format(($discount_amount),2) }}' readonly/>
