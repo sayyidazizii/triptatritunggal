@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\SalesInvoice;
 use App\Models\SalesQuotationItem;
 use App\Models\SalesDeliveryNoteItem;
 use Illuminate\Database\Eloquent\Model;
@@ -28,6 +29,11 @@ class SalesInvoiceItem extends Model
 
     public function SalesDeliveryNoteItems(){
         return  $this->belongsTo(SalesDeliveryNoteItem::class, 'sales_delivery_note_item_id', 'sales_delivery_note_item_id');
+    }
+
+    public function SalesInvoice()
+    {
+        return $this->belongsTo(SalesInvoice::class, 'sales_invoice_id', 'sales_invoice_id');
     }
 
     /**

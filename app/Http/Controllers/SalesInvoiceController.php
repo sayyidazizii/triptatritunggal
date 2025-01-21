@@ -962,81 +962,54 @@ class SalesInvoiceController extends Controller
             //============================================================+
 
     }
+
     //Report
     public function filterSalesInvoiceReport(Request $request)
     {
         $start_date     = $request->start_date;
         $end_date       = $request->end_date;
         $customer_code  = $request->customer_code;
-        $checkbox       = $request->checkbox;
 
-        if(isset($checkbox) && empty($customer_code)){
-            $msg = 'Pilih Kode Pembeli jika mencetak pengantar';
+        if(empty($customer_code)){
+            $msg = 'Pilih Kode Pembeli';
             return redirect('/sales-invoice-report')->with('msg', $msg);
         }else{
-
-        //customer id
         $customer_id = CoreCustomer::where('customer_code', '=', $customer_code)->first();
-
         Session::put('start_date', $start_date);
         Session::put('end_date', $end_date);
         Session::put('customer_code', $customer_code);
-        Session::put('checkbox', $checkbox);
-
-            if(isset($checkbox) or $checkbox == 1){
-                $salesinvoice = SalesInvoice::where('sales_invoice.data_state', '=', 0)
-                    ->join('core_customer','core_customer.customer_id','sales_invoice.customer_id')
-                    ->join('sales_invoice_item','sales_invoice_item.sales_invoice_id','sales_invoice.sales_invoice_id')
-                    ->join('sales_order','sales_order.sales_order_id','sales_invoice.sales_order_id')
-                    ->where('sales_invoice.data_state', '=', 0)
-                    ->where('sales_invoice.sales_invoice_date', '>=', $start_date)
-                    ->where('sales_invoice.sales_invoice_date', '<=', $end_date);
-
-                if ($customer_code || $customer_code != null || $customer_code != '') {
-                    $salesinvoice = $salesinvoice->where('core_customer.customer_code', $customer_code);
-                }
-
-                $salesinvoice = $salesinvoice->get();
-
-                $saleskwitansi = array(
-                    'customer_id'                   => $customer_id['customer_id'],
-                    'start_date'                    => $start_date,
-                    'end_date'                      => $end_date,
-                    'sales_kwitansi_date'           => \Carbon\Carbon::now(),
-                    'created_id'                    => Auth::id(),
-                );
-
-                if (SalesKwitansi::create($saleskwitansi)) {
-                    $saleskwitansi_id = SalesKwitansi::select('*')
-                        ->orderBy('created_at', 'DESC')
-                        ->first()->sales_kwitansi_id;
-
-                    foreach ($salesinvoice as $invoice) {
-                        SalesKwitansiItem::create([
-                            'sales_invoice_id'              => $invoice->sales_invoice_id,
-                            'buyers_acknowledgment_id'      => $invoice->buyers_acknowledgment_id,
-                            'sales_kwitansi_id'             => $saleskwitansi_id,
-                            'checked'                       => 1,
-                            'created_id'                    => Auth::id(),
-                        ]);
-                    }
-                }
+        $salesinvoice = SalesInvoice::where('sales_invoice.data_state', '=', 0)
+        ->join('core_customer','core_customer.customer_id','sales_invoice.customer_id')
+        ->join('sales_invoice_item','sales_invoice_item.sales_invoice_id','sales_invoice.sales_invoice_id')
+        ->join('sales_order','sales_order.sales_order_id','sales_invoice.sales_order_id')
+        ->where('sales_invoice.data_state', '=', 0)
+        ->where('sales_invoice.sales_invoice_date', '>=', $start_date)
+        ->where('sales_invoice.sales_invoice_date', '<=', $end_date);
+            if ($customer_code || $customer_code != null || $customer_code != '') {
+                $salesinvoice = $salesinvoice->where('core_customer.customer_code', $customer_code);
             }
+            $salesinvoice = $salesinvoice->get();
+            $saleskwitansi = array(
+                'customer_id'                   => $customer_id['customer_id'],
+                'start_date'                    => $start_date,
+                'end_date'                      => $end_date,
+                'sales_kwitansi_date'           => \Carbon\Carbon::now(),
+                'created_id'                    => Auth::id(),
+            );
         }
-
-
         return redirect('/sales-invoice-report');
     }
+
     //Report
     public function resetFilterSalesInvoiceReport()
     {
         Session::forget('start_date');
         Session::forget('end_date');
         Session::forget('customer_code');
-        Session::forget('checkbox');
 
         return redirect('/sales-invoice-report');
     }
+
     //Report
     public function ReportSalesInvoice()
     {
@@ -1054,29 +1027,25 @@ class SalesInvoiceController extends Controller
 
         $customer_code = Session::get('customer_code');
 
-        $checkbox = Session::get('checkbox');
-
         Session::forget('salesinvoiceitem');
         Session::forget('salesinvoiceelements');
-
-        $salesinvoice = SalesInvoice::where('sales_invoice.data_state', '=', 0)
-        ->join('core_customer','core_customer.customer_id','sales_invoice.customer_id')
-        ->join('sales_invoice_item','sales_invoice_item.sales_invoice_id','sales_invoice.sales_invoice_id')
-        ->join('sales_order','sales_order.sales_order_id','sales_invoice.sales_order_id')
-        ->where('sales_invoice.data_state', '=', 0)
-        ->where('sales_invoice.sales_invoice_date', '>=', $start_date)
-        ->where('sales_invoice.sales_invoice_date', '<=', $end_date);
-        if ($customer_code || $customer_code != null || $customer_code != '') {
-            $salesinvoice   = $salesinvoice->where('core_customer.customer_code', $customer_code);
+        $salesinvoice = SalesInvoice::with(['Items','SalesQuotation', 'Customer'])
+        ->where('data_state', '=', 0)
+        ->where('sales_invoice_date', '>=', $start_date)
+        ->where('sales_invoice_date', '<=', $end_date);
+        if ($customer_code) {
+            $salesinvoice = $salesinvoice->whereHas('Customer', function ($query) use ($customer_code) {
+                $query->where('customer_code', $customer_code);
+            });
         }
         $salesinvoice       = $salesinvoice->get();
-
         $customer = CoreCustomer::select('customer_id', 'customer_name','customer_code')
             ->where('data_state', 0)
             ->pluck('customer_code', 'customer_code');
 
-        return view('content/SalesInvoice/FormSalesInvoiceReport', compact('checkbox','salesinvoice', 'start_date', 'end_date', 'customer_code', 'customer'));
+        return view('content/SalesInvoice/FormSalesInvoiceReport', compact('salesinvoice', 'start_date', 'end_date', 'customer_code', 'customer'));
     }
+
     public function export(){
         if (!Session::get('start_date')) {
             $start_date = date('Y-m-d');
@@ -1243,6 +1212,7 @@ class SalesInvoiceController extends Controller
             echo "Maaf data yang di eksport tidak ada !";
         }
     }
+
     // Metode 2: Mapping manual bulan
     public function bulanIndo($month) {
         $bulan = [
@@ -1251,6 +1221,7 @@ class SalesInvoiceController extends Controller
         ];
         return $bulan[$month];
     }
+
     //Pengantar
     public function printKwitansiPengantar(){
         $saleskwitansi = SalesKwitansi::select('*')

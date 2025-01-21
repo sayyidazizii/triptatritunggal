@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\CoreCustomer;
 use App\Models\CoreExpedition;
 use App\Models\SalesQuotation;
+use App\Models\SalesInvoiceItem;
 use App\Models\SalesDeliveryNote;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,6 +24,10 @@ class SalesInvoice extends Model
     protected $guarded = [
         'sales_invoice_id',
     ];
+
+    public function Items(){
+        return $this->belongsTo(SalesInvoiceItem::class, 'sales_invoice_id','sales_invoice_id');
+    }
 
     public function Customer(){
         return $this->belongsTo(CoreCustomer::class, 'customer_id','customer_id');

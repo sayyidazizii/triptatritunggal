@@ -77,12 +77,6 @@
             </div>
             <div class="card-footer text-muted">
                 <div class="form-actions float-right">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="checkbox" onChange="function_elements_add(this.name, this.value);" value="1" id="flexCheckDefault" @if($checkbox == 1) checked @endif>
-                        <label class="form-check-label" for="flexCheckDefault">
-                          Buat Nomor kwitansi
-                        </label>
-                      </div>
                     <a href="{{route('filter-reset-sales-invoice-report')}}" type="reset" name="Reset" class="btn btn-danger btn-sm" onClick="window.location.reload();"><i class="fa fa-times"></i> Batal</a>
                     <button type="submit" name="Find" class="btn btn-primary btn-sm" title="Search Data"><i class="fa fa-search"></i> Tampilkan</button>
                 </div>
@@ -128,41 +122,10 @@
                 <tbody>
                     <?php
                     $no = 1;
-                    $salesorderitem = 0;
-                    $itemunitcost   = 0;
-                    $jumlahDiskon   = 0;
-                    $ppn            = 0;
-                    $dpp            = 0;
-                    $diskonPersen   = 0;
-
-                    $totalQty       = 0;
-                    $totalJumlah    = 0;
-                    $totalHpp       = 0;
-                    $totalDiskon    = 0;
-                    $totalDpp       = 0;
-                    $totalPpn       = 0;
-                    $subTotal       = 0;
-
                     ?>
 
                     @foreach($salesinvoice as $item)
                     @php
-
-                    $salesorderitem = $SalesInvoice->getSalesOrderItem($item['sales_delivery_note_item_id']);
-                    $itemunitcost   = $SalesInvoice->getUnitCost($salesorderitem);
-                    $jumlahDiskon   = $item['discount_A'] + $item['discount_B'];
-                    $ppn            = $SalesInvoice->getPpnItem($salesorderitem);
-                    $dpp            = ($item['item_unit_price'] * $item['quantity']) - $jumlahDiskon;
-                    $diskonPersen   = $SalesInvoice->getDiscountAmt($item['sales_delivery_note_item_id']) + $SalesInvoice->getDiscountAmtB($item['sales_delivery_note_item_id']) ;
-
-
-                    $totalQty       += $item['quantity'];
-                    $totalJumlah    += $item['item_unit_price'] * $item['quantity'];
-                    $totalHpp       += $itemunitcost * $item['quantity'];
-                    $totalDiskon    += $jumlahDiskon;
-                    $totalDpp       += $dpp;
-                    $totalPpn       += $ppn;
-                    $subTotal       += $dpp + $ppn;
                     @endphp
                     <tr>
                         <td style='text-align:center'>{{$no}}.</td>
@@ -170,39 +133,31 @@
                         <td>{{ $item['purchase_order_no']}}</td>
                         <td>{{ $SalesInvoice->getCustomerName($item['customer_id'])}}</td>
                         <td>{{ $item['sales_invoice_no']}}</td>
-                        <td>{{ $SalesInvoice->getItemTypeName($item['item_type_id']) }}</td>
+                        <td>{{ $item->item_type_id }}</td>
                         <td>{{ $item['quantity']}}</td>
                         <td>{{ $item['item_unit_price'] * $item['quantity']}}</td>
-                        <td>{{ $itemunitcost * $item['quantity']}}</td>
-                        <td>{{ $jumlahDiskon }}</td>
-                        <td>{{ $dpp }}</td>
-                        <td>{{ $ppn }}</td>
-                        <td>{{ $dpp + $ppn }}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <?php $no++; ?>
                     @endforeach
                 </tbody>
                 <tr class="text-bold">
                         <td colspan="6" style='text-align:center'> JUMLAH TOTAL</td>
-                        <td>{{ $totalQty }}</td>
-                        <td>{{ $totalJumlah }}</td>
-                        <td>{{ $totalHpp }}</td>
-                        <td>{{ $totalDiskon }}</td>
-                        <td>{{ $totalDpp }}</td>
-                        <td>{{ $totalPpn }}</td>
-                        <td>{{ $subTotal }}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr class="text-bold">
                         <td colspan="10" style='text-align:center'></td>
                         <td colspan="3" style='text-align:center'>
-                            @if($checkbox == 1)
-                            @if(count($salesinvoice) > 0)
-                            @if(isset($customer_code) > 0)
-                            <a href="{{ url('/sales-invoice-report/cetak-pengantar') }}" type="button" class="btn btn-sm btn-secondary"><i class="fa fa-file"> Cetak Pengantar</i></a>
-                            @endif
-                            @endif
-                            @endif
-
                             @if(count($salesinvoice) > 0)
                             <a href="{{ url('sales-invoice/export') }}" name="Find" class="btn btn-sm btn-info" title="Export Excel"><i class="fa fa-print"></i>Export</a>
                             @endif
