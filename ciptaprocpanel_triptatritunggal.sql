@@ -6066,6 +6066,22 @@ insert  into `system_user_group`(`user_group_id`,`user_group_level`,`user_group_
 (1,1,'admin','',0,0,NULL,0,NULL,0,NULL,'2023-06-23 10:52:23'),
 (25,2,'APJ (Apoteker Penanggung Jawab)','',1,0,'2023-03-01 06:51:21',0,NULL,0,NULL,'2025-01-09 04:22:33');
 
+/*Table structure for table `user_locations` */
+
+DROP TABLE IF EXISTS `user_locations`;
+
+CREATE TABLE `user_locations` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int DEFAULT NULL,
+  `latitude` varchar(250) DEFAULT NULL,
+  `longitude` varchar(250) DEFAULT NULL,
+  `data_state` int DEFAULT '0',
+  `created_at` int DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*Data for the table `user_locations` */
+
 /* Trigger structure for table `acct_bank_disbursement` */
 
 DELIMITER $$
