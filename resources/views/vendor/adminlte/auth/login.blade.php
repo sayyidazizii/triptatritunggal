@@ -73,8 +73,8 @@
             </div>
         </div>
                 {{-- Hidden fields for location --}}
-                <input type="hidden" name="latitude" id="latitude">
-                <input type="hidden" name="longitude" id="longitude">
+                {{-- <input type="text" name="latitude" id="latitude">
+                <input type="text" name="longitude" id="longitude"> --}}
     </form>
 @stop
 
@@ -99,18 +99,43 @@
 @stop
 
 @section('js')
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function (position) {
-                    document.getElementById('latitude').value = position.coords.latitude;
-                    document.getElementById('longitude').value = position.coords.longitude;
-                }, function (error) {
-                    console.error("Error getting location:", error);
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                // Dapatkan latitude dan longitude
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                console.log("Latitude:", position.coords.latitude);
+                console.log("Longitude:", position.coords.longitude);
+
+                // Kirim data ke server menggunakan AJAX (fetch)
+                fetch("{{ route('absen') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'  // Laravel CSRF Token
+                    },
+                    body: JSON.stringify({
+                        latitude: latitude,
+                        longitude: longitude
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Absensi berhasil disimpan!", data);
+                })
+                .catch(error => {
+                    console.error("Error:", error);
                 });
-            } else {
-                console.error("Geolocation is not supported by this browser.");
-            }
-        });
-    </script>
+            }, function (error) {
+                console.error("Error getting location:", error);
+            });
+        } else {
+            console.error("Geolocation is not supported by this browser.");
+        }
+    });
+</script>
+
 @stop

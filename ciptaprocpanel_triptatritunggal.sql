@@ -6076,11 +6076,17 @@ CREATE TABLE `user_locations` (
   `latitude` varchar(250) DEFAULT NULL,
   `longitude` varchar(250) DEFAULT NULL,
   `data_state` int DEFAULT '0',
-  `created_at` int DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `ip` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `user_locations` */
+
+insert  into `user_locations`(`id`,`user_id`,`latitude`,`longitude`,`data_state`,`created_at`,`updated_at`,`ip`) values 
+(1,NULL,'-7.5558771','110.8642444',0,'2025-01-22 10:08:52','2025-01-22 10:08:52',NULL),
+(2,NULL,'-7.5558771','110.8642444',0,'2025-01-22 10:10:28','2025-01-22 10:10:28','127.0.0.1');
 
 /* Trigger structure for table `acct_bank_disbursement` */
 

@@ -22,6 +22,7 @@ use App\Http\Controllers\CoreSupplierController;
 use App\Http\Controllers\InvItemStockController;
 use App\Http\Controllers\InvWarehouseController;
 use App\Http\Controllers\SalesInvoiceController;
+use App\Http\Controllers\UserLocationController;
 use App\Http\Controllers\PurchaseOrderController;
 use App\Http\Controllers\CoreExpeditionController;
 use App\Http\Controllers\SalesPromotionController;
@@ -100,6 +101,8 @@ Route::get('/', function () {
 Auth::routes();
 // Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::post('/absen', [UserLocationController::class, 'absen'])->name('absen');
 
 Route::get('/cash-receipt', [AcctCashReceiptController::class, 'index'])->name('cash-receipt');
 Route::get('/cash-receipt/add', [AcctCashReceiptController::class, 'addAcctCashReceipt'])->name('add-cash-receipt');

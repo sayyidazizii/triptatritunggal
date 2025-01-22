@@ -17,10 +17,10 @@ class UserLocations extends Model
     protected $primaryKey   = 'id';
     
     protected $fillable = [
-        'user_id',
         'latitude',
         'longitude',
         'created_at',
+        'updated_at',
     ];
 
     protected $guarded = [
