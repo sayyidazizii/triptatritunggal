@@ -73,8 +73,8 @@
             </div>
         </div>
                 {{-- Hidden fields for location --}}
-                <input type="text" name="latitude" id="latitude">
-                <input type="text" name="longitude" id="longitude">
+                <input type="hidden" name="latitude" id="latitude">
+                <input type="hidden" name="longitude" id="longitude">
     </form>
 @stop
 
