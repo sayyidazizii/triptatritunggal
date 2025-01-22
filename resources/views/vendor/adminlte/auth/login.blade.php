@@ -72,7 +72,9 @@
                 </button>
             </div>
         </div>
-
+                {{-- Hidden fields for location --}}
+                <input type="text" name="latitude" id="latitude">
+                <input type="text" name="longitude" id="longitude">
     </form>
 @stop
 
@@ -94,4 +96,21 @@
             </a>
         </p>
     @endif --}}
+@stop
+
+@section('js')
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    document.getElementById('latitude').value = position.coords.latitude;
+                    document.getElementById('longitude').value = position.coords.longitude;
+                }, function (error) {
+                    console.error("Error getting location:", error);
+                });
+            } else {
+                console.error("Geolocation is not supported by this browser.");
+            }
+        });
+    </script>
 @stop
