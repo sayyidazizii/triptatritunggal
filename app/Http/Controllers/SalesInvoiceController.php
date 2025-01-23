@@ -80,7 +80,7 @@ class SalesInvoiceController extends Controller
         }
 
         // $customer_id = Session::get('customer_id');
-        $customer_code = Session::get('customer_code');
+        $customer_id = Session::get('customer_id');
 
         Session::forget('salesinvoiceitem');
         Session::forget('salesinvoiceelements');
@@ -89,27 +89,27 @@ class SalesInvoiceController extends Controller
             ->join('core_customer','core_customer.customer_id','sales_invoice.customer_id')
             ->where('sales_invoice.sales_invoice_date', '>=', $start_date)
             ->where('sales_invoice.sales_invoice_date', '<=', $end_date);
-        if ($customer_code || $customer_code != null || $customer_code != '') {
-            $salesinvoice   = $salesinvoice->where('core_customer.customer_code', $customer_code);
+        if ($customer_id || $customer_id != null || $customer_id != '') {
+            $salesinvoice   = $salesinvoice->where('core_customer.customer_id', $customer_id);
         }
         $salesinvoice       = $salesinvoice->get();
 
-        $customer = CoreCustomer::select('customer_code', 'customer_name')
+        $customer = CoreCustomer::select('customer_id', 'customer_name')
             ->where('data_state', 0)
-            ->pluck('customer_code', 'customer_code');
+            ->pluck('customer_name', 'customer_id');
 
-        return view('content/SalesInvoice/ListSalesInvoice', compact('salesinvoice', 'start_date', 'end_date', 'customer_code', 'customer'));
+        return view('content/SalesInvoice/ListSalesInvoice', compact('salesinvoice', 'start_date', 'end_date', 'customer_id', 'customer'));
     }
 
     public function filterSalesInvoice(Request $request)
     {
         $start_date     = $request->start_date;
         $end_date       = $request->end_date;
-        $customer_code  = $request->customer_code;
+        $customer_id    = $request->customer_id;
 
         Session::put('start_date', $start_date);
         Session::put('end_date', $end_date);
-        Session::put('customer_code', $customer_code);
+        Session::put('customer_id', $customer_id);
 
         return redirect('/sales-invoice');
     }
@@ -118,7 +118,7 @@ class SalesInvoiceController extends Controller
     {
         Session::forget('start_date');
         Session::forget('end_date');
-        Session::forget('customer_code');
+        Session::forget('customer_id');
 
         return redirect('/sales-invoice');
     }
