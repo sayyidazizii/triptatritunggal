@@ -170,8 +170,8 @@ Dashboard
                             if($menu['id_menu']==321){
                     ?>
                                 <li class="list-group-item main-menu-item"
-                                    onClick="location.href='{{ route('sales-order') }}'"> <i class="fa fa-angle-right"></i>
-                                    Sales Order</li>
+                                    onClick="location.href='{{ route('sales-quotation') }}'"> <i class="fa fa-angle-right"></i>
+                                    Sales Quotation</li>
                                 <?php   }
                             if($menu['id_menu']==322){
                     ?>
