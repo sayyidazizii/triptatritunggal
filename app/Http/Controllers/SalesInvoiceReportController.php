@@ -90,7 +90,7 @@ class SalesInvoiceReportController extends Controller
                 ->where('sales_invoice_date', '<=', $end_date);
         });
         if ($customer_id) {
-            $salesinvoice = $salesinvoice->whereHas('Customer', function ($query) use ($customer_id) {
+            $salesinvoice = $salesinvoice->whereHas('SalesInvoice', function ($query) use ($customer_id) {
                 $query->where('customer_id', $customer_id);
             });
         }
@@ -121,7 +121,7 @@ class SalesInvoiceReportController extends Controller
     {
         Session::forget('start_date');
         Session::forget('end_date');
-        Session::forget('customer_code');
+        Session::forget('customer_id');
 
         return redirect('/sales-invoice-report');
     }
@@ -145,7 +145,7 @@ class SalesInvoiceReportController extends Controller
             });
 
         if ($customer_id) {
-            $salesinvoice = $salesinvoice->whereHas('Customer', function ($query) use ($customer_id) {
+            $salesinvoice = $salesinvoice->whereHas('SalesInvoice', function ($query) use ($customer_id) {
                 $query->where('customer_id', $customer_id);
             });
         }
@@ -193,6 +193,12 @@ class SalesInvoiceReportController extends Controller
                 $row = 13;
                 $no = 1;
 
+                // Variabel untuk menyimpan total
+                $totalQty = 0;
+                $totalJumlah = 0;
+                $totalDiskon = 0;
+                $totalHarga = 0;
+
                 // Isi data
                 foreach ($invoices as $invoice) {
                     $sheet->setCellValue('B' . $row, $no++);
@@ -204,8 +210,22 @@ class SalesInvoiceReportController extends Controller
                     $sheet->setCellValue('H' . $row, number_format($invoice->item_unit_price * $invoice->quantity, 2, '.', ''));
                     $sheet->setCellValue('I' . $row, number_format($invoice->discount_A, 2, '.', ''));
                     $sheet->setCellValue('J' . $row, number_format($invoice->subtotal_price_A, 2, '.', ''));
+
+                    // Hitung total
+                    $totalQty += $invoice->quantity;
+                    $totalJumlah += $invoice->item_unit_price * $invoice->quantity;
+                    $totalDiskon += $invoice->discount_A;
+                    $totalHarga += $invoice->subtotal_price_A;
+
                     $row++;
                 }
+
+                // Tambahkan baris total
+                $sheet->setCellValue('F' . $row, "TOTAL");
+                $sheet->setCellValue('G' . $row, number_format($totalQty, 2, '.', ''));
+                $sheet->setCellValue('H' . $row, number_format($totalJumlah, 2, '.', ''));
+                $sheet->setCellValue('I' . $row, number_format($totalDiskon, 2, '.', ''));
+                $sheet->setCellValue('J' . $row, number_format($totalHarga, 2, '.', ''));
             }
 
             // Hapus sheet default
@@ -224,7 +244,6 @@ class SalesInvoiceReportController extends Controller
             return response()->json(['message' => 'Maaf, tidak ada data untuk diekspor!'], 404);
         }
     }
-
 
     public function getCustomerName($customer_id){
         $customer = CoreCustomer::select('customer_name')

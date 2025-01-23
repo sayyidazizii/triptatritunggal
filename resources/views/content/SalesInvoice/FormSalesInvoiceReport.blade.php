@@ -31,7 +31,7 @@
 @section('content')
 
 <h3 class="page-title">
-    <b>Laporan Penjualan</b> <small>Mengelola Laporan Penjualan</small>
+    <b>Laporan Penjualan</b>
 </h3>
 <br/>
 <div id="accordion">
@@ -69,7 +69,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <a class="text-dark">Kode Pembeli</a>
+                        <a class="text-dark">Pembeli</a>
                         <br/>
                         {!! Form::select('customer_id',  $customer, $customer_id, ['class' => 'selection-search-clear select-form', 'id' => 'customer_id']) !!}
                     </div>
@@ -137,13 +137,6 @@
                     <?php $no++; ?>
                     @endforeach
                 </tbody>
-                <tr class="text-bold">
-                        <td colspan="5" style='text-align:center'> JUMLAH TOTAL</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
                     <tr class="text-bold">
                         <td colspan="8" style='text-align:center'></td>
                         <td colspan="2" style='text-align:center'>
