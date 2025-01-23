@@ -1,14 +1,14 @@
-@inject('SalesInvoice', 'App\Http\Controllers\SalesInvoiceController')
+@inject('SalesInvoiceReport', 'App\Http\Controllers\SalesInvoiceReportController')
 
 @extends('adminlte::page')
 
 @section('js')
 <script>
 	$(document).ready(function(){
-        var customer_code    = {!! json_encode($customer_code) !!};
+        var customer_id    = {!! json_encode($customer_id) !!};
 
-        if(customer_code == null){
-            $("#customer_code").select2("val", "0");
+        if(customer_id == null){
+            $("#customer_id").select2("val", "0");
         }
     });
 </script>
@@ -71,7 +71,7 @@
                     <div class="col-md-4">
                         <a class="text-dark">Kode Pembeli</a>
                         <br/>
-                        {!! Form::select('customer_code',  $customer, $customer_code, ['class' => 'selection-search-clear select-form', 'id' => 'customer_code']) !!}
+                        {!! Form::select('customer_id',  $customer, $customer_id, ['class' => 'selection-search-clear select-form', 'id' => 'customer_id']) !!}
                     </div>
                 </div>
             </div>
@@ -104,17 +104,13 @@
                 <thead>
                     <tr>
                         <th width="2%" style='text-align:center'>No.</th>
-                        <th width="5%" style='text-align:center'>Tanggal Invoice</th>
-                        <th width="10%" style='text-align:center'>No Faktur Pajak</th>
+                        <th width="10%" style='text-align:center'>No Invoice</th>
                         <th width="20%" style='text-align:center'>Nama Pembeli</th>
-                        <th width="10%" style='text-align:center'>No Invoice Penjualan</th>
-                        <th width="20%" style='text-align:center'>Nama Obat</th>
+                        <th width="5%" style='text-align:center'>Tanggal</th>
+                        <th width="20%" style='text-align:center'>Barang</th>
                         <th width="5%" style='text-align:center'>Qty</th>
                         <th width="5%" style='text-align:center'>Jumlah</th>
-                        <th width="5%" style='text-align:center'>HPP</th>
                         <th width="5%" style='text-align:center'>DISKON</th>
-                        <th width="5%" style='text-align:center'>DPP</th>
-                        <th width="5%" style='text-align:center'>PPN</th>
                         <th width="5%" style='text-align:center'>TOTAL</th>
 
                     </tr>
@@ -129,37 +125,30 @@
                     @endphp
                     <tr>
                         <td style='text-align:center'>{{$no}}.</td>
-                        <td>{{ $item['sales_invoice_date']}}</td>
-                        <td>{{ $item['purchase_order_no']}}</td>
-                        <td>{{ $SalesInvoice->getCustomerName($item['customer_id'])}}</td>
-                        <td>{{ $item['sales_invoice_no']}}</td>
-                        <td>{{ $item->item_type_id }}</td>
-                        <td>{{ $item['quantity']}}</td>
-                        <td>{{ $item['item_unit_price'] * $item['quantity']}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{ $item->SalesInvoice->sales_invoice_no }}</td>
+                        <td>{{ $SalesInvoiceReport->getCustomerName($item->SalesInvoice->customer_id)}}</td>
+                        <td>{{ $item->SalesInvoice->sales_invoice_date }}</td>
+                        <td>{{ $SalesInvoiceReport->getItemTypeName($item->item_type_id) }}</td>
+                        <td>{{ $item->quantity }}</td>
+                        <td>{{ number_format($item->item_unit_price * $item->quantity) }}</td>
+                        <td>{{ number_format($item->discount_A) }}</td>
+                        <td>{{ number_format($item->subtotal_price_A) }}</td>
                     </tr>
                     <?php $no++; ?>
                     @endforeach
                 </tbody>
                 <tr class="text-bold">
-                        <td colspan="6" style='text-align:center'> JUMLAH TOTAL</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td colspan="5" style='text-align:center'> JUMLAH TOTAL</td>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
                     </tr>
                     <tr class="text-bold">
-                        <td colspan="10" style='text-align:center'></td>
-                        <td colspan="3" style='text-align:center'>
+                        <td colspan="8" style='text-align:center'></td>
+                        <td colspan="2" style='text-align:center'>
                             @if(count($salesinvoice) > 0)
-                            <a href="{{ url('sales-invoice/export') }}" name="Find" class="btn btn-sm btn-info" title="Export Excel"><i class="fa fa-print"></i>Export</a>
+                            <a href="{{ url('sales-invoice-report/export') }}" name="Find" class="btn btn-sm btn-info" title="Export Excel"><i class="fa fa-print"></i>Export</a>
                             @endif
                         </td>
                     </tr>

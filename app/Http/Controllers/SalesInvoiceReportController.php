@@ -79,25 +79,27 @@ class SalesInvoiceReportController extends Controller
             $end_date = Session::get('end_date');
         }
 
-        $customer_code = Session::get('customer_code');
+        $customer_id = Session::get('customer_id');
 
         Session::forget('salesinvoiceitem');
         Session::forget('salesinvoiceelements');
-        $salesinvoice = SalesInvoice::with(['Items','SalesQuotation', 'Customer'])
+        $salesinvoice = SalesInvoiceItem::with(['SalesQuotationItems','SalesInvoice'])
         ->where('data_state', '=', 0)
-        ->where('sales_invoice_date', '>=', $start_date)
-        ->where('sales_invoice_date', '<=', $end_date);
-        if ($customer_code) {
-            $salesinvoice = $salesinvoice->whereHas('Customer', function ($query) use ($customer_code) {
-                $query->where('customer_code', $customer_code);
+        ->whereHas('SalesInvoice', function ($query) use ($start_date, $end_date) {
+            $query->where('sales_invoice_date', '>=', $start_date)
+                ->where('sales_invoice_date', '<=', $end_date);
+        });
+        if ($customer_id) {
+            $salesinvoice = $salesinvoice->whereHas('Customer', function ($query) use ($customer_id) {
+                $query->where('customer_id', $customer_id);
             });
         }
         $salesinvoice       = $salesinvoice->get();
-        $customer = CoreCustomer::select('customer_id', 'customer_name','customer_code')
+        $customer = CoreCustomer::select('customer_id', 'customer_name')
             ->where('data_state', 0)
-            ->pluck('customer_code', 'customer_code');
+            ->pluck('customer_name', 'customer_id');
 
-        return view('content/SalesInvoice/FormSalesInvoiceReport', compact('salesinvoice', 'start_date', 'end_date', 'customer_code', 'customer'));
+        return view('content/SalesInvoice/FormSalesInvoiceReport', compact('salesinvoice', 'start_date', 'end_date', 'customer_id', 'customer'));
     }
 
     //Report
@@ -105,35 +107,12 @@ class SalesInvoiceReportController extends Controller
     {
         $start_date     = $request->start_date;
         $end_date       = $request->end_date;
-        $customer_code  = $request->customer_code;
+        $customer_id  = $request->customer_id;
 
-        if(empty($customer_code)){
-            $msg = 'Pilih Kode Pembeli';
-            return redirect('/sales-invoice-report')->with('msg', $msg);
-        }else{
-        $customer_id = CoreCustomer::where('customer_code', '=', $customer_code)->first();
         Session::put('start_date', $start_date);
         Session::put('end_date', $end_date);
-        Session::put('customer_code', $customer_code);
-        $salesinvoice = SalesInvoice::where('sales_invoice.data_state', '=', 0)
-        ->join('core_customer','core_customer.customer_id','sales_invoice.customer_id')
-        ->join('sales_invoice_item','sales_invoice_item.sales_invoice_id','sales_invoice.sales_invoice_id')
-        ->join('sales_order','sales_order.sales_order_id','sales_invoice.sales_order_id')
-        ->where('sales_invoice.data_state', '=', 0)
-        ->where('sales_invoice.sales_invoice_date', '>=', $start_date)
-        ->where('sales_invoice.sales_invoice_date', '<=', $end_date);
-            if ($customer_code || $customer_code != null || $customer_code != '') {
-                $salesinvoice = $salesinvoice->where('core_customer.customer_code', $customer_code);
-            }
-            $salesinvoice = $salesinvoice->get();
-            $saleskwitansi = array(
-                'customer_id'                   => $customer_id['customer_id'],
-                'start_date'                    => $start_date,
-                'end_date'                      => $end_date,
-                'sales_kwitansi_date'           => \Carbon\Carbon::now(),
-                'created_id'                    => Auth::id(),
-            );
-        }
+        Session::put('customer_id', $customer_id);
+
         return redirect('/sales-invoice-report');
     }
 
@@ -147,170 +126,136 @@ class SalesInvoiceReportController extends Controller
         return redirect('/sales-invoice-report');
     }
 
-    public function export(){
-        if (!Session::get('start_date')) {
-            $start_date = date('Y-m-d');
-        } else {
-            $start_date = Session::get('start_date');
-        }
+    public function export()
+    {
+        // Pastikan session valid
+        $start_date = Session::get('start_date') ?? date('Y-m-d');
+        $end_date = Session::get('end_date') ?? date('Y-m-d');
+        $customer_id = Session::get('customer_id');
 
-        if (!Session::get('end_date')) {
-            $end_date = date('Y-m-d');
-        } else {
-            $end_date = Session::get('end_date');
-        }
-
-        $customer_code = Session::get('customer_code');
-
+        // Reset session yang tidak diperlukan
         Session::forget('salesinvoiceitem');
         Session::forget('salesinvoiceelements');
 
-        $salesinvoice = SalesInvoice::where('sales_invoice.data_state', '=', 0)
-        ->join('core_customer','core_customer.customer_id','sales_invoice.customer_id')
-        ->join('sales_invoice_item','sales_invoice_item.sales_invoice_id','sales_invoice.sales_invoice_id')
-        ->join('sales_order','sales_order.sales_order_id','sales_invoice.sales_order_id')
-        ->where('sales_invoice.data_state', '=', 0)
-        ->where('sales_invoice.sales_invoice_date', '>=', $start_date)
-        ->where('sales_invoice.sales_invoice_date', '<=', $end_date);
+        // Ambil data penjualan
+        $salesinvoice = SalesInvoiceItem::with(['SalesQuotationItems', 'SalesInvoice'])
+            ->where('data_state', '=', 0)
+            ->whereHas('SalesInvoice', function ($query) use ($start_date, $end_date) {
+                $query->whereBetween('sales_invoice_date', [$start_date, $end_date]);
+            });
 
-        if ($customer_code || $customer_code != null || $customer_code != '') {
-            $salesinvoice = $salesinvoice->where('core_customer.customer_code', $customer_code);
+        if ($customer_id) {
+            $salesinvoice = $salesinvoice->whereHas('Customer', function ($query) use ($customer_id) {
+                $query->where('customer_id', $customer_id);
+            });
         }
 
         $salesinvoice = $salesinvoice->get();
-
         $preference_company = PreferenceCompany::first();
 
+        // Buat spreadsheet
         $spreadsheet = new Spreadsheet();
 
-        if (count($salesinvoice) > 0) {
-            $spreadsheet->getProperties()->setCreator("TRADING SYSTEM")
-                ->setLastModifiedBy("TRADING SYSTEM")
-                ->setTitle("SALES INVOICE REPORT")
-                ->setSubject("")
-                ->setDescription("SALES INVOICE REPORT")
-                ->setKeywords("SALES INVOICE REPORT")
-                ->setCategory("SALES INVOICE REPORT");
+        if ($salesinvoice->count() > 0) {
+            // Set properti file
+            $spreadsheet->getProperties()->setCreator("CIPTASOLUTINDO")
+                ->setLastModifiedBy("CIPTASOLUTINDO")
+                ->setTitle("LAPORAN PENJUALAN")
+                ->setDescription("LAPORAN PENJUALAN");
 
-            $groupedInvoices = $salesinvoice->groupBy('customer_code');
+            // Group data berdasarkan customer_id
+            $groupedInvoices = $salesinvoice->groupBy('customer_id');
 
-            foreach ($groupedInvoices as $customer_code => $invoices) {
+            foreach ($groupedInvoices as $customer_id => $invoices) {
+                // Buat sheet baru untuk setiap customer
                 $sheet = $spreadsheet->createSheet();
-                $sheet->setTitle($customer_code);
+                $sheet->setTitle("Customer " . $customer_id);
 
-                $sheet->mergeCells("B5:O5");
-                $sheet->mergeCells("B6:O6");
-                $sheet->mergeCells("B7:O7");
-                $sheet->mergeCells("B8:O8");
-                $sheet->mergeCells("B9:O9");
-                $sheet->mergeCells("B10:O10");
-                $sheet->mergeCells("B11:O11");
-                $sheet->getStyle('B5')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
-                $sheet->getStyle('B6')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
-                $sheet->getStyle('B7')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
-                $sheet->getStyle('B8')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
-                $sheet->getStyle('B9')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
-                $sheet->getStyle('B10')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
-                $sheet->getStyle('B11')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
-                $sheet->getStyle('B11')->getFont()->setBold(true)->setSize(16);
+                // Header laporan
+                $sheet->mergeCells("B5:J5");
+                $sheet->mergeCells("B6:J6");
+                $sheet->mergeCells("B7:J7");
+                $sheet->setCellValue('B5', "TRIPTA TRI TUNGGAL");
+                $sheet->setCellValue('B6', "PERUM. BUMI WONOREJO - KARANGANYAR");
+                $sheet->setCellValue('B7', "REKAPITULASI PENJUALAN TANGGAL $start_date - $end_date");
 
-                $sheet->getStyle('B12:O12')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                $sheet->getStyle('B12:O12')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-
-                $sheet->setCellValue('B5', "PBF MENJANGAN ENAM ");
-                $sheet->setCellValue('B6', "Jl.Puspowarno Raya No 55D Bojong Salaman,Semarang Barat");
-                $sheet->setCellValue('B7', "APA : ISTI RAHMADANI,S.Farm, Apt.");
-                $sheet->setCellValue('B8', " SIKA: 449.2/16/DPM-PTSP/SIKA.16/III/2019 ");
-                $sheet->setCellValue('B9', "");
-                $sheet->setCellValue('B10', "REKAPITULASI PENJUALAN TANGGAL ".$start_date." - ".$end_date);
-                $sheet->setCellValue('B11', "$customer_code");
+                // Header tabel
                 $sheet->setCellValue('B12', "No");
-                $sheet->setCellValue('C12', "TGL INV");
-                $sheet->setCellValue('D12', "NOMOR FPP");
-                $sheet->setCellValue('E12', "CABANG");
-                $sheet->setCellValue('F12', "NO INVOICE");
-                $sheet->setCellValue('G12', "NAMA OBAT");
-                $sheet->setCellValue('H12', "QTY");
-                $sheet->setCellValue('I12', "JUMLAH");
-                $sheet->setCellValue('J12', "HPP");
-                $sheet->setCellValue('K12', "DISKON");
-                $sheet->setCellValue('L12', "DPP");
-                $sheet->setCellValue('M12', "PPN");
-                $sheet->setCellValue('N12', "TOTAL BAYAR");
-                $sheet->setCellValue('O12', "%DISKON");
+                $sheet->setCellValue('C12', "TANGGAL");
+                $sheet->setCellValue('D12', "PEMBELI");
+                $sheet->setCellValue('E12', "NO INVOICE");
+                $sheet->setCellValue('F12', "BARANG");
+                $sheet->setCellValue('G12', "QTY");
+                $sheet->setCellValue('H12', "JUMLAH");
+                $sheet->setCellValue('I12', "DISKON");
+                $sheet->setCellValue('J12', "TOTAL");
 
-                $j  = 13;
+                $row = 13;
                 $no = 1;
 
-                foreach ($invoices as $val) {
-                    $salesorderitem = $this->getSalesOrderItem($val['sales_delivery_note_item_id']);
-                    $itemunitcost   = $this->getUnitCost($salesorderitem ?? '');
-                    $jumlahDiskon   = $val['discount_A'] + $val['discount_B'];
-                    $ppn            = $this->getPpnItem($salesorderitem);
-                    $dpp            = ($val['item_unit_price'] * $val['quantity']) - $jumlahDiskon;
-
-                    $diskonPersen   = $this->getDiscountAmt($val['sales_delivery_note_item_id']) + $this->getDiscountAmtB($val['sales_delivery_note_item_id']) ;
-
-                    $sheet->getStyle('B'.$j.':O'.$j)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                    $sheet->getStyle('O'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-
-                    $sheet->setCellValue('B'.$j, $no);
-                    $sheet->setCellValue('C'.$j, $val['sales_invoice_date']);
-                    $sheet->setCellValue('D'.$j, $val['purchase_order_no']);
-                    $sheet->setCellValue('E'.$j, $this->getCustomerName($val['customer_id']));
-                    $sheet->setCellValue('F'.$j, $val['sales_invoice_no']);
-                    $sheet->setCellValue('G'.$j, $this->getItemTypeName($val['item_type_id']));
-                    $sheet->setCellValue('H'.$j, number_format($val['quantity'], 2, '.', ''));
-                    $sheet->setCellValue('I'.$j, number_format($val['item_unit_price'] * $val['quantity'], 2, '.', ''));
-                    $sheet->setCellValue('J'.$j, number_format($itemunitcost * $val['quantity'], 2, '.', ''));
-                    $sheet->setCellValue('K'.$j, number_format($jumlahDiskon, 2, '.', ''));
-                    $sheet->setCellValue('L'.$j, number_format($dpp, 2, '.', ''));
-                    $sheet->setCellValue('M'.$j, number_format($ppn, 2, '.', ''));
-                    $sheet->setCellValue('N'.$j, number_format($dpp + $ppn, 2, '.', ''));
-                    $sheet->setCellValue('O'.$j, " $diskonPersen  %");
-
-                    $no++;
-                    $j++;
+                // Isi data
+                foreach ($invoices as $invoice) {
+                    $sheet->setCellValue('B' . $row, $no++);
+                    $sheet->setCellValue('C' . $row, $invoice->sales_invoice_date);
+                    $sheet->setCellValue('D' . $row, $this->getCustomerName($invoice->SalesInvoice->customer_id));
+                    $sheet->setCellValue('E' . $row, $invoice->SalesInvoice->sales_invoice_no);
+                    $sheet->setCellValue('F' . $row, $this->getItemTypeName($invoice->item_type_id));
+                    $sheet->setCellValue('G' . $row, number_format($invoice->quantity, 2, '.', ''));
+                    $sheet->setCellValue('H' . $row, number_format($invoice->item_unit_price * $invoice->quantity, 2, '.', ''));
+                    $sheet->setCellValue('I' . $row, number_format($invoice->discount_A, 2, '.', ''));
+                    $sheet->setCellValue('J' . $row, number_format($invoice->subtotal_price_A, 2, '.', ''));
+                    $row++;
                 }
-
-                $lastj = $j;
-                $lastno = $no;
-
-                $sheet->getStyle('B'.$lastj.':N'.$lastj)->getBorders()->getOutline()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                $sheet->setCellValue('G' . $lastj, 'Jumlah Total:');
-                $sheet->setCellValue('H' . $lastj, '=SUM(H13:H'.($lastj-1).')');
-                $sheet->setCellValue('I' . $lastj, '=SUM(I13:I'.($lastj-1).')');
-                $sheet->setCellValue('J' . $lastj, '=SUM(J13:J'.($lastj-1).')');
-                $sheet->setCellValue('K' . $lastj, '=SUM(K13:K'.($lastj-1).')');
-                $sheet->setCellValue('L' . $lastj, '=SUM(L13:L'.($lastj-1).')');
-                $sheet->setCellValue('M' . $lastj, '=SUM(M13:M'.($lastj-1).')');
-                $sheet->setCellValue('N' . $lastj, '=SUM(N13:N'.($lastj-1).')');
-
-                $sheet->setCellValue('F' . ($lastj + 1), 'Mengetahui');
-                $sheet->setCellValue('K' . ($lastj + 1), 'Dibuat Oleh');
-
-                $sheet->getStyle('E'.($lastj + 5))->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                $sheet->getStyle('E'.($lastj + 5))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $sheet->getStyle('G'.($lastj + 5))->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-                $sheet->getStyle('K'.($lastj + 5))->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-
-                $sheet->setCellValue('E' . ($lastj + 5), 'Apoteker');
-                $sheet->setCellValue('G' . ($lastj + 5), 'Administrasi Pajak');
-                $sheet->setCellValue('K' . ($lastj + 5), 'Dibuat Oleh');
             }
 
-            $spreadsheet->removeSheetByIndex(0); // Remove default sheet created by PhpSpreadsheet
+            // Hapus sheet default
+            $spreadsheet->removeSheetByIndex(0);
 
-            ob_clean();
-            $filename='SALES INVOICE REPORT '.date('d M Y').'.xlsx';
+            // Export file
+            $filename = 'LAPORAN_PENJUALAN_' . date('d_M_Y') . '.xlsx';
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-            header('Content-Disposition: attachment;filename="'.$filename.'"');
+            header('Content-Disposition: attachment;filename="' . $filename . '"');
             header('Cache-Control: max-age=0');
 
             $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
             $writer->save('php://output');
         } else {
-            echo "Maaf data yang di eksport tidak ada !";
+            // Tampilkan pesan jika data tidak ditemukan
+            return response()->json(['message' => 'Maaf, tidak ada data untuk diekspor!'], 404);
         }
+    }
+
+
+    public function getCustomerName($customer_id){
+        $customer = CoreCustomer::select('customer_name')
+        ->where('customer_id', $customer_id)
+        ->where('data_state', 0)
+        ->first();
+
+        return $customer['customer_name'];
+    }
+
+    public function getItemTypeName($item_type_id)
+    {
+        $item = InvItemType::select('item_type_name')
+            ->where('data_state', 0)
+            ->where('item_type_id', $item_type_id)
+            ->first();
+
+        return $item['item_type_name'];
+    }
+
+    public function getItemUnitName($item_unit_id)
+    {
+        $item = InvItemUnit::select('item_unit_name')
+            ->where('data_state', 0)
+            ->where('item_unit_id', $item_unit_id)
+            ->first();
+
+        if ($item == null) {
+            return '-';
+        }
+
+        return $item['item_unit_name'];
     }
 }

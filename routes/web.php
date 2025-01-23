@@ -652,8 +652,7 @@ Route::get('/sales-invoice/export', [SalesInvoiceController::class, 'export'])->
 Route::get('/sales-invoice-report', [SalesInvoiceReportController::class, 'index'])->name('sales-invoice-report');
 Route::post('/sales-invoice-report/filter', [SalesInvoiceReportController::class, 'filterSalesInvoiceReport'])->name('filter-sales-invoice-report');
 Route::get('/sales-invoice-report/filter-reset', [SalesInvoiceReportController::class, 'resetFilterSalesInvoiceReport'])->name('filter-reset-sales-invoice-report');
-Route::get('/sales-invoice/export', [SalesInvoiceReportController::class, 'export'])->name('sales-invoice-export');
-Route::get('/sales-invoice-report/cetak-pengantar', [SalesInvoiceReportController::class, 'printKwitansiPengantar'])->name('cetak-pengantar-sales-invoice-report');
+Route::get('/sales-invoice-report/export', [SalesInvoiceReportController::class, 'export'])->name('sales-invoice-report-export');
 
 Route::get('/warehouse-transfer-type', [InvWarehouseTransferTypeController::class, 'index'])->name('warehouse-transfer-type');
 Route::get('/warehouse-transfer-type/add', [InvWarehouseTransferTypeController::class, 'addInvWarehouseTransferType'])->name('add-warehouse-transfer-type');
