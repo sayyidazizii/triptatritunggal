@@ -64,7 +64,7 @@
                 <div class="form-actions float-right">
                     <button type="reset" name="Reset" class="btn btn-danger btn-sm" onClick="window.location.reload();"><i class="fa fa-times"></i> Batal</button>
                     <button type="submit" name="Find" class="btn btn-primary btn-sm" title="Search Data"><i class="fa fa-search"></i> Cari</button>
-                    <a href="{{ url('sales-delivery-note/export') }}"name="Find" class="btn btn-sm btn-info" title="Export Excel"><i class="fa fa-print"></i>Export</a>
+                    {{-- <a href="{{ url('sales-delivery-note/export') }}"name="Find" class="btn btn-sm btn-info" title="Export Excel"><i class="fa fa-print"></i>Export</a> --}}
                 </div>
             </div>
         </div>
