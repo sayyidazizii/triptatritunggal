@@ -46,6 +46,7 @@ use App\Http\Controllers\AcctAccountSettingController;
 use App\Http\Controllers\AcctJournalVoucherController;
 use App\Http\Controllers\InvWarehouseInTypeController;
 use App\Http\Controllers\SalesDeliveryOrderController;
+use App\Http\Controllers\SalesInvoiceReportController;
 use App\Http\Controllers\SalesOrderApprovalController;
 use App\Http\Controllers\AcctJournalMemorialController;
 use App\Http\Controllers\InvWarehouseOutTypeController;
@@ -648,10 +649,11 @@ Route::get('/sales-invoice/closed/{sales_invoice_id}', [SalesInvoiceController::
 Route::post('/sales-invoice/process-closed', [SalesInvoiceController::class, 'processClosedSalesInvoice'])->name('process-closed-sales-invoice');
 Route::get('/sales-invoice/export', [SalesInvoiceController::class, 'export'])->name('sales-invoice-export');
 
-Route::get('/sales-invoice-report', [SalesInvoiceController::class, 'ReportSalesInvoice'])->name('sales-invoice-report');
-Route::post('/sales-invoice-report/filter', [SalesInvoiceController::class, 'filterSalesInvoiceReport'])->name('filter-sales-invoice-report');
-Route::get('/sales-invoice-report/filter-reset', [SalesInvoiceController::class, 'resetFilterSalesInvoiceReport'])->name('filter-reset-sales-invoice-report');
-Route::get('/sales-invoice-report/cetak-pengantar', [SalesInvoiceController::class, 'printKwitansiPengantar'])->name('cetak-pengantar-sales-invoice-report');
+Route::get('/sales-invoice-report', [SalesInvoiceReportController::class, 'index'])->name('sales-invoice-report');
+Route::post('/sales-invoice-report/filter', [SalesInvoiceReportController::class, 'filterSalesInvoiceReport'])->name('filter-sales-invoice-report');
+Route::get('/sales-invoice-report/filter-reset', [SalesInvoiceReportController::class, 'resetFilterSalesInvoiceReport'])->name('filter-reset-sales-invoice-report');
+Route::get('/sales-invoice/export', [SalesInvoiceReportController::class, 'export'])->name('sales-invoice-export');
+Route::get('/sales-invoice-report/cetak-pengantar', [SalesInvoiceReportController::class, 'printKwitansiPengantar'])->name('cetak-pengantar-sales-invoice-report');
 
 Route::get('/warehouse-transfer-type', [InvWarehouseTransferTypeController::class, 'index'])->name('warehouse-transfer-type');
 Route::get('/warehouse-transfer-type/add', [InvWarehouseTransferTypeController::class, 'addInvWarehouseTransferType'])->name('add-warehouse-transfer-type');
