@@ -1,7 +1,7 @@
 @inject('APLR','App\Http\Controllers\AcctProfitLossReportController')
 @extends('adminlte::page')
 
-@section('title', 'MOZAIC Minimarket')
+@section('title', 'Tripta Tri Tunggal')
 @section('js')
     <script>
            function reset_add(){
@@ -17,7 +17,7 @@
 
         $(document).ready(function(){
 
-            var journal_voucher_id = {!! json_encode(session('journal_voucher_id')) !!} 
+            var journal_voucher_id = {!! json_encode(session('journal_voucher_id')) !!}
             if (journal_voucher_id == null) {
                 $('#journal_voucher_id').select2('val', ' ');
             }
@@ -26,7 +26,7 @@
 @endsection
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -92,7 +92,7 @@
 <div class="alert alert-info" role="alert">
     {{session('msg')}}
 </div>
-@endif 
+@endif
 <div class="card border border-dark">
   <div class="card-header bg-dark clearfix">
     <h5 class="mb-0 float-left">
@@ -122,8 +122,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $no = 1; 
-                    
+                    <?php $no = 1;
+
                     ?>
                     @foreach ($income as $val)
                         <?php
@@ -162,7 +162,7 @@
                                         <td colspan='2'><div style='font-weight:".$report_bold."'>".$report_tab."".$val['account_name']."</div></td>
                                         ";
                                 }
-                                
+
                             echo "
                                 </tr>";
 
@@ -175,7 +175,7 @@
                                         <td style='width: 25%'><div style='font-weight:".$report_bold."'></div></td>
                                         ";
                                 }
-                                    
+
                             echo "
                                 </tr>";
 
@@ -189,12 +189,12 @@
                                         <td><div style='font-weight:".$report_bold."'>".$report_tab."(".$val['account_code'].") ".$val['account_name']."</div> </td>
                                         <td style='text-align:right'><div style='font-weight:".$report_bold."'>".number_format($income_subtotal, 2)."</div></td>
                                     ";
- 
+
                                     $account_amount[$val['report_no']] = $income_subtotal;
                                 }
 
-                                
-                                    
+
+
                             echo "
                                 </tr>";
 
@@ -233,7 +233,7 @@
 
                             // print_r($total_account_amount);
 
-                            echo "			
+                            echo "
                                 </tr>";
 
 
@@ -242,7 +242,7 @@
                                     $report_formula 	= explode('#', $val['report_formula']);
                                     $report_operator 	= explode('#', $val['report_operator']);
 
-                                    
+
                                     $grand_total_account_amount1	= 0;
                                     for($i = 0; $i < count($report_formula); $i++){
                                         if($report_operator[$i] == '-'){
@@ -272,8 +272,8 @@
                     <tr>
                         <td colspan='2'></td>
                     </tr>
-                    <?php $no = 1; 
-                         
+                    <?php $no = 1;
+
                     ?>
                     @foreach ($expenditure as $val)
                         <?php
@@ -311,7 +311,7 @@
                                         <td colspan='2'><div style='font-weight:".$report_bold."'>".$report_tab."".$val['account_name']."</div></td>
                                         ";
                                 }
-                                
+
                             echo "
                                 </tr>";
 
@@ -324,15 +324,15 @@
                                         <td style='width: 25%'><div style='font-weight:".$report_bold."'></div></td>
                                         ";
                                 }
-                                    
+
                             echo "
                                 </tr>";
 
                             echo "
                                 <tr>";
-                                    
+
                                 if($val['report_type']	== 3){
-                                    
+
                                     $expenditure_subtotal 	= $APLR->getAmountAccount($val['account_id']);
 
                                     echo "
@@ -343,8 +343,8 @@
                                     $account_amount[$val['report_no']] = $expenditure_subtotal;
                                 }
 
-                                
-                                    
+
+
                             echo "
                                 </tr>";
 
@@ -383,7 +383,7 @@
 
                             // print_r($total_account_amount);
 
-                            echo "			
+                            echo "
                                 </tr>";
 
 
@@ -392,7 +392,7 @@
                                     $report_formula 	= explode('#', $val['report_formula']);
                                     $report_operator 	= explode('#', $val['report_operator']);
 
-                                    
+
                                     $grand_total_account_amount2	= 0;
                                     for($i = 0; $i < count($report_formula); $i++){
                                         if($report_operator[$i] == '-'){
@@ -417,7 +417,7 @@
                                 }
 
                             }
-                        ?> 
+                        ?>
                     @endforeach
                     <tr>
                         <td colspan='2'></td>
@@ -442,13 +442,13 @@
 @stop
 
 @section('footer')
-    
+
 @stop
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
-@stop   
+
+@stop
