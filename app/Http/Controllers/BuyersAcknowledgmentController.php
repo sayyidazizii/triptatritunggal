@@ -214,6 +214,10 @@ class BuyersAcknowledgmentController extends Controller
                     'sales_quotation_status' => 3,
                 ]);
 
+            $salesdeliverynote->update([
+                    'buyers_acknowledgment_status' => 1,
+            ]);
+
             DB::commit();
 
             return redirect('/buyers-acknowledgment')->with('msg', 'Tambah Penerimaan Pihak Pembeli Berhasil');
