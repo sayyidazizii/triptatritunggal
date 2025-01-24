@@ -6,10 +6,12 @@ use Log;
 use App\Models\SalesOrder;
 use App\Models\AcctAccount;
 use App\Models\InvItemType;
+use App\Models\CoreCustomer;
 use App\Models\InvItemStock;
 use App\Models\InvWarehouse;
 use Illuminate\Http\Request;
 use App\Models\SalesOrderItem;
+use App\Models\SalesQuotation;
 use App\Models\PreferenceCompany;
 use App\Models\SalesDeliveryNote;
 use App\Models\AcctAccountSetting;
@@ -57,7 +59,8 @@ class BuyersAcknowledgmentController extends Controller
             $end_date = Session::get('end_date');
         }
 
-        $buyers_acknowledgment = BuyersAcknowledgment::where('data_state', 0)
+        $buyers_acknowledgment = BuyersAcknowledgment::with(['customer', 'salesDelivery'])
+        ->where('data_state', 0)
         ->where('buyers_acknowledgment_date', '>=', $start_date)
         ->where('buyers_acknowledgment_date', '<=', $end_date)
         ->get();
@@ -84,139 +87,34 @@ class BuyersAcknowledgmentController extends Controller
 
     public function searchSalesDeliveryNote()
     {
-        Session::forget('purchaseorderitem');
-
-        $salesdeliverynote= SalesDeliveryNote::where('data_state', 0)
+        $salesdeliverynote= SalesDeliveryNote::with(['salesQuotation', 'items','customer'])
+        ->where('data_state', 0)
         ->where('buyers_acknowledgment_status', 0)
         ->get();
-
         return view('content/CoreExpedition/BuyersAcknowledgment/SearchSalesDeliveryNote', compact('salesdeliverynote'));
     }
 
-    public function addBuyersAcknowledgment($sales_delivery_note_id){
-
-        $warehouse = InvWarehouse::select('warehouse_id', 'warehouse_name')
+    public function addBuyersAcknowledgment($sales_delivery_note_id)
+    {
+        $salesdeliverynote = SalesDeliveryNote::with(['salesQuotation', 'items','customer'])
         ->where('data_state', 0)
-        ->pluck('warehouse_name', 'warehouse_id');
-
-        $salesdeliverynote = SalesDeliveryNote::where('data_state', 0)
         ->where('sales_delivery_note_id', $sales_delivery_note_id)
         ->first();
-
         $acctaccount = AcctAccount::where('acct_account.data_state','=','0')
         ->select('account_id', DB::raw('CONCAT(account_code, " - ", account_name) AS account_code'))
         ->pluck('account_code', 'account_id');
-
         $salesdeliverynoteitem = SalesDeliveryNoteItem::where('data_state', 0)
         ->where('sales_delivery_note_id', $sales_delivery_note_id)
         ->get();
-
-
-        $salesorder = SalesOrder::select('sales_order.*')
-        ->where('data_state', 0)
-        ->where('sales_order_id', $salesdeliverynote['sales_order_id'])
-        ->first();
-
-        return view('content/CoreExpedition/BuyersAcknowledgment/FormAddBuyersAcknowledgment',compact('warehouse', 'salesdeliverynote', 'sales_delivery_note_id', 'salesdeliverynoteitem', 'salesorder', 'acctaccount'));
+        return view('content/CoreExpedition/BuyersAcknowledgment/FormAddBuyersAcknowledgment',compact('salesdeliverynote', 'sales_delivery_note_id', 'salesdeliverynoteitem', 'acctaccount'));
     }
 
-    public function getCustomerName($sales_delivery_order_id){
-        $salesdeliveryorder = SalesDeliveryOrderItem::select('core_customer.customer_name')
-        ->join('core_customer', 'core_customer.customer_id', 'sales_delivery_order_item.customer_id')
-        ->where('sales_delivery_order_item.sales_delivery_order_id', $sales_delivery_order_id)
-        ->where('sales_delivery_order_item.data_state', 0)
-        ->first();
-
-        if($salesdeliveryorder == null){
-            return "-";
-        }
-
-        return $salesdeliveryorder['customer_name'];
-    }
-
-    public function getItemStockName($item_stock_id){
-        $invitemstock = InvItemStock::select('inv_item_stock.item_stock_id', DB::raw('CONCAT(inv_item_category.item_category_name, " - ", inv_item_type.item_type_name, " - ", inv_item_stock.item_batch_number) AS item_name'))
-        ->join('inv_item_category', 'inv_item_category.item_category_id', 'inv_item_stock.item_category_id')
-        ->join('inv_item_type', 'inv_item_type.item_type_id', 'inv_item_stock.item_type_id')
-        ->where('item_stock_id', $item_stock_id)
-        ->where('inv_item_stock.data_state','=',0)
-        ->first();
-
-        if( $invitemstock == null){
-            return "-";
-        }
-        return $invitemstock['item_name'];
-    }
-
-    public function getPoNo($sales_order_id)
-    {
-        $data = SalesOrder::select('purchase_order_no')
-            ->where('data_state', 0)
-            ->where('sales_order_id', $sales_order_id)
-            ->first();
-
-        return $data['purchase_order_no'] ?? '';
-    }
-
-    public function getSalesOrderNo($sales_order_id){
-        $salesorder = SalesOrder::select('sales_order_no')
-        ->where('sales_order_id', $sales_order_id)
+    public function getCustomerName($customer_id){
+        $customer = CoreCustomer::select('customer_name')
+        ->where('customer_id', $customer_id)
         ->where('data_state', 0)
         ->first();
-
-        if($salesorder == null){
-            return "-";
-        }
-
-        return $salesorder['sales_order_no'];
-    }
-
-    public function getSalesOrderDate($sales_order_id){
-        $salesorder = SalesOrder::select('sales_order_date')
-        ->where('sales_order_id', $sales_order_id)
-        ->where('data_state', 0)
-        ->first();
-
-        if($salesorder == null){
-            return "-";
-        }
-
-        return $salesorder['sales_order_date'];
-    }
-
-    public function getSalesDeliveryOrderDate($sales_delivery_order_id){
-        $salesdeliveryorder = SalesDeliveryOrder::select('sales_delivery_order_date')
-        ->where('sales_delivery_order_id', $sales_delivery_order_id)
-        ->where('data_state', 0)
-        ->first();
-
-        if($salesdeliveryorder == null){
-            return "-";
-        }
-
-        return $salesdeliveryorder['sales_delivery_order_date'];
-    }
-
-    public function getCustomerNameSalesOrderId($sales_order_id){
-        $unit = SalesOrder::select('core_customer.customer_name')
-        ->join('core_customer', 'core_customer.customer_id', 'sales_order.customer_id')
-        ->where('sales_order_id', $sales_order_id)
-        ->where('sales_order.data_state', 0)
-        ->first();
-
-        if($unit == null){
-            return "-";
-        }
-
-        return $unit['customer_name'];
-    }
-
-    public function getCustomerId($sales_order_id){
-        $customer = SalesOrder::select('customer_id')
-        ->where('sales_order_id', $sales_order_id)
-        ->first();
-
-        return $customer['customer_id'];
+        return $customer['customer_name'];
     }
 
     public function getCategoryId($sales_order_item_id){
@@ -227,275 +125,106 @@ class BuyersAcknowledgmentController extends Controller
         return $category['item_category_id'];
     }
 
-    public function getWarehouseName($warehouse_id){
-        $warehouse = InvWarehouse::where('warehouse_id', $warehouse_id)
-        ->where('data_state', 0)
-        ->first();
+    public function getItemTypeName($item_type_id)
+    {
+        $item = InvItemType::select('item_type_name')
+            ->where('data_state', 0)
+            ->where('item_type_id', $item_type_id)
+            ->first();
 
-        if($warehouse == null){
-            return "-";
+        return $item['item_type_name'];
+    }
+
+    public function getItemUnitName($item_unit_id)
+    {
+        $item = InvItemUnit::select('item_unit_name')
+            ->where('data_state', 0)
+            ->where('item_unit_id', $item_unit_id)
+            ->first();
+
+        if ($item == null) {
+            return '-';
         }
 
-        return $warehouse['warehouse_name'];
+        return $item['item_unit_name'];
     }
 
-    public function getSalesDeliveryNoteNo($sales_delivery_note_id){
-        $deliverynote = SalesDeliveryNote::where('sales_delivery_note_id', $sales_delivery_note_id)
-        ->where('data_state', 0)
-        ->first();
-
-        if($deliverynote == null){
-            return "-";
-        }
-
-
-        return $deliverynote['sales_delivery_note_no'];
-    }
-
-    public function getSalesDeliveryNoteDate($sales_delivery_note_id){
-        $deliverynote = SalesDeliveryNote::where('sales_delivery_note_id', $sales_delivery_note_id)
-        ->where('data_state', 0)
-        ->first();
-
-        if($deliverynote == null){
-            return "-";
-        }
-
-        return $deliverynote['sales_delivery_note_date'];
-    }
-
-    public function getInvItemTypeName($item_type_id){
-        $item = InvItemType::select('inv_item_type.item_type_id', DB::raw('CONCAT(inv_item_category.item_category_name, " - ", inv_item_type.item_type_name) AS item_name'))
-        ->join('inv_item_category', 'inv_item_category.item_category_id', 'inv_item_type.item_category_id')
-        ->where('item_type_id', $item_type_id)
-        ->where('inv_item_type.data_state', 0)
-        ->first();
-
-        if( $item == null){
-            return "-";
-        }
-
-        return $item['item_name'];
-    }
-
-    public function getSalesOrderItem($sales_order_item_id){
-        $orderitem = SalesOrderItem::select('sales_order_item.*','sales_order.customer_id','sales_order.sales_order_no','sales_order.sales_order_date', DB::raw('CONCAT(inv_item_category.item_category_name, " - ", inv_item_type.item_type_name, " - ", inv_item_stock.item_batch_number) AS item_name'))
-        ->where('sales_order_item_id', $sales_order_item_id)
-        ->join('inv_item_stock', 'inv_item_stock.item_stock_id', 'sales_order_item.item_stock_id')
-        ->join('inv_item_category', 'inv_item_category.item_category_id', 'inv_item_stock.item_category_id')
-        ->join('inv_item_type', 'inv_item_type.item_type_id', 'inv_item_stock.item_type_id')
-        // ->join('core_grade', 'core_grade.grade_id', 'inv_item.grade_id')
-        ->join('sales_order', 'sales_order.sales_order_id', 'sales_order_item.sales_order_id')
-        ->first();
-
-        // dd($orderitem);
-
-        return $orderitem;
-    }
-
-    public function getItemStock($item_stock_id){
-        $item = InvItemStock::select('item_stock_id')
-        ->where('data_state', 0)
-        ->where('item_stock_id', $item_stock_id)
-        ->first();
-
-        return $item['item_stock_id'];
-    }
-
-    public function getItemUnitCost($item_stock_id){
-        $item = InvItemStock::select('item_unit_cost')
-        ->where('data_state', 0)
-        ->where('item_stock_id', $item_stock_id)
-        ->first();
-
-        return $item['item_unit_cost'];
-    }
-
-    public function processAddBuyersAcknowledgment(Request $request){
-        // dd($request->all());
+    public function processAddBuyersAcknowledgment(Request $request)
+    {
         $request->validate([
-            'buyers_acknowledgment_no'                  => 'required',
-            'buyers_acknowledgment_date'                => 'required',
+            'buyers_acknowledgment_no' => 'required',
+            'buyers_acknowledgment_date' => 'required|date',
         ]);
 
-    try {
-
-        DB::beginTransaction();
-
-        SalesOrder::where('sales_order_id',$request->sales_order_id_1)
-                ->update(['purchase_order_no' => $request->purchase_order_no]);
-
-        $buyers_acknowledgment = array(
-            'warehouse_id'                              => $request->warehouse_id,
-            'buyers_acknowledgment_no'                  => $request->buyers_acknowledgment_no,
-            'sales_order_id'                            => $request->sales_order_id_1,
-            'account_id'                                => 6,
-            'customer_id'                               => $request->customer_id,
-            'sales_delivery_order_id'                   => $request->sales_delivery_order_id,
-            'sales_delivery_note_id'                    => $request->sales_delivery_note_id,
-            'buyers_acknowledgment_date'                => $request->buyers_acknowledgment_date,
-            'buyers_acknowledgment_remark'              => $request->buyers_acknowledgment_remark,
-            'created_id'                                => Auth::id(),
-        );
-        BuyersAcknowledgment::create($buyers_acknowledgment);
-            $buyers_acknowledgment_id = BuyersAcknowledgment::select('buyers_acknowledgment_id')
-            ->orderBy('created_at', 'DESC')
+        $salesdeliverynote = SalesDeliveryNote::with(['salesQuotation', 'items', 'customer'])
+            ->where('sales_delivery_note_id', $request->sales_delivery_note_id)
             ->first();
-            $salesorderitem = SalesOrderItem::where('sales_order_id',$request->sales_order_id_1)
-            ->get();
-            $no =1;
-            $dataitem = $request->all();
-            $total    = 0;
-            foreach($salesorderitem as $item){
-                $item = BuyersAcknowledgmentItem::create([
-                    'buyers_acknowledgment_id'	    => $buyers_acknowledgment_id['buyers_acknowledgment_id'],
-                    'sales_delivery_order_id'	    => $buyers_acknowledgment_id['sales_delivery_order_id'],
-                    'sales_delivery_note_id' 	    => $dataitem['sales_delivery_note_id_'.$no],
-                    'sales_delivery_note_item_id'   => $dataitem['sales_delivery_note_item_id_'.$no],
-                    'sales_order_id' 			    => $dataitem['sales_order_id_'.$no],
-                    'sales_order_item_id' 		    => $dataitem['sales_order_item_id_'.$no],
-                    'customer_id' 				    => $dataitem['customer_id_'.$no],
-                    'item_category_id' 		        => $dataitem['item_category_id_'.$no],
-                    'item_type_id' 		            => $dataitem['item_type_id_'.$no],
-                    'item_stock_id' 		        => $dataitem['item_stock_id_'.$no],
-                    'item_unit_id' 		            => $dataitem['item_unit_id_'.$no],
-                    'item_unit_cost' 		        => $dataitem['item_unit_cost_'.$no],
-                    'item_unit_price' 		        => $dataitem['item_unit_price_'.$no],
-                    'subtotal_price' 		        => $dataitem['quantity_received_'.$no]*$dataitem['item_unit_price_'.$no],
-                    'quantity'					    => $dataitem['quantity_'.$no],
-                    'quantity_received'		        => $dataitem['quantity_received_'.$no],
-                    'created_id'                    => Auth::id(),
-                ]);
+
+        if (!$salesdeliverynote) {
+            return redirect()->back()->withErrors(['error' => 'Sales Delivery Note tidak ditemukan']);
+        }
+
+        try {
+            DB::beginTransaction();
+
+            $buyers_acknowledgment = [
+                'warehouse_id' => $salesdeliverynote->warehouse_id,
+                'buyers_acknowledgment_no' => $request->buyers_acknowledgment_no,
+                'sales_quotation_id' => $salesdeliverynote->salesQuotation->sales_quotation_id,
+                'customer_id' => $salesdeliverynote->customer_id,
+                'sales_delivery_note_id' => $salesdeliverynote->sales_delivery_note_id,
+                'buyers_acknowledgment_date' => $request->buyers_acknowledgment_date,
+                'buyers_acknowledgment_remark' => $request->buyers_acknowledgment_remark,
+                'created_id' => Auth::id(),
+            ];
+            $buyersAcknowledgment = BuyersAcknowledgment::create($buyers_acknowledgment);
+
+            $salesdeliverynoteitem = SalesDeliveryNoteItem::where('data_state', 0)
+                ->where('sales_delivery_note_id', $request->sales_delivery_note_id)
+                ->get();
+
+            $total = 0;
+            foreach ($salesdeliverynoteitem as $val) {
+                $total += $val->quotationItem->subtotal_after_discount_item_a;
             }
-                $no++;
-//--------------------------------------------------------JURNAL -----------------------------------------------------------------//
-            $preferencecompany = PreferenceCompany::first();
-            // *sales cash
-            $account_receivable_cash_account_id = AcctAccountSetting::where('account_setting_name','account_receivable_cash_account_id')->first();
-            $sales_cash_account_id = AcctAccountSetting::where('account_setting_name','sales_cash_account_id')->first();
-            // *sales credit
-            $account_receivable_credit_account_id = AcctAccountSetting::where('account_setting_name','account_receivable_credit_account_id')->first();
-            $sales_credit_account_id = AcctAccountSetting::where('account_setting_name','sales_credit_account_id')->first();
-            $transaction_module_code = "PPP";
-            $transactionmodule = PreferenceTransactionModule::where('transaction_module_code', $transaction_module_code)->first();
-            $transaction_module_id = $transactionmodule['transaction_module_id'];
-            $salesdeliverynote = SalesDeliveryNote::where('sales_delivery_note_id', $buyers_acknowledgment['sales_delivery_note_id'])->first();
-            $journal_voucher_period = date("Ym", strtotime($salesdeliverynote['sales_delivery_note_date']));
-            // *journal parent
-            $data_journal = array(
-                'branch_id'                     => 1,
-                'journal_voucher_period'        => $journal_voucher_period,
-                'journal_voucher_date'          => $buyers_acknowledgment['buyers_acknowledgment_date'],
-                'journal_voucher_title'         => 'Penjualan ' . $this->getPoNo($salesdeliverynote['sales_order_id']),
-                'journal_voucher_no'            => $buyers_acknowledgment['buyers_acknowledgment_no'],
-                'journal_voucher_description'   => $buyers_acknowledgment['buyers_acknowledgment_remark'],
-                'transaction_module_id'         => $transaction_module_id,
-                'transaction_module_code'       => $transaction_module_code,
-                'transaction_journal_id'        => $salesdeliverynote['sales_delivery_note_id'],
-                'transaction_journal_no'        => $buyers_acknowledgment['buyers_acknowledgment_no'],
-                'created_id'                    => Auth::id(),
-            );
-            $journal = AcctJournalVoucher::create($data_journal);
-//--------------------------------------------------------END JURNAL -----------------------------------------------------------------//
-//--------------------------------------------------------JURNAL ITEM -----------------------------------------------------------------//
-                $salesorderitem = SalesOrderItem::where('sales_order_item_id', $item['sales_order_item_id_'.$no])->first();
-                $salesorder = SalesOrder::findOrFail($buyers_acknowledgment['sales_order_id']);
-                $journal_voucher_id = $journal->journal_voucher_id;
 
-                $total_amount = SalesOrderItem::where('sales_order_id', $buyers_acknowledgment['sales_order_id'])->sum('subtotal_after_discount_item_a'); // Nilai total penjualan sebelum PPN
-                $ppn = SalesOrderItem::where('sales_order_id', $buyers_acknowledgment['sales_order_id'])->sum('ppn_amount_item');
-                $owing = $ppn + $total_amount;
-                // *sales cash
-                if($salesorder['payment_method'] == 1){
-                    $sales_account_receivable = AcctAccount::where('account_id', $account_receivable_cash_account_id['account_id'])
-                    ->where('data_state', 0)
-                    ->first();
-                    $sales_account_receivable_status = $sales_account_receivable['account_default_status'];
-                    $data_debit = array(
-                        'journal_voucher_id'           => $journal_voucher_id,
-                        'account_id'                   => $account_receivable_cash_account_id['account_id'], // Akun Piutang Usaha
-                        'journal_voucher_description'  => $data_journal['journal_voucher_description'],
-                        'journal_voucher_amount'       => ABS($owing),
-                        'journal_voucher_debit_amount' => ABS($owing),
-                        'account_id_default_status'    => $sales_account_receivable_status,
-                        'account_id_status'            => 0,
-                    );
-                    AcctJournalVoucherItem::create($data_debit);
-                    $sales_cash_account = AcctAccount::where('account_id', $sales_cash_account_id['account_id'])
-                    ->where('data_state', 0)
-                    ->first();
-                    $sales_cash_account_status = $sales_cash_account['account_default_status'];
-                    $data_credit = array(
-                        'journal_voucher_id'           => $journal_voucher_id,
-                        'account_id'                   => $sales_cash_account_id['account_id'], // Akun Pendapatan
-                        'journal_voucher_description'  => $data_journal['journal_voucher_description'],
-                        'journal_voucher_amount'       => ABS($total_amount),
-                        'journal_voucher_credit_amount'=> ABS($total_amount),
-                        'account_id_default_status'    => $sales_cash_account_status,
-                        'account_id_status'            => 0,
-                    );
-                    AcctJournalVoucherItem::create($data_credit);
-                }else{
-                // *sales credit
-                    $account_receivable_credit = AcctAccount::where('account_id', $account_receivable_credit_account_id['account_id'])
-                    ->where('data_state', 0)
-                    ->first();
-                    $account_receivable_status = $account_receivable_credit['account_default_status'];
-                    $data_debit = array(
-                        'journal_voucher_id'           => $journal_voucher_id,
-                        'account_id'                   => $account_receivable_credit_account_id['account_id'], // Akun Piutang Usaha
-                        'journal_voucher_description'  => $data_journal['journal_voucher_description'],
-                        'journal_voucher_amount'       => ABS($owing),
-                        'journal_voucher_debit_amount' => ABS($owing),
-                        'account_id_default_status'    => $account_receivable_status,
-                        'account_id_status'            => 0,
-                    );
-                    AcctJournalVoucherItem::create($data_debit);
-                    $sales_credit_account = AcctAccount::where('account_id', $sales_credit_account_id['account_id'])
-                    ->where('data_state', 0)
-                    ->first();
-                    $sales_credit_account_status = $sales_credit_account['account_default_status'];
-                    $data_credit = array(
-                        'journal_voucher_id'           => $journal_voucher_id,
-                        'account_id'                   => $sales_credit_account_id['account_id'], // Akun Pendapatan
-                        'journal_voucher_description'  => $data_journal['journal_voucher_description'],
-                        'journal_voucher_amount'       => ABS($total_amount),
-                        'journal_voucher_credit_amount'=> ABS($total_amount),
-                        'account_id_default_status'    => $sales_credit_account_status,
-                        'account_id_status'            => 0,
-                    );
-                    AcctJournalVoucherItem::create($data_credit);
-                }
-                // *ppn
-                $account = AcctAccount::where('account_id', $preferencecompany->account_vat_out_id)
-                    ->where('data_state', 0)
-                    ->first();
-                $account_id_default_status = $account['account_default_status'];
-                $data_credit_ppn = array(
-                    'journal_voucher_id'           => $journal_voucher_id,
-                    'account_id'                   => $preferencecompany->account_vat_out_id, // Akun PPN Keluaran
-                    'journal_voucher_description'  => $data_journal['journal_voucher_description'],
-                    'journal_voucher_amount'       => ABS($ppn),
-                    'journal_voucher_credit_amount'=> ABS($ppn),
-                    'account_id_default_status'    => $account_id_default_status,
-                    'account_id_status'            => 0,
-                );
-                AcctJournalVoucherItem::create($data_credit_ppn);
-                // *sales_order_status
-                SalesOrder::where('sales_order_id',$request->sales_order_id_1)
-                ->update(['sales_order_status' => 3]);
-                DB::commit();
-                $msg = 'Tambah Penerimaan Pihak Pembeli Berhasil';
-                return redirect('/buyers-acknowledgment')->with('msg',$msg);
-        } catch (\Exception $e) {
-                DB::rollback();
-                Log::error('Error saat menambah penerimaan pihak pembeli: ' . $e->getMessage(), [
-                    'exception' => $e,
-                    'trace' => $e->getTraceAsString()
+            $no = 1;
+            foreach ($salesdeliverynoteitem as $item) {
+                BuyersAcknowledgmentItem::create([
+                    'buyers_acknowledgment_id' => $buyersAcknowledgment->buyers_acknowledgment_id,
+                    'sales_delivery_note_id' => $salesdeliverynote->sales_delivery_note_id,
+                    'sales_delivery_note_item_id' => $item->sales_delivery_note_item_id,
+                    'sales_quotaion_id' => $salesdeliverynote->salesQuotation->sales_quotation_id,
+                    'sales_order_item_id' => $item->sales_order_item_id,
+                    'item_category_id' => $item->item_category_id,
+                    'item_type_id' => $item->item_type_id,
+                    'item_unit_id' => $item->item_unit_id,
+                    'item_unit_cost' => $item->item_unit_cost,
+                    'item_unit_price' => $item->item_unit_price,
+                    'quantity' => $item->quantity,
+                    'quantity_received' => $request->input("quantity_received_$no"),
+                    'created_id' => Auth::id(),
+                ]);
+                $no++;
+            }
+
+            SalesQuotation::where('sales_quotation_id', $salesdeliverynote->salesQuotation->sales_quotation_id)
+                ->update([
+                    'purchase_order_customer' => $request->purchase_order_customer,
+                    'sales_quotation_status' => 3,
                 ]);
 
-                $msg = 'Tambah Penerimaan Pihak Pembeli gagal';
-                return redirect('/buyers-acknowledgment')->with('msg',$msg);
+            DB::commit();
+
+            return redirect('/buyers-acknowledgment')->with('msg', 'Tambah Penerimaan Pihak Pembeli Berhasil');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error saat menambah penerimaan pihak pembeli: ' . $e->getMessage(), [
+                'exception' => $e,
+                'trace' => $e->getTraceAsString(),
+            ]);
+
+            return redirect('/buyers-acknowledgment')->with('msg', 'Tambah Penerimaan Pihak Pembeli gagal');
         }
     }
 
@@ -504,17 +233,11 @@ class BuyersAcknowledgmentController extends Controller
         ->where('buyers_acknowledgment_id', $buyers_acknowledgment_id)
         ->join('sales_order', 'sales_order.sales_order_id', '=', 'buyers_acknowledgment_item.sales_order_id')
         ->get();
-
-
-        // dd($returnpdpitem);
-
         $buyers_acknowledgment = BuyersAcknowledgment::where('buyers_acknowledgment_id', $buyers_acknowledgment_id)
         ->select('buyers_acknowledgment.*', 'acct_account.account_code', 'acct_account.account_name')
         ->join('acct_account', 'buyers_acknowledgment.account_id', '=', 'acct_account.account_id')
         ->where('buyers_acknowledgment_id', $buyers_acknowledgment_id)
         ->first();
-
-
         $warehouse = InvWarehouse::select('warehouse_id', 'warehouse_name')
         ->where('data_state', 0)
         ->pluck('warehouse_name', 'warehouse_id');

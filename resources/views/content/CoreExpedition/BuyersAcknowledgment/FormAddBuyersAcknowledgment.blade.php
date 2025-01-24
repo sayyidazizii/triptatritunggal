@@ -1,5 +1,4 @@
-@inject('ReturnPDP', 'App\Http\Controllers\ReturnPDP_Controller')
-@inject('BA', 'App\Http\Controllers\BuyersAcknowledgmentController')
+@inject('BuyersAcknowledgment', 'App\Http\Controllers\BuyersAcknowledgmentController')
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
@@ -61,42 +60,35 @@
         @csrf
         <div class="card-body">
             <div class="row form-group">
+                <!-- Kolom Kiri -->
                 <div class="col-md-6">
                     <div class="form-group">
-                        <a class="text-dark">No. BPB<a class='red'> *</a></a>
-                        <div class="">
-                            <input type ="text" class="form-control form-control-inline input-medium date-picker input-date"  name="buyers_acknowledgment_no" id="buyers_acknowledgment_no"  style="width: 15rem;"/>
-                        </div>
-                        <div hidden class="">
-                            <input type ="text" class="form-control form-control-inline input-medium date-picker input-date" type="hidden"  name="customer_id" id="customer_id"  style="width: 15rem;" value="{{$BA->getCustomerId($salesdeliverynote['sales_order_id'])}}"/>
-                        </div>
+                        <label class="text-dark">No. Sales Delivery Note<span class="red"> *</span></label>
+                        <input type="text" class="form-control form-control-inline input-medium date-picker input-date" name="sales_delivery_note_no" id="sales_delivery_note_no" style="width: 100%;" value="{{ $salesdeliverynote->sales_delivery_note_no }}" readonly/>
+                        <input type="hidden" class="form-control form-control-inline input-medium date-picker input-date" name="sales_delivery_note_id" id="sales_delivery_note_id" style="width: 100%;" value="{{ $salesdeliverynote->sales_delivery_note_id }}" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <label class="text-dark">Nama Pembeli<span class="red"> *</span></label>
+                        <input type="text" class="form-control form-control-inline input-medium date-picker input-date" name="customer_name" id="customer_name" style="width: 100%;" value="{{$BuyersAcknowledgment->getCustomerName($salesdeliverynote['customer_id'])}}" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <label class="text-dark">Catatan</label>
+                        <textarea rows="5" class="form-control form-control-inline input-medium date-picker input-date" name="buyers_acknowledgment_remark" id="buyers_acknowledgment_remark" onChange="function_elements_add(this.name, this.value);"></textarea>
                     </div>
                 </div>
-                <div hidden class="col-md-6">
-                    <div hidden class="form-group">
-                        <a hidden class="text-dark">No. Perkiraan</a>
-                        {{-- {!! Form::select('account_id',  $acctaccount, 0, ['class' => 'selection-search-clear select-form', 'id' => 'account_id', 'onchange' => 'function_elements_add(this.name, this.value)']) !!} --}}
-                    </div>
-                </div>
+                <!-- Kolom Kanan -->
                 <div class="col-md-6">
                     <div class="form-group">
-                        <a class="text-dark">Tanggal<a class='red'> *</a></a>
-                        <input type ="date" class="form-control form-control-inline input-medium date-picker input-date" data-date-format="dd-mm-yyyy" type="text" name="buyers_acknowledgment_date" id="buyers_acknowledgment_date" onChange="function_elements_add(this.name, this.value);" value=""/>
-                        <input type ="hidden" class="form-control" name="sales_delivery_note_id" id="sales_delivery_note_id" onChange="function_elements_add(this.name, this.value);" value="{{$salesdeliverynote['sales_delivery_note_id']}}"/>
-                        <input type ="hidden" class="form-control" name="sales_delivery_order_id" id="sales_delivery_order_id" onChange="function_elements_add(this.name, this.value);" value="{{$salesdeliverynote['sales_delivery_order_id']}}"/>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                <div class="form-group">
-                        <a class="text-dark">No. PO Customer<a class='red'> *</a></a>
-                        <div class="">
-                            <input type ="text" class="form-control form-control-inline input-medium date-picker input-date"  name="purchase_order_no" id="purchase_order_no" value="{{ $salesorder['purchase_order_no']}}" style="width: 15rem;"/>
-                        </div>
+                        <label class="text-dark">No. BPB<span class="red"> *</span></label>
+                        <input type="text" class="form-control form-control-inline input-medium date-picker input-date" name="buyers_acknowledgment_no" id="buyers_acknowledgment_no" style="width: 100%;" />
                     </div>
                     <div class="form-group">
-                        <div class="">
-                            <textarea rows="3" type="text" class="form-control input-bb" name="buyers_acknowledgment_remark" id="buyers_acknowledgment_remark" onChange="function_elements_add(this.name, this.value);" ></textarea>
-                        </div>
+                        <label class="text-dark">No. PO Customer<span class="red"> *</span></label>
+                        <input type="text" class="form-control form-control-inline input-medium date-picker input-date" name="purchase_order_customer" id="purchase_order_customer" value="{{ $salesdeliverynote->salesQuotation->purchase_order_customer }}" style="width: 100%;" />
+                    </div>
+                    <div class="form-group">
+                        <label class="text-dark">Tanggal Penerimaan<span class="red"> *</span></label>
+                        <input type="date" class="form-control form-control-inline input-medium date-picker input-date" data-date-format="dd-mm-yyyy" name="buyers_acknowledgment_date" id="buyers_acknowledgment_date" onChange="function_elements_add(this.name, this.value);" />
                     </div>
                 </div>
             </div>
@@ -118,9 +110,6 @@
                         <thead class="thead-light" >
                             <tr>
                                 <th width="2%" style='text-align:center'>No.</th>
-                                <th width="10%" style='text-align:center'>Pelanggan</th>
-                                <th width="2%" style='text-align:center'>No Sales Order</th>
-                                <th width="2%" style='text-align:center'>Tanggal SO</th>
                                 <th width="10%" style='text-align:center'>Barang</th>
                                 <th width="3%" style='text-align:center'>Qty Kirim</th>
                                 <th width="3%" style='text-align:center'>Qty Diterima</th>
@@ -133,34 +122,15 @@
                                 } else {
                                     $no =1;
                                     foreach ($salesdeliverynoteitem AS $key => $val){
-                                        $stock_id = $BA->getItemStock($val['sales_delivery_note_item_id']); 
                                         echo"
                                             <tr>
                                                 <td style='text-align  : center'>".$no."</td>
-                                                <td style='text-align  : left !important;'>".$ReturnPDP->getCustomerNameSalesOrderId($val['sales_order_id'])."</td>
-                                                <td style='text-align  : left !important;'>".$salesorder['sales_order_no']."</td>
-                                                <td style='text-align  : left !important;'>".$salesorder['sales_order_date']."</td>
-                                                <td style='text-align  : left !important;'>".$ReturnPDP->getInvItemTypeName($val['item_type_id'])."</td>
-                                                <td style='text-align  : right !important;'>".$val['quantity']."</td>
-                                                <input class='form-control' style='text-align:right;'type='hidden' name='warehouse_id' id='warehouse_id' value='".$val['warehouse_id']."'/>
+                                                <td style='text-align  : left !important;'>".$BuyersAcknowledgment->getItemTypeName($val->item_type_id)."</td>
+                                                <td style='text-align  : right !important;'>".$val->quantity."</td>
                                                 <td style='text-align  : right !important;'>
                                                     <input class='form-control' text-align:right;' type='text' name='quantity_received_".$no."' id='quantity_received".$no."' value=''/>
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_category_id_".$no."' id='item_category_id_".$no."' value='".$BA->getCategoryId($val['sales_order_item_id'])."'/>
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_category_id' id='item_category_id' value='".$BA->getCategoryId($val['sales_order_item_id'])."'/>
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_type_id_".$no."' id='item_type_id_".$no."' value='".$val['item_type_id']."'/>
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_id_".$no."' id='sales_order_id_".$no."' value='".$val['sales_order_id']."'/>
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_order_item_id_".$no."' id='sales_order_item_id_".$no."' value='".$val['sales_order_item_id']."'/>
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='customer_id_".$no."' id='customer_id_".$no."' value='".$salesorder['customer_id']."'/>
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_id_".$no."' id='item_id_".$no."' value='".$val['item_id']."'/>
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_id_".$no."' id='item_unit_id_".$no."' value='".$val['item_unit_id']."'/>
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_price_".$no."' id='item_unit_price_".$no."' value='".$val['item_unit_price']."'/>
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='quantity_".$no."' id='quantity_".$no."' value='".$val['quantity']."'/>
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_delivery_note_id_".$no."' id='sales_delivery_note_id_".$no."' value='".$val['sales_delivery_note_id']."'/>
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='sales_delivery_note_item_id_".$no."' id='sales_delivery_note_item_id_".$no."' value='".$val['sales_delivery_note_item_id']."'/>
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_stock_id_".$no."' id='item_stock_id_".$no."' value='".$BA->getItemStock($val['sales_delivery_note_item_id'])."'/>
-                                                    <input class='form-control' style='text-align:right;'type='hidden' name='item_unit_cost_".$no."' id='item_unit_cost_".$no."' value='".$BA->getItemUnitCost($stock_id)."'/>
-
-                                                </td>";
+                                                </td>
+                                                ";
                                                 echo"
                                             </tr>
                                         ";

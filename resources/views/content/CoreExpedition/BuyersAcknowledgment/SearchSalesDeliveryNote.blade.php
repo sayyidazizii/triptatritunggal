@@ -1,4 +1,4 @@
-@inject('SalesOrderReturn', 'App\Http\Controllers\SalesOrderReturnController')
+@inject('BuyersAcknowledgment', 'App\Http\Controllers\BuyersAcknowledgmentController')
 
 @extends('adminlte::page')
 
@@ -73,7 +73,7 @@ function checkboxSalesOrderChange (sales_order_item_id) {
                         <th width="3%" style='text-align:center'>No</th>
                         <th width="13%" style='text-align:center'>Pelanggan</th>
                         <th width="15%" style='text-align:center'>No. Delivery Note</th>
- 			<th width="15%" style='text-align:center'>No. PO Customer </th>
+ 			            <th width="15%" style='text-align:center'>No. PO Customer</th>
                         <th width="10%" style='text-align:center'>Tanggal</th>
                         <th width="7%" style='text-align:center'>Aksi</th>
                     </tr>
@@ -83,10 +83,10 @@ function checkboxSalesOrderChange (sales_order_item_id) {
                     @foreach($salesdeliverynote as $item)
                     <tr>
                         <td style='text-align:center'>{{$no}}</td>
-                        <td>{{$SalesOrderReturn->getCustomerNameSalesOrderId($item['sales_order_id'])}}</td>
-                        <td>{{$item['sales_delivery_note_no']}}</td>
-			<td>{{$SalesOrderReturn->getPoNum($item['sales_order_id'])}}</td>
-                        <td>{{date('d/m/Y', strtotime($item['sales_delivery_note_date']))}}</td>
+                        <td>{{$item->customer->customer_name}}</td>
+                        <td>{{$item->sales_delivery_note_no}}</td>
+			            <td>{{ $item->salesQuotation->purchase_order_customer }}</td>
+                        <td>{{date('d-m-Y', strtotime($item->sales_delivery_note_date))}}</td>
                         <td style='text-align:center'>
                             <a type="button" class="btn btn-outline-primary btn-sm" href="{{ url('/buyers-acknowledgment/add/'.$item['sales_delivery_note_id']) }}"><i class="fa fa-plus"></i></a>
                         </td>

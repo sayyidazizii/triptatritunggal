@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\CoreCustomer;
 use App\Models\CoreExpedition;
 use App\Models\SalesQuotation;
 use App\Models\SalesDeliveryNoteItem;
@@ -40,6 +41,11 @@ class SalesDeliveryNote extends Model
     public function items()
     {
         return $this->hasMany(SalesDeliveryNoteItem::class, 'sales_delivery_note_id', 'sales_delivery_note_id');
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(CoreCustomer::class, 'customer_id', 'customer_id');
     }
 
     public function expedition()

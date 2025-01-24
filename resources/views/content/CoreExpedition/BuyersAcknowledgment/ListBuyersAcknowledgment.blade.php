@@ -90,13 +90,10 @@
                 <thead>
                     <tr>
                         <th width="2%" style='text-align:center'>No</th>
-                        <th width="20%" style='text-align:center'>Nama Pelanggan</th>
-                        <th width="15%" style='text-align:center'>No Penerimaan</th>
-                        <th width="15%" style='text-align:center'>No SO</th>
-                        <th width="15%" style='text-align:center'>Po Customer</th>
-                        <th width="10%" style='text-align:center'>Tanggal SO</th>
-                        <th width="10%" style='text-align:center'>Tanggal Delivery SO</th>
-                        <th width="10%" style='text-align:center'>Tanggal Penerimaan</th>
+                        <th width="15%" style='text-align:center'>No. Penerimaan</th>
+                        <th width="10%" style='text-align:center'>Tanggal</th>
+                        <th width="20%" style='text-align:center'>Nama Pembeli</th>
+                        <th width="15%" style='text-align:center'>No. Sales Delivery Note</th>
                         <th width="5%" style='text-align:center'>Aksi</th>
                     </tr>
                 </thead>
@@ -104,16 +101,13 @@
                     <?php $no = 1; ?>
                     @foreach($buyers_acknowledgment as $item)
                     <tr>
-                        <td style='text-align:center'>{{$no}}</td>
-                        <td>{{$BuyersAcknowledgment->getCustomerNameSalesOrderId($item['sales_order_id'])}}</td>
-                        <td>{{$item['buyers_acknowledgment_no']}}</td>
-                        <td>{{$BuyersAcknowledgment->getSalesOrderNo($item['sales_order_id'])}}</td>
-                        <td>{{$BuyersAcknowledgment->getPoNo($item['sales_order_id'])}}</td>
-                        <td>{{date('d/m/Y', strtotime($BuyersAcknowledgment->getSalesOrderDate($item['sales_order_id'])))}}</td>
-                        <td>{{date('d/m/Y', strtotime($BuyersAcknowledgment->getSalesDeliveryOrderDate($item['sales_delivery_order_id'])))}}</td>
-                        <td>{{date('d/m/Y', strtotime($item['buyers_acknowledgment_date']))}}</td>
+                        <td style='text-align:center'>{{ $no }}</td>
+                        <td>{{ $item->buyers_acknowledgment_no }}</td>
+                        <td>{{ date('d-m-Y', strtotime($item['buyers_acknowledgment_date'])) }}</td>
+                        <td>{{ $BuyersAcknowledgment->getCustomerName($item->customer_id) }}</td>
+                        <td>{{ $item->salesDelivery->sales_delivery_note_no }}</td>
                         <td class="" style='text-align:center'>
-                            <a type="button" class="btn btn-outline-primary btn-sm" href="{{ url('/buyers-acknowledgment/detail/'.$item['buyers_acknowledgment_id']) }}">Detail</a>
+                            <a type="button" class="btn btn-outline-primary btn-sm" href="{{ url('/buyers-acknowledgment/detail/'.$item->buyers_acknowledgment_id) }}">Detail</a>
                         </td>
                     </tr>
                     <?php $no++; ?>
