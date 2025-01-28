@@ -24,7 +24,7 @@
                     <h4>Notifikasi</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Hari ini ada {{ count($purchaseinvoice) }} Purchase Invoice dan {{ count($salesinvoice) }} Sales Invoice Jatuh Tempo</p>
+                    <p>Hari ini ada {{ count($purchaseinvoice) ?? 0 }} Purchase Invoice dan {{ count($salesinvoice) ?? 0 }} Sales Invoice Jatuh Tempo</p>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-default" data-dismiss="modal">Close</button>
@@ -115,16 +115,16 @@
         const dashboardChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei'],
+                labels: @json($labels), // Dynamic month labels
                 datasets: [
                     {
                         label: 'Penjualan',
-                        data: [10, 20, 30, 40, 50],
+                        data: @json($salesData), // Sales data
                         backgroundColor: 'rgba(54, 162, 235, 0.5)',
                     },
                     {
                         label: 'Pembelian',
-                        data: [15, 25, 35, 45, 55],
+                        data: @json($purchaseData), // Purchase data
                         backgroundColor: 'rgba(255, 99, 132, 0.5)',
                     }
                 ]
