@@ -56,6 +56,14 @@
             <button type="submit" class="btn btn-primary">Import</button>
             <a href="{{ route('migration.account-template') }}" class="btn btn-secondary">Download Template Excel</a>
         </form>
+
+        <br>
+
+        <!-- Insert Account Button -->
+        <form action="{{ route('migration.account-insert') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-success">Insert Account</button>
+        </form>
     </div>
 </div>
 

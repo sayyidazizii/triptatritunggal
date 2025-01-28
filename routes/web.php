@@ -800,8 +800,9 @@ Route::get('/aging-account-receivable/filter-reset', [AcctAgingArReportControlle
 Route::prefix('migration')->name('migration.')->group(function () {
     Route::get('/', [MigrationController::class, 'index'])->name('index');
     Route::get('/account', [MigrationController::class, 'account'])->name('account');
-    Route::get('/account-import', [MigrationController::class, 'importAccount'])->name('account-import');
+    Route::post('/account-import', [MigrationController::class, 'importAccount'])->name('account-import');
     Route::get('/migration/account-template', [MigrationController::class, 'downloadTemplateAccount'])->name('account-template');
+    Route::post('/migration/account-template', [MigrationController::class, 'insertAccount'])->name('account-insert');
 });
 
 ?>
