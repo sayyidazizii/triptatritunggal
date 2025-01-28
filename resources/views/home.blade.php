@@ -47,10 +47,14 @@
                             <h5 class="card-title mb-0">Pembelian</h5>
                         </div>
                         <div class="card-body">
-                            <p>Kelola transaksi pembelian, mulai dari Purchase Order hingga Persetujuan.</p>
-                            <button onclick="location.href='{{ route('purchase-order') }}'" class="btn btn-primary btn-sm">
-                                <i class="fa fa-arrow-right"></i> Pergi ke Pembelian
-                            </button>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <i class="fa fa-arrow-right"></i> <a href="{{ route('purchase-order') }}" class="text-primary">Pergi ke Pembelian</a>
+                                </li>
+                                <li>
+                                    <i class="fa fa-cogs"></i> Kelola transaksi pembelian, mulai dari Purchase Order hingga Persetujuan.
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -62,10 +66,14 @@
                             <h5 class="card-title mb-0">Gudang</h5>
                         </div>
                         <div class="card-body">
-                            <p>Mengelola penerimaan barang, transfer gudang, dan stok barang.</p>
-                            <button onclick="location.href='{{ route('goods-received-note') }}'" class="btn btn-success btn-sm">
-                                <i class="fa fa-arrow-right"></i> Pergi ke Gudang
-                            </button>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <i class="fa fa-arrow-right"></i> <a href="{{ route('goods-received-note') }}" class="text-success">Pergi ke Gudang</a>
+                                </li>
+                                <li>
+                                    <i class="fa fa-box"></i> Mengelola penerimaan barang, transfer gudang, dan stok barang.
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -77,10 +85,14 @@
                             <h5 class="card-title mb-0">Penjualan</h5>
                         </div>
                         <div class="card-body">
-                            <p>Kelola transaksi penjualan, mulai dari Sales Quotation hingga Sales Invoice.</p>
-                            <button onclick="location.href='{{ route('sales-quotation') }}'" class="btn btn-warning btn-sm">
-                                <i class="fa fa-arrow-right"></i> Pergi ke Penjualan
-                            </button>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <i class="fa fa-arrow-right"></i> <a href="{{ route('sales-quotation') }}" class="text-warning">Pergi ke Penjualan</a>
+                                </li>
+                                <li>
+                                    <i class="fa fa-dollar-sign"></i> Kelola transaksi penjualan, mulai dari Sales Quotation hingga Sales Invoice.
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -99,7 +111,6 @@
             </div>
         </div>
     </div>
-
 
     @include('footer')
 @stop
