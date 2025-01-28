@@ -8,6 +8,7 @@ use App\Http\Controllers\GradingController;
 use App\Http\Controllers\InvItemController;
 use App\Http\Controllers\KwitansiController;
 use App\Http\Controllers\CoreGradeController;
+use App\Http\Controllers\MigrationController;
 use App\Http\Controllers\CoreAgencyController;
 use App\Http\Controllers\ReturnPDP_Controller;
 use App\Http\Controllers\SalesOrderController;
@@ -724,7 +725,6 @@ Route::post('/purchase-payment/add-bank/', [PurchasePaymentController::class, 'a
 Route::post('/purchase-payment/add-transfer-array/', [PurchasePaymentController::class, 'processAddTransferArray'])->name('add-transfer-array-purchase-payment');
 Route::get('/purchase-payment/delete-transfer-array/{record_id}/{supplier_id}', [PurchasePaymentController::class, 'deleteTransferArray'])->name('delete-transfer-array-purchase-payment');
 
-
 Route::get('/sales-collection', [SalesCollectionController::class, 'index'])->name('sales-collection');
 Route::post('/sales-collection/filter', [SalesCollectionController::class, 'filterSalesCollection'])->name('filter-sales-collection');
 Route::get('/sales-collection/search', [SalesCollectionController::class, 'searchInvoice'])->name('search-core-supplier-sales-collection');
@@ -739,12 +739,10 @@ Route::post('/sales-collection/add-transfer-array/', [SalesCollectionController:
 Route::get('/sales-collection/delete-transfer-array/{record_id}/{customer_id}', [SalesCollectionController::class, 'deleteTransferArray'])->name('delete-transfer-array-sales-collection');
 Route::get('/sales-collection/printing/{collection_id}', [SalesCollectionController::class, 'processPrintingSalesCollection'])->name('printing-sales-collection');
 
-
 Route::get('/sales-promotion', [SalesPromotionController::class, 'index'])->name('sales-promotion');
 Route::post('/sales-promotion/filter', [SalesPromotionController::class, 'filterSalesPromotion'])->name('filter-sales-promotion');
 Route::get('/sales-promotion/filter-reset', [SalesPromotionController::class, 'resetFilterSalesCollectionPiece'])->name('filter-reset-sales-promotion');
 Route::get('/sales-promotion/export', [SalesPromotionController::class, 'export'])->name('sales-promotion-export');
-
 
 Route::get('/debt-card', [AcctDebtCardController::class, 'index'])->name('debt-card');
 Route::get('/debt-card/print/{sales_order_id}', [AcctDebtCardController::class, 'processPrinting'])->name('kwitansi-debt-card');
@@ -785,36 +783,25 @@ Route::get('/warehouse-in-type/edit/{product_type_id}', [InvWarehouseInTypeContr
 Route::post('/warehouse-in-type/process-edit-warehouse-in-type', [InvWarehouseInTypeController::class, 'processEditInvWarehouseInType'])->name('process-edit-warehouse-in-type');
 Route::get('/warehouse-in-type/delete-warehouse-in-type/{product_type_id}', [InvWarehouseInTypeController::class, 'deleteInvWarehouseInType'])->name('delete-warehouse-in-type');
 
-
 Route::get('/item-stock-card', [InvItemStockCardController::class, 'index'])->name('item-stock-card');
 Route::post('/item-stock-card/filter', [InvItemStockCardController::class, 'filterInvItemStockCard'])->name('filter-item-stock-card');
 Route::get('/item-stock-card/filter-reset', [InvItemStockCardController::class, 'resetFilterInvItemStockCard'])->name('filter-reset-item-stock-card');
 Route::get('/item-stock-card/detail/{item_stock_id}', [InvItemStockCardController::class, 'detailInvItemStockCard'])->name('detail-item-stock-card');
 Route::get('/item-stock-card/print-pdf/{item_stock_id}',[InvItemStockCardController::class, 'printStockCardReport'])->name('print-pdf-stock-card');
 
-Route::get('/print-kwitansi',[KwitansiController::class, 'index'])->name('print-kwitansi');
-Route::get('/print-kwitansi/add', [KwitansiController::class, 'searchCustomer'])->name('search-customer');
-Route::get('/print-kwitansi/add/{customer_id}', [KwitansiController::class, 'addKwitansi'])->name('add-print-kwitansi');
-Route::post('/print-kwitansi/save', [KwitansiController::class, 'processAddKwitansi'])->name('process-add-kwitansi');
-Route::post('/print-kwitansi/filter', [KwitansiController::class, 'filterKwitansi'])->name('filter-print-kwitansi');
-Route::get('/print-kwitansi/cetak-multiple/{sales_kwitansi_id}', [KwitansiController::class, 'printKwitansi'])->name('print-multiple');
-Route::get('/print-kwitansi/cetak-single/{sales_kwitansi_id}', [KwitansiController::class, 'printKwitansiSingle'])->name('print-single');
-Route::get('/print-kwitansi/cetak-pengantar/{sales_kwitansi_id}', [KwitansiController::class, 'printKwitansiPengantar'])->name('print-pengantar');
-Route::post('/print-kwitansi/filter-print', [KwitansiController::class, 'filterKwitansiAdd'])->name('filter-print-kwitansi-add');
-Route::get('/print-kwitansi/delete/{sales_kwitansi_id}', [KwitansiController::class, 'processDeleteKwitansi'])->name('process-delete-kwitansi');
-
-
 Route::get('/aging-account-payable', [AcctAgingApReportController::class, 'index'])->name('aging-account-payable');
 Route::post('/aging-account-payable/filter', [AcctAgingApReportController::class, 'filterAcctAgingAp'])->name('filter-aging-account-payable');
 Route::get('/aging-account-payable/filter-reset', [AcctAgingApReportController::class, 'resetFilterAcctAgingAp'])->name('filter-reset-aging-account-payable');
-
 
 Route::get('/aging-account-receivable', [AcctAgingArReportController::class, 'index'])->name('aging-account-receivable');
 Route::post('/aging-account-receivable/filter', [AcctAgingArReportController::class, 'filterAcctAgingAr'])->name('filter-aging-account-receivable');
 Route::get('/aging-account-receivable/filter-reset', [AcctAgingArReportController::class, 'resetFilterAcctAgingAr'])->name('filter-reset-aging-account-receivable');
 
-
-
-// Route::get('/debug-system', [DebugController::class, 'index'])->name('debug');
+Route::prefix('migration')->name('migration.')->group(function () {
+    Route::get('/', [MigrationController::class, 'index'])->name('index');
+    Route::get('/account', [MigrationController::class, 'account'])->name('account');
+    Route::get('/account-import', [MigrationController::class, 'importAccount'])->name('account-import');
+    Route::get('/migration/account-template', [MigrationController::class, 'downloadTemplateAccount'])->name('account-template');
+});
 
 ?>
