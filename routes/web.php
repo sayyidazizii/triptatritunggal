@@ -799,10 +799,13 @@ Route::get('/aging-account-receivable/filter-reset', [AcctAgingArReportControlle
 
 Route::prefix('migration')->name('migration.')->group(function () {
     Route::get('/', [MigrationController::class, 'index'])->name('index');
+    Route::get('/download-template/{template}', [MigrationController::class, 'downloadTemplate'])->name('download-template');
     Route::get('/account', [MigrationController::class, 'account'])->name('account');
     Route::post('/account-import', [MigrationController::class, 'importAccount'])->name('account-import');
-    Route::get('/migration/account-template', [MigrationController::class, 'downloadTemplateAccount'])->name('account-template');
-    Route::post('/migration/account-template', [MigrationController::class, 'insertAccount'])->name('account-insert');
+    Route::post('/account-insert', [MigrationController::class, 'insertAccount'])->name('account-insert');
+    Route::get('/profit-loss', [MigrationController::class, 'profitLoss'])->name('profit-loss');
+    Route::post('/profit-loss-import', [MigrationController::class, 'importProfitLoss'])->name('profit-loss-import');
+    Route::post('/profit-loss-insert', [MigrationController::class, 'insertProfitLoss'])->name('profit-loss-insert');
 });
 
 ?>

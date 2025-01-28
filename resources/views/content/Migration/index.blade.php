@@ -50,6 +50,7 @@
                     <div class="card-body">
                         <p>Kelola dan migrasikan data akun dengan mudah.</p>
                         <button onclick="location.href='{{ url('/migration/account') }}'" class="btn btn-primary btn-sm"><i class="fa fa-arrow-right"></i> Pergi ke Migrasi Akun</button>
+                        <a href="{{ route('migration.download-template', 'account') }}" class="btn btn-secondary btn-sm"><i class="fa fa-download"></i> Download Template</a>
                     </div>
                 </div>
             </div>
@@ -63,6 +64,7 @@
                     <div class="card-body">
                         <p>Migrasikan laporan laba rugi untuk pencatatan keuangan.</p>
                         <button onclick="location.href='{{ url('/migration/profit-loss') }}'" class="btn btn-success btn-sm"><i class="fa fa-arrow-right"></i> Pergi ke Migrasi Laba Rugi</button>
+                        <a href="{{ route('migration.download-template', 'profit-loss') }}" class="btn btn-secondary btn-sm"><i class="fa fa-download"></i> Download Template</a>
                     </div>
                 </div>
             </div>
@@ -76,6 +78,7 @@
                     <div class="card-body">
                         <p>Kelola migrasi neraca untuk laporan posisi keuangan.</p>
                         <button onclick="location.href='{{ url('/migration/balance-sheet') }}'" class="btn btn-warning btn-sm"><i class="fa fa-arrow-right"></i> Pergi ke Migrasi Neraca</button>
+                        <a href="{{ route('migration.download-template', 'balance-sheet') }}" class="btn btn-secondary btn-sm"><i class="fa fa-download"></i> Download Template</a>
                     </div>
                 </div>
             </div>
