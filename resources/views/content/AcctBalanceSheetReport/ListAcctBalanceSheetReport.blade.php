@@ -3,9 +3,10 @@
 @extends('adminlte::page')
 
 @section('title', 'Tripta Tri Tunggal')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -71,7 +72,7 @@
 <div class="alert alert-info" role="alert">
     {{session('msg')}}
 </div>
-@endif 
+@endif
 <div class="card border border-dark">
   <div class="card-header bg-dark clearfix">
     <h5 class="mb-0 float-left">
@@ -132,7 +133,7 @@
                                                     <td colspan='2'><div style='font-weight:".$report_bold1."'>".$report_tab1."".$val['account_name1']."</div></td>
                                                     ";
                                             }
-                                            
+
                                         echo "
                                             </tr>";
 
@@ -145,7 +146,7 @@
                                                     <td style='width: 25%'><div style='font-weight:".$report_bold1."'></div></td>
                                                     ";
                                             }
-                                                
+
                                         echo "
                                             </tr>";
 
@@ -153,9 +154,9 @@
                                             <tr>";
 
                                             if($val['report_type1']	== 3){
-                                            
+
                                                 $last_balance1 	= $ABSR->getAmountAccount($val['account_id1']);
-                                                
+
                                                 echo "
                                                     <td><div style='font-weight:".$report_bold1."'>".$report_tab1."(".$val['account_code1'].") ".$val['account_name1']."</div> </td>
                                                     <td style='text-align:right'><div style='font-weight:".$report_bold1."'>".number_format($last_balance1, 2)."</div></td>
@@ -164,7 +165,7 @@
 
                                                 $account_amount1_top[$val['report_no']] = $last_balance1;
                                             }
-                                                    
+
                                         echo "
                                             </tr>";
 
@@ -172,10 +173,10 @@
                                         //     <tr>";
 
                                         //     if($val['report_type1']	== 8){
-                                            
+
                                         // // $last_balance1 	= $ISAR->getLastBalanceStock($val['account_id1']);
                                         // //  print_r($last_balance1);
-                                                
+
                                         //         echo "
                                         //             <td><div style='font-weight:".$report_bold1."'>".$report_tab1."(".$val['account_code1'].") ".$val['account_name1']."</div> </td>
                                         //             <td style='text-align:right'><div style='font-weight:".$report_bold1."'>'0'</div></td>
@@ -193,7 +194,7 @@
                                                 $last_balance10 	= $ABSR->getAmountAccount($val['account_id1']);
 
                                                 $account_amount10_top[$val['report_no']] = $last_balance10;
-                                            }	
+                                            }
                                         echo "
                                             </tr>";
                                         echo "
@@ -219,7 +220,7 @@
                                                                 $total_account_amount10 = $total_account_amount10 + $account_amount10_top[$report_formula1[$i]];
                                                             }
                                                         }
-                                                        
+
                                                     }
 
                                                     $grand_total_account_amount1 = $grand_total_account_amount1 + $total_account_amount10;
@@ -229,10 +230,10 @@
                                                         <td style='text-align:right'><div style='font-weight:".$report_bold1."'>".number_format($total_account_amount10, 2)."</div></td>
                                                         ";
                                                 }
-                                                
+
                                             }
 
-                                        echo "			
+                                        echo "
                                             </tr>";
 
                                         echo "
@@ -241,7 +242,7 @@
                                             if($val['report_type1']	== 7){
                                                 $last_balance1 	= $ABSR->getAmountAccount($val['account_id1']);
                                                 // print_r($last_balance1);
-                            
+
 
                                                 echo "
                                                     <td><div style='font-weight:".$report_bold1."'>".$report_tab1."(".$val['account_code1'].") ".$val['account_name1']."</div> </td>
@@ -251,8 +252,8 @@
                                                 $account_amount1_top[$val['report_no']] = $last_balance1;
                                             }
 
-                                            
-                                                
+
+
                                         echo "
                                             </tr>";
 
@@ -281,15 +282,15 @@
                                                                 $total_account_amount1 = $total_account_amount1 + $account_amount1_top[$report_formula1[$i]];
                                                             }
                                                         }
-                                                        
+
                                                     }
 
                                                     $grand_total_account_amount1 = $grand_total_account_amount1 + $total_account_amount1;
 
                                                     // print_r("total_amount1 ".$total_account_amount1." ");
-                                                    
 
-                                                    
+
+
 
                                                     // echo "
                                                     //     <td><div style='font-weight:".$report_bold1."'>".$report_tab1."".$val['account_name1']."</div></td>
@@ -300,13 +301,13 @@
                                                         <td style='text-align:right'><div style='font-weight:".$report_bold1."'>".number_format($total_account_amount1, 2)."</div></td>
                                                         ";
                                                 }
-                                                
+
                                             }
 
-                                        echo "			
+                                        echo "
                                             </tr>";
 
-                                            
+
 
                                         echo "
                                             <tr>";
@@ -319,8 +320,8 @@
                                                 }
                                             }
 
-                                        echo "			
-                                            </tr>";	
+                                        echo "
+                                            </tr>";
 
                                     }
                             ?>
@@ -354,7 +355,7 @@
                                                     <td colspan='2'><div style='font-weight:".$report_bold2."'>".$report_tab2."".$val['account_name2']."</div></td>
                                                     ";
                                             }
-                                            
+
                                         echo "
                                             </tr>";
 
@@ -367,7 +368,7 @@
                                                     <td style='width: 25%'><div style='font-weight:".$report_bold2."'></div></td>
                                                     ";
                                             }
-                                                
+
                                         echo "
                                             </tr>";
 
@@ -376,19 +377,19 @@
 
                                             if($val['report_type2']	== 3){
 
-                                                
+
                                                 $last_balance2 	= $ABSR->getAmountAccount($val['account_id2']);
                                                 // print_r($last_balance2);
                                                 echo "
                                                 <td><div style='font-weight:".$report_bold2."'>".$report_tab2."(".$val['account_code2'].") ".$val['account_name2']."</div> </td>
                                                 <td style='text-align:right'><div style='font-weight:".$report_bold2."'>".number_format($last_balance2, 2)."</div></td>
                                                 ";
-                                                
+
                                                 $account_amount2_bottom[$val['report_no']] = $last_balance2;
                                             }
 
-                                            
-                                                
+
+
                                         echo "
                                             </tr>";
 
@@ -398,7 +399,7 @@
                                                     $last_balance210 	= $ABSR->getAmountAccount($val['account_id2']);
 
                                                     $account_amount210_top[$val['report_no']] = $last_balance210;
-                                                }	
+                                                }
                                             echo "
                                                 </tr>";
                                             echo "
@@ -424,7 +425,7 @@
                                                                     $total_account_amount210 = $total_account_amount210 + $account_amount210_top[$report_formula2[$i]];
                                                                 }
                                                             }
-                                                            
+
                                                         }
 
                                                         $grand_total_account_amount2 = $grand_total_account_amount2 + $total_account_amount210;
@@ -434,10 +435,10 @@
                                                             <td style='text-align:right'><div style='font-weight:".$report_bold2."'>".number_format($total_account_amount210, 2)."</div></td>
                                                             ";
                                                     }
-                                                    
+
                                                 }
 
-                                            echo "			
+                                            echo "
                                                 </tr>";
 
                                         echo "
@@ -457,7 +458,7 @@
 
                                                 $account_amount2_bottom[$val['report_no']] = $sahu_tahun_lalu;
                                             }
-                                                
+
                                         echo "
                                             </tr>";
 
@@ -504,7 +505,7 @@
                                                                 $total_account_amount2 = $total_account_amount2 + $account_amount2_bottom[$report_formula2[$i]];
                                                             }
                                                         }
-                                                        
+
                                                     }
 
                                                     $grand_total_account_amount2 = $grand_total_account_amount2 + $total_account_amount2;
@@ -517,9 +518,9 @@
                                                     //     <td><div style='font-weight:".$report_bold2."'>".$report_tab2."".$val['account_name2']."</div></td>
                                                     //     <td style='text-align:right'><div style='font-weight:".$report_bold2."'>".number_format($total_account_amount2, 2)."</div></td>
                                                     //     ";
-                                                }	
+                                                }
                                             }
-                                        echo "			
+                                        echo "
                                             </tr>";
 
                                         echo "
@@ -529,12 +530,12 @@
                                                 if(!empty($val['report_formula2']) && !empty($val['report_operator2'])){
 
                                                     $grand_total_account_name2 = $val['account_name2'];
-                                                }	
+                                                }
                                             }
 
-                                        echo "			
-                                            </tr>";	
-                                        
+                                        echo "
+                                            </tr>";
+
                                     }
                                 ?>
                             </table>
@@ -564,7 +565,7 @@
                         <td style='width: 50%'>
                             <table class="table table-bordered table-advance table-hover">
                                 <tr>
-                                    <?php 
+                                    <?php
                                         // echo "
                                         //     <td style=\"width: 70%\"><div style=\"font-weight:".$report_bold2.";font-size:14px\">".$report_tab2."".$grand_total_account_name2."</div></td>
                                         //     <td style=\"width: 28%; text-align:right;\"><div style=\"font-weight:".$report_bold2."; font-size:14px\">".number_format($grand_total_account_amount2, 2)."</div></td>
@@ -593,13 +594,13 @@
 @stop
 
 @section('footer')
-    
+
 @stop
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
-@stop   
+
+@stop
