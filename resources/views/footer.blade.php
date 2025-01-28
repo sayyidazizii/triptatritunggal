@@ -2,7 +2,7 @@
     {{-- @yield('footer') --}}
     Copyright © @php
         echo date('Y');
-    @endphp() Cipta Solutindo Tech.
+    @endphp Cipta Solutindo Tech.
 </footer>
 <?php
 use Carbon\Carbon;
@@ -23,7 +23,6 @@ use App\Models\SalesInvoice;
     $countinvoiceInv = count($salesinvoice);
 
     $Count =  $countPurchaseInv + $countinvoiceInv;
-    // var_dump($Count);
 ?>
 
 
