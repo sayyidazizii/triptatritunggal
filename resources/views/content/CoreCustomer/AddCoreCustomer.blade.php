@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'MOZAIC Yudistira')
+@section('title', 'Tripta Tri Tunggal')
 @section('js')
 <script>
     function function_elements_add(name, value){
@@ -10,7 +10,7 @@
 				type: "POST",
 				url : "{{route('add-elements-core-customer')}}",
 				data : {
-                    'name'      : name, 
+                    'name'      : name,
                     'value'     : value,
                     '_token'    : '{{csrf_token()}}'
                 },
@@ -32,7 +32,7 @@
 </script>
 @stop
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -72,7 +72,7 @@
         </div>
     </div>
 
-    <?php 
+    <?php
             // if (empty($coresection)){
             //     $coresection['section_name'] = '';
             // }
@@ -115,9 +115,9 @@
 @stop
 
 @section('footer')
-    
+
 @stop
 
 @section('css')
-    
+
 @stop

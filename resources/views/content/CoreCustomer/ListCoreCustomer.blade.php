@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'MOZAIC Yudistira')
+@section('title', 'Tripta Tri Tunggal')
 @section('js')
 <script>
     // window.print();
@@ -8,12 +8,12 @@
 		$.ajax({
 				type: "GET",
 				url : "{{ route('delete-debt-core-customer') }}",
-                
+
 				success: function(msg){
                         confirm('Apakah Anda Yakin Ingin Menghapus Data Ini ?');
                         location.reload();
 
-                    
+
 			}
 
 		});
@@ -42,7 +42,7 @@
 <div class="alert alert-info" role="alert">
     {{session('msg')}}
 </div>
-@endif 
+@endif
 <div class="card border border-dark">
   <div class="card-header bg-dark clearfix">
     <h5 class="mb-0 float-left">
@@ -97,13 +97,13 @@
 @stop
 
 @section('footer')
-    
+
 @stop
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
+
 @stop

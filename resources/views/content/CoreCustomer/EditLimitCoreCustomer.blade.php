@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'MOZAIC Yudistira')
+@section('title', 'Tripta Tri Tunggal')
 
 @section('content_header')
-    
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{{ url('home') }}">Beranda</a></li>
@@ -25,11 +25,11 @@
 <div class="alert alert-info" role="alert">
     {{session('msg')}}
 </div>
-@endif 
+@endif
 <div class="card border border-dark">
   <div class="card-header bg-dark clearfix">
     <h5 class="mb-0 float-left">
-        Ubah Limit Hutang 
+        Ubah Limit Hutang
     </h5>
 
   </div>
@@ -62,13 +62,13 @@
 @stop
 
 @section('footer')
-    
+
 @stop
 
 @section('css')
-    
+
 @stop
 
 @section('js')
-    
+
 @stop
