@@ -1110,24 +1110,51 @@ CREATE TABLE `acct_profit_loss_report` (
   `created_on` datetime DEFAULT NULL,
   `last_update` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`profit_loss_report_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `acct_profit_loss_report` */
 
 insert  into `acct_profit_loss_report`(`profit_loss_report_id`,`company_id`,`format_id`,`report_no`,`account_type_id`,`account_id`,`account_code`,`account_name`,`report_formula`,`report_operator`,`report_type`,`report_tab`,`report_bold`,`data_state`,`created_id`,`created_on`,`last_update`) values 
-(1,2,3,1,2,0,'','RINCIAN PENDAPATAN','','',1,0,1,0,55,NULL,NULL),
-(2,2,3,2,2,0,'','PENDAPATAN OPERASIONAL','','',1,1,1,0,55,NULL,NULL),
-(3,2,3,3,2,28,'200.1','Pendapatan Penjualan','','',3,2,0,0,55,NULL,NULL),
-(4,2,3,4,2,0,'','TOTAL PENDAPATAN','3#','+#',6,0,1,0,55,NULL,NULL),
-(5,2,3,5,0,0,'','','','',0,0,0,0,55,NULL,NULL),
-(6,2,3,6,3,0,'','RINCIAN BIAYA','','',1,0,1,0,55,NULL,NULL),
-(7,2,3,7,3,0,'','BEBAN OPERASIONAL','','',1,1,1,0,55,NULL,NULL),
-(8,2,3,8,3,36,'101.1','PEMBELIAN BARANG DAGANGAN','','',3,2,0,0,55,NULL,NULL),
-(9,2,3,9,3,38,'101.2','PEMBELIAN PENDUKUNG','','',3,2,0,0,55,NULL,NULL),
-(10,2,3,10,3,43,'101.3','PENGELUARAN LAIN-LAIN','','',3,2,0,0,55,NULL,NULL),
-(11,2,3,11,3,49,'101.4','Transportasi/Parkir','','',3,2,0,0,55,NULL,NULL),
-(12,2,3,12,3,0,'','TOTAL BEBAN','8#9#10#11','+#+#+#+#',6,0,1,0,55,NULL,NULL),
-(13,2,3,13,3,0,'','LABA/RUGI BERSIH','3#8#9#10#11','+#-#-#-#-#',6,0,1,0,55,NULL,NULL);
+(1,2,1,1,2,23,'300','PENJUALAN',NULL,NULL,3,1,1,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(2,2,1,2,2,0,'0',NULL,NULL,NULL,0,0,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(3,2,1,3,2,24,'300.01','HARGA POKOK PENJUALAN :',NULL,NULL,1,1,1,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(4,2,1,4,2,25,'300.01.01','Persediaan Awal',NULL,NULL,3,1,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(5,2,1,5,2,26,'300.01.02','Pembelian',NULL,NULL,3,1,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(6,2,1,6,2,27,'300.01.03','Biaya Kirim Pembelian',NULL,NULL,3,1,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(7,2,1,7,2,28,'300.01.04','Barang Tersedia Dijual',NULL,NULL,3,1,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(8,2,1,8,2,29,'300.01.05','Persediaan Akhir',NULL,NULL,3,1,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(9,2,1,9,2,30,'300.01.06','HARGA POKOK PENJUALAN','4#5#6#7#8','+#+#+#+#-',6,1,1,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(10,2,1,10,2,31,'300.01.07','LABA BRUTO','1#9','-#-',1,1,1,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(11,2,1,11,0,NULL,'0',NULL,NULL,NULL,0,0,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(12,2,1,12,3,32,'400','BIAYA - BIAYA USAHA :',NULL,NULL,1,1,1,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(13,2,1,13,3,33,'400.01','- Beban Penjualan',NULL,NULL,2,2,1,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(14,2,1,14,3,34,'400.01.01','Biaya Gaji Bag. Penjualan',NULL,NULL,3,2,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(15,2,1,15,3,35,'400.01.02','Beban Courier',NULL,NULL,3,2,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(16,2,1,16,3,36,'400.01.03','Beban Sewa Mobil',NULL,NULL,3,2,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(17,2,1,17,3,37,'400.01.04','Beban Tol',NULL,NULL,3,2,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(18,2,1,18,3,38,'400.01.05','Beban Bahan Bakar',NULL,NULL,3,2,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(19,2,1,19,0,NULL,'0',NULL,NULL,NULL,0,0,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(20,2,1,20,3,39,'400.02','-Beban Administrasi Umum',NULL,NULL,2,2,1,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(21,2,1,21,3,40,'400.02.01','Beban Gaji Bag. Administrasi dan Umum',NULL,NULL,3,2,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(22,2,1,22,3,41,'400.02.02','Beban Perlengkapan Kantor',NULL,NULL,3,2,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(23,2,1,23,3,42,'400.02.03','Biaya Depresiasi Peralatan Kantor',NULL,NULL,3,2,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(24,2,1,24,3,43,'400.02.04','Beban Sewa Kantor',NULL,NULL,3,2,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(25,2,1,25,3,44,'400.02.05','Beban Listrik dan Air',NULL,NULL,3,2,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(26,2,1,26,3,45,'400.02.06','Beban Telepon',NULL,NULL,3,2,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(27,2,1,27,3,46,'400.02.07','Beban Internet',NULL,NULL,3,2,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(28,2,1,28,3,47,'400.02.08','Beban Materai',NULL,NULL,3,2,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(29,2,1,29,3,48,'400.02.09','Beban Entertain',NULL,NULL,3,2,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(30,2,1,30,3,49,'400.02.10','Beban Tiker Parkir',NULL,NULL,3,2,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(31,2,1,31,3,50,'400.02.11','Beban Perbaikan dan Maintenance',NULL,NULL,3,2,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(32,2,1,32,3,51,'400.02.12','Beban Komisi Penjualan',NULL,NULL,3,2,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(33,2,1,33,3,52,'400.02.13','Biaya Gaji Komisaris',NULL,NULL,3,2,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(34,2,1,34,3,53,'400.02.14','Biaya Lain-lain',NULL,NULL,3,2,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(35,2,1,35,0,NULL,'0','TOTAL BEBAN','14#15#16#17#18#20#21#22#23#24#25#26#27#28#29#39#31#32#33#34','+#+#+#+#+',6,0,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(36,2,1,36,3,54,'400.02.15','LABA USAHA','10#35','-#-',1,1,1,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(37,2,1,37,0,NULL,'0',NULL,NULL,NULL,0,0,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(38,2,1,38,3,55,'400.02.16','PPh',NULL,NULL,1,1,1,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(39,2,1,39,0,NULL,'0',NULL,NULL,NULL,0,0,0,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59'),
+(40,2,1,40,3,56,'400.02.17','LABA USAHA SETELAH PAJAK',NULL,NULL,1,1,1,0,55,'2025-01-29 16:33:59','2025-01-29 16:33:59');
 
 /*Table structure for table `acct_recalculate_log` */
 
@@ -4020,6 +4047,115 @@ CREATE TABLE `migration_accounts` (
 
 /*Data for the table `migration_accounts` */
 
+/*Table structure for table `migration_balance_sheets` */
+
+DROP TABLE IF EXISTS `migration_balance_sheets`;
+
+CREATE TABLE `migration_balance_sheets` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `balance_sheet_report_id` bigint unsigned NOT NULL,
+  `company_id` bigint unsigned NOT NULL,
+  `report_no` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `account_id1` bigint unsigned NOT NULL,
+  `account_code1` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `account_name1` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `account_id2` bigint unsigned DEFAULT NULL,
+  `account_code2` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `account_name2` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `report_formula1` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `report_operator1` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `report_type1` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `report_tab1` int DEFAULT NULL,
+  `report_bold1` tinyint(1) NOT NULL DEFAULT '0',
+  `report_formula2` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `report_operator2` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `report_type2` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `report_tab2` int DEFAULT NULL,
+  `report_bold2` tinyint(1) NOT NULL DEFAULT '0',
+  `report_formula3` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `report_operator3` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `balance_report_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `balance_report_type1` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `data_state` tinyint(1) NOT NULL DEFAULT '1',
+  `created_id` bigint unsigned NOT NULL,
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_update` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `migration_balance_sheets` */
+
+/*Table structure for table `migration_profit_losses` */
+
+DROP TABLE IF EXISTS `migration_profit_losses`;
+
+CREATE TABLE `migration_profit_losses` (
+  `profit_loss_report_id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `company_id` bigint unsigned DEFAULT NULL,
+  `format_id` bigint unsigned DEFAULT NULL,
+  `report_no` int DEFAULT NULL,
+  `account_type_id` bigint unsigned DEFAULT NULL,
+  `account_id` bigint unsigned DEFAULT NULL,
+  `account_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `account_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `report_formula` text COLLATE utf8mb4_unicode_ci,
+  `report_operator` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `report_type` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `report_tab` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `report_bold` tinyint(1) NOT NULL DEFAULT '0',
+  `data_state` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'active',
+  `created_id` bigint unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`profit_loss_report_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `migration_profit_losses` */
+
+insert  into `migration_profit_losses`(`profit_loss_report_id`,`company_id`,`format_id`,`report_no`,`account_type_id`,`account_id`,`account_code`,`account_name`,`report_formula`,`report_operator`,`report_type`,`report_tab`,`report_bold`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
+(1,2,1,1,2,23,'300','PENJUALAN',NULL,NULL,'3','1',1,'0',55,'2025-01-29 16:33:54','2025-01-29 16:33:54'),
+(2,2,1,2,2,0,'0',NULL,NULL,NULL,'0','0',0,'0',55,'2025-01-29 16:33:54','2025-01-29 16:33:54'),
+(3,2,1,3,2,24,'300.01','HARGA POKOK PENJUALAN :',NULL,NULL,'1','1',1,'0',55,'2025-01-29 16:33:54','2025-01-29 16:33:54'),
+(4,2,1,4,2,25,'300.01.01','Persediaan Awal',NULL,NULL,'3','1',0,'0',55,'2025-01-29 16:33:54','2025-01-29 16:33:54'),
+(5,2,1,5,2,26,'300.01.02','Pembelian',NULL,NULL,'3','1',0,'0',55,'2025-01-29 16:33:54','2025-01-29 16:33:54'),
+(6,2,1,6,2,27,'300.01.03','Biaya Kirim Pembelian',NULL,NULL,'3','1',0,'0',55,'2025-01-29 16:33:54','2025-01-29 16:33:54'),
+(7,2,1,7,2,28,'300.01.04','Barang Tersedia Dijual',NULL,NULL,'3','1',0,'0',55,'2025-01-29 16:33:54','2025-01-29 16:33:54'),
+(8,2,1,8,2,29,'300.01.05','Persediaan Akhir',NULL,NULL,'3','1',0,'0',55,'2025-01-29 16:33:54','2025-01-29 16:33:54'),
+(9,2,1,9,2,30,'300.01.06','HARGA POKOK PENJUALAN','4#5#6#7#8','\"+#+#+#+#-','6','1',1,'0',55,'2025-01-29 16:33:54','2025-01-29 16:33:54'),
+(10,2,1,10,2,31,'300.01.07','LABA BRUTO','1#9','\"-#-','1','1',1,'0',55,'2025-01-29 16:33:54','2025-01-29 16:33:54'),
+(11,2,1,11,0,NULL,'0',NULL,NULL,NULL,'0','0',0,'0',55,'2025-01-29 16:33:54','2025-01-29 16:33:54'),
+(12,2,1,12,3,32,'400','BIAYA - BIAYA USAHA :',NULL,NULL,'1','1',1,'0',55,'2025-01-29 16:33:54','2025-01-29 16:33:54'),
+(13,2,1,13,3,33,'400.01','- Beban Penjualan',NULL,NULL,'2','2',1,'0',55,'2025-01-29 16:33:54','2025-01-29 16:33:54'),
+(14,2,1,14,3,34,'400.01.01','Biaya Gaji Bag. Penjualan',NULL,NULL,'3','2',0,'0',55,'2025-01-29 16:33:54','2025-01-29 16:33:54'),
+(15,2,1,15,3,35,'400.01.02','Beban Courier',NULL,NULL,'3','2',0,'0',55,'2025-01-29 16:33:54','2025-01-29 16:33:54'),
+(16,2,1,16,3,36,'400.01.03','Beban Sewa Mobil',NULL,NULL,'3','2',0,'0',55,'2025-01-29 16:33:54','2025-01-29 16:33:54'),
+(17,2,1,17,3,37,'400.01.04','Beban Tol',NULL,NULL,'3','2',0,'0',55,'2025-01-29 16:33:54','2025-01-29 16:33:54'),
+(18,2,1,18,3,38,'400.01.05','Beban Bahan Bakar',NULL,NULL,'3','2',0,'0',55,'2025-01-29 16:33:54','2025-01-29 16:33:54'),
+(19,2,1,19,0,NULL,'0',NULL,NULL,NULL,'0','0',0,'0',55,'2025-01-29 16:33:54','2025-01-29 16:33:54'),
+(20,2,1,20,3,39,'400.02','-Beban Administrasi Umum',NULL,NULL,'2','2',1,'0',55,'2025-01-29 16:33:55','2025-01-29 16:33:55'),
+(21,2,1,21,3,40,'400.02.01','Beban Gaji Bag. Administrasi dan Umum',NULL,NULL,'3','2',0,'0',55,'2025-01-29 16:33:55','2025-01-29 16:33:55'),
+(22,2,1,22,3,41,'400.02.02','Beban Perlengkapan Kantor',NULL,NULL,'3','2',0,'0',55,'2025-01-29 16:33:55','2025-01-29 16:33:55'),
+(23,2,1,23,3,42,'400.02.03','Biaya Depresiasi Peralatan Kantor',NULL,NULL,'3','2',0,'0',55,'2025-01-29 16:33:55','2025-01-29 16:33:55'),
+(24,2,1,24,3,43,'400.02.04','Beban Sewa Kantor',NULL,NULL,'3','2',0,'0',55,'2025-01-29 16:33:55','2025-01-29 16:33:55'),
+(25,2,1,25,3,44,'400.02.05','Beban Listrik dan Air',NULL,NULL,'3','2',0,'0',55,'2025-01-29 16:33:55','2025-01-29 16:33:55'),
+(26,2,1,26,3,45,'400.02.06','Beban Telepon',NULL,NULL,'3','2',0,'0',55,'2025-01-29 16:33:55','2025-01-29 16:33:55'),
+(27,2,1,27,3,46,'400.02.07','Beban Internet',NULL,NULL,'3','2',0,'0',55,'2025-01-29 16:33:55','2025-01-29 16:33:55'),
+(28,2,1,28,3,47,'400.02.08','Beban Materai',NULL,NULL,'3','2',0,'0',55,'2025-01-29 16:33:55','2025-01-29 16:33:55'),
+(29,2,1,29,3,48,'400.02.09','Beban Entertain',NULL,NULL,'3','2',0,'0',55,'2025-01-29 16:33:55','2025-01-29 16:33:55'),
+(30,2,1,30,3,49,'400.02.10','Beban Tiker Parkir',NULL,NULL,'3','2',0,'0',55,'2025-01-29 16:33:55','2025-01-29 16:33:55'),
+(31,2,1,31,3,50,'400.02.11','Beban Perbaikan dan Maintenance',NULL,NULL,'3','2',0,'0',55,'2025-01-29 16:33:55','2025-01-29 16:33:55'),
+(32,2,1,32,3,51,'400.02.12','Beban Komisi Penjualan',NULL,NULL,'3','2',0,'0',55,'2025-01-29 16:33:55','2025-01-29 16:33:55'),
+(33,2,1,33,3,52,'400.02.13','Biaya Gaji Komisaris',NULL,NULL,'3','2',0,'0',55,'2025-01-29 16:33:55','2025-01-29 16:33:55'),
+(34,2,1,34,3,53,'400.02.14','Biaya Lain-lain',NULL,NULL,'3','2',0,'0',55,'2025-01-29 16:33:55','2025-01-29 16:33:55'),
+(35,2,1,35,0,NULL,'0','TOTAL BEBAN','14#15#16#17#18#20#21#22#23#24#25#26#27#28#29#39#31#32#33#34','\"+#+#+#+#+','6','0',0,'0',55,'2025-01-29 16:33:55','2025-01-29 16:33:55'),
+(36,2,1,36,3,54,'400.02.15','LABA USAHA','10#35','\"-#-','1','1',1,'0',55,'2025-01-29 16:33:55','2025-01-29 16:33:55'),
+(37,2,1,37,0,NULL,'0',NULL,NULL,NULL,'0','0',0,'0',55,'2025-01-29 16:33:55','2025-01-29 16:33:55'),
+(38,2,1,38,3,55,'400.02.16','PPh',NULL,NULL,'1','1',1,'0',55,'2025-01-29 16:33:55','2025-01-29 16:33:55'),
+(39,2,1,39,0,NULL,'0',NULL,NULL,NULL,'0','0',0,'0',55,'2025-01-29 16:33:55','2025-01-29 16:33:55'),
+(40,2,1,40,3,56,'400.02.17','LABA USAHA SETELAH PAJAK',NULL,NULL,'1','1',1,'0',55,'2025-01-29 16:33:55','2025-01-29 16:33:55');
+
 /*Table structure for table `migrations` */
 
 DROP TABLE IF EXISTS `migrations`;
@@ -4029,7 +4165,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `migrations` */
 
@@ -4042,7 +4178,9 @@ insert  into `migrations`(`id`,`migration`,`batch`) values
 (6,'2021_11_24_090822_create_sessions_table',2),
 (7,'2024_10_17_033519_create_sales_quotations_table',2),
 (8,'2024_10_17_061814_create_sales_quotation_items_table',2),
-(9,'2025_01_28_035741_create_migration_accounts_table',2);
+(9,'2025_01_28_035741_create_migration_accounts_table',2),
+(11,'2025_01_28_142050_create_migration_profit_loss_table',3),
+(12,'2025_01_29_150834_create_migration_balance_sheets_table',4);
 
 /*Table structure for table `p_p_o_b_s` */
 
@@ -4157,7 +4295,7 @@ CREATE TABLE `preference_company` (
 /*Data for the table `preference_company` */
 
 insert  into `preference_company`(`company_id`,`company_name`,`company_address`,`company_phone_number`,`company_mobile_number`,`company_email`,`company_website`,`company_tax_number`,`company_account_receivable_due_date`,`company_account_payable_due_date`,`company_logo`,`CDBO_no`,`distribution_no`,`account_inventory_trade_id`,`account_vat_in_id`,`account_vat_out_id`,`account_payable_id`,`account_bank_or_cash_id`,`account_pdp_id`,`account_bank_cash_hpp_id`,`account_receivable_id`,`account_shortover_id`,`account_sales_id`,`ppn_amount_in`,`ppn_amount_out`,`sales_discount_id`,`purchase_discount_id`,`pharmacist_license_no`,`account_sales_return_id`,`account_hpp_id`,`account_bank_id`,`account_cash_id`,`account_cash_on_way_id`,`account_delivery_id`,`account_expense_id`,`created_at`,`updated_at`) values 
-(2,'TriptaTriTunggal','PERUM. BUMI WONOREJO - KARANGANYAR','( 024 ) 76623702','08712813691','TriptaTriTunggal@gmail.com','www.TriptaTriTunggal.id','',0,0,NULL,'CDOB1827/S/4-3306/09/2020','FP.01.04/IV/0118-/2019',79,99,48,17,0,82,0,6,4,308,11,11,0,0,'A1111111',340,356,0,4,4,9,0,NULL,'2025-01-17 09:17:38');
+(2,'Tripta Tri Tunggal','PERUM. BUMI WONOREJO - KARANGANYAR','( 024 ) 76623702','08712813691','TriptaTriTunggal@gmail.com','www.TriptaTriTunggal.id','',0,0,NULL,'CDOB1827/S/4-3306/09/2020','FP.01.04/IV/0118-/2019',79,99,48,17,0,82,0,6,4,308,11,11,0,0,'A1111111',340,356,0,4,4,9,0,NULL,'2025-01-29 14:59:09');
 
 /*Table structure for table `preference_transaction_module` */
 
@@ -6008,7 +6146,8 @@ insert  into `system_menu`(`id_menu`,`id`,`type`,`indent_level`,`text`,`image`,`
 ('82','ppn','file',2,'Setting Default PPN',NULL,'2023-07-24 15:01:41'),
 ('9','#','folder',1,'System',NULL,'2024-10-17 11:39:04'),
 ('91','system-user-group','file',2,'System User Group',NULL,'2024-10-17 11:39:07'),
-('92','system-user','file',2,'System User',NULL,'2024-10-17 11:39:09');
+('92','system-user','file',2,'System User',NULL,'2024-10-17 11:39:09'),
+('93','migration','file',2,'Migrasi',NULL,'2025-01-28 15:47:33');
 
 /*Table structure for table `system_menu_mapping` */
 
@@ -6021,7 +6160,7 @@ CREATE TABLE `system_menu_mapping` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`menu_mapping_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2253 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2315 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `system_menu_mapping` */
 
@@ -6100,67 +6239,68 @@ insert  into `system_menu_mapping`(`menu_mapping_id`,`user_group_level`,`id_menu
 (2189,2,'9','2025-01-28 08:39:04','2025-01-28 08:39:04'),
 (2190,2,'91','2025-01-28 08:39:04','2025-01-28 08:39:04'),
 (2191,2,'92','2025-01-28 08:39:04','2025-01-28 08:39:04'),
-(2192,1,'1','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2193,1,'11','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2194,1,'112','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2195,1,'113','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2196,1,'115','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2197,1,'12','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2198,1,'121','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2199,1,'122','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2200,1,'14','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2201,1,'15','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2202,1,'16','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2203,1,'17','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2204,1,'2','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2205,1,'21','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2206,1,'211','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2207,1,'22','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2208,1,'221','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2209,1,'222','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2210,1,'23','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2211,1,'231','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2212,1,'24','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2213,1,'240','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2214,1,'241','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2215,1,'3','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2216,1,'31','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2217,1,'311','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2218,1,'32','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2219,1,'321','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2220,1,'34','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2221,1,'341','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2222,1,'35','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2223,1,'351','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2224,1,'36','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2225,1,'4','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2226,1,'41','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2227,1,'411','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2228,1,'42','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2229,1,'422','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2230,1,'45','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2231,1,'6','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2232,1,'61','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2233,1,'617','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2234,1,'65','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2235,1,'651','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2236,1,'652','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2237,1,'7','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2238,1,'71','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2239,1,'711','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2240,1,'712','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2241,1,'72','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2242,1,'721','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2243,1,'722','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2244,1,'73','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2245,1,'74','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2246,1,'75','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2247,1,'8','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2248,1,'81','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2249,1,'82','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2250,1,'9','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2251,1,'91','2025-01-28 08:39:16','2025-01-28 08:39:16'),
-(2252,1,'92','2025-01-28 08:39:16','2025-01-28 08:39:16');
+(2253,1,'1','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2254,1,'11','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2255,1,'112','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2256,1,'113','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2257,1,'115','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2258,1,'12','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2259,1,'121','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2260,1,'122','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2261,1,'14','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2262,1,'15','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2263,1,'16','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2264,1,'17','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2265,1,'2','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2266,1,'21','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2267,1,'211','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2268,1,'22','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2269,1,'221','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2270,1,'222','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2271,1,'23','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2272,1,'231','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2273,1,'24','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2274,1,'240','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2275,1,'241','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2276,1,'3','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2277,1,'31','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2278,1,'311','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2279,1,'32','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2280,1,'321','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2281,1,'34','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2282,1,'341','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2283,1,'35','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2284,1,'351','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2285,1,'36','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2286,1,'4','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2287,1,'41','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2288,1,'411','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2289,1,'42','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2290,1,'422','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2291,1,'45','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2292,1,'6','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2293,1,'61','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2294,1,'617','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2295,1,'65','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2296,1,'651','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2297,1,'652','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2298,1,'7','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2299,1,'71','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2300,1,'711','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2301,1,'712','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2302,1,'72','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2303,1,'721','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2304,1,'722','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2305,1,'73','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2306,1,'74','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2307,1,'75','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2308,1,'8','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2309,1,'81','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2310,1,'82','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2311,1,'9','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2312,1,'91','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2313,1,'92','2025-01-28 08:47:58','2025-01-28 08:47:58'),
+(2314,1,'93','2025-01-28 08:47:58','2025-01-28 08:47:58');
 
 /*Table structure for table `system_user` */
 
@@ -6228,14 +6368,16 @@ CREATE TABLE `user_locations` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `ip` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `user_locations` */
 
 insert  into `user_locations`(`id`,`user_id`,`latitude`,`longitude`,`data_state`,`created_at`,`updated_at`,`ip`) values 
 (1,NULL,'-7.5558771','110.8642444',0,'2025-01-22 10:08:52','2025-01-22 10:08:52',NULL),
 (2,NULL,'-7.5558771','110.8642444',0,'2025-01-22 10:10:28','2025-01-22 10:10:28','127.0.0.1'),
-(3,NULL,'-7.6325181','110.9559445',0,'2025-01-28 04:38:12','2025-01-28 04:38:12','127.0.0.1');
+(3,NULL,'-7.6325181','110.9559445',0,'2025-01-28 04:38:12','2025-01-28 04:38:12','127.0.0.1'),
+(4,NULL,'-7.6287936','110.9588715',0,'2025-01-28 14:54:35','2025-01-28 14:54:35','127.0.0.1'),
+(5,NULL,'-7.6315161','110.9603617',0,'2025-01-29 12:58:13','2025-01-29 12:58:13','127.0.0.1');
 
 /* Trigger structure for table `acct_bank_disbursement` */
 
