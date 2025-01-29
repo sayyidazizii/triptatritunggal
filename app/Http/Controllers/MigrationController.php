@@ -152,7 +152,7 @@ class MigrationController extends Controller
             // Delete the temporary file after import
             Storage::delete($path);
 
-            return redirect()->route('migration.profit-loss')->with('success', 'Laba Rugi berhasil diperbarui!');
+            return redirect()->route('migration.profit-loss')->with('success', 'Import Migrasi Laba Rugi berhasil!');
         } catch (\Exception $e) {
             // Log the error message
             Log::error('profit-loss import failed: ' . $e->getMessage());
