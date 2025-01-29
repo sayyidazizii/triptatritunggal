@@ -131,12 +131,12 @@
                     {
                         label: 'Penjualan',
                         data: @json($salesData), // Sales data
-                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                        backgroundColor: 'rgba(255, 206, 86, 0.7)', // Kuning
                     },
                     {
                         label: 'Pembelian',
                         data: @json($purchaseData), // Purchase data
-                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.7)', // Biru
                     }
                 ]
             },
