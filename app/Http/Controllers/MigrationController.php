@@ -182,23 +182,23 @@ class MigrationController extends Controller
             foreach ($importedProfitLoss as $row) {
                 // Prepare each record for insertion
                 $data[] = [
-                    'account_id' => $row['account_id'],
+                    'profit_loss_report_id' => $row['profit_loss_report_id'],
                     'company_id' => $row['company_id'],
+                    'format_id' => $row['format_id'],
+                    'report_no' => $row['report_no'],
+                    'account_type_id' => $row['account_type_id'],
+                    'account_id' => $row['account_id'],
                     'account_code' => $row['account_code'],
                     'account_name' => $row['account_name'],
-                    'account_group' => $row['account_group'],
-                    'account_suspended' => $row['account_suspended'],
-                    'account_default_status' => $row['account_default_status'],
-                    'account_remark' => $row['account_remark'],
-                    'account_status' => $row['account_status'],
-                    'account_token' => $row['account_token'],
-                    'parent_account_status' => $row['parent_account_status'],
-                    'account_type_id' => $row['account_type_id'],
+                    'report_formula' => $row['report_formula'],
+                    'report_operator' => $row['report_operator'],
+                    'report_type' => $row['report_type'],
+                    'report_tab' => $row['report_tab'],
+                    'report_bold' => $row['report_bold'],
                     'data_state' => $row['data_state'],
                     'created_id' => $row['created_id'],
-                    'updated_id' => $row['updated_id'],
-                    'created_at' => now(),
-                    'updated_at' => now(),
+                    'created_on' => now(),
+                    'last_update' => now(),
                 ];
             }
 
