@@ -54,7 +54,6 @@
                 <input type="file" class="form-control" name="file" id="file" accept=".xlsx, .xls" required>
             </div>
             <button type="submit" class="btn btn-primary">Import</button>
-            <a href="{{ route('migration.account-template') }}" class="btn btn-secondary">Download Template Excel</a>
         </form>
 
         <br>
