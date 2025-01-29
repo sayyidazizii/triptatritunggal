@@ -806,6 +806,9 @@ Route::prefix('migration')->name('migration.')->group(function () {
     Route::get('/profit-loss', [MigrationController::class, 'profitLoss'])->name('profit-loss');
     Route::post('/profit-loss-import', [MigrationController::class, 'importProfitLoss'])->name('profit-loss-import');
     Route::post('/profit-loss-insert', [MigrationController::class, 'insertProfitLoss'])->name('profit-loss-insert');
+    Route::get('/balance-sheet', [MigrationController::class, 'balanceSheet'])->name('balance-sheet');
+    Route::post('/balance-sheet-import', [MigrationController::class, 'importBalanceSheet'])->name('balance-sheet-import');
+    Route::post('/balance-sheet-insert', [MigrationController::class, 'insertBalanceSheet'])->name('balance-sheet-insert');
 });
 
 ?>

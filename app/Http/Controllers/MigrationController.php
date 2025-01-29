@@ -11,9 +11,12 @@ use App\Models\MigrationAccount;
 use App\Exports\ProfitLossExport;
 use App\Imports\ProfitLossImport;
 use Illuminate\Support\Facades\DB;
+use App\Exports\BalanceSheetExport;
+use App\Imports\BalanceSheetImport;
 use App\Models\MigrationProfitLoss;
 use App\Models\AcctProfitLossReport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\MigrationBalanceSheet;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -218,6 +221,84 @@ class MigrationController extends Controller
         }
     }
 
+    public function balanceSheet()
+    {
+        $balanceSheet = MigrationBalanceSheet::all();
+        return view('content.Migration.balanceSheet', compact('balanceSheet'));
+    }
+
+    public function importBalanceSheet(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'file' => 'required|mimes:xlsx,xls',
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            MigrationBalanceSheet::truncate();
+
+            $file = $request->file('file');
+            $path = $file->store('temp');
+
+            Excel::import(new BalanceSheetImport, storage_path('app/' . $path));
+
+            Storage::delete($path);
+
+            return redirect()->route('migration.balance-sheet')->with('success', 'Import Migrasi Neraca berhasil!');
+        } catch (\Exception $e) {
+            Log::error('balance-sheet import failed: ' . $e->getMessage());
+            return redirect()->route('migration.balance-sheet')->with('error', 'Terjadi kesalahan saat mengimpor Neraca: ' . $e->getMessage());
+        }
+    }
+
+    public function insertBalanceSheet()
+    {
+        try {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
+            AcctBalanceSheetReport::truncate();
+
+            $data = [];
+            $importedBalanceSheet = MigrationBalanceSheet::all();
+
+            foreach ($importedBalanceSheet as $row) {
+                $data[] = [
+                    'account_id1' => $row['account_id1'],
+                    'company_id' => $row['company_id'],
+                    'account_code1' => $row['account_code1'],
+                    'account_name1' => $row['account_name1'],
+                    'account_id2' => $row['account_id2'],
+                    'account_code2' => $row['account_code2'],
+                    'account_name2' => $row['account_name2'],
+                    'report_formula1' => $row['report_formula1'],
+                    'report_operator1' => $row['report_operator1'],
+                    'report_type1' => $row['report_type1'],
+                    'report_tab1' => $row['report_tab1'],
+                    'report_bold1' => $row['report_bold1'],
+                    'data_state' => $row['data_state'],
+                    'created_id' => $row['created_id'],
+                    'created_on' => $row['created_on'],
+                    'last_update' => $row['last_update'],
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+            }
+
+            AcctBalanceSheetReport::insert($data);
+
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+            return redirect()->route('migration.balance-sheet')->with('success', 'Neraca berhasil dimasukkan!');
+        } catch (\Exception $e) {
+            Log::error('Insert balance-sheet failed: ' . $e->getMessage());
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+            return redirect()->route('migration.balance-sheet')->with('error', 'Terjadi kesalahan saat memasukkan Neraca: ' . $e->getMessage());
+        }
+    }
+
     // * downloadTemplate
     public function downloadTemplate($template)
     {
@@ -226,6 +307,8 @@ class MigrationController extends Controller
             return Excel::download(new AccountExport, 'account-template.xlsx');
         } else if ($template == 'profit-loss'){
             return Excel::download(new ProfitLossExport, 'profit-loss-template.xlsx');
+        }  else if ($template == 'balance-sheet'){
+                return Excel::download(new BalanceSheetExport, 'balance-sheet-template.xlsx');
         } else {
             return Excel::download(new AccountExport, 'account-template.xlsx');
         }
