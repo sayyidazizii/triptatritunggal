@@ -17,6 +17,7 @@ use App\Models\MigrationProfitLoss;
 use App\Models\AcctProfitLossReport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\MigrationBalanceSheet;
+use App\Models\AcctBalanceSheetReport;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -268,6 +269,7 @@ class MigrationController extends Controller
                 $data[] = [
                     'account_id1' => $row['account_id1'],
                     'company_id' => $row['company_id'],
+                    'report_no' => $row['report_no'],
                     'account_code1' => $row['account_code1'],
                     'account_name1' => $row['account_name1'],
                     'account_id2' => $row['account_id2'],
@@ -278,12 +280,15 @@ class MigrationController extends Controller
                     'report_type1' => $row['report_type1'],
                     'report_tab1' => $row['report_tab1'],
                     'report_bold1' => $row['report_bold1'],
+                    'report_type2' => $row['report_type2'],
+                    'report_tab2' => $row['report_tab2'],
+                    'report_bold2' => $row['report_bold2'],
+                    'report_formula2' => $row['report_formula2'],
+                    'report_operator2' => $row['report_operator2'],
                     'data_state' => $row['data_state'],
                     'created_id' => $row['created_id'],
-                    'created_on' => $row['created_on'],
-                    'last_update' => $row['last_update'],
-                    'created_at' => now(),
-                    'updated_at' => now(),
+                    'created_on' => now(),
+                    'last_update' => now(),
                 ];
             }
 
