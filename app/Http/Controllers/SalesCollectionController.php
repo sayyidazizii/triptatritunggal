@@ -401,7 +401,7 @@ class SalesCollectionController extends Controller
                     }
                 }
 
-                    $account_setting_name = 'account_receivable_cash_account_id';
+                    $account_setting_name = 'sales_collection_cash_account_id';
                     $account_id = $this->getAccountId($account_setting_name);
                     $account_setting_status = $this->getAccountSettingStatus($account_setting_name);
                     $account_default_status = $this->getAccountDefaultStatus($account_id);
@@ -426,7 +426,7 @@ class SalesCollectionController extends Controller
                     );
                     JournalVoucherItem::create($journal_debit);
 
-                    $account_setting_name = 'sales_credit_account_id';
+                    $account_setting_name = 'sales_collection_account_id';
                     $account_id = $this->getAccountId($account_setting_name);
                     $account_setting_status = $this->getAccountSettingStatus($account_setting_name);
                     $account_default_status = $this->getAccountDefaultStatus($account_id);
