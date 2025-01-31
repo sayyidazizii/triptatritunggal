@@ -16,7 +16,7 @@ class AcctBalanceSheetReportController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        
+
     }
 
     public function index()
@@ -48,7 +48,7 @@ class AcctBalanceSheetReportController extends Controller
         $year_now 	=	date('Y');
         for($i=($year_now-2); $i<($year_now+2); $i++){
             $yearlist[$i] = $i;
-        } 
+        }
 
         $acctbalancesheetreport_left = AcctBalanceSheetReport::select('report_tab1','report_bold1','report_type1','account_name1','account_code1','report_no','report_formula1','report_operator1','account_id1')
         ->where('data_state', 0)
@@ -122,7 +122,7 @@ class AcctBalanceSheetReportController extends Controller
         ->where('acct_journal_voucher.data_state',0)
         ->where('acct_journal_voucher_item.account_id', $account_id)
         ->get();
-        
+
         $data_first = JournalVoucher::select('acct_journal_voucher_item.account_id_status','acct_journal_voucher_item.account_id_default_status','acct_journal_voucher_item.journal_voucher_debit_amount','acct_journal_voucher_item.journal_voucher_credit_amount')
         ->join('acct_journal_voucher_item','acct_journal_voucher_item.journal_voucher_id','acct_journal_voucher.journal_voucher_id')
         ->whereYear('acct_journal_voucher.journal_voucher_date', $year)
@@ -131,12 +131,12 @@ class AcctBalanceSheetReportController extends Controller
         ->orderBy('acct_journal_voucher_item.journal_voucher_item_id', 'ASC')
         ->first();
         // dd($data_first ); exit;
-    
+
         $amount = 0;
         $amount1 = 0;
         $amount2 = 0;
         foreach ($data as $key => $val) {
-            
+
             if ($val['account_id_status'] == $data_first['account_id_default_status']) {
                 // if($val['account_id'] == 28 ){
                 //     $amount1 = $val['journal_voucher_amount'];
@@ -147,16 +147,16 @@ class AcctBalanceSheetReportController extends Controller
 
                 // }
                     $amount1 += $val['journal_voucher_amount'];
-                    
+
                 } else {
                     $amount2 += $val['journal_voucher_amount'];
-    
+
                 }
-    
+
                 $amount = $amount1 - $amount2;
-            
+
         }
-        // echo json_encode($amount1);exit;
+        // dd($amount);exit;
         return ($amount);
     }
 
@@ -210,13 +210,13 @@ class AcctBalanceSheetReportController extends Controller
         ";
 
         $pdf::writeHTML($tbl, true, false, false, false, '');
-        
+
         $tblHeader = "
-        <table id=\"items\" width=\"100%\" cellspacing=\"1\" cellpadding=\"2\" border=\"1\">			        
+        <table id=\"items\" width=\"100%\" cellspacing=\"1\" cellpadding=\"2\" border=\"1\">
             <tr>";
                 $tblheader_left = "
-                    <td style=\"width: 50%\">	
-                        <table id=\"items\" width=\"100%\" cellspacing=\"1\" cellpadding=\"2\" border=\"0\">";	
+                    <td style=\"width: 50%\">
+                        <table id=\"items\" width=\"100%\" cellspacing=\"1\" cellpadding=\"2\" border=\"0\">";
                             $tblitem_left = "";
                             $grand_total_account_amount1 = 0;
                             $grand_total_account_amount2 = 0;
@@ -235,7 +235,7 @@ class AcctBalanceSheetReportController extends Controller
                                     $report_bold1 = 'bold';
                                 } else {
                                     $report_bold1 = 'normal';
-                                }									
+                                }
 
                                 if($valLeft['report_type1'] == 1){
                                     $tblitem_left1 = "
@@ -256,10 +256,10 @@ class AcctBalanceSheetReportController extends Controller
                                         </tr>";
                                 } else {
                                     $tblitem_left2 = "";
-                                }									
+                                }
 
                                 if($valLeft['report_type1']	== 3){
-                                    $last_balance1 	= $this->getAmountAccount($valLeft['account_id1']);		
+                                    $last_balance1 	= $this->getAmountAccount($valLeft['account_id1']);
 
                                     $tblitem_left3 = "
                                         <tr>
@@ -272,17 +272,17 @@ class AcctBalanceSheetReportController extends Controller
                                 } else {
                                     $tblitem_left3 = "";
                                 }
-                                
+
 
                                 if($valLeft['report_type1']	== 10){
-                                    $last_balance10 	= $this->getAmountAccount($valLeft['account_id1']);		
+                                    $last_balance10 	= $this->getAmountAccount($valLeft['account_id1']);
 
 
                                     $account_amount10_top[$valLeft['report_no']] = $last_balance10;
 
                                 } else {
                                 }
-                                
+
 
                                 if($valLeft['report_type1'] == 11){
                                     if(!empty($valLeft['report_formula1']) && !empty($valLeft['report_operator1'])){
@@ -321,7 +321,7 @@ class AcctBalanceSheetReportController extends Controller
                                 }
 
                                 if($valLeft['report_type1']	== 7){
-                                    $last_balance1 	= $this->getAmountAccount($valLeft['account_id1']);		
+                                    $last_balance1 	= $this->getAmountAccount($valLeft['account_id1']);
 
                                     $tblitem_left7 = "
                                         <tr>
@@ -336,8 +336,8 @@ class AcctBalanceSheetReportController extends Controller
                                 }
 
                                 if($valLeft['report_type1']	== 8){
-                                    // $last_balance1 	= $this->getAmountAccount($valLeft['account_id1']);	
-                                    $last_balance1 	= app('App\Http\Controllers\InvtStockAdjustmentReportController')->getLastBalanceStock($valLeft['account_id']);	
+                                    // $last_balance1 	= $this->getAmountAccount($valLeft['account_id1']);
+                                    $last_balance1 	= app('App\Http\Controllers\InvtStockAdjustmentReportController')->getLastBalanceStock($valLeft['account_id']);
 
                                     $tblitem_left8 = "
                                         <tr>
@@ -350,8 +350,8 @@ class AcctBalanceSheetReportController extends Controller
                                 } else {
                                     $tblitem_left8 = "";
                                 }
-                                
-                                
+
+
 
                                 if($valLeft['report_type1'] == 5){
                                     if(!empty($valLeft['report_formula1']) && !empty($valLeft['report_operator1'])){
@@ -417,12 +417,12 @@ class AcctBalanceSheetReportController extends Controller
                                 // 				}
                                 // 			}
                                 // 		}
-                                        
+
                                 // 	} else {
-                                        
+
                                 // 	}
                                 // } else {
-                                    
+
                                 // }
 
                             }
@@ -436,8 +436,8 @@ class AcctBalanceSheetReportController extends Controller
                 exit; */
 
                 $tblheader_right = "
-                    <td style=\"width: 50%\">	
-                        <table id=\"items\" width=\"100%\" cellspacing=\"1\" cellpadding=\"2\" border=\"0\">";		
+                    <td style=\"width: 50%\">
+                        <table id=\"items\" width=\"100%\" cellspacing=\"1\" cellpadding=\"2\" border=\"0\">";
                             $tblitem_right = "";
                             foreach ($acctbalancesheetreport_right as $keyRight => $valRight) {
                                 if($valRight['report_tab2'] == 0){
@@ -454,7 +454,7 @@ class AcctBalanceSheetReportController extends Controller
                                     $report_bold2 = 'bold';
                                 } else {
                                     $report_bold2 = 'normal';
-                                }									
+                                }
 
                                 if($valRight['report_type2'] == 1){
                                     $tblitem_right1 = "
@@ -475,7 +475,7 @@ class AcctBalanceSheetReportController extends Controller
                                         </tr>";
                                 } else {
                                     $tblitem_right2 = "";
-                                }									
+                                }
 
                                 if($valRight['report_type2']	== 3){
                                     $last_balance2 	= $this->getAmountAccount($valRight['account_id2']);
@@ -492,14 +492,14 @@ class AcctBalanceSheetReportController extends Controller
                                 }
 
                                 if($valRight['report_type2']	== 10){
-                                    $last_balance210 	= $this->getAmountAccount($valRight['account_id2']);		
+                                    $last_balance210 	= $this->getAmountAccount($valRight['account_id2']);
 
 
                                     $account_amount210_top[$valRight['report_no']] = $last_balance210;
 
                                 } else {
                                 }
-                                
+
 
                                 if($valRight['report_type2'] == 11){
                                     if(!empty($valRight['report_formula2']) && !empty($valRight['report_operator2'])){
@@ -545,7 +545,7 @@ class AcctBalanceSheetReportController extends Controller
                                     }
 
 
-                                    
+
                                     $tblitem_right8 = "
                                         <tr>
                                             <td><div style=\"font-weight:".$report_bold2."\">".$report_tab2."(".$valRight['account_code2'].") ".$valRight['account_name2']."</div> </td>
@@ -565,7 +565,7 @@ class AcctBalanceSheetReportController extends Controller
                                         $profit_loss = 0;
                                     }
 
-                                    
+
                                     $tblitem_right7 = "
                                         <tr>
                                             <td><div style=\"font-weight:".$report_bold2."\">".$report_tab2."(".$valRight['account_code2'].") ".$valRight['account_name2']."</div> </td>
@@ -577,7 +577,7 @@ class AcctBalanceSheetReportController extends Controller
                                 } else {
                                     $tblitem_right7 = "";
                                 }
-                                
+
 
                                 if($valRight['report_type2'] == 5){
                                     if(!empty($valRight['report_formula2']) && !empty($valRight['report_operator2'])){
@@ -621,11 +621,11 @@ class AcctBalanceSheetReportController extends Controller
                                 }
 
 
-                                
+
 
                                 $tblitem_right .= $tblitem_right1.$tblitem_right2.$tblitem_right3.$tblitem_right10.$tblitem_right8.$tblitem_right7.$tblitem_right5;
 
-                                
+
                             }
 
                 $tblfooter_right = "
@@ -653,7 +653,7 @@ class AcctBalanceSheetReportController extends Controller
                 </td>
             </tr>
         </table>";
-            
+
         $table = $tblHeader.$tblheader_left.$tblitem_left.$tblfooter_left.$tblheader_right.$tblitem_right.$tblfooter_right.$tblFooter;
             /*print_r("table ");
             print_r($table);
@@ -696,7 +696,7 @@ class AcctBalanceSheetReportController extends Controller
                                     ->setDescription("Laporan Neraca")
                                     ->setKeywords("Neraca, Laporan, SIS, Integrated")
                                     ->setCategory("Laporan Neraca");
-                                    
+
             $spreadsheet->setActiveSheetIndex(0);
             $spreadsheet->getActiveSheet()->getPageSetup()->setFitToWidth(1);
             $spreadsheet->getActiveSheet()->getPageSetup()->setFitToWidth(1);
@@ -704,7 +704,7 @@ class AcctBalanceSheetReportController extends Controller
             $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(20);
             $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(50);
             $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(20);
-            
+
             $spreadsheet->getActiveSheet()->mergeCells("B1:E1");
             $spreadsheet->getActiveSheet()->mergeCells("B2:E2");
             // $spreadsheet->getActiveSheet()->mergeCells("B3:E3");
@@ -717,25 +717,25 @@ class AcctBalanceSheetReportController extends Controller
             // $spreadsheet->getActiveSheet()->getStyle('B3')->getFont()->setBold(true)->setSize(12);
 
             $spreadsheet->getActiveSheet()->getStyle('B4:E4')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-            $spreadsheet->getActiveSheet()->getStyle('B4:E4')->getFont()->setBold(true);	
-            $spreadsheet->getActiveSheet()->setCellValue('B1',"Laporan Neraca ");	
-            $spreadsheet->getActiveSheet()->setCellValue('B2',"Periode Januari - ".$this->getMonthName($month)." ".$year."");	
-            
+            $spreadsheet->getActiveSheet()->getStyle('B4:E4')->getFont()->setBold(true);
+            $spreadsheet->getActiveSheet()->setCellValue('B1',"Laporan Neraca ");
+            $spreadsheet->getActiveSheet()->setCellValue('B2',"Periode Januari - ".$this->getMonthName($month)." ".$year."");
+
             $j = 4;
             $no = 0;
             $grand_total = 0;
             $grand_total_account_amount1 = 0;
             $grand_total_account_amount2 = 0;
-            
+
             foreach($acctbalancesheetreport_left as $keyLeft =>$valLeft){
                 if(is_numeric($keyLeft)){
-                    
+
                     $spreadsheet->setActiveSheetIndex(0);
                     /*$spreadsheet->getActiveSheet()->getStyle('B'.$j.':C'.$j)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);*/
-            
+
                     $spreadsheet->getActiveSheet()->getStyle('B'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
                     $spreadsheet->getActiveSheet()->getStyle('C'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
-                
+
                     if($valLeft['report_tab1'] == 0){
                         $report_tab1 = ' ';
                     } else if($valLeft['report_tab1'] == 1){
@@ -747,11 +747,11 @@ class AcctBalanceSheetReportController extends Controller
                     }
 
                     if($valLeft['report_bold1'] == 1){
-                        $spreadsheet->getActiveSheet()->getStyle('B'.$j)->getFont()->setBold(true);	
-                        $spreadsheet->getActiveSheet()->getStyle('C'.$j)->getFont()->setBold(true);	
+                        $spreadsheet->getActiveSheet()->getStyle('B'.$j)->getFont()->setBold(true);
+                        $spreadsheet->getActiveSheet()->getStyle('C'.$j)->getFont()->setBold(true);
                     } else {
-                        
-                    }									
+
+                    }
 
                     if($valLeft['report_type1'] == 1){
                         $spreadsheet->getActiveSheet()->mergeCells("B".$j.":C".$j."");
@@ -766,10 +766,10 @@ class AcctBalanceSheetReportController extends Controller
                         $spreadsheet->getActiveSheet()->setCellValue('B'.$j, $report_tab1.$valLeft['account_name1']);
                     } else {
 
-                    }									
+                    }
 
                     if($valLeft['report_type1']	== 3){
-                        $last_balance1 = $this->getAmountAccount($valLeft['account_id1']);		
+                        $last_balance1 = $this->getAmountAccount($valLeft['account_id1']);
 
                         if (empty($last_balance1)){
                             $last_balance1 = 0;
@@ -785,7 +785,7 @@ class AcctBalanceSheetReportController extends Controller
                     }
 
                     if($valLeft['report_type1']	== 10){
-                        $last_balance10 = $this->getAmountAccount($valLeft['account_id1']);		
+                        $last_balance10 = $this->getAmountAccount($valLeft['account_id1']);
 
                         if (empty($last_balance10)){
                             $last_balance10 = 0;
@@ -796,7 +796,7 @@ class AcctBalanceSheetReportController extends Controller
                     } else {
 
                     }
-                    
+
 
                     if($valLeft['report_type1'] == 11){
                         if(!empty($valLeft['report_formula1']) && !empty($valLeft['report_operator1'])){
@@ -822,19 +822,19 @@ class AcctBalanceSheetReportController extends Controller
 
                             $spreadsheet->getActiveSheet()->setCellValue('B'.$j, $report_tab1.$valLeft['account_name1']);
                             $spreadsheet->getActiveSheet()->setCellValue('C'.$j, $report_tab1.number_format($total_account_amount10,2));
-                            
+
                             $grand_total_account_amount1 +=  $total_account_amount10;
 
-                            
+
                         } else {
-                            
+
                         }
                     } else {
-                        
+
                     }
 
                     if($valLeft['report_type1']	== 7){
-                        $last_balance1 = $this->getAmountAccount($valLeft['account_id1']);		
+                        $last_balance1 = $this->getAmountAccount($valLeft['account_id1']);
 
                         if (empty($last_balance1)){
                             $last_balance1 = 0;
@@ -848,7 +848,7 @@ class AcctBalanceSheetReportController extends Controller
                     } else {
 
                     }
-                    
+
 
                     if($valLeft['report_type1'] == 5){
                         if(!empty($valLeft['report_formula1']) && !empty($valLeft['report_operator1'])){
@@ -875,15 +875,15 @@ class AcctBalanceSheetReportController extends Controller
                             $spreadsheet->getActiveSheet()->setCellValue('B'.$j, $report_tab1.$valLeft['account_name1']);
                             // $spreadsheet->getActiveSheet()->setCellValue('C'.$j, $report_tab1.($total_account_amount1+$total_account_amount10));
                             $spreadsheet->getActiveSheet()->setCellValue('C'.$j, $report_tab1.number_format($total_account_amount1,2));
-                            
+
                             $grand_total_account_amount1 +=  $total_account_amount1;
 
-                            
+
                         } else {
-                            
+
                         }
                     } else {
-                        
+
                     }
 
                     if($valLeft['report_type1'] == 6){
@@ -907,13 +907,13 @@ class AcctBalanceSheetReportController extends Controller
                                     }
                                 }
                             }
-                            
+
                         } else {
-                            
+
                         }
                     } else {
-                        
-                    }	
+
+                    }
 
                 }else{
                     continue;
@@ -930,13 +930,13 @@ class AcctBalanceSheetReportController extends Controller
 
             foreach($acctbalancesheetreport_right as $keyRight =>$valRight){
                 if(is_numeric($keyRight)){
-                    
+
                     $spreadsheet->setActiveSheetIndex(0);
                     /*$spreadsheet->getActiveSheet()->getStyle('D'.$j.':E'.$j)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);*/
-            
+
                     $spreadsheet->getActiveSheet()->getStyle('D'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
                     $spreadsheet->getActiveSheet()->getStyle('E'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
-                
+
                     if($valRight['report_tab2'] == 0){
                         $report_tab2 = ' ';
                     } else if($valRight['report_tab2'] == 1){
@@ -948,11 +948,11 @@ class AcctBalanceSheetReportController extends Controller
                     }
 
                     if($valRight['report_bold2'] == 1){
-                        $spreadsheet->getActiveSheet()->getStyle('D'.$j)->getFont()->setBold(true);	
-                        $spreadsheet->getActiveSheet()->getStyle('E'.$j)->getFont()->setBold(true);	
+                        $spreadsheet->getActiveSheet()->getStyle('D'.$j)->getFont()->setBold(true);
+                        $spreadsheet->getActiveSheet()->getStyle('E'.$j)->getFont()->setBold(true);
                     } else {
-                        
-                    }									
+
+                    }
 
                     if($valRight['report_type2'] == 1){
                         $spreadsheet->getActiveSheet()->mergeCells("D".$j.":E".$j."");
@@ -967,10 +967,10 @@ class AcctBalanceSheetReportController extends Controller
                         $spreadsheet->getActiveSheet()->setCellValue('D'.$j, $report_tab2.$valRight['account_name2']);
                     } else {
 
-                    }									
+                    }
 
                     if($valRight['report_type2']	== 3){
-                        $last_balance2 = $this->getAmountAccount($valRight['account_id2']);		
+                        $last_balance2 = $this->getAmountAccount($valRight['account_id2']);
 
                         if (empty($last_balance2)){
                             $last_balance2 = 0;
@@ -986,7 +986,7 @@ class AcctBalanceSheetReportController extends Controller
                     }
 
                     if($valRight['report_type2']	== 10){
-                        $last_balance210 = $this->getAmountAccount($valRight['account_id2']);		
+                        $last_balance210 = $this->getAmountAccount($valRight['account_id2']);
 
                         if (empty($last_balance210)){
                             $last_balance210 = 0;
@@ -997,7 +997,7 @@ class AcctBalanceSheetReportController extends Controller
                     } else {
 
                     }
-                    
+
 
                     if($valRight['report_type2'] == 11){
                         if(!empty($valRight['report_formula2']) && !empty($valRight['report_operator2'])){
@@ -1023,15 +1023,15 @@ class AcctBalanceSheetReportController extends Controller
 
                             $spreadsheet->getActiveSheet()->setCellValue('D'.$j, $report_tab1.$valRight['account_name2']);
                             $spreadsheet->getActiveSheet()->setCellValue('E'.$j, $report_tab1.number_format($total_account_amount210,2));
-                            
+
                             $grand_total_account_amount2 +=  $total_account_amount210;
 
-                            
+
                         } else {
-                            
+
                         }
                     } else {
-                        
+
                     }
 
                     if($valRight['report_type2']	== 8){
@@ -1066,7 +1066,7 @@ class AcctBalanceSheetReportController extends Controller
                     } else {
 
                     }
-                    
+
 
                     if($valRight['report_type2'] == 5){
                         if(!empty($valRight['report_formula2']) && !empty($valRight['report_operator2'])){
@@ -1094,17 +1094,17 @@ class AcctBalanceSheetReportController extends Controller
                             // $spreadsheet->getActiveSheet()->setCellValue('E'.$j, $report_tab2.$total_account_amount2+$total_account_amount210);
                             $spreadsheet->getActiveSheet()->setCellValue('E'.$j, $report_tab2.number_format($total_account_amount2,2    ));
 
-                            
+
                             $grand_total_account_amount2 += $total_account_amount2;
 
-                            
+
                         } else {
-                            
+
                         }
                     } else {
-                        
+
                     }
-                    
+
 
                     if($valRight['report_type2'] == 6){
                         if(!empty($valRight['report_formula2']) && !empty($valRight['report_operator2'])){
@@ -1128,11 +1128,11 @@ class AcctBalanceSheetReportController extends Controller
                                 }
                             }
                         } else {
-                            
+
                         }
                     } else {
-                        
-                    }	
+
+                    }
 
                 }else{
                     continue;
@@ -1143,7 +1143,7 @@ class AcctBalanceSheetReportController extends Controller
 
 
 
-        
+
             $filename='Laporan_Rugi_Laba_01_'.$month.'_'.$year.'.xls';
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
             header('Content-Disposition: attachment;filename="'.$filename.'"');
