@@ -649,6 +649,8 @@ Route::get('/sales-invoice/printing/{sales_invoice_id}', [SalesInvoiceController
 Route::get('/sales-invoice/closed/{sales_invoice_id}', [SalesInvoiceController::class, 'closedSalesInvoice'])->name('closed-sales-invoice');
 Route::post('/sales-invoice/process-closed', [SalesInvoiceController::class, 'processClosedSalesInvoice'])->name('process-closed-sales-invoice');
 Route::get('/sales-invoice/export', [SalesInvoiceController::class, 'export'])->name('sales-invoice-export');
+Route::get('/sales-invoice/print/{sales_invoice_id}', [SalesInvoiceController::class, 'printNota'])->name('sales-invoice-print');
+
 
 Route::get('/sales-invoice-report', [SalesInvoiceReportController::class, 'index'])->name('sales-invoice-report');
 Route::post('/sales-invoice-report/filter', [SalesInvoiceReportController::class, 'filterSalesInvoiceReport'])->name('filter-sales-invoice-report');
