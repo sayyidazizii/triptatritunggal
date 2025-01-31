@@ -412,7 +412,7 @@
                                         <tr>";
                                             if($val['report_type2']	== 12){
 
-                                                $total_amount_activa 	= $total_current_liabilities - $total_account_amount210;
+                                                $total_amount_activa 	= $total_current_liabilities + $total_account_amount210;
 
                                             }
                                         echo "
