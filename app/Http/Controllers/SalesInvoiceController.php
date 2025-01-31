@@ -1139,6 +1139,155 @@ class SalesInvoiceController extends Controller
         return $bulan[$month];
     }
 
+
+    public function printNota($salesId)
+    {   
+        $salesinvoice = SalesInvoice::select('*')->where('sales_invoice_id', $salesId)->where('data_state',0)->first();
+        $salesinvoiceitem = SalesInvoiceItem::select('*')->where('sales_invoice_id', $salesinvoice['sales_invoice_id'])->where('data_state',0)->get();
+        // echo json_encode($salesinvoiceitem);exit;
+
+        $page_format = array(
+            'format' => 'CUSTOM',
+            'unit' => 'in',
+            'width' => 9.5,
+            'height' => 11,
+            'margin_left' => 0.2,
+            'margin_right' => 0.2,
+            'margin_top' => 0.2,
+            'margin_bottom' => 0.2
+        );
+
+        // Create new TCPDF instance
+        $pdf = new TCPDF('P', 'in', $page_format, true, 'UTF-8');
+
+        // Remove default header/footer
+        $pdf::setPrintHeader(false);
+        $pdf::setPrintFooter(false);
+        
+        // Add a page
+        $pdf::AddPage();
+        
+        // Set font
+        $pdf::SetFont('helvetica', '', 10);
+        
+        // Company Logo
+        $pdf::Image(public_path('images/logo.png'), 10, 10, 30);
+        
+        // Company Details
+        $pdf::SetXY(20, 10);
+        $pdf::SetFont('helvetica', '', 9);
+        $pdf::Cell(0, 10, 'PT. TRIPTA TRI TUNGGAL', 0, 1);
+        $pdf::Cell(0, 5, 'JL. DURIAN 2 A', 0, 1);
+        $pdf::Cell(0, 5, 'PERUM. BUMI WONOREJO - KARANGANYAR', 0, 1);
+        $pdf::Cell(0, 5, 'TELP: 061 226 869 764', 0, 1);
+        $pdf::Cell(0, 5, 'FAX: 0271-2874598', 0, 1);
+        
+        // Bill To
+        $pdf::SetFont('helvetica', 'B', 9);
+        $pdf::SetXY(10, 41);
+        $pdf::Cell(0, 5, 'BILL TO', 0, 1);
+        $pdf::SetFont('helvetica', '', 9);
+        $pdf::Cell(0, 5, 'PT. CHAROEN POKPHAND INDONESIA', 0, 1);
+        $pdf::Cell(0, 5, 'Patimura Kutowinangun Km.1 Candeh Tingkir', 0, 1);
+        $pdf::Cell(0, 5, 'Salatiga 50742', 0, 1);
+
+        // Invoice Details (Right Side)
+        $pdf::SetXY(150, 10);
+        $pdf::SetFont('helvetica', 'B', 12);
+        $pdf::Cell(30, 10, 'INVOICE', 0, 1, 'R');
+
+        // Invoice Info Table
+        $pdf::SetFont('helvetica', '', 9);
+        $pdf::SetXY(120, 20);
+        $pdf::Cell(30, 5, 'Date', 0);
+        $pdf::Cell(50, 5, ': ', 0, 1);
+        $pdf::SetX(120);
+        $pdf::Cell(30, 5, 'Invoice No.', 0);
+        $pdf::Cell(50, 5, ': ', 0, 1);
+        $pdf::SetX(120);
+        $pdf::Cell(30, 5, 'Delivery Order.', 0);
+        $pdf::Cell(50, 5, ': ', 0, 1);
+        $pdf::SetX(120);
+        $pdf::Cell(30, 5, 'PO Number.', 0);
+        $pdf::Cell(50, 5, ': ', 0, 1);
+        $pdf::SetX(120);
+        $pdf::Cell(30, 5, 'Sales Person.', 0);
+        $pdf::Cell(50, 5, ': ', 0, 1);
+        
+        $currentY = 65;
+        
+        // Items Table Header
+        $pdf::SetXY(10, $currentY);
+        $pdf::SetFont('helvetica', 'B', 9);
+        $pdf::Cell(70, 7, 'DESCRIPTION', 1);
+        $pdf::Cell(20, 7, 'QTY', 1);
+        $pdf::Cell(30, 7, '@', 1);
+        $pdf::Cell(30, 7, 'Total Valas', 1);
+        $pdf::Cell(30, 7, 'Total Rupiah (Rp.)', 1, 1);
+        
+        // Add items
+        $pdf::SetFont('helvetica', '', 9);
+        foreach($salesinvoiceitem as $item) {
+            if ($currentY > 250) {  // Leave space for totals and footer
+                $pdf->AddPage();
+                $currentY = 10;  // Reset Y position on new page
+            }   
+            $pdf::Cell(70, 7, $item->item_unit_price, 1);
+            $pdf::Cell(20, 7, $item->quantity . ' PC', 1);
+            $pdf::Cell(30, 7, 'Rp ' . number_format($item->item_unit_price, 0), 1);
+            $pdf::Cell(30, 7, 'Rp ' . 0, 1);
+            $pdf::Cell(30, 7, 'Rp ' . number_format($item->subtotal_price_A, 0), 1, 1);
+
+            $currentY += 7;
+        }
+
+        // Totals
+        $currentY += 6;
+        $pdf::SetXY(100,$currentY);
+        $pdf::Cell(60, 7, 'Sub Total');
+        $pdf::Cell(35, 7, 'Rp ');
+        $currentY += 6;
+        $pdf::SetXY(100,$currentY);
+        $pdf::Cell(60, 7, 'Discount');
+        $pdf::Cell(35, 7, 'Rp ');
+        $currentY += 6;
+        $pdf::SetXY(100,$currentY);
+        $pdf::Cell(60, 7, 'DPP');
+        $pdf::Cell(35, 7, 'Rp ');
+        $currentY += 6;
+        $pdf::SetXY(100,$currentY);
+        $pdf::Cell(60, 7, 'PPN');
+        $pdf::Cell(35, 7, 'Rp ');
+        $currentY += 6;
+        $pdf::SetXY(100,$currentY);
+        $pdf::Cell(60, 7, 'TOTAL Due');
+        $pdf::Cell(35, 7, 'Rp ');
+        
+        // Payment Instructions
+        $currentY += -10;
+        $pdf::SetXY(10, $currentY);
+        $pdf::SetFont('helvetica', 'B', 9);
+        $pdf::Cell(0, 5, 'Notes and Payment Instruction:', 0, 1);
+        $pdf::SetFont('helvetica', '', 9);
+        $pdf::Cell(0, 5, 'Make all check payable to', 0, 1);
+        $pdf::Cell(0, 5, 'PT. TRIPTA TRI TUNGGAL', 0, 1);
+        $pdf::Cell(0, 5, 'Bank BCA KCU Solo Slamet Riyadi', 0, 1);
+        $pdf::Cell(0, 5, 'A/C No. 015-317072-7', 0, 1);
+        $pdf::Cell(0, 5, 'Payment is due within 14 days', 0, 1);
+        
+        // Signature
+        $pdf::SetXY(120, 150);
+        $pdf::Cell(0, 5, 'Your Faithfully', 0, 1, 'C');
+        $pdf::SetXY(120, 180);
+        $pdf::Cell(0, 5, 'ELLY', 0, 1, 'C');
+        
+        // Footer
+        $pdf::SetY(200);
+        $pdf::Cell(0, 10, 'Thank For Your Purchase', 0, 0, 'C');
+        
+        return $pdf::Output('invoice.pdf', 'I');
+    }
+
     //Pengantar
     public function printKwitansiPengantar(){
         $saleskwitansi = SalesKwitansi::select('*')
@@ -1153,10 +1302,8 @@ class SalesInvoiceController extends Controller
         ->groupBy('sales_invoice_item.sales_invoice_item_id')
         ->get();
 
-
         $company = PreferenceCompany::select('*')
             ->first();
-
 
         //pdf
         $pdf = new TCPDF('P', PDF_UNIT, 'F4', true, 'UTF-8', false);
