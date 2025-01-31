@@ -358,6 +358,8 @@ class SalesInvoiceController extends Controller
             // *sales credit
             $account_receivable_credit_account_id = AcctAccountSetting::where('account_setting_name','account_receivable_credit_account_id')->first();
             $sales_credit_account_id = AcctAccountSetting::where('account_setting_name','sales_credit_account_id')->first();
+            // *sales tax
+            $sales_tax_account_id = AcctAccountSetting::where('account_setting_name','sales_tax_account_id')->first();
             $transaction_module_code = "PPP";
             $transactionmodule = PreferenceTransactionModule::where('transaction_module_code', $transaction_module_code)->first();
             $transaction_module_id = $transactionmodule['transaction_module_id'];
@@ -389,7 +391,7 @@ class SalesInvoiceController extends Controller
                     'debit' => false,
                 ],
                 [
-                    'account_id' => $preferencecompany->account_vat_out_id,
+                    'account_id' => $sales_tax_account_id['account_id'],
                     'description' => $data_journal['journal_voucher_description'],
                     'amount' => $ppn_amount,
                     'debit' => false,
@@ -1141,7 +1143,7 @@ class SalesInvoiceController extends Controller
 
 
     public function printNota($salesId)
-    {   
+    {
         $salesinvoice = SalesInvoice::select('*')->where('sales_invoice_id', $salesId)->where('data_state',0)->first();
         $salesinvoiceitem = SalesInvoiceItem::select('*')->where('sales_invoice_id', $salesinvoice['sales_invoice_id'])->where('data_state',0)->get();
         // echo json_encode($salesinvoiceitem);exit;
@@ -1163,16 +1165,16 @@ class SalesInvoiceController extends Controller
         // Remove default header/footer
         $pdf::setPrintHeader(false);
         $pdf::setPrintFooter(false);
-        
+
         // Add a page
         $pdf::AddPage();
-        
+
         // Set font
         $pdf::SetFont('helvetica', '', 10);
-        
+
         // Company Logo
         $pdf::Image(public_path('images/logo.png'), 10, 10, 30);
-        
+
         // Company Details
         $pdf::SetXY(20, 10);
         $pdf::SetFont('helvetica', '', 9);
@@ -1181,7 +1183,7 @@ class SalesInvoiceController extends Controller
         $pdf::Cell(0, 5, 'PERUM. BUMI WONOREJO - KARANGANYAR', 0, 1);
         $pdf::Cell(0, 5, 'TELP: 061 226 869 764', 0, 1);
         $pdf::Cell(0, 5, 'FAX: 0271-2874598', 0, 1);
-        
+
         // Bill To
         $pdf::SetFont('helvetica', 'B', 9);
         $pdf::SetXY(10, 41);
@@ -1213,9 +1215,9 @@ class SalesInvoiceController extends Controller
         $pdf::SetX(120);
         $pdf::Cell(30, 5, 'Sales Person.', 0);
         $pdf::Cell(50, 5, ': ', 0, 1);
-        
+
         $currentY = 65;
-        
+
         // Items Table Header
         $pdf::SetXY(10, $currentY);
         $pdf::SetFont('helvetica', 'B', 9);
@@ -1224,14 +1226,14 @@ class SalesInvoiceController extends Controller
         $pdf::Cell(30, 7, '@', 1);
         $pdf::Cell(30, 7, 'Total Valas', 1);
         $pdf::Cell(30, 7, 'Total Rupiah (Rp.)', 1, 1);
-        
+
         // Add items
         $pdf::SetFont('helvetica', '', 9);
         foreach($salesinvoiceitem as $item) {
             if ($currentY > 250) {  // Leave space for totals and footer
                 $pdf->AddPage();
                 $currentY = 10;  // Reset Y position on new page
-            }   
+            }
             $pdf::Cell(70, 7, $item->item_unit_price, 1);
             $pdf::Cell(20, 7, $item->quantity . ' PC', 1);
             $pdf::Cell(30, 7, 'Rp ' . number_format($item->item_unit_price, 0), 1);
@@ -1262,7 +1264,7 @@ class SalesInvoiceController extends Controller
         $pdf::SetXY(100,$currentY);
         $pdf::Cell(60, 7, 'TOTAL Due');
         $pdf::Cell(35, 7, 'Rp ');
-        
+
         // Payment Instructions
         $currentY += -10;
         $pdf::SetXY(10, $currentY);
@@ -1274,17 +1276,17 @@ class SalesInvoiceController extends Controller
         $pdf::Cell(0, 5, 'Bank BCA KCU Solo Slamet Riyadi', 0, 1);
         $pdf::Cell(0, 5, 'A/C No. 015-317072-7', 0, 1);
         $pdf::Cell(0, 5, 'Payment is due within 14 days', 0, 1);
-        
+
         // Signature
         $pdf::SetXY(120, 150);
         $pdf::Cell(0, 5, 'Your Faithfully', 0, 1, 'C');
         $pdf::SetXY(120, 180);
         $pdf::Cell(0, 5, 'ELLY', 0, 1, 'C');
-        
+
         // Footer
         $pdf::SetY(200);
         $pdf::Cell(0, 10, 'Thank For Your Purchase', 0, 0, 'C');
-        
+
         return $pdf::Output('invoice.pdf', 'I');
     }
 
