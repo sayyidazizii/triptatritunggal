@@ -43,7 +43,7 @@ class JournalHelper
                     'journal_voucher_debit_amount' => $item['debit'] ? abs($item['amount']) : 0,
                     'journal_voucher_credit_amount'=> !$item['debit'] ? abs($item['amount']) : 0,
                     'account_id_default_status'    => $account->account_default_status,
-                    'account_id_status'            => 0,
+                    'account_id_status'            => $account->account_default_status,
                 ]);
             }
 
