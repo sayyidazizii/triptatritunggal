@@ -599,18 +599,21 @@
                     <a class="text-dark">Kategori Barang<a class='red'> *</a></a>
                     {!! Form::select('item_category_id',  $itemcategory, 0, ['class' => 'selection-search-clear select-form', 'id' => 'item_category_id']) !!}
                 </div>
-                <div class="col-md-4 mt-1">
-                    <a class="text-dark"></a>
-                    <a href='#addkategorybarang' data-toggle='modal' name="Find" class="btn btn-success add-btn btn-sm" title="Add Data">Tambah</a>
+                <div class="col-md-2 mt-1">
+                    <a href='#addkategorybarang' data-toggle='modal' name="Find" class="btn btn-success add-btn btn-sm" title="Add Data">Tambah Kategori</a>
                 </div>
-            </div>
-            <div class="row form-group">
                 <div class="col-md-4">
                     <a class="text-dark">Nama Barang<a class='red'> *</a></a>
                     {!! Form::select('item_stock_id',  $itemtype, 0, ['class' => 'selection-search-clear select-form', 'id' => 'item_stock_id']) !!}
                     <input class="form-control input-bb" type="hidden" name="item_type_id" id="item_type_id" value="0" readonly/>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2 mt-1">
+                    <a href='#addbarang' data-toggle='modal' name="Find" class="btn btn-success add-btn btn-sm" title="Add Data">Tambah Barang</a>              
+                </div>
+            </div>
+            <div class="row form-group">
+                
+                <div class="col-md-6">
                     <div class="form-group">
                         <a class="text-dark">Stock Tersedia</a>
                         <input class="form-control input-bb" type="text" name="available_stock" id="available_stock" value="" readonly/>
@@ -622,6 +625,10 @@
                         <select class="selection-search-clear" name="item_unit_id" id="item_unit_id" style="width: 100% !important">
                         </select>
                     </div>
+                </div>
+                <div class="col-md-2 mt-1">
+                    <a class="text-dark"></a>
+                    <a href='#addbarang' data-toggle='modal' name="Find" class="btn btn-success add-btn btn-sm" title="Add Data">Tambah Satuan</a>       
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
