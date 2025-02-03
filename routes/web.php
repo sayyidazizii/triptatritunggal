@@ -452,6 +452,9 @@ Route::post('/sales-quotation/add-inv-type', [SalesQuotationController::class, '
 Route::get('/sales-quotation/delete-array/{record_id}', [SalesQuotationController::class, 'deleteArraySalesQuotationItem'])->name('sales-quotation-delete-array');
 Route::get('/sales-quotation/detail/{sales_quotation_id}', [SalesQuotationController::class, 'detailSalesQuotation'])->name('detail-sales-quotation');
 Route::get('/sales-quotation/delete/{sales_quotation_id}', [SalesQuotationController::class, 'deleteSalesQuotation'])->name('delete-sales-quotation');
+Route::post('/sales-quotation/add-customer', [SalesQuotationController::class, 'addCoreCustomer'])->name('add-customer-sales-quotation');
+Route::post('/sales-quotation/add-type', [SalesQuotationController::class, 'addMenuType'])->name('add-type-sales-quotation');
+
 
 
 
@@ -473,7 +476,6 @@ Route::post('/sales-order/elements-add', [SalesOrderController::class, 'elements
 Route::get('/sales-order/delete/{sales_order_id}', [SalesOrderController::class, 'deleteSalesOrder'])->name('delete-sales-order');
 Route::post('/sales-order/filter', [SalesOrderController::class, 'filterSalesOrder'])->name('filter-sales-order');
 Route::get('/sales-order/filter-reset', [SalesOrderController::class, 'resetFilterSalesOrder'])->name('filter-reset-sales-order');
-Route::post('/sales-order/add-customer', [SalesOrderController::class, 'addCoreCustomer'])->name('add-customer-sales-order');
 Route::post('/sales-order/available-stock', [SalesOrderController::class, 'getAvailableStock'])->name('available-stock-sales-order');
 Route::post('/sales-order/item-unit-price', [SalesOrderController::class, 'getItemUnitPrice'])->name('item-unit-price-sales-order');
 Route::post('/sales-order/select-data-stock', [SalesOrderController::class, 'getSelectDataStock'])->name('select-data-stock-sales-order');
@@ -481,6 +483,8 @@ Route::post('/sales-order/select-data-unit', [SalesOrderController::class, 'getS
 Route::post('/sales-order/type', [SalesOrderController::class, 'getInvItemType'])->name('sales-order-type');
 Route::post('/sales-order/stock', [SalesOrderController::class, 'getInvItemTypeId'])->name('select-id-stock');
 Route::get('/sales-order/search-sales-quotation', [SalesOrderController::class, 'searchSalesQuotation'])->name('search-sales-quotation');
+Route::post('/sales-order/add-customer', [SalesOrderController::class, 'addCoreCustomer'])->name('add-customer-sales-order');
+
 
 
 Route::get('/sales-order-approval', [SalesOrderApprovalController::class, 'index'])->name('sales-order-approval');
