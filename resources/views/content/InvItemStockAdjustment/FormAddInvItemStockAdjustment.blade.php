@@ -174,7 +174,6 @@ if(!$stockadjustmentelement['warehouse_id'] || $stockadjustmentelement['warehous
                     <table class="table table-bordered table-advance table-hover">
                         <thead class="thead-light">
                             <tr>
-                                <th style='text-align:center'>Batch Number</th>
                                 <th style='text-align:center'>Nama Barang</th>
                                 <th style='text-align:center'>Satuan Barang</th>
                                 <th style='text-align:center'>Gudang</th>
@@ -189,9 +188,6 @@ if(!$stockadjustmentelement['warehouse_id'] || $stockadjustmentelement['warehous
                             @foreach ($itemstock as $val)
                               <?php $no++ ?>
                                 <tr>
-                                    <td style="text-align: center">
-                                            <input style="text-align: left" class="form-control input-bb" type="text" name="item_batch_number_<?php echo $val['item_stock_id']?>" id="item_batch_number_<?php echo $val['item_stock_id'] ?>" value="<?php echo $val['item_batch_number'] ?>" autocomplete="off">
-                                    </td>
                                     <td>
                                         {{ $ISAC->getItemName($val['item_category_id'], $val['item_type_id'], $val['item_id']) }}
                                     </td>
