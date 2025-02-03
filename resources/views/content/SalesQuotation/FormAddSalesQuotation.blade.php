@@ -456,7 +456,7 @@
         var customer_remark 	    = $("#customer_remark").val();
         $.ajax({
             type: "POST",
-            url : "{{route('add-customer-sales-order')}}",
+            url : "{{route('add-customer-sales-quotation')}}",
             dataType: "html",
             data: {
                 'customer_name'	            : customer_name,
