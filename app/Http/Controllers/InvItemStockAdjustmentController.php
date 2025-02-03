@@ -253,13 +253,10 @@ class InvItemStockAdjustmentController extends Controller
                         'item_last_amount'          => $allrequest['adjustment_amount_'.$val['item_stock_id']],
                         'item_adjustment_amount'    => $allrequest['adjustment_difference_amount_'.$val['item_stock_id']],
                         'item_adjustment_remark'    => $allrequest['stock_adjustment_item_remark_'.$val['item_stock_id']],
-                        'item_batch_number'         => $allrequest['item_batch_number_'.$val['item_stock_id']],
-                        // 'item_batch_number'         => $val['item_batch_number'],
                     );
                     //dd($data_item);
                     if(InvItemStockAdjustmentItem::create($data_item)){
                         $item_stock = InvItemStock::findOrFail($data_item['item_stock_id']);
-                        $item_stock->item_batch_number = $data_item['item_batch_number'];
                         $item_stock->quantity_unit = $data_item['item_last_amount'];
                         $item_stock->save();
                     }
