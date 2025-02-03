@@ -455,6 +455,7 @@ Route::get('/sales-quotation/delete/{sales_quotation_id}', [SalesQuotationContro
 Route::post('/sales-quotation/add-customer', [SalesQuotationController::class, 'addCoreCustomer'])->name('add-customer-sales-quotation');
 Route::post('/sales-quotation/add-type', [SalesQuotationController::class, 'addMenuType'])->name('add-type-sales-quotation');
 Route::post('/sales-quotation/add-category', [SalesQuotationController::class, 'addCategory'])->name('add-category-sales-quotation');
+Route::post('/sales-quotation/add-unit', [SalesQuotationController::class, 'addUnit'])->name('add-unit-sales-quotation');
 
 
 
