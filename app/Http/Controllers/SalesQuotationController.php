@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use App\Models\SalesOrderItem;
 use App\Models\SalesOrderType;
 use App\Models\SalesQuotation;
+use Illuminate\Support\Carbon;
 use App\Models\InvItemCategory;
 use Illuminate\Validation\Rule;
 use App\Models\PreferenceCompany;
@@ -630,6 +631,7 @@ class SalesQuotationController extends Controller
             'item_unit_id'              => $item_unit_id,
             'item_unit_id_default'      => $item_unit_id,
             'quantity_unit'             => $quantity_unit,
+            'item_stock_date'           => Carbon::now(),
             'created_id'                => Auth::id()
         ]);
         $type = InvItemType::where('data_state','=',0)
