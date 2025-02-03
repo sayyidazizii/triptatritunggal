@@ -700,4 +700,50 @@ class SalesQuotationController extends Controller
 
         return $data;
     }
+
+    public function addUnit(Request $request){
+        $customer_name              = $request->customer_name;
+        $province_id                = $request->province_id;
+        $city_id                    = $request->city_id;
+        $customer_address           = $request->customer_address;
+        $customer_home_phone        = $request->customer_home_phone;
+        $customer_mobile_phone1     = $request->customer_mobile_phone1;
+        $customer_mobile_phone2     = $request->customer_mobile_phone2;
+        $customer_fax_number        = $request->customer_fax_number;
+        $customer_email             = $request->customer_email;
+        $customer_contact_person    = $request->customer_contact_person;
+        $customer_id_number         = $request->customer_id_number;
+        $customer_tax_no            = $request->customer_tax_no;
+        $customer_payment_terms     = $request->customer_payment_terms;
+        $customer_remark            = $request->customer_remark;
+        $data='';
+
+        $corecustomer = CoreCustomer::create([
+            'customer_name'             => $customer_name,
+            'province_id'               => $province_id,
+            'city_id'                   => $city_id,
+            'customer_address'          => $customer_address,
+            'customer_home_phone'       => $customer_home_phone,
+            'customer_mobile_phone1'    => $customer_mobile_phone1,
+            'customer_mobile_phone2'    => $customer_mobile_phone2,
+            'customer_fax_number'       => $customer_fax_number,
+            'customer_email'            => $customer_email,
+            'customer_contact_person'   => $customer_contact_person,
+            'customer_id_number'        => $customer_id_number,
+            'customer_tax_no'           => $customer_tax_no,
+            'customer_payment_terms'    => $customer_payment_terms,
+            'customer_remark'           => $customer_remark,
+            'created_id'                => Auth::id()
+        ]);
+
+        $customer = CoreCustomer::where('data_state','=',0)
+        ->get();
+
+        $data .= "<option value=''>--Choose One--</option>";
+        foreach ($customer as $mp){
+            $data .= "<option value='$mp[customer_id]'>$mp[customer_name]</option>\n";
+        }
+
+        return $data;
+    }
 }
