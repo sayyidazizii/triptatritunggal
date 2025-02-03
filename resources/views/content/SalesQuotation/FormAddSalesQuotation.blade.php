@@ -488,7 +488,7 @@
     }
 
     function addInvType(){
-        $('#btn_save').prop('disabled', false);
+        $('#btn_save').prop('disabled', true);
         $('#btn_save').text('Menyimpan...');
 
         var item_category_id_modal      = $("#item_category_id_modal").val();
@@ -508,13 +508,9 @@
                 '_token'                        : csrfToken
             },
             success: function(return_data){
+
                 alert('Data berhasil disimpan');
                 location.reload(); // Refresh the page to reflect changes
-
-                setTimeout(function(){
-                    $('#btn_save').prop('disabled', true);
-                    $('#btn_save').text('Simpan');
-                }, 1000);
             },
             error: function(data)
             {
