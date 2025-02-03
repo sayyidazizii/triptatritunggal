@@ -526,7 +526,7 @@ class SalesOrderController extends Controller
         ->first();
 
         if($itemstock == null){
-                $return_data =  'kosong';
+                $return_data =  '0';
                 return $return_data;
         }else{
                 $return_data =  $itemstock;
