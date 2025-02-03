@@ -632,6 +632,7 @@ class SalesQuotationController extends Controller
             'item_unit_id_default'      => $item_unit_id,
             'quantity_unit'             => $quantity_unit,
             'item_stock_date'           => Carbon::now(),
+            'warehouse_id'              => 1,
             'created_id'                => Auth::id()
         ]);
         $type = InvItemType::where('data_state','=',0)
