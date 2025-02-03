@@ -235,41 +235,55 @@ class InvItemStockAdjustmentController extends Controller
             'created_id'            => Auth::id(),
         );
 
-        if(InvItemStockAdjustment::create($data)){
-            $stock_adjustment_id = InvItemStockAdjustment::select('stock_adjustment_id')
-            ->where('created_id', Auth::id())
-            ->first()
-            ->stock_adjustment_id;
+        try {
+            DB::beginTransaction();
+            
+            InvItemStockAdjustment::create($data);
+                $stock_adjustment_id = InvItemStockAdjustment::select('stock_adjustment_id')
+                ->where('created_id', Auth::id())
+                ->first()
+                ->stock_adjustment_id;
+    
+                $allrequest = request()->all();
+                foreach($itemstock as $key => $val){
+                    if($allrequest['adjustment_difference_amount_'.$val['item_stock_id']] != '' && $allrequest['adjustment_difference_amount_'.$val['item_stock_id']] != 0){
+                        $data_item = array(
+                            'stock_adjustment_id'       => $stock_adjustment_id,
+                            'item_stock_id'             => $val['item_stock_id'],
+                            'item_unit_id'              => $val['item_unit_id'],
+                            'item_first_amount'         => $allrequest['item_total_'.$val['item_stock_id']],
+                            'item_last_amount'          => $allrequest['adjustment_amount_'.$val['item_stock_id']],
+                            'item_adjustment_amount'    => $allrequest['adjustment_difference_amount_'.$val['item_stock_id']],
+                            'item_adjustment_remark'    => $allrequest['stock_adjustment_item_remark_'.$val['item_stock_id']],
+                        );
+                        //dd($data_item);
+                        if(InvItemStockAdjustmentItem::create($data_item)){
+                            $item_stock = InvItemStock::findOrFail($data_item['item_stock_id']);
+                            $item_stock->quantity_unit = $data_item['item_last_amount'];
+                            $item_stock->save();
+                        }
+                    }       
+                }
+            
+                $msg = 'Penyesuaian Stock Berhasil';
+            DB::commit();
 
-            $allrequest = request()->all();
-            //dd($allrequest);
-            foreach($itemstock as $key => $val){
-                if($allrequest['adjustment_difference_amount_'.$val['item_stock_id']] != '' && $allrequest['adjustment_difference_amount_'.$val['item_stock_id']] != 0){
-                    $data_item = array(
-                        'stock_adjustment_id'       => $stock_adjustment_id,
-                        'item_stock_id'             => $val['item_stock_id'],
-                        'item_unit_id'              => $val['item_unit_id'],
-                        'item_first_amount'         => $allrequest['item_total_'.$val['item_stock_id']],
-                        'item_last_amount'          => $allrequest['adjustment_amount_'.$val['item_stock_id']],
-                        'item_adjustment_amount'    => $allrequest['adjustment_difference_amount_'.$val['item_stock_id']],
-                        'item_adjustment_remark'    => $allrequest['stock_adjustment_item_remark_'.$val['item_stock_id']],
-                    );
-                    //dd($data_item);
-                    if(InvItemStockAdjustmentItem::create($data_item)){
-                        $item_stock = InvItemStock::findOrFail($data_item['item_stock_id']);
-                        $item_stock->quantity_unit = $data_item['item_last_amount'];
-                        $item_stock->save();
-                    }
+                // Log the successful update
+                Log::info('Penyesuaian Stock updated successfully', [
+                    'stock_adjustment_id'   => $stock_adjustment_id['stock_adjustment_id'],
+                ]);
 
-               }
-            }
-        } else {
+                return redirect('/item-stock-adjustment/add')->with('msg',$msg);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error Descriptions: ' . e->getMessage(), [
+                'exception' => e, 
+                'trace' => e->getTraceAsString()
+            ]);
             $msg = 'Penyesuaian Stock Gagal';
             return redirect('/item-stock-adjustment/add')->with('msg',$msg);
         }
-
-        $msg = 'Penyesuaian Stock Berhasil';
-        return redirect('/item-stock-adjustment/add')->with('msg',$msg);
     }
 
     public function addReset(){
