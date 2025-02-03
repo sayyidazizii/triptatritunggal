@@ -487,42 +487,45 @@
         });
     }
 
-    function addInvType(){
-        $('#btn_save').prop('disabled', true);
-        $('#btn_save').text('Menyimpan...');
+    /* event Tambah Menu Type */
+        function addInvType(){
+            $('#btn_save').prop('disabled', true);
+            $('#btn_save').text('Menyimpan...');
 
-        var item_category_id_modal      = $("#item_category_id_modal").val();
-        console.log({item_category_id_modal}); // Debugging purposes
-        var item_unit_id_modal          = $("#item_unit_id_modal").val();
-        var item_type_name              = $("#item_type_name").val();
-        console.log({item_type_name}); // Debugging purposes
-        var csrfToken = $('meta[name="csrf-token"]').attr('content');
-        $.ajax({
-            type: "POST",
-            url : "{{route('add-type-sales-quotation')}}",
-            dataType: "html",
-            data: {
-                'item_category_id_modal'	    : item_category_id_modal,
-                'item_unit_id_modal'	        : item_unit_id_modal,
-                'item_type_name'	            : item_type_name,
-                '_token'                        : csrfToken
-            },
-            success: function(return_data){
+            var item_category_id_modal      = $("#item_category_id_modal").val();
+            var item_unit_id_modal          = $("#item_unit_id_modal").val();
+            var item_type_name              = $("#item_type_name").val();
+            var quantity_unit_modal         = $("#quantity_unit_modal").val();
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                type: "POST",
+                url : "{{route('add-type-sales-quotation')}}",
+                dataType: "html",
+                data: {
+                    'item_category_id_modal'	    : item_category_id_modal,
+                    'item_unit_id_modal'	        : item_unit_id_modal,
+                    'item_type_name'	            : item_type_name,
+                    'quantity_unit_modal'	        : quantity_unit_modal,
+                    '_token'                        : csrfToken
+                },
+                success: function(return_data){
 
-                alert('Data berhasil disimpan');
-                location.reload(); // Refresh the page to reflect changes
-            },
-            error: function(data)
-            {
-                console.log(data);
-                alert('Terjadi kesalahan saat menyimpan data');
-            
-                // Re-enable button and restore text on error
-                $('#btn_save').prop('disabled', false);
-                $('#btn_save').text('Simpan');
-            }
-        });
-    }
+                    alert('Data berhasil disimpan');
+                    location.reload(); // Refresh the page to reflect changes
+                },
+                error: function(data)
+                {
+                    console.log(data);
+                    alert('Terjadi kesalahan saat menyimpan data');
+                
+                    // Re-enable button and restore text on error
+                    $('#btn_save').prop('disabled', false);
+                    $('#btn_save').text('Simpan');
+                }
+            });
+        }
+    /* event Tambah Menu Type END*/
+
 </script>
 @stop
 

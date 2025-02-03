@@ -610,9 +610,11 @@ class SalesQuotationController extends Controller
     }
 
     public function addMenuType(Request $request){
+        
         $item_category_id           = $request->item_category_id_modal;
         $item_unit_id               = $request->item_unit_id_modal;
         $item_type_name             = $request->item_type_name;
+        $quantity_unit              = $request->quantity_unit_modal;
         $data='';
 
         $itemtype = InvItemType::create([
@@ -622,6 +624,14 @@ class SalesQuotationController extends Controller
             'created_id'                => Auth::id()
         ]);
 
+        $stock = InvItemStock::create([
+            'item_type_id'              => $itemtype['item_type_id'],
+            'item_category_id'          => $item_category_id,
+            'item_unit_id'              => $item_unit_id,
+            'item_unit_id_default'      => $item_unit_id,
+            'quantity_unit'             => $quantity_unit,
+            'created_id'                => Auth::id()
+        ]);
         $type = InvItemType::where('data_state','=',0)
         ->get();
 
