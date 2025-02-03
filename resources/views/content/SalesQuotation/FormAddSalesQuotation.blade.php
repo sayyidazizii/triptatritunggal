@@ -488,31 +488,42 @@
     }
 
     function addInvType(){
+        $('#btn_save').prop('disabled', false);
+        $('#btn_save').text('Menyimpan...');
+
         var item_category_id_modal      = $("#item_category_id_modal").val();
+        console.log({item_category_id_modal}); // Debugging purposes
         var item_unit_id_modal          = $("#item_unit_id_modal").val();
-        var item_barcode                = $("#item_barcode").val();
         var item_type_name              = $("#item_type_name").val();
-        var item_unit_remark            = $("#item_unit_remark").val();
+        console.log({item_type_name}); // Debugging purposes
         var csrfToken = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             type: "POST",
-            url : "{{route('inv-item-modal')}}",
+            url : "{{route('add-type-sales-quotation')}}",
             dataType: "html",
             data: {
-                'item_category_id'	            : item_category_id_modal,
-                'item_unit_id'	                : item_unit_id_modal,
-                'item_barcode'	                : item_barcode,
+                'item_category_id_modal'	    : item_category_id_modal,
+                'item_unit_id_modal'	        : item_unit_id_modal,
                 'item_type_name'	            : item_type_name,
-                'item_unit_remark'	            : item_unit_remark,
                 '_token'                        : csrfToken
             },
             success: function(return_data){
-                $('#cancel-btn-unit').click();
+                alert('Data berhasil disimpan');
+                location.reload(); // Refresh the page to reflect changes
+
+                setTimeout(function(){
+                    $('#btn_save').prop('disabled', true);
+                    $('#btn_save').text('Simpan');
+                }, 1000);
             },
             error: function(data)
             {
                 console.log(data);
-
+                alert('Terjadi kesalahan saat menyimpan data');
+            
+                // Re-enable button and restore text on error
+                $('#btn_save').prop('disabled', false);
+                $('#btn_save').text('Simpan');
             }
         });
     }
@@ -608,7 +619,7 @@
                     <input class="form-control input-bb" type="hidden" name="item_type_id" id="item_type_id" value="0" readonly/>
                 </div>
                 <div class="col-md-2 mt-1">
-                    <a href='#addbarang' data-toggle='modal' name="Find" class="btn btn-success add-btn btn-sm" title="Add Data">Tambah Barang</a>              
+                    <a href='#addNamaBarang' data-toggle='modal' name="Find" class="btn btn-success add-btn btn-sm" title="Add Data">Tambah Barang</a>              
                 </div>
             </div>
             <div class="row form-group">
