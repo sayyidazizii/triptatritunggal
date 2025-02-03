@@ -39,7 +39,7 @@ CREATE TABLE `acct_account` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `acct_account` */
 
@@ -61,7 +61,7 @@ insert  into `acct_account`(`account_id`,`company_id`,`account_code`,`account_na
 (15,2,'201.01','HUTANG LANCAR','200',0,1,NULL,1,NULL,0,0,0,55,55,'2025-01-30 04:22:47','2025-01-30 04:22:47'),
 (16,2,'201.01.01','Hutang Dagang','201.01',0,1,NULL,1,NULL,0,0,0,55,55,'2025-01-30 04:22:47','2025-01-30 04:22:47'),
 (17,2,'201.01.02','Hutang Pajak','201.01',0,1,NULL,1,NULL,0,0,0,55,55,'2025-01-30 04:22:47','2025-01-30 04:22:47'),
-(18,2,'201.01.03','MODAL','201.01',0,1,NULL,1,NULL,0,0,0,55,55,'2025-01-30 04:22:47','2025-01-30 04:22:47'),
+(18,2,'0','MODAL','201.01',0,1,NULL,1,NULL,0,0,0,55,55,'2025-01-30 04:22:47','2025-01-30 04:22:47'),
 (19,2,'201.01.04','Modal ','201.01',0,1,NULL,1,NULL,0,0,0,55,55,'2025-01-30 04:22:47','2025-01-30 04:22:47'),
 (20,2,'201.01.05','Laba ditahan','201.01',0,1,NULL,1,NULL,0,0,0,55,55,'2025-01-30 04:22:47','2025-01-30 04:22:47'),
 (21,2,'201.01.06','Laba tahun berjalan','201.01',0,1,NULL,1,NULL,0,0,0,55,55,'2025-01-30 04:22:47','2025-01-30 04:22:47'),
@@ -99,7 +99,8 @@ insert  into `acct_account`(`account_id`,`company_id`,`account_code`,`account_na
 (53,2,'400.02.14','Biaya Lain-lain','400.02',0,0,NULL,0,NULL,0,0,0,55,55,'2025-01-30 04:22:47','2025-01-30 04:22:47'),
 (54,2,'400.02.15','LABA USAHA','400.02',0,0,NULL,0,NULL,0,0,0,55,55,'2025-01-30 04:22:47','2025-01-30 04:22:47'),
 (55,2,'400.02.16','PPh ','400.02',0,0,NULL,0,NULL,0,0,0,55,55,'2025-01-30 04:22:47','2025-01-30 04:22:47'),
-(56,2,'400.02.17','LABA USAHA SETELAH PAJAK','400.02',0,0,NULL,0,NULL,0,0,0,55,55,'2025-01-30 04:22:47','2025-01-30 04:22:47');
+(56,2,'400.02.17','LABA USAHA SETELAH PAJAK','400.02',0,0,NULL,0,NULL,0,0,0,55,55,'2025-01-30 04:22:47','2025-01-30 04:22:47'),
+(57,2,'201.01.03','PPN KELUARAN','201.01',0,1,NULL,1,NULL,0,0,0,55,55,'2025-01-31 14:42:23','2025-01-31 14:42:24');
 
 /*Table structure for table `acct_account_balance` */
 
@@ -116,14 +117,15 @@ CREATE TABLE `acct_account_balance` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`account_balance_id`),
   KEY `FK_acct_account_balance_account_id` (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `acct_account_balance` */
 
 insert  into `acct_account_balance`(`account_balance_id`,`company_id`,`branch_id`,`account_id`,`last_balance`,`created_id`,`created_at`,`updated_at`) values 
-(96,2,0,4,277500.00,3,NULL,'2025-01-30 14:25:05'),
-(97,2,0,23,-250000.00,3,NULL,'2025-01-30 14:25:05'),
-(98,2,0,48,27500.00,3,NULL,'2025-01-30 14:25:05');
+(109,2,0,4,266500.00,3,NULL,'2025-01-31 16:26:20'),
+(110,2,0,23,250000.00,3,NULL,'2025-01-31 16:26:20'),
+(111,2,0,57,27500.00,3,NULL,'2025-01-31 16:26:20'),
+(112,2,0,3,11000.00,3,NULL,'2025-01-31 16:31:23');
 
 /*Table structure for table `acct_account_balance_detail` */
 
@@ -151,14 +153,16 @@ CREATE TABLE `acct_account_balance_detail` (
   `created_id` int DEFAULT NULL,
   PRIMARY KEY (`account_balance_detail_id`),
   KEY `FK_acct_account_balance_detail_account_id` (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `acct_account_balance_detail` */
 
 insert  into `acct_account_balance_detail`(`account_balance_detail_id`,`branch_id`,`company_id`,`transaction_type`,`transaction_code`,`transaction_date`,`transaction_id`,`account_id`,`opening_balance`,`account_in`,`account_out`,`cash_in`,`cash_out`,`bank_in`,`bank_out`,`last_balance`,`created_at`,`updated_at`,`created_id`) values 
-(19,0,2,63,'PPP','2025-01-30',7,4,0.00,277500.00,0.00,0.00,0.00,0.00,0.00,277500.00,NULL,'2025-01-30 14:25:05',3),
-(20,0,2,63,'PPP','2025-01-30',7,23,0.00,0.00,250000.00,0.00,0.00,0.00,0.00,-250000.00,NULL,'2025-01-30 14:25:05',3),
-(21,0,2,63,'PPP','2025-01-30',7,48,0.00,27500.00,0.00,0.00,0.00,0.00,0.00,27500.00,NULL,'2025-01-30 14:25:05',3);
+(33,0,2,63,'PPP','2025-01-31',12,4,0.00,277500.00,0.00,0.00,0.00,0.00,0.00,277500.00,NULL,'2025-01-31 16:26:20',3),
+(34,0,2,63,'PPP','2025-01-31',12,23,0.00,250000.00,0.00,0.00,0.00,0.00,0.00,250000.00,NULL,'2025-01-31 16:26:20',3),
+(35,0,2,63,'PPP','2025-01-31',12,57,0.00,27500.00,0.00,0.00,0.00,0.00,0.00,27500.00,NULL,'2025-01-31 16:26:20',3),
+(36,0,2,31,'PP','2025-01-31',13,3,0.00,11000.00,0.00,0.00,0.00,0.00,0.00,11000.00,NULL,'2025-01-31 16:31:23',3),
+(37,0,2,31,'PP','2025-01-31',13,4,277500.00,0.00,11000.00,0.00,0.00,0.00,0.00,266500.00,NULL,'2025-01-31 16:31:23',3);
 
 /*Table structure for table `acct_account_mutation` */
 
@@ -225,22 +229,22 @@ CREATE TABLE `acct_account_setting` (
 /*Data for the table `acct_account_setting` */
 
 insert  into `acct_account_setting`(`account_setting_id`,`company_id`,`account_id`,`account_setting_name`,`account_setting_status`,`account_default_status`,`created_at`,`updated_at`) values 
-(370,2,3,'account_cash_purchase_id',1,0,'2022-07-16 11:14:51','2025-01-30 07:22:00'),
-(371,2,26,'purchase_cash_account_id',0,0,'2022-07-16 11:14:51','2025-01-30 07:22:00'),
-(372,2,3,'account_credit_purchase_id',1,0,'2022-07-16 11:14:51','2025-01-30 07:22:00'),
-(373,2,26,'purchase_credit_account_id',0,0,'2022-07-16 11:14:51','2025-01-30 07:22:00'),
-(374,2,17,'purchase_tax_account_id',1,1,'2022-07-16 11:14:51','2025-01-30 07:22:00'),
-(375,2,3,'account_payable_return_account_id',0,0,'2022-07-16 11:14:51','2025-01-30 07:22:00'),
-(376,2,26,'purchase_return_account_id',1,0,'2023-07-25 10:44:25','2025-01-30 07:22:00'),
-(377,2,3,'account_receivable_cash_account_id',0,0,'2024-12-13 11:38:40','2025-01-30 07:22:00'),
-(378,2,23,'sales_cash_account_id',1,1,'2024-12-13 11:38:50','2025-01-30 07:22:00'),
-(379,2,4,'account_receivable_credit_account_id',0,0,'2024-12-13 11:38:42','2025-01-30 07:22:00'),
+(370,2,3,'account_cash_purchase_id',1,0,'2022-07-16 11:14:51','2025-01-31 09:21:09'),
+(371,2,26,'purchase_cash_account_id',0,0,'2022-07-16 11:14:51','2025-01-31 09:21:09'),
+(372,2,3,'account_credit_purchase_id',1,0,'2022-07-16 11:14:51','2025-01-31 09:21:09'),
+(373,2,26,'purchase_credit_account_id',0,0,'2022-07-16 11:14:51','2025-01-31 09:21:09'),
+(374,2,17,'purchase_tax_account_id',1,1,'2022-07-16 11:14:51','2025-01-31 09:21:09'),
+(375,2,3,'account_payable_return_account_id',0,0,'2022-07-16 11:14:51','2025-01-31 09:21:09'),
+(376,2,26,'purchase_return_account_id',1,0,'2023-07-25 10:44:25','2025-01-31 09:21:09'),
+(377,2,3,'account_receivable_cash_account_id',0,0,'2024-12-13 11:38:40','2025-01-31 09:21:09'),
+(378,2,23,'sales_cash_account_id',1,1,'2024-12-13 11:38:50','2025-01-31 09:21:09'),
+(379,2,4,'account_receivable_credit_account_id',0,0,'2024-12-13 11:38:42','2025-01-31 09:21:09'),
 (380,2,23,'sales_credit_account_id',1,1,'2024-12-13 11:38:46','2024-12-13 11:38:56'),
-(381,2,5,'sales_tax_account_id',0,0,'2024-12-13 11:38:48','2024-12-13 11:38:58'),
+(381,2,57,'sales_tax_account_id',1,1,'2024-12-13 11:38:48','2024-12-13 11:38:58'),
 (383,2,4,'expenditure_cash_account_id',1,1,'2024-12-13 11:38:44','2024-12-13 11:39:00'),
 (384,2,8,'expenditure_account_id',0,0,'2024-12-13 11:39:04','2024-12-13 11:39:02'),
-(385,2,4,'sales_collection_cash_account_id',0,0,'2024-12-20 13:46:54','2024-12-20 13:47:00'),
-(386,2,6,'sales_collection_account_id',1,1,'2024-12-20 13:46:56','2024-12-20 13:47:02'),
+(385,2,3,'sales_collection_cash_account_id',0,0,'2024-12-20 13:46:54','2024-12-20 13:47:00'),
+(386,2,4,'sales_collection_account_id',1,1,'2024-12-20 13:46:56','2024-12-20 13:47:02'),
 (387,2,16,'purchase_payment_cash_account_id',1,1,'2024-12-20 13:47:07','2024-12-20 13:47:04'),
 (388,2,4,'purchase_payment_account_id',0,0,'2024-12-20 13:47:06','2024-12-20 13:47:09');
 
@@ -449,14 +453,14 @@ CREATE TABLE `acct_balance_sheet_report` (
 
 insert  into `acct_balance_sheet_report`(`balance_sheet_report_id`,`company_id`,`report_no`,`account_id1`,`account_code1`,`account_name1`,`account_id2`,`account_code2`,`account_name2`,`report_formula1`,`report_operator1`,`report_type1`,`report_tab1`,`report_bold1`,`report_formula2`,`report_operator2`,`report_type2`,`report_tab2`,`report_bold2`,`report_formula3`,`report_operator3`,`balance_report_type`,`balance_report_type1`,`data_state`,`created_id`,`created_on`,`last_update`) values 
 (1,2,1,1,'100','A K T I V A',14,'200','P A S I V A ',NULL,NULL,1,1,1,NULL,NULL,1,1,1,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
-(2,2,2,2,'101.01','AKTIVA LANCAR',15,'201.01','HUTANG LANCAR',NULL,NULL,1,2,1,NULL,NULL,2,2,1,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
+(2,2,2,2,'101.01','AKTIVA LANCAR',15,'201.01','HUTANG LANCAR',NULL,NULL,1,2,1,NULL,NULL,1,2,1,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
 (3,2,3,3,'101.01.01','Kas dan Setara Kas',16,'201.01.01','Hutang Dagang',NULL,NULL,3,3,0,NULL,NULL,3,3,0,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
 (4,2,4,4,'101.01.02','Piutang Usaha',17,'201.01.02','Hutang Pajak',NULL,NULL,3,3,0,NULL,NULL,3,3,0,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
-(5,2,5,5,'101.01.03','Piutang Lain-lain',18,'201.01.03','MODAL',NULL,NULL,3,3,0,NULL,NULL,2,2,1,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
-(6,2,6,6,'101.01.04','Biaya Dibayar dimuka',19,'201.01.04','Modal ',NULL,NULL,3,3,0,NULL,NULL,3,3,0,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
-(7,2,7,7,'101.01.05','Persediaan',20,'201.01.05','Laba ditahan',NULL,NULL,3,3,0,NULL,NULL,3,3,0,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
-(8,2,8,8,'101.01.06','JUMLAH AKTIVA LANCAR',21,'0',NULL,'3#4#5#6#7','+#+#+#+#+',4,2,1,NULL,NULL,0,0,0,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
-(9,2,9,9,'101.01.07','AKTIVA TETAP',0,'0',NULL,NULL,NULL,1,2,1,NULL,NULL,0,0,0,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
+(5,2,5,5,'101.01.03','Piutang Lain-lain',57,'201.01.03','PPN KELUARAN',NULL,NULL,3,3,0,NULL,NULL,3,3,0,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
+(6,2,6,6,'101.01.04','Biaya Dibayar dimuka',19,'201.01.03','MODAL',NULL,NULL,3,3,0,NULL,NULL,1,2,1,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
+(7,2,7,7,'101.01.05','Persediaan',20,'201.01.04','Modal ',NULL,NULL,3,3,0,NULL,NULL,3,3,0,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
+(8,2,8,8,'101.01.06','JUMLAH AKTIVA LANCAR',21,'201.01.05','Laba ditahan','3#4#5#6#7','+#+#+#+#+',4,2,1,NULL,NULL,3,3,0,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
+(9,2,9,9,'101.01.07','AKTIVA TETAP',0,'0','JUMLAH HUTANG LANCAR','','',1,2,1,'3#4#5#7#8','+#+#+#+#+',4,2,1,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
 (10,2,10,10,'101.01.08','Inventaris',23,'300','PENJUALAN',NULL,NULL,3,3,0,NULL,NULL,10,0,0,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
 (11,2,11,11,'101.01.09','Akumulasi Penyusutan',0,'0',NULL,NULL,NULL,3,3,0,NULL,NULL,0,0,0,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
 (12,2,12,12,'0','JUMLAH AKTIVA TETAP',24,'300.01','HARGA POKOK PENJUALAN :','10#11','-#-',4,2,1,NULL,NULL,10,0,0,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
@@ -497,7 +501,7 @@ insert  into `acct_balance_sheet_report`(`balance_sheet_report_id`,`company_id`,
 (47,2,47,0,'0',NULL,55,'400.02.16','PPh',NULL,NULL,NULL,NULL,NULL,NULL,NULL,10,0,0,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
 (48,2,48,0,'0',NULL,0,'0',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
 (49,2,49,0,'0',NULL,56,'400.02.17','LABA TAHUN BERJALAN',NULL,NULL,NULL,NULL,NULL,'10#13#14#15#16#17#23#24#25#26#27#30#31#32#33#34#35#35#36#37#38#39#40#41#42#42#43#47','-#+#+#+#+#+#-#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#-#-',11,3,0,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
-(50,2,50,0,'0',NULL,0,'0',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
+(50,2,50,0,'0',NULL,0,'0',NULL,NULL,NULL,NULL,NULL,NULL,'','',0,0,0,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
 (51,2,51,0,'0',NULL,22,'0','TOTAL PASIVA',NULL,NULL,NULL,NULL,NULL,'','',12,0,0,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48');
 
 /*Table structure for table `acct_bank_disbursement` */
@@ -899,9 +903,13 @@ CREATE TABLE `acct_debt_repayment` (
   PRIMARY KEY (`debt_repayment_id`),
   KEY `FK_acct_debt_repayment_company_id` (`company_id`),
   CONSTRAINT `FK_acct_debt_repayment_company_id` FOREIGN KEY (`company_id`) REFERENCES `preference_company` (`company_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `acct_debt_repayment` */
+
+insert  into `acct_debt_repayment`(`debt_repayment_id`,`company_id`,`debt_repayment_date`,`total_repayment`,`data_state`,`updated_at`,`created_at`,`updated_id`,`created_id`) values 
+(74,NULL,'2025-01-31 09:22:40',11000,0,'2025-01-31 09:22:40','2025-01-31 09:22:40',3,3),
+(75,NULL,'2025-01-31 09:31:24',11000,0,'2025-01-31 09:31:24','2025-01-31 09:31:24',3,3);
 
 /*Table structure for table `acct_debt_repayment_item` */
 
@@ -925,9 +933,13 @@ CREATE TABLE `acct_debt_repayment_item` (
   CONSTRAINT `FK_acct_debt_repayment_item_company_id` FOREIGN KEY (`company_id`) REFERENCES `preference_company` (`company_id`),
   CONSTRAINT `FK_acct_debt_repayment_item_debt_repayment_id` FOREIGN KEY (`debt_repayment_id`) REFERENCES `acct_debt_repayment` (`debt_repayment_id`),
   CONSTRAINT `FK_acct_debt_repayment_item_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `core_employee` (`employee_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `acct_debt_repayment_item` */
+
+insert  into `acct_debt_repayment_item`(`debt_repayment_item_id`,`company_id`,`debt_repayment_id`,`employee_id`,`debt_repayment_amount`,`data_state`,`updated_at`,`created_at`,`updated_id`,`created_id`) values 
+(1,NULL,74,NULL,11000,0,'2025-01-31 09:22:40','2025-01-31 09:22:40',3,3),
+(2,NULL,75,NULL,11000,0,'2025-01-31 09:31:24','2025-01-31 09:31:24',3,3);
 
 /*Table structure for table `acct_journal_voucher` */
 
@@ -970,12 +982,13 @@ CREATE TABLE `acct_journal_voucher` (
   KEY `transaction_journal_no` (`transaction_journal_no`),
   KEY `project_id` (`project_id`),
   KEY `project_type_id` (`project_type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `acct_journal_voucher` */
 
 insert  into `acct_journal_voucher`(`journal_voucher_id`,`company_id`,`branch_id`,`project_id`,`project_type_id`,`transaction_module_id`,`transaction_journal_id`,`transaction_journal_no`,`journal_voucher_title`,`journal_voucher_no`,`journal_voucher_period`,`journal_voucher_date`,`journal_voucher_description`,`journal_voucher_token`,`journal_voucher_token_void`,`journal_voucher_type_id`,`journal_voucher_status`,`transaction_module_code`,`posted`,`posted_id`,`posted_on`,`voided`,`voided_id`,`voided_on`,`voided_remark`,`data_state`,`created_id`,`created_at`,`updated_at`,`reverse_state`) values 
-(7,2,1,0,0,63,15,NULL,'Penjualan Barang','0001/JV/I/2025',202501,'2025-01-30',NULL,NULL,NULL,1,1,'PPP',0,0,NULL,0,0,NULL,NULL,0,3,'2025-01-30 07:25:06','2025-01-30 07:25:06',0);
+(12,2,1,0,0,63,19,NULL,'Penjualan Barang','0001/JV/I/2025',202501,'2025-01-31',NULL,NULL,NULL,1,1,'PPP',0,0,NULL,0,0,NULL,NULL,0,3,'2025-01-31 09:26:21','2025-01-31 09:26:21',0),
+(13,2,0,0,0,31,0,'','Purchase Payment APT AK - JAYA 0001/TMO.ME/I/2025','0002/JV/I/2025',202501,'2025-01-31','Purchase Payment APT AK - JAYA 0001/TMO.ME/I/2025',NULL,NULL,1,1,'PP',0,0,NULL,0,0,NULL,NULL,0,3,'2025-01-31 09:31:24','2025-01-31 09:31:24',0);
 
 /*Table structure for table `acct_journal_voucher_item` */
 
@@ -1003,14 +1016,16 @@ CREATE TABLE `acct_journal_voucher_item` (
   UNIQUE KEY `journal_voucher_item_token_void` (`journal_voucher_item_token_void`),
   KEY `FK_acct_journal_voucher_item_journal_voucher_id` (`journal_voucher_id`) USING BTREE,
   KEY `FK_acct_journal_voucher_item_account_id` (`account_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `acct_journal_voucher_item` */
 
 insert  into `acct_journal_voucher_item`(`journal_voucher_item_id`,`journal_voucher_id`,`company_id`,`account_id`,`journal_voucher_description`,`journal_voucher_amount`,`account_id_status`,`account_id_default_status`,`journal_voucher_debit_amount`,`journal_voucher_credit_amount`,`journal_voucher_item_token`,`journal_voucher_item_token_void`,`data_state`,`created_at`,`updated_at`,`reverse_state`) values 
-(19,7,2,4,NULL,277500.00,0,0,277500.00,0.00,NULL,NULL,0,'2025-01-30 07:25:06','2025-01-30 07:25:06',0),
-(20,7,2,23,NULL,250000.00,1,1,0.00,250000.00,NULL,NULL,0,'2025-01-30 07:25:06','2025-01-30 07:25:06',0),
-(21,7,2,48,NULL,27500.00,0,0,0.00,27500.00,NULL,NULL,0,'2025-01-30 07:25:06','2025-01-30 07:25:06',0);
+(33,12,2,4,NULL,277500.00,0,0,277500.00,0.00,NULL,NULL,0,'2025-01-31 09:26:21','2025-01-31 09:26:21',0),
+(34,12,2,23,NULL,250000.00,1,1,0.00,250000.00,NULL,NULL,0,'2025-01-31 09:26:21','2025-01-31 09:26:21',0),
+(35,12,2,57,NULL,27500.00,1,1,0.00,27500.00,NULL,NULL,0,'2025-01-31 09:26:21','2025-01-31 09:26:21',0),
+(36,13,2,3,'',11000.00,0,0,11000.00,0.00,NULL,NULL,0,'2025-01-31 09:31:24','2025-01-31 09:31:24',0),
+(37,13,2,4,'',11000.00,1,1,0.00,11000.00,NULL,NULL,0,'2025-01-31 09:31:24','2025-01-31 09:31:24',0);
 
 /*Table structure for table `acct_journal_voucher_type` */
 
@@ -2223,7 +2238,7 @@ insert  into `core_customer`(`customer_id`,`province_id`,`city_id`,`customer_cod
 (161,72,1097,'TO ','TO SAHABAT',NULL,'JL.KHR.ABDUL FATTAH\r\nDS/KEL.SEMBUNG\r\nKEC.TULUNGAGUNG. JAWA TIMUR',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-02-02 07:58:19','2024-02-02 07:58:19',NULL),
 (162,70,1009,'APT','APT FITAQA FARMA',NULL,'JL.Ir H.JUANDA\r\nDS / KEL.SUKAMULYA KEC. BUNGURSARI\r\nKOTA TASIKMALAYA. JAWA BARAT',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-02-02 07:59:34','2024-02-02 07:59:34',NULL),
 (163,63,948,'TO ','TO SEHAT',NULL,'JL.JEND SUDIRMAN  NO.23\r\nPASIR PADI,GIRIMAYA\r\nPANGKAL PINANG',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-02-02 08:02:05','2024-02-02 08:02:05',NULL),
-(164,95,1429,'APT','APT AK - JAYA',NULL,'JL.BESARDELI TUA KM.8,5  NO.8\r\nDS.SUKA MAKMUR\r\nKOMPLEK SUKA MAKMUR WALK.DELI TUA MEDAN',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-02-02 08:03:49','2024-02-02 08:03:49',NULL),
+(164,95,1429,'APT','APT AK - JAYA',NULL,'JL.BESARDELI TUA KM.8,5  NO.8\r\nDS.SUKA MAKMUR\r\nKOMPLEK SUKA MAKMUR WALK.DELI TUA MEDAN',NULL,NULL,NULL,NULL,NULL,0,-22000,0,0,0,3,75,'2024-02-02 08:03:49','2025-01-31 09:31:24',NULL),
 (165,66,974,'APT','APT KARANG JATI',NULL,'JL.SUNGAPAN JETIS TAMANTIRTO\r\nKASIHAN,BANTUL\r\nYOGYAKARTA',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-02-02 08:05:47','2024-02-02 08:05:47',NULL),
 (166,67,978,'APT','APT DZAWIN',NULL,'JL.HAJI SELONG NO.54 B\r\nRT 01 / 01.DURI KOSAMBI - CENGKARENG\r\nJAKARTA  BARAT',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-02-02 08:22:49','2024-02-02 08:22:49',NULL),
 (167,94,1413,'APT','APT REFAH',NULL,'JL.SLAMET RIYADI LORONG MENTOK NO.27\r\nRT 08 / 03.  KEL.11 ILIR  KEC.ILIR TIMUR III\r\nKOTA PALEMBANG',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-02-02 08:27:04','2024-02-02 08:27:04',NULL),
@@ -5013,9 +5028,12 @@ CREATE TABLE `sales_collection` (
   KEY `FK_sales_collection_section_id` (`section_id`),
   KEY `FK_sales_collection_customer_id` (`customer_id`),
   CONSTRAINT `FK_sales_collection_customer_id` FOREIGN KEY (`customer_id`) REFERENCES `core_customer` (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_collection` */
+
+insert  into `sales_collection`(`collection_id`,`customer_id`,`salesman_id`,`section_id`,`project_id`,`cash_account_id`,`collection_no`,`collection_date`,`reference_number`,`collection_remark`,`collection_amount`,`collection_allocated`,`collection_shortover`,`collection_total_amount`,`collection_shortover_remark`,`collection_total_cash_amount`,`collection_total_transfer_amount`,`collection_total_giro_amount`,`collection_giro_status`,`collection_token`,`collection_token_void`,`voided_id`,`voided_on`,`voided_remark`,`posted`,`posted_by`,`posted_on`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
+(10,164,0,NULL,0,0,'','2025-01-31','',NULL,11000.00,11000.00,0.00,NULL,NULL,NULL,NULL,0.00,0,NULL,NULL,0,NULL,NULL,'0','',NULL,0,3,'2025-01-31 09:31:24','2025-01-31 09:31:24');
 
 /*Table structure for table `sales_collection_item` */
 
@@ -5047,9 +5065,12 @@ CREATE TABLE `sales_collection_item` (
   UNIQUE KEY `collection_item_token_void` (`collection_item_token_void`),
   KEY `FK_sales_collection_collection_id` (`collection_id`) USING BTREE,
   KEY `FK_sales_collection_sales_invoice_id` (`sales_invoice_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_collection_item` */
+
+insert  into `sales_collection_item`(`collection_item_id`,`collection_id`,`sales_invoice_id`,`sales_invoice_no`,`sales_invoice_date`,`sales_invoice_amount`,`subtotal_invoice_amount`,`discount_percentage`,`discount_amount`,`total_amount`,`paid_amount`,`owing_amount`,`shortover_amount`,`allocation_amount`,`collection_discount`,`last_balance`,`collection_item_token`,`collection_item_token_void`,`created_at`,`updated_at`) values 
+(9,10,19,'0001/TMO.ME/I/2025','2025-01-31',277500,0,0,0,277500.00,0.00,277500.00,0.00,11000.00,0.00,266500.00,NULL,NULL,'2025-01-31 09:31:24','2025-01-31 09:31:24');
 
 /*Table structure for table `sales_customer` */
 
@@ -5160,7 +5181,7 @@ CREATE TABLE `sales_delivery_note` (
 /*Data for the table `sales_delivery_note` */
 
 insert  into `sales_delivery_note`(`sales_delivery_note_id`,`sales_delivery_order_id`,`sales_quotation_id`,`sales_delivery_note_date`,`shipment_planning_id`,`sales_order_id`,`warehouse_id`,`section_id`,`salesman_id`,`customer_id`,`expedition_id`,`sales_delivery_note_cost`,`sales_delivery_note_no`,`ppn_out_amount`,`expedition_receipt_no`,`customer_name`,`customer_address`,`customer_city`,`customer_home_phone`,`customer_mobile_phone1`,`driver_name`,`fleet_police_number`,`purchase_order_no`,`salesman_name`,`sales_delivery_note_status`,`sales_invoice_status`,`sales_delivery_note_remark`,`posted`,`posted_id`,`posted_on`,`voided_id`,`voided_on`,`voided_remark`,`rejected_id`,`rejected_on`,`rejected_remark`,`branch_id`,`return_status`,`pdp_lost_on_expedition_status`,`buyers_acknowledgment_status`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(14,0,2,'2025-01-30',0,0,1,NULL,NULL,164,16,0.00,'0001/SDN/I/2025',NULL,'111111','',NULL,'','','','Daffa','AD 120812 AZ',NULL,'',0,1,'TEST PENJUALAN',0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,3,'2025-01-30 07:13:27','2025-01-30 07:25:06');
+(14,0,2,'2025-01-30',0,0,1,NULL,NULL,164,16,0.00,'0001/SDN/I/2025',NULL,'111111','',NULL,'','','','Daffa','AD 120812 AZ',NULL,'',0,1,'TEST PENJUALAN',0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,3,'2025-01-30 07:13:27','2025-01-31 09:26:21');
 
 /*Table structure for table `sales_delivery_note_item` */
 
@@ -5460,12 +5481,12 @@ CREATE TABLE `sales_invoice` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_invoice_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_invoice` */
 
 insert  into `sales_invoice`(`sales_invoice_id`,`branch_id`,`warehouse_id`,`customer_id`,`sales_quotation_id`,`sales_order_id`,`sales_delivery_note_id`,`collection_method_account_id`,`services_income_id`,`sales_invoice_no`,`sales_invoice_reference_no`,`sales_invoice_date`,`sales_invoice_due_date`,`sales_invoice_remark`,`sales_invoice_status`,`services_income_amount`,`subtotal_item`,`subtotal_amount`,`subtotal_before_discount`,`discount_percentage`,`discount_amount`,`return_status`,`subtotal_after_discount`,`tax_percentage`,`tax_amount`,`goods_received_note_no`,`faktur_tax_no`,`buyers_acknowledgment_id`,`buyers_acknowledgment_no`,`ttf_no`,`kwitansi_status`,`total_amount`,`paid_amount`,`owing_amount`,`shortover_amount`,`last_balance`,`total_discount_amount`,`paid_discount_amount`,`owing_discount_amount`,`shortover_discount_amount`,`discount_last_balance`,`cash_advance_amount`,`change_amount`,`sales_return_amount`,`sales_collection_date`,`sales_invoice_token`,`sales_invoice_token_void`,`voided_id`,`voided_on`,`voided_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(15,1,1,164,2,0,14,0,0,'0001/TMO.ME/I/2025','','2025-01-30','2025-02-08',NULL,0,0.00,NULL,277500,0,0.00,0,0,250000,0.00,27500.00,NULL,'0',0,'0','',0,277500,0,277500,0,0,0,0,0,0,0,0,0,0.00,NULL,NULL,NULL,0,NULL,NULL,0,3,'2025-01-30 07:25:06','2025-01-30 07:25:06');
+(19,1,1,164,2,0,14,0,0,'0001/TMO.ME/I/2025','','2025-01-31','2025-01-31',NULL,0,0.00,NULL,277500,0,0.00,0,0,250000,0.00,27500.00,NULL,'0',0,'0','',0,277500,11000,266500,0,0,0,0,0,0,0,0,0,0.00,NULL,NULL,NULL,0,NULL,NULL,0,3,'2025-01-31 09:26:21','2025-01-31 09:31:24');
 
 /*Table structure for table `sales_invoice_item` */
 
@@ -5494,13 +5515,13 @@ CREATE TABLE `sales_invoice_item` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   KEY `sales_invoice_item_id` (`sales_invoice_item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_invoice_item` */
 
 insert  into `sales_invoice_item`(`sales_invoice_item_id`,`sales_invoice_id`,`sales_order_id`,`sales_quotation_id`,`sales_quotation_item_id`,`sales_delivery_note_id`,`sales_delivery_note_item_id`,`item_id`,`item_type_id`,`item_unit_id`,`quantity`,`item_unit_price`,`item_unit_price_tax`,`discount_A`,`discount_B`,`subtotal_price_A`,`subtotal_price_B`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(17,15,NULL,2,3,14,16,0,1,10,100,1000,0,NULL,NULL,100000,NULL,0,3,'2025-01-30 07:25:06','2025-01-30 07:25:06'),
-(18,15,NULL,2,4,14,17,0,2,22,100,1500,0,NULL,NULL,150000,NULL,0,3,'2025-01-30 07:25:06','2025-01-30 07:25:06');
+(31,19,NULL,2,3,14,16,0,1,10,100,1000,0,NULL,NULL,100000,NULL,0,3,'2025-01-31 09:26:21','2025-01-31 09:26:21'),
+(32,19,NULL,2,4,14,17,0,2,22,100,1500,0,NULL,NULL,150000,NULL,0,3,'2025-01-31 09:26:21','2025-01-31 09:26:21');
 
 /*Table structure for table `sales_order` */
 
@@ -6443,7 +6464,7 @@ CREATE TABLE `user_locations` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `ip` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `user_locations` */
 
@@ -6452,7 +6473,8 @@ insert  into `user_locations`(`id`,`user_id`,`latitude`,`longitude`,`data_state`
 (2,NULL,'-7.5558771','110.8642444',0,'2025-01-22 10:10:28','2025-01-22 10:10:28','127.0.0.1'),
 (3,NULL,'-7.6325181','110.9559445',0,'2025-01-28 04:38:12','2025-01-28 04:38:12','127.0.0.1'),
 (4,NULL,'-7.6287936','110.9588715',0,'2025-01-28 14:54:35','2025-01-28 14:54:35','127.0.0.1'),
-(5,NULL,'-7.6315161','110.9603617',0,'2025-01-29 12:58:13','2025-01-29 12:58:13','127.0.0.1');
+(5,NULL,'-7.6315161','110.9603617',0,'2025-01-29 12:58:13','2025-01-29 12:58:13','127.0.0.1'),
+(6,NULL,'-7.5726848','110.8836352',0,'2025-01-31 06:36:45','2025-01-31 06:36:45','127.0.0.1');
 
 /* Trigger structure for table `acct_bank_disbursement` */
 
