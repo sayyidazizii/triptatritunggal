@@ -536,6 +536,18 @@ class InvGoodsReceivedNoteController extends Controller
                         'account_id_status'				=> 1,
                     );
                     AcctJournalVoucherItem::create($data_debit1);
+                     //*hutang supplier
+                     $account_id_default_status 		= $account_credit_purchase_id['account_default_status'];
+                     $data_credit = array (
+                         'journal_voucher_id'			=> $journal_voucher_id,
+                         'account_id'					=> $account_credit_purchase_id['account_id'],
+                         'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
+                         'journal_voucher_amount'		=> ABS($subtotal_after_ppn_in),
+                         'journal_voucher_credit_amount'	=> ABS($subtotal_after_ppn_in),
+                         'account_id_default_status'		=> $account_id_default_status,
+                         'account_id_status'				=> 0,
+                     );
+                     AcctJournalVoucherItem::create($data_credit);
                     //*------ PPN ------
                     $purchase_tax_account_id     = AcctAccountSetting::where('account_setting_name','purchase_tax_account_id')->first();
                     $ppn_in_amount = $purchaseorder['ppn_in_amount'];
@@ -552,18 +564,6 @@ class InvGoodsReceivedNoteController extends Controller
                     AcctJournalVoucherItem::create($data_debit2);
                     $account_credit_purchase_id     = AcctAccountSetting::where('account_setting_name','account_credit_purchase_id')->first();
                     $subtotal_after_ppn_in = $purchaseorder['subtotal_after_ppn_in'];
-                    //*hutang supplier
-                    $account_id_default_status 		= $account_credit_purchase_id['account_default_status'];
-                    $data_credit = array (
-                        'journal_voucher_id'			=> $journal_voucher_id,
-                        'account_id'					=> $account_credit_purchase_id['account_id'],
-                        'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                        'journal_voucher_amount'		=> ABS($subtotal_after_ppn_in),
-                        'journal_voucher_credit_amount'	=> ABS($subtotal_after_ppn_in),
-                        'account_id_default_status'		=> $account_id_default_status,
-                        'account_id_status'				=> 0,
-                    );
-                    AcctJournalVoucherItem::create($data_credit);
 
 //--------------------------------------------------------End Journal Voucher-----------------------------------------------------------------//
 
