@@ -647,92 +647,45 @@ class SalesQuotationController extends Controller
     }
 
     public function addCategory(Request $request){
-        $customer_name              = $request->customer_name;
-        $province_id                = $request->province_id;
-        $city_id                    = $request->city_id;
-        $customer_address           = $request->customer_address;
-        $customer_home_phone        = $request->customer_home_phone;
-        $customer_mobile_phone1     = $request->customer_mobile_phone1;
-        $customer_mobile_phone2     = $request->customer_mobile_phone2;
-        $customer_fax_number        = $request->customer_fax_number;
-        $customer_email             = $request->customer_email;
-        $customer_contact_person    = $request->customer_contact_person;
-        $customer_id_number         = $request->customer_id_number;
-        $customer_tax_no            = $request->customer_tax_no;
-        $customer_payment_terms     = $request->customer_payment_terms;
-        $customer_remark            = $request->customer_remark;
-        $data='';
 
-        $corecustomer = CoreCustomer::create([
-            'customer_name'             => $customer_name,
-            'province_id'               => $province_id,
-            'city_id'                   => $city_id,
-            'customer_address'          => $customer_address,
-            'customer_home_phone'       => $customer_home_phone,
-            'customer_mobile_phone1'    => $customer_mobile_phone1,
-            'customer_mobile_phone2'    => $customer_mobile_phone2,
-            'customer_fax_number'       => $customer_fax_number,
-            'customer_email'            => $customer_email,
-            'customer_contact_person'   => $customer_contact_person,
-            'customer_id_number'        => $customer_id_number,
-            'customer_tax_no'           => $customer_tax_no,
-            'customer_payment_terms'    => $customer_payment_terms,
-            'customer_remark'           => $customer_remark,
-            'created_id'                => Auth::id()
+        $item_category_name = $request->item_category_name;
+        $data='';
+        
+        $itemcategory = InvItemCategory::create([  
+            'item_category_name'  => $item_category_name,
+            'created_id'          => Auth::id()
         ]);
 
-        $customer = CoreCustomer::where('data_state','=',0)
+        $invitemcategory = InvItemCategory::where('data_state', 0)
         ->get();
 
         $data .= "<option value=''>--Choose One--</option>";
-        foreach ($customer as $mp){
-            $data .= "<option value='$mp[customer_id]'>$mp[customer_name]</option>\n";
+        foreach ($invitemcategory as $mp){
+            $data .= "<option value='$mp[item_category_id]'>$mp[item_category_name]</option>\n";	
         }
 
         return $data;
     }
 
     public function addUnit(Request $request){
-        $customer_name              = $request->customer_name;
-        $province_id                = $request->province_id;
-        $city_id                    = $request->city_id;
-        $customer_address           = $request->customer_address;
-        $customer_home_phone        = $request->customer_home_phone;
-        $customer_mobile_phone1     = $request->customer_mobile_phone1;
-        $customer_mobile_phone2     = $request->customer_mobile_phone2;
-        $customer_fax_number        = $request->customer_fax_number;
-        $customer_email             = $request->customer_email;
-        $customer_contact_person    = $request->customer_contact_person;
-        $customer_id_number         = $request->customer_id_number;
-        $customer_tax_no            = $request->customer_tax_no;
-        $customer_payment_terms     = $request->customer_payment_terms;
-        $customer_remark            = $request->customer_remark;
+        $item_unit_code             = $request->item_unit_code;
+        $item_unit_name             = $request->item_unit_name;
+        $item_unit_remark           = $request->item_unit_remark;
         $data='';
-
-        $corecustomer = CoreCustomer::create([
-            'customer_name'             => $customer_name,
-            'province_id'               => $province_id,
-            'city_id'                   => $city_id,
-            'customer_address'          => $customer_address,
-            'customer_home_phone'       => $customer_home_phone,
-            'customer_mobile_phone1'    => $customer_mobile_phone1,
-            'customer_mobile_phone2'    => $customer_mobile_phone2,
-            'customer_fax_number'       => $customer_fax_number,
-            'customer_email'            => $customer_email,
-            'customer_contact_person'   => $customer_contact_person,
-            'customer_id_number'        => $customer_id_number,
-            'customer_tax_no'           => $customer_tax_no,
-            'customer_payment_terms'    => $customer_payment_terms,
-            'customer_remark'           => $customer_remark,
-            'created_id'                => Auth::id()
+        
+        $invitemunit = InvItemUnit::create([  
+            'item_unit_code'              => $item_unit_code,
+            'item_unit_name'              => $item_unit_name,
+            'item_unit_remark'            => $item_unit_remark,
+            'created_id'                  => Auth::id()
         ]);
 
-        $customer = CoreCustomer::where('data_state','=',0)
+        $invitemunit = InvItemUnit::where('data_state', 0)
         ->get();
 
         $data .= "<option value=''>--Choose One--</option>";
-        foreach ($customer as $mp){
-            $data .= "<option value='$mp[customer_id]'>$mp[customer_name]</option>\n";
+        foreach ($invitemunit as $mp){
+            $data .= "<option value='$mp[item_unit_id]'>$mp[item_unit_name]</option>\n";	
         }
 
         return $data;
