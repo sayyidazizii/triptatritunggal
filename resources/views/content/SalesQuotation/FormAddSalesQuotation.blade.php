@@ -547,9 +547,18 @@
     /* event Tambah Menu Type END*/
 
     /* event Tambah Category */
+        
+        $(document).ready(function() {
+                $('#btn_save_category').click(function(e) {
+                    e.preventDefault(); // Mencegah action default
+                    addCategory();
+                });
+        });
+
         function addCategory(){
-            $('#btn_save_category').prop('disabled', true);
-            $('#btn_save_category').text('Menyimpan...');
+            const $btn = $('#btn_save_category');
+            $btn.prop('disabled', true);
+            $btn.html('<i class="fa fa-spinner fa-spin"></i> Menyimpan...');
 
             var item_category_name 	= $("#item_category_name").val();
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
@@ -570,19 +579,26 @@
                 {
                     console.log(data);
                     alert('Terjadi kesalahan saat menyimpan data');
-                
-                    // Re-enable button and restore text on error
-                    $('#btn_save_category').prop('disabled', false);
-                    $('#btn_save_category').text('Simpan');
+
                 }
             });
         }
     /* event Tambah Category END*/
 
     /* event Tambah Unit */
+        $(document).ready(function() {
+                $('#btn_save_unit').click(function(e) {
+                    e.preventDefault(); // Mencegah action default
+                    addUnit();
+                });
+        });
+
         function addUnit(){
-            $('#btn_save_unit').prop('disabled', true);
-            $('#btn_save_unit').text('Menyimpan...');
+
+            const $btn = $('#btn_save_unit');
+            $btn.prop('disabled', true);
+            $btn.html('<i class="fa fa-spinner fa-spin"></i> Menyimpan...');
+
             var item_unit_code              = $("#item_unit_code").val();
             var item_unit_name              = $("#item_unit_name").val();
             var item_unit_remark            = $("#item_unit_remark").val();
@@ -604,10 +620,6 @@
                 {
                     console.log(data);
                     alert('Terjadi kesalahan saat menyimpan data');
-                
-                    // Re-enable button and restore text on error
-                    $('#btn_save_unit').prop('disabled', false);
-                    $('#btn_save_unit').text('Simpan');
 
                 }
             });
