@@ -29,10 +29,10 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" id='cancel-btn-unit'>Batal</button>
-                <a type="submit" name="Save" class="btn btn-primary" id="btn_save_unit" title="Save" onclick="addUnit()">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" id='cancel_btn_type'>Batal</button>
+                <button type="button" class="btn btn-primary" id="btn_save_unit" title="Save">
                     <i class="fa fa-plus"></i> Tambah
-                </a>
+                </button>
             </div>
         </div>
     </div>
