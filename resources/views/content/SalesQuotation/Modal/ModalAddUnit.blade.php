@@ -1,27 +1,37 @@
-{{-- Modal Tambahan untuk menambahkan data barang --}}
-<div class="modal fade bs-modal-lg" id="addUnit" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade bs-modal-lg" id="addunit" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header"  style='text-align:left !important'>
-                <h4>Form Tambah Kategori</h4>
+                <h4>Form Tambah Satuan Barang</h4>
             </div>
             <div class="modal-body">
-            <div class="row form-group">
+                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <a class="text-dark">Nama Barang</a>
-                            <input class="form-control input-bb" type="text" name="item_type_name" id="item_type_name"/>
+                            <a class="text-dark">Kode Satuan Barang</a>
+                            <input class="form-control input-bb" type="text" name="item_unit_code" id="item_unit_code" value=""/>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <a class="text-dark">Nama Satuan Barang</a>
+                            <input class="form-control input-bb" type="text" name="item_unit_name" id="item_unit_name" value=""/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <a class="text-dark">Keterangan</a>
+                            <input class="form-control input-bb" type="text" name="item_unit_remark" id="item_unit_remark" value=""/>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal" id='cancel_btn_category'>Batal</button>
-                {{-- <a class="btn btn-primary" onClick="addInvType()">Simpan</a> --}}
-                <a type="submit" name="Save" class="btn btn-primary" id="btn_save_category" title="Save" onclick="addCategory()">
-                        <i class="fa fa-plus"></i> Tambah
-                </a>
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" id='cancel-btn-unit'>Batal</button>
+                <a class="btn btn-primary btn-sm" onClick="addUnit()">Simpan</a>
             </div>
-        </div>
         </div>
     </div>
 </div>
