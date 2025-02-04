@@ -2,29 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use App\Models\PurchaseOrder;
-use App\Models\PurchaseOrderItem;
-use App\Models\InvWarehouse;
-use App\Models\InvWarehouseLocation;
-use App\Models\CoreSupplier;
-use App\Models\CoreProvince;
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\CoreCity;
-use App\Models\InvItemCategory;
-use App\Models\InvItemStock;
-use App\Models\InvItemUnit;
 use App\Models\InvItemType;
+use App\Models\InvItemUnit;
+use App\Models\CoreProvince;
+use App\Models\CoreSupplier;
+use App\Models\InvItemStock;
+use App\Models\InvWarehouse;
+use Illuminate\Http\Request;
+use App\Models\PurchaseOrder;
+use App\Models\InvItemCategory;
 use Elibyy\TCPDF\Facades\TCPDF;
 use App\Models\PreferenceCompany;
+use App\Models\PurchaseOrderItem;
 use App\Models\PurchaseOrderType;
-use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Models\InvWarehouseLocation;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class PurchaseOrderController extends Controller
 {
@@ -193,197 +194,140 @@ class PurchaseOrderController extends Controller
             ->where('purchase_order_id', $purchase_order_id)
             ->get();
 
-        $company = PreferenceCompany::select('*')
-            ->first();
+        $company = PreferenceCompany::select('*')->first();
 
         $pdf = new TCPDF('P', PDF_UNIT, 'F4', true, 'UTF-8', false);
-        //$path = public_path('resources/assets/img/TTD.png');
-
         $pdf::SetPrintHeader(false);
         $pdf::SetPrintFooter(false);
-
-        $pdf::SetMargins(10, 10, 10, 10); // put space of 10 on top
-
+        $pdf::SetMargins(10, 10, 10, 10);
         $pdf::setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-        if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
-            require_once(dirname(__FILE__) . '/lang/eng.php');
-            $pdf::setLanguageArray($l);
-        }
-
-        $pdf::SetFont('helvetica', 'B', 20);
-
-        $pdf::AddPage();
-
         $pdf::SetFont('helvetica', '', 8);
 
+        // Modify date format with month name
+        $bulan = [
+            '01' => 'Januari', '02' => 'Februari', '03' => 'Maret', '04' => 'April',
+            '05' => 'Mei', '06' => 'Juni', '07' => 'Juli', '08' => 'Agustus',
+            '09' => 'September', '10' => 'Oktober', '11' => 'November', '12' => 'Desember'
+        ];
+        $tanggal = date('d') . ' ' . $bulan[date('m')] . ' ' . date('Y');
+
+        // Header
+        $pdf::AddPage();
         $tbl = "
-        <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\">
-            <tr>
-
-            <td>
-                <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\">
-                    <tr>
-                        <td><div style=\"text-align: left; font-size:12px; font-weight: bold\">PBF MENJANGAN ENAM</div></td>
-                    </tr>
-                    <tr>
-                        <td><div style=\"text-align: left; font-size:10px\">Jl.Puspowarno Raya No 55D RT 06 RW 09</div></td>
-                    </tr>
-                    <tr>
-                        <td><div style=\"text-align: left; font-size:10px\">APJ : " . Auth::user()->name . "</div></td>
-                    </tr>
-                    <tr>
-                        <td><div style=\"text-align: left; font-size:10px\">" . $company['CDBO_no'] . "</div></td>
-                    </tr>
-                    <tr>
-                        <td><div style=\"text-align: left; font-size:10px\">" . $company['distribution_no'] . "</div></td>
-                    </tr>
-                    <tr>
-                        <td><div style=\"text-align: left; font-size:10px\">SIPA: 449.2/16/DPM-PTSP/SIKA.16/11/2019</div></td>
-                    </tr>
-                </table>
-            </td>
-
-            <td>
-                <table cellspacing=\"0\" cellpadding=\"2\" border=\"1\">
-                    <tr>
-                        <td><div style=\"text-align: center; font-size:12px; font-weight: bold\">Purchasing Order</div></td>
-
-                    </tr>
-                </table>
-            </td>
-
-            </tr>
-
-        </table>
-        <table cellspacing=\"0\" cellpadding=\"2\" border=\"1\">
-            <table cellspacing=\"0\" cellpadding=\"2\" border=\"0\">
-            <tr>
-                <td>
-                    <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\">
-                        <tr style=\"text-align: left;font-weight: bold\">
-                                <td>No.  PO</td>
-                                <td>: " . $purchaseorder['purchase_order_no'] . "</td>
-                        </tr>
-                        <tr style=\"text-align: left;font-weight: bold\">
-                                <td>Tgl. PO </td>
-                                <td>: " . $purchaseorder['purchase_order_date'] . "</td>
-                        </tr>
-                        <tr style=\"text-align: left;font-weight: bold\">
-                                <td>Pembayaran</td>
-                                <td>: Hutang</td>
-                        </tr>
-                        <tr style=\"text-align: left;font-weight: bold\">
-                                <td>Termin</td>
-                                <td>: -</td>
-                        </tr>
-                    </table>
-                </td>
-                <td>
-                <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\">
-                    <tr style=\"text-align: left;font-weight: bold\">
-                            <td>Kode Supplier</td>
-                            <td>: " . $purchaseorder['supplier_code'] . "</td>
-                    </tr>
-                    <tr style=\"text-align: left;font-weight: bold\">
-                            <td>Nama Supplier</td>
-                            <td>: " . $purchaseorder['supplier_name'] . "</td>
-                    </tr>
-                    <tr style=\"text-align: left;font-weight: bold\">
-                            <td>Telp.</td>
-                            <td>: " . $purchaseorder['supplier_home_phone'] . "</td>
-                    </tr>
-                    <tr style=\"text-align: left;font-weight: bold\">
-                            <td>Alamat</td>
-                            <td>: " . $purchaseorder['supplier_address'] . "</td>
-                    </tr>
-                </table>
-            </td>
-            </tr>
-        </table>
+            <table width=\"100%\">
+                <tr>
+                    <td style=\"text-align:left; font-size:16px;\"><b>" . $company['company_name'] . "</b></td>
+                    <td style=\"text-align:right; font-size:12px;\">Tanggal: " . $tanggal . "</td>
+                </tr>
+                <tr>
+                    <td style=\"text-align:left; font-size:12px;\">" . $company['company_address'] . "</td>
+                    <td></td>
+                </tr>
             </table>
-                ";
-                $pdf::writeHTML($tbl, true, false, false, false, '');
+            <table width=\"100%\">
+                <tr>
+                    <td style=\"text-align:left; font-size:12px;\"><b>Purchasing Order</b></td>
+                    <td style=\"text-align:left; font-size:12px;\"></td>
+                </tr>
+                <tr>
+                    <td style=\"text-align:left; font-size:12px;\"><b>No. PO: ".$purchaseorder['purchase_order_no']."</b></td>
+                    <td style=\"text-align:left; font-size:12px;\"><b>Kepada:</b></td>
+                </tr>
+                <tr>
+                    <td style=\"text-align:left; font-size:12px;\"><b>Tgl. PO: ".$purchaseorder['purchase_order_date']."</b></td>
+                    <td style=\"text-align:left; font-size:12px;\"><b>" . $purchaseorder['supplier_name'] . "</b></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td style=\"text-align:left; font-size:12px;\">" . $purchaseorder['supplier_address'] . "</td>
+                </tr>
+            </table>
+            <br>
+        ";
+        $pdf::writeHTML($tbl, true, false, false, false, '');
 
-                $html2 = "<table cellspacing=\"0\" cellpadding=\"1\" border=\"1\" width=\"100%\">
-                                <tr style=\"text-align: center;\">
-                                    <td width=\"4%\" ><div style=\"text-align: center;\">No</div></td>
-                                    <td width=\"20%\" ><div style=\"text-align: center;\">Nama Barang</div></td>
-                                    <td width=\"10%\" ><div style=\"text-align: center;\">Qty</div></td>
-                                    <td width=\"10%\" ><div style=\"text-align: center;\">Harga </div></td>
-                                    <td width=\"9%\" ><div style=\"text-align: center;\">Diskon </div></td>
-                                    <td width=\"10%\" ><div style=\"text-align: center;\">Jumlah(DPP) </div></td>
-                                    <td width=\"10%\" ><div style=\"text-align: center;\">Total </div></td>
-                                    <td width=\"10%\" ><div style=\"text-align: center;\">Ket </div></td>
-                                </tr>";
-                $no = 1;
-                $total = 0;
-                $totalJumlah = 0;
-                foreach ($purchaseorderitem as $key => $val) {
-                    $Jumlah = $val['quantity'] * $val['item_unit_cost'] - $val['discount_amount'] ;
-                    $totalJumlah += $Jumlah;
-                    $total = $totalJumlah  + $purchaseorder['ppn_in_amount'];
-                    $html2 .= "<tr>
-                                    <td>" . $no . "</td>
-                                    <td>" . $this->getItemCategoryName($val['item_category_id']) . "-" . $this->getItemTypeName($val['item_type_id']) . "</td>
-                                    <td style=\"text-align: right;\">" . $val['quantity'] . "</td>
-                                    <td style=\"text-align: right;\">" . number_format($val['item_unit_cost'], 2) . "</td>
-                                    <td style=\"text-align: right;\">" . $val['discount_percentage']  . "%</td>
-                                    <td style=\"text-align: right;\">" . number_format($val['subtotal_amount'], 2) . "</td>
-                                    <td style=\"text-align: right;\">" .  number_format($Jumlah , 2)  . "</td>
-                                    <td style=\"text-align: right;\">" . $purchaseorder['purchase_order_remark'] . "</td>
-                                </tr>
-                                ";
-                    $no++;
-                }
+        // Item Table
+        $tbl = "
+            <table border=\"1\" cellspacing=\"0\" cellpadding=\"4\" width=\"100%\">
+                <tr>
+                    <th style=\"text-align:center; font-size:12px;\" width=\"5%\">No</th>
+                    <th style=\"text-align:center; font-size:12px;\" width=\"25%\">Nama Barang</th>
+                    <th style=\"text-align:center; font-size:12px;\" width=\"10%\">Qty</th>
+                    <th style=\"text-align:center; font-size:12px;\" width=\"15%\">Harga</th>
+                    <th style=\"text-align:center; font-size:12px;\" width=\"10%\">Diskon</th>
+                    <th style=\"text-align:center; font-size:12px;\" width=\"10%\">Jumlah (DPP)</th>
+                    <th style=\"text-align:center; font-size:12px;\" width=\"10%\">Total</th>
+                    <th style=\"text-align:center; font-size:12px;\" width=\"15%\">Ket</th>
+                </tr>
+        ";
+        $no = 1;
+        $total = 0;
+        $totalJumlah = 0;
+        foreach ($purchaseorderitem as $key => $val) {
+            $Jumlah = $val['quantity'] * $val['item_unit_cost'] - $val['discount_amount'];
+            $totalJumlah += $Jumlah;
+            $total = $totalJumlah + $purchaseorder['ppn_in_amount'];
+            $tbl .= "
+                <tr>
+                    <td style=\"text-align:center; font-size:12px;\">" . $no . "</td>
+                    <td style=\"text-align:left; font-size:12px;\">" . $this->getItemCategoryName($val['item_category_id']) . "-" . $this->getItemTypeName($val['item_type_id']) . "</td>
+                    <td style=\"text-align:right; font-size:12px;\">" . $val['quantity'] . "</td>
+                    <td style=\"text-align:right; font-size:12px;\">" . number_format($val['item_unit_cost'], 2) . "</td>
+                    <td style=\"text-align:right; font-size:12px;\">" . $val['discount_percentage'] . "%</td>
+                    <td style=\"text-align:right; font-size:12px;\">" . number_format($val['subtotal_amount'], 2) . "</td>
+                    <td style=\"text-align:right; font-size:12px;\">" . number_format($Jumlah, 2) . "</td>
+                    <td style=\"text-align:right; font-size:12px;\">" . $purchaseorder['purchase_order_remark'] . "</td>
+                </tr>
+            ";
+            $no++;
+        }
 
-                $html2  .= " <tr>
-                                <td colspan=\"6\" style=\"text-align: center;font-weight: bold\";>PPN</td>
-                                <td style=\"text-align: right;\">" . number_format($purchaseorder['ppn_in_amount'], 2) . "</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td colspan=\"6\" style=\"text-align: center;font-weight: bold\";>Total</td>
-                                <td style=\"text-align: right;\">" . number_format($total, 2) . "</td>
-                                <td></td>
-                            </tr>
-                            ";
-                $html2 .= "</table>";
-                $path = '<img width="60"; height="60" src="resources/assets/img/ttd.png">';
-                //dd($path);
-                $html2 .= "
-                    <table style=\"text-align: center;font-weight: bold\" cellspacing=\"20\";>
-                        <tr>
-                            <th>Disiapkan Oleh:</th>
-                            <th>Disetujui Oleh:</th>
-                            <th>Diketahui Oleh:</th>
-                        </tr>
-                    </table>
-                    <table style=\"text-align: center;\" cellspacing=\"0\";>
-                        <tr>
-                            <th></th>
-                            <th>".$path."</th>
-                            <th></th>
-                        </tr>
-                    </table>
-                    <table style=\"text-align: center;font-weight: bold\" cellspacing=\"0\";>
-                    <tr>
-                        <th>Martia Selawati</th>
-                        <th>Isti Ramadhani S.Farm.,Apt</th>
-                        <th>ADI SUTEJO</th>
-                    </tr>
-                </table>
-                    ";
-        $pdf::writeHTML($html2, true, false, true, false, '');
-       // $pdf::Image($path, 98, 98, 15, 15, 'PNG', '', 'LT', false, 300, '', false, false, 1, false, false, false);
+        $tbl .= "
+            <tr>
+                <td colspan=\"6\" style=\"text-align:center;font-weight: bold\">PPN</td>
+                <td style=\"text-align:right;\">" . number_format($purchaseorder['ppn_in_amount'], 2) . "</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan=\"6\" style=\"text-align:center;font-weight: bold\">Total</td>
+                <td style=\"text-align:right;\">" . number_format($total, 2) . "</td>
+                <td></td>
+            </tr>
+        </table>";
+        $pdf::writeHTML($tbl, true, false, false, false, '');
 
+        // Footer
+        $path = '<img width="60"; height="60" src="resources/assets/img/ttd.png">';
+        $footer = "
+            <table style=\"text-align:center; font-weight: bold\" cellspacing=\"20\">
+                <tr>
+                    <th>Disiapkan Oleh:</th>
+                    <th>Disetujui Oleh:</th>
+                    <th>Diketahui Oleh:</th>
+                </tr>
+            </table>
+            <table style=\"text-align:center;\" cellspacing=\"0\">
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </table>
+            <table style=\"text-align:center; font-weight: bold\" cellspacing=\"0\">
+                <tr>
+                    <th>(____________________)</th>
+                    <th>(____________________)</th>
+                    <th>(____________________)</th>
+                </tr>
+            </table>
+        ";
+        $pdf::writeHTML($footer, true, false, false, false, '');
 
-
-        // ob_clean();
-
-        $filename = 'PO_'.$purchaseorder['purchase_order_no'].'.pdf';
+        ob_clean();
+        $filename = 'PO_' . $purchaseorder['purchase_order_no'] . '.pdf';
         $pdf::Output($filename, 'I');
     }
+
 
     public function elements_add(Request $request)
     {
@@ -662,6 +606,7 @@ class PurchaseOrderController extends Controller
 
     public function processAddPurchaseOrder(Request $request)
     {
+        // Validate input fields
         $fields = $request->validate([
             'purchase_order_date'               => 'required',
             'purchase_order_shipment_date'      => 'required',
@@ -672,46 +617,57 @@ class PurchaseOrderController extends Controller
             'payment_method'                    => 'required',
         ]);
 
-        $purchaseorder = array(
-            'purchase_order_date'           => $fields['purchase_order_date'],
-            'purchase_order_shipment_date'  => $fields['purchase_order_shipment_date'],
-            'warehouse_id'                  => $fields['warehouse_id'],
-            'supplier_id'                   => $fields['supplier_id'],
-            'payment_method'                => $fields['payment_method'],
-            'total_item'                    => $fields['total_item_all'],
-            'total_amount'                  => $fields['total_amount'],
-            'ppn_in_percentage'             => $request['ppn_in_percentage'],
-            'ppn_in_amount'                 => $request['ppn_in_amount'],
-            'subtotal_after_ppn_in'         => $request['subtotal_after_ppn_in'],
-            'purchase_order_remark'         => $request->purchase_order_remark,
-            'branch_id'                     => Auth::user()->branch_id,
-        );
-        dd($purchaseorder);
+        // Begin transaction to ensure atomicity
+        DB::beginTransaction();
 
-        if (PurchaseOrder::create($purchaseorder)) {
-            $purchase_order_id = PurchaseOrder::orderBy('created_at', 'DESC')->first();
-            $purchaseorderitem = Session::get('purchaseorderitem');
-            foreach ($purchaseorderitem as $key => $val) {
-                $datapurchaseorderitem = array(
-                    'purchase_order_id'             => $purchase_order_id['purchase_order_id'],
-                    'item_category_id'              => $val['item_category_id'],
-                    'item_type_id'                  => $val['item_type_id'],
-                    'item_unit_id'                  => $val['item_unit_id'],
-                    'quantity'                      => $val['quantity'],
-                    'quantity_outstanding'          => $val['quantity'],
-                    'item_unit_cost'                => $val['price'],
-                    'subtotal_amount'               => $val['total_price'],
-                    'discount_percentage'            => $val['discount_percentage'],
-                    'discount_amount'                => $val['discount_amount'],
-                );
-                dd($datapurchaseorderitem);
-                PurchaseOrderItem::create($datapurchaseorderitem);
+        try {
+            // Create the purchase order
+            $purchaseorder = PurchaseOrder::create([
+                'purchase_order_date'           => $fields['purchase_order_date'],
+                'purchase_order_shipment_date'  => $fields['purchase_order_shipment_date'],
+                'warehouse_id'                  => $fields['warehouse_id'],
+                'supplier_id'                   => $fields['supplier_id'],
+                'payment_method'                => $fields['payment_method'],
+                'total_item'                    => $fields['total_item_all'],
+                'total_amount'                  => $fields['total_amount'],
+                'ppn_in_percentage'             => $request['ppn_in_percentage'],
+                'ppn_in_amount'                 => $request['ppn_in_amount'],
+                'subtotal_after_ppn_in'         => $request['subtotal_after_ppn_in'],
+                'purchase_order_remark'         => $request->purchase_order_remark,
+                'approved'                      => 1,//approve
+                'branch_id'                     => Auth::user()->branch_id,
+            ]);
+
+            // Get purchase order items from the session
+            $purchaseOrderItems = Session::get('purchaseorderitem');
+
+            // Create purchase order items associated with the purchase order
+            foreach ($purchaseOrderItems as $item) {
+                $purchaseorder->items()->create([
+                    'item_category_id'     => $item['item_category_id'],
+                    'item_type_id'         => $item['item_type_id'],
+                    'item_unit_id'         => $item['item_unit_id'],
+                    'quantity'             => $item['quantity'],
+                    'quantity_outstanding' => $item['quantity'],
+                    'item_unit_cost'       => $item['price'],
+                    'subtotal_amount'      => $item['total_price'],
+                    'discount_percentage'  => $item['discount_percentage'],
+                    'discount_amount'      => $item['discount_amount'],
+                ]);
             }
-            $msg = 'Tambah Purchase Order Berhasil';
-            return redirect('/purchase-order')->with('msg', $msg);
-        } else {
-            $msg = 'Tambah Purchase Order Gagal';
-            return redirect('/purchase-order/add')->with('msg', $msg);
+
+            // Commit the transaction
+            DB::commit();
+
+            // Redirect with success message
+            return redirect('/purchase-order')->with('msg', 'Tambah Purchase Order Berhasil');
+
+        } catch (\Exception $e) {
+            // Rollback transaction in case of error
+            DB::rollBack();
+
+            // Redirect with error message
+            return redirect('/purchase-order/add')->with('msg', 'Tambah Purchase Order Gagal');
         }
     }
 
