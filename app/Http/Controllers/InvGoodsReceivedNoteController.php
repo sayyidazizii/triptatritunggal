@@ -10,6 +10,7 @@ use App\Models\InvItemStock;
 use App\Models\InvWarehouse;
 use Illuminate\Http\Request;
 use App\Models\PurchaseOrder;
+use App\Helpers\JournalHelper;
 use App\Models\InvItemCategory;
 use App\Models\PreferenceCompany;
 use App\Models\PurchaseOrderItem;
@@ -125,7 +126,6 @@ class InvGoodsReceivedNoteController extends Controller
             $key_qty= array_column($merge_data, 'quantity');
             array_multisort($key_type, SORT_ASC, $merge_data, SORT_DESC, $merge_data);
         }
-        // dd($merge_data);
 
         $add_type_purchaseorderitem = PurchaseOrderItem::where('purchase_order_item.data_state', 0)
         ->where('purchase_order_id', $purchase_order_id)
@@ -311,7 +311,7 @@ class InvGoodsReceivedNoteController extends Controller
         return $itemunit['item_unit_name'];
     }
 
-     public function getPurchaseOrderNo($purchase_order_id){
+    public function getPurchaseOrderNo($purchase_order_id){
         $purchaseorder = PurchaseOrder::where('data_state', 0)
         ->where('purchase_order_id', $purchase_order_id)
         ->first();
@@ -335,9 +335,8 @@ class InvGoodsReceivedNoteController extends Controller
         return $purchaseorder['purchase_order_date'];
     }
 
-    public function processAddInvGoodsReceivedNote(Request $request){
-        // dd($request->all());
-
+    public function processAddInvGoodsReceivedNote(Request $request)
+    {
         $purchaseorderitem_temporary = Session::get('purchaseorderitem');
 
         $fields = $request->validate([
@@ -352,247 +351,189 @@ class InvGoodsReceivedNoteController extends Controller
         try {
             DB::beginTransaction();
 
-            if($request->hasFile('receipt_image')){
-
-                //Storage::delete('/public/receipt_images/'.$user->receipt_image);
-
-                // Get filename with the extension
+            // Handle receipt image upload
+            if ($request->hasFile('receipt_image')) {
                 $filenameWithExt = $request->file('receipt_image')->getClientOriginalName();
-                //Get just filename
                 $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-                // Get just ext
                 $extension = $request->file('receipt_image')->getClientOriginalExtension();
-                // Filename to store
-                $fileNameToStore = $filename.'_'.time().'.'.$extension;
-                // Upload Image
-                $path = $request->file('receipt_image')->storeAs('public/receipt',$fileNameToStore);
-
+                $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+                $path = $request->file('receipt_image')->storeAs('public/receipt', $fileNameToStore);
             }
 
-            $invgoodsreceivednote = array (
-                'goods_received_note_date'              => $fields['goods_received_note_date'],
-                'purchase_order_id'                     => $fields['purchase_order_id'],
-                'supplier_id'                           => $fields['supplier_id'],
-                'warehouse_id'                          => $fields['warehouse_id'],
-                'goods_received_note_remark'            => $request->goods_received_note_remark,
-                'faktur_no'                             => $request->faktur_no,
-                'subtotal_item'                         => $request->quantity_received_total,
-                'receipt_image'                         => $fileNameToStore,
-                'created_id' 				            => Auth::id(),
-            );
-            //dd($invgoodsreceivednote);
-            InvGoodsReceivedNote::create($invgoodsreceivednote);
-                $goodsreceivednote = InvGoodsReceivedNote::select('goods_received_note_id', 'goods_received_note_no')
-                ->where('created_id', Auth::id())
-                ->orderBy('created_at','DESC')
-                ->first();
+            // Create Goods Received Note
+            $invgoodsreceivednote = InvGoodsReceivedNote::create([
+                'goods_received_note_date' => $fields['goods_received_note_date'],
+                'purchase_order_id' => $fields['purchase_order_id'],
+                'supplier_id' => $fields['supplier_id'],
+                'warehouse_id' => $fields['warehouse_id'],
+                'goods_received_note_remark' => $request->goods_received_note_remark,
+                'faktur_no' => $request->faktur_no,
+                'subtotal_item' => $request->quantity_received_total,
+                'receipt_image' => $fileNameToStore,
+                'created_id' => Auth::id(),
+            ]);
 
-                $temprequest = $request->all();
-                // dd($temprequest);
+            $temprequest = $request->all();
+            $total_no = $request->total_no;
+            $total_received_item = $temprequest['quantity_received_total'];
 
-                $total_no = $request->total_no;
-                $total_received_item = $temprequest['quantity_received_total'];
-                // dd($total_no);
+            // Process the received items
+            for ($i = 1; $i <= $total_no; $i++) {
+                $invgoodsreceivednoteitem = InvGoodsReceivedNoteItem::create([
+                    'goods_received_note_id' => $invgoodsreceivednote->goods_received_note_id,
+                    'purchase_order_id' => $temprequest['purchase_order_id_' . $i],
+                    'purchase_order_item_id' => $temprequest['purchase_order_item_id_' . $i],
+                    'item_category_id' => $temprequest['item_category_id_' . $i],
+                    'item_type_id' => $temprequest['item_type_id_' . $i],
+                    'item_unit_id' => $temprequest['item_unit_id_' . $i],
+                    'quantity' => $temprequest['quantity_received_' . $i],
+                    'quantity_ordered' => $temprequest['quantity_received_' . $i],
+                    'quantity_received' => $temprequest['quantity_received_' . $i],
+                    'created_id' => Auth::id(),
+                ]);
 
-                for($i = 1; $i <= $total_no; $i++){
-                    $invgoodsreceivednoteitem = array (
-                        'goods_received_note_id'                => $goodsreceivednote['goods_received_note_id'],
-                        'purchase_order_id'						=> $temprequest['purchase_order_id_'.$i],
-                        'purchase_order_item_id'				=> $temprequest['purchase_order_item_id_'.$i],
-                        'item_category_id'						=> $temprequest['item_category_id_'.$i],
-                        'item_type_id'						    => $temprequest['item_type_id_'.$i],
-                        'item_unit_id'							=> $temprequest['item_unit_id_'.$i],
-                        'quantity'					            => $temprequest['quantity_received_'.$i],
-                        'quantity_ordered'					    => $temprequest['quantity_received_'.$i],
-                        'quantity_received'					    => $temprequest['quantity_received_'.$i],
-                        'created_id'                            => Auth::id(),
-                    );
+                // Update the Purchase Order item
+                $purchaseorderitem = PurchaseOrderItem::findOrFail($invgoodsreceivednoteitem->purchase_order_item_id);
+                $purchaseorderitem->quantity_outstanding -= $invgoodsreceivednoteitem->quantity;
+                $purchaseorderitem->quantity_received += $invgoodsreceivednoteitem->quantity;
+                $purchaseorderitem->save();
 
-                    // dd($invgoodsreceivednoteitem);
-                    InvGoodsReceivedNoteItem::create($invgoodsreceivednoteitem);
-
-
-                    //update purchase order item
-                    $purchaseorderitem = PurchaseOrderItem::findOrFail($invgoodsreceivednoteitem['purchase_order_item_id']);
-                    $purchaseorderitem->quantity_outstanding = $purchaseorderitem['quantity_outstanding'] - $invgoodsreceivednoteitem['quantity'];
-                    $purchaseorderitem->quantity_received    = $purchaseorderitem['quantity_received'] + $invgoodsreceivednoteitem['quantity'];
-                    $purchaseorderitem->save();
-
-                    // $total_received_item = $total_received_item + $purchaseorderitem['quantity_received'] + $invgoodsreceivednoteitem['quantity'];
-
-                    $goodsreceivednoteitem = InvGoodsReceivedNoteItem::select('inv_goods_received_note_item.goods_received_note_item_id')
-                    ->where('inv_goods_received_note_item.quantity', $invgoodsreceivednoteitem['quantity'])
-                    ->where('inv_goods_received_note_item.item_type_id', $invgoodsreceivednoteitem['item_type_id'])
-                    ->where('inv_goods_received_note_item.created_id', Auth::id())
-                    ->orderBy('inv_goods_received_note_item.created_at', 'DESC')
+                // Handle item stock
+                $item_type = InvItemType::where('data_state', 0)
+                    ->where('item_type_id', $invgoodsreceivednoteitem->item_type_id)
                     ->first();
 
-                    $item_type = InvItemType::where('data_state', 0)
-                    ->where('item_type_id', $invgoodsreceivednoteitem['item_type_id'])
-                    ->first();
+                $item_unit_id_default = $item_type->item_unit_1;
+                $quantity_unit = $invgoodsreceivednoteitem->quantity_received * ($item_type->{'item_quantity_default_' . $invgoodsreceivednoteitem->item_unit_id} ?? 1);
 
-                    // dd($item_type);
+                $invitemstock = [
+                    'goods_received_note_id' => $invgoodsreceivednote->goods_received_note_id,
+                    'goods_received_note_item_id' => $invgoodsreceivednoteitem->goods_received_note_item_id,
+                    'item_stock_date' => $invgoodsreceivednote->goods_received_note_date,
+                    'warehouse_id' => $fields['warehouse_id'],
+                    'item_total' => $temprequest['quantity_received_' . $i],
+                    'item_unit_id_default' => $item_unit_id_default,
+                    'item_unit_cost' => $temprequest['item_unit_cost_' . $i],
+                    'quantity_unit' => $quantity_unit,
+                    'purchase_order_item_id' => $temprequest['purchase_order_item_id_' . $i],
+                    'item_category_id' => $temprequest['item_category_id_' . $i],
+                    'item_type_id' => $temprequest['item_type_id_' . $i],
+                    'item_unit_id' => $temprequest['item_unit_id_' . $i],
+                    'created_id' => Auth::id(),
+                ];
 
-                    $item_unit_id_default = $item_type['item_unit_1'];
+                $existing_item_stock = InvItemStock::where('item_type_id', $invitemstock['item_type_id'])->first();
 
-                    $quantity_unit = 0; // Default value
-
-                    if($invgoodsreceivednoteitem['item_unit_id'] == $item_type['item_unit_1']){
-                        $quantity_unit = $invgoodsreceivednoteitem['quantity_received'] * $item_type['item_quantity_default_1'];
-                        $default_quantity = $item_type['item_quantity_default_1'];
-                        $item_weight = $invgoodsreceivednoteitem['quantity_received'] * $item_type['item_weight_1'];
-                        $item_weight_default = $item_type['item_weight_1'];
-                    }
-                    else if($invgoodsreceivednoteitem['item_unit_id'] == $item_type['item_unit_2']){
-                        $quantity_unit = $invgoodsreceivednoteitem['quantity_received'] * $item_type['item_quantity_default_2'];
-                        $default_quantity = $item_type['item_quantity_default_2'];
-                        $item_weight = $item_weight_default = $item_type['item_weight_2'];
-                    }
-                    else if($invgoodsreceivednoteitem['item_unit_id'] == $item_type['item_unit_3']){
-                        $quantity_unit = $invgoodsreceivednoteitem['quantity_received'] * $item_type['item_quantity_default_3'];
-                        $default_quantity = $item_type['item_quantity_default_3'];
-                        $item_weight = $item_weight_default = $item_type['item_weight_3'];
-                    }
-
-                    $invitemstock = array(
-                        'goods_received_note_id'        => $goodsreceivednote['goods_received_note_id'],
-                        'goods_received_note_item_id'   => $goodsreceivednoteitem['goods_received_note_item_id'],
-                        'item_stock_date'               => $invgoodsreceivednote['goods_received_note_date'],
-                        'warehouse_id'                  => $fields['warehouse_id'],
-                        'item_total'                    => $temprequest['quantity_received_'.$i],
-                        'item_unit_id_default' 		    => $item_unit_id_default,
-                        'item_unit_cost'                => $temprequest['item_unit_cost_'.$i],
-                        'quantity_unit' 		        => $quantity_unit,
-                        'item_default_quantity_unit'    => $default_quantity,
-                        'purchase_order_item_id'        => $temprequest['purchase_order_item_id_'.$i],
-                        'item_category_id'              => $temprequest['item_category_id_'.$i],
-                        'item_type_id'                  => $temprequest['item_type_id_'.$i],
-                        'item_unit_id'                  => $temprequest['item_unit_id_'.$i],
-                        'created_id'                    => Auth::id(),
-                    );
-
-
-                    $data_item_stock = InvItemStock::where('item_type_id', $invitemstock['item_type_id'])->first();
-
-                    if($data_item_stock == null){
-                        InvItemStock::create($invitemstock);
-                    }else{
-                        $itemstockupdate = InvItemStock::findOrFail($data_item_stock['item_stock_id']);
-                        $itemstockupdate->item_total += $invitemstock['item_total'];
-                        $itemstockupdate->quantity_unit += $invitemstock['quantity_unit'];
-                        $itemstockupdate->item_unit_cost = $invitemstock['item_unit_cost'];
-                        $itemstockupdate->save();
-                    }
-
-                    $purchaseorderitem          = PurchaseOrderItem::where('purchase_order_item_id', $temprequest['purchase_order_item_id_'.$i])
-                    ->first();
+                if (!$existing_item_stock) {
+                    InvItemStock::create($invitemstock);
+                } else {
+                    $existing_item_stock->item_total += $invitemstock['item_total'];
+                    $existing_item_stock->quantity_unit += $invitemstock['quantity_unit'];
+                    $existing_item_stock->item_unit_cost = $invitemstock['item_unit_cost'];
+                    $existing_item_stock->save();
                 }
+            }
 
-//----------------------------------------------------------Journal Voucher-------------------------------------------------------------------//
-                            $preferencecompany 			= PreferenceCompany::first();
-                            $transaction_module_code 	= "GRN";
-                            $transactionmodule 		    = PreferenceTransactionModule::where('transaction_module_code', $transaction_module_code)
-                            ->first();
+            $purchaseorder              = PurchaseOrder::findOrFail($invgoodsreceivednote['purchase_order_id']);
+            $total_amount               = $purchaseorder['total_amount'];
+            $subtotal_after_ppn_in      = $purchaseorder['subtotal_after_ppn_in'];
+            $ppn_amount                 = $purchaseorder['ppn_in_amount'];
+            // Prepare the journal data for the Goods Received Note
+            $transaction_module_code = "GRN";
+            $transactionmodule = PreferenceTransactionModule::where('transaction_module_code', $transaction_module_code)->first();
+            $transaction_module_id = $transactionmodule['transaction_module_id'];
+            $journal_voucher_period = date("Ym", strtotime($invgoodsreceivednote['goods_received_note_date']));
 
-                            $transaction_module_id 		= $transactionmodule['transaction_module_id'];
+            //*account
+            $account_cash_purchase_id = AcctAccountSetting::where('account_setting_name', 'account_cash_purchase_id')->first();
+            $purchase_cash_account_id = AcctAccountSetting::where('account_setting_name', 'purchase_cash_account_id')->first();
 
-                            $journal_voucher_period 	= date("Ym", strtotime($invgoodsreceivednote['goods_received_note_date']));
+            $account_credit_purchase_id = AcctAccountSetting::where('account_setting_name', 'account_credit_purchase_id')->first();
+            $purchase_credit_account_id = AcctAccountSetting::where('account_setting_name', 'purchase_credit_account_id')->first();
 
-                            $data_journal = array(
-                                'branch_id'						=> 1,
-                                'journal_voucher_period' 		=> $journal_voucher_period,
-                                'journal_voucher_date'			=> $invgoodsreceivednote['goods_received_note_date'],
-                                'journal_voucher_title'			=> 'Pembelian '.$goodsreceivednote['goods_received_note_no'],
-                                'journal_voucher_no'			=> $goodsreceivednote['goods_received_note_no'],
-                                'journal_voucher_description'	=> $invgoodsreceivednote['goods_received_note_remark'],
-                                'transaction_module_id'			=> $transaction_module_id,
-                                'transaction_module_code'		=> $transaction_module_code,
-                                'transaction_journal_id' 		=> $goodsreceivednote['goods_received_note_id'],
-                                'transaction_journal_no' 		=> $goodsreceivednote['goods_received_note_no'],
-                                'created_id' 					=> Auth::id(),
-                            );
-
-                            AcctJournalVoucher::create($data_journal);
-//---------------------------------------------------------End Journal Voucher----------------------------------------------------------------//
+            $purchase_tax_account_id = AcctAccountSetting::where('account_setting_name', 'purchase_tax_account_id')->first();
 
 
-//----------------------------------------------------------Journal Voucher Item-------------------------------------------------------------------//
-                    $purchaseorder              = PurchaseOrder::findOrFail($invgoodsreceivednote['purchase_order_id']);
-                    $total_amount               = $purchaseorder['total_amount'];
-                    $journalvoucher = AcctJournalVoucher::where('created_id', Auth::id())
-                    ->orderBy('journal_voucher_id', 'DESC')
-                    ->first();
-                    $journal_voucher_id 	= $journalvoucher['journal_voucher_id'];
-                    //*------account_id Persediaan Barang Dagang------
-                    $purchase_credit_account_id     = AcctAccountSetting::where('account_setting_name','purchase_credit_account_id')->first();
-                    $account_id_default_status 		= $purchase_credit_account_id['account_default_status'];
-                    $data_debit1 = array (
-                        'journal_voucher_id'			=> $journal_voucher_id,
-                        'account_id'					=> $purchase_credit_account_id['account_id'],
-                        'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                        'journal_voucher_amount'		=> ABS($total_amount),
-                        'journal_voucher_debit_amount'	=> ABS($total_amount),
-                        'account_id_default_status'		=> $account_id_default_status,
-                        'account_id_status'				=> 1,
-                    );
-                    AcctJournalVoucherItem::create($data_debit1);
-                     //*hutang supplier
-                     $account_id_default_status 		= $account_credit_purchase_id['account_default_status'];
-                     $data_credit = array (
-                         'journal_voucher_id'			=> $journal_voucher_id,
-                         'account_id'					=> $account_credit_purchase_id['account_id'],
-                         'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                         'journal_voucher_amount'		=> ABS($subtotal_after_ppn_in),
-                         'journal_voucher_credit_amount'	=> ABS($subtotal_after_ppn_in),
-                         'account_id_default_status'		=> $account_id_default_status,
-                         'account_id_status'				=> 0,
-                     );
-                     AcctJournalVoucherItem::create($data_credit);
-                    //*------ PPN ------
-                    $purchase_tax_account_id     = AcctAccountSetting::where('account_setting_name','purchase_tax_account_id')->first();
-                    $ppn_in_amount = $purchaseorder['ppn_in_amount'];
-                    $account_id_default_status 		= $purchase_tax_account_id['account_default_status'];
-                    $data_debit2 = array (
-                        'journal_voucher_id'			=> $journal_voucher_id,
-                        'account_id'					=> $purchase_tax_account_id['account_id'],
-                        'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                        'journal_voucher_amount'		=> ABS($ppn_in_amount),
-                        'journal_voucher_debit_amount'	=> ABS($ppn_in_amount),
-                        'account_id_default_status'		=> $account_id_default_status,
-                        'account_id_status'				=> 1,
-                    );
-                    AcctJournalVoucherItem::create($data_debit2);
-                    $account_credit_purchase_id     = AcctAccountSetting::where('account_setting_name','account_credit_purchase_id')->first();
-                    $subtotal_after_ppn_in = $purchaseorder['subtotal_after_ppn_in'];
+            $data_journal = [
+                'branch_id' => 1,
+                'journal_voucher_period' => $journal_voucher_period,
+                'journal_voucher_date' => $invgoodsreceivednote['goods_received_note_date'],
+                'journal_voucher_title' => 'Pembelian ' . $invgoodsreceivednote['goods_received_note_no'],
+                'journal_voucher_no' => $invgoodsreceivednote['goods_received_note_no'],
+                'journal_voucher_description' => 'Pembelian ' . $invgoodsreceivednote['goods_received_note_no'],
+                'transaction_module_id' => $transaction_module_id,
+                'transaction_module_code' => $transaction_module_code,
+                'transaction_journal_id' => $invgoodsreceivednote['goods_received_note_id'],
+                'transaction_journal_no' => $invgoodsreceivednote['goods_received_note_no'],
+                'created_id' => Auth::id(),
+            ];
 
-//--------------------------------------------------------End Journal Voucher-----------------------------------------------------------------//
+            // Journal items
+            if($purchaseorder['payment_method'] == 1){
+                $journal_items = [
+                    [
+                        'account_id' => $purchase_cash_account_id['account_id'],
+                        'description' => $data_journal['journal_voucher_description'],
+                        'amount' => $total_amount,
+                        'debit' => true,
+                        'account_status' => $purchase_cash_account_id['account_setting_status'],
+                    ],
+                    [
+                        'account_id' => $account_cash_purchase_id['account_id'],
+                        'description' => $data_journal['journal_voucher_description'],
+                        'amount' => $subtotal_after_ppn_in,
+                        'debit' => false,
+                        'account_status' => $account_cash_purchase_id['account_setting_status'],
+                    ],
+                    [
+                        'account_id' => $purchase_tax_account_id['account_id'],
+                        'description' => $data_journal['journal_voucher_description'],
+                        'amount' => $ppn_amount,
+                        'debit' => true,
+                        'account_status' => $purchase_tax_account_id['account_setting_status'],
+                    ],
+                ];
+            }else{
+                $journal_items = [
+                    [
+                        'account_id' => $purchase_credit_account_id['account_id'],
+                        'description' => $data_journal['journal_voucher_description'],
+                        'amount' => $total_amount,
+                        'debit' => true,
+                        'account_status' => $purchase_credit_account_id['account_setting_status'],
+                    ],
+                    [
+                        'account_id' => $account_credit_purchase_id['account_id'],
+                        'description' => $data_journal['journal_voucher_description'],
+                        'amount' => $subtotal_after_ppn_in,
+                        'debit' => false,
+                        'account_status' => $account_credit_purchase_id['account_setting_status'],
+                    ],
+                    [
+                        'account_id' => $purchase_tax_account_id['account_id'],
+                        'description' => $data_journal['journal_voucher_description'],
+                        'amount' => $ppn_amount,
+                        'debit' => true,
+                        'account_status' => $purchase_tax_account_id['account_setting_status'],
+                    ],
+                ];
+            }
 
 
-                $purchaseorder = PurchaseOrder::findOrFail($invgoodsreceivednote['purchase_order_id']);
-                $purchaseorder->total_received_item = $purchaseorder['total_received_item'] + $total_received_item;
-                if($purchaseorder['total_item'] == $purchaseorder->total_received_item ){
-                    $purchaseorder->purchase_order_status = 2;
-                }else{
-                    $purchaseorder->purchase_order_status = 1;
-                }
-                $purchaseorder->save();
+            // Journal creation remains unchanged
+            JournalHelper::createJournal($data_journal, $journal_items);
 
             DB::commit();
-                $msg = 'Tambah Penerimaan Barang Berhasil';
-                return redirect('/goods-received-note')->with('msg',$msg);
 
+            return redirect('/goods-received-note')->with('msg', 'Tambah Penerimaan Barang Berhasil');
         } catch (\Exception $e) {
             DB::rollBack();
             report($e);
+            Log::error('Error in Tambah Penerimaan Barang: ' . $e->getMessage(), ['exception' => $e]);
 
-                Log::error('Error in Tambah Penerimaan Barang: '.$e->getMessage(), [
-                    'exception' => $e
-                ]);
-                            $msg = 'Tambah Penerimaan Barang Gagal';
-                return redirect('/goods-received-note')->with('msg',$msg);
+            return redirect('/goods-received-note')->with('msg', 'Tambah Penerimaan Barang Gagal');
         }
     }
-
 
     public function kwitansiGoodsReceivedNote($goods_received_note_id){
         $goodsreceivednote = InvGoodsReceivedNote::findOrFail($goods_received_note_id);

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\PurchaseOrderItem;
 use Illuminate\Database\Eloquent\Model;
 
 class PurchaseOrder extends Model
@@ -13,9 +14,9 @@ class PurchaseOrder extends Model
      * @var string[]
      */
 
-    protected $table        = 'purchase_order'; 
+    protected $table        = 'purchase_order';
     protected $primaryKey   = 'purchase_order_id';
-    
+
     protected $guarded = [
         'purchase_order_id',
     ];
@@ -27,5 +28,10 @@ class PurchaseOrder extends Model
      */
     protected $hidden = [
     ];
+
+    public function items()
+    {
+        return $this->hasMany(PurchaseOrderItem::class, 'purchase_order_id');
+    }
 
 }
