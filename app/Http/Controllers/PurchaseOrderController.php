@@ -686,7 +686,6 @@ class PurchaseOrderController extends Controller
             'purchase_order_remark'         => $request->purchase_order_remark,
             'branch_id'                     => Auth::user()->branch_id,
         );
-        dd($purchaseorder);
 
         if (PurchaseOrder::create($purchaseorder)) {
             $purchase_order_id = PurchaseOrder::orderBy('created_at', 'DESC')->first();
@@ -704,7 +703,6 @@ class PurchaseOrderController extends Controller
                     'discount_percentage'            => $val['discount_percentage'],
                     'discount_amount'                => $val['discount_amount'],
                 );
-                dd($datapurchaseorderitem);
                 PurchaseOrderItem::create($datapurchaseorderitem);
             }
             $msg = 'Tambah Purchase Order Berhasil';
