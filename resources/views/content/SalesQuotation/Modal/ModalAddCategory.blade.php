@@ -1,5 +1,5 @@
 {{-- Modal Tambahan untuk menambahkan data barang --}}
-<div class="modal fade bs-modal-lg" id="addcategory" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade bs-modal-lg" id="addkategorybarang" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header"  style='text-align:left !important'>
@@ -15,7 +15,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" id='cancel-btn-category'>Batal</button>
-                <a class="btn btn-primary btn-sm" onClick="addCategory()">Simpan</a>
+                <a type="submit" name="Save" class="btn btn-primary" id="btn_save_category" title="Save" onclick="addCategory()">
+                    <i class="fa fa-plus"></i> Tambah
+                </a>
             </div>
         </div>
     </div>

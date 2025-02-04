@@ -528,8 +528,8 @@
 
     /* event Tambah Category */
         function addCategory(){
-            $('#btn_save').prop('disabled', true);
-            $('#btn_save').text('Menyimpan...');
+            $('#btn_save_category').prop('disabled', true);
+            $('#btn_save_category').text('Menyimpan...');
 
             var item_category_name 	= $("#item_category_name").val();
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
@@ -539,7 +539,7 @@
                 dataType: "html",
                 data: {
                     'item_category_name'	: item_category_name,
-                    '_token'                        : csrfToken
+                    '_token'                : csrfToken
                 },
                 success: function(return_data){
 
@@ -552,23 +552,23 @@
                     alert('Terjadi kesalahan saat menyimpan data');
                 
                     // Re-enable button and restore text on error
-                    $('#btn_save').prop('disabled', false);
-                    $('#btn_save').text('Simpan');
+                    $('#btn_save_category').prop('disabled', false);
+                    $('#btn_save_category').text('Simpan');
                 }
             });
         }
     /* event Tambah Category END*/
 
-    /* event Tambah Category */
+    /* event Tambah Unit */
         function addUnit(){
-            $('#btn_save').prop('disabled', true);
-            $('#btn_save').text('Menyimpan...');
+            $('#btn_save_unit').prop('disabled', true);
+            $('#btn_save_unit').text('Menyimpan...');
             var item_unit_code              = $("#item_unit_code").val();
             var item_unit_name              = $("#item_unit_name").val();
             var item_unit_remark            = $("#item_unit_remark").val();
             $.ajax({
                 type: "POST",
-                url : "{{route('inv-item-add-unit')}}",
+                url : "{{route('add-unit-sales-quotation')}}",
                 dataType: "html",
                 data: {
                     'item_unit_code'	            : item_unit_code,
@@ -586,13 +586,13 @@
                     alert('Terjadi kesalahan saat menyimpan data');
                 
                     // Re-enable button and restore text on error
-                    $('#btn_save').prop('disabled', false);
-                    $('#btn_save').text('Simpan');
+                    $('#btn_save_unit').prop('disabled', false);
+                    $('#btn_save_unit').text('Simpan');
 
                 }
             });
         }
-    /* event Tambah Category END*/
+    /* event Tambah Unit END*/
 
 </script>
 @stop
@@ -706,7 +706,7 @@
                 </div>
                 <div class="col-md-2 mt-1">
                     <a class="text-dark"></a>
-                    <a href='#addbarang' data-toggle='modal' name="Find" class="btn btn-success add-btn btn-sm" title="Add Data">Tambah Satuan</a>       
+                    <a href='#addNamaUnit' data-toggle='modal' name="Find" class="btn btn-success add-btn btn-sm" title="Add Data">Tambah Satuan</a>       
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
@@ -910,6 +910,15 @@
 {{-- Modal Tambahan untuk menambahkan data barang --}}
     @include('content.SalesQuotation.Modal.ModalAddInvType')
 {{-- end --}}
+
+{{-- Modal Tambahan untuk menambahkan data kategori --}}
+@include('content.SalesQuotation.Modal.ModalAddCategory')
+{{-- end --}}
+
+{{-- Modal Tambahan untuk menambahkan data unit --}}
+@include('content.SalesQuotation.Modal.ModalAddUnit')
+{{-- end --}}
+
 
 <br>
 <br>

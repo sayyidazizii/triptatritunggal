@@ -14,7 +14,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <a class="text-dark">Nama Barang</a>
-                            <input class="form-control input-bb" type="text" name="item_type_name" id="item_type_name" required/>
+                            <input class="form-control input-bb" type="text" name="item_type_name" id="item_type_name"/>
                         </div>
                     </div>
             </div>
@@ -25,7 +25,7 @@
                     </div>
                     <div class="col-md-6">
                             <a class="text-dark">Stok<a class='red'> *</a></a>
-                            <input class="form-control input-bb" type="text" name="quantity_unit_modal" id="quantity_unit_modal" required/>
+                            <input class="form-control input-bb" type="text" name="quantity_unit_modal" id="quantity_unit_modal"/>
                     </div>
             </div>
             <div class="modal-footer">
