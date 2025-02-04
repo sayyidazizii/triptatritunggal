@@ -526,6 +526,74 @@
         }
     /* event Tambah Menu Type END*/
 
+    /* event Tambah Category */
+        function addCategory(){
+            $('#btn_save').prop('disabled', true);
+            $('#btn_save').text('Menyimpan...');
+
+            var item_category_name 	= $("#item_category_name").val();
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                type: "POST",
+                url : "{{route('add-category-sales-quotation')}}",
+                dataType: "html",
+                data: {
+                    'item_category_name'	: item_category_name,
+                    '_token'                        : csrfToken
+                },
+                success: function(return_data){
+
+                    alert('Data berhasil disimpan');
+                    location.reload(); // Refresh the page to reflect changes
+                },
+                error: function(data)
+                {
+                    console.log(data);
+                    alert('Terjadi kesalahan saat menyimpan data');
+                
+                    // Re-enable button and restore text on error
+                    $('#btn_save').prop('disabled', false);
+                    $('#btn_save').text('Simpan');
+                }
+            });
+        }
+    /* event Tambah Category END*/
+
+    /* event Tambah Category */
+        function addUnit(){
+            $('#btn_save').prop('disabled', true);
+            $('#btn_save').text('Menyimpan...');
+            var item_unit_code              = $("#item_unit_code").val();
+            var item_unit_name              = $("#item_unit_name").val();
+            var item_unit_remark            = $("#item_unit_remark").val();
+            $.ajax({
+                type: "POST",
+                url : "{{route('inv-item-add-unit')}}",
+                dataType: "html",
+                data: {
+                    'item_unit_code'	            : item_unit_code,
+                    'item_unit_name'	            : item_unit_name,
+                    'item_unit_remark'	            : item_unit_remark,
+                    '_token'                        : '{{csrf_token()}}',
+                },
+                success: function(return_data){
+                    alert('Data berhasil disimpan');
+                    location.reload(); // Refresh the page to reflect changes
+                },
+                error: function(data)
+                {
+                    console.log(data);
+                    alert('Terjadi kesalahan saat menyimpan data');
+                
+                    // Re-enable button and restore text on error
+                    $('#btn_save').prop('disabled', false);
+                    $('#btn_save').text('Simpan');
+
+                }
+            });
+        }
+    /* event Tambah Category END*/
+
 </script>
 @stop
 
