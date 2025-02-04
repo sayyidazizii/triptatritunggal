@@ -1144,151 +1144,156 @@ class SalesInvoiceController extends Controller
 
     public function printNota($salesId)
     {
-        $salesinvoice = SalesInvoice::select('*')->where('sales_invoice_id', $salesId)->where('data_state',0)->first();
-        $salesinvoiceitem = SalesInvoiceItem::select('*')->where('sales_invoice_id', $salesinvoice['sales_invoice_id'])->where('data_state',0)->get();
-        // echo json_encode($salesinvoiceitem);exit;
+        // Get sales invoice and items
+        $salesinvoice = SalesInvoice::with('salesDeliveryNote')
+            ->where('sales_invoice_id', $salesId)
+            ->where('data_state', 0)
+            ->first();
+    
+        $salesinvoiceitems = SalesInvoiceItem::with('itemType')
+            ->where('sales_invoice_id', $salesinvoice['sales_invoice_id'])
+            ->where('data_state', 0)
+            ->get();
+    
 
-        $page_format = array(
-            'format' => 'CUSTOM',
-            'unit' => 'in',
-            'width' => 9.5,
-            'height' => 11,
-            'margin_left' => 0.2,
-            'margin_right' => 0.2,
-            'margin_top' => 0.2,
-            'margin_bottom' => 0.2
-        );
+            $page_format = array(
+                'format' => 'CUSTOM',
+                'unit' => 'in',
+                'width' => 9.5,
+                'height' => 11,
+                'margin_left' => 0.2,
+                'margin_right' => 0.2,
+                'margin_top' => 0.2,
+                'margin_bottom' => 0.2
+            );
 
         // Create new TCPDF instance
         $pdf = new TCPDF('P', 'in', $page_format, true, 'UTF-8');
-
+    
         // Remove default header/footer
         $pdf::setPrintHeader(false);
         $pdf::setPrintFooter(false);
-
+    
         // Add a page
         $pdf::AddPage();
-
+    
         // Set font
         $pdf::SetFont('helvetica', '', 10);
-
-        // Company Logo
-        $pdf::Image(public_path('images/logo.png'), 10, 10, 30);
-
-        // Company Details
-        $pdf::SetXY(20, 10);
-        $pdf::SetFont('helvetica', '', 9);
-        $pdf::Cell(0, 10, 'PT. TRIPTA TRI TUNGGAL', 0, 1);
-        $pdf::Cell(0, 5, 'JL. DURIAN 2 A', 0, 1);
-        $pdf::Cell(0, 5, 'PERUM. BUMI WONOREJO - KARANGANYAR', 0, 1);
-        $pdf::Cell(0, 5, 'TELP: 061 226 869 764', 0, 1);
-        $pdf::Cell(0, 5, 'FAX: 0271-2874598', 0, 1);
-
-        // Bill To
-        $pdf::SetFont('helvetica', 'B', 9);
-        $pdf::SetXY(10, 41);
-        $pdf::Cell(0, 5, 'BILL TO', 0, 1);
-        $pdf::SetFont('helvetica', '', 9);
-        $pdf::Cell(0, 5, 'PT. CHAROEN POKPHAND INDONESIA', 0, 1);
-        $pdf::Cell(0, 5, 'Patimura Kutowinangun Km.1 Candeh Tingkir', 0, 1);
-        $pdf::Cell(0, 5, 'Salatiga 50742', 0, 1);
-
-        // Invoice Details (Right Side)
-        $pdf::SetXY(150, 10);
-        $pdf::SetFont('helvetica', 'B', 12);
-        $pdf::Cell(30, 10, 'INVOICE', 0, 1, 'R');
-
-        // Invoice Info Table
-        $pdf::SetFont('helvetica', '', 9);
-        $pdf::SetXY(120, 20);
-        $pdf::Cell(30, 5, 'Date', 0);
-        $pdf::Cell(50, 5, ': ', 0, 1);
-        $pdf::SetX(120);
-        $pdf::Cell(30, 5, 'Invoice No.', 0);
-        $pdf::Cell(50, 5, ': ', 0, 1);
-        $pdf::SetX(120);
-        $pdf::Cell(30, 5, 'Delivery Order.', 0);
-        $pdf::Cell(50, 5, ': ', 0, 1);
-        $pdf::SetX(120);
-        $pdf::Cell(30, 5, 'PO Number.', 0);
-        $pdf::Cell(50, 5, ': ', 0, 1);
-        $pdf::SetX(120);
-        $pdf::Cell(30, 5, 'Sales Person.', 0);
-        $pdf::Cell(50, 5, ': ', 0, 1);
-
-        $currentY = 65;
-
-        // Items Table Header
-        $pdf::SetXY(10, $currentY);
-        $pdf::SetFont('helvetica', 'B', 9);
-        $pdf::Cell(70, 7, 'DESCRIPTION', 1);
-        $pdf::Cell(20, 7, 'QTY', 1);
-        $pdf::Cell(30, 7, '@', 1);
-        $pdf::Cell(30, 7, 'Total Valas', 1);
-        $pdf::Cell(30, 7, 'Total Rupiah (Rp.)', 1, 1);
-
-        // Add items
-        $pdf::SetFont('helvetica', '', 9);
-        foreach($salesinvoiceitem as $item) {
-            if ($currentY > 250) {  // Leave space for totals and footer
-                $pdf->AddPage();
-                $currentY = 10;  // Reset Y position on new page
-            }
-            $pdf::Cell(70, 7, $item->item_unit_price, 1);
-            $pdf::Cell(20, 7, $item->quantity . ' PC', 1);
-            $pdf::Cell(30, 7, 'Rp ' . number_format($item->item_unit_price, 0), 1);
-            $pdf::Cell(30, 7, 'Rp ' . 0, 1);
-            $pdf::Cell(30, 7, 'Rp ' . number_format($item->subtotal_price_A, 0), 1, 1);
-
-            $currentY += 7;
+    
+        // HTML content for the PDF
+        $html = '
+            
+        <table border="0" style="width:100%;">
+            <tr>
+                <td style="width:50%; text-align:left;">
+                    <img src="' . public_path('img/logo_tripta.png') . '" width="50" /> <strong>PT. TRIPTA TRI TUNGGAL</strong>
+                </td>
+                <td style="width:50%; text-align:right;">
+                    <div style="font-size:14px; font-weight:bold; text-align:center;">
+                            INVOICE
+                    </div>
+                </td>
+            </tr>
+                <tr>
+                    <td style="width:50%; font-size:9px;">
+                        JL. DURIAN 2 A<br>
+                        PERUM. BUMI WONOREJO - KARANGANYAR<br>
+                        TELP: 061 226 869 764<br>
+                        FAX: 0271-2874598
+                        <br>
+                        <div style="font-size:9px;">
+                            <strong>BILL TO:</strong><br>
+                            PT. CHAROEN POKPHAND INDONESIA<br>
+                            Patimura Kutowinangun Km.1 Candeh Tingkir<br>
+                            Salatiga 50742
+                        </div>
+                    </td>
+                    <td style="width:50%; font-size:9px;">
+                        
+                        <table border="0" cellspacing="5" style="width:100%;">
+                            <tr>
+                                <td style="width:30%;">Date</td>
+                                <td style="width: 50%; border:0";>' . $salesinvoice->sales_invoice_date . '</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 30%;">Invoice No</td>
+                                <td style="width: 50%;">' . $salesinvoice->sales_invoice_no . '</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 30%;">Delivery Order </td>
+                                <td style="width: 50%;">' . $salesinvoice->sales_invoice_no . '</td>
+                            </tr>
+                            <tr><td>PO Number</td><td></td></tr>
+                            <tr><td>Sales Person</td><td></td></tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        ';
+        $pdf::writeHTML($html, true, false, false, false, '');
+        
+        $data1 = '
+            <table border="1" cellpadding="5" style="width:100%; margin-top:30px; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th style="width:60%;">DESCRIPTION</th>
+                        <th style="width:10%;">QTY</th>
+                        <th style="width:10%;">@</th>
+                        <th style="width:10%;">Total Valas</th>
+                        <th style="width:10%;">Total Rupiah (Rp.)</th>
+                    </tr>
+                </thead>
+                <tbody>';
+    
+        // Add invoice items
+        foreach ($salesinvoiceitems as $item) {
+            $data1 .= '<tr>
+                        <td>' . $item->itemType->item_type_name . '</td>
+                        <td>' . $item->quantity . ' PC</td>
+                        <td>' . 'Rp ' . number_format($item->item_unit_price, 0) . '</td>
+                        <td>' . 'Rp 0' . '</td>
+                        <td>' . 'Rp ' . number_format($item->subtotal_price_A, 0) . '</td>
+                    </tr>';
         }
-
-        // Totals
-        $currentY += 6;
-        $pdf::SetXY(100,$currentY);
-        $pdf::Cell(60, 7, 'Sub Total');
-        $pdf::Cell(35, 7, 'Rp ');
-        $currentY += 6;
-        $pdf::SetXY(100,$currentY);
-        $pdf::Cell(60, 7, 'Discount');
-        $pdf::Cell(35, 7, 'Rp ');
-        $currentY += 6;
-        $pdf::SetXY(100,$currentY);
-        $pdf::Cell(60, 7, 'DPP');
-        $pdf::Cell(35, 7, 'Rp ');
-        $currentY += 6;
-        $pdf::SetXY(100,$currentY);
-        $pdf::Cell(60, 7, 'PPN');
-        $pdf::Cell(35, 7, 'Rp ');
-        $currentY += 6;
-        $pdf::SetXY(100,$currentY);
-        $pdf::Cell(60, 7, 'TOTAL Due');
-        $pdf::Cell(35, 7, 'Rp ');
-
-        // Payment Instructions
-        $currentY += -10;
-        $pdf::SetXY(10, $currentY);
-        $pdf::SetFont('helvetica', 'B', 9);
-        $pdf::Cell(0, 5, 'Notes and Payment Instruction:', 0, 1);
-        $pdf::SetFont('helvetica', '', 9);
-        $pdf::Cell(0, 5, 'Make all check payable to', 0, 1);
-        $pdf::Cell(0, 5, 'PT. TRIPTA TRI TUNGGAL', 0, 1);
-        $pdf::Cell(0, 5, 'Bank BCA KCU Solo Slamet Riyadi', 0, 1);
-        $pdf::Cell(0, 5, 'A/C No. 015-317072-7', 0, 1);
-        $pdf::Cell(0, 5, 'Payment is due within 14 days', 0, 1);
-
-        // Signature
-        $pdf::SetXY(120, 150);
-        $pdf::Cell(0, 5, 'Your Faithfully', 0, 1, 'C');
-        $pdf::SetXY(120, 180);
-        $pdf::Cell(0, 5, 'ELLY', 0, 1, 'C');
-
-        // Footer
-        $pdf::SetY(200);
-        $pdf::Cell(0, 10, 'Thank For Your Purchase', 0, 0, 'C');
-
+    
+        $data1 .= '</tbody>
+            </table>
+    
+            <div style="margin-top:20px;">
+                <table style="width:100%; font-size:9px;">
+                    <tr><td>Sub Total</td><td style="text-align:right;">Rp </td></tr>
+                    <tr><td>Discount</td><td style="text-align:right;">Rp </td></tr>
+                    <tr><td>DPP</td><td style="text-align:right;">Rp </td></tr>
+                    <tr><td>PPN</td><td style="text-align:right;">Rp </td></tr>
+                    <tr><td><strong>TOTAL Due</strong></td><td style="text-align:right;">Rp </td></tr>
+                </table>
+            </div>
+    
+            <div style="margin-top:20px; font-size:9px;">
+                <strong>Notes and Payment Instruction:</strong><br>
+                Make all checks payable to PT. TRIPTA TRI TUNGGAL<br>
+                Bank BCA KCU Solo Slamet Riyadi<br>
+                A/C No. 015-317072-7<br>
+                Payment is due within 14 days.
+            </div>
+    
+            <div style="margin-top:40px; text-align:center;">
+                <strong>Your Faithfully</strong><br>
+                <div>ELLY</div>
+            </div>
+    
+            <div style="text-align:center; font-size:9px; margin-top:20px;">
+                Thank You For Your Purchase
+            </div>
+        ';
+    
+        // Write HTML to PDF
+        $pdf::writeHTML($data1, true, false, false, false, '');
+    
+        // Output the PDF
         return $pdf::Output('invoice.pdf', 'I');
     }
+    
 
     //Pengantar
     public function printKwitansiPengantar(){

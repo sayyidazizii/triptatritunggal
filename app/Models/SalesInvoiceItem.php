@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\InvItemType;
 use App\Models\SalesInvoice;
 use App\Models\SalesQuotationItem;
 use App\Models\SalesDeliveryNoteItem;
@@ -34,6 +35,11 @@ class SalesInvoiceItem extends Model
     public function SalesInvoice()
     {
         return $this->belongsTo(SalesInvoice::class, 'sales_invoice_id', 'sales_invoice_id');
+    }
+
+    public function itemType()
+    {
+        return $this->belongsTo(InvItemType::class, 'item_type_id', 'item_type_id');
     }
 
     /**

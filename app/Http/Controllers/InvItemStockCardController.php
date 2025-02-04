@@ -95,7 +95,7 @@ class InvItemStockCardController extends Controller
         ->first();
         
         $itemunit = InvItemUnit::where('data_state', 0)
-        ->where('item_unit_id', $itemtype['item_unit_1'])
+        ->where('item_unit_id', $itemtype['item_unit_1']?? '')
         ->first();
 
         if($itemunit == null){
