@@ -41,7 +41,7 @@ class AcctAccountSettingController extends Controller
         ->first();
 
         $purchase_credit_account = AcctAccountSetting::select('account_id', 'account_setting_status')
-        ->where('account_setting_name', 'account_cash_purchase_id')
+        ->where('account_setting_name', 'account_credit_purchase_id')
         ->first();
 
         $purchase_account_credit = AcctAccountSetting::select('account_id', 'account_setting_status')
