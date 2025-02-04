@@ -488,15 +488,39 @@
     }
 
     /* event Tambah Menu Type */
+
+        $(document).ready(function() {
+            $('#btn_save').click(function(e) {
+                e.preventDefault(); // Mencegah action default
+                addInvType();
+            });
+        });
+
         function addInvType(){
-            $('#btn_save').prop('disabled', true);
-            $('#btn_save').text('Menyimpan...');
+            const $btn = $('#btn_save');
+            $btn.prop('disabled', true);
+            $btn.html('<i class="fa fa-spinner fa-spin"></i> Menyimpan...');
 
             var item_category_id_modal      = $("#item_category_id_modal").val();
             var item_unit_id_modal          = $("#item_unit_id_modal").val();
             var item_type_name              = $("#item_type_name").val();
             var quantity_unit_modal         = $("#quantity_unit_modal").val();
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            // Validasi wajib diisi
+                if (
+                    item_category_id_modal === '' ||
+                    item_unit_id_modal === '' ||
+                    item_type_name === '' ||
+                    quantity_unit_modal === ''
+                ) {
+                    alert('Semua field wajib diisi!');
+                    $btn.prop('disabled', false);
+                    $btn.html('<i class="fa fa-plus"></i> Tambah');
+                    return false; // Hentikan eksekusi
+                }
+            //end
+
             $.ajax({
                 type: "POST",
                 url : "{{route('add-type-sales-quotation')}}",
@@ -517,10 +541,6 @@
                 {
                     console.log(data);
                     alert('Terjadi kesalahan saat menyimpan data');
-                
-                    // Re-enable button and restore text on error
-                    $('#btn_save').prop('disabled', false);
-                    $('#btn_save').text('Simpan');
                 }
             });
         }

@@ -30,9 +30,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal" id='cancel_btn_type'>Batal</button>
-                <a type="submit" name="Save" class="btn btn-primary" id="btn_save" title="Save" onclick="addInvType()">
-                        <i class="fa fa-plus"></i> Tambah
-                </a>
+                <button type="button" class="btn btn-primary" id="btn_save" title="Save">
+                    <i class="fa fa-plus"></i> Tambah
+                </button>
             </div>
         </div>
         </div>
