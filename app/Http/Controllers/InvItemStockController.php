@@ -51,9 +51,9 @@ class InvItemStockController extends Controller
         $item_type_id       = Session::get('filteritemtypeid');
 
         $grade_id           = Session::get('filtergradeid');
-        
+
         $warehouse_id       = Session::get('filterwarehouseid');
-        
+
         $invitemstock       = InvItemStock::select('inv_item_stock.*')
         ->where('inv_item_stock.data_state','=',0);
         if($item_category_id||$item_category_id!=null||$item_category_id!=''){
@@ -66,7 +66,6 @@ class InvItemStockController extends Controller
             $invitemstock   = $invitemstock->where('inv_item_stock.warehouse_id', $warehouse_id);
         }
         $invitemstock       = $invitemstock->get();
-    //    dd($invitemstock);
 
         return view('content/InvItemStock/ListInvItemStock',compact('invitemstock', 'invitemcategory', 'invitemtype', 'coregrade', 'invwarehouse', 'item_category_id', 'item_type_id', 'grade_id', 'warehouse_id'));
     }
@@ -76,7 +75,7 @@ class InvItemStockController extends Controller
         ->where('item_id', $item_id)
         ->join('core_grade', 'core_grade.grade_id', 'inv_item.grade_id')
         ->first();
-        
+
         if($grade == null){
             return "-";
         }
@@ -111,7 +110,7 @@ class InvItemStockController extends Controller
 
         $data .= "<option value=''>--Choose One--</option>";
         foreach ($type as $mp){
-            $data .= "<option value='$mp[item_type_id]'>$mp[item_type_name]</option>\n";	
+            $data .= "<option value='$mp[item_type_id]'>$mp[item_type_name]</option>\n";
         }
 
         return $data;
@@ -131,7 +130,7 @@ class InvItemStockController extends Controller
 
         $data .= "<option value=''>--Choose One--</option>";
         foreach ($type as $mp){
-            $data .= "<option value='$mp[grade_id]'>$mp[grade_name]</option>\n";	
+            $data .= "<option value='$mp[grade_id]'>$mp[grade_name]</option>\n";
         }
 
         return $data;
@@ -180,9 +179,9 @@ class InvItemStockController extends Controller
         $item_type_id       = Session::get('filteritemtypeid');
 
         $grade_id           = Session::get('filtergradeid');
-        
+
         $warehouse_id       = Session::get('filterwarehouseid');
-        
+
         $invitemstock       = InvItemStock::where('inv_item_stock.data_state', 0);
         if($item_category_id||$item_category_id!=null||$item_category_id!=''){
             $invitemstock   = $invitemstock->where('inv_item_stock.item_category_id', $item_category_id);
@@ -228,7 +227,7 @@ class InvItemStockController extends Controller
             $spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(20);
 
 
-    
+
             $spreadsheet->getActiveSheet()->mergeCells("B1:M1");
             $spreadsheet->getActiveSheet()->getStyle('B1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
             $spreadsheet->getActiveSheet()->getStyle('B1')->getFont()->setBold(true)->setSize(16);
@@ -236,7 +235,7 @@ class InvItemStockController extends Controller
             $spreadsheet->getActiveSheet()->getStyle('B3:M3')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
             $spreadsheet->getActiveSheet()->getStyle('B3:M3')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-            $sheet->setCellValue('B1', "Stock Barang Periode ".date('d M Y'));	
+            $sheet->setCellValue('B1', "Stock Barang Periode ".date('d M Y'));
             $sheet->setCellValue('B3', "No");
             $sheet->setCellValue('C3', "Kategori");
             $sheet->setCellValue('D3', "Barang");
@@ -249,7 +248,7 @@ class InvItemStockController extends Controller
             $sheet->setCellValue('K3', "Nota Retur Pajak");
             $sheet->setCellValue('L3', "Tanggal Datang");
             $sheet->setCellValue('M3', "Tanggal Kadaluarsa");
-            
+
             $j  = 4;
             $no = 1;
             if(count($invitemstock)==0){
@@ -276,7 +275,7 @@ class InvItemStockController extends Controller
                 }else{
                     $sheet->setCellValue('M'.$j, date('Y-m-d', strtotime($val['item_stock_expired_date'])));
                 }
-                
+
 
                 $no++;
                 $j++;
@@ -284,7 +283,7 @@ class InvItemStockController extends Controller
                 $lastj = $j;
             }
 
-           
+
             $sheet = $spreadsheet->getActiveSheet(0);
             $spreadsheet->getActiveSheet()->getStyle('B'.$lastj.':M'.$lastj)->getBorders()->getOutline()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
             $sheet->setCellValue('B' . $lastj , 'Jumlah Total:');
@@ -298,14 +297,14 @@ class InvItemStockController extends Controller
             $spreadsheet->getActiveSheet()->getStyle('E'.$lastj + 5)->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
             $spreadsheet->getActiveSheet()->getStyle('H'.$lastj + 5)->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
             $spreadsheet->getActiveSheet()->getStyle('K'.$lastj + 5)->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-           
-           
+
+
             $sheet->setCellValue('E' . $lastj + 5, 'Apoteker');
             $sheet->setCellValue('H' . $lastj + 5, 'Administrasi Pajak');
             $sheet->setCellValue('K' . $lastj + 5, 'Dibuat Oleh');
 
         }
-        
+
             ob_clean();
             $filename='Stock Barang '.date('d M Y').'.xls';
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

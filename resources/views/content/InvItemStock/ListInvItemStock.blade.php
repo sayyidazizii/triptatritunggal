@@ -154,19 +154,13 @@
                 <thead>
                     <tr>
                         <th width="2%" style='text-align:center'>No</th>
-                        <th width="7%" style='text-align:center'>No Batch</th>
                         <th width="13%" style='text-align:center'>Kategori</th>
                         <th width="15%" style='text-align:center'>Barang</th>
-                        {{-- <th width="10%" style='text-align:center'>Grade</th> --}}
                         <th width="5%" style='text-align:center'>Qty</th>
                         <th width="10%" style='text-align:center'>Satuan</th>
                         <th width="10%" style='text-align:center'>Gudang</th>
-                        <th width="10%" style='text-align:center'>PO Customer</th>
-                        <th width="10%" style='text-align:center'>NRB</th>
-                        <th width="10%" style='text-align:center'>NRP</th>
-                        <th width="10%" style='text-align:center'>Tanggal Datang</th>
+                        <th width="10%" style='text-align:center'>Tanggal</th>
                         <th width="10%" style='text-align:center'>Harga Beli</th>
-                        {{-- <th width="5%" style='text-align:center'>DPP</th> --}}
                         <th width="10%" style='text-align:center'>Harga Jual</th>
                         <th width="5%" style='text-align:center'>Kadaluarsa</th>
                         {{-- <th width="8%" style='text-align:center'>Aksi</th> --}}
@@ -177,47 +171,18 @@
                     @foreach($invitemstock as $stock)
                     <tr>
                         <td style='text-align:center'>{{$no}}</td>
-                        <td>{{$stock['item_batch_number']}}</td>
                         <td>{{$Grading->getInvItemCategoryName($stock['item_category_id'])}}</td>
                         <td>{{$Grading->getInvItemTypeName($stock['item_type_id'])}}</td>
-                        {{-- <?php if($stock['item_id']==0) {?>
-                            <td>No Grade</td>
-                        <?php } else {?>
-                            <td>{{$InvItemStock->getCoreGradeName($stock['item_id'])}}</td>
-                        <?php } ?> --}}
                         <td style='text-align:right'>{{$stock['quantity_unit']}}</td>
                         <td>{{$Grading->getInvItemUnitName($stock['item_unit_id'])}}</td>
                         <td>{{$Grading->getInvWarehouseName($stock['warehouse_id'])}}</td>
-
-
-
-                        <?php if($stock['purchase_order_no']=='0') {?>
-                        <td style='text-align:right'>-</td>
-                        <?php } else {?>
-                        <td style='text-align:right'>{{$stock['purchase_order_no']}}</td>
-                        <?php } ?>
-
-
-                        <?php if($stock['no_retur_barang']=='0') {?>
-                            <td style='text-align:right'>-</td>
-                        <?php } else {?>
-                            <td style='text-align:right'>{{$stock['no_retur_barang']}}</td>
-                        <?php } ?>
-
-                        <?php if($stock['nota_retur_pajak']=='0') {?>
-                            <td style='text-align:right'>-</td>
-                        <?php } else {?>
-                            <td style='text-align:right'>{{$stock['nota_retur_pajak']}}</td>
-                        <?php } ?>
-
-                        <td>{{date('d/m/Y', strtotime($stock['item_stock_date']))}}</td>
-                        <td>Rp. {{number_format($stock['item_unit_cost'],2)}}</td>
-                        {{-- <td>{{$stock['item_unit_total']}}</td> --}}
-                        <td>Rp. {{number_format($stock['item_unit_price'],2)}}</td>
+                        <td>{{date('d-m-Y', strtotime($stock['item_stock_date']))}}</td>
+                        <td>{{number_format($stock['item_unit_cost'],2)}}</td>
+                        <td>{{number_format($stock['item_unit_price'],2)}}</td>
                         <?php if($stock['item_stock_expired_date']=='0000-00-00') {?>
                             <td>-</td>
                         <?php } else {?>
-                            <td>{{date('d/m/Y', strtotime($stock['item_stock_expired_date']))}}</td>
+                            <td>{{date('d-m-Y', strtotime($stock['item_stock_expired_date']))}}</td>
                         <?php } ?>
                         {{-- <td class="">
                             <a type="button" class="btn btn-outline-warning btn-sm" href="{{ url('/inv-item-stock/edit/'.$stock['item_stock_id']) }}">Edit</a>
