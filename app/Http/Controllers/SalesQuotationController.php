@@ -611,6 +611,13 @@ class SalesQuotationController extends Controller
     }
 
     public function addMenuType(Request $request){
+
+        $fields = $request->validate([
+            'item_category_id_modal'    => 'required',
+            'item_unit_id_modal'        => 'required',
+            'item_type_name'            => 'required',
+            'quantity_unit_modal'       => 'required',
+        ]);
         
         $item_category_id           = $request->item_category_id_modal;
         $item_unit_id               = $request->item_unit_id_modal;
