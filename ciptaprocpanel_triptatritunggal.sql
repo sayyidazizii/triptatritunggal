@@ -117,15 +117,18 @@ CREATE TABLE `acct_account_balance` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`account_balance_id`),
   KEY `FK_acct_account_balance_account_id` (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `acct_account_balance` */
 
 insert  into `acct_account_balance`(`account_balance_id`,`company_id`,`branch_id`,`account_id`,`last_balance`,`created_id`,`created_at`,`updated_at`) values 
-(109,2,0,4,266500.00,3,NULL,'2025-01-31 16:26:20'),
-(110,2,0,23,250000.00,3,NULL,'2025-01-31 16:26:20'),
-(111,2,0,57,27500.00,3,NULL,'2025-01-31 16:26:20'),
-(112,2,0,3,11000.00,3,NULL,'2025-01-31 16:31:23');
+(5,2,0,7,600000.00,3,NULL,'2025-02-04 15:44:23'),
+(6,2,0,16,111000.00,3,NULL,'2025-02-04 15:44:23'),
+(7,2,0,6,66000.00,3,NULL,'2025-02-04 15:44:23'),
+(8,2,0,3,-111000.00,3,NULL,'2025-02-04 15:46:40'),
+(9,2,0,4,111000.00,3,NULL,'2025-02-04 16:40:47'),
+(10,2,0,23,100000.00,3,NULL,'2025-02-04 16:40:47'),
+(11,2,0,17,11000.00,3,NULL,'2025-02-04 16:40:47');
 
 /*Table structure for table `acct_account_balance_detail` */
 
@@ -153,16 +156,32 @@ CREATE TABLE `acct_account_balance_detail` (
   `created_id` int DEFAULT NULL,
   PRIMARY KEY (`account_balance_detail_id`),
   KEY `FK_acct_account_balance_detail_account_id` (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `acct_account_balance_detail` */
 
 insert  into `acct_account_balance_detail`(`account_balance_detail_id`,`branch_id`,`company_id`,`transaction_type`,`transaction_code`,`transaction_date`,`transaction_id`,`account_id`,`opening_balance`,`account_in`,`account_out`,`cash_in`,`cash_out`,`bank_in`,`bank_out`,`last_balance`,`created_at`,`updated_at`,`created_id`) values 
-(33,0,2,63,'PPP','2025-01-31',12,4,0.00,277500.00,0.00,0.00,0.00,0.00,0.00,277500.00,NULL,'2025-01-31 16:26:20',3),
-(34,0,2,63,'PPP','2025-01-31',12,23,0.00,250000.00,0.00,0.00,0.00,0.00,0.00,250000.00,NULL,'2025-01-31 16:26:20',3),
-(35,0,2,63,'PPP','2025-01-31',12,57,0.00,27500.00,0.00,0.00,0.00,0.00,0.00,27500.00,NULL,'2025-01-31 16:26:20',3),
-(36,0,2,31,'PP','2025-01-31',13,3,0.00,11000.00,0.00,0.00,0.00,0.00,0.00,11000.00,NULL,'2025-01-31 16:31:23',3),
-(37,0,2,31,'PP','2025-01-31',13,4,277500.00,0.00,11000.00,0.00,0.00,0.00,0.00,266500.00,NULL,'2025-01-31 16:31:23',3);
+(56,0,2,20,'GRN','2025-02-04',3,7,0.00,100000.00,0.00,0.00,0.00,0.00,0.00,100000.00,NULL,'2025-02-04 15:44:23',3),
+(57,0,2,20,'GRN','2025-02-04',3,16,0.00,111000.00,0.00,0.00,0.00,0.00,0.00,111000.00,NULL,'2025-02-04 15:44:23',3),
+(58,0,2,20,'GRN','2025-02-04',3,6,0.00,11000.00,0.00,0.00,0.00,0.00,0.00,11000.00,NULL,'2025-02-04 15:44:23',3),
+(59,0,2,20,'GRN','2025-02-04',4,7,100000.00,100000.00,0.00,0.00,0.00,0.00,0.00,200000.00,NULL,'2025-02-04 15:46:40',3),
+(60,0,2,20,'GRN','2025-02-04',4,3,0.00,111000.00,0.00,0.00,0.00,0.00,0.00,111000.00,NULL,'2025-02-04 15:46:40',3),
+(61,0,2,20,'GRN','2025-02-04',4,6,11000.00,11000.00,0.00,0.00,0.00,0.00,0.00,22000.00,NULL,'2025-02-04 15:46:40',3),
+(62,0,2,20,'GRN','2025-02-04',5,7,200000.00,100000.00,0.00,0.00,0.00,0.00,0.00,300000.00,NULL,'2025-02-04 15:58:03',3),
+(63,0,2,20,'GRN','2025-02-04',5,16,111000.00,0.00,111000.00,0.00,0.00,0.00,0.00,0.00,NULL,'2025-02-04 15:58:03',3),
+(64,0,2,20,'GRN','2025-02-04',5,6,22000.00,11000.00,0.00,0.00,0.00,0.00,0.00,33000.00,NULL,'2025-02-04 15:58:03',3),
+(65,0,2,20,'GRN','2025-02-04',6,7,300000.00,100000.00,0.00,0.00,0.00,0.00,0.00,400000.00,NULL,'2025-02-04 16:07:33',3),
+(66,0,2,20,'GRN','2025-02-04',6,3,111000.00,0.00,111000.00,0.00,0.00,0.00,0.00,0.00,NULL,'2025-02-04 16:07:33',3),
+(67,0,2,20,'GRN','2025-02-04',6,6,33000.00,11000.00,0.00,0.00,0.00,0.00,0.00,44000.00,NULL,'2025-02-04 16:07:33',3),
+(68,0,2,20,'GRN','2025-02-04',7,7,400000.00,100000.00,0.00,0.00,0.00,0.00,0.00,500000.00,NULL,'2025-02-04 16:08:51',3),
+(69,0,2,20,'GRN','2025-02-04',7,16,0.00,111000.00,0.00,0.00,0.00,0.00,0.00,111000.00,NULL,'2025-02-04 16:08:51',3),
+(70,0,2,20,'GRN','2025-02-04',7,6,44000.00,11000.00,0.00,0.00,0.00,0.00,0.00,55000.00,NULL,'2025-02-04 16:08:51',3),
+(71,0,2,63,'PPP','2025-02-04',8,4,0.00,111000.00,0.00,0.00,0.00,0.00,0.00,111000.00,NULL,'2025-02-04 16:40:47',3),
+(72,0,2,63,'PPP','2025-02-04',8,23,0.00,100000.00,0.00,0.00,0.00,0.00,0.00,100000.00,NULL,'2025-02-04 16:40:47',3),
+(73,0,2,63,'PPP','2025-02-04',8,17,0.00,11000.00,0.00,0.00,0.00,0.00,0.00,11000.00,NULL,'2025-02-04 16:40:47',3),
+(74,0,2,20,'GRN','2025-02-04',9,7,500000.00,100000.00,0.00,0.00,0.00,0.00,0.00,600000.00,NULL,'2025-02-04 16:56:05',3),
+(75,0,2,20,'GRN','2025-02-04',9,3,0.00,0.00,111000.00,0.00,0.00,0.00,0.00,-111000.00,NULL,'2025-02-04 16:56:05',3),
+(76,0,2,20,'GRN','2025-02-04',9,6,55000.00,11000.00,0.00,0.00,0.00,0.00,0.00,66000.00,NULL,'2025-02-04 16:56:05',3);
 
 /*Table structure for table `acct_account_mutation` */
 
@@ -229,24 +248,24 @@ CREATE TABLE `acct_account_setting` (
 /*Data for the table `acct_account_setting` */
 
 insert  into `acct_account_setting`(`account_setting_id`,`company_id`,`account_id`,`account_setting_name`,`account_setting_status`,`account_default_status`,`created_at`,`updated_at`) values 
-(370,2,3,'account_cash_purchase_id',1,0,'2022-07-16 11:14:51','2025-01-31 09:21:09'),
-(371,2,26,'purchase_cash_account_id',0,0,'2022-07-16 11:14:51','2025-01-31 09:21:09'),
-(372,2,3,'account_credit_purchase_id',1,0,'2022-07-16 11:14:51','2025-01-31 09:21:09'),
-(373,2,26,'purchase_credit_account_id',0,0,'2022-07-16 11:14:51','2025-01-31 09:21:09'),
-(374,2,17,'purchase_tax_account_id',1,1,'2022-07-16 11:14:51','2025-01-31 09:21:09'),
-(375,2,3,'account_payable_return_account_id',0,0,'2022-07-16 11:14:51','2025-01-31 09:21:09'),
-(376,2,26,'purchase_return_account_id',1,0,'2023-07-25 10:44:25','2025-01-31 09:21:09'),
-(377,2,3,'account_receivable_cash_account_id',0,0,'2024-12-13 11:38:40','2025-01-31 09:21:09'),
-(378,2,23,'sales_cash_account_id',1,1,'2024-12-13 11:38:50','2025-01-31 09:21:09'),
-(379,2,4,'account_receivable_credit_account_id',0,0,'2024-12-13 11:38:42','2025-01-31 09:21:09'),
+(370,2,3,'account_cash_purchase_id',1,0,'2022-07-16 11:14:51','2025-02-04 10:13:23'),
+(371,2,7,'purchase_cash_account_id',0,0,'2022-07-16 11:14:51','2025-02-04 10:13:23'),
+(372,2,16,'account_credit_purchase_id',1,1,'2022-07-16 11:14:51','2025-02-04 10:13:23'),
+(373,2,7,'purchase_credit_account_id',0,0,'2022-07-16 11:14:51','2025-02-04 10:13:23'),
+(374,2,6,'purchase_tax_account_id',0,0,'2022-07-16 11:14:51','2025-02-04 10:13:23'),
+(375,2,3,'account_payable_return_account_id',0,0,'2022-07-16 11:14:51','2025-02-04 10:13:23'),
+(376,2,26,'purchase_return_account_id',1,0,'2023-07-25 10:44:25','2025-02-04 10:13:23'),
+(377,2,3,'account_receivable_cash_account_id',0,0,'2024-12-13 11:38:40','2025-02-04 10:13:23'),
+(378,2,23,'sales_cash_account_id',1,1,'2024-12-13 11:38:50','2025-02-04 10:13:23'),
+(379,2,4,'account_receivable_credit_account_id',0,0,'2024-12-13 11:38:42','2025-02-04 10:13:23'),
 (380,2,23,'sales_credit_account_id',1,1,'2024-12-13 11:38:46','2024-12-13 11:38:56'),
-(381,2,57,'sales_tax_account_id',1,1,'2024-12-13 11:38:48','2024-12-13 11:38:58'),
+(381,2,17,'sales_tax_account_id',1,1,'2024-12-13 11:38:48','2024-12-13 11:38:58'),
 (383,2,4,'expenditure_cash_account_id',1,1,'2024-12-13 11:38:44','2024-12-13 11:39:00'),
 (384,2,8,'expenditure_account_id',0,0,'2024-12-13 11:39:04','2024-12-13 11:39:02'),
 (385,2,3,'sales_collection_cash_account_id',0,0,'2024-12-20 13:46:54','2024-12-20 13:47:00'),
 (386,2,4,'sales_collection_account_id',1,1,'2024-12-20 13:46:56','2024-12-20 13:47:02'),
-(387,2,16,'purchase_payment_cash_account_id',1,1,'2024-12-20 13:47:07','2024-12-20 13:47:04'),
-(388,2,4,'purchase_payment_account_id',0,0,'2024-12-20 13:47:06','2024-12-20 13:47:09');
+(387,2,3,'purchase_payment_cash_account_id',1,1,'2024-12-20 13:47:07','2024-12-20 13:47:04'),
+(388,2,16,'purchase_payment_account_id',0,0,'2024-12-20 13:47:06','2024-12-20 13:47:09');
 
 /*Table structure for table `acct_account_type` */
 
@@ -982,13 +1001,18 @@ CREATE TABLE `acct_journal_voucher` (
   KEY `transaction_journal_no` (`transaction_journal_no`),
   KEY `project_id` (`project_id`),
   KEY `project_type_id` (`project_type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `acct_journal_voucher` */
 
 insert  into `acct_journal_voucher`(`journal_voucher_id`,`company_id`,`branch_id`,`project_id`,`project_type_id`,`transaction_module_id`,`transaction_journal_id`,`transaction_journal_no`,`journal_voucher_title`,`journal_voucher_no`,`journal_voucher_period`,`journal_voucher_date`,`journal_voucher_description`,`journal_voucher_token`,`journal_voucher_token_void`,`journal_voucher_type_id`,`journal_voucher_status`,`transaction_module_code`,`posted`,`posted_id`,`posted_on`,`voided`,`voided_id`,`voided_on`,`voided_remark`,`data_state`,`created_id`,`created_at`,`updated_at`,`reverse_state`) values 
-(12,2,1,0,0,63,19,NULL,'Penjualan Barang','0001/JV/I/2025',202501,'2025-01-31',NULL,NULL,NULL,1,1,'PPP',0,0,NULL,0,0,NULL,NULL,0,3,'2025-01-31 09:26:21','2025-01-31 09:26:21',0),
-(13,2,0,0,0,31,0,'','Purchase Payment APT AK - JAYA 0001/TMO.ME/I/2025','0002/JV/I/2025',202501,'2025-01-31','Purchase Payment APT AK - JAYA 0001/TMO.ME/I/2025',NULL,NULL,1,1,'PP',0,0,NULL,0,0,NULL,NULL,0,3,'2025-01-31 09:31:24','2025-01-31 09:31:24',0);
+(3,2,1,0,0,20,3,NULL,'Pembelian ','0001/JV/II/2025',202502,'2025-02-04',NULL,NULL,NULL,1,1,'GRN',0,0,NULL,0,0,NULL,NULL,0,3,'2025-02-04 08:44:23','2025-02-04 08:44:23',0),
+(4,2,1,0,0,20,4,NULL,'Pembelian ','0002/JV/II/2025',202502,'2025-02-04',NULL,NULL,NULL,1,1,'GRN',0,0,NULL,0,0,NULL,NULL,0,3,'2025-02-04 08:46:40','2025-02-04 08:46:40',0),
+(5,2,1,0,0,20,5,NULL,'Pembelian ','0003/JV/II/2025',202502,'2025-02-04',NULL,NULL,NULL,1,1,'GRN',0,0,NULL,0,0,NULL,NULL,0,3,'2025-02-04 08:58:03','2025-02-04 08:58:03',0),
+(6,2,1,0,0,20,6,NULL,'Pembelian ','0004/JV/II/2025',202502,'2025-02-04',NULL,NULL,NULL,1,1,'GRN',0,0,NULL,0,0,NULL,NULL,0,3,'2025-02-04 09:07:33','2025-02-04 09:07:33',0),
+(7,2,1,0,0,20,7,NULL,'Pembelian ','0005/JV/II/2025',202502,'2025-02-04',NULL,NULL,NULL,1,1,'GRN',0,0,NULL,0,0,NULL,NULL,0,3,'2025-02-04 09:08:52','2025-02-04 09:08:52',0),
+(8,2,1,0,0,63,21,NULL,'Penjualan Barang','0006/JV/II/2025',202502,'2025-02-04',NULL,NULL,NULL,1,1,'PPP',0,0,NULL,0,0,NULL,NULL,0,3,'2025-02-04 09:40:47','2025-02-04 09:40:47',0),
+(9,2,1,0,0,20,8,NULL,'Pembelian ','0007/JV/II/2025',202502,'2025-02-04','Pembelian ',NULL,NULL,1,1,'GRN',0,0,NULL,0,0,NULL,NULL,0,3,'2025-02-04 09:56:05','2025-02-04 09:56:05',0);
 
 /*Table structure for table `acct_journal_voucher_item` */
 
@@ -1016,16 +1040,32 @@ CREATE TABLE `acct_journal_voucher_item` (
   UNIQUE KEY `journal_voucher_item_token_void` (`journal_voucher_item_token_void`),
   KEY `FK_acct_journal_voucher_item_journal_voucher_id` (`journal_voucher_id`) USING BTREE,
   KEY `FK_acct_journal_voucher_item_account_id` (`account_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `acct_journal_voucher_item` */
 
 insert  into `acct_journal_voucher_item`(`journal_voucher_item_id`,`journal_voucher_id`,`company_id`,`account_id`,`journal_voucher_description`,`journal_voucher_amount`,`account_id_status`,`account_id_default_status`,`journal_voucher_debit_amount`,`journal_voucher_credit_amount`,`journal_voucher_item_token`,`journal_voucher_item_token_void`,`data_state`,`created_at`,`updated_at`,`reverse_state`) values 
-(33,12,2,4,NULL,277500.00,0,0,277500.00,0.00,NULL,NULL,0,'2025-01-31 09:26:21','2025-01-31 09:26:21',0),
-(34,12,2,23,NULL,250000.00,1,1,0.00,250000.00,NULL,NULL,0,'2025-01-31 09:26:21','2025-01-31 09:26:21',0),
-(35,12,2,57,NULL,27500.00,1,1,0.00,27500.00,NULL,NULL,0,'2025-01-31 09:26:21','2025-01-31 09:26:21',0),
-(36,13,2,3,'',11000.00,0,0,11000.00,0.00,NULL,NULL,0,'2025-01-31 09:31:24','2025-01-31 09:31:24',0),
-(37,13,2,4,'',11000.00,1,1,0.00,11000.00,NULL,NULL,0,'2025-01-31 09:31:24','2025-01-31 09:31:24',0);
+(7,3,2,7,NULL,100000.00,0,0,100000.00,0.00,NULL,NULL,0,'2025-02-04 08:44:23','2025-02-04 08:44:23',0),
+(8,3,2,16,NULL,111000.00,1,1,0.00,111000.00,NULL,NULL,0,'2025-02-04 08:44:23','2025-02-04 08:44:23',0),
+(9,3,2,6,NULL,11000.00,0,0,11000.00,0.00,NULL,NULL,0,'2025-02-04 08:44:23','2025-02-04 08:44:23',0),
+(10,4,2,7,NULL,100000.00,0,0,100000.00,0.00,NULL,NULL,0,'2025-02-04 08:46:40','2025-02-04 08:46:40',0),
+(11,4,2,3,NULL,111000.00,1,0,0.00,111000.00,NULL,NULL,0,'2025-02-04 08:46:40','2025-02-04 08:46:40',0),
+(12,4,2,6,NULL,11000.00,0,0,11000.00,0.00,NULL,NULL,0,'2025-02-04 08:46:40','2025-02-04 08:46:40',0),
+(13,5,2,7,NULL,100000.00,0,0,100000.00,0.00,NULL,NULL,0,'2025-02-04 08:58:03','2025-02-04 08:58:03',0),
+(14,5,2,16,NULL,111000.00,1,1,0.00,111000.00,NULL,NULL,0,'2025-02-04 08:58:03','2025-02-04 08:58:03',0),
+(15,5,2,6,NULL,11000.00,0,0,11000.00,0.00,NULL,NULL,0,'2025-02-04 08:58:03','2025-02-04 08:58:03',0),
+(16,6,2,7,NULL,100000.00,0,0,100000.00,0.00,NULL,NULL,0,'2025-02-04 09:07:33','2025-02-04 09:07:33',0),
+(17,6,2,3,NULL,111000.00,1,0,0.00,111000.00,NULL,NULL,0,'2025-02-04 09:07:33','2025-02-04 09:07:33',0),
+(18,6,2,6,NULL,11000.00,0,0,11000.00,0.00,NULL,NULL,0,'2025-02-04 09:07:33','2025-02-04 09:07:33',0),
+(19,7,2,7,NULL,100000.00,0,0,100000.00,0.00,NULL,NULL,0,'2025-02-04 09:08:52','2025-02-04 09:08:52',0),
+(20,7,2,16,NULL,111000.00,1,1,0.00,111000.00,NULL,NULL,0,'2025-02-04 09:08:52','2025-02-04 09:08:52',0),
+(21,7,2,6,NULL,11000.00,0,0,11000.00,0.00,NULL,NULL,0,'2025-02-04 09:08:52','2025-02-04 09:08:52',0),
+(22,8,2,4,NULL,111000.00,0,0,111000.00,0.00,NULL,NULL,0,'2025-02-04 09:40:47','2025-02-04 09:40:47',0),
+(23,8,2,23,NULL,100000.00,1,1,0.00,100000.00,NULL,NULL,0,'2025-02-04 09:40:47','2025-02-04 09:40:47',0),
+(24,8,2,17,NULL,11000.00,1,1,0.00,11000.00,NULL,NULL,0,'2025-02-04 09:40:47','2025-02-04 09:40:47',0),
+(25,9,2,7,'Pembelian ',100000.00,0,0,100000.00,0.00,NULL,NULL,0,'2025-02-04 09:56:05','2025-02-04 09:56:05',0),
+(26,9,2,3,'Pembelian ',111000.00,1,0,0.00,111000.00,NULL,NULL,0,'2025-02-04 09:56:05','2025-02-04 09:56:05',0),
+(27,9,2,6,'Pembelian ',11000.00,0,0,11000.00,0.00,NULL,NULL,0,'2025-02-04 09:56:05','2025-02-04 09:56:05',0);
 
 /*Table structure for table `acct_journal_voucher_type` */
 
@@ -2070,7 +2110,7 @@ CREATE TABLE `core_customer` (
   KEY `customer_id` (`customer_id`),
   KEY `FK_core_customer_province_id` (`province_id`),
   KEY `FK_core_customer_city_id` (`city_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=180 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=182 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `core_customer` */
 
@@ -2253,7 +2293,9 @@ insert  into `core_customer`(`customer_id`,`province_id`,`city_id`,`customer_cod
 (176,71,1036,'daffa hanaris','daffa hanaris',NULL,'sumbulan lor rt 02 rw 13\r\nmakamhaji',NULL,NULL,NULL,NULL,NULL,0,-432300,0,0,0,3,3,'2024-10-17 04:42:38','2024-12-23 05:29:32',NULL),
 (177,NULL,NULL,NULL,'Arka',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,333000,0,0,0,NULL,NULL,'2024-12-19 09:31:42','2024-12-20 07:52:03',NULL),
 (178,71,1027,NULL,'Arip Elek',NULL,'bo',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,3,'2025-01-17 06:37:34','2025-01-17 06:37:34',NULL),
-(179,71,1027,NULL,'Arip Elek',NULL,'bo',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,3,'2025-01-17 06:38:28','2025-01-17 06:38:28',NULL);
+(179,71,1027,NULL,'Arip Elek',NULL,'bo',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,3,'2025-01-17 06:38:28','2025-01-17 06:38:28',NULL),
+(180,71,1026,NULL,'daffa hanaris',NULL,'sumbulan lor rt 02 rw 13\nmakamhaji',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,3,'2025-02-03 08:05:52','2025-02-03 08:05:52',NULL),
+(181,71,1025,NULL,'ignana',NULL,'sumbulan lor rt 02 rw 13\nmakamhaji',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,3,'2025-02-03 08:10:50','2025-02-03 08:10:50',NULL);
 
 /*Table structure for table `core_expedition` */
 
@@ -2553,32 +2595,17 @@ CREATE TABLE `inv_goods_received_note` (
   CONSTRAINT `FK_inv_goods_received_note_purchase_order_id` FOREIGN KEY (`purchase_order_id`) REFERENCES `purchase_order` (`purchase_order_id`) ON UPDATE CASCADE,
   CONSTRAINT `FK_inv_goods_received_note_supplier_id` FOREIGN KEY (`supplier_id`) REFERENCES `core_supplier` (`supplier_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `FK_inv_goods_received_note_warehouse_id` FOREIGN KEY (`warehouse_id`) REFERENCES `inv_warehouse` (`warehouse_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `inv_goods_received_note` */
 
 insert  into `inv_goods_received_note`(`goods_received_note_id`,`purchase_order_id`,`supplier_id`,`warehouse_id`,`goods_received_note_no`,`goods_received_note_date`,`goods_received_note_expired_date`,`goods_received_note_remark`,`goods_received_note_status_invoice`,`receipt_image`,`delivery_note_no`,`faktur_no`,`subtotal_item`,`item_type`,`data_state`,`voided_remark`,`voided_id`,`voided_at`,`created_id`,`created_at`,`updated_at`) values 
-(4,276,7,1,'0001/IGRN/XII/2024','2024-12-13',NULL,'ddaffff',0,'',NULL,'332333',100,0,0,NULL,0,NULL,4,'2024-12-13 09:20:29','2024-12-13 09:20:29'),
-(6,277,7,1,'0002/IGRN/XII/2024','2024-12-16',NULL,NULL,0,'',NULL,NULL,150,0,0,NULL,0,NULL,3,'2024-12-16 04:12:19','2024-12-16 04:12:19');
-
-/*Table structure for table `inv_goods_received_note_batch_number` */
-
-DROP TABLE IF EXISTS `inv_goods_received_note_batch_number`;
-
-CREATE TABLE `inv_goods_received_note_batch_number` (
-  `goods_received_note_batch_number_id` bigint NOT NULL AUTO_INCREMENT,
-  `goods_received_note_id` bigint DEFAULT '0',
-  `item_category_id` int DEFAULT '0',
-  `item_id` int DEFAULT '0',
-  `item_batch_number` varchar(50) DEFAULT '',
-  `quantity_batch_number` decimal(10,0) DEFAULT '0',
-  `created_id` int DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`goods_received_note_batch_number_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
-/*Data for the table `inv_goods_received_note_batch_number` */
+(3,282,7,1,'0001/IGRN/II/2025','2025-02-04',NULL,NULL,1,'',NULL,NULL,100,0,0,NULL,0,NULL,3,'2025-02-04 08:44:23','2025-02-04 10:11:17'),
+(4,283,7,1,'0002/IGRN/II/2025','2025-02-04',NULL,NULL,0,'',NULL,NULL,100,0,0,NULL,0,NULL,3,'2025-02-04 08:46:40','2025-02-04 08:46:40'),
+(5,284,7,1,'0003/IGRN/II/2025','2025-02-04',NULL,NULL,0,'',NULL,NULL,100,0,0,NULL,0,NULL,3,'2025-02-04 08:58:03','2025-02-04 08:58:03'),
+(6,285,9,1,'0004/IGRN/II/2025','2025-02-04',NULL,NULL,0,'',NULL,NULL,100,0,0,NULL,0,NULL,3,'2025-02-04 09:07:33','2025-02-04 09:07:33'),
+(7,286,9,1,'0005/IGRN/II/2025','2025-02-04',NULL,NULL,0,'',NULL,NULL,100,0,0,NULL,0,NULL,3,'2025-02-04 09:08:51','2025-02-04 09:08:51'),
+(8,287,7,1,'0006/IGRN/II/2025','2025-02-04',NULL,NULL,0,'',NULL,NULL,100,0,0,NULL,0,NULL,3,'2025-02-04 09:56:05','2025-02-04 09:56:05');
 
 /*Table structure for table `inv_goods_received_note_item` */
 
@@ -2617,9 +2644,12 @@ CREATE TABLE `inv_goods_received_note_item` (
 /*Data for the table `inv_goods_received_note_item` */
 
 insert  into `inv_goods_received_note_item`(`goods_received_note_item_id`,`goods_received_note_id`,`purchase_order_id`,`purchase_order_item_id`,`item_category_id`,`item_type_id`,`item_unit_id`,`item_stock_id`,`quantity`,`quantity_received`,`data_state`,`voided_id`,`voided_at`,`created_id`,`created_at`,`updated_at`) values 
-(4,4,276,1,1,1,10,0,100,100,0,0,NULL,4,'2024-12-13 09:20:29','2024-12-13 09:20:29'),
-(7,6,277,2,1,1,10,0,100,100,0,0,NULL,3,'2024-12-16 04:12:19','2024-12-16 04:12:19'),
-(8,6,277,3,1,2,22,0,50,50,0,0,NULL,3,'2024-12-16 04:12:19','2024-12-16 04:12:19');
+(3,3,282,1,1,1,10,0,100,100,0,0,NULL,3,'2025-02-04 08:44:23','2025-02-04 08:44:23'),
+(4,4,283,2,1,3,10,0,100,100,0,0,NULL,3,'2025-02-04 08:46:40','2025-02-04 08:46:40'),
+(5,5,284,3,1,3,10,0,100,100,0,0,NULL,3,'2025-02-04 08:58:03','2025-02-04 08:58:03'),
+(6,6,285,4,1,4,23,0,100,100,0,0,NULL,3,'2025-02-04 09:07:33','2025-02-04 09:07:33'),
+(7,7,286,5,1,4,23,0,100,100,0,0,NULL,3,'2025-02-04 09:08:51','2025-02-04 09:08:51'),
+(8,8,287,6,1,5,23,0,100,100,0,0,NULL,3,'2025-02-04 09:56:05','2025-02-04 09:56:05');
 
 /*Table structure for table `inv_item` */
 
@@ -2691,12 +2721,14 @@ CREATE TABLE `inv_item_category` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`item_category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `inv_item_category` */
 
 insert  into `inv_item_category`(`item_category_id`,`item_category_name`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(1,'Barang',0,3,'0000-00-00 00:00:00','2023-08-04 09:18:38');
+(1,'Barang',0,3,'0000-00-00 00:00:00','2023-08-04 09:18:38'),
+(11,'Besi',0,3,'2025-02-04 04:54:53','2025-02-04 04:54:53'),
+(12,'Pipa',0,3,'2025-02-04 04:55:43','2025-02-04 04:55:43');
 
 /*Table structure for table `inv_item_old` */
 
@@ -2758,16 +2790,16 @@ CREATE TABLE `inv_item_stock` (
   `created_at` date DEFAULT NULL,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`item_stock_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=321 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=338 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `inv_item_stock` */
 
 insert  into `inv_item_stock`(`item_stock_id`,`goods_received_note_id`,`goods_received_note_item_id`,`item_stock_date`,`purchase_order_item_id`,`warehouse_id`,`purchase_order_no`,`buyers_acknowledgment_no`,`no_retur_barang`,`nota_retur_pajak`,`item_category_id`,`item_type_id`,`item_id`,`item_unit_id`,`category`,`barang`,`satuan`,`item_total`,`item_unit_cost`,`item_unit_total`,`item_unit_price`,`item_unit_id_default`,`item_default_quantity_unit`,`quantity_unit`,`item_weight_default`,`item_weight_unit`,`package_id`,`package_total`,`package_unit_id`,`package_price`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(1,0,0,'2024-12-13',0,1,'','','','',1,1,0,10,'','','',1000,1000,0,0,10,0,140,0,'',0,0,0,0,0,0,'2024-12-13','2025-01-30 07:13:27'),
-(2,0,0,'2024-12-13',0,1,'','','','',1,2,0,22,'','','',5000,1000,0,0,22,0,4400,0,'',0,0,0,0,0,0,'2024-12-13','2025-01-30 07:13:27'),
-(3,0,0,'2024-12-13',0,1,'','','','',1,3,0,10,'','','',0,0,0,0,10,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-13 15:12:19'),
-(4,0,0,'2024-12-13',0,1,'','','','',1,4,0,23,'','','',0,0,0,0,23,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-13 15:12:19'),
-(5,0,0,'2024-12-13',0,1,'','','','',1,5,0,23,'','','',0,0,0,0,23,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-13 15:12:19'),
+(1,0,0,'2024-12-13',0,1,'','','','',1,1,0,10,'','','',1600,1000,0,0,10,0,740,0,'',0,0,0,0,0,0,'2024-12-13','2025-02-04 08:44:23'),
+(2,0,0,'2024-12-13',0,1,'','','','',1,2,0,22,'','','',5000,1000,0,0,22,0,4300,0,'',0,0,0,0,0,0,'2024-12-13','2025-02-04 05:27:53'),
+(3,0,0,'2024-12-13',0,1,'','','','',1,3,0,10,'','','',200,1000,0,0,10,0,100,0,'',0,0,0,0,0,0,'2024-12-13','2025-02-04 09:25:43'),
+(4,0,0,'2024-12-13',0,1,'','','','',1,4,0,23,'','','',200,1000,0,0,23,0,200,0,'',0,0,0,0,0,0,'2024-12-13','2025-02-04 09:46:54'),
+(5,0,0,'2024-12-13',0,1,'','','','',1,5,0,23,'','','',100,1000,0,0,23,0,50,0,'',0,0,0,0,0,0,'2024-12-13','2025-02-04 10:04:19'),
 (6,0,0,'2024-12-13',0,1,'','','','',1,6,0,23,'','','',0,0,0,0,23,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-13 15:12:19'),
 (7,0,0,'2024-12-13',0,1,'','','','',1,7,0,22,'','','',0,0,0,0,22,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-13 15:12:19'),
 (8,0,0,'2024-12-13',0,1,'','','','',1,8,0,24,'','','',0,0,0,0,24,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-13 15:12:19'),
@@ -3082,7 +3114,22 @@ insert  into `inv_item_stock`(`item_stock_id`,`goods_received_note_id`,`goods_re
 (317,0,0,'2024-12-13',0,1,'','','','',1,317,0,22,'','','',0,0,0,0,22,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-13 15:12:19'),
 (318,0,0,'2024-12-13',0,1,'','','','',1,318,0,0,'','','',0,0,0,0,0,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-13 15:12:19'),
 (319,0,0,'2024-12-13',0,1,'','','','',1,319,0,29,'','','',0,0,0,0,29,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-13 15:12:19'),
-(320,0,0,'2024-12-13',0,1,'','','','',1,320,0,23,'','','',0,0,0,0,23,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-13 15:12:19');
+(320,0,0,'2024-12-13',0,1,'','','','',1,320,0,23,'','','',0,0,0,0,23,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-13 15:12:19'),
+(323,NULL,NULL,'2025-02-04',0,1,'','','','',11,412,0,2,NULL,NULL,NULL,0,0,0,0,2,0,200,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 04:55:32'),
+(324,NULL,NULL,'2025-02-04',0,1,'','','','',1,413,0,1,NULL,NULL,NULL,0,0,0,0,1,0,NULL,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:05:35'),
+(325,NULL,NULL,'2025-02-04',0,1,'','','','',11,414,0,6,NULL,NULL,NULL,0,0,0,0,6,0,100,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:09:56'),
+(326,NULL,NULL,'2025-02-04',0,1,'','','','',11,415,0,2,NULL,NULL,NULL,0,0,0,0,2,0,11,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:35:54'),
+(327,NULL,NULL,'2025-02-04',0,1,'','','','',11,416,0,2,NULL,NULL,NULL,0,0,0,0,2,0,11,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:35:54'),
+(328,NULL,NULL,'2025-02-04',0,1,'','','','',11,417,0,2,NULL,NULL,NULL,0,0,0,0,2,0,100,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:36:14'),
+(329,NULL,NULL,'2025-02-04',0,1,'','','','',11,418,0,2,NULL,NULL,NULL,0,0,0,0,2,0,100,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:36:14'),
+(330,NULL,NULL,'2025-02-04',0,1,'','','','',11,419,0,1,NULL,NULL,NULL,0,0,0,0,1,0,200,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:36:22'),
+(331,NULL,NULL,'2025-02-04',0,1,'','','','',11,420,0,1,NULL,NULL,NULL,0,0,0,0,1,0,200,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:36:22'),
+(332,NULL,NULL,'2025-02-04',0,1,'','','','',1,421,0,1,NULL,NULL,NULL,0,0,0,0,1,0,200,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:36:51'),
+(333,NULL,NULL,'2025-02-04',0,1,'','','','',1,422,0,1,NULL,NULL,NULL,0,0,0,0,1,0,200,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:36:51'),
+(334,NULL,NULL,'2025-02-04',0,1,'','','','',12,423,0,1,NULL,NULL,NULL,0,0,0,0,1,0,200,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:37:32'),
+(335,NULL,NULL,'2025-02-04',0,1,'','','','',12,424,0,1,NULL,NULL,NULL,0,0,0,0,1,0,200,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:37:32'),
+(336,NULL,NULL,'2025-02-04',0,1,'','','','',1,425,0,1,NULL,NULL,NULL,0,0,0,0,1,0,100,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:38:21'),
+(337,NULL,NULL,'2025-02-04',0,1,'','','','',1,426,0,1,NULL,NULL,NULL,0,0,0,0,1,0,200,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:39:51');
 
 /*Table structure for table `inv_item_stock_adjustment` */
 
@@ -3167,14 +3214,13 @@ CREATE TABLE `inv_item_stock_card` (
   KEY `FK_inv_item_stock_card_item_unit_id` (`item_unit_id`),
   KEY `FK_inv_item_stock_card_section_id` (`section_id`),
   KEY `item_batch_number` (`item_batch_number`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `inv_item_stock_card` */
 
 insert  into `inv_item_stock_card`(`item_stock_card_id`,`item_stock_id`,`section_id`,`item_category_id`,`item_type_id`,`warehouse_id`,`supplier_id`,`item_unit_id`,`item_stock_type`,`item_batch_number`,`item_color`,`item_size`,`transaction_id`,`transaction_type`,`transaction_code`,`transaction_date`,`opening_balance`,`opening_balance_unfinished`,`item_stock_card_in`,`item_stock_card_out`,`item_unit_default_quantity`,`last_balance`,`last_balance_unfinished`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(4,1,0,1,1,1,0,10,0,'','',0,4,1,'INVT_GDS_RCV_NOTE','2024-12-13',0,0,100,0,0,100,0,0,NULL,'2024-12-13 16:20:29','2024-12-13 16:20:29'),
-(7,1,0,1,1,1,0,10,0,'','',0,6,1,'INVT_GDS_RCV_NOTE','2024-12-16',100,0,100,0,0,200,0,0,NULL,'2024-12-16 11:12:19','2024-12-16 11:12:19'),
-(8,2,0,1,2,1,0,22,0,'','',0,6,1,'INVT_GDS_RCV_NOTE','2024-12-16',0,0,50,0,0,50,0,0,NULL,'2024-12-16 11:12:19','2024-12-16 11:12:19');
+(28,5,0,1,5,1,0,23,0,'','',0,8,1,'INVT_GDS_RCV_NOTE','2025-02-04',0,0,100,0,0,100,0,0,NULL,'2025-02-04 16:56:05','2025-02-04 16:56:05'),
+(29,5,0,0,5,1,0,23,0,'','',0,21,1,'SDN-21','2025-02-04',100,0,0,50,0,50,0,0,NULL,'2025-02-04 17:04:19','2025-02-04 17:04:19');
 
 /*Table structure for table `inv_item_stock_old` */
 
@@ -3284,13 +3330,13 @@ CREATE TABLE `inv_item_type` (
   KEY `FK_inv_item_type_inv_account_id` (`inv_account_id`),
   KEY `FK_inv_item_type_inv_return_account_id` (`inv_return_account_id`),
   KEY `FK_inv_item_type_inv_discount_account_id` (`inv_discount_account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=339 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=427 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `inv_item_type` */
 
 insert  into `inv_item_type`(`item_type_id`,`item_category_id`,`item_type_name`,`item_type_expired_time`,`item_package_status`,`item_unit_1`,`item_quantity_default_1`,`item_weight_1`,`item_unit_2`,`item_quantity_default_2`,`item_weight_2`,`item_unit_3`,`item_quantity_default_3`,`item_weight_3`,`purchase_account_id`,`purchase_return_account_id`,`purchase_discount_account_id`,`sales_account_id`,`sales_return_account_id`,`sales_discount_account_id`,`inv_account_id`,`inv_return_account_id`,`inv_discount_account_id`,`hpp_account_id`,`hpp_amount`,`data_state`,`created_id`,`created_at`,`updated_at`,`dump`) values 
 (1,1,'1 MPA PSI              ( BU LUSI )',0,0,10,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','DUS/PCS'),
-(2,1,'12PC DOUBLE OPEN END WRENCH SET ( GAAA1206 )',0,0,22,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','PC'),
+(2,1,'12PC DOUBLE OPEN END WRENCH SET(GAAA1206)',0,0,22,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','PC'),
 (3,1,'2.5 MPA PSI              ( BU LUSI )',0,0,10,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','DUS/PCS'),
 (4,1,'3M 4100 SUPER POLISH',0,0,23,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','PCS'),
 (5,1,'3M 5100 MERAH',0,0,23,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','PCS'),
@@ -3607,26 +3653,24 @@ insert  into `inv_item_type`(`item_type_id`,`item_category_id`,`item_type_name`,
 (316,1,'WIKA PRESSURE GAUGE SS 4IN 0-16BAR BOTTOM CONNECTION      WIKA PRESSURE GAUGE SS 4IN 0-16BAR BOTTOM CONNECTION  ',0,0,22,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','PC'),
 (317,1,'WIKA THERMOMETER D 4 0-300 DRAT 1/2NPT D.STIK 6MM P.TIK 10CM (tokped serba gauge)              WIKA THERMOMETER MODEL RAKET 1/2IN X 10CM 0-300 C',0,0,22,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','PC'),
 (318,1,'WILDEN DOVER',0,0,8,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43',''),
-(319,1,'WIRE BRUSH 1,5M SS316                     WIRE BRUSH 1,5M SS316',0,0,29,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','UN'),
+(319,1,'WIRE BRUSH 1,5M SS316 WIRE BRUSH 1,5M SS316',0,0,29,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','UN'),
 (320,1,'YUANAN SUS 304 25.4 1811',0,0,23,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','PCS'),
-(321,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:24:47',NULL),
-(322,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:24:48',NULL),
-(323,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:24:54',NULL),
-(324,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:24:55',NULL),
-(325,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:24:55',NULL),
-(326,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:24:56',NULL),
-(327,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:24:57',NULL),
-(328,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:24:58',NULL),
-(329,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:25:01',NULL),
-(330,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:25:02',NULL),
-(331,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:25:03',NULL),
-(332,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:26:06',NULL),
-(333,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:27:24',NULL),
-(334,1,'Test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:34:46',NULL),
-(335,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:35:10',NULL),
-(336,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:36:55',NULL),
-(337,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:43:17',NULL),
-(338,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:45:07',NULL);
+(410,1,'daffa',NULL,0,2,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-03','2025-02-03 10:05:48',NULL),
+(411,1,'aqua4',NULL,0,1,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-03','2025-02-03 10:06:35',NULL),
+(412,11,'A11',NULL,0,2,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 04:55:32',NULL),
+(414,11,'ring',NULL,0,6,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:09:56',NULL),
+(415,11,'aqua12',NULL,0,2,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:35:54',NULL),
+(416,11,'aqua12',NULL,0,2,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:35:54',NULL),
+(417,11,'daffa',NULL,0,2,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:36:14',NULL),
+(418,11,'daffa',NULL,0,2,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:36:14',NULL),
+(419,11,'aqua12',NULL,0,1,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:36:22',NULL),
+(420,11,'aqua12',NULL,0,1,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:36:22',NULL),
+(421,1,'daffa',NULL,0,1,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:36:51',NULL),
+(422,1,'daffa',NULL,0,1,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:36:51',NULL),
+(423,12,'aqua4',NULL,0,1,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:37:32',NULL),
+(424,12,'aqua4',NULL,0,1,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:37:32',NULL),
+(425,1,'Sayyid Azziz',NULL,0,1,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:38:21',NULL),
+(426,1,'aqua4',NULL,0,1,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:39:51',NULL);
 
 /*Table structure for table `inv_item_unit` */
 
@@ -3643,7 +3687,7 @@ CREATE TABLE `inv_item_unit` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`item_unit_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `inv_item_unit` */
 
@@ -3670,7 +3714,8 @@ insert  into `inv_item_unit`(`item_unit_id`,`item_unit_code`,`item_unit_name`,`i
 (28,'TUB/PCS','TUB/PCS',0,'TUB/PCS',0,75,'2024-06-11 08:00:45','2024-06-11 08:00:45'),
 (29,'UN','UN',0,'UN',0,75,'2024-06-11 08:02:46','2024-06-11 08:02:46'),
 (30,'UN = 3PC','UN = 3PC',0,'UN = 3PC',0,75,'2024-06-11 08:05:47','2024-06-11 08:05:47'),
-(31,'tidak ada','tidak ada',0,'tidak ada',0,75,'2024-06-11 08:06:49','2024-06-11 08:06:49');
+(31,'tidak ada','tidak ada',0,'tidak ada',0,75,'2024-06-11 08:06:49','2024-06-11 08:06:49'),
+(32,'liter','liter',1,NULL,0,3,'2025-02-04 05:50:29','2025-02-04 05:50:29');
 
 /*Table structure for table `inv_item_unit_cost` */
 
@@ -4556,13 +4601,12 @@ CREATE TABLE `purchase_invoice` (
   KEY `FK_purchase_invoice_branch_id` (`branch_id`),
   KEY `FK_purchase_invoice_supplier_id` (`supplier_id`),
   KEY `FK_purchase_invoice_warehouse_id` (`warehouse_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `purchase_invoice` */
 
 insert  into `purchase_invoice`(`purchase_invoice_id`,`goods_received_note_id`,`purchase_order_id`,`branch_id`,`supplier_id`,`warehouse_id`,`payment_method_account_id`,`ongkir_account_id`,`purchase_invoice_date`,`purchase_invoice_payment_terms`,`purchase_invoice_due_date`,`purchase_invoice_no`,`purchase_invoice_reference_no`,`purchase_invoice_remark`,`purchase_police_number`,`subtotal_item`,`subtotal_amount`,`discount_percentage`,`discount_amount`,`purchase_handling_fee`,`ppn_in_amount`,`tax_percentage`,`tax_amount`,`faktur_tax_no`,`total_amount`,`paid_amount`,`payment_discount`,`owing_amount`,`shortover_amount`,`down_payment_amount`,`purchase_return_amount`,`debit_amount`,`purchase_invoice_status`,`purchase_invoice_token`,`purchase_invoice_token_void`,`voided_id`,`voided_on`,`voided_remark`,`record_no`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(28,19,243,1,8,6,0,0,'2024-01-20',0.00,'2024-01-30','0001/PI/I/2024','',NULL,'',264240,1166479552.80,0.00,0.00,0.00,115597073,0.00,0.00,NULL,1166479552.80,1066479553.00,0.00,99999999.80,0.00,0.00,0.00,0.00,0,NULL,NULL,0,NULL,NULL,'',0,75,'2024-01-20 08:05:23','2024-01-20 08:11:23'),
-(29,20,244,1,8,6,0,0,'2024-01-20',0.00,'2024-01-30','0002/PI/I/2024','',NULL,'',264240,1261217520.00,0.00,0.00,0.00,124985520,0.00,0.00,NULL,1261217520.00,1261217520.00,0.00,0.00,0.00,0.00,0.00,0.00,0,NULL,NULL,0,NULL,NULL,'',0,75,'2024-01-20 08:14:27','2024-01-20 08:18:08');
+(1,3,282,1,7,1,0,0,'2025-02-04',0.00,'2025-03-08','0001/PI/II/2025','',NULL,'',100,111000.00,0.00,0.00,0.00,11000,0.00,0.00,NULL,111000.00,0.00,0.00,111000.00,0.00,0.00,0.00,0.00,0,NULL,NULL,0,NULL,NULL,'',0,3,'2025-02-04 10:11:17','2025-02-04 10:11:17');
 
 /*Table structure for table `purchase_invoice_item` */
 
@@ -4591,19 +4635,12 @@ CREATE TABLE `purchase_invoice_item` (
   PRIMARY KEY (`purchase_invoice_item_id`),
   UNIQUE KEY `purchase_invoice_item_token` (`purchase_invoice_item_token`),
   KEY `FK_purchase_invoice_item_purchase_invoice_id` (`purchase_invoice_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `purchase_invoice_item` */
 
 insert  into `purchase_invoice_item`(`purchase_invoice_item_id`,`purchase_invoice_id`,`goods_received_note_item_id`,`item_category_id`,`item_type_id`,`item_id`,`quantity_scale`,`quantity`,`item_unit_id`,`item_unit_cost`,`subtotal_amount`,`discount_percentage`,`discount_amount`,`subtotal_amount_after_discount`,`purchase_invoice_item_token`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(50,28,506,1,1,NULL,0.00,7416.00,1,3977.00,29493432.00,0.00,0.00,0.00,NULL,0,75,'2024-01-20 08:05:23','2024-01-20 08:05:23'),
-(51,28,507,1,1,NULL,0.00,99504.00,1,3977.00,395727408.00,0.00,0.00,0.00,NULL,0,75,'2024-01-20 08:05:23','2024-01-20 08:05:23'),
-(52,28,508,1,1,NULL,0.00,97416.00,1,3977.00,387423432.00,0.00,0.00,0.00,NULL,0,75,'2024-01-20 08:05:23','2024-01-20 08:05:23'),
-(53,28,509,1,1,NULL,0.00,59904.00,1,3977.00,238238208.00,0.00,0.00,0.00,NULL,0,75,'2024-01-20 08:05:23','2024-01-20 08:05:23'),
-(54,29,510,1,1,NULL,0.00,99216.00,1,4300.00,426628800.00,0.00,0.00,0.00,NULL,0,75,'2024-01-20 08:14:27','2024-01-20 08:14:27'),
-(55,29,511,1,1,NULL,0.00,40248.00,1,4300.00,173066400.00,0.00,0.00,0.00,NULL,0,75,'2024-01-20 08:14:27','2024-01-20 08:14:27'),
-(56,29,512,1,1,NULL,0.00,27432.00,1,4300.00,117957600.00,0.00,0.00,0.00,NULL,0,75,'2024-01-20 08:14:27','2024-01-20 08:14:27'),
-(57,29,513,1,1,NULL,0.00,97344.00,1,4300.00,418579200.00,0.00,0.00,0.00,NULL,0,75,'2024-01-20 08:14:27','2024-01-20 08:14:27');
+(1,1,3,1,1,NULL,0.00,100.00,10,1000.00,100000.00,0.00,0.00,0.00,NULL,0,3,'2025-02-04 10:11:17','2025-02-04 10:11:17');
 
 /*Table structure for table `purchase_order` */
 
@@ -4656,13 +4693,17 @@ CREATE TABLE `purchase_order` (
   KEY `created_id` (`created_id`),
   KEY `FK_purchase_order_warehouse_id` (`warehouse_id`),
   KEY `FK_purchase_order_purchase_order_type_id` (`purchase_order_type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=278 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=288 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `purchase_order` */
 
 insert  into `purchase_order`(`purchase_order_id`,`supplier_id`,`warehouse_id`,`purchase_order_no`,`purchase_order_date`,`payment_method`,`purchase_order_shipment_date`,`purchase_order_payment_terms`,`purchase_order_remark`,`total_item`,`total_received_item`,`subtotal_amount`,`discount_percentage`,`discount_amount`,`ppn_in_percentage`,`ppn_in_amount`,`subtotal_after_ppn_in`,`tax_percentage`,`tax_amount`,`total_amount`,`down_payment_amount`,`down_payment_amount_balance`,`last_balance_amount`,`purchase_order_type_id`,`purchase_order_status`,`purchase_invoice_status`,`item_type`,`branch_id`,`approved`,`approved_id`,`approved_on`,`approved_remark`,`closed_remark`,`voided_id`,`voided_on`,`voided_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(276,7,1,'0001/PO/XII/2024','2024-12-13','0','2024-12-13',0,NULL,100.00,100.00,0.00,0.00,0.00,11.00,55000.00,555000.00,0.00,0.00,500000.00,0.00,0.00,0.00,0,2,0,0,1,1,0,NULL,NULL,NULL,0,NULL,NULL,0,0,'2024-12-13 08:09:08','2024-12-13 09:20:29'),
-(277,7,1,'0002/PO/XII/2024','2024-12-16','0','2024-12-16',0,NULL,150.00,150.00,0.00,0.00,0.00,11.00,16500.00,166500.00,0.00,0.00,150000.00,0.00,0.00,0.00,0,2,0,0,1,1,0,NULL,NULL,NULL,0,NULL,NULL,0,0,'2024-12-16 04:09:18','2024-12-16 04:12:19');
+(282,7,1,'0001/PO/II/2025','2025-02-04','2','2025-02-04',0,NULL,100.00,0.00,0.00,0.00,0.00,11.00,11000.00,111000.00,0.00,0.00,100000.00,0.00,0.00,0.00,0,0,0,0,1,1,0,NULL,NULL,NULL,0,NULL,NULL,0,0,'2025-02-04 08:25:20','2025-02-04 08:25:20'),
+(283,7,1,'0002/PO/II/2025','2025-02-04','1','2025-02-04',0,NULL,100.00,0.00,0.00,0.00,0.00,11.00,11000.00,111000.00,0.00,0.00,100000.00,0.00,0.00,0.00,0,0,0,0,1,1,0,NULL,NULL,NULL,0,NULL,NULL,0,0,'2025-02-04 08:46:20','2025-02-04 08:46:20'),
+(284,7,1,'0003/PO/II/2025','2025-02-04','2','2025-02-04',0,NULL,100.00,0.00,0.00,0.00,0.00,11.00,11000.00,111000.00,0.00,0.00,100000.00,0.00,0.00,0.00,0,0,0,0,1,1,0,NULL,NULL,NULL,0,NULL,NULL,0,0,'2025-02-04 08:57:47','2025-02-04 08:57:47'),
+(285,9,1,'0004/PO/II/2025','2025-02-04','1','2025-02-04',0,NULL,100.00,0.00,0.00,0.00,0.00,11.00,11000.00,111000.00,0.00,0.00,100000.00,0.00,0.00,0.00,0,0,0,0,1,1,0,NULL,NULL,NULL,0,NULL,NULL,0,0,'2025-02-04 09:07:21','2025-02-04 09:07:21'),
+(286,9,1,'0005/PO/II/2025','2025-02-04','2','2025-02-04',0,NULL,100.00,0.00,0.00,0.00,0.00,11.00,11000.00,111000.00,0.00,0.00,100000.00,0.00,0.00,0.00,0,0,0,0,1,1,0,NULL,NULL,NULL,0,NULL,NULL,0,0,'2025-02-04 09:08:43','2025-02-04 09:08:43'),
+(287,7,1,'0006/PO/II/2025','2025-02-04','1','2025-02-04',0,NULL,100.00,0.00,0.00,0.00,0.00,11.00,11000.00,111000.00,0.00,0.00,100000.00,0.00,0.00,0.00,0,0,0,0,1,1,0,NULL,NULL,NULL,0,NULL,NULL,0,0,'2025-02-04 09:55:13','2025-02-04 09:55:13');
 
 /*Table structure for table `purchase_order_item` */
 
@@ -4699,14 +4740,17 @@ CREATE TABLE `purchase_order_item` (
   KEY `purchase_order_token` (`purchase_order_token`),
   KEY `item_flute_id` (`item_type_id`),
   KEY `FK_purchase_order_item_purchase_order_id` (`purchase_order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `purchase_order_item` */
 
 insert  into `purchase_order_item`(`purchase_order_item_id`,`purchase_order_id`,`purchase_requisition_id`,`purchase_requisition_item_id`,`item_category_id`,`item_unit_id`,`item_type_id`,`quantity`,`quantity_outstanding`,`quantity_received`,`quantity_return`,`item_unit_cost`,`subtotal_amount`,`discount_percentage`,`discount_amount`,`subtotal_amount_after_discount`,`purchase_order_item_creassing`,`purchase_order_token`,`data_state`,`created_id`,`created_at`,`voided_id`,`voided_on`,`updated_at`) values 
-(1,276,0,0,1,10,1,100,0,100,0,5000,500000,0,0,0,'','',0,0,'2024-12-13 08:09:08',0,NULL,'2024-12-13 09:20:29'),
-(2,277,0,0,1,10,1,100,0,100,0,1000,100000,0,0,0,'','',0,0,'2024-12-16 04:09:18',0,NULL,'2024-12-16 04:12:19'),
-(3,277,0,0,1,22,2,50,0,50,0,1000,50000,NULL,0,0,'','',0,0,'2024-12-16 04:09:18',0,NULL,'2024-12-16 04:12:19');
+(1,282,0,0,1,10,1,100,0,100,0,1000,100000,0,0,0,'','',0,0,'2025-02-04 08:25:20',0,NULL,'2025-02-04 08:44:23'),
+(2,283,0,0,1,10,3,100,0,100,0,1000,100000,0,0,0,'','',0,0,'2025-02-04 08:46:20',0,NULL,'2025-02-04 08:46:40'),
+(3,284,0,0,1,10,3,100,0,100,0,1000,100000,0,0,0,'','',0,0,'2025-02-04 08:57:47',0,NULL,'2025-02-04 08:58:03'),
+(4,285,0,0,1,23,4,100,0,100,0,1000,100000,0,0,0,'','',0,0,'2025-02-04 09:07:21',0,NULL,'2025-02-04 09:07:33'),
+(5,286,0,0,1,23,4,100,0,100,0,1000,100000,0,0,0,'','',0,0,'2025-02-04 09:08:43',0,NULL,'2025-02-04 09:08:51'),
+(6,287,0,0,1,23,5,100,0,100,0,1000,100000,0,0,0,'','',0,0,'2025-02-04 09:55:13',0,NULL,'2025-02-04 09:56:05');
 
 /*Table structure for table `purchase_order_return` */
 
@@ -5176,12 +5220,17 @@ CREATE TABLE `sales_delivery_note` (
   KEY `FK_sales_delivery_note_sales_delivery_order_id` (`sales_delivery_order_id`),
   KEY `FK_sales_delivery_note_sales_order_id` (`sales_order_id`),
   KEY `FK_sales_delivery_note_warehouse_id` (`warehouse_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_delivery_note` */
 
 insert  into `sales_delivery_note`(`sales_delivery_note_id`,`sales_delivery_order_id`,`sales_quotation_id`,`sales_delivery_note_date`,`shipment_planning_id`,`sales_order_id`,`warehouse_id`,`section_id`,`salesman_id`,`customer_id`,`expedition_id`,`sales_delivery_note_cost`,`sales_delivery_note_no`,`ppn_out_amount`,`expedition_receipt_no`,`customer_name`,`customer_address`,`customer_city`,`customer_home_phone`,`customer_mobile_phone1`,`driver_name`,`fleet_police_number`,`purchase_order_no`,`salesman_name`,`sales_delivery_note_status`,`sales_invoice_status`,`sales_delivery_note_remark`,`posted`,`posted_id`,`posted_on`,`voided_id`,`voided_on`,`voided_remark`,`rejected_id`,`rejected_on`,`rejected_remark`,`branch_id`,`return_status`,`pdp_lost_on_expedition_status`,`buyers_acknowledgment_status`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(14,0,2,'2025-01-30',0,0,1,NULL,NULL,164,16,0.00,'0001/SDN/I/2025',NULL,'111111','',NULL,'','','','Daffa','AD 120812 AZ',NULL,'',0,1,'TEST PENJUALAN',0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,3,'2025-01-30 07:13:27','2025-01-31 09:26:21');
+(14,0,2,'2025-01-30',0,0,1,NULL,NULL,164,16,0.00,'0001/SDN/I/2025',NULL,'111111','',NULL,'','','','Daffa','AD 120812 AZ',NULL,'',0,1,'TEST PENJUALAN',0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,3,'2025-01-30 07:13:27','2025-01-31 09:26:21'),
+(15,0,3,'2025-02-04',0,0,1,NULL,NULL,1,11,0.00,'0002/SDN/II/2025',NULL,'344555','',NULL,'','','','sayyid','AD 8080 HAd',NULL,'',0,1,'da',0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,3,'2025-02-04 05:27:53','2025-02-04 05:28:21'),
+(16,0,4,'2025-02-04',0,0,1,NULL,NULL,1,11,0.00,'0003/SDN/II/2025',NULL,'test','',NULL,'','','','Test','test',NULL,'',0,1,'test',0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,3,'2025-02-04 09:25:43','2025-02-04 09:40:47'),
+(17,0,5,'2025-02-04',0,0,1,NULL,NULL,1,11,0.00,'0004/SDN/II/2025',NULL,'test','',NULL,'','','','test','test',NULL,'',0,0,'tst',0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,3,'2025-02-04 09:42:26','2025-02-04 09:42:26'),
+(18,0,5,'2025-02-04',0,0,1,NULL,NULL,1,11,0.00,'0005/SDN/II/2025',NULL,'test','',NULL,'','','','test','test',NULL,'',0,0,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,3,'2025-02-04 09:46:54','2025-02-04 09:46:54'),
+(21,0,6,'2025-02-04',0,0,1,NULL,NULL,1,11,0.00,'0006/SDN/II/2025',NULL,'Test','',NULL,'','','','Test','Test',NULL,'',0,0,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,3,'2025-02-04 10:04:19','2025-02-04 10:04:19');
 
 /*Table structure for table `sales_delivery_note_item` */
 
@@ -5225,13 +5274,18 @@ CREATE TABLE `sales_delivery_note_item` (
   KEY `account_id_hpp` (`hpp_account_id`),
   KEY `section_id` (`section_id`),
   KEY `FK_sales_delivery_note_item_sales_delivery_note_id` (`sales_delivery_note_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_delivery_note_item` */
 
 insert  into `sales_delivery_note_item`(`sales_delivery_note_item_id`,`sales_delivery_note_id`,`sales_order_id`,`sales_quotation_item_id`,`sales_order_item_id`,`sales_delivery_order_id`,`sales_delivery_order_item_id`,`section_id`,`warehouse_id`,`supplier_id`,`item_category_id`,`item_id`,`item_type_id`,`item_unit_id`,`item_unit_id_unit`,`quantity`,`quantity_unit`,`item_default_quantity_unit`,`item_weight_unit`,`item_batch_number`,`sales_delivery_note_item_token`,`sales_delivery_note_item_token_void`,`return_item_status`,`data_state`,`item_unit_price`,`subtotal_price`,`hpp_amount`,`hpp_account_id`,`created_id`,`created_at`,`updated_at`) values 
 (16,14,0,3,0,0,0,0,0,0,0,0,1,10,0,'100.00','0.00','1','0',NULL,NULL,NULL,0,0,1000.00,100000.00,0.00,0,3,'2025-01-30 07:13:27','2025-01-30 07:13:27'),
-(17,14,0,4,0,0,0,0,0,0,0,0,2,22,0,'100.00','0.00','1','0',NULL,NULL,NULL,0,0,1500.00,150000.00,0.00,0,3,'2025-01-30 07:13:27','2025-01-30 07:13:27');
+(17,14,0,4,0,0,0,0,0,0,0,0,2,22,0,'100.00','0.00','1','0',NULL,NULL,NULL,0,0,1500.00,150000.00,0.00,0,3,'2025-01-30 07:13:27','2025-01-30 07:13:27'),
+(18,15,0,5,0,0,0,0,0,0,0,0,2,22,0,'100.00','0.00','1','0',NULL,NULL,NULL,0,0,3000.00,300000.00,0.00,0,3,'2025-02-04 05:27:53','2025-02-04 05:27:53'),
+(19,16,0,6,0,0,0,0,0,0,0,0,3,10,0,'100.00','0.00','1','0',NULL,NULL,NULL,0,0,1000.00,100000.00,0.00,0,3,'2025-02-04 09:25:43','2025-02-04 09:25:43'),
+(20,17,0,7,0,0,0,0,0,0,0,0,4,23,0,'100.00','0.00','1','0',NULL,NULL,NULL,0,0,1000.00,100000.00,0.00,0,3,'2025-02-04 09:42:26','2025-02-04 09:42:26'),
+(21,18,0,7,0,0,0,0,0,0,0,0,4,23,0,'100.00','0.00','1','0',NULL,NULL,NULL,0,0,1000.00,100000.00,0.00,0,3,'2025-02-04 09:46:54','2025-02-04 09:46:54'),
+(24,21,0,8,0,0,0,0,0,0,0,0,5,23,0,'50.00','0.00','1','0',NULL,NULL,NULL,0,0,2000.00,100000.00,0.00,0,3,'2025-02-04 10:04:19','2025-02-04 10:04:19');
 
 /*Table structure for table `sales_delivery_note_item_stock` */
 
@@ -5481,12 +5535,14 @@ CREATE TABLE `sales_invoice` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_invoice_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_invoice` */
 
 insert  into `sales_invoice`(`sales_invoice_id`,`branch_id`,`warehouse_id`,`customer_id`,`sales_quotation_id`,`sales_order_id`,`sales_delivery_note_id`,`collection_method_account_id`,`services_income_id`,`sales_invoice_no`,`sales_invoice_reference_no`,`sales_invoice_date`,`sales_invoice_due_date`,`sales_invoice_remark`,`sales_invoice_status`,`services_income_amount`,`subtotal_item`,`subtotal_amount`,`subtotal_before_discount`,`discount_percentage`,`discount_amount`,`return_status`,`subtotal_after_discount`,`tax_percentage`,`tax_amount`,`goods_received_note_no`,`faktur_tax_no`,`buyers_acknowledgment_id`,`buyers_acknowledgment_no`,`ttf_no`,`kwitansi_status`,`total_amount`,`paid_amount`,`owing_amount`,`shortover_amount`,`last_balance`,`total_discount_amount`,`paid_discount_amount`,`owing_discount_amount`,`shortover_discount_amount`,`discount_last_balance`,`cash_advance_amount`,`change_amount`,`sales_return_amount`,`sales_collection_date`,`sales_invoice_token`,`sales_invoice_token_void`,`voided_id`,`voided_on`,`voided_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(19,1,1,164,2,0,14,0,0,'0001/TMO.ME/I/2025','','2025-01-31','2025-01-31',NULL,0,0.00,NULL,277500,0,0.00,0,0,250000,0.00,27500.00,NULL,'0',0,'0','',0,277500,11000,266500,0,0,0,0,0,0,0,0,0,0.00,NULL,NULL,NULL,0,NULL,NULL,0,3,'2025-01-31 09:26:21','2025-01-31 09:31:24');
+(19,1,1,164,2,0,14,0,0,'0001/TMO.ME/I/2025','','2025-01-31','2025-01-31',NULL,0,0.00,NULL,277500,0,0.00,0,0,250000,0.00,27500.00,NULL,'0',0,'0','',0,277500,11000,266500,0,0,0,0,0,0,0,0,0,0.00,NULL,NULL,NULL,0,NULL,NULL,0,3,'2025-01-31 09:26:21','2025-01-31 09:31:24'),
+(20,1,1,1,3,0,15,0,0,'0002/TMO.ME/II/2025','','2025-02-04','2025-02-04','da',0,0.00,NULL,333000,0,0.00,0,0,300000,0.00,33000.00,NULL,'31313',0,'1231212','',0,333000,0,333000,0,0,0,0,0,0,0,0,0,0.00,NULL,NULL,NULL,0,NULL,NULL,0,3,'2025-02-04 05:28:21','2025-02-04 05:28:21'),
+(21,1,1,1,4,0,16,0,0,'0003/TMO.ME/II/2025','','2025-02-04','2025-02-28',NULL,0,0.00,NULL,111000,0,0.00,0,0,100000,0.00,11000.00,NULL,'0',0,'0','',0,111000,0,111000,0,0,0,0,0,0,0,0,0,0.00,NULL,NULL,NULL,0,NULL,NULL,0,3,'2025-02-04 09:40:47','2025-02-04 09:40:47');
 
 /*Table structure for table `sales_invoice_item` */
 
@@ -5515,13 +5571,15 @@ CREATE TABLE `sales_invoice_item` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   KEY `sales_invoice_item_id` (`sales_invoice_item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_invoice_item` */
 
 insert  into `sales_invoice_item`(`sales_invoice_item_id`,`sales_invoice_id`,`sales_order_id`,`sales_quotation_id`,`sales_quotation_item_id`,`sales_delivery_note_id`,`sales_delivery_note_item_id`,`item_id`,`item_type_id`,`item_unit_id`,`quantity`,`item_unit_price`,`item_unit_price_tax`,`discount_A`,`discount_B`,`subtotal_price_A`,`subtotal_price_B`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (31,19,NULL,2,3,14,16,0,1,10,100,1000,0,NULL,NULL,100000,NULL,0,3,'2025-01-31 09:26:21','2025-01-31 09:26:21'),
-(32,19,NULL,2,4,14,17,0,2,22,100,1500,0,NULL,NULL,150000,NULL,0,3,'2025-01-31 09:26:21','2025-01-31 09:26:21');
+(32,19,NULL,2,4,14,17,0,2,22,100,1500,0,NULL,NULL,150000,NULL,1,3,'2025-01-31 09:26:21','2025-01-31 09:26:21'),
+(33,20,NULL,3,5,15,18,0,289,22,100,3000,0,NULL,NULL,300000,NULL,0,3,'2025-02-04 05:28:21','2025-02-04 05:28:21'),
+(34,21,NULL,4,6,16,19,0,3,10,100,1000,0,NULL,NULL,100000,NULL,0,3,'2025-02-04 09:40:47','2025-02-04 09:40:47');
 
 /*Table structure for table `sales_order` */
 
@@ -5781,12 +5839,16 @@ CREATE TABLE `sales_quotation` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_quotation_id`),
   KEY `sales_order_id` (`sales_quotation_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_quotation` */
 
 insert  into `sales_quotation`(`sales_quotation_id`,`sales_quotation_type_id`,`purchase_order_customer`,`customer_id`,`salesman_id`,`receipt_image`,`sales_quotation_no`,`sales_quotation_date`,`sales_quotation_due_date`,`sales_quotation_status`,`sales_quotation_over_limit`,`sales_quotation_over_due_status`,`work_order_status`,`purchase_requisition_status`,`sales_quotation_design_status`,`sales_delivery_order_status`,`sales_delivery_note_status`,`customer_credit_limit_balance`,`sales_invoice_status`,`sales_invoice_last_balance`,`sales_quotation_remark`,`sales_quotation_over_remark`,`total_item`,`subtotal_before_discount`,`discount_percentage`,`discount_amount`,`subtotal_after_discount`,`ppn_out_percentage`,`ppn_out_amount`,`subtotal_after_ppn_out`,`sales_shipment_status`,`paid_amount`,`total_amount`,`last_balance`,`counter_edited`,`branch_id`,`data_state`,`created_id`,`created_at`,`approved`,`approved_id`,`approved_on`,`approved_remark`,`closed`,`closed_id`,`closed_on`,`closed_remark`,`voided_id`,`voided_on`,`voided_remark`,`customer_no`,`updated_at`) values 
-(2,0,'0',164,0,'','0001/QO/I/2025','2025-01-30','2025-02-08',0,0.00,0,0,0,0,0,1,0.00,0,0.00,NULL,NULL,200.00,0.00,0.00,0.00,250000.00,11.00,27500.00,277500.00,0,0.00,277500.00,0.00,0,1,0,0,'2025-01-30 07:12:46',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2025-01-30 07:13:27');
+(2,0,'0',164,0,'','0001/QO/I/2025','2025-01-30','2025-02-08',0,0.00,0,0,0,0,0,1,0.00,0,0.00,NULL,NULL,200.00,0.00,0.00,0.00,250000.00,11.00,27500.00,277500.00,0,0.00,277500.00,0.00,0,1,0,0,'2025-01-30 07:12:46',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2025-01-30 07:13:27'),
+(3,0,'0',1,0,'','0002/QO/II/2025','2025-02-04','2025-02-04',0,0.00,0,0,0,0,0,1,0.00,0,0.00,'da',NULL,100.00,0.00,0.00,0.00,300000.00,11.00,33000.00,333000.00,0,0.00,333000.00,0.00,0,1,0,0,'2025-02-04 05:27:21',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2025-02-04 05:27:53'),
+(4,0,'0',1,0,'','0003/QO/II/2025','2025-02-04','2025-02-04',0,0.00,0,0,0,0,0,1,0.00,0,0.00,NULL,NULL,100.00,0.00,0.00,0.00,100000.00,11.00,11000.00,111000.00,0,0.00,111000.00,0.00,0,1,0,0,'2025-02-04 09:25:13',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2025-02-04 09:25:43'),
+(5,0,'0',1,0,'','0004/QO/II/2025','2025-02-04','2025-02-04',0,0.00,0,0,0,0,0,0,0.00,0,0.00,NULL,NULL,100.00,0.00,0.00,0.00,100000.00,11.00,11000.00,111000.00,0,0.00,111000.00,0.00,0,1,0,0,'2025-02-04 09:42:03',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2025-02-04 09:46:54'),
+(6,0,'0',1,0,'','0005/QO/II/2025','2025-02-04','2025-02-04',0,0.00,0,0,0,0,0,1,0.00,0,0.00,NULL,NULL,50.00,0.00,0.00,0.00,100000.00,11.00,11000.00,111000.00,0,0.00,111000.00,0.00,0,1,0,0,'2025-02-04 09:57:54',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2025-02-04 10:04:19');
 
 /*Table structure for table `sales_quotation_item` */
 
@@ -5839,13 +5901,17 @@ CREATE TABLE `sales_quotation_item` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_quotation_item_id`),
   KEY `sales_order_item_id` (`sales_quotation_item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_quotation_item` */
 
 insert  into `sales_quotation_item`(`sales_quotation_item_id`,`sales_quotation_id`,`item_category_id`,`item_type_id`,`quantity`,`quantity_delivered`,`quantity_shipped`,`quantity_planned`,`quantity_outstanding`,`quantity_received`,`quantity_ordered`,`quantity_cavity`,`quantity_minimum`,`quantity_resulted`,`sales_quotation_item_status`,`item_substance_price`,`item_unit_id`,`item_unit_price`,`item_unit_price_adds`,`purchase_requisition_status`,`purchase_order_status`,`work_order_status`,`sales_delivery_order_status`,`sales_delivery_note_status`,`sales_invoice_status`,`quantity_minimum_status`,`subtotal_amount`,`subtotal_additional_amount`,`subtotal_item_amount`,`sales_quotation_no`,`sales_quotation_status`,`discount_percentage_item`,`discount_percentage_item_b`,`discount_amount_item`,`discount_amount_item_b`,`subtotal_after_discount_item_a`,`subtotal_after_discount_item_b`,`total_price_after_ppn_amount`,`ppn_amount_item`,`record_id`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (3,2,1,1,100.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,100.00,0,0.00,10,1000.00,0.00,0,0,0,0,0,0,0,100000.00,0.00,0.00,'',0,0.00,NULL,0.00,NULL,100000.00,NULL,0.00,0.00,0,0,0,'2025-01-30 07:12:46','2025-01-30 07:12:46'),
-(4,2,1,2,100.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,100.00,0,0.00,22,1500.00,0.00,0,0,0,0,0,0,0,150000.00,0.00,0.00,'',0,0.00,NULL,0.00,NULL,150000.00,NULL,166500.00,16500.00,0,0,0,'2025-01-30 07:12:46','2025-01-30 07:12:46');
+(4,2,1,2,100.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,100.00,0,0.00,22,1500.00,0.00,0,0,0,0,0,0,0,150000.00,0.00,0.00,'',0,0.00,NULL,0.00,NULL,150000.00,NULL,166500.00,16500.00,0,0,0,'2025-01-30 07:12:46','2025-01-30 07:12:46'),
+(5,3,1,2,100.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,100.00,0,0.00,22,3000.00,0.00,0,0,0,0,0,0,0,300000.00,0.00,0.00,'',0,NULL,NULL,0.00,NULL,300000.00,NULL,0.00,0.00,0,0,0,'2025-02-04 05:27:21','2025-02-04 05:27:21'),
+(6,4,1,3,100.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,100.00,0,0.00,10,1000.00,0.00,0,0,0,0,0,0,0,100000.00,0.00,0.00,'',0,NULL,NULL,0.00,NULL,100000.00,NULL,0.00,0.00,0,0,0,'2025-02-04 09:25:13','2025-02-04 09:25:13'),
+(7,5,1,4,100.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,100.00,0,0.00,23,1000.00,0.00,0,0,0,0,0,0,0,100000.00,0.00,0.00,'',0,0.00,NULL,0.00,NULL,100000.00,NULL,0.00,0.00,0,0,0,'2025-02-04 09:42:03','2025-02-04 09:42:03'),
+(8,6,1,5,50.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,50.00,0,0.00,23,2000.00,0.00,0,0,0,0,0,0,0,100000.00,0.00,0.00,'',0,0.00,NULL,0.00,NULL,100000.00,NULL,0.00,0.00,0,0,0,'2025-02-04 09:57:54','2025-02-04 09:57:54');
 
 /*Table structure for table `sessions` */
 
@@ -6256,7 +6322,7 @@ CREATE TABLE `system_menu_mapping` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`menu_mapping_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2315 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2373 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `system_menu_mapping` */
 
@@ -6335,68 +6401,64 @@ insert  into `system_menu_mapping`(`menu_mapping_id`,`user_group_level`,`id_menu
 (2189,2,'9','2025-01-28 08:39:04','2025-01-28 08:39:04'),
 (2190,2,'91','2025-01-28 08:39:04','2025-01-28 08:39:04'),
 (2191,2,'92','2025-01-28 08:39:04','2025-01-28 08:39:04'),
-(2253,1,'1','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2254,1,'11','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2255,1,'112','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2256,1,'113','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2257,1,'115','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2258,1,'12','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2259,1,'121','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2260,1,'122','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2261,1,'14','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2262,1,'15','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2263,1,'16','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2264,1,'17','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2265,1,'2','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2266,1,'21','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2267,1,'211','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2268,1,'22','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2269,1,'221','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2270,1,'222','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2271,1,'23','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2272,1,'231','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2273,1,'24','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2274,1,'240','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2275,1,'241','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2276,1,'3','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2277,1,'31','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2278,1,'311','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2279,1,'32','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2280,1,'321','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2281,1,'34','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2282,1,'341','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2283,1,'35','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2284,1,'351','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2285,1,'36','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2286,1,'4','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2287,1,'41','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2288,1,'411','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2289,1,'42','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2290,1,'422','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2291,1,'45','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2292,1,'6','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2293,1,'61','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2294,1,'617','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2295,1,'65','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2296,1,'651','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2297,1,'652','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2298,1,'7','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2299,1,'71','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2300,1,'711','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2301,1,'712','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2302,1,'72','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2303,1,'721','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2304,1,'722','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2305,1,'73','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2306,1,'74','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2307,1,'75','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2308,1,'8','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2309,1,'81','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2310,1,'82','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2311,1,'9','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2312,1,'91','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2313,1,'92','2025-01-28 08:47:58','2025-01-28 08:47:58'),
-(2314,1,'93','2025-01-28 08:47:58','2025-01-28 08:47:58');
+(2315,1,'1','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2316,1,'11','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2317,1,'112','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2318,1,'113','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2319,1,'115','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2320,1,'12','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2321,1,'121','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2322,1,'122','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2323,1,'14','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2324,1,'15','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2325,1,'16','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2326,1,'17','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2327,1,'2','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2328,1,'21','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2329,1,'211','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2330,1,'22','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2331,1,'221','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2332,1,'23','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2333,1,'231','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2334,1,'241','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2335,1,'3','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2336,1,'31','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2337,1,'311','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2338,1,'32','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2339,1,'321','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2340,1,'34','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2341,1,'341','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2342,1,'35','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2343,1,'351','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2344,1,'36','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2345,1,'4','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2346,1,'41','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2347,1,'411','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2348,1,'42','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2349,1,'422','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2350,1,'45','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2351,1,'6','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2352,1,'61','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2353,1,'617','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2354,1,'65','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2355,1,'651','2025-02-04 06:50:48','2025-02-04 06:50:48'),
+(2356,1,'652','2025-02-04 06:50:49','2025-02-04 06:50:49'),
+(2357,1,'7','2025-02-04 06:50:49','2025-02-04 06:50:49'),
+(2358,1,'71','2025-02-04 06:50:49','2025-02-04 06:50:49'),
+(2359,1,'711','2025-02-04 06:50:49','2025-02-04 06:50:49'),
+(2360,1,'712','2025-02-04 06:50:49','2025-02-04 06:50:49'),
+(2361,1,'72','2025-02-04 06:50:49','2025-02-04 06:50:49'),
+(2362,1,'721','2025-02-04 06:50:49','2025-02-04 06:50:49'),
+(2363,1,'722','2025-02-04 06:50:49','2025-02-04 06:50:49'),
+(2364,1,'73','2025-02-04 06:50:49','2025-02-04 06:50:49'),
+(2365,1,'74','2025-02-04 06:50:49','2025-02-04 06:50:49'),
+(2366,1,'75','2025-02-04 06:50:49','2025-02-04 06:50:49'),
+(2367,1,'8','2025-02-04 06:50:49','2025-02-04 06:50:49'),
+(2368,1,'81','2025-02-04 06:50:49','2025-02-04 06:50:49'),
+(2369,1,'82','2025-02-04 06:50:49','2025-02-04 06:50:49'),
+(2370,1,'9','2025-02-04 06:50:49','2025-02-04 06:50:49'),
+(2371,1,'91','2025-02-04 06:50:49','2025-02-04 06:50:49'),
+(2372,1,'92','2025-02-04 06:50:49','2025-02-04 06:50:49');
 
 /*Table structure for table `system_user` */
 
@@ -6464,7 +6526,7 @@ CREATE TABLE `user_locations` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `ip` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `user_locations` */
 
@@ -6474,7 +6536,10 @@ insert  into `user_locations`(`id`,`user_id`,`latitude`,`longitude`,`data_state`
 (3,NULL,'-7.6325181','110.9559445',0,'2025-01-28 04:38:12','2025-01-28 04:38:12','127.0.0.1'),
 (4,NULL,'-7.6287936','110.9588715',0,'2025-01-28 14:54:35','2025-01-28 14:54:35','127.0.0.1'),
 (5,NULL,'-7.6315161','110.9603617',0,'2025-01-29 12:58:13','2025-01-29 12:58:13','127.0.0.1'),
-(6,NULL,'-7.5726848','110.8836352',0,'2025-01-31 06:36:45','2025-01-31 06:36:45','127.0.0.1');
+(6,NULL,'-7.5726848','110.8836352',0,'2025-01-31 06:36:45','2025-01-31 06:36:45','127.0.0.1'),
+(7,NULL,'-7.5749342','110.8910673',0,'2025-02-03 04:59:27','2025-02-03 04:59:27','127.0.0.1'),
+(8,NULL,'-7.5749342','110.8910673',0,'2025-02-03 06:10:51','2025-02-03 06:10:51','127.0.0.1'),
+(9,NULL,'-7.5749342','110.8910673',0,'2025-02-03 06:10:52','2025-02-03 06:10:52','127.0.0.1');
 
 /* Trigger structure for table `acct_bank_disbursement` */
 
@@ -7970,6 +8035,84 @@ DELIMITER $$
 		
 	SET new.sales_delivery_note_no = nSalesDeliveryNoteNo;
     END */$$
+
+
+DELIMITER ;
+
+/* Trigger structure for table `sales_delivery_note_item` */
+
+DELIMITER $$
+
+/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_item_stock_card_out` */$$
+
+/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_inv_item_stock_card_out` AFTER INSERT ON `sales_delivery_note_item` FOR EACH ROW BEGIN
+    DECLARE nOpeningBalance DECIMAL(20,5); 
+    DECLARE nLastOpeningBalance DECIMAL(20,5);  
+    DECLARE nQuantityOut DECIMAL(20,5);
+    DECLARE nWarehouseID INT(10);
+    DECLARE nTransactionID BIGINT(22);
+    DECLARE nTransactionType DECIMAL(10);
+    DECLARE nTransactionCode VARCHAR(20);
+    DECLARE nTransactionDate DATE;
+    DECLARE nItemStockID BIGINT(22);
+    DECLARE nFirstItemStockID BIGINT(22);
+
+    -- Menentukan warehouse_id dan transaction info
+    SET nWarehouseID = (SELECT warehouse_id FROM sales_delivery_note 
+                        WHERE sales_delivery_note_id = new.sales_delivery_note_id);
+    SET nTransactionType = 1;
+    SET nTransactionID = new.sales_delivery_note_id;
+    SET nTransactionDate = (SELECT sales_delivery_note_date FROM sales_delivery_note
+                             WHERE sales_delivery_note_id = new.sales_delivery_note_id);
+    SET nTransactionCode = CONCAT('SDN-', CAST(nTransactionID AS CHAR));  -- Perbaikan menggunakan CONCAT
+
+    -- Mendapatkan saldo terakhir
+    SET nLastOpeningBalance = (SELECT last_balance FROM inv_item_stock_card
+                               WHERE item_type_id = new.item_type_id AND warehouse_id = nWarehouseID
+                               ORDER BY item_stock_card_id DESC LIMIT 1);
+
+    -- Mendapatkan jumlah barang yang keluar
+    SET nQuantityOut = new.quantity;
+
+    -- Menentukan saldo awal
+    IF (nLastOpeningBalance IS NULL) THEN
+        SET nOpeningBalance = 0;
+        SET nLastOpeningBalance = 0 - nQuantityOut;
+    ELSE
+        SET nOpeningBalance = nLastOpeningBalance;
+        SET nLastOpeningBalance = nLastOpeningBalance - nQuantityOut;
+    END IF;
+
+    -- Mendapatkan ID stok item terakhir
+    SET nItemStockID = (SELECT item_stock_id FROM inv_item_stock
+                        WHERE item_type_id = new.item_type_id
+                        ORDER BY item_stock_id DESC LIMIT 1);
+
+    -- Mendapatkan ID stok item pertama jika ada
+    SELECT AUTO_INCREMENT INTO nFirstItemStockID
+    FROM information_schema.tables
+    WHERE table_name = 'inv_item_stock'
+    AND table_schema = DATABASE();
+
+    -- Jika tidak ada item stok terakhir, gunakan ID stok item pertama
+    IF (nItemStockID IS NULL) THEN
+        SET nItemStockID = nFirstItemStockID;
+    END IF;
+
+    -- Menyimpan perubahan stok ke dalam tabel inv_item_stock_card
+    INSERT INTO inv_item_stock_card (
+        item_stock_id, item_category_id, item_type_id, item_unit_id, warehouse_id,
+        transaction_id, transaction_type, transaction_code, transaction_date,
+        opening_balance, item_stock_card_out, last_balance
+    )
+    VALUES (
+        nItemStockID,  -- Menggunakan nItemStockID
+        new.item_category_id, new.item_type_id, new.item_unit_id, nWarehouseID,
+        nTransactionID, nTransactionType, nTransactionCode, nTransactionDate,
+        nOpeningBalance, nQuantityOut, nLastOpeningBalance  -- Saldo akhir yang baru
+    );
+
+END */$$
 
 
 DELIMITER ;
