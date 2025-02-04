@@ -49,8 +49,8 @@
         Daftar
     </h5>
     <div class="form-actions float-right">
-        <a class="btn btn-sm btn-success" href="{{ url('/core-customer/delete-debt') }}" onclick="return confirm('Apakah Anda Yakin Ingin Melunasi Data Hutang Ini ?')"><i class="fa fa-address-card"></i> Pelunasan Hutang</a>
-        <button onclick="location.href='{{ url('/core-customer/edit-limit') }}'" name="Find" class="btn btn-sm btn-warning" title="Add Data"><i class="fa fa-upload"></i> Update Limit Hutang </button>
+        {{-- <a class="btn btn-sm btn-success" href="{{ url('/core-customer/delete-debt') }}" onclick="return confirm('Apakah Anda Yakin Ingin Melunasi Data Hutang Ini ?')"><i class="fa fa-address-card"></i> Pelunasan Hutang</a>
+        <button onclick="location.href='{{ url('/core-customer/edit-limit') }}'" name="Find" class="btn btn-sm btn-warning" title="Add Data"><i class="fa fa-upload"></i> Update Limit Hutang </button> --}}
         <button onclick="location.href='{{ url('/core-customer/add') }}'" name="Find" class="btn btn-sm btn-info" title="Add Data"><i class="fa fa-plus"></i> Tambah Pelanggan </button>
     </div>
   </div>
