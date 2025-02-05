@@ -91,7 +91,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row form-group">
+            <div hidden class="row form-group">
                 <div class="col-md-6">
                     <a class="text-dark">COA Hutang</a>
                     {!! Form::select('account_payable_id',  $acctaccount, $preferencecompany['account_payable_id'], ['class' => 'selection-search-clear select-form', 'id' => 'account_payable_id']) !!}
@@ -101,7 +101,7 @@
                     {!! Form::select('account_receivable_id',  $acctaccount, $preferencecompany['account_receivable_id'], ['class' => 'selection-search-clear select-form', 'id' => 'account_receivable_id']) !!}
                 </div>
             </div>
-            <div class="row form-group">
+            <div hidden class="row form-group">
                 <div class="col-md-6">
                     <a class="text-dark">COA Pembulatan</a>
                     {!! Form::select('account_shortover_id',  $acctaccount, $preferencecompany['account_shortover_id'], ['class' => 'selection-search-clear select-form', 'id' => 'account_shortover_id']) !!}
@@ -111,7 +111,7 @@
                     {!! Form::select('account_delivery_id',  $acctaccount, $preferencecompany['account_delivery_id'], ['class' => 'selection-search-clear select-form', 'id' => 'account_delivery_id']) !!}
                 </div>
             </div>
-            <div class="row form-group">
+            <div hidden class="row form-group">
                 <div class="col-md-6">
                     <a class="text-dark">COA Kas</a>
                     {!! Form::select('account_cash_id',  $acctaccount, $preferencecompany['account_cash_id'], ['class' => 'selection-search-clear select-form', 'id' => 'account_cash_id']) !!}
