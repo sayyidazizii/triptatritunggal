@@ -15,7 +15,9 @@ use App\Models\PurchaseInvoice;
 use App\Models\PreferenceCompany;
 use App\Models\PurchaseOrderItem;
 use App\Models\AcctJournalVoucher;
+use Illuminate\Support\Facades\DB;
 use App\Models\PurchaseInvoiceItem;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Models\InvGoodsReceivedNote;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +29,7 @@ use App\Models\InvGoodsReceivedNoteItem;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use App\Models\PreferenceTransactionModule;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
 class PurchaseInvoiceController extends Controller
 {
