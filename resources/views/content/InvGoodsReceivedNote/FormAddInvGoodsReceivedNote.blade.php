@@ -207,9 +207,9 @@
             <h5 class="mb-0 float-left">
                 Daftar
             </h5>
-            <div class="float-right">
+            {{-- <div class="float-right">
                 <a href='#addbatch' data-toggle='modal' name="Find" class="btn btn-success btn-sm" title="Add Data">Tambah</a>
-            </div>
+            </div> --}}
         </div>
 
         <div class="card-body table-responsive">
