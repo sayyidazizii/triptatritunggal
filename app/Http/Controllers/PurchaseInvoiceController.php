@@ -259,46 +259,58 @@ class PurchaseInvoiceController extends Controller
             'created_id'                => Auth::id(),
         );
         //dd($purchaseinvoice);
+        try {
+            DB::beginTransaction();
+            
+            PurchaseInvoice::create($purchaseinvoice);
 
-        if(PurchaseInvoice::create($purchaseinvoice)){
-            $goodsreceivednote = InvGoodsReceivedNote::findOrFail($request->goods_received_note_id);
-            $goodsreceivednote->goods_received_note_status_invoice = 1;
-            $goodsreceivednote->save();
-
-            $purchase_invoice_id = PurchaseInvoice::select('*')
-            ->orderBy('created_at', 'DESC')
-            ->first();
-            $no = 0;
-            foreach($goodsreceivednoteitem as $val){
-                $purchaseorderitem = PurchaseOrderItem::where('purchase_order_item_id', $val['purchase_order_item_id'])
+                $goodsreceivednote = InvGoodsReceivedNote::findOrFail($request->goods_received_note_id);
+                $goodsreceivednote->goods_received_note_status_invoice = 1;
+                $goodsreceivednote->save();
+    
+                $purchase_invoice_id = PurchaseInvoice::select('*')
+                ->orderBy('created_at', 'DESC')
                 ->first();
+                $no = 0;
+                foreach($goodsreceivednoteitem as $val){
+                    $purchaseorderitem = PurchaseOrderItem::where('purchase_order_item_id', $val['purchase_order_item_id'])
+                    ->first();
+    
+                    $purchaseinvoiceitem = array(
+                        'purchase_invoice_id'           => $purchase_invoice_id['purchase_invoice_id'],
+                        'goods_received_note_item_id'   => $val['goods_received_note_item_id'],
+                        'item_id'                       => $val['item_id'],
+                        'item_category_id'              => $val['item_category_id'],
+                        'item_type_id'                  => $val['item_type_id'],
+                        'item_unit_id'                  => $val['item_unit_id'],
+                        'item_unit_cost'                => $purchaseorderitem['item_unit_cost'],
+                        'quantity'                      => $val['quantity'],
+                        'subtotal_amount'               => $val['quantity']*$purchaseorderitem['item_unit_cost'],
+                        'created_id'                    => Auth::id(),
+                    );
+    
+                    PurchaseInvoiceItem::create($purchaseinvoiceitem);
+    
+                    $no++;
+                }
+    
+                $total_amount               = $request->total_amount;
+    
+                $msg = 'Tambah Purchase Invoice Berhasil';
 
-                $purchaseinvoiceitem = array(
-                    'purchase_invoice_id'           => $purchase_invoice_id['purchase_invoice_id'],
-                    'goods_received_note_item_id'   => $val['goods_received_note_item_id'],
-                    'item_id'                       => $val['item_id'],
-                    'item_category_id'              => $val['item_category_id'],
-                    'item_type_id'                  => $val['item_type_id'],
-                    'item_unit_id'                  => $val['item_unit_id'],
-                    'item_unit_cost'                => $purchaseorderitem['item_unit_cost'],
-                    'quantity'                      => $val['quantity'],
-                    'subtotal_amount'               => $val['quantity']*$purchaseorderitem['item_unit_cost'],
-                    'created_id'                    => Auth::id(),
-                );
+            DB::commit();
 
-                PurchaseInvoiceItem::create($purchaseinvoiceitem);
-
-                $no++;
-            }
-
-            $total_amount               = $request->total_amount;
-
-            $msg = 'Tambah Purchase Invoice Berhasil';
-            return redirect('/purchase-invoice')->with('msg',$msg);
-        }else{
+                return redirect('/purchase-invoice')->with('msg',$msg);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error Descriptions: ' . e->getMessage(), [
+                'exception' => e, 
+                'trace' => e->getTraceAsString()
+            ]);
             $msg = 'Tambah Purchase Invoice Gagal';
             return redirect('/purchase-invoice/add/'.$fields['purchase_order_id'])->with('msg',$msg);
         }
+
     }
 
     public function processEditPurchaseInvoice(Request $request){
