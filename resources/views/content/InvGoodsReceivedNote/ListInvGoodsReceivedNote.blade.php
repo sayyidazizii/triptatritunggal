@@ -114,7 +114,7 @@
                         <td>{{$item['faktur_no']}}</td>
                         <td class="" style='text-align:center'>
                             <a type="button" class="btn btn-outline-success btn-sm" href="{{ url('/goods-received-note/detail/'.$item['goods_received_note_id']) }}">Detail</a>
-                            <a type="button" class="btn btn-outline-danger btn-sm" href="{{ url('/goods-received-note/delete-goods-received-note/'.$item['goods_received_note_id']) }}">Hapus</a>
+                            {{-- <a type="button" class="btn btn-outline-danger btn-sm" href="{{ url('/goods-received-note/delete-goods-received-note/'.$item['goods_received_note_id']) }}">Hapus</a> --}}
                         </td>
                     </tr>
                     <?php $no++; ?>
