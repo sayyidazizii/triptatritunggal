@@ -63,12 +63,6 @@
             <div class="row form-group">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <a class="text-dark">No Invoice <a class='red'> *</a></a>
-                        <input class="form-control input-bb" type="text" name="purchase_invoice_no" id="purchase_invoice_no"/>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
                         <a class="text-dark">Pemasok</a>
                         <input class="form-control input-bb" type="text" name="supplier_id" id="supplier_id" value="{{$PurchaseInvoice->getSupplierName($goodsreceivednote['supplier_id'])}}" readonly/>
                         <input class="form-control input-bb" type="hidden" name="supplier_id" id="supplier_id" value="{{$goodsreceivednote['supplier_id']}}"/>
