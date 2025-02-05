@@ -15,7 +15,9 @@ use App\Models\PurchaseInvoice;
 use App\Models\PreferenceCompany;
 use App\Models\PurchaseOrderItem;
 use App\Models\AcctJournalVoucher;
+use Illuminate\Support\Facades\DB;
 use App\Models\PurchaseInvoiceItem;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Models\InvGoodsReceivedNote;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +29,7 @@ use App\Models\InvGoodsReceivedNoteItem;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use App\Models\PreferenceTransactionModule;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
 class PurchaseInvoiceController extends Controller
 {
@@ -226,7 +229,6 @@ class PurchaseInvoiceController extends Controller
 
     public function processAddPurchaseInvoice(Request $request){
         $fields = $request->validate([
-            'purchase_invoice_no' => 'required',
             'purchase_invoice_date' => 'required',
             'purchase_invoice_due_date' => 'required',
         ]);
@@ -243,7 +245,6 @@ class PurchaseInvoiceController extends Controller
 
         $purchaseinvoice = array(
             'purchase_order_id'	        => $request->purchase_order_id,
-            'purchase_invoice_no'	    => $request->purchase_invoice_no,
             'goods_received_note_id'	=> $request->goods_received_note_id,
             'purchase_invoice_date'	    => $request->purchase_invoice_date,
             'purchase_invoice_remark'	=> $request->purchase_invoice_remark,
@@ -261,13 +262,13 @@ class PurchaseInvoiceController extends Controller
         //dd($purchaseinvoice);
         try {
             DB::beginTransaction();
-            
+
             PurchaseInvoice::create($purchaseinvoice);
 
                 $goodsreceivednote = InvGoodsReceivedNote::findOrFail($request->goods_received_note_id);
                 $goodsreceivednote->goods_received_note_status_invoice = 1;
                 $goodsreceivednote->save();
-    
+
                 $purchase_invoice_id = PurchaseInvoice::select('*')
                 ->orderBy('created_at', 'DESC')
                 ->first();
@@ -275,7 +276,7 @@ class PurchaseInvoiceController extends Controller
                 foreach($goodsreceivednoteitem as $val){
                     $purchaseorderitem = PurchaseOrderItem::where('purchase_order_item_id', $val['purchase_order_item_id'])
                     ->first();
-    
+
                     $purchaseinvoiceitem = array(
                         'purchase_invoice_id'           => $purchase_invoice_id['purchase_invoice_id'],
                         'goods_received_note_item_id'   => $val['goods_received_note_item_id'],
@@ -288,14 +289,14 @@ class PurchaseInvoiceController extends Controller
                         'subtotal_amount'               => $val['quantity']*$purchaseorderitem['item_unit_cost'],
                         'created_id'                    => Auth::id(),
                     );
-    
+
                     PurchaseInvoiceItem::create($purchaseinvoiceitem);
-    
+
                     $no++;
                 }
-    
+
                 $total_amount               = $request->total_amount;
-    
+
                 $msg = 'Tambah Purchase Invoice Berhasil';
 
             DB::commit();
@@ -304,7 +305,7 @@ class PurchaseInvoiceController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Error Descriptions: ' . e->getMessage(), [
-                'exception' => e, 
+                'exception' => e,
                 'trace' => e->getTraceAsString()
             ]);
             $msg = 'Tambah Purchase Invoice Gagal';
