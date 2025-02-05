@@ -127,14 +127,14 @@
                         <td>{{$payment['payment_date']}}</td>
                         <td>{{$payment['payment_no']}}</td>
                         <td>{{$payment['purchase_invoice_no']}}</td>
-                    <?php if($payment['payment_total_cash_amount']==null){?>
+                    <?php if($payment['allocation_amount']==null){?>
                         <td style='text-align:right'>0.00</td>
                     <?php }else{?>
-                        <td style='text-align:right'>{{number_format($payment['payment_total_cash_amount'], 2)}}</td>
+                        <td style='text-align:right'>{{number_format($payment['allocation_amount'], 2)}}</td>
                     <?php } ?>
                         <td class="">
                             <a type="button" class="btn btn-outline-primary btn-sm" href="{{ url('/purchase-payment/detail/'.$payment['payment_id']) }}">Detail</a>
-                            <a type="button" class="btn btn-outline-danger btn-sm" href="{{ url('/purchase-payment/delete/'.$payment['payment_id']) }}">Batal</a>
+                            {{-- <a type="button" class="btn btn-outline-danger btn-sm" href="{{ url('/purchase-payment/delete/'.$payment['payment_id']) }}">Batal</a> --}}
                         </td>
                     </tr>
                     <?php $no++; ?>
