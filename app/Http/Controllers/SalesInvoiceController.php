@@ -1213,7 +1213,7 @@ class SalesInvoiceController extends Controller
                         <table border="0" cellspacing="5" style="width:100%;">
                             <tr>
                                 <td style="width:30%;">Date</td>
-                                <td style="width: 50%; border:0";>' . $salesinvoice->sales_invoice_date . '</td>
+                                <td style="width: 50%;>' . $salesinvoice->sales_invoice_date . '</td>
                             </tr>
                             <tr>
                                 <td style="width: 30%;">Invoice No</td>
