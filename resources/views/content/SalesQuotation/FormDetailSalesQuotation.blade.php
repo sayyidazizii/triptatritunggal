@@ -45,11 +45,11 @@
             Form Detail
         </h5>
         <div class="float-right">
-            <button onclick="location.href='{{ url('sales-order') }}'" name="Find" class="btn btn-sm btn-info" title="Back"><i class="fa fa-angle-left"></i>  Kembali</button>
+            <button onclick="location.href='{{ url('sales-quotation') }}'" name="Find" class="btn btn-sm btn-info" title="Back"><i class="fa fa-angle-left"></i>  Kembali</button>
         </div>
     </div>
 
-    <form method="post" action="{{route('process-add-sales-order')}}" enctype="multipart/form-data">
+    {{-- <form method="post" action="{{route('process-add-sales-order')}}" enctype="multipart/form-data"> --}}
         @csrf
         <div class="card-body">
             <div class="row form-group">
