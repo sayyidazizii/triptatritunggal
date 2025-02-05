@@ -319,11 +319,11 @@ class SalesInvoiceController extends Controller
             $salesDeliveryNote->sales_invoice_status = 1;
             $salesDeliveryNote->save();
 
-            // Update debt limit if payment method is 2
-            if ($request->payment_method == 2 && $coreCustomer) {
-                $coreCustomer->amount_debt += (int)$request->total_amount;
-                $coreCustomer->save();
-            }
+            // Update Hutang if payment method is 2
+                if ($request->payment_method == 2 && $coreCustomer) {
+                    $coreCustomer->amount_debt += (int)$request->total_amount;
+                    $coreCustomer->save();
+                }
 
             $salesdeliverynoteitem = SalesDeliveryNoteItem::with('quotationItem')
             ->where('sales_delivery_note_id', $request->sales_delivery_note_id)
