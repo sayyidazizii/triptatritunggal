@@ -134,10 +134,10 @@
                             <a type="button" class="btn btn-outline-primary btn-sm" href="{{ url('/sales-invoice/detail/'.$item['sales_invoice_id']) }}">Detail</a>
                             <a type="button" class="btn btn-outline-dark btn-sm" href="{{ url('/sales-invoice/print/'.$item['sales_invoice_id']) }}"  target='_blank'>Print</a>
                         <?php if($item['sales_invoice_status']==0){ ?>
-                            <a type="button" class="btn btn-outline-warning btn-sm" href="{{ url('/sales-invoice/edit/'.$item['sales_invoice_id']) }}">Edit</a>
+                            {{-- <a type="button" class="btn btn-outline-warning btn-sm" href="{{ url('/sales-invoice/edit/'.$item['sales_invoice_id']) }}">Edit</a> --}}
                             {{-- <a type="button" class="btn btn-outline-success btn-sm" href="{{ url('/sales-invoice/closed/'.$item['sales_invoice_id']) }}">Close</a> --}}
                             <?php if($item['total_amount'] == $item['owing_amount']) {?>
-                            <a type="button" class="btn btn-outline-danger btn-sm" href="{{ url('/sales-invoice/void/'.$item['sales_invoice_id']) }}">Hapus</a>
+                            {{-- <a type="button" class="btn btn-outline-danger btn-sm" href="{{ url('/sales-invoice/void/'.$item['sales_invoice_id']) }}">Hapus</a> --}}
                             <?php } ?>
                         <?php } ?>
                         </td>
