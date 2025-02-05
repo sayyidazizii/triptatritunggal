@@ -115,7 +115,6 @@
                         <th width="15%" style='text-align:center'>No Pelunasan</th>
                         <th width="15%" style='text-align:center'>No Invoice</th>
                         <th width="15%" style='text-align:center'>Jumlah Pelunasan Tunai</th>
-                        <th width="15%" style='text-align:center'>Jumlah Pelunasan Transfer</th>
                         <th width="10%" style='text-align:center'>Aksi</th>
                     </tr>
                 </thead>
@@ -132,11 +131,6 @@
                         <td style='text-align:right'>0.00</td>
                     <?php }else{?>
                         <td style='text-align:right'>{{number_format($payment['payment_total_cash_amount'], 2)}}</td>
-                    <?php } ?>
-                    <?php if($payment['payment_total_transfer_amount']==null){?>
-                        <td style='text-align:right'>0.00</td>
-                    <?php }else{?>
-                        <td style='text-align:right'>{{number_format($payment['payment_total_transfer_amount'], 2)}}</td>
                     <?php } ?>
                         <td class="">
                             <a type="button" class="btn btn-outline-primary btn-sm" href="{{ url('/purchase-payment/detail/'.$payment['payment_id']) }}">Detail</a>

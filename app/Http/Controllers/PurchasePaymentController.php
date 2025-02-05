@@ -2,33 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use App\Models\PurchaseOrder;
-use App\Models\PurchaseOrderItem;
-use App\Models\InvWarehouse;
+use App\Models\User;
 use App\Models\CoreBank;
-use App\Models\CoreSupplier;
 use App\Models\AcctAccount;
-use App\Models\AcctJournalVoucher;
-use App\Models\AcctJournalVoucherItem;
-use App\Models\InvItemCategory;
-use App\Models\InvItemUnit;
 use App\Models\InvItemType;
-use App\Models\PreferenceCompany;
-use App\Models\PreferenceTransactionModule;
+use App\Models\InvItemUnit;
+use App\Models\CoreSupplier;
+use App\Models\InvWarehouse;
+use Illuminate\Http\Request;
+use App\Models\PurchaseOrder;
+use App\Helpers\JournalHelper;
+use App\Models\InvItemCategory;
 use App\Models\PurchaseInvoice;
 use App\Models\PurchasePayment;
+use App\Models\PreferenceCompany;
+use App\Models\PurchaseOrderItem;
+use App\Models\AcctJournalVoucher;
+use Illuminate\Support\Facades\DB;
 use App\Models\PurchasePaymentGiro;
 use App\Models\PurchasePaymentItem;
-use App\Models\PurchasePaymentTransfer;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\AcctJournalVoucherItem;
+use App\Models\PurchasePaymentTransfer;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use App\Models\PreferenceTransactionModule;
 
 class PurchasePaymentController extends Controller
 {
@@ -98,7 +100,7 @@ class PurchasePaymentController extends Controller
 
         Session::forget('purchasepaymentelements');
         Session::forget('datapurchasepaymenttransfer');
-        
+
         $coresupplier = PurchaseInvoice::select('purchase_invoice.supplier_id', 'core_supplier.supplier_name', 'core_supplier.supplier_address', DB::raw("SUM(purchase_invoice.owing_amount) as total_owing_amount"))
         ->join('core_supplier', 'core_supplier.supplier_id', 'purchase_invoice.supplier_id')
         ->where('purchase_invoice.data_state', 0)
@@ -106,18 +108,18 @@ class PurchasePaymentController extends Controller
         ->groupBy('purchase_invoice.supplier_id')
         ->orderBy('core_supplier.supplier_name', 'ASC')
         ->get();
-        
+
         return view('content/PurchasePayment/SearchCoreSupplier',compact('coresupplier'));
     }
 
     public function addPurchasePayment($supplier_id){
-        
+
         $purchaseinvoiceowing = PurchaseInvoice::select('purchase_invoice.faktur_tax_no','purchase_invoice.purchase_invoice_id', 'purchase_invoice.supplier_id', 'purchase_invoice.owing_amount', 'purchase_invoice.purchase_invoice_date','purchase_invoice.ppn_in_amount', 'purchase_invoice.paid_amount', 'purchase_invoice.purchase_invoice_no', 'purchase_invoice.subtotal_amount', 'purchase_invoice.discount_percentage', 'purchase_invoice.discount_amount', 'purchase_invoice.tax_amount', 'purchase_invoice.total_amount')
         ->where('purchase_invoice.supplier_id', $supplier_id)
         ->where('purchase_invoice.owing_amount', '>', 0)
         ->where('purchase_invoice.data_state', 0)
         ->get();
-        
+
         $PPN = $this->getTotalPpn($supplier_id);
 
         $supplier = CoreSupplier::findOrfail($supplier_id);
@@ -137,7 +139,7 @@ class PurchasePaymentController extends Controller
 
         $purchasepaymentelements = Session::get('purchasepaymentelements');
         $purchasepaymenttransfer = Session::get('datapurchasepaymenttransfer');
-        
+
         return view('content/PurchasePayment/FormAddPurchasePayment',compact('payment_type_list','supplier_id', 'purchaseinvoiceowing', 'corebank', 'supplier', 'acctaccount', 'purchasepaymentelements', 'purchasepaymenttransfer','PPN'));
     }
 
@@ -156,7 +158,7 @@ class PurchasePaymentController extends Controller
         $supplier = CoreSupplier::where('data_state', 0)
         ->where('supplier_id', $purchasepayment['supplier_id'])
         ->first();
-        
+
         return view('content/PurchasePayment/FormDetailPurchasePayment',compact('payment_id', 'purchasepayment', 'purchasepaymentitem', 'purchasepaymenttransfer',  'supplier'));
     }
 
@@ -175,7 +177,7 @@ class PurchasePaymentController extends Controller
         $supplier = CoreSupplier::where('data_state', 0)
         ->where('supplier_id', $purchasepayment['supplier_id'])
         ->first();
-        
+
         return view('content/PurchasePayment/FormDeletePurchasePayment',compact('payment_id', 'purchasepayment', 'purchasepaymentitem', 'purchasepaymenttransfer',  'supplier'));
     }
 
@@ -192,9 +194,9 @@ class PurchasePaymentController extends Controller
         $purchasepaymentelements[$request->name] = $request->value;
         Session::put('purchasepaymentelements', $purchasepaymentelements);
     }
-    
+
     public function processAddTransferArray(Request $request)
-    {   
+    {
         $purchasepaymenttransfer = array(
             'bank_id'                       => $request->bank_id,
             'payment_transfer_account_name' => $request->payment_transfer_account_name,
@@ -212,405 +214,166 @@ class PurchasePaymentController extends Controller
             Session::push('datapurchasepaymenttransfer', $purchasepaymenttransfer);
         }
     }
-    
+
     public function processAddPurchasePayment(Request $request)
     {
-        $allrequest = $request->all();
-        // dd($allrequest);
-        $datapurchasepaymenttransfer = Session::get('datapurchasepaymenttransfer');
+        try {
+            Log::debug('Starting processAddPurchasePayment', ['request' => $request->all()]);
 
-        $fields = $request->validate([
-            'payment_date'                      => 'required',
-        ]);
+            $allrequest = $request->all();
+            $fields = $request->validate([
+                'payment_date' => 'required',
+            ]);
 
-        $paymenttype = $request->payment_type;
+            $data = [
+                'payment_date'                      => $fields['payment_date'],
+                'supplier_id'                       => $request->supplier_id,
+                'payment_remark'                    => $request->payment_remark,
+                'payment_amount'                    => $request->payment_amount,
+                'payment_allocated'                 => $request->allocation_total,
+                'payment_shortover'                 => $request->shortover_total,
+                'payment_total_amount'              => $request->payment_amount,
+                'payment_total_cash_amount'         => $request->payment_total_cash_amount,
+                'payment_total_transfer_amount'     => $request->payment_total_transfer_amount ?? 0,
+                'data_state'                        => 0,
+                'created_on'                        => now(),
+                'created_id'                        => Auth::id(),
+                'branch_id'                         => Auth::user()->branch_id,
+            ];
 
-        $payment_account_id = 5 ;
-        if($paymenttype == 0){
-            $payment_account_id = 5 ;
-        }else{
-            $payment_account_id = 8 ;
-        }
-        
-        if(is_array($datapurchasepaymenttransfer) && !empty($datapurchasepaymenttransfer)){
-            foreach ($datapurchasepaymenttransfer as $keyTransfer => $valTransfer) {
-                $transfer_bank = CoreBank::where('bank_id', $valTransfer['bank_id'])
-                ->first();
+            Log::debug('Validated data:', $data);
 
-                $transfer_account_id = $transfer_bank['account_id'];
-        $data = array (
-            'payment_date'                      => $fields['payment_date'],
-            'cash_account_id'				    => $transfer_account_id,
-            'supplier_id'						=> $request->supplier_id,
-            'payment_remark'					=> $request->payment_remark,
-            'payment_amount'					=> $request->payment_amount,
-            'payment_allocated'					=> $request->allocation_total,
-            'payment_shortover'					=> $request->shortover_total,
-            'payment_total_amount'				=> $request->payment_amount,
-            'payment_total_cash_amount'			=> $request->payment_total_cash_amount,
-            'payment_total_transfer_amount'		=> $request->payment_total_transfer_amount,
-            'data_state'						=> 0,
-            'created_on'						=> date("Y-m-d H:i:s"),
-            'created_id'						=> Auth::id(),
-            'branch_id'                         => Auth::user()->branch_id,
-        );
-    }
-    }else{
-        $data = array (
-            'payment_date'                      => $fields['payment_date'],
-            'cash_account_id'				    => $payment_account_id,
-            'supplier_id'						=> $request->supplier_id,
-            'payment_remark'					=> $request->payment_remark,
-            'payment_amount'					=> $request->payment_amount,
-            'payment_allocated'					=> $request->allocation_total,
-            'payment_shortover'					=> $request->shortover_total,
-            'payment_total_amount'				=> $request->payment_amount,
-            'payment_total_cash_amount'			=> $request->payment_total_cash_amount,
-            'payment_total_transfer_amount'		=> $request->payment_total_transfer_amount,
-            'data_state'						=> 0,
-            'created_on'						=> date("Y-m-d H:i:s"),
-            'created_id'						=> Auth::id(),
-            'branch_id'                         => Auth::user()->branch_id,
-        );
-    }
-        //dd($data['cash_account_id']);
+            // $purchasepayment = PurchasePayment::create($data); // Dicomment untuk debug
+            $purchasepayment = (object) ['payment_id' => 1, 'payment_no' => 'DEBUG-001']; // Mock data
 
-        $payment_total_amount = $data['payment_allocated'] + $data['payment_shortover'];
+            $payment_total_amount = $data['payment_allocated'] + $data['payment_shortover'];
+            $selisih_shortover = $data['payment_total_amount'] - $payment_total_amount;
 
-        $selisih_shortover = $data['payment_total_amount'] - $payment_total_amount;
+            Log::debug('Calculated payment totals:', [
+                'payment_total_amount' => $payment_total_amount,
+                'selisih_shortover' => $selisih_shortover
+            ]);
 
-        $transaction_module_code 	= "PP";
+            if ($purchasepayment) {
+                for ($i = 1; $i < $request->item_total; $i++) {
+                    $data_paymentitem = [
+                        'payment_id'               => $purchasepayment->payment_id,
+                        'purchase_invoice_id'      => $allrequest[$i.'_purchase_invoice_id'],
+                        'purchase_invoice_no'      => $allrequest[$i.'_purchase_invoice_no'],
+                        'purchase_invoice_date'    => $allrequest[$i.'_purchase_invoice_date'],
+                        'purchase_invoice_amount'  => $allrequest[$i.'_purchase_invoice_amount'],
+                        'total_amount'             => $allrequest[$i.'_total_amount'],
+                        'paid_amount'              => $allrequest[$i.'_paid_amount'],
+                        'owing_amount'             => $allrequest[$i.'_owing_amount'],
+                        'allocation_amount'        => $allrequest[$i.'_allocation'],
+                        'shortover_amount'         => $allrequest[$i.'_shortover'],
+                        'last_balance'             => $allrequest[$i.'_last_balance'],
+                        'ppn_in_amount'            => $allrequest[$i.'_ppn_in_amount'],
+                        'promotion_amount'         => $allrequest[$i.'_promotion_amount'],
+                        'adm_cost_amount'          => $allrequest[$i.'_adm_cost_amount'],
+                    ];
 
-        $transactionmodule 		    = PreferenceTransactionModule::where('transaction_module_code', $transaction_module_code)
-        ->first();
+                    Log::debug('Payment item data:', $data_paymentitem);
 
-        $transaction_module_id 		= $transactionmodule['transaction_module_id'];
+                    // $paymentItem = PurchasePaymentItem::create($data_paymentitem); // Dicomment untuk debug
+                    $paymentItem = (object) ['id' => $i]; // Mock data
 
-        $preferencecompany 			= PreferenceCompany::first();
-        
-        if(PurchasePayment::create($data)){
-            $PurchasePayment_last 		= PurchasePayment::select('payment_id', 'payment_no')
-            ->where('created_id', $data['created_id'])
-            ->orderBy('payment_id', 'DESC')
-            ->first();
-            
-            $journal_voucher_period 	= date("Ym", strtotime($data['payment_date']));
-
-            $data_journal = array(
-                'branch_id'						=> $data['branch_id'],
-                'journal_voucher_period' 		=> $journal_voucher_period,
-                'journal_voucher_date'			=> $data['payment_date'],
-                'journal_voucher_title'			=> 'Pembayaran hutang '.$PurchasePayment_last['payment_no'],
-                'journal_voucher_no'			=> $PurchasePayment_last['payment_no'],
-                'journal_voucher_description'	=> $data['payment_remark'],
-                'transaction_module_id'			=> $transaction_module_id,
-                'transaction_module_code'		=> $transaction_module_code,
-                'transaction_journal_id' 		=> $PurchasePayment_last['payment_id'],
-                'transaction_journal_no' 		=> $PurchasePayment_last['payment_no'],
-                'created_id' 					=> $data['created_id'],
-                'created_on' 					=> $data['created_on']
-            );
-            
-            AcctJournalVoucher::create($data_journal);		
-
-            $journalvoucher = AcctJournalVoucher::where('created_id', $data['created_id'])
-            ->orderBy('journal_voucher_id', 'DESC')
-            ->first();
-
-            $journal_voucher_id 	= $journalvoucher['journal_voucher_id'];
-
-            $payment = PurchasePayment::where('created_id', $data['created_id'])
-            ->orderBy('payment_id', 'DESC')
-            ->first();
-
-            $payment_id = $payment['payment_id'];
-
-            for($i = 1; $i < $request->item_total; $i++){
-                $data_paymentitem = array(
-                    'payment_id'		 		=> $payment_id,
-                    'purchase_invoice_id' 		=> $allrequest[$i.'_purchase_invoice_id'],
-                    'purchase_invoice_no' 		=> $allrequest[$i.'_purchase_invoice_no'],
-                    'purchase_invoice_date' 	=> $allrequest[$i.'_purchase_invoice_date'],
-                    'purchase_invoice_amount'	=> $allrequest[$i.'_purchase_invoice_amount'],
-                    'total_amount' 				=> $allrequest[$i.'_total_amount'],
-                    'paid_amount' 				=> $allrequest[$i.'_paid_amount'],
-                    'owing_amount' 				=> $allrequest[$i.'_owing_amount'],
-                    'allocation_amount' 		=> $allrequest[$i.'_allocation'],
-                    'shortover_amount'	 		=> $allrequest[$i.'_shortover'],
-                    'last_balance' 				=> $allrequest[$i.'_last_balance'],
-                    'ppn_in_amount' 			=> $allrequest[$i.'_ppn_in_amount'],
-                    'promotion_amount' 			=> $allrequest[$i.'_promotion_amount'],
-                    'adm_cost_amount' 			=> $allrequest[$i.'_adm_cost_amount'],
-
-                );
-
-                if($data_paymentitem['allocation_amount'] > 0){
-                    if(PurchasePaymentItem::create($data_paymentitem)){
-
+                    if ($data_paymentitem['allocation_amount'] > 0 && $paymentItem) {
                         $purchaseinvoice = PurchaseInvoice::where('data_state', 0)
-                        ->where('purchase_invoice_id', $data_paymentitem['purchase_invoice_id'])
-                        ->first();
+                            ->where('purchase_invoice_id', $data_paymentitem['purchase_invoice_id'])
+                            ->first();
 
-                        $purchaseinvoice->paid_amount       = $purchaseinvoice['paid_amount'] + $data_paymentitem['allocation_amount'] + $data_paymentitem['shortover_amount'];
-                        $purchaseinvoice->owing_amount      = $data_paymentitem['last_balance'];
-                        $purchaseinvoice->shortover_amount  = $purchaseinvoice['shortover_amount'] + $data_paymentitem['shortover_amount'];
-                        $purchaseinvoice->save();
+                        if ($purchaseinvoice) {
+                            Log::debug('Before update invoice:', [
+                                'paid_amount' => $purchaseinvoice->paid_amount,
+                                'owing_amount' => $purchaseinvoice->owing_amount,
+                                'shortover_amount' => $purchaseinvoice->shortover_amount
+                            ]);
 
-                        $msg = "Tambah Pelunasan Hutang Berhasil";
-                        continue;
-                    }else{
-                        $msg = "Tambah Pelunasan Hutang Gagal";
-                        return redirect('/purchase-payment/add/'.$data['supplier_id'])->with('msg',$msg);
+                            $purchaseinvoice->paid_amount += $data_paymentitem['allocation_amount'] + $data_paymentitem['shortover_amount'];
+                            $purchaseinvoice->owing_amount = $data_paymentitem['last_balance'];
+                            $purchaseinvoice->shortover_amount += $data_paymentitem['shortover_amount'];
+
+                            // $purchaseinvoice->save(); // Dicomment untuk debug
+                            Log::debug('After update invoice:', [
+                                'paid_amount' => $purchaseinvoice->paid_amount,
+                                'owing_amount' => $purchaseinvoice->owing_amount,
+                                'shortover_amount' => $purchaseinvoice->shortover_amount
+                            ]);
+                        }
                     }
                 }
-                
+
+                $transaction_module_code = "PP";
+                $transactionmodule = PreferenceTransactionModule::where('transaction_module_code', $transaction_module_code)->first();
+
+                $data_journal = [
+                    'branch_id'                     => $data['branch_id'],
+                    'journal_voucher_period'        => date("Ym", strtotime($data['payment_date'])),
+                    'journal_voucher_date'          => $data['payment_date'],
+                    'journal_voucher_title'         => 'Pembayaran hutang ' . $purchasepayment->payment_no,
+                    'journal_voucher_description'   => $data['payment_remark'],
+                    'transaction_module_id'         => $transactionmodule->transaction_module_id ?? null,
+                    'transaction_module_code'       => $transaction_module_code,
+                    'transaction_journal_id'        => $purchasepayment->payment_id,
+                    'transaction_journal_no'        => $purchasepayment->payment_no,
+                    'created_id'                    => Auth::id(),
+                ];
+
+                // Mock data untuk debug
+                $purchase_payment_cash_account_id = ['account_id' => 101, 'account_setting_status' => 'active'];
+                $purchase_payment_account_id = ['account_id' => 202, 'account_setting_status' => 'active'];
+                $total_amount = 1000; // Mock value
+                $subtotal_after_ppn_in = 950; // Mock value
+
+                $journal_items = [
+                    [
+                        'account_id' => $purchase_payment_cash_account_id['account_id'],
+                        'description' => $data_journal['journal_voucher_description'],
+                        'amount' => $total_amount,
+                        'debit' => false,
+                        'account_status' => $purchase_payment_cash_account_id['account_setting_status'],
+                    ],
+                    [
+                        'account_id' => $purchase_payment_account_id['account_id'],
+                        'description' => $data_journal['journal_voucher_description'],
+                        'amount' => $subtotal_after_ppn_in,
+                        'debit' => true,
+                        'account_status' => $purchase_payment_account_id['account_setting_status'],
+                    ],
+                ];
+
+                Log::debug('Journal data:', $data_journal);
+                Log::debug('Journal items:', $journal_items);
+
+                // JournalHelper::createJournal($data_journal, $journal_items); // Dicomment untuk debug
+
+                $msg = "DEBUG MODE: Proses selesai tanpa menyimpan ke database.";
+                return redirect('/purchase-payment')->with('msg', $msg);
+            } else {
+                throw new \Exception("Gagal membuat data pelunasan hutang.");
             }
+        } catch (\Exception $e) {
+            Log::error('Error in processAddPurchasePayment: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'request' => $request->all()
+            ]);
 
-//-----------Hutang Supplier
-            $account 		= AcctAccount::where('account_id', 205)
-            ->where('data_state', 0)
-            ->first();
-
-            $account_id_default_status 		= $account['account_default_status'];
-
-            $data_debit = array (
-                'journal_voucher_id'			=> $journal_voucher_id,
-                'account_id'					=> 205,
-                'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                'journal_voucher_amount'		=> ABS($request->total_owing),
-                'journal_voucher_debit_amount'	=> ABS($request->total_owing),
-                'account_id_default_status'		=> $account_id_default_status,
-                'account_id_status'				=> 1,
-            );
-
-            AcctJournalVoucherItem::create($data_debit);
-
-// -----------Hutang Supplier (sisa hutang jika dibayar > 1 kali)
-            // if($selisih_shortover > 0){
-
-            //     $account 		= AcctAccount::where('account_id', 205)
-            //     ->where('data_state', 0)
-            //     ->first();
-
-            //     $account_id_default_status 		= $account['account_default_status'];
-
-            //     $data_debit = array (
-            //         'journal_voucher_id'			=> $journal_voucher_id,
-            //         'account_id'					=> 205,
-            //         'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-            //         'journal_voucher_amount'		=> ABS($selisih_shortover),
-            //         'journal_voucher_debit_amount'	=> ABS($selisih_shortover),
-            //         'account_id_default_status'		=> $account_id_default_status,
-            //         'account_id_status'				=> 1,
-            //     );
-
-            //     AcctJournalVoucherItem::create($data_debit);
-            // } else if($selisih_shortover < 0){
-
-            //     $account 		= AcctAccount::where('account_id', 205)
-            //     ->where('data_state', 0)
-            //     ->first();
-
-            //     $account_id_default_status 		= $account['account_default_status'];
-
-            //     $data_credit = array (
-            //         'journal_voucher_id'			=> $journal_voucher_id,
-            //         'account_id'					=> 205,
-            //         'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-            //         'journal_voucher_amount'		=> ABS($selisih_shortover),
-            //         'journal_voucher_credit_amount'	=> ABS($selisih_shortover),
-            //         'account_id_default_status'		=> $account_id_default_status,
-            //         'account_id_status'				=> 0,
-            //     );
-
-            //     AcctJournalVoucherItem::create($data_credit);
-            // }
-
-//-----------PPN MASUKAN 
-            $account 		= AcctAccount::where('account_id', 105)
-            ->where('data_state', 0)
-            ->first();
-            $account_id_default_status 		= $account['account_default_status'];
-//jika check PPN Masukan
-        $cekPPN = $request->ppn_in;
-        if($cekPPN == 1){
-            $data_debit = array (
-                'journal_voucher_id'			=> $journal_voucher_id,
-                'account_id'					=> 105,
-                'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                'journal_voucher_amount'		=> ABS($request->ppn_in_amount),
-                'journal_voucher_debit_amount'	=> ABS($request->ppn_in_amount),
-                'account_id_default_status'		=> $account_id_default_status,
-                'account_id_status'				=> 0,
-            );
-            AcctJournalVoucherItem::create($data_debit);
-        }else{
-            $data_debit = array (
-                'journal_voucher_id'			=> $journal_voucher_id,
-                'account_id'					=> 105,
-                'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                'journal_voucher_amount'		=> ABS(0),
-                'journal_voucher_debit_amount'	=> ABS(0),
-                'account_id_default_status'		=> $account_id_default_status,
-                'account_id_status'				=> 0,
-            );
-            AcctJournalVoucherItem::create($data_debit);
-        }
-//-----------Kas
-// if($data['payment_total_cash_amount'] != '' || $data['payment_total_cash_amount'] != ''){
-    if($paymenttype == 0){
-        $account 		= AcctAccount::where('account_id', 5)
-        ->where('data_state', 0)
-        ->first();
-        //dd($account);
-        $account_id_default_status 		= $account['account_default_status'];
-
-        $data_credit = array (
-            'journal_voucher_id'			=> $journal_voucher_id,
-            'account_id'					=> 5,
-            'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-            'journal_voucher_amount'		=> ABS($request->allocation_total),
-            'journal_voucher_credit_amount'	=> ABS($request->allocation_total),
-            'account_id_default_status'		=> $account_id_default_status,
-            'account_id_status'				=> 0,
-        );
-        AcctJournalVoucherItem::create($data_credit);
-    }else{
-        //  }else if(is_array($datapurchasepaymenttransfer) && !empty($datapurchasepaymenttransfer)){
-//-----------Bank                
-    foreach ($datapurchasepaymenttransfer as $keyTransfer => $valTransfer) {
-        $transfer_bank = CoreBank::where('bank_id', $valTransfer['bank_id'])
-        ->first();
-
-        $transfer_account_id = $transfer_bank['account_id'];
-
-        $datatransfer = array(
-            'payment_id'							=> $payment_id,
-            'bank_id'							    => $valTransfer['bank_id'],
-            'account_id'							=> $transfer_account_id,
-            'payment_transfer_bank_name'			=> $transfer_bank['bank_name'],
-            'payment_transfer_amount'				=> $valTransfer['payment_transfer_amount'],
-            'payment_transfer_account_name'			=> $valTransfer['payment_transfer_account_name'],
-            'payment_transfer_account_no'			=> $valTransfer['payment_transfer_account_no'],
-        );
-
-        if(PurchasePaymentTransfer::create($datatransfer)){
-
-            $account 		= AcctAccount::where('account_id', $transfer_account_id)
-            ->where('data_state', 0)
-            ->first();
-
-            $account_id_default_status 		= $account['account_default_status'];
-
-            $data_credit = array (
-                'journal_voucher_id'			=> $journal_voucher_id,
-                'account_id'					=> $transfer_account_id,
-                'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                'journal_voucher_amount'		=> ABS($request->allocation_total),
-                'journal_voucher_credit_amount'	=> ABS($request->allocation_total),
-                'account_id_default_status'		=> $account_id_default_status,
-                'account_id_status'				=> 0,
-            );
-
-            AcctJournalVoucherItem::create($data_credit);
-        }
-    }
-// }
-    }
-
-//jika check Promosi
-        $accountPromotion 		= AcctAccount::where('account_id', 50)
-        ->where('data_state', 0)
-        ->first();
-        //dd($account);
-        $account_id_default_status_promotion 		= $accountPromotion['account_default_status'];
-
-        $cekPromosi = $request->promosi;
-        if($cekPromosi == 1){
-            $data_credit = array (
-                'journal_voucher_id'			=> $journal_voucher_id,
-                'account_id'					=> 50,
-                'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                'journal_voucher_amount'		=> ABS($request->promotion_amount),
-                'journal_voucher_credit_amount'	=> ABS($request->promotion_amount),
-                'account_id_default_status'		=> $account_id_default_status_promotion,
-                'account_id_status'				=> 0,
-            );
-            AcctJournalVoucherItem::create($data_credit);
-        }
-//jika check Biaya kirim
-        $accountAdmCost 		= AcctAccount::where('account_id', 58)
-        ->where('data_state', 0)
-        ->first();
-        //dd($account);
-        $account_id_default_status_adm_cost 		= $accountAdmCost['account_default_status'];
-
-        $cekAdmCost = $request->adm_cost;
-        if($cekAdmCost == 1){
-            $data_credit = array (
-                'journal_voucher_id'			=> $journal_voucher_id,
-                'account_id'					=> 58,
-                'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                'journal_voucher_amount'		=> ABS($request->adm_cost_amount),
-                'journal_voucher_credit_amount'	=> ABS($request->adm_cost_amount),
-                'account_id_default_status'		=> $account_id_default_status_adm_cost,
-                'account_id_status'				=> 0,
-            );
-            AcctJournalVoucherItem::create($data_credit);
-        }        
-
-
-        
-//-----------PPN MASUKAN BELUM DITERIMA
-             $account 		= AcctAccount::where('account_id', 106)
-                ->where('data_state', 0)
-                ->first();
-                //dd($account);
-                $account_id_default_status 		= $account['account_default_status'];
-//jika check PPN
-        $cekPPN = $request->ppn_in;
-            if($cekPPN == 1){
-                $data_credit = array (
-                    'journal_voucher_id'			=> $journal_voucher_id,
-                    'account_id'					=> 106,
-                    'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                    'journal_voucher_amount'		=> ABS($request->ppn_in_amount),
-                    'journal_voucher_credit_amount'	=> ABS($request->ppn_in_amount),
-                    'account_id_default_status'		=> $account_id_default_status,
-                    'account_id_status'				=> 0,
-                );
-                AcctJournalVoucherItem::create($data_credit);
-            }else{
-                $data_credit = array (
-                    'journal_voucher_id'			=> $journal_voucher_id,
-                    'account_id'					=> 106,
-                    'journal_voucher_description'	=> $data_journal['journal_voucher_description'],
-                    'journal_voucher_amount'		=> ABS(0),
-                    'journal_voucher_credit_amount'	=> ABS(0),
-                    'account_id_default_status'		=> $account_id_default_status,
-                    'account_id_status'				=> 0,
-                );
-                AcctJournalVoucherItem::create($data_credit);
-            }
-
-            $msg = "Tambah Pelunasan Hutang Berhasil";            
-            return redirect('/purchase-payment')->with('msg',$msg);
-        }else{
-            $msg = "Tambah Pelunasan Hutang Gagal";
-            return redirect('/purchase-payment')->with('msg',$msg);
+            $msg = "Tambah Pelunasan Hutang Gagal: " . $e->getMessage();
+            return redirect('/purchase-payment')->with('msg', $msg);
         }
     }
 
     public function processVoidPurchasePayment(Request $request){
 
         $payment_no 			        = $request->payment_no;
-        
+
         $purchasepayment                = PurchasePayment::findOrFail($request->payment_id);
         $purchasepayment->voided_remark = $request->voided_remark;
         $purchasepayment->voided_on     = date('Y-m-d H:i:s');
         $purchasepayment->voided_id     = Auth::id();
         $purchasepayment->data_state    = 2;
-        
+
 
         if($purchasepayment->save()){
             $purchasepaymentitem 	= PurchasePaymentItem::where('payment_id', $request->payment_id)->get();
@@ -657,12 +420,12 @@ class PurchasePaymentController extends Controller
             return redirect('/purchase-payment/delete/'.$request->payment_id)->with('msg',$msg);
         }
     }
-    
+
     public function deleteTransferArray($record_id, $supplier_id)
     {
         $arrayBaru			= array();
         $dataArrayHeader	= Session::get('datapurchasepaymenttransfer');
-        
+
         foreach($dataArrayHeader as $key=>$val){
             if($key != $record_id){
                 $arrayBaru[$key] = $val;
@@ -674,12 +437,11 @@ class PurchasePaymentController extends Controller
         return redirect('/purchase-payment/add/'.$supplier_id);
     }
 
-
     public function getTotalPpn($supplier_id){
         $ppn = PurchaseInvoice::where('data_state', 0)
         ->where('supplier_id', $supplier_id)
         ->sum('ppn_in_amount');
-    
+
         return $ppn;
     }
 
@@ -730,6 +492,7 @@ class PurchasePaymentController extends Controller
 
         return $account['account_name'];
     }
+
     public function getAccountBank($supplier_id){
         $account = CoreSupplier::where('data_state', 0)
         ->where('supplier_id', $supplier_id)
@@ -758,7 +521,6 @@ class PurchasePaymentController extends Controller
             return '';
         }
     }
-    
 
     public function addCoreBank(Request $request){
         $bank_code          = $request->bank_code;
@@ -766,8 +528,8 @@ class PurchasePaymentController extends Controller
         $account_id         = $request->account_id;
         $bank_remark        = $request->bank_remark;
         $data               = '';
-        
-        $corebank = CoreBank::create([  
+
+        $corebank = CoreBank::create([
             'bank_code'     => $bank_code,
             'bank_name'     => $bank_name,
             'account_id'    => $account_id,
@@ -780,7 +542,7 @@ class PurchasePaymentController extends Controller
 
         $data .= "<option value=''>--Choose One--</option>";
         foreach ($corebank as $mp){
-            $data .= "<option value='$mp[bank_id]'>$mp[bank_name]</option>\n";	
+            $data .= "<option value='$mp[bank_id]'>$mp[bank_name]</option>\n";
         }
 
         return $data;

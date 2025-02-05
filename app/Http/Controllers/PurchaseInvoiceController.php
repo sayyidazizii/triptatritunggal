@@ -79,7 +79,7 @@ class PurchaseInvoiceController extends Controller
 
         return view('content/PurchaseInvoice/ListPurchaseInvoice',compact('purchaseinvoice', 'start_date', 'end_date', 'supplier_id', 'supplier'));
     }
-    
+
     public function filterPurchaseInvoice(Request $request){
         $start_date     = $request->start_date;
         $end_date       = $request->end_date;
@@ -127,7 +127,7 @@ class PurchaseInvoiceController extends Controller
     public function addPurchaseInvoicePurchaseOrder($purchase_order_id)
     {
         $purchaseorder = PurchaseOrder::findOrFail($purchase_order_id);
-        
+
         $purchaseorderitem = PurchaseOrderItem::select('purchase_order_item.*')
         ->where('data_state', 0)
         ->where('purchase_order_id', $purchase_order_id)
@@ -146,7 +146,7 @@ class PurchaseInvoiceController extends Controller
     public function addPurchaseInvoice($goods_received_note_id)
     {
         $goodsreceivednote = InvGoodsReceivedNote::findOrFail($goods_received_note_id);
-        
+
         $goodsreceivednoteitem = InvGoodsReceivedNoteItem::select('inv_goods_received_note_item.*')
         ->where('data_state', 0)
         ->where('goods_received_note_id', $goods_received_note_id)
@@ -168,7 +168,7 @@ class PurchaseInvoiceController extends Controller
         $purchaseorder = PurchaseOrder::where('purchase_order_id', $purchaseinvoice['purchase_order_id'])
         ->where('data_state', 0)
         ->first();
-        
+
         $purchaseinvoiceitem = PurchaseInvoiceItem::select('purchase_invoice_item.*')
         ->where('data_state', 0)
         ->where('purchase_invoice_id', $purchase_invoice_id)
@@ -189,7 +189,7 @@ class PurchaseInvoiceController extends Controller
         $purchaseorder = PurchaseOrder::where('purchase_order_id', $purchaseinvoice['purchase_order_id'])
         ->where('data_state', 0)
         ->first();
-        
+
         $purchaseinvoiceitem = PurchaseInvoiceItem::select('purchase_invoice_item.*')
         ->where('data_state', 0)
         ->where('purchase_invoice_id', $purchase_invoice_id)
@@ -210,7 +210,7 @@ class PurchaseInvoiceController extends Controller
         $purchaseorder = PurchaseOrder::where('purchase_order_id', $purchaseinvoice['purchase_order_id'])
         ->where('data_state', 0)
         ->first();
-        
+
         $purchaseinvoiceitem = PurchaseInvoiceItem::select('purchase_invoice_item.*')
         ->where('data_state', 0)
         ->where('purchase_invoice_id', $purchase_invoice_id)
@@ -293,9 +293,9 @@ class PurchaseInvoiceController extends Controller
 
 
 //----------------------------------------------------------Journal Voucher-------------------------------------------------------------------//
-            
+
 // $preferencecompany 			= PreferenceCompany::first();
-        
+
 // $transaction_module_code 	= "PI";
 
 // $transactionmodule 		    = PreferenceTransactionModule::where('transaction_module_code', $transaction_module_code)
@@ -427,7 +427,7 @@ $total_amount               = $request->total_amount;
             'purchase_invoice_id'   => 'required',
             'purchase_invoice_date' => 'required',
         ]);
-        
+
         $purchaseinvoice = PurchaseInvoice::findOrFail($request->purchase_invoice_id);
         $purchaseinvoice->purchase_invoice_no = $request->purchase_invoice_no;
         $purchaseinvoice->purchase_invoice_date = $request->purchase_invoice_date;
@@ -448,7 +448,7 @@ $total_amount               = $request->total_amount;
         $fields = $request->validate([
             'purchase_invoice_id'   => 'required',
         ]);
-        
+
         $purchaseinvoice = PurchaseInvoice::findOrFail($request->purchase_invoice_id);
         $purchaseinvoice->voided_id     = Auth::id();
         $purchaseinvoice->voided_on     = date('Y-m-d');
@@ -508,19 +508,19 @@ $total_amount               = $request->total_amount;
             ->where('data_state', 0)
             ->where('item_category_id', $item_category_id)
             ->first();
-    
+
         return $item ? $item['item_category_name'] : 'Item Category Not Found';
     }
-    
+
     public function getItemTypeName($item_type_id) {
         $item = InvItemType::select('item_type_name')
             ->where('data_state', 0)
             ->where('item_type_id', $item_type_id)
             ->first();
-    
+
         return $item ? $item['item_type_name'] : 'Item Type Not Found';
     }
-    
+
     public function getItemUnitName($item_unit_id){
         $item = InvItemUnit::select('item_unit_name')
         ->where('data_state', 0)
@@ -575,7 +575,7 @@ $total_amount               = $request->total_amount;
                 $item['purchase_invoice_id'] = $currentPurchaseInvoiceId;
             }
             $purchaseinvoiceitem[$currentPurchaseInvoiceId] = $currentPurchaseInvoiceItems;
-        } 
+        }
         $itemCategoryIds = [];
         $itemTypeIds = [];
         $itemUnitIds = [];
@@ -600,7 +600,7 @@ $total_amount               = $request->total_amount;
            $spreadsheet->getProperties()->setCreator("TRADING SYSTEM")
                ->setLastModifiedBy("TRADING SYSTEM")
                ->setTitle("Sales Promotion")
-               ->setSubject("") 
+               ->setSubject("")
                ->setDescription("Sales Promotion")
                ->setKeywords("Sales Promotion")
                ->setCategory("Sales Promotion");
@@ -639,14 +639,14 @@ $total_amount               = $request->total_amount;
            $spreadsheet->getActiveSheet()->getStyle('B11')->getFont()->setBold(true)->setSize(16);
            $spreadsheet->getActiveSheet()->getStyle('B12:M12')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
            $spreadsheet->getActiveSheet()->getStyle('B12:M12')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-           
-           $sheet->setCellValue('B5', "PBF MENJANGAN ENAM ");	
+
+           $sheet->setCellValue('B5', "PBF MENJANGAN ENAM ");
            $sheet->setCellValue('B6', "Jl.Puspowarno Raya No 55D Bojong Salaman,Semarang Barat");
            $sheet->setCellValue('B7', "APA : ISTI RAHMADANI,S.Farm, Apt.");
            $sheet->setCellValue('B8', " SIKA: 449.2/16/DPM-PTSP/SIKA.16/III/2019 ");
            $sheet->setCellValue('B9', "");
            $sheet->setCellValue('B10', "");
-           $sheet->setCellValue('B11', "LAPORAN PEMBELIAN TANGGAL ".$start_date." - ".$end_date);	
+           $sheet->setCellValue('B11', "LAPORAN PEMBELIAN TANGGAL ".$start_date." - ".$end_date);
            $sheet->setCellValue('B12', "No");
            $sheet->setCellValue('C12', "NAMA PEMASOK");
            $sheet->setCellValue('D12', "NO INVOICE");
@@ -659,14 +659,14 @@ $total_amount               = $request->total_amount;
            $sheet->setCellValue('K12', "QUANTITY");
            $sheet->setCellValue('L12', "HARGA SATUAN");
            $sheet->setCellValue('M12', "TOTAL");
-           
+
            $j  = 13;
 
            if(count($purchaseinvoice)==0){
             $lastno = 2;
             $lastj = 13;
         }else{
-            $overallSubtotalTotal = 0; 
+            $overallSubtotalTotal = 0;
             $no = 1;
             foreach ($purchaseinvoice as $key => $val) {
                 $supplierName = $this->getSupplierName($val['supplier_id']);
@@ -681,7 +681,7 @@ $total_amount               = $request->total_amount;
                 $purchaseInvoiceId = $val['purchase_invoice_id'];
                 $invoiceItems = $this->getPurchaseInvoiceItems($purchaseInvoiceId);
 
-                $subtotalTotal = 0; 
+                $subtotalTotal = 0;
                 foreach ($invoiceItems as $item) {
                     $supplierName = $this->getSupplierName($val['supplier_id']);
                     $sheet->setCellValue('B'.$j, $no);
@@ -728,7 +728,7 @@ $total_amount               = $request->total_amount;
             $spreadsheet->getActiveSheet()->getStyle('E'.$lastj + 5)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
             $spreadsheet->getActiveSheet()->getStyle('G'.$lastj + 5)->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
             $spreadsheet->getActiveSheet()->getStyle('K'.$lastj + 5)->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-           
+
             $sheet->setCellValue('E' . $lastj + 5, 'Apoteker');
             $sheet->setCellValue('G' . $lastj + 5, 'Administrasi Pajak');
             $sheet->setCellValue('K' . $lastj + 5, 'Dibuat Oleh');

@@ -1,8 +1,8 @@
 @inject('PurchasePayment', 'App\Http\Controllers\PurchasePaymentController')
 @extends('adminlte::page')
 
-@section('title', 'Tripta Tri Tunggal')
-<link rel="shortcut icon" href="{{ asset('resources/assets/logo_tripta.ico') }}" />
+@section('title', 'PBF | Koperasi Menjangan Enam')
+<link rel="shortcut icon" href="{{ asset('resources/assets/logo_pbf.ico') }}" />
 
 @section('js')
 <script>
@@ -11,88 +11,11 @@
         $("#bank_id").select2("val", "0");
         $("#account_id").select2("val", "0");
 
-        var payment_type = $("#payment_type").val();
-               if(payment_type == 0){
-                $('#payment_total_cash_amount').attr('readonly', false);
-                $('#tranfer-bank').hide();
-               }else{
-                $('#payment_total_cash_amount').attr('readonly', true);
-                $('#tranfer-bank').show();
-               }
-
         var elements = {!! json_encode($purchasepaymentelements) !!};
 
         if(!elements || elements==''){
             elements = [];
         }
-
-        //payment type
-        $("#payment_type").change(function(){
-            var payment_type = $("#payment_type").val();
-               if(payment_type == 0){
-                $('#payment_total_cash_amount').attr('readonly', false);
-                $('#tranfer-bank').hide();
-               }else{
-                $('#payment_total_cash_amount').attr('readonly', true);
-                $('#tranfer-bank').show();
-               }
-        });
-
-
-
-
-
-        $('#promotion_amount').attr('readonly', true);
-        $('#adm_cost_amount').attr('readonly', true);
-
-        $("#ppn_in_amount_check").change(function(){
-            var ppn = $("#ppn_in").val();
-                // Check the state of the checkbox
-                if($(this).is(":checked")){
-                    // If checkbox is checked, set text value to 1
-                    $("#ppn_in").val("1");
-                    console.log(ppn);
-                } else {
-                    // If checkbox is not checked, set text value to 0
-                    $("#ppn_in").val("0");
-                    console.log(ppn);
-                }
-        });
-
-
-        $("#piutang_promosi_check").change(function(){
-            var amount = $("#promosi").val();
-                // Check the state of the checkbox
-                if($(this).is(":checked")){
-                    // If checkbox is checked, set text value to 1
-                    $("#promosi").val("1");
-                    $('#promotion_amount').attr('readonly', false);
-                    console.log(amount);
-                } else {
-                    // If checkbox is not checked, set text value to 0
-                    $("#promosi").val("0");
-                    $('#promotion_amount').attr('readonly', true);
-                    console.log(amount);
-                }
-        });
-
-        $("#adm_cost_check").change(function(){
-            var amount = $("#adm_cost").val();
-                // Check the state of the checkbox
-                if($(this).is(":checked")){
-                    // If checkbox is checked, set text value to 1
-                    $("#adm_cost").val("1");
-                    $('#adm_cost_amount').attr('readonly', false);
-                    console.log(amount);
-                } else {
-                    // If checkbox is not checked, set text value to 0
-                    $("#adm_cost").val("0");
-                    $('#adm_cost_amount').attr('readonly', true);
-                    console.log(amount);
-                }
-        });
-
-
 
         if(!elements['cash_account_id']){
             $("#cash_account_id").select2("val", "0");
@@ -151,21 +74,13 @@
         var item_total      = $("#item_total").val();
         var allocationtotal = 0;
         var shortovertotal  = 0;
-        var ppntotal        = 0;
-        var promotiontotal  = 0;
-        var admcosttotal    = 0;
 
 
         for(i=0; i<item_total; i++){
-            var lastbalance         = 0;
-            var lastbalancenoppn    = 0;
-            var owing_amount 	    = $("#"+i+"_owing_amount").val();
-            var allocation 	        = $("#"+i+"_allocation").val();
-            var shortover 	        = $("#"+i+"_shortover").val();
-            var ppn_in_amount 	    = $("#"+i+"_ppn_in_amount").val();
-            var promotion_amount 	= $("#"+i+"_promotion_amount").val();
-            var adm_cost_amount 	= $("#"+i+"_adm_cost_amount").val();
-
+            var lastbalance     = 0;
+            var owing_amount 	= $("#"+i+"_owing_amount").val();
+            var allocation 	    = $("#"+i+"_allocation").val();
+            var shortover 	    = $("#"+i+"_shortover").val();
 
             if(isNaN(allocation)){
                 allocation = 0;
@@ -173,50 +88,13 @@
             if(isNaN(shortover)){
                 shortover = 0;
             }
-            if(isNaN(ppn_in_amount)){
-                ppn_in_amount = 0;
-            }
-            if(isNaN(promotion_amount)){
-                promotion_amount = 0;
-            }
-            if(isNaN(adm_cost_amount)){
-                adm_cost_amount = 0;
-            }
-
 
             allocationtotal += parseFloat(allocation);
             shortovertotal  += parseFloat(shortover);
-            ppntotal        += parseFloat(ppn_in_amount);
-            promotiontotal  += parseFloat(promotion_amount);
-            admcosttotal    += parseFloat(adm_cost_amount);
 
-
-
-            lastbalance = parseFloat(owing_amount) - parseFloat(allocation) - parseFloat(shortover)- parseFloat(ppn_in_amount) - parseFloat(promotion_amount) - parseFloat(adm_cost_amount);
-
-            lastbalancenoppn = parseFloat(owing_amount) - parseFloat(allocation) - parseFloat(shortover) - parseFloat(promotion_amount) - parseFloat(adm_cost_amount);
-
-
-            var checkboxPpn = document.getElementById("ppn_in_amount_check");
-            var input = document.getElementById("ppn_in_amount");
-
-            // Check if the checkbox is checked
-            if (checkboxPpn.checked) {
-                // If checked, set the input value to a new value
-                input.value = ppntotal;
-                $("#"+i+"_last_balance_view").val(toRp(lastbalance));
-                $("#"+i+"_last_balance").val(lastbalance);
-            } else {
-                // If not checked, set the input value to a different value
-                $("#"+i+"_last_balance_view").val(toRp(lastbalancenoppn));
-                $("#"+i+"_last_balance").val(lastbalancenoppn);
-            }
-
-
-
-
-
-
+            lastbalance = parseFloat(owing_amount) - parseFloat(allocation) - parseFloat(shortover);
+            $("#"+i+"_last_balance_view").val(toRp(lastbalance));
+            $("#"+i+"_last_balance").val(lastbalance);
         }
 
         $("#allocation_total").val(allocationtotal);
@@ -225,14 +103,6 @@
         $("#shortover_total_view").val(toRp(shortovertotal));
         $("#payment_allocated_move_view").val(toRp(parseFloat(payment_amount) - parseFloat(allocationtotal) - parseFloat(shortovertotal)));
         $("#payment_allocated_move").val(parseFloat(payment_amount) - parseFloat(allocationtotal) - parseFloat(shortovertotal));
-
-
-        $("#ppn_in_amount_view").val(toRp(ppntotal));
-        $("#promotion_amount_view").val(toRp(promotiontotal));
-        $("#adm_cost_amount_view").val(toRp(admcosttotal));
-        $("#ppn_in_amount").val(ppntotal);
-        $("#promotion_amount").val(promotiontotal);
-        $("#adm_cost_amount").val(admcosttotal);
     }
 
 	function toRp(number) {
@@ -366,158 +236,7 @@
                     </div>
                 </div>
             </div>
-
             <br/>
-            <div class="row">
-                <h4 class="form-section"><b>Detail Pelunasan Hutang</b></h4>
-            </div>
-            <hr style="margin:0;">
-            <br/>
-            <div class="row form-group">
-                <div class="col-md-6">
-                    <a class="text-dark">Tipe Pembayaran</a>
-                            <br/>
-                            {!! Form::select(0, $payment_type_list, $purchasepaymentelements['payment_type'] ?? '', ['class' => 'form-control selection-search-clear select-form', 'id' => 'payment_type','name' => 'payment_type','onchange'=>'elements_add(this.name, this.value)']) !!}
-
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <a class="text-dark">Tunai</a>
-                        <input class="form-control input-bb" type="text" name="payment_total_cash_amount" id="payment_total_cash_amount" value="{{$purchasepaymentelements == null ? '' : $purchasepaymentelements['payment_total_cash_amount']}}" onChange="elements_add(this.name, this.value);" style='text-align:right'/>
-                    </div>
-                </div>
-            </div>
-            <div class="row form-group">
-                <!-- <div class="col-md-6">
-                    <a class="text-dark">No Perkiraan</a>
-                    {!! Form::select('cash_account_id',  $acctaccount, $purchasepaymentelements == null ? '' : $purchasepaymentelements['cash_account_id'], ['class' => 'selection-search-clear select-form', 'id' => 'cash_account_id', 'onchange' => 'elements_add(this.name, this.value);']) !!}
-                </div> -->
-
-            </div>
-            <br/>
-            <div class="container" id="tranfer-bank">
-
-                <div class="row">
-                    <h5 class="form-section"><b>Transfer Bank</b></h5>
-                </div>
-                <hr style="margin:0;">
-                <br/>
-
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <a class="text-dark">Bank</a>
-                        {!! Form::select('bank_id',  $corebank, 0, ['class' => 'selection-search-clear select-form', 'id' => 'bank_id']) !!}
-                    </div>
-                    <div class="col-md-1">
-                        <a class="text-dark"></a>
-                        <a href='#addbank' data-toggle='modal' name="Find" class="btn btn-success add-btn" title="Add Data">Tambah</a>
-                    </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <p class="form-section"><b>Data Bank Pemasok</b></p>
-                </div>
-                <br/>
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <a class="text-dark">Nama Akun</a>
-                            <input class="form-control input-bb" type="text" name="payment_transfer_account_name" id="payment_transfer_account_name" value="{{$PurchasePayment->getAccountBank($supplier['supplier_id']) }}" autocomplete='off'/>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <a class="text-dark">No Rekening</a>
-                            <input class="form-control input-bb" type="text" name="payment_transfer_account_no" id="payment_transfer_account_no" value="{{$PurchasePayment->getAccountNo($supplier['supplier_id']) }}" autocomplete='off'/>
-                        </div>
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <a class="text-dark">Jumlah Transfer</a>
-                            <input class="form-control input-bb" type="text" name="payment_transfer_amount" id="payment_transfer_amount" value="" autocomplete='off'/>
-                        </div>
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-md-12" style='text-align:right'>
-                        <div class="form-actions float-right">
-                            <a type="submit" name="Save" class="btn btn-primary" title="Save" id="buttonAddArrayPurchasePaymentTransfer" onclick="processAddArrayPurchasePaymentTransfer()">Tambah</a>
-                        </div>
-                    </div>
-                </div>
-
-                <br>
-                <br>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-advance table-hover">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th style='text-align:center' width="20%">Bank</th>
-                                        <th style='text-align:center' width="20%">Nama Akun</th>
-                                        <th style='text-align:center' width="20%">No. Akun</th>
-                                        <th style='text-align:center' width="20%">Jumlah Transfer</th>
-                                        <th style='text-align:center' width="10%">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                        $total_transfer = 0;
-                                        if(!is_array($purchasepaymenttransfer)){
-                                            echo "<tr><th colspan='9' style='text-align:center'>Data Kosong</th></tr>";
-                                        } else {
-                                            foreach ($purchasepaymenttransfer as $key=>$val){
-                                                echo"
-                                                    <tr>
-                                                        <td style='text-align  : left !important;'>".$PurchasePayment->getCoreBankName($val['bank_id'])."</td>
-                                                        <td style='text-align  : left !important;'>".$val['payment_transfer_account_name']."</td>
-                                                        <td style='text-align  : right !important;'>".$val['payment_transfer_account_no']."</td>
-                                                        <td style='text-align  : right !important;'>".number_format($val['payment_transfer_amount'], 2)."</td>";
-                                                        ?>
-                                                        <td style='text-align  : center !important;'>
-                                                            <a href="{{route('delete-transfer-array-purchase-payment', ['record_id' => $key, 'supplier_id' => $supplier_id])}}" name='Reset' class='btn btn-danger btn-sm' onClick='javascript:return confirm(\"apakah yakin ingin dihapus ?\")'></i> Hapus</a>
-                                                        </td>
-                                                        <?php
-                                                        echo"
-                                                    </tr>
-                                                ";
-                                                $total_transfer += $val['payment_transfer_amount'];
-                                            }
-                                            echo"
-                                                <input class='form-control input-bb' type='hidden' name='payment_total_transfer_amount' id='payment_total_transfer_amount' value='".$total_transfer."' autocomplete='off'/>
-                                            ";
-                                        }
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-
-            <br>
-            <br>
-            <div class="row form-group">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <a class="text-dark">Jumlah</a>
-                        <input class="form-control input-bb" type="text"  style='text-align:right' name="payment_amount_view" id="payment_amount_view" value="" readonly/>
-                        <input class="form-control input-bb" type="hidden"  style='text-align:right' name="payment_amount" id="payment_amount" value=""/>
-                    </div>
-                </div>
-                <div class="col-md-4" hidden>
-                    <div class="form-group">
-                        <a class="text-dark">Total Sisa Alokasi</a>
-                        <input class="form-control input-bb" type="text" style='text-align:right' name="payment_allocated_move_view" id="payment_allocated_move_view" value="" readonly/>
-                        <input class="form-control input-bb" type="hidden" style='text-align:right' name="payment_allocated_move" id="payment_allocated_move" value=""/>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -533,21 +252,18 @@
     <div class="card-body">
         <div class="form-body form">
             <div class="table-responsive">
-            <table id="example" style="width:100%" class="table table-striped table-bordered table-hover table-full-width">
+                <table class="table table-bordered table-advance table-hover">
                     <thead class="thead-light">
                         <tr>
                             <th style='text-align:center'>Tanggal</th>
-                            <th style='text-align:center'>No_Invoice</th>
-                            <th style='text-align:center'>No_Faktur</th>
-                            <th style='text-align:center'>Invoice</th>
-                            <th style='text-align:center'>Dibayar</th>
-                            <th style='text-align:center'>Sisa_Hutang</th>
-                            <th style='text-align:center'>Alokasi_Pembayaran</th>
+                            <th style='text-align:center'>No. Invoice</th>
+                            <th style='text-align:center'>No. Faktur</th>
+                            <th style='text-align:center'>Jumlah Invoice</th>
+                            <th style='text-align:center'>Jumlah yang telah Dibayar</th>
+                            <th style='text-align:center'>Jumlah Sisa Piutang</th>
+                            <th style='text-align:center'>Alokasi</th>
                             <th style='text-align:center'>Pembulatan</th>
-                            <th style='text-align:center'>Ppn_Masukan</th>
-                            <th style='text-align:center'>Potongan_Promosi</th>
-                            <th style='text-align:center'>Potongan_Biaya_adm</th>
-                            <th style='text-align:center'>Saldo_Akhir_Invoice</th>
+                            <th style='text-align:center'>Saldo Akhir</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -558,14 +274,7 @@
                                 $no =1;
                                 $allocation_total = 0;
                                 $shortover_total  = 0;
-                                $ppn_in_amount    = $PPN;
-                                $promosi_amount   = 0;
-                                $adm_cost_amount  = 0;
-                                $total_owing      = 0;
-                                foreach ($purchaseinvoiceowing AS $key => $val){
-                                    $total_owing += $val['owing_amount'];
-                                    ?>
-
+                                foreach ($purchaseinvoiceowing AS $key => $val){?>
                                 <tr>
                                     <td style='text-align  : center'>{{$val['purchase_invoice_date']}}</td>
                                     <td style='text-align  : center'>{{$val['purchase_invoice_no']}}</td>
@@ -578,16 +287,6 @@
                                     </td>
                                     <td style='text-align  : center'>
                                         <input class="form-control" type="text" style='text-align:right' name="{{$no}}_shortover" id="{{$no}}_shortover" value="0" onChange="calculateAllocation()"/>
-                                    </td>
-                                    <td style='text-align  : center'>
-                                        <input class="form-control" type="text" style='text-align:right' name="{{$no}}_ppn_in_amount_view" id="{{$no}}_ppn_in_amount_view" value="{{ number_format($val['ppn_in_amount']) }}" readonly/>
-                                        <input class="form-control" type="text" style='text-align:right' name="{{$no}}_ppn_in_amount" hidden id="{{$no}}_ppn_in_amount" value="{{ $val['ppn_in_amount'] }}" onChange="calculateAllocation()" readonly/>
-                                    </td>
-                                    <td style='text-align  : center'>
-                                        <input class="form-control" type="text" style='text-align:right' name="{{$no}}_promotion_amount" id="{{$no}}_promotion_amount" value="0" onChange="calculateAllocation()"/>
-                                    </td>
-                                    <td style='text-align  : center'>
-                                        <input class="form-control" type="text" style='text-align:right' name="{{$no}}_adm_cost_amount" id="{{$no}}_adm_cost_amount" value="0" onChange="calculateAllocation()"/>
                                     </td>
                                     <td style='text-align  : center'>
                                         <input class="form-control" type="text" style='text-align:right' name="{{$no}}_last_balance_view" id="{{$no}}_last_balance_view" value="{{number_format($val['owing_amount'])}}" readonly/>
@@ -606,17 +305,9 @@
                                 <?php
                                 $no++;
                                 }
-
                                     echo"
-                                    <th style='text-align  : right' colspan='5'>
-                                        Total
-                                    </th>
-                                    <th style='text-align  : right' >
-                                        <input class='form-control' type='text' style='text-align:right' name='total_owing_view' id='total_owing_view' value='".number_format($total_owing)."' readonly/>
-                                        <input class='form-control' type='hidden' style='text-align:right' name='total_owing' id='total_owing' value='".$total_owing."' readonly/>
-                                    </th>
+                                    <th style='text-align  : center' colspan='5'>Total</th>
                                     <th style='text-align  : right'>
-
                                         <input class='form-control' type='text' style='text-align:right' name='allocation_total_view' id='allocation_total_view' value='".$allocation_total."' readonly/>
                                         <input class='form-control' type='hidden' style='text-align:right' name='allocation_total' id='allocation_total' value='".$allocation_total."' readonly/>
                                     </th>
@@ -624,66 +315,9 @@
                                         <input class='form-control' type='text' style='text-align:right' name='shortover_total_view' id='shortover_total_view' value='".$shortover_total."' readonly/>
                                         <input class='form-control' type='hidden' style='text-align:right' name='shortover_total' id='shortover_total' value='".$shortover_total."' readonly/>
                                     </th>
-                                    <th colspan='4'>
+                                    <th>
                                         <input class='form-control input-bb' type='hidden' name='item_total' id='item_total' value='".$no."'/>
                                     </th>
-                                    ";
-
-                                    //ppn
-                                    echo"
-
-                                    <tr>
-                                        <th style='text-align  : right' colspan='6'>Total Ppn Masukan</th>
-                                        <th style='text-align  : right'  colspan='3'>
-                                            <input class='form-control input-bb' type='text'  style='text-align:right' name='ppn_in_amount_view' id='ppn_in_amount_view' value='".number_format($ppn_in_amount,2)."'readonly/>
-                                            <input class='form-control input-bb' type='text'   style='text-align:right' hidden name='ppn_in_amount' id='ppn_in_amount' value='".$ppn_in_amount."'readonly/>
-                                        </th>
-                                        <th>
-                                            <input class='form-control' type='checkbox' style='text-align:left' name='ppn_in_amount_check' id='ppn_in_amount_check' onChange='calculateAllocation()' value='1'/>
-                                                <input class='form-control' hidden type='text' style='text-align:left' name='ppn_in' id='ppn_in' value='0'/>
-                                        </th>
-                                        <th colspan='2' >
-                                            <input class='form-control input-bb' type='hidden' name='item_total' id='item_total' value='".$no."'/>
-                                        </th>
-                                    </tr>
-                                    ";
-
-                                    //piutang promosi
-                                    echo"
-                                    <tr>
-                                        <th style='text-align  : right' colspan='6'>Total Potongan Promosi</th>
-                                        <th style='text-align  : right' colspan='3'>
-                                            <input class='form-control input-bb' type='text'  style='text-align:right' name='promotion_amount_view' id='promotion_amount_view' value='".$promosi_amount."'readonly/>
-                                            <input class='form-control input-bb' type='text' hidden  style='text-align:right' name='promotion_amount' id='promotion_amount' value='".$promosi_amount."'readonly/>
-                                        </th>
-                                        <th>
-                                            <input class='form-control' type='checkbox' style='text-align:left' name='piutang_promosi_check' id='piutang_promosi_check' value='1'/>
-                                                <input class='form-control' hidden type='text' style='text-align:left' name='promosi' id='promosi' value='0'/>
-                                        </th>
-                                        <th colspan='2'>
-                                            <input class='form-control input-bb' type='hidden' name='item_total' id='item_total' value='".$no."'/>
-                                        </th>
-                                    </tr>
-
-                                    ";
-
-                                    // biaya adm
-                                    echo"
-                                    <tr>
-                                        <th style='text-align  : right' colspan='6'>Total Biaya adm</th>
-                                        <th style='text-align  : right' colspan='3'>
-                                            <input class='form-control input-bb' type='text'  style='text-align:right' name='adm_cost_amount_view' id='adm_cost_amount_view' value='".$adm_cost_amount."'readonly/>
-                                            <input class='form-control input-bb' type='text' hidden  style='text-align:right' name='adm_cost_amount' id='adm_cost_amount' value='".$adm_cost_amount."'readonly/>
-                                        </th>
-                                        <th>
-                                            <input class='form-control' type='checkbox' style='text-align:left' name='adm_cost_check' id='adm_cost_check' value='1'/>
-                                            <input class='form-control' hidden  type='text' style='text-align:left' name='adm_cost' id='adm_cost' value='0'/>
-                                        </th>
-                                        <th colspan='2'>
-                                            <input class='form-control input-bb' type='hidden' name='item_total' id='item_total' value='".$no."'/>
-                                        </th>
-                                    </tr>
-
                                     ";
                             }
                         ?>
