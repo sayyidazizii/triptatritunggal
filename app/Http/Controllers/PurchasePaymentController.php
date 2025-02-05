@@ -17,6 +17,7 @@ use App\Models\PurchaseInvoice;
 use App\Models\PurchasePayment;
 use App\Models\PreferenceCompany;
 use App\Models\PurchaseOrderItem;
+use App\Models\AcctAccountSetting;
 use App\Models\AcctJournalVoucher;
 use Illuminate\Support\Facades\DB;
 use App\Models\PurchasePaymentGiro;
@@ -218,7 +219,7 @@ class PurchasePaymentController extends Controller
     public function processAddPurchasePayment(Request $request)
     {
         try {
-            Log::debug('Starting processAddPurchasePayment', ['request' => $request->all()]);
+            // Log::debug('Starting processAddPurchasePayment', ['request' => $request->all()]);
 
             $allrequest = $request->all();
             $fields = $request->validate([
@@ -241,18 +242,18 @@ class PurchasePaymentController extends Controller
                 'branch_id'                         => Auth::user()->branch_id,
             ];
 
-            Log::debug('Validated data:', $data);
+            // Log::debug('Validated data:', $data);
 
-            // $purchasepayment = PurchasePayment::create($data); // Dicomment untuk debug
-            $purchasepayment = (object) ['payment_id' => 1, 'payment_no' => 'DEBUG-001']; // Mock data
+            $purchasepayment = PurchasePayment::create($data); // Dicomment untuk debug
+            // $purchasepayment = (object) ['payment_id' => 1, 'payment_no' => 'DEBUG-001']; // Mock data
 
             $payment_total_amount = $data['payment_allocated'] + $data['payment_shortover'];
             $selisih_shortover = $data['payment_total_amount'] - $payment_total_amount;
 
-            Log::debug('Calculated payment totals:', [
-                'payment_total_amount' => $payment_total_amount,
-                'selisih_shortover' => $selisih_shortover
-            ]);
+            // Log::debug('Calculated payment totals:', [
+            //     'payment_total_amount' => $payment_total_amount,
+            //     'selisih_shortover' => $selisih_shortover
+            // ]);
 
             if ($purchasepayment) {
                 for ($i = 1; $i < $request->item_total; $i++) {
@@ -268,15 +269,12 @@ class PurchasePaymentController extends Controller
                         'allocation_amount'        => $allrequest[$i.'_allocation'],
                         'shortover_amount'         => $allrequest[$i.'_shortover'],
                         'last_balance'             => $allrequest[$i.'_last_balance'],
-                        'ppn_in_amount'            => $allrequest[$i.'_ppn_in_amount'],
-                        'promotion_amount'         => $allrequest[$i.'_promotion_amount'],
-                        'adm_cost_amount'          => $allrequest[$i.'_adm_cost_amount'],
                     ];
 
-                    Log::debug('Payment item data:', $data_paymentitem);
+                    // Log::debug('Payment item data:', $data_paymentitem);
 
-                    // $paymentItem = PurchasePaymentItem::create($data_paymentitem); // Dicomment untuk debug
-                    $paymentItem = (object) ['id' => $i]; // Mock data
+                    $paymentItem = PurchasePaymentItem::create($data_paymentitem); // Dicomment untuk debug
+                    // $paymentItem = (object) ['id' => $i]; // Mock data
 
                     if ($data_paymentitem['allocation_amount'] > 0 && $paymentItem) {
                         $purchaseinvoice = PurchaseInvoice::where('data_state', 0)
@@ -284,22 +282,16 @@ class PurchasePaymentController extends Controller
                             ->first();
 
                         if ($purchaseinvoice) {
-                            Log::debug('Before update invoice:', [
-                                'paid_amount' => $purchaseinvoice->paid_amount,
-                                'owing_amount' => $purchaseinvoice->owing_amount,
-                                'shortover_amount' => $purchaseinvoice->shortover_amount
-                            ]);
-
                             $purchaseinvoice->paid_amount += $data_paymentitem['allocation_amount'] + $data_paymentitem['shortover_amount'];
                             $purchaseinvoice->owing_amount = $data_paymentitem['last_balance'];
                             $purchaseinvoice->shortover_amount += $data_paymentitem['shortover_amount'];
 
-                            // $purchaseinvoice->save(); // Dicomment untuk debug
-                            Log::debug('After update invoice:', [
-                                'paid_amount' => $purchaseinvoice->paid_amount,
-                                'owing_amount' => $purchaseinvoice->owing_amount,
-                                'shortover_amount' => $purchaseinvoice->shortover_amount
-                            ]);
+                            $purchaseinvoice->save(); // Dicomment untuk debug
+                            // Log::debug('After update invoice:', [
+                            //     'paid_amount' => $purchaseinvoice->paid_amount,
+                            //     'owing_amount' => $purchaseinvoice->owing_amount,
+                            //     'shortover_amount' => $purchaseinvoice->shortover_amount
+                            // ]);
                         }
                     }
                 }
@@ -320,41 +312,39 @@ class PurchasePaymentController extends Controller
                     'created_id'                    => Auth::id(),
                 ];
 
-                // Mock data untuk debug
-                $purchase_payment_cash_account_id = ['account_id' => 101, 'account_setting_status' => 'active'];
-                $purchase_payment_account_id = ['account_id' => 202, 'account_setting_status' => 'active'];
-                $total_amount = 1000; // Mock value
-                $subtotal_after_ppn_in = 950; // Mock value
-
+                //*account
+                $purchase_payment_cash_account_id = AcctAccountSetting::where('account_setting_name', 'purchase_payment_cash_account_id')->first();
+                $purchase_payment_account_id = AcctAccountSetting::where('account_setting_name', 'purchase_payment_account_id')->first();
                 $journal_items = [
                     [
                         'account_id' => $purchase_payment_cash_account_id['account_id'],
                         'description' => $data_journal['journal_voucher_description'],
-                        'amount' => $total_amount,
+                        'amount' => $payment_total_amount,
                         'debit' => false,
                         'account_status' => $purchase_payment_cash_account_id['account_setting_status'],
                     ],
                     [
                         'account_id' => $purchase_payment_account_id['account_id'],
                         'description' => $data_journal['journal_voucher_description'],
-                        'amount' => $subtotal_after_ppn_in,
+                        'amount' => $payment_total_amount,
                         'debit' => true,
                         'account_status' => $purchase_payment_account_id['account_setting_status'],
                     ],
                 ];
 
-                Log::debug('Journal data:', $data_journal);
-                Log::debug('Journal items:', $journal_items);
+                // Log::debug('Journal data:', $data_journal);
+                // Log::debug('Journal items:', $journal_items);
 
-                // JournalHelper::createJournal($data_journal, $journal_items); // Dicomment untuk debug
+                JournalHelper::createJournal($data_journal, $journal_items); // Dicomment untuk debug
 
-                $msg = "DEBUG MODE: Proses selesai tanpa menyimpan ke database.";
+                // $msg = "DEBUG MODE: Proses selesai tanpa menyimpan ke database.";
+                $msg = "Pembayaran Berhasil";
                 return redirect('/purchase-payment')->with('msg', $msg);
             } else {
                 throw new \Exception("Gagal membuat data pelunasan hutang.");
             }
         } catch (\Exception $e) {
-            Log::error('Error in processAddPurchasePayment: ' . $e->getMessage(), [
+            Log::error('Error in pelunasan hutang: ' . $e->getMessage(), [
                 'trace' => $e->getTraceAsString(),
                 'request' => $request->all()
             ]);

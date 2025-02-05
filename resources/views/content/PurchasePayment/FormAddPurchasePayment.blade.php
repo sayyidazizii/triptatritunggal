@@ -262,7 +262,7 @@
                             <th style='text-align:center'>Jumlah yang telah Dibayar</th>
                             <th style='text-align:center'>Jumlah Sisa Piutang</th>
                             <th style='text-align:center'>Alokasi</th>
-                            <th style='text-align:center'>Pembulatan</th>
+                            {{-- <th style='text-align:center'>Pembulatan</th> --}}
                             <th style='text-align:center'>Saldo Akhir</th>
                         </tr>
                     </thead>
@@ -285,7 +285,7 @@
                                     <td style='text-align  : center'>
                                         <input class="form-control" type="text" style='text-align:right' name="{{$no}}_allocation" id="{{$no}}_allocation" value="0" onChange="calculateAllocation()"/>
                                     </td>
-                                    <td style='text-align  : center'>
+                                    <td hidden style='text-align  : center'>
                                         <input class="form-control" type="text" style='text-align:right' name="{{$no}}_shortover" id="{{$no}}_shortover" value="0" onChange="calculateAllocation()"/>
                                     </td>
                                     <td style='text-align  : center'>
