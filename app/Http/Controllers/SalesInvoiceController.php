@@ -320,7 +320,7 @@ class SalesInvoiceController extends Controller
             $salesDeliveryNote->save();
 
             // Update Hutang if payment method is 2
-                if ($request->payment_method == 2 && $coreCustomer) {
+                if ($coreCustomer) {
                     $coreCustomer->amount_debt += (int)$request->total_amount;
                     $coreCustomer->save();
                 }
