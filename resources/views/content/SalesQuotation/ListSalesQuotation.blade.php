@@ -127,6 +127,7 @@
                                 @endif
 
                                     <a type="button" class="btn btn-outline-info btn-sm" target="_blank" href="{{ url('/sales-quotation/export/'.$item['sales_quotation_id']) }}">Cetak</a>
+                                    <a type="button" class="btn btn-outline-info btn-sm" target="_blank" href="{{ url('/sales-quotation/print/'.$item['sales_quotation_id']) }}">Pdf</a>
                             </td>
 
                     </tr>

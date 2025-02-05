@@ -18,6 +18,7 @@ use App\Models\SalesOrderType;
 use App\Models\SalesQuotation;
 use Illuminate\Support\Carbon;
 use App\Models\InvItemCategory;
+use Elibyy\TCPDF\Facades\TCPDF;
 use Illuminate\Validation\Rule;
 use App\Models\PreferenceCompany;
 use App\Models\SalesQuotationItem;
@@ -618,7 +619,7 @@ class SalesQuotationController extends Controller
             'item_type_name'            => 'required',
             'quantity_unit_modal'       => 'required',
         ]);
-        
+
         $item_category_id           = $request->item_category_id_modal;
         $item_unit_id               = $request->item_unit_id_modal;
         $item_type_name             = $request->item_type_name;
@@ -657,8 +658,8 @@ class SalesQuotationController extends Controller
 
         $item_category_name = $request->item_category_name;
         $data='';
-        
-        $itemcategory = InvItemCategory::create([  
+
+        $itemcategory = InvItemCategory::create([
             'item_category_name'  => $item_category_name,
             'created_id'          => Auth::id()
         ]);
@@ -668,7 +669,7 @@ class SalesQuotationController extends Controller
 
         $data .= "<option value=''>--Choose One--</option>";
         foreach ($invitemcategory as $mp){
-            $data .= "<option value='$mp[item_category_id]'>$mp[item_category_name]</option>\n";	
+            $data .= "<option value='$mp[item_category_id]'>$mp[item_category_name]</option>\n";
         }
 
         return $data;
@@ -679,8 +680,8 @@ class SalesQuotationController extends Controller
         $item_unit_name             = $request->item_unit_name;
         $item_unit_remark           = $request->item_unit_remark;
         $data='';
-        
-        $invitemunit = InvItemUnit::create([  
+
+        $invitemunit = InvItemUnit::create([
             'item_unit_code'              => $item_unit_code,
             'item_unit_name'              => $item_unit_name,
             'item_unit_remark'            => $item_unit_remark,
@@ -692,9 +693,167 @@ class SalesQuotationController extends Controller
 
         $data .= "<option value=''>--Choose One--</option>";
         foreach ($invitemunit as $mp){
-            $data .= "<option value='$mp[item_unit_id]'>$mp[item_unit_name]</option>\n";	
+            $data .= "<option value='$mp[item_unit_id]'>$mp[item_unit_name]</option>\n";
         }
 
         return $data;
+    }
+
+    // *pdf
+    public function print($quotation_id)
+    {
+        // Fetch data
+        $salesquotation = SalesQuotation::with([
+            'customer',
+            'items.itemType',
+        ])->where('data_state', 0)
+        ->where('sales_quotation_id', $quotation_id)
+        ->first();
+
+        if (!$salesquotation) {
+            return response()->json(['error' => 'Data not found'], 404);
+        }
+
+        $preference_company = PreferenceCompany::first();
+
+        // Create new PDF document
+        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
+        // Set document information
+        $pdf::SetCreator('PT. TRIPTA TRI TUNGGAL');
+        $pdf::SetAuthor('PT. TRIPTA TRI TUNGGAL');
+        $pdf::SetTitle('Quotation #' . $quotation_id);
+
+        // Remove default header/footer
+        $pdf::setPrintHeader(false);
+        $pdf::setPrintFooter(false);
+
+        // Set margins
+        $pdf::SetMargins(15, 15, 15);
+
+        // Add a page
+        $pdf::AddPage();
+
+        // Prepare HTML content
+        $html = '
+        <table cellpadding="5">
+            <tr>
+                <td width="50%">
+                    <img src="' . public_path('img/logo_tripta.png') . '" height="50">
+                    <h1>PT. TRIPTA TRI TUNGGAL</h1>
+                    <p>SERVING BETTER</p>
+                </td>
+                <td width="50%" style="text-align: right;">
+                    <h2 style="color: #3366FF;">Quote</h2>
+                    <table cellpadding="2">
+                        <tr>
+                            <td>Date:</td>
+                            <td>' . $salesquotation->sales_quotation_date . '</td>
+                        </tr>
+                        <tr>
+                            <td>Valid Until:</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Quote #:</td>
+                            <td>' . $quotation_id . '</td>
+                        </tr>
+                        <tr>
+                            <td>Customer:</td>
+                            <td>' . $salesquotation->customer->customer_name . '</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <br><br>
+
+        <table cellpadding="5" style="background-color: #4F81BD; color: white;">
+            <tr>
+                <td width="30%"><strong>Customer:</strong></td>
+                <td width="70%"><strong>Quote/Project Description</strong></td>
+            </tr>
+        </table>
+
+        <br>
+
+        <table cellpadding="5" border="1">
+            <tr style="background-color: #f5f5f5;">
+                <th width="40%">Description</th>
+                <th width="15%">QTY</th>
+                <th width="20%">HARGA</th>
+                <th width="25%">Line Total</th>
+            </tr>';
+
+        // Add items
+        $subtotal = 0;
+        foreach ($salesquotation->items as $item) {
+            $lineTotal = $item->quantity * $item->item_unit_price;
+            $subtotal += $lineTotal;
+
+            $html .= '
+            <tr>
+                <td>' . $item->itemType->item_type_name . '</td>
+                <td style="text-align: center;">' . $item->quantity . '</td>
+                <td style="text-align: right;">' . number_format($item->item_unit_price, 2) . '</td>
+                <td style="text-align: right;">' . number_format($lineTotal, 2) . '</td>
+            </tr>';
+        }
+
+        // Calculate totals
+        $discountRate = 10;
+        $discount = $subtotal * ($discountRate / 100);
+        $dpp = $subtotal - $discount;
+        $vatRate = 11;
+        $vat = $dpp * ($vatRate / 100);
+        $total = $dpp + $vat;
+
+        $html .= '</table>
+
+        <br>
+
+        <table cellpadding="5">
+            <tr>
+                <td width="60%">
+                    <strong>Special Notes and Instructions</strong>
+                    <p style="border: 1px solid #ddd; padding: 10px; min-height: 100px;"></p>
+                </td>
+                <td width="40%">
+                    <table cellpadding="3">
+                        <tr>
+                            <td>Subtotal:</td>
+                            <td style="text-align: right;">' . number_format($subtotal, 2) . '</td>
+                        </tr>
+                        <tr>
+                            <td>Discount (' . $discountRate . '%):</td>
+                            <td style="text-align: right;">' . number_format($discount, 2) . '</td>
+                        </tr>
+                        <tr>
+                            <td>DPP:</td>
+                            <td style="text-align: right;">' . number_format($dpp, 2) . '</td>
+                        </tr>
+                        <tr>
+                            <td>VAT (' . $vatRate . '%):</td>
+                            <td style="text-align: right;">' . number_format($vat, 2) . '</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total:</strong></td>
+                            <td style="text-align: right;"><strong>' . number_format($total, 2) . '</strong></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <br><br>
+
+        <p style="font-style: italic; font-size: 9pt;">Silakan gunakan quotation ini hanya untuk tujuan penawaran dan tidak mengikat kecuali disetujui tertulis.</p>';
+
+        // Write HTML content
+        $pdf::writeHTML($html, true, false, true, false, '');
+        $filename = 'Quotation_' . date('d_M_Y') . '.pdf';
+        // Close and output PDF document
+        $pdf::Output($filename, 'I');
     }
 }
