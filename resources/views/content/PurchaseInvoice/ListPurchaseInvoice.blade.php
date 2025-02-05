@@ -132,7 +132,7 @@
                             <a type="button" class="btn btn-outline-warning btn-sm" href="{{ url('/purchase-invoice/edit/'.$item['purchase_invoice_id']) }}">Edit</a>
                             <a type="button" class="btn btn-outline-primary btn-sm" href="{{ url('/purchase-invoice/detail/'.$item['purchase_invoice_id']) }}">Detail</a>
                         <?php if($item['total_amount'] == $item['owing_amount']){ ?>
-                            <a type="button" class="btn btn-outline-danger btn-sm" href="{{ url('/purchase-invoice/void/'.$item['purchase_invoice_id']) }}">Hapus</a>
+                            {{-- <a type="button" class="btn btn-outline-danger btn-sm" href="{{ url('/purchase-invoice/void/'.$item['purchase_invoice_id']) }}">Hapus</a> --}}
                         <?php } ?>
                         </td>
                     </tr>
