@@ -360,6 +360,8 @@ class SalesInvoiceController extends Controller
             $sales_credit_account_id = AcctAccountSetting::where('account_setting_name','sales_credit_account_id')->first();
             // *sales tax
             $sales_tax_account_id = AcctAccountSetting::where('account_setting_name','sales_tax_account_id')->first();
+            //
+
             $transaction_module_code = "PPP";
             $transactionmodule = PreferenceTransactionModule::where('transaction_module_code', $transaction_module_code)->first();
             $transaction_module_id = $transactionmodule['transaction_module_id'];
@@ -1149,12 +1151,12 @@ class SalesInvoiceController extends Controller
             ->where('sales_invoice_id', $salesId)
             ->where('data_state', 0)
             ->first();
-    
+
         $salesinvoiceitems = SalesInvoiceItem::with('itemType')
             ->where('sales_invoice_id', $salesinvoice['sales_invoice_id'])
             ->where('data_state', 0)
             ->get();
-    
+
 
             $page_format = array(
                 'format' => 'CUSTOM',
@@ -1169,20 +1171,20 @@ class SalesInvoiceController extends Controller
 
         // Create new TCPDF instance
         $pdf = new TCPDF('P', 'in', $page_format, true, 'UTF-8');
-    
+
         // Remove default header/footer
         $pdf::setPrintHeader(false);
         $pdf::setPrintFooter(false);
-    
+
         // Add a page
         $pdf::AddPage();
-    
+
         // Set font
         $pdf::SetFont('helvetica', '', 10);
-    
+
         // HTML content for the PDF
         $html = '
-            
+
         <table border="0" style="width:100%;">
             <tr>
                 <td style="width:50%; text-align:left;">
@@ -1209,7 +1211,7 @@ class SalesInvoiceController extends Controller
                         </div>
                     </td>
                     <td style="width:50%; font-size:9px;">
-                        
+
                         <table border="0" cellspacing="5" style="width:100%;">
                             <tr>
                                 <td style="width:30%;">Date</td>
@@ -1231,7 +1233,7 @@ class SalesInvoiceController extends Controller
             </table>
         ';
         $pdf::writeHTML($html, true, false, false, false, '');
-        
+
         $data1 = '
             <table border="1" cellpadding="5" style="width:100%; margin-top:30px; border-collapse: collapse;">
                 <thead>
@@ -1244,7 +1246,7 @@ class SalesInvoiceController extends Controller
                     </tr>
                 </thead>
                 <tbody>';
-    
+
         // Add invoice items
         foreach ($salesinvoiceitems as $item) {
             $data1 .= '<tr>
@@ -1255,10 +1257,10 @@ class SalesInvoiceController extends Controller
                         <td>' . 'Rp ' . number_format($item->subtotal_price_A, 0) . '</td>
                     </tr>';
         }
-    
+
         $data1 .= '</tbody>
             </table>
-    
+
             <div style="margin-top:20px;">
                 <table style="width:100%; font-size:9px;">
                     <tr><td>Sub Total</td><td style="text-align:right;">Rp </td></tr>
@@ -1268,7 +1270,7 @@ class SalesInvoiceController extends Controller
                     <tr><td><strong>TOTAL Due</strong></td><td style="text-align:right;">Rp </td></tr>
                 </table>
             </div>
-    
+
             <div style="margin-top:20px; font-size:9px;">
                 <strong>Notes and Payment Instruction:</strong><br>
                 Make all checks payable to PT. TRIPTA TRI TUNGGAL<br>
@@ -1276,24 +1278,24 @@ class SalesInvoiceController extends Controller
                 A/C No. 015-317072-7<br>
                 Payment is due within 14 days.
             </div>
-    
+
             <div style="margin-top:40px; text-align:center;">
                 <strong>Your Faithfully</strong><br>
                 <div>ELLY</div>
             </div>
-    
+
             <div style="text-align:center; font-size:9px; margin-top:20px;">
                 Thank You For Your Purchase
             </div>
         ';
-    
+
         // Write HTML to PDF
         $pdf::writeHTML($data1, true, false, false, false, '');
-    
+
         // Output the PDF
         return $pdf::Output('invoice.pdf', 'I');
     }
-    
+
 
     //Pengantar
     public function printKwitansiPengantar(){
