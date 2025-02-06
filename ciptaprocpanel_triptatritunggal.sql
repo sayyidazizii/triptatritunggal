@@ -1,6 +1,6 @@
 /*
 SQLyog Professional v13.1.1 (64 bit)
-MySQL - 8.0.30 : Database - ciptaprocpanel_triptatritunggal
+MySQL - 8.0.41-0ubuntu0.22.04.1 : Database - ciptaprocpanel_triptatritunggal
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 8.0.30 : Database - ciptaprocpanel_triptatritunggal
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`ciptaprocpanel_triptatritunggal` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`ciptaprocpanel_triptatritunggal` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
 USE `ciptaprocpanel_triptatritunggal`;
 
@@ -43,7 +43,7 @@ CREATE TABLE `acct_account` (
 
 /*Data for the table `acct_account` */
 
-insert  into `acct_account`(`account_id`,`company_id`,`account_code`,`account_name`,`account_group`,`account_suspended`,`account_default_status`,`account_remark`,`account_status`,`account_token`,`parent_account_status`,`account_type_id`,`data_state`,`created_id`,`updated_id`,`created_at`,`updated_at`) values 
+insert  into `acct_account`(`account_id`,`company_id`,`account_code`,`account_name`,`account_group`,`account_suspended`,`account_default_status`,`account_remark`,`account_status`,`account_token`,`parent_account_status`,`account_type_id`,`data_state`,`created_id`,`updated_id`,`created_at`,`updated_at`) values
 (1,2,'100','A K T I V A','100',0,0,NULL,0,NULL,0,0,0,55,55,'2025-01-30 04:22:47','2025-01-30 04:22:47'),
 (2,2,'101.01','AKTIVA LANCAR','100',0,0,NULL,0,NULL,0,0,0,55,55,'2025-01-30 04:22:47','2025-01-30 04:22:47'),
 (3,2,'101.01.01','Kas dan Setara Kas','101.01',0,0,NULL,0,NULL,0,0,0,55,55,'2025-01-30 04:22:47','2025-01-30 04:22:47'),
@@ -117,18 +117,18 @@ CREATE TABLE `acct_account_balance` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`account_balance_id`),
   KEY `FK_acct_account_balance_account_id` (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `acct_account_balance` */
 
-insert  into `acct_account_balance`(`account_balance_id`,`company_id`,`branch_id`,`account_id`,`last_balance`,`created_id`,`created_at`,`updated_at`) values 
-(5,2,0,7,600000.00,3,NULL,'2025-02-04 15:44:23'),
-(6,2,0,16,111000.00,3,NULL,'2025-02-04 15:44:23'),
-(7,2,0,6,66000.00,3,NULL,'2025-02-04 15:44:23'),
-(8,2,0,3,-111000.00,3,NULL,'2025-02-04 15:46:40'),
-(9,2,0,4,111000.00,3,NULL,'2025-02-04 16:40:47'),
-(10,2,0,23,100000.00,3,NULL,'2025-02-04 16:40:47'),
-(11,2,0,17,11000.00,3,NULL,'2025-02-04 16:40:47');
+insert  into `acct_account_balance`(`account_balance_id`,`company_id`,`branch_id`,`account_id`,`last_balance`,`created_id`,`created_at`,`updated_at`) values
+(1,2,0,4,22200.00,3,NULL,'2025-02-05 14:50:57'),
+(2,2,0,23,20000.00,3,NULL,'2025-02-05 14:50:57'),
+(3,2,0,17,2200.00,3,NULL,'2025-02-05 14:50:57'),
+(4,2,0,7,120000.00,3,NULL,'2025-02-05 15:04:06'),
+(5,2,0,3,-22200.00,3,NULL,'2025-02-05 15:04:06'),
+(6,2,0,6,13200.00,3,NULL,'2025-02-05 15:04:06'),
+(7,2,0,16,111000.00,3,NULL,'2025-02-05 15:25:00');
 
 /*Table structure for table `acct_account_balance_detail` */
 
@@ -156,32 +156,20 @@ CREATE TABLE `acct_account_balance_detail` (
   `created_id` int DEFAULT NULL,
   PRIMARY KEY (`account_balance_detail_id`),
   KEY `FK_acct_account_balance_detail_account_id` (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `acct_account_balance_detail` */
 
-insert  into `acct_account_balance_detail`(`account_balance_detail_id`,`branch_id`,`company_id`,`transaction_type`,`transaction_code`,`transaction_date`,`transaction_id`,`account_id`,`opening_balance`,`account_in`,`account_out`,`cash_in`,`cash_out`,`bank_in`,`bank_out`,`last_balance`,`created_at`,`updated_at`,`created_id`) values 
-(56,0,2,20,'GRN','2025-02-04',3,7,0.00,100000.00,0.00,0.00,0.00,0.00,0.00,100000.00,NULL,'2025-02-04 15:44:23',3),
-(57,0,2,20,'GRN','2025-02-04',3,16,0.00,111000.00,0.00,0.00,0.00,0.00,0.00,111000.00,NULL,'2025-02-04 15:44:23',3),
-(58,0,2,20,'GRN','2025-02-04',3,6,0.00,11000.00,0.00,0.00,0.00,0.00,0.00,11000.00,NULL,'2025-02-04 15:44:23',3),
-(59,0,2,20,'GRN','2025-02-04',4,7,100000.00,100000.00,0.00,0.00,0.00,0.00,0.00,200000.00,NULL,'2025-02-04 15:46:40',3),
-(60,0,2,20,'GRN','2025-02-04',4,3,0.00,111000.00,0.00,0.00,0.00,0.00,0.00,111000.00,NULL,'2025-02-04 15:46:40',3),
-(61,0,2,20,'GRN','2025-02-04',4,6,11000.00,11000.00,0.00,0.00,0.00,0.00,0.00,22000.00,NULL,'2025-02-04 15:46:40',3),
-(62,0,2,20,'GRN','2025-02-04',5,7,200000.00,100000.00,0.00,0.00,0.00,0.00,0.00,300000.00,NULL,'2025-02-04 15:58:03',3),
-(63,0,2,20,'GRN','2025-02-04',5,16,111000.00,0.00,111000.00,0.00,0.00,0.00,0.00,0.00,NULL,'2025-02-04 15:58:03',3),
-(64,0,2,20,'GRN','2025-02-04',5,6,22000.00,11000.00,0.00,0.00,0.00,0.00,0.00,33000.00,NULL,'2025-02-04 15:58:03',3),
-(65,0,2,20,'GRN','2025-02-04',6,7,300000.00,100000.00,0.00,0.00,0.00,0.00,0.00,400000.00,NULL,'2025-02-04 16:07:33',3),
-(66,0,2,20,'GRN','2025-02-04',6,3,111000.00,0.00,111000.00,0.00,0.00,0.00,0.00,0.00,NULL,'2025-02-04 16:07:33',3),
-(67,0,2,20,'GRN','2025-02-04',6,6,33000.00,11000.00,0.00,0.00,0.00,0.00,0.00,44000.00,NULL,'2025-02-04 16:07:33',3),
-(68,0,2,20,'GRN','2025-02-04',7,7,400000.00,100000.00,0.00,0.00,0.00,0.00,0.00,500000.00,NULL,'2025-02-04 16:08:51',3),
-(69,0,2,20,'GRN','2025-02-04',7,16,0.00,111000.00,0.00,0.00,0.00,0.00,0.00,111000.00,NULL,'2025-02-04 16:08:51',3),
-(70,0,2,20,'GRN','2025-02-04',7,6,44000.00,11000.00,0.00,0.00,0.00,0.00,0.00,55000.00,NULL,'2025-02-04 16:08:51',3),
-(71,0,2,63,'PPP','2025-02-04',8,4,0.00,111000.00,0.00,0.00,0.00,0.00,0.00,111000.00,NULL,'2025-02-04 16:40:47',3),
-(72,0,2,63,'PPP','2025-02-04',8,23,0.00,100000.00,0.00,0.00,0.00,0.00,0.00,100000.00,NULL,'2025-02-04 16:40:47',3),
-(73,0,2,63,'PPP','2025-02-04',8,17,0.00,11000.00,0.00,0.00,0.00,0.00,0.00,11000.00,NULL,'2025-02-04 16:40:47',3),
-(74,0,2,20,'GRN','2025-02-04',9,7,500000.00,100000.00,0.00,0.00,0.00,0.00,0.00,600000.00,NULL,'2025-02-04 16:56:05',3),
-(75,0,2,20,'GRN','2025-02-04',9,3,0.00,0.00,111000.00,0.00,0.00,0.00,0.00,-111000.00,NULL,'2025-02-04 16:56:05',3),
-(76,0,2,20,'GRN','2025-02-04',9,6,55000.00,11000.00,0.00,0.00,0.00,0.00,0.00,66000.00,NULL,'2025-02-04 16:56:05',3);
+insert  into `acct_account_balance_detail`(`account_balance_detail_id`,`branch_id`,`company_id`,`transaction_type`,`transaction_code`,`transaction_date`,`transaction_id`,`account_id`,`opening_balance`,`account_in`,`account_out`,`cash_in`,`cash_out`,`bank_in`,`bank_out`,`last_balance`,`created_at`,`updated_at`,`created_id`) values
+(1,0,2,63,'PPP','2025-02-05',1,4,0.00,22200.00,0.00,0.00,0.00,0.00,0.00,22200.00,NULL,'2025-02-05 14:50:57',3),
+(2,0,2,63,'PPP','2025-02-05',1,23,0.00,20000.00,0.00,0.00,0.00,0.00,0.00,20000.00,NULL,'2025-02-05 14:50:57',3),
+(3,0,2,63,'PPP','2025-02-05',1,17,0.00,2200.00,0.00,0.00,0.00,0.00,0.00,2200.00,NULL,'2025-02-05 14:50:57',3),
+(4,0,2,20,'GRN','2025-02-05',2,7,0.00,20000.00,0.00,0.00,0.00,0.00,0.00,20000.00,NULL,'2025-02-05 15:04:06',3),
+(5,0,2,20,'GRN','2025-02-05',2,3,0.00,0.00,22200.00,0.00,0.00,0.00,0.00,-22200.00,NULL,'2025-02-05 15:04:06',3),
+(6,0,2,20,'GRN','2025-02-05',2,6,0.00,2200.00,0.00,0.00,0.00,0.00,0.00,2200.00,NULL,'2025-02-05 15:04:06',3),
+(7,0,2,20,'GRN','2025-02-05',3,7,20000.00,100000.00,0.00,0.00,0.00,0.00,0.00,120000.00,NULL,'2025-02-05 15:25:00',3),
+(8,0,2,20,'GRN','2025-02-05',3,16,0.00,111000.00,0.00,0.00,0.00,0.00,0.00,111000.00,NULL,'2025-02-05 15:25:00',3),
+(9,0,2,20,'GRN','2025-02-05',3,6,2200.00,11000.00,0.00,0.00,0.00,0.00,0.00,13200.00,NULL,'2025-02-05 15:25:00',3);
 
 /*Table structure for table `acct_account_mutation` */
 
@@ -247,7 +235,7 @@ CREATE TABLE `acct_account_setting` (
 
 /*Data for the table `acct_account_setting` */
 
-insert  into `acct_account_setting`(`account_setting_id`,`company_id`,`account_id`,`account_setting_name`,`account_setting_status`,`account_default_status`,`created_at`,`updated_at`) values 
+insert  into `acct_account_setting`(`account_setting_id`,`company_id`,`account_id`,`account_setting_name`,`account_setting_status`,`account_default_status`,`created_at`,`updated_at`) values
 (370,2,3,'account_cash_purchase_id',1,0,'2022-07-16 11:14:51','2025-02-04 10:13:23'),
 (371,2,7,'purchase_cash_account_id',0,0,'2022-07-16 11:14:51','2025-02-04 10:13:23'),
 (372,2,16,'account_credit_purchase_id',1,1,'2022-07-16 11:14:51','2025-02-04 10:13:23'),
@@ -285,7 +273,7 @@ CREATE TABLE `acct_account_type` (
 
 /*Data for the table `acct_account_type` */
 
-insert  into `acct_account_type`(`account_type_id`,`account_type_name`,`account_type_status`,`default_value`,`data_state`,`created_by`,`created_at`,`updated_at`) values 
+insert  into `acct_account_type`(`account_type_id`,`account_type_name`,`account_type_status`,`default_value`,`data_state`,`created_by`,`created_at`,`updated_at`) values
 (1,'Other Current Asset',1,1,'0','ADMIN','2015-11-03 16:07:00','2023-06-23 10:52:20'),
 (2,'Fixed Asset',1,1,'0','ADMIN','2015-11-03 16:07:00','2023-06-23 10:52:20'),
 (3,'Accumulated Depreciation',1,1,'0','ADMIN','2015-11-03 16:07:00','2023-06-23 10:52:20'),
@@ -424,7 +412,7 @@ CREATE TABLE `acct_asset_type` (
 
 /*Data for the table `acct_asset_type` */
 
-insert  into `acct_asset_type`(`asset_type_id`,`asset_type_code`,`asset_type_name`,`asset_type_description`,`asset_type_parent`,`asset_type_parent_status`,`data_state`,`created_at`,`updated_at`) values 
+insert  into `acct_asset_type`(`asset_type_id`,`asset_type_code`,`asset_type_name`,`asset_type_description`,`asset_type_parent`,`asset_type_parent_status`,`data_state`,`created_at`,`updated_at`) values
 (1,'AT0001','Elektronik','',0,0,0,NULL,'2023-06-23 10:52:20'),
 (2,'AT0071','Kendaraan','',0,0,0,NULL,'2023-06-23 10:52:20'),
 (3,'AT0077','AA','',1,0,1,NULL,'2023-06-23 10:52:20');
@@ -470,7 +458,7 @@ CREATE TABLE `acct_balance_sheet_report` (
 
 /*Data for the table `acct_balance_sheet_report` */
 
-insert  into `acct_balance_sheet_report`(`balance_sheet_report_id`,`company_id`,`report_no`,`account_id1`,`account_code1`,`account_name1`,`account_id2`,`account_code2`,`account_name2`,`report_formula1`,`report_operator1`,`report_type1`,`report_tab1`,`report_bold1`,`report_formula2`,`report_operator2`,`report_type2`,`report_tab2`,`report_bold2`,`report_formula3`,`report_operator3`,`balance_report_type`,`balance_report_type1`,`data_state`,`created_id`,`created_on`,`last_update`) values 
+insert  into `acct_balance_sheet_report`(`balance_sheet_report_id`,`company_id`,`report_no`,`account_id1`,`account_code1`,`account_name1`,`account_id2`,`account_code2`,`account_name2`,`report_formula1`,`report_operator1`,`report_type1`,`report_tab1`,`report_bold1`,`report_formula2`,`report_operator2`,`report_type2`,`report_tab2`,`report_bold2`,`report_formula3`,`report_operator3`,`balance_report_type`,`balance_report_type1`,`data_state`,`created_id`,`created_on`,`last_update`) values
 (1,2,1,1,'100','A K T I V A',14,'200','P A S I V A ',NULL,NULL,1,1,1,NULL,NULL,1,1,1,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
 (2,2,2,2,'101.01','AKTIVA LANCAR',15,'201.01','HUTANG LANCAR',NULL,NULL,1,2,1,NULL,NULL,1,2,1,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
 (3,2,3,3,'101.01.01','Kas dan Setara Kas',16,'201.01.01','Hutang Dagang',NULL,NULL,3,3,0,NULL,NULL,3,3,0,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
@@ -922,13 +910,14 @@ CREATE TABLE `acct_debt_repayment` (
   PRIMARY KEY (`debt_repayment_id`),
   KEY `FK_acct_debt_repayment_company_id` (`company_id`),
   CONSTRAINT `FK_acct_debt_repayment_company_id` FOREIGN KEY (`company_id`) REFERENCES `preference_company` (`company_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `acct_debt_repayment` */
 
-insert  into `acct_debt_repayment`(`debt_repayment_id`,`company_id`,`debt_repayment_date`,`total_repayment`,`data_state`,`updated_at`,`created_at`,`updated_id`,`created_id`) values 
+insert  into `acct_debt_repayment`(`debt_repayment_id`,`company_id`,`debt_repayment_date`,`total_repayment`,`data_state`,`updated_at`,`created_at`,`updated_id`,`created_id`) values
 (74,NULL,'2025-01-31 09:22:40',11000,0,'2025-01-31 09:22:40','2025-01-31 09:22:40',3,3),
-(75,NULL,'2025-01-31 09:31:24',11000,0,'2025-01-31 09:31:24','2025-01-31 09:31:24',3,3);
+(75,NULL,'2025-01-31 09:31:24',11000,0,'2025-01-31 09:31:24','2025-01-31 09:31:24',3,3),
+(76,NULL,'2025-02-05 05:39:45',111000,0,'2025-02-05 05:39:45','2025-02-05 05:39:45',3,3);
 
 /*Table structure for table `acct_debt_repayment_item` */
 
@@ -952,13 +941,14 @@ CREATE TABLE `acct_debt_repayment_item` (
   CONSTRAINT `FK_acct_debt_repayment_item_company_id` FOREIGN KEY (`company_id`) REFERENCES `preference_company` (`company_id`),
   CONSTRAINT `FK_acct_debt_repayment_item_debt_repayment_id` FOREIGN KEY (`debt_repayment_id`) REFERENCES `acct_debt_repayment` (`debt_repayment_id`),
   CONSTRAINT `FK_acct_debt_repayment_item_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `core_employee` (`employee_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `acct_debt_repayment_item` */
 
-insert  into `acct_debt_repayment_item`(`debt_repayment_item_id`,`company_id`,`debt_repayment_id`,`employee_id`,`debt_repayment_amount`,`data_state`,`updated_at`,`created_at`,`updated_id`,`created_id`) values 
+insert  into `acct_debt_repayment_item`(`debt_repayment_item_id`,`company_id`,`debt_repayment_id`,`employee_id`,`debt_repayment_amount`,`data_state`,`updated_at`,`created_at`,`updated_id`,`created_id`) values
 (1,NULL,74,NULL,11000,0,'2025-01-31 09:22:40','2025-01-31 09:22:40',3,3),
-(2,NULL,75,NULL,11000,0,'2025-01-31 09:31:24','2025-01-31 09:31:24',3,3);
+(2,NULL,75,NULL,11000,0,'2025-01-31 09:31:24','2025-01-31 09:31:24',3,3),
+(3,NULL,76,NULL,111000,0,'2025-02-05 05:39:45','2025-02-05 05:39:45',3,3);
 
 /*Table structure for table `acct_journal_voucher` */
 
@@ -1001,18 +991,14 @@ CREATE TABLE `acct_journal_voucher` (
   KEY `transaction_journal_no` (`transaction_journal_no`),
   KEY `project_id` (`project_id`),
   KEY `project_type_id` (`project_type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `acct_journal_voucher` */
 
-insert  into `acct_journal_voucher`(`journal_voucher_id`,`company_id`,`branch_id`,`project_id`,`project_type_id`,`transaction_module_id`,`transaction_journal_id`,`transaction_journal_no`,`journal_voucher_title`,`journal_voucher_no`,`journal_voucher_period`,`journal_voucher_date`,`journal_voucher_description`,`journal_voucher_token`,`journal_voucher_token_void`,`journal_voucher_type_id`,`journal_voucher_status`,`transaction_module_code`,`posted`,`posted_id`,`posted_on`,`voided`,`voided_id`,`voided_on`,`voided_remark`,`data_state`,`created_id`,`created_at`,`updated_at`,`reverse_state`) values 
-(3,2,1,0,0,20,3,NULL,'Pembelian ','0001/JV/II/2025',202502,'2025-02-04',NULL,NULL,NULL,1,1,'GRN',0,0,NULL,0,0,NULL,NULL,0,3,'2025-02-04 08:44:23','2025-02-04 08:44:23',0),
-(4,2,1,0,0,20,4,NULL,'Pembelian ','0002/JV/II/2025',202502,'2025-02-04',NULL,NULL,NULL,1,1,'GRN',0,0,NULL,0,0,NULL,NULL,0,3,'2025-02-04 08:46:40','2025-02-04 08:46:40',0),
-(5,2,1,0,0,20,5,NULL,'Pembelian ','0003/JV/II/2025',202502,'2025-02-04',NULL,NULL,NULL,1,1,'GRN',0,0,NULL,0,0,NULL,NULL,0,3,'2025-02-04 08:58:03','2025-02-04 08:58:03',0),
-(6,2,1,0,0,20,6,NULL,'Pembelian ','0004/JV/II/2025',202502,'2025-02-04',NULL,NULL,NULL,1,1,'GRN',0,0,NULL,0,0,NULL,NULL,0,3,'2025-02-04 09:07:33','2025-02-04 09:07:33',0),
-(7,2,1,0,0,20,7,NULL,'Pembelian ','0005/JV/II/2025',202502,'2025-02-04',NULL,NULL,NULL,1,1,'GRN',0,0,NULL,0,0,NULL,NULL,0,3,'2025-02-04 09:08:52','2025-02-04 09:08:52',0),
-(8,2,1,0,0,63,21,NULL,'Penjualan Barang','0006/JV/II/2025',202502,'2025-02-04',NULL,NULL,NULL,1,1,'PPP',0,0,NULL,0,0,NULL,NULL,0,3,'2025-02-04 09:40:47','2025-02-04 09:40:47',0),
-(9,2,1,0,0,20,8,NULL,'Pembelian ','0007/JV/II/2025',202502,'2025-02-04','Pembelian ',NULL,NULL,1,1,'GRN',0,0,NULL,0,0,NULL,NULL,0,3,'2025-02-04 09:56:05','2025-02-04 09:56:05',0);
+insert  into `acct_journal_voucher`(`journal_voucher_id`,`company_id`,`branch_id`,`project_id`,`project_type_id`,`transaction_module_id`,`transaction_journal_id`,`transaction_journal_no`,`journal_voucher_title`,`journal_voucher_no`,`journal_voucher_period`,`journal_voucher_date`,`journal_voucher_description`,`journal_voucher_token`,`journal_voucher_token_void`,`journal_voucher_type_id`,`journal_voucher_status`,`transaction_module_code`,`posted`,`posted_id`,`posted_on`,`voided`,`voided_id`,`voided_on`,`voided_remark`,`data_state`,`created_id`,`created_at`,`updated_at`,`reverse_state`) values
+(1,2,1,0,0,63,1,NULL,'Penjualan Barang','0001/JV/II/2025',202502,'2025-02-05','D',NULL,NULL,1,1,'PPP',0,0,NULL,0,0,NULL,NULL,0,3,'2025-02-05 07:50:57','2025-02-05 07:50:57',0),
+(2,2,1,0,0,20,1,NULL,'Pembelian ','0002/JV/II/2025',202502,'2025-02-05','Pembelian 0001/PO/II/2025',NULL,NULL,1,1,'GRN',0,0,NULL,0,0,NULL,NULL,0,3,'2025-02-05 08:04:06','2025-02-05 08:04:06',0),
+(3,2,1,0,0,20,2,NULL,'Pembelian ','0003/JV/II/2025',202502,'2025-02-05','Pembelian 0002/PO/II/2025',NULL,NULL,1,1,'GRN',0,0,NULL,0,0,NULL,NULL,0,3,'2025-02-05 08:25:00','2025-02-05 08:25:00',0);
 
 /*Table structure for table `acct_journal_voucher_item` */
 
@@ -1040,52 +1026,20 @@ CREATE TABLE `acct_journal_voucher_item` (
   UNIQUE KEY `journal_voucher_item_token_void` (`journal_voucher_item_token_void`),
   KEY `FK_acct_journal_voucher_item_journal_voucher_id` (`journal_voucher_id`) USING BTREE,
   KEY `FK_acct_journal_voucher_item_account_id` (`account_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `acct_journal_voucher_item` */
 
-insert  into `acct_journal_voucher_item`(`journal_voucher_item_id`,`journal_voucher_id`,`company_id`,`account_id`,`journal_voucher_description`,`journal_voucher_amount`,`account_id_status`,`account_id_default_status`,`journal_voucher_debit_amount`,`journal_voucher_credit_amount`,`journal_voucher_item_token`,`journal_voucher_item_token_void`,`data_state`,`created_at`,`updated_at`,`reverse_state`) values 
-(7,3,2,7,NULL,100000.00,0,0,100000.00,0.00,NULL,NULL,0,'2025-02-04 08:44:23','2025-02-04 08:44:23',0),
-(8,3,2,16,NULL,111000.00,1,1,0.00,111000.00,NULL,NULL,0,'2025-02-04 08:44:23','2025-02-04 08:44:23',0),
-(9,3,2,6,NULL,11000.00,0,0,11000.00,0.00,NULL,NULL,0,'2025-02-04 08:44:23','2025-02-04 08:44:23',0),
-(10,4,2,7,NULL,100000.00,0,0,100000.00,0.00,NULL,NULL,0,'2025-02-04 08:46:40','2025-02-04 08:46:40',0),
-(11,4,2,3,NULL,111000.00,1,0,0.00,111000.00,NULL,NULL,0,'2025-02-04 08:46:40','2025-02-04 08:46:40',0),
-(12,4,2,6,NULL,11000.00,0,0,11000.00,0.00,NULL,NULL,0,'2025-02-04 08:46:40','2025-02-04 08:46:40',0),
-(13,5,2,7,NULL,100000.00,0,0,100000.00,0.00,NULL,NULL,0,'2025-02-04 08:58:03','2025-02-04 08:58:03',0),
-(14,5,2,16,NULL,111000.00,1,1,0.00,111000.00,NULL,NULL,0,'2025-02-04 08:58:03','2025-02-04 08:58:03',0),
-(15,5,2,6,NULL,11000.00,0,0,11000.00,0.00,NULL,NULL,0,'2025-02-04 08:58:03','2025-02-04 08:58:03',0),
-(16,6,2,7,NULL,100000.00,0,0,100000.00,0.00,NULL,NULL,0,'2025-02-04 09:07:33','2025-02-04 09:07:33',0),
-(17,6,2,3,NULL,111000.00,1,0,0.00,111000.00,NULL,NULL,0,'2025-02-04 09:07:33','2025-02-04 09:07:33',0),
-(18,6,2,6,NULL,11000.00,0,0,11000.00,0.00,NULL,NULL,0,'2025-02-04 09:07:33','2025-02-04 09:07:33',0),
-(19,7,2,7,NULL,100000.00,0,0,100000.00,0.00,NULL,NULL,0,'2025-02-04 09:08:52','2025-02-04 09:08:52',0),
-(20,7,2,16,NULL,111000.00,1,1,0.00,111000.00,NULL,NULL,0,'2025-02-04 09:08:52','2025-02-04 09:08:52',0),
-(21,7,2,6,NULL,11000.00,0,0,11000.00,0.00,NULL,NULL,0,'2025-02-04 09:08:52','2025-02-04 09:08:52',0),
-(22,8,2,4,NULL,111000.00,0,0,111000.00,0.00,NULL,NULL,0,'2025-02-04 09:40:47','2025-02-04 09:40:47',0),
-(23,8,2,23,NULL,100000.00,1,1,0.00,100000.00,NULL,NULL,0,'2025-02-04 09:40:47','2025-02-04 09:40:47',0),
-(24,8,2,17,NULL,11000.00,1,1,0.00,11000.00,NULL,NULL,0,'2025-02-04 09:40:47','2025-02-04 09:40:47',0),
-(25,9,2,7,'Pembelian ',100000.00,0,0,100000.00,0.00,NULL,NULL,0,'2025-02-04 09:56:05','2025-02-04 09:56:05',0),
-(26,9,2,3,'Pembelian ',111000.00,1,0,0.00,111000.00,NULL,NULL,0,'2025-02-04 09:56:05','2025-02-04 09:56:05',0),
-(27,9,2,6,'Pembelian ',11000.00,0,0,11000.00,0.00,NULL,NULL,0,'2025-02-04 09:56:05','2025-02-04 09:56:05',0);
-
-/*Table structure for table `acct_journal_voucher_type` */
-
-DROP TABLE IF EXISTS `acct_journal_voucher_type`;
-
-CREATE TABLE `acct_journal_voucher_type` (
-  `acct_journal_voucher_type_id` int NOT NULL AUTO_INCREMENT,
-  `type_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`acct_journal_voucher_type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-/*Data for the table `acct_journal_voucher_type` */
-
-insert  into `acct_journal_voucher_type`(`acct_journal_voucher_type_id`,`type_name`,`created_at`,`updated_at`) values 
-(1,'jurnal-umum','2023-07-24 14:05:43','2023-07-24 14:05:42'),
-(2,'jurnal-pembelian','2023-07-24 14:05:41','2023-07-24 14:05:40'),
-(3,'jurnal-penjualan','2023-07-24 14:05:40','2023-07-24 14:05:38'),
-(4,'jurnal-kas-dan-bank','2023-07-24 14:05:38','2023-07-24 14:05:36');
+insert  into `acct_journal_voucher_item`(`journal_voucher_item_id`,`journal_voucher_id`,`company_id`,`account_id`,`journal_voucher_description`,`journal_voucher_amount`,`account_id_status`,`account_id_default_status`,`journal_voucher_debit_amount`,`journal_voucher_credit_amount`,`journal_voucher_item_token`,`journal_voucher_item_token_void`,`data_state`,`created_at`,`updated_at`,`reverse_state`) values
+(1,1,2,4,'D',22200.00,0,0,22200.00,0.00,NULL,NULL,0,'2025-02-05 07:50:57','2025-02-05 07:50:57',0),
+(2,1,2,23,'D',20000.00,1,1,0.00,20000.00,NULL,NULL,0,'2025-02-05 07:50:57','2025-02-05 07:50:57',0),
+(3,1,2,17,'D',2200.00,1,1,0.00,2200.00,NULL,NULL,0,'2025-02-05 07:50:57','2025-02-05 07:50:57',0),
+(4,2,2,7,'Pembelian 0001/PO/II/2025',20000.00,0,0,20000.00,0.00,NULL,NULL,0,'2025-02-05 08:04:06','2025-02-05 08:04:06',0),
+(5,2,2,3,'Pembelian 0001/PO/II/2025',22200.00,1,0,0.00,22200.00,NULL,NULL,0,'2025-02-05 08:04:06','2025-02-05 08:04:06',0),
+(6,2,2,6,'Pembelian 0001/PO/II/2025',2200.00,0,0,2200.00,0.00,NULL,NULL,0,'2025-02-05 08:04:06','2025-02-05 08:04:06',0),
+(7,3,2,7,'Pembelian 0002/PO/II/2025',100000.00,0,0,100000.00,0.00,NULL,NULL,0,'2025-02-05 08:25:00','2025-02-05 08:25:00',0),
+(8,3,2,16,'Pembelian 0002/PO/II/2025',111000.00,1,1,0.00,111000.00,NULL,NULL,0,'2025-02-05 08:25:00','2025-02-05 08:25:00',0),
+(9,3,2,6,'Pembelian 0002/PO/II/2025',11000.00,0,0,11000.00,0.00,NULL,NULL,0,'2025-02-05 08:25:00','2025-02-05 08:25:00',0);
 
 /*Table structure for table `acct_payment_schedule` */
 
@@ -1110,7 +1064,7 @@ CREATE TABLE `acct_payment_schedule` (
 
 /*Data for the table `acct_payment_schedule` */
 
-insert  into `acct_payment_schedule`(`payment_schedule_id`,`branch_id`,`payment_schedule_name`,`payment_schedule_repeat_every`,`payment_schedule_start_date`,`payment_schedule_next_date`,`payment_schedule_last_date`,`payment_schedule_status`,`status`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
+insert  into `acct_payment_schedule`(`payment_schedule_id`,`branch_id`,`payment_schedule_name`,`payment_schedule_repeat_every`,`payment_schedule_start_date`,`payment_schedule_next_date`,`payment_schedule_last_date`,`payment_schedule_status`,`status`,`data_state`,`created_id`,`created_at`,`updated_at`) values
 (3,0,'Biaya Listrik, Telepon dan Air',0,'2019-07-09','2019-09-09','2019-08-27',0,0,0,0,NULL,'2023-06-23 10:52:20'),
 (4,0,'Uang Sampah',0,'2019-07-03','2019-08-03',NULL,0,0,0,0,NULL,'2023-06-23 10:52:20');
 
@@ -1159,7 +1113,7 @@ CREATE TABLE `acct_profit_loss_report` (
 
 /*Data for the table `acct_profit_loss_report` */
 
-insert  into `acct_profit_loss_report`(`profit_loss_report_id`,`company_id`,`format_id`,`report_no`,`account_type_id`,`account_id`,`account_code`,`account_name`,`report_formula`,`report_operator`,`report_type`,`report_tab`,`report_bold`,`data_state`,`created_id`,`created_on`,`last_update`) values 
+insert  into `acct_profit_loss_report`(`profit_loss_report_id`,`company_id`,`format_id`,`report_no`,`account_type_id`,`account_id`,`account_code`,`account_name`,`report_formula`,`report_operator`,`report_type`,`report_tab`,`report_bold`,`data_state`,`created_id`,`created_on`,`last_update`) values
 (1,2,1,1,2,23,'300','PENJUALAN',NULL,NULL,3,1,1,0,55,'2025-01-30 06:50:37','2025-01-30 06:50:37'),
 (2,2,1,2,2,0,'0',NULL,NULL,NULL,0,0,0,0,55,'2025-01-30 06:50:37','2025-01-30 06:50:37'),
 (3,2,1,3,2,24,'300.01','HARGA POKOK PENJUALAN :',NULL,NULL,1,1,1,0,55,'2025-01-30 06:50:37','2025-01-30 06:50:37'),
@@ -1240,7 +1194,7 @@ CREATE TABLE `acct_report` (
 
 /*Data for the table `acct_report` */
 
-insert  into `acct_report`(`id`,`id_no`,`id_report`,`field_name`,`account_id`,`formula`,`operator`,`type`,`status`,`indent_tab`,`indent_bold`) values 
+insert  into `acct_report`(`id`,`id_no`,`id_report`,`field_name`,`account_id`,`formula`,`operator`,`type`,`status`,`indent_tab`,`indent_bold`) values
 (559,1,2,'Aktiva Lancar','0','','','title',1,0,1),
 (560,2,2,'Kas','1.1.1.1','','','loop',1,1,0),
 (561,3,2,'Bank','1.1.1.2','','','loop',1,1,0),
@@ -1341,7 +1295,7 @@ CREATE TABLE `acct_report_backup` (
 
 /*Data for the table `acct_report_backup` */
 
-insert  into `acct_report_backup`(`id`,`id_no`,`id_report`,`field_name`,`account_id`,`formula`,`operator`,`type`,`indent_tab`,`indent_bold`) values 
+insert  into `acct_report_backup`(`id`,`id_no`,`id_report`,`field_name`,`account_id`,`formula`,`operator`,`type`,`indent_tab`,`indent_bold`) values
 (220,1,1,'Pendapatan','0',NULL,NULL,'title',0,1),
 (221,2,1,'Penjualan Plastik','0',NULL,NULL,'subtitle',1,1),
 (222,3,1,'Penjualan Plastik','500.001',NULL,NULL,'loop',2,0),
@@ -1489,7 +1443,7 @@ CREATE TABLE `core_agency` (
 
 /*Data for the table `core_agency` */
 
-insert  into `core_agency`(`agency_id`,`branch_id`,`agency_code`,`agency_name`,`agency_phone_number`,`agency_contact_person`,`agency_address`,`agency_email`,`agency_profit_sharing_percentage`,`agency_remark`,`mou_status`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
+insert  into `core_agency`(`agency_id`,`branch_id`,`agency_code`,`agency_name`,`agency_phone_number`,`agency_contact_person`,`agency_address`,`agency_email`,`agency_profit_sharing_percentage`,`agency_remark`,`mou_status`,`data_state`,`created_id`,`created_at`,`updated_at`) values
 (1,1,'B001','EXAMPLE AGENSI','0526525','SMG','SEMARANG','-',2.00,NULL,0,0,121,'2019-10-24 11:18:12','2023-12-28 04:42:51'),
 (2,0,'tes1','tes','1212','tes','tes','tes',12.00,'tes',0,1,3,'2021-10-15 02:43:48','2023-06-23 10:52:21');
 
@@ -1514,7 +1468,7 @@ CREATE TABLE `core_bank` (
 
 /*Data for the table `core_bank` */
 
-insert  into `core_bank`(`bank_id`,`bank_code`,`bank_name`,`account_id`,`bank_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
+insert  into `core_bank`(`bank_id`,`bank_code`,`bank_name`,`account_id`,`bank_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values
 (11,'BM','Bank Mandiri',8,NULL,0,3,'2023-06-09 06:34:35','2023-06-23 10:52:21'),
 (12,'5454','BRI Syariah',8,NULL,0,3,'2023-06-20 15:54:32','2023-06-23 10:52:21');
 
@@ -1540,7 +1494,7 @@ CREATE TABLE `core_branch` (
 
 /*Data for the table `core_branch` */
 
-insert  into `core_branch`(`branch_id`,`branch_code`,`branch_name`,`branch_address`,`branch_manager`,`branch_status`,`branch_parent_id`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
+insert  into `core_branch`(`branch_id`,`branch_code`,`branch_name`,`branch_address`,`branch_manager`,`branch_status`,`branch_parent_id`,`data_state`,`created_id`,`created_at`,`updated_at`) values
 (1,'KME','PBF Menjangan Enam','Semarang',NULL,0,NULL,0,0,NULL,'2023-12-26 10:12:57');
 
 /*Table structure for table `core_city` */
@@ -1564,7 +1518,7 @@ CREATE TABLE `core_city` (
 
 /*Data for the table `core_city` */
 
-insert  into `core_city`(`city_id`,`city_code`,`province_id`,`province_code`,`city_name`,`province_no`,`city_no`,`data_state`) values 
+insert  into `core_city`(`city_id`,`city_code`,`province_id`,`province_code`,`city_name`,`province_no`,`city_no`,`data_state`) values
 (936,'',62,'','Kabupaten Gianyar','','',0),
 (937,'',62,'','Kabupaten Bangli','','',0),
 (938,'',62,'','Kabupaten Buleleng','','',0),
@@ -2110,192 +2064,15 @@ CREATE TABLE `core_customer` (
   KEY `customer_id` (`customer_id`),
   KEY `FK_core_customer_province_id` (`province_id`),
   KEY `FK_core_customer_city_id` (`city_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=182 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=184 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `core_customer` */
 
-insert  into `core_customer`(`customer_id`,`province_id`,`city_id`,`customer_code`,`customer_name`,`customer_tax_no`,`customer_address`,`customer_email`,`customer_fax_number`,`customer_contact_person`,`customer_payment_terms`,`customer_remark`,`debt_limit`,`amount_debt`,`remaining_limit`,`from_store`,`data_state`,`updated_id`,`created_id`,`created_at`,`updated_at`,`data_dump`) values 
-(1,71,1045,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK SEMARANG',NULL,'JL. INDUSTRI TUGU I KAV 2-4, KWS. INDUSTRI TUGU WIJAYA KUSUMA, RANDUGARUT - SEMARANG, 024-8665660 / 8665657-58',NULL,NULL,'024-8665660 / 8665657-58',NULL,NULL,0,0,0,0,0,NULL,3,'0000-00-00 00:00:00','2023-08-05 05:52:28','Jawa Tengah'),
-(2,70,999,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK CIREBON',NULL,'JL. PANGERAN ANTASARI BLOK, PETAPAN RT. 02 / 01 DS. KEDUJEN, KEC. DEPOK - KAB. CIREBON, 0231-247195/247915',NULL,NULL,'0231-247195/247915',NULL,NULL,0,0,0,0,0,NULL,3,'0000-00-00 00:00:00','2023-08-05 05:52:41','Jawa Barat'),
-(3,70,1008,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK BOGOR 2',NULL,'JL. RAYA BOGOR KM. 46,6, DESA NANGGEWER MEKAR KEC CIBINONG, BOGOR - JAWA BARAT',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,74,'0000-00-00 00:00:00','2023-08-05 05:52:49','Jawa Barat'),
-(4,70,1008,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK BOGOR',NULL,'JL. RAYA ALTERNATIF SENTUL KM 46, KEL. CIJUJUNG - KEC. SUKARAJA, KAB. BOGOR - 16710, 8796050',NULL,NULL,'8796050',NULL,NULL,0,0,0,0,0,NULL,74,'0000-00-00 00:00:00','2023-08-05 05:52:57','Jawa Barat'),
-(5,72,1067,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK GRESIK',NULL,'JL. RAYA DUDUK SAMPEYAN RT 11, RW 04, DS AMBENG-WATANGREJO, KEC. DUDUK SAMPEYAN - GRESIK',NULL,NULL,NULL,0,NULL,0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','2023-08-05 05:53:08','Jawa Timur'),
-(6,70,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK PARUNG','','JL. PEMBANGUNAN RAYA GUNUNG, SINDUR NO. 21A RT.01 RW.02, Gunung Sindur - Bogor 16340, 7563078 ','','','7563078',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(7,67,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK JAKARTA','','JL. ANCOL BARAT VIII NO. 2, JAKARTA UTARA, 14430, 6919971-74      ','','','6919971-74      ',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','DKI Jakarta'),
-(8,89,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK MAKASAR','','JL. KIMA 10 BLOK A5 - A5 A, KEL. DAYA KEC. BIRINGKANAYA, MAKASAR SUL-SEL 90241, TELP: 0411-512292 / 5781492 / 512335    ','','',' 0411-512292 / 5781492 / 512335    ',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Selatan'),
-(9,72,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK SURABAYA','','JL. JENGGALA NO. 22, GEDANGAN, SIDOARJO - 61254, 8915000 / 8902222       ','','','8915000 / 8902222       ',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
-(10,70,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK SENTUL','','JL. RAYA ALTERNATIF SENTUL KM46, KEL. CIJUJUNG - KEC. SUKARAJA, KAB. BOGOR - 16710, 8796050 ','','','8796050',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(11,79,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK LAMPUNG','','JL. TEMBESU NO. 8 DESA CAMPANG, RAYA - KALI BALOK, BANDAR LAMPUNG - 35122, 0721 - 7699123  ','','','0721 - 7699123  ',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Lampung'),
-(12,71,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA DC MINI LOMBOK','','JL. BY PASS BANDARA INTERNATIO, NAL LOMBOK, DESA / KEL : BATUJAI / UNGGA, KEC : PRAYA, BP. ARIEF INDARTO, 08562956206        ','','','8562956206',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Nusa Tenggara Barat'),
-(13,71,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK YOGYAKARTA','','JL. RINGROAD BARAT NO. 99, PADUKUHAN SALAKAN RT.08 / RW.26, TRIHANGGO GAMPING - SLEMAN JGY, 0274-6499300    ','','','0274-6499300    ',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Daerah Istimewa Yogyakarta'),
-(14,70,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK PURWAKARTA','','KAWASAN KOTA BUKIT INDAH, SEKTOR N BLOK N 1/5, CIKAMPEK - JAWA BARAT, 0264-8281901    ','','',' 0264-8281901    ',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(15,72,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK JEMBER','','JL. PIERRE TENDEAN NO. 99A, DUSUN TEGAL BAI, KEL. KARANGREJO, KEC. SUMBERSARI, JEMBER - 68127         ','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
-(16,67,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK JAKARTA 2','','JL. ANCOL 8 NO. 2, ANCOL BARAT, JAKARTA 14430           ','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','DKI Jakarta'),
-(17,72,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK MALANG','','JL. MAYJEND SUNGKONO NO.99, KEL. WONOKOYO KEC. KDNG KANDANG, RT.01 RW.02 KODYA MALANG, JATIM   ','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
-(18,70,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK BANDUNG','','JL. JEND. A. YANI NO. 806, KIARACONDONG - CICAHEUM, BANDUNG 40282, 022-7215556     ','','','022-7215556     ',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(19,62,936,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK BALI',NULL,'JL. RAYA MENGWI - SINGARAJA  NO 17,BANJAR BINONG, DESA WERDHI BUANA, KEC. MENGWI KAB BADUNG, BALI, 0361-829329',NULL,NULL,'0361-829329',0,NULL,0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','2024-05-16 02:02:09','Bali'),
-(20,73,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK DEPO PONTIANAK','','JL. TRANS KALIMANTAN KOMPLEK, PERGURUAN PRIMA LESTARI, BLOK D.2 NO. 1-3 - KUBURAYA, KALBAR  ','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kalimantan Barat'),
-(21,64,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK TANGERANG 2','','JL. GATOT SOEBROTO KM. 9, RT. 03/01 KEL. KADE KEC. CURUG, KAB. TANGERANG.         ','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
-(22,64,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK TANGERANG 1','','JL. RAYA SERANG RT. 003 / 001 KM 09, NO. 1A ZONA INDUSTRI MANIS, DS. KADU JAYA KEC. CURUG, TANGERANG       ','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
-(23,95,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK MEDAN','','JL. INDUSTRI DUSUN 1 NO. 60, KEL. TANJUNG MORAWA, KAB. DELI SERDANG 20582, 061-7877060, 7877731    ','','','061-7877060, 7877731    ',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sumatera Utara'),
-(24,72,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK JOMBANG','','JL. PETERONGAN KM 71,3, DESA CANDI - DESA SAMBIREJO, KEC. JOGOROTO, KAB JOMBANG              ','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
-(25,70,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK BEKASI','','JL. JABABEKA RAYA BLOK A NO. 6-15, RT. 004 RW. 006 PASIR GOMBONG, CIKARANG UTARA - BEKASI, K       ','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(26,92,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK MANADO','','KOMP. GUDANG PUSKUD BLOK C2 / C3, JL. RY. MANADO BITUNG, KOLONGAN, TETEMPANGAN JAGA 7, KALAWAT             ','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Utara'),
-(27,94,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK PALEMBANG','','JL. PANGERAN AYIN NO. 326, KEL. SUKAMAJU KEC. SAKO, PALEMBANG - SUMSEL - 30361, 0711-822006     ','','','0711-822006     ',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sumatera Selatan'),
-(28,64,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK LEBAK','','JL. RANGKASBITUNG, PANDEGLANG KM 12 RT 14 RW 05, KP. CIBUAH KERTA MUKTI - BANTEN         ','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
-(29,87,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK PEKANBARU','','JL. RAYA KUBANG TERATAK BULUH, RT. 03 / 02 DUSUN II KERAMAT SAKTI, KUBANG JAYA, SIAK HULU - RIAU           ','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Riau'),
-(30,65,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK BENGKULU','','JL. DEPATI PAYUNG NEGARA, KEL, BETUNGAN   KEC, SELEBAR, KOTA BENGKULU           ','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Bengkulu'),
-(31,89,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK MAKASAR','','JL.KIMA 10 BLOK A5-A5 A, KEC.BIRINGKANAYA MAKASAR, SULAWESI SELATAN 90243, 0411-512292/5781492/512335      ','','',' 0411-512292/5781492/512335    ',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Selatan'),
-(32,71,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK DEPO ACEH','','JL.LAKSAMANA MALAHYATI   DS.BAET, KEC. BAITUSSALAM   KAB. ACEH BESAR, NANGROE ACEH DARUSSALAM         ','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Aceh'),
-(33,71,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK KLATEN','','JL. RAYA PENGGUNG-JATINOM, DESA BLENCERAN, KEC. KARANGANOM, KAB. KLATEN, JAWA TENGAH                ','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Tengah'),
-(34,92,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK MANADO BARU','','JL. RAYA MANADO - BITUNG, AIRMADIDI ATAS KEC.AIRMADIDI, KAB.MINAHASA UTARA SULUT 95371          ','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Utara'),
-(35,89,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK PALOPO','','JL. POROS MAKASAR - PALOPO, DESA KARANG KARANGAN, KEC. BUA, KAB. LUWU, SUL-SEL 91991         ','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Selatan'),
-(36,73,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK PONTIANAK BARU','','JL. ARTERI SUPADIO  RT. 04  RW. 08, DESA JL.PARIT BARU SUNGAI RAYA, KAB. KUBU RAYA KALIMANTAN BARAT.                ','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kalimantan Barat'),
-(37,81,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK JATI TERNATE','','JL. SANTO PETRO JEMBATAN 6, NAIK KEDARA, KALUMATA, TERNATE, SELATAN-MALUKU UTARA 97718              ','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Maluku Utara'),
-(38,74,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK BANJARMASIN','','JL.A.YANI KM 12,2, KEL.GAMBUT BARAT KAB.BANJAR, BANJARMASIN, 70652   ','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kalimantan Selatan'),
-(39,71,1044,'PT. INDOMARCO PRISMATAMA','PT. INDOMARCO PRISMATAMA GUDANG INDUK BANGKA','','JL.KETAPANG KAWASAN TPI RT.001, TEMBERAN,BACANG,BUKIT INTAN, KOTA PANGKAL PINANG, KEP. BANGKA BELITUNG    ','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kepulauan Bangka Belitung'),
-(40,64,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Cikokol Branch','','Jl. MH. Thamrin No. 9, Cikokol Tangerang 15117, Banten, Indonesia','','','Phone   : 021-5575 5966    ',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
-(41,64,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Balaraja Branch','','Jl. Arya Jaya Santika No. 19, RT/RW 001/02, Kp. Seglok Desa Pasir Bolang, Kec. Tigaraksa, Tangerang 15720, Banten','','','Phone   : 021-5990 123    Fax        : 021-5990 388',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
-(42,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Cileungsi Branch 2','','Kawasan Industri Menara Permai Kav. 18 JL.RAYA NAROGONG RT 01/RW 01.KEL,DAYEH','','','Phone : 021-8249 8222, 8249 9234    Fax     : 021-8249 7200, 8249 7500',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(43,64,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk DEPO Balaraja Branch','','Jl. Arya Jaya Santika No. 19, RT/RW 001/02, Kp. Seglok Desa Pasir Bolang, Kec. Tigaraksa, Tangerang 15720, Banten','','','Phone   : 021-5990 123    Fax        : 021-5990 388',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
-(44,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Bekasi Branch','','Kawasan Industri Jababeka 2 Jl. Industri Selatan VI Blok PP No. 6 Cikarang, Jawa Barat','','','Phone : 021- 8984 1456       Fax      : 021- 8984 1455',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(45,72,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Sidoarjo BULKY BEREBEK (BBRK)','','Jl. BERBEK INDUSTRI VII No 3-5 WARU SIDOARJO','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
-(46,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Bandung Branch 1','','Jl. Soekarno Hatta No. 791, Cisaranten Wetan Bandung 40294, Jawa Barat','','','Fax : 022-7833 215, 7817 247    Fax : 022-7833 215, 7817 247',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(47,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Bandung Branch 2','','Jl. Nanjung RT/RW 006/11 (Blok Ajeng), Desa Utama, Kec. Cimahi Selatan Kota Cimahi, Kab. Bandung, Jawa Barat','','','Phone : 022- 6675 300    Fax      : 022- 6671 567',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(48,71,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Cilacap Branch','','Jl. MT. Haryono No. 168 Kawasan Industri Cilacap 53221 Kelurahan Lomanis, Jawa Tengah','','','Phone    : 0282-548 345    Fax       : 0282-548 337',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Tengah'),
-(49,71,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Lombok Branch','','Jl. TGH Saleh Hambali Km 20 Dasan Cermen Sandubaya Mataram 83123','','','Phone : 0370-620994',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Nusa Tenggara Barat'),
-(50,72,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Sidoarjo Branch','','Jl. Sukodono No.45 Desa Keboan Sikep Kec.Gedangan Sidoarjo 61254','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
-(51,71,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Semarang Branch','','Kawasan Industri Tugu Wijaya Kusuma Jl. Industri I No. 1, Randugarut, Tugu Semarang 50010, Jawa Tengah','','','Phone  : 031-8912 111    Fax      : 031-8911 845',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Tengah'),
-(52,79,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Lampung Branch','','Jl. Tembesu No.10 Rt.001 Rw. 001 Campang Raya, Sukabumi Kota Bandar Lampung 35122, Lampung','','','Phone : 024-8660 999    Fax       : 024-8660 888',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Lampung'),
-(53,72,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Malang Branch','','Jl. Raya Singosari Km 16, Desa Losari Kec. Singosari, Kab. Malang, Jawa Timur','','','Phone : 0721-7699 111    Fax      : 0721-7699 100',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
-(54,71,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Klaten Branch','','Jl. Solo - Yogya Km 22, Kaliwingko, Banaran Delanggu, Klaten, Jawa Tengah','','','Phone : 0341-7285 667    Fax    : 0341-454 777',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Tengah'),
-(55,62,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Bali Branch','','Jl. Bypass Ida Bagus Mantra Lingkungan Siut Desa Tulikup Kec. Gianyar Kab. Gianyar 80515','','','Phone : 0272-554 325    Fax      : 0272-557 000',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Bali'),
-(56,72,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Jember Branch','','Jl. Brawijaya Komplek Rejo Agung Mangli - Jember 68153','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
-(57,95,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Medan Branch','','Jl. Kawasan Industri No 99 S Tanjung Morawa Kab. DELI SERDANG','','','Phone  : 0331-426333    Fax       : 0331-426555',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sumatera Utara'),
-(58,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Bogor Branch','','Jl. Raya Pemda - Karadenan RT 04/RW 10 Kel. Karadenan Kec. Cibinong - Bogor','','','phone  : 061-8050 8000 / 8050 8001    Fax  : 061-8050 8003',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(59,64,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk DC.cikokol (Bulky Imam Bonjol)','','Jl. IMAM BONJOL No.198 NUSA JAYA KARAWACI TANGERANG','','','Phone : 021-2956 8456    Fax      : 021-2956 8444',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
-(60,87,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Pekanbaru Branch','','Jl. Siak 2 Air Hitam, Kel. Simpang Baru Kec. Tampan, Pekanbaru','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Riau'),
-(61,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Plumbon Branch','','Jl. Pangeran Antasari Blok Kebuyan RT 013/ 005 Desa Lurah, Kec. Plumbon, Kabupaten Cirebon','','','Phone  : 0761-8417 106    Fax      : 0761-8417 102',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(62,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Parung Branch','','Jl. Raya Gunung Sindur RT 010 / RW 005 Kp. Tulang Kuning, Desa Waru, Kec, Parung Kabupaten Bogor, Jawa Barat','','','Phone : 0231-8290 001 / 8290 000    Fax      : 0231-8290 022 / 8290 024',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(63,79,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Kotabumi Branch','','Jl. Lintas Sumatera RT/RW 001/001 Desa Kalibalangan, Kec. Abung Selatan Kotabumi Lampung Utara Depan Polsek Abung Selatan','','','Phone  : 0251-7554422    Fax        : 0251-7554423',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Lampung'),
-(64,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Karawang Branch','','Jl. Alternatif Tanjungpura-Klari RT 017 RW 004 Desa Mergasari, Kec. Karawang Timur Kabupaten Karawang 41351','','','Phone : 081511636553    Fax      : 0724-3260052',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(65,64,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Serang Branch','','Jl. Raya Serang Cilegon Km 3.1 Desa Drangon Kec Taktakan Kab Serang','','','Phone  : 0267-8634161    Fax        : 0267-8634160',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
-(66,94,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk DC. PALEMBANG Branch','','Jl. Tembus Terminal Alang-Alang Lebar RT.12 RW. 05 Kel. Talang Kelapa Kec. Alang-Alang Lebar Palembang - 30154','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sumatera Selatan'),
-(67,70,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk DC.CIANJUR','','Alamat : JL.Cianjur Suka Bumi RT.01 / RW.01 Ds.Bunisari , Kec.Warung - Kondang','','','Telp : 02547913535',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(68,89,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk DC.MAKASAR','','JL.Kima Raya VIII Blok SS No.23 Kel.Bira Kec.Tamalanrea Kota Makasar','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Selatan'),
-(69,73,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRIJAYA, Tbk Branch DEPO PONTIANAK','','Kawasan Borneo Business Icon Jl.Mayor Alianyang ruko B no.6 kab. Kubu Raya prov.Kalimantan Barat 78241','','','Telp ; 081 58 500 4989',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kalimantan Barat'),
-(70,69,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Jambi Branch','','Jl. Raya Palembang- Jambi KM 14 Pondok Meja Kec.Maestong Kab. Muaro Jambi Rov.Jambi','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jambi'),
-(71,92,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Manado Branch','','Jl. Raya Worang By Pass Desa Karegesan Jaga IV Kec.Kauditan Kab. Minahasa Utara','','','Telp : ( 0411 ) 4723201 / 4723210    Fax : ( 0411 ) 4733172',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Utara'),
-(72,74,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk Banjarmasin Branch','','Jl. Raya Nusa Indah RT05/RW02 Kec. Bati bati, Tanah laut 70852 Kalimantan selatan Indonesia','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kalimantan Selatan'),
-(73,71,1044,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, Tbk DC REMBANG','','Jl Raya Rembang Lasem KM 3 Rt.01/Rw.05.Desa Pasar Banggi,Sawah, Pasar Banggi, Kec. Rembang, Kab. Rembang Jawa Tengah 59219, Indonesia','','','Phone : 0741-5915999    CP : Choerul Anwar ( 08161621148 ext 49169)',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Tengah'),
-(74,73,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR PONTIANAK','','JL. ARTERI SUPADIO RT.04 / RW.08, DESA PARITBARU, KEC. SUNGAI RAYA, KAB. KUBU RAYA, KOTA PONTIANAK, L','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kalimantan Barat'),
-(75,70,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR BANDUNG','','JL. AHMAD YANI NO. 806, CICAHEUM BANDUNG, 40282, 022-7202711','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(76,95,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR MEDAN','','JL. SISINGAMANGARAJA KM 6.5, KEC. MEDAN AMPLAS, MEDAN - SUMUT, (061) 7877060, 7877731','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sumatera Utara'),
-(77,92,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR MANADO','','JL. AA MARAMIS NO. 15, KEL. PANIKI SATU, LINGKUNGAN 1, KEC. MAPANGET, MANADO, 95258','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Utara'),
-(78,76,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR SAMARINDA','','JL. A.W. SYAHRANIE NO. 51, KEL. SEMPAJA SELATAN, SAMARINDA - 75119, 7770734','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kalimantan Timur'),
-(79,70,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR BOGOR','','JL. RAYA BOGOR - JAKARTA KM 46.7, KEL. NANGEWER MEKAR, CIBINONG, KAB. BOGOR 16912','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(80,89,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR MAKASAR','','JL. PERINTIS KEMERDEKAAN NO. 17, KM. 18, KEL. PAI KEC. BIRINGKANAYA, KOTA MAKASAR, SULAWESI SELATAN','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Selatan'),
-(81,70,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR BINTARA','','JL. I GUSTI NGURAH RAI, KEL. BINTARA, KEC. BEKASI BARAT, KOTA BEKASI, 6909471','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(82,67,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR CIPINANG','','JL. PISANGAN TIMUR, CIPINANG, JAKARTA TIMUR, 4706455','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','DKI Jakarta'),
-(83,94,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR PALEMBANG','','JL. PANGERAN AYIN RT. 05 / RW. 03, KEL. SUKAMAJU, KEC. SAKO, PALEMBANG, 711822123','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sumatera Selatan'),
-(84,67,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR KEMAYORAN','','JL. TERUSAN ANGKASA B2 KAV 1, GUNUNG SAHARI SELATAN, KEMAYORAN JAKARTA PUSAT, 6909471','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','DKI Jakarta'),
-(85,71,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR SEMARANG','','JL.RAYA KALIGAWE 38KM 5.1, RT01/RW01 TERBOYO WETAN, GENUK SEMARANG, TELP: 024-76928282','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Tengah'),
-(86,91,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR KENDARI','','JL MADUSILA NO.19 KEC POASIA, KEL.ANDUONOHU, KENDARI SULAWESI TENGGARA','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Tenggara'),
-(87,64,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR CIPUTAT','','JL RAYA PARUNG CIPUTAT NO 21, RT02/04 KELURAHAN KEDAUNG, KEC, SAWANGAN, KOTA DEPOK','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
-(88,70,1044,'PT. INTI CAKRAWALA CITRA','CABANG KARAWANG','','JL. KEPUH No.22 KEL. NAGASARI, KEC. KARAWANG BARAT, KAB.KARAWANG JAWA BARAT','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(89,70,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR KARAWANG','','JL. KEPUH No.22, (JL. LINGKAR TANJUNGPURA), KEL.NAGASARI, KEC. KARAWANG BARAT, JAWA BARAT','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(90,80,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR AMBON','','JL. SYARANAMUAL NO. 20 desa HUNUTH, Atau KATE-KATE KEC. PULAU AMBON, KOTA AMBON PROVINSI, MALUKU','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Maluku'),
-(91,72,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR MALANG','','JL. S. SUPRIADI No 170 A, KEL. KEBONSARI KEC. SUKUN MALANG, MALANG JAWA TIMUR','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
-(92,79,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR BANDAR LAMPUNG','','JL. SUKARNO HATTA NO. 15, KEL. KAMPUNG BARU RAYA, KEC. LABUHAN RATU - BANDAR LAMPUNG','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Lampung'),
-(93,71,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR SOLO','','JL. RAYA SOLO - TAWANGMANGU, KM 7,2 DS DAGEN, KEC. JATEN, KAB. KARANGANYAR - JAWA TENGAH','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Tengah'),
-(94,70,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR SUKABUMI','','JL.LINGKAR SELATAN NO.26, KEL. SUDAJAYA HILIR KEC BAROS, SUKABUMI-JAWA BARAT 43161','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(95,78,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR BATAM','','JL. LETJEND SUPRAPTO (BATAMINDO MUKA KUNING), MUKA KUNING, SEI BEDUK','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kepulauan Riau'),
-(96,64,1044,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR CIKOKOL','','JL.MH.THAMRIN RT.001/RW.002, KEL.CIKOKOL KEC.TANGERANG, TANGERANG - BANTEN 15117','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Banten'),
-(97,72,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA SURABAYA','','Jl. BERBEK INDUSTRI VII NO.3 - 5, DESA KEPUH KIRIMAN, WARU, SIDOARJO - SURABAYA (65255), Tlp. (031) 7496 - 001/ 031-7494-001 (BAP) 031-8687-005 (GA), Fax. (031) 7480-006 (OFC) / 031-7480-0078 (DC)','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
-(98,90,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA DC PALU','','JL. TRANS SULAWESI KM.16, KEL. KAYUMALUE PAJEKO','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Tengah'),
-(99,92,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA BITUNG','','JL. INDUSTRI KM 12 KP. KADU DESA BUNDER, RT.03 CIKUPA, TANGERANG / EKS GUDANG BULOG','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Utara'),
-(100,70,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA MIDI PASURUHAN','','JL. RY BEJI, DS. CANGKRING, MALANG, RT 02 RW 01, PASURUHAN, PASURUHAN, MALANG, Tlp.(0343)6531973','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(101,70,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA BEKASI','','Jl. Jababeka XI Blok L 3-5, Kawasan Industri Jababeka, Cikarang Utara, Bekasi, Telp. (021) 8984-6688), Fax. (021) 8984-4588','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Barat'),
-(102,80,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA DC AMBON','','JL. SISINGAMANGARAJA NO.88, KEL, PASSO, KEC, BAGULA, KOTA AMBON MALUKU 97232','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Maluku'),
-(103,95,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA MEDAN','','Jalan MG. Manurung, Kawasan Industri Amplas, KM 9,5. Kelurahan Timbang Deli, Kecamatan Medan, Amplas, Kota Medan','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sumatera Utara'),
-(104,90,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA DC PALU 2','','Jl. Karanjalemba no.16, Birobuli Selatan, Palu Selatan, Kota Palu, Sulawesi Tengah, Kode Pos 94364','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Tengah'),
-(105,92,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA DC MANADO','','JL. RAYA MANADO BITUNG KM 15, KOMPLEKS PERGUDANGAN OLIMPIK GRUP, KEL. KOLONGAN KEC KALAWAT, MINAHASA UTARA, MANADO SULUT','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Utara'),
-(106,71,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA DC YOGYAKARTA','','JL. JATI No. 262, TEGAL PASAR, BANGUN TAPAN, BANTUL YOGYAKARTA, Telp. 027404932186','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Daerah Istimewa Yogyakarta'),
-(107,89,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA DC MAKASSAR','','JL. Kima Raya KM.8 SS No. 23, Biringkanaya - Daya, Makasar 90245','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Sulawesi Selatan'),
-(108,76,1044,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA DC SAMARINDA','','JL. SURYANATA RT 015 KOMPLEK B, SAMARINDA, Telp., Fax. (0541)111682','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Kalimantan Timur'),
-(109,72,1044,'PT. SUMBER HIDUP SEHAT','PT. SUMBER HIDUP SEHAT DC. SIDOARJO','','Komplek Pergudangan dan Industri, Non B3 Meiko Abadi III Blok B 32.','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Timur'),
-(110,71,1044,'PT. SUMBER HIDUP SEHAT','PT. SUMBER HIDUP SEHAT DC. SEMARANG','','Jl. Fatmawati No.18 RT. 03 RW 25 Kel. Sendangmulyo, kec. Tembalang.','','','',0,'',0,0,0,0,0,NULL,0,'0000-00-00 00:00:00','0000-00-00 00:00:00','Jawa Tengah'),
-(111,70,1006,'TOSERBA YOGYA/GRIYA','TOSERBA YOGYA/GRIYA  DC.BUAH BATU',NULL,'Jl.Terusan Buah Batu No.12  Rt.06/Rw.04 \r\nKel. Batununggal   Kec. Bandung Kidul\r\nKota Bandung\r\nBANDUNG',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-08-10 05:03:06','2023-08-10 05:03:06',NULL),
-(112,70,1006,'TOSERBA YOGYA/GRIYA','TOSERBA YOGYA/GRIYA  DC.GRIYA CENTER',NULL,'JL.JAKARTA  No.53 \r\nBANDUNG',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-08-10 05:04:18','2023-08-10 05:04:18',NULL),
-(113,66,973,'PT. INTI CAKRAWALA MAJU','PT. INTI CAKRAWALA MAJU DC.YOGYAKARTA',NULL,'JL. MAGELANG KM,6\r\nSINDUADI, MELATI, SLEMAN\r\nDAERAH ISTIMEWA YOGYAKARTA',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-08-10 05:07:26','2023-08-10 05:07:26',NULL),
-(114,64,956,'PT. INTI CAKRAWALA MAJU','PT. INTI CAKRAWALA MAJU DC.CIKOKOL',NULL,'JL.MH THAMRIN  RT 001/002\r\nKEL CIKOKOL , KEC TANGERANG\r\nBANTEN - 15117',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-08-10 05:08:38','2023-08-10 05:08:38',NULL),
-(115,64,956,'PT. INTI CAKRAWALA MAJU','PT. INTI CAKRAWALA MAJU DC.TANGERANG',NULL,'JL. GATOT SUBROTO KM. 5 NO. 4\r\nRT.001 / 001  JATI UWUNG\r\nTANGERANG,BANTEN 15138',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-08-10 05:09:33','2023-08-10 05:09:33',NULL),
-(116,70,1002,'PT. INTI CAKRAWALA MAJU','PT. INTI CAKRAWALA MAJU DC.SUKABUMI',NULL,'JL.LINGKAR SELATAN  NO.26\r\nSUDAJAYA HILIR, BAROS\r\nJAWA BARAT, SUKABUMI - 43161',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-08-10 05:10:37','2023-08-10 05:10:37',NULL),
-(117,94,1413,'PT. INTI CAKRAWALA MAJU','PT. INTI CAKRAWALA MAJU DC.PALEMBANG',NULL,'JL. PANGERAN AYIN NO.326 RT. 05 / RW. 03\r\nKEL. SUKAMAJU, KEC. SAKO\r\nPALEMBANG\r\n711822123',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-08-10 05:11:31','2023-08-10 05:11:31',NULL),
-(118,64,955,'PT.PERINTIS PELAYANAN PARIPURNA','PT.PERINTIS PELAYANAN PARIPURNA',NULL,'JL. Raya Serang KM.10 Pos Bitung, RT.017/004 \r\nDesa Kadu, Kec.Curug, Kab. Tangerang',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-08-10 05:14:23','2023-08-10 05:14:23',NULL),
-(119,64,955,'PT. CENTURY FRANCHISINDO UTAMA','PT. CENTURY FRANCHISINDO UTAMA',NULL,'JL. Raya Serang KM.10 , RT.017/004 \r\nDesa Kadu jaya, Kec.Curug, Kab. Tangerang',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-08-10 05:16:10','2023-08-10 05:16:10',NULL),
-(120,70,1021,'PT. Hero Supermarket, Tbk','PT. Hero Supermarket, Tbk',NULL,'JL. INDOFARMA  RT 01  RW 10 \r\nCIBITUNG - BEKASI',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-08-10 05:17:33','2023-08-10 05:17:33',NULL),
-(121,71,1048,'BOOTS','BOOTS DC SEMARANG',NULL,'Jl.Madukoro Raya, Kerobokan Kec, Semarang Barat Kota Semarang',NULL,NULL,NULL,NULL,NULL,0,0,0,0,1,NULL,75,'2023-08-16 04:14:41','2023-08-30 04:41:46',NULL),
-(122,87,1300,'PT. INTI CAKRAWALA CITRA','CABANG INDOGROSIR PEKANBARU',NULL,'JL.SOEKARNO HATTA NO,18\r\nRT01 RW,08 KEL SIDOMULYOBARAT\r\nKEC TAMPAN, PEKANBARU 28294',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-08-16 04:35:44','2023-08-16 04:35:44',NULL),
-(123,70,1014,'APT','PT.SAPTA PRIMA MEDIKA',NULL,'JL.KP MUARA BERES No.55 \r\nRT.02/RW 04 KEL.SUKAHATI\r\nCIBINONG-BOGOR',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-08-22 04:40:10','2023-08-22 04:40:10',NULL),
-(124,72,1094,'PT. INTI CAKRAWALA CITRA','PT.INTI CAKRAWALA CITRA .DC SURABAYA',NULL,'JL. RAYA JEMURSARI NO. 351\r\nSURABAYA \r\nTELP. 8439988',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-08-24 03:34:48','2023-08-24 03:34:48',NULL),
-(125,64,955,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS THE BREEZE BSD CITY',NULL,'The Breeze BSD City # L.63A-Lake Level\r\nJl. BSD Green Office Park, Kelurahan Sampora\r\nKec, Cisauk. Kab, Tangerang Banten 15345',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-08-25 02:20:49','2023-09-01 03:07:35',NULL),
-(126,69,990,'PT. INTI CAKRAWALA CITRA','PT.INTI CAKRAWALA CITRA .IDG JAMBI',NULL,'JL.LINGKAR SELATAN NO.18 RT.36\r\nKELURAHAN KENALI ASAM BAWAH\r\nKEC.KOTA BARU \r\nKOTA JAMBI',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-08-26 03:25:03','2023-08-26 03:25:03',NULL),
-(127,67,975,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS GANDARIA CITY MALL',NULL,'Jl.Sultan Iskandar Muda, Rt.10/Rw.6\r\nKebayora Lama Utara, Kec.Kebayoran Lama\r\nJakarta Selatan.DKI Jakarta 12240',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-08-30 04:44:20','2023-08-30 04:44:20',NULL),
-(128,70,1012,'PT.TEKNOLOGI MEDIKA PRATAMA','PT.TEKNOLOGI MEDIKA PRATAMA',NULL,'Komplek Pergudangan Kubik Logistics\r\nGudang E1 E2 E7\r\nJl. Tugu Raya Rt.10 /Rw.10\r\nDs / Kel Tugu. Kec Cimanggis,Kota Depok\r\nProv .Jawa Barat',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-08-31 04:40:38','2023-08-31 04:40:38',NULL),
-(129,67,975,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS BLOK M PLAZA',NULL,'Plaza Blok M, UG 03 – 04\r\nJl. Bulungan No.76, Kel, Kramat Pela\r\nKec, Kebayoran Baru, Kota Jakarta Selatan\r\nDKI Jakarta 12130\r\n021-7209175',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-09-02 04:46:37','2023-09-02 04:46:37',NULL),
-(130,67,975,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS AEON TANJUNG BARAT',NULL,'AEON Mall Tanjung Barat # Level 3F,Unit No.3-12A\r\nJl.Raya Tanjung Barat No.163.Rt 12/Rw 4.\r\nKel, Tanjung Barat. Kec, Jagakarsa. Kota Administrasi \r\nJakarta Selatan. DKI Jakarta 12530',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-09-06 02:27:52','2023-09-06 02:27:52',NULL),
-(131,67,978,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS CENTRAL PARK',NULL,'Central Park Mall Lantai LG No. Unit L-214A & L-215\r\nJl. Let.Jend.S. Parman Kav.28, Kel. Tanjung Duren Selatan\r\nKec. Grogol Petamburan, Kota Adm Jakarta Barat\r\nDKI Jakarta 11470',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-09-08 03:45:05','2023-09-08 03:45:05',NULL),
-(132,67,975,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS RUKO KEMANG',NULL,'Jl. Kemang Raya No.24 A   Rt.10/Rw.05\r\nKel,Bangka.  Kec, Mampang Prapatan\r\nKota Jakarta Selatan.\r\nDKI Jakarta 12730\r\n0858-9235-1967',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-09-19 06:40:09','2023-09-19 06:40:09',NULL),
-(133,72,1075,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, DC MADIUN',NULL,'JL. RAYA SURABAYA - MADIUN\r\nDUSUN IV, BONGSOPOTRO\r\nKEC. SARADAN, KAB. MADIUN\r\nJAWA TIMUR',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-10-02 06:02:04','2024-05-17 02:58:52',NULL),
-(134,74,1113,'PT. INTI CAKRAWALA CITRA','INDOGROSIR BANJARMASIN',NULL,'JL.A.YANI KM 12,2\r\nKEL.GAMBUT BARAT KAB.BANJAR\r\nBANJARMASIN\r\n70652',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-10-07 03:21:40','2023-10-07 03:21:40',NULL),
-(135,95,1427,'PT. INDOMARCO PRISMATAMA','PT.INDOMARCO PRISMATAMA DC STABAT',NULL,'JL. LINTAS SUMATERA  KEL, KARANG REJO\r\nKEC, STABAT  KOTA STABAT\r\nKAB, LANGKAT SUMATERA UTARA 20811',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-10-09 04:38:20','2023-10-09 04:38:20',NULL),
-(136,67,977,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS SOGO PLAZA SENAYAN',NULL,'Mall Plaza Senayan,lantai 1 #101A0\r\nJl. Asia Afrika No.8, Kelurahan Glora, Kec. Tanah Abang\r\nKota Adm Jakarta Pusat\r\nDKI Jakarta 10270\r\n021-57900058',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-10-12 06:27:38','2023-10-12 06:27:38',NULL),
-(137,64,955,'PT.PERINTIS PELAYANAN PARIPURNA','PT.PERINTIS PELAYANAN PARIPURNA (GUDANG CENTURY)',NULL,'GUDANG CENTURY \r\n JL. Raya Serang KM.10 Pos Bitung, RT.017/004 \r\nDesa Kadu, Kec.Curug, Kab. Tangerang\r\nTelp. 021-59490686',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-10-16 08:19:11','2023-10-16 08:19:11',NULL),
-(138,71,1028,'PT. MIDI UTAMA INDONESIA','PT. MIDI UTAMA INDONESIA .DC BOYOLALI',NULL,'JL. NASIONAL 16 \r\n(JL. SEMARANG SURAKARTA)\r\nKEL.WINONG , KEC. BOYOLALI\r\nKAB.BOYOLALI, JAWA TENGAH',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-10-20 03:48:27','2023-10-20 03:48:27',NULL),
-(139,64,956,'PT. INTI CAKRAWALA CITRA','PT.INTI CAKRAWALA CITRA . IDG TANGERANG',NULL,'JL. GATOT SUBROTO KM. 5 NO. 4\r\nJATI UWUNG\r\nTANGERANG 15138',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-10-25 08:38:46','2023-10-25 08:38:46',NULL),
-(140,67,976,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS GOLF ISLAND BATAVIA PIK',NULL,'Rukan Beach View Batavia Golf Island Blok.A No.80\r\nJl. Pantai Indah Kapuk, Kel. Kamal Muara\r\nKec. Penjaringan, Kota Administrasi Jakarta Utara\r\nProv. DKI Jakarta 14470',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-10-26 06:17:18','2023-10-26 06:17:18',NULL),
-(141,72,1077,'PT. INTI CAKRAWALA MAJU','PT. INTI CAKRAWALA MAJU DC.MALANG',NULL,'JL. S . SUPRIADI No 170 A\r\nKEL. KEBONSARI  KEC. SUKUN MALANG\r\nMALANG JAWA TIMUR',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-11-04 02:28:23','2023-11-04 02:28:23',NULL),
-(142,95,1427,'PT. INDOMARCO PRISMATAMA','PT.INDOMARCO PRISMATAMA DC STABAT',NULL,'JL. LINTAS SUMATERA  KEL. KARANG REJO\r\nKEC. STABAT KOTA STABAT\r\nKAB.LANGKAT SUMUT 20811',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-11-06 07:58:54','2023-11-06 07:58:54',NULL),
-(143,67,976,'PT.PANEN SELARAS ADIPERKASA','PT.PANEN SELARAS ADIPERKASA.BOOTS KELAPA GADING MALL',NULL,'Mall Kelapa Gading,lantai Ground G-73B\r\nJl. Bulevard Kelapa Gading Blok M,Rt 13/ Rw 18\r\nKel, Kelapa Gading Timur. Kec, Kelapa Gading\r\nKota Adm Jakarta Utara, DKI Jakarta 14241',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-11-11 03:06:15','2023-11-11 03:06:15',NULL),
-(144,64,955,'WAREHOUSE WATSONS','WAREHOUSE WATSONS',NULL,'KOMPLEK PERGUDANGAN NIHON SEIMA BLOK H \r\n JL. GATOT SUBROTO KM.8 \r\nDesa Kadujaya, Kec.Curug, Kab. Tangerang',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2023-11-21 04:10:02','2023-11-21 04:10:02',NULL),
-(145,67,977,'PT.GOGOBLI ASIA TEKNOLOGI','PT.GOGOBLI ASIA TEKNOLOGI',NULL,'Jl.Palmerah Utara  No.61A\r\nGelora Tanah Abang\r\nJakarta Pusat',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-01-20 02:46:38','2024-01-20 02:46:38',NULL),
-(146,71,1040,'PT. SUMBER ALFARIA TRJAYA','PT. SUMBER ALFARIA TRJAYA, DC TEGAL',NULL,'DC TEGAL\r\nJl. Jalan Raya Lingkar Slawi,desa Paguyangan\r\nPenusupan,Kecamatan Pangkah\r\nKabupaten Tegal Jateng',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-01-20 04:45:13','2024-01-20 04:45:13',NULL),
-(147,89,1322,'APT','APT CHOPPER FARMA',NULL,'JL.PACCARAKANG NO.66 \r\nKEL,PACCERAKKANG\r\nKEC,BIRINGKANAYA  KOTA MAKASAR',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-01-29 12:21:10','2024-01-29 12:21:10',NULL),
-(148,72,1091,'APT','APT SYAKIRA FARMA',NULL,'RUKO VALENCIA BLOK AA NO.29\r\nKEC.GEDANGAN   KAB. SIDOARJO\r\nPROV.JAWA TIMUR',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-01-29 12:22:40','2024-01-29 12:22:40',NULL),
-(149,82,1212,'APT','APT MANDIRI',NULL,'JL.DARUSSALAM  NO.44\r\nGP JAWA BARU\r\nBANDA SAKTI LHOKSEUMAWE',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-01-29 12:24:19','2024-01-29 12:24:19',NULL),
-(150,93,1385,'APT','APT SYUHADA',NULL,'JL.TEUKU UMAR  NO.1A \r\nSIMPANG ALAI -  PADANG',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-01-29 12:25:37','2024-01-29 12:25:37',NULL),
-(151,87,1300,'APT','APT AKASIA FARMA',NULL,'JL.UTAMA / TENGKU BEY KOMP BUMI SEJAHTERA\r\nBLOK A2  NO.05\r\nKEL.SIMPANG TIGA  KEC. BUKIT RAYA\r\nKOTA PEKANBARU',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-01-29 12:28:24','2024-01-29 12:28:24',NULL),
-(152,89,1322,'APT','APT ARKA MEDIKA',NULL,'JL.UJUNG BORI LAMA  NO.4\r\nKEL.ANTANG  KEC. MANGGALA\r\nKOTA MAKASAR',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-01-29 12:29:23','2024-01-29 12:29:23',NULL),
-(153,70,1006,'APT','APT KARNA FARMA',NULL,'JL.RAJAWALI BARAT  NO.7A\r\nKEL.MALEBER  KEC.ANDIR\r\nKOTA BANDUNG. JAWA BARAT',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-01-29 12:32:25','2024-01-29 12:32:25',NULL),
-(154,75,1132,'TO ','TO SUBUR MAKMUR',NULL,'JL.D.I PANJAITAN  NO.63\r\nMB KETAPANG\r\nKALIMANTAN TENGAH',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-01-29 12:34:39','2024-01-29 12:34:39',NULL),
-(155,70,1006,'APT','APT ALMA FELIZ',NULL,'JL.SOMA  NO.16\r\nBABAKAN SARI\r\nKEC.KIARACONDONG. KOTA BANDUNG',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-01-29 12:35:24','2024-01-29 12:35:24',NULL),
-(156,92,1374,'APT','APT SEHAT FARMA IV',NULL,'JL.DURIAN RAYA \r\nKEL.PANIKI DUA  KEC.MAPANGET\r\nKOTA MANADO',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-01-29 12:38:31','2024-01-29 12:38:31',NULL),
-(157,71,1030,'TO ','TO ABADI',NULL,'JL.SUNAN KALIJAGA 33\r\nDEMAK',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-01-29 12:39:12','2024-01-29 12:39:12',NULL),
-(158,71,1041,'TO ','TO BETA',NULL,'JL.JEND SUTOYO  NO.45\r\nKEC,PURWOKERTO BARAT \r\nKAB, BANYUMAS',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-02-02 07:54:12','2024-02-02 07:54:12',NULL),
-(159,72,1087,'TO ','TO SUMBER SEHAT',NULL,'JL.GATOT SUBROTO  NO.47\r\nRT 02 / RW 02\r\nPAKUNDEN PONOROGO. JAWA TIMUR',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-02-02 07:55:38','2024-02-02 07:55:38',NULL),
-(160,72,1091,'APT','APT BETRO',NULL,'JL.GARUDA  NO.100\r\nBETRO-SEDATI-SIDOARJO\r\nJAWA TIMUR',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-02-02 07:56:29','2024-02-02 07:56:29',NULL),
-(161,72,1097,'TO ','TO SAHABAT',NULL,'JL.KHR.ABDUL FATTAH\r\nDS/KEL.SEMBUNG\r\nKEC.TULUNGAGUNG. JAWA TIMUR',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-02-02 07:58:19','2024-02-02 07:58:19',NULL),
-(162,70,1009,'APT','APT FITAQA FARMA',NULL,'JL.Ir H.JUANDA\r\nDS / KEL.SUKAMULYA KEC. BUNGURSARI\r\nKOTA TASIKMALAYA. JAWA BARAT',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-02-02 07:59:34','2024-02-02 07:59:34',NULL),
-(163,63,948,'TO ','TO SEHAT',NULL,'JL.JEND SUDIRMAN  NO.23\r\nPASIR PADI,GIRIMAYA\r\nPANGKAL PINANG',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-02-02 08:02:05','2024-02-02 08:02:05',NULL),
-(164,95,1429,'APT','APT AK - JAYA',NULL,'JL.BESARDELI TUA KM.8,5  NO.8\r\nDS.SUKA MAKMUR\r\nKOMPLEK SUKA MAKMUR WALK.DELI TUA MEDAN',NULL,NULL,NULL,NULL,NULL,0,-22000,0,0,0,3,75,'2024-02-02 08:03:49','2025-01-31 09:31:24',NULL),
-(165,66,974,'APT','APT KARANG JATI',NULL,'JL.SUNGAPAN JETIS TAMANTIRTO\r\nKASIHAN,BANTUL\r\nYOGYAKARTA',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-02-02 08:05:47','2024-02-02 08:05:47',NULL),
-(166,67,978,'APT','APT DZAWIN',NULL,'JL.HAJI SELONG NO.54 B\r\nRT 01 / 01.DURI KOSAMBI - CENGKARENG\r\nJAKARTA  BARAT',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-02-02 08:22:49','2024-02-02 08:22:49',NULL),
-(167,94,1413,'APT','APT REFAH',NULL,'JL.SLAMET RIYADI LORONG MENTOK NO.27\r\nRT 08 / 03.  KEL.11 ILIR  KEC.ILIR TIMUR III\r\nKOTA PALEMBANG',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-02-02 08:27:04','2024-02-02 08:27:04',NULL),
-(168,71,1048,'TIRTA HUSADA FARMA','TIRTA HUSADA FARMA',NULL,'JL.SETIABUDI  NO.29\r\nSRONDOL KULON . BANYUMANIK\r\nSEMARANG',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-02-02 08:32:14','2024-02-02 08:32:14',NULL),
-(169,71,1041,'PT. INTI CAKRAWALA CITRA','PT.INTI CAKRAWALA CITRA .DC PURWOKERTO',NULL,'JL.RAYA GERILYA BARAT,TANJUNG\r\nKEDUNGWRINGIN,PURWOKERTO-SELATAN\r\nPATIKRAJA,BANYUMAS.',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-02-07 04:31:15','2024-02-07 04:31:15',NULL),
-(170,72,1069,'PT. INDOMARCO PRISMATAMA','PT.INDOMARCO PRISMATAMA DC JOMBANG 2',NULL,'JL. RAYA PETERONGAN KM 71,3\r\nDESA CANDI - DESA SAMBIREJO\r\nKEC. JOGOROTO, KAB JOMBANG  61485',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-03-05 03:17:55','2024-03-05 03:17:55',NULL),
-(171,70,1007,'PT. INTI CAKRAWALA MAJU','PT.INTI CAKRAWALA MAJU. DC KARAWANG',NULL,'JL. Lingkar Tanjung Pura No.22\r\nNagasari, Karawang Barat\r\nKarawang, Jawa Barat - 41312',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-04-05 02:06:59','2024-04-05 02:06:59',NULL),
-(172,71,1041,'PT. INTI CAKRAWALA MAJU','PT. INTI CAKRAWALA MAJU DC PURWOKERTO',NULL,'JL. RAYA GERILYA BARAT, TANJUNG\r\nKEDUNGWRINGIN, PURWOKERTO -\r\nSELATAN, PATIKRAJA, BANYUMAS',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-05-04 02:18:42','2024-05-04 02:18:42',NULL),
-(173,76,1148,'PT. INDOMARCO PRISMATAMA','PT.INDOMARCO PRISMATAMA DC SAMARINDA',NULL,'JL. EKONOMI    NO 1\r\nDESA LOA BUAH. KEC,SUNGAI KUNJANG\r\nKODYA SAMARINDA\r\n0541-7770734',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-06-11 02:16:57','2024-06-11 02:16:57',NULL),
-(174,91,1354,'PT. INTI CAKRAWALA MAJU','PT.INTI CAKRAWALA MAJU. DC KENDARI',NULL,'JL MADUSILA NO.19 KEC POASIA\r\nKEL.ANDUONOHU\r\nKENDARI SULAWESI TENGGARA',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-06-11 03:21:02','2024-06-11 03:21:02',NULL),
-(175,71,1048,'ICM SEMARANG','PT.INTI CAKRAWALA MAJU. DC SEMARANG',NULL,'JL.RAYA KALIGAWE NO.38 RT.01/01\r\nTERBOYO WETAN,GENUK,SEMARANG,JAWA TENGAH\r\n50112',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,75,'2024-07-02 03:13:37','2024-07-02 03:13:37',NULL),
-(176,71,1036,'daffa hanaris','daffa hanaris',NULL,'sumbulan lor rt 02 rw 13\r\nmakamhaji',NULL,NULL,NULL,NULL,NULL,0,-432300,0,0,0,3,3,'2024-10-17 04:42:38','2024-12-23 05:29:32',NULL),
-(177,NULL,NULL,NULL,'Arka',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,333000,0,0,0,NULL,NULL,'2024-12-19 09:31:42','2024-12-20 07:52:03',NULL),
-(178,71,1027,NULL,'Arip Elek',NULL,'bo',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,3,'2025-01-17 06:37:34','2025-01-17 06:37:34',NULL),
-(179,71,1027,NULL,'Arip Elek',NULL,'bo',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,3,'2025-01-17 06:38:28','2025-01-17 06:38:28',NULL),
-(180,71,1026,NULL,'daffa hanaris',NULL,'sumbulan lor rt 02 rw 13\nmakamhaji',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,3,'2025-02-03 08:05:52','2025-02-03 08:05:52',NULL),
-(181,71,1025,NULL,'ignana',NULL,'sumbulan lor rt 02 rw 13\nmakamhaji',NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,3,'2025-02-03 08:10:50','2025-02-03 08:10:50',NULL);
+insert  into `core_customer`(`customer_id`,`province_id`,`city_id`,`customer_code`,`customer_name`,`customer_tax_no`,`customer_address`,`customer_email`,`customer_fax_number`,`customer_contact_person`,`customer_payment_terms`,`customer_remark`,`debt_limit`,`amount_debt`,`remaining_limit`,`from_store`,`data_state`,`updated_id`,`created_id`,`created_at`,`updated_at`,`data_dump`) values
+(180,67,976,NULL,'PT . PEMBELI',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,3,3,'2025-02-05 05:23:46','2025-02-05 05:39:45',NULL),
+(181,62,936,NULL,'nn',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,3,'2025-02-05 07:35:39','2025-02-05 07:35:39',NULL),
+(182,62,936,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,3,'2025-02-06 04:45:53','2025-02-06 04:45:53',NULL),
+(183,62,936,NULL,'yy','13','bali','yy@gmail.com','10','12312',0,'www',0,0,0,0,0,NULL,3,'2025-02-06 04:47:24','2025-02-06 04:47:24',NULL);
 
 /*Table structure for table `core_expedition` */
 
@@ -2331,7 +2108,7 @@ CREATE TABLE `core_expedition` (
 
 /*Data for the table `core_expedition` */
 
-insert  into `core_expedition`(`expedition_id`,`expedition_code`,`expedition_name`,`expedition_route`,`expedition_address`,`expedition_city`,`expedition_home_phone`,`expedition_mobile_phone1`,`expedition_mobile_phone2`,`expedition_fax_number`,`expedition_email`,`expedition_person_in_charge`,`expedition_status`,`expedition_remark`,`expedition_acct_invoice`,`expedition_acct_payable`,`expedition_acct_claim`,`expedition_acct_receivable`,`expedition_token`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
+insert  into `core_expedition`(`expedition_id`,`expedition_code`,`expedition_name`,`expedition_route`,`expedition_address`,`expedition_city`,`expedition_home_phone`,`expedition_mobile_phone1`,`expedition_mobile_phone2`,`expedition_fax_number`,`expedition_email`,`expedition_person_in_charge`,`expedition_status`,`expedition_remark`,`expedition_acct_invoice`,`expedition_acct_payable`,`expedition_acct_claim`,`expedition_acct_receivable`,`expedition_token`,`data_state`,`created_id`,`created_at`,`updated_at`) values
 (11,'JNE','JNE EXPRESS','NASIONAL','JL KUMUDASMORO',1048,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,0,0,0,0,NULL,0,3,'2022-01-10 04:16:02','2023-08-08 04:12:18'),
 (12,'TDP','TRIADIPA','NASIONAL','JL PUCANG GADING',1048,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,0,0,0,0,NULL,0,3,'2022-01-13 05:32:26','2023-08-08 04:13:11'),
 (13,'SPT','SAPTA','NASIONAL','JL MUARA BERES',1014,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,NULL,0,75,'2023-08-08 04:13:42','2023-08-08 04:13:42'),
@@ -2355,7 +2132,7 @@ CREATE TABLE `core_grade` (
 
 /*Data for the table `core_grade` */
 
-insert  into `core_grade`(`grade_id`,`grade_name`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
+insert  into `core_grade`(`grade_id`,`grade_name`,`data_state`,`created_id`,`created_at`,`updated_at`) values
 (1,'BBB',0,3,'2023-02-14 03:06:58','2023-06-23 10:52:21'),
 (16,'SS',0,3,'2022-01-04 03:09:40','2023-06-23 10:52:21'),
 (17,'S',0,3,'2022-01-04 03:09:43','2023-06-23 10:52:21'),
@@ -2393,7 +2170,7 @@ CREATE TABLE `core_package` (
 
 /*Data for the table `core_package` */
 
-insert  into `core_package`(`package_id`,`package_name`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
+insert  into `core_package`(`package_id`,`package_name`,`data_state`,`created_id`,`created_at`,`updated_at`) values
 (1,'PLASTIK BAL',0,3,'2022-01-26 00:30:51','2023-06-23 10:52:21');
 
 /*Table structure for table `core_project` */
@@ -2421,7 +2198,7 @@ CREATE TABLE `core_project` (
 
 /*Data for the table `core_project` */
 
-insert  into `core_project`(`project_id`,`branch_id`,`project_type_id`,`project_category_id`,`customer_id`,`project_code`,`project_name`,`project_tender`,`project_remark`,`project_date`,`project_status`,`data_state`,`created_id`,`created_on`,`last_update`) values 
+insert  into `core_project`(`project_id`,`branch_id`,`project_type_id`,`project_category_id`,`customer_id`,`project_code`,`project_name`,`project_tender`,`project_remark`,`project_date`,`project_status`,`data_state`,`created_id`,`created_on`,`last_update`) values
 (1,0,0,0,0,'','',0.00,NULL,NULL,'0',0,0,NULL,'2023-07-24 13:58:27');
 
 /*Table structure for table `core_project_category` */
@@ -2457,7 +2234,7 @@ CREATE TABLE `core_province` (
 
 /*Data for the table `core_province` */
 
-insert  into `core_province`(`province_id`,`province_code`,`province_name`,`province_no`,`data_state`) values 
+insert  into `core_province`(`province_id`,`province_code`,`province_name`,`province_no`,`data_state`) values
 (62,'','Bali','',0),
 (63,'','Bangka Belitung','',0),
 (64,'','Banten','',0),
@@ -2533,13 +2310,13 @@ CREATE TABLE `core_supplier` (
   KEY `FK_core_supplier_province_id` (`province_id`),
   KEY `FK_core_supplier_city_id` (`city_id`),
   KEY `FK_core_supplier_branch_id` (`branch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `core_supplier` */
 
-insert  into `core_supplier`(`supplier_id`,`branch_id`,`province_id`,`city_id`,`supplier_code`,`supplier_name`,`supplier_id_number`,`supplier_address`,`supplier_city`,`supplier_home_phone`,`supplier_mobile_phone1`,`supplier_mobile_phone2`,`supplier_fax_number`,`supplier_email`,`supplier_contact_person`,`supplier_bank_acct_name`,`supplier_bank_acct_no`,`supplier_tax_no`,`supplier_npwp_no`,`supplier_npwp_address`,`supplier_payment_terms`,`supplier_status`,`supplier_remark`,`advance_account_id`,`amount_debt`,`giro_account_id`,`payable_account_id`,`created_id`,`created_at`,`data_state`,`updated_at`) values 
-(7,1,71,1048,'','Pabrik',NULL,'Jl. Gedong Songo Timur No.1','','(024) 7604307',NULL,NULL,NULL,NULL,NULL,'Mandiri','1234567',NULL,'1',NULL,NULL,0,NULL,0,0,0,0,74,'2023-06-24 03:54:36',0,'2024-12-23 06:49:04'),
-(9,1,67,980,'','Pak Sayyid Azziz',NULL,'Kepulauan Seribu','','0816729293902',NULL,NULL,NULL,NULL,NULL,'Sayyied Azziz','191929292929',NULL,NULL,NULL,NULL,0,NULL,0,0,0,0,3,'2024-12-23 06:48:41',0,'2024-12-23 06:49:16');
+insert  into `core_supplier`(`supplier_id`,`branch_id`,`province_id`,`city_id`,`supplier_code`,`supplier_name`,`supplier_id_number`,`supplier_address`,`supplier_city`,`supplier_home_phone`,`supplier_mobile_phone1`,`supplier_mobile_phone2`,`supplier_fax_number`,`supplier_email`,`supplier_contact_person`,`supplier_bank_acct_name`,`supplier_bank_acct_no`,`supplier_tax_no`,`supplier_npwp_no`,`supplier_npwp_address`,`supplier_payment_terms`,`supplier_status`,`supplier_remark`,`advance_account_id`,`amount_debt`,`giro_account_id`,`payable_account_id`,`created_id`,`created_at`,`data_state`,`updated_at`) values
+(1,1,71,1048,'','Pabrik',NULL,'Jl. Gedong Songo Timur No.1','','(024) 7604307',NULL,NULL,NULL,NULL,NULL,'Mandiri','1234567',NULL,'1',NULL,NULL,0,NULL,0,0,0,0,74,'2023-06-24 03:54:36',0,'2024-12-23 06:49:04'),
+(2,1,71,1055,'','PT . PABRIK',NULL,'SOLO','','0124242',NULL,NULL,NULL,NULL,NULL,'','',NULL,NULL,NULL,NULL,0,NULL,0,0,0,0,3,'2025-02-05 04:51:40',0,'2025-02-05 04:51:40');
 
 /*Table structure for table `failed_jobs` */
 
@@ -2595,17 +2372,13 @@ CREATE TABLE `inv_goods_received_note` (
   CONSTRAINT `FK_inv_goods_received_note_purchase_order_id` FOREIGN KEY (`purchase_order_id`) REFERENCES `purchase_order` (`purchase_order_id`) ON UPDATE CASCADE,
   CONSTRAINT `FK_inv_goods_received_note_supplier_id` FOREIGN KEY (`supplier_id`) REFERENCES `core_supplier` (`supplier_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `FK_inv_goods_received_note_warehouse_id` FOREIGN KEY (`warehouse_id`) REFERENCES `inv_warehouse` (`warehouse_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `inv_goods_received_note` */
 
-insert  into `inv_goods_received_note`(`goods_received_note_id`,`purchase_order_id`,`supplier_id`,`warehouse_id`,`goods_received_note_no`,`goods_received_note_date`,`goods_received_note_expired_date`,`goods_received_note_remark`,`goods_received_note_status_invoice`,`receipt_image`,`delivery_note_no`,`faktur_no`,`subtotal_item`,`item_type`,`data_state`,`voided_remark`,`voided_id`,`voided_at`,`created_id`,`created_at`,`updated_at`) values 
-(3,282,7,1,'0001/IGRN/II/2025','2025-02-04',NULL,NULL,1,'',NULL,NULL,100,0,0,NULL,0,NULL,3,'2025-02-04 08:44:23','2025-02-04 10:11:17'),
-(4,283,7,1,'0002/IGRN/II/2025','2025-02-04',NULL,NULL,0,'',NULL,NULL,100,0,0,NULL,0,NULL,3,'2025-02-04 08:46:40','2025-02-04 08:46:40'),
-(5,284,7,1,'0003/IGRN/II/2025','2025-02-04',NULL,NULL,0,'',NULL,NULL,100,0,0,NULL,0,NULL,3,'2025-02-04 08:58:03','2025-02-04 08:58:03'),
-(6,285,9,1,'0004/IGRN/II/2025','2025-02-04',NULL,NULL,0,'',NULL,NULL,100,0,0,NULL,0,NULL,3,'2025-02-04 09:07:33','2025-02-04 09:07:33'),
-(7,286,9,1,'0005/IGRN/II/2025','2025-02-04',NULL,NULL,0,'',NULL,NULL,100,0,0,NULL,0,NULL,3,'2025-02-04 09:08:51','2025-02-04 09:08:51'),
-(8,287,7,1,'0006/IGRN/II/2025','2025-02-04',NULL,NULL,0,'',NULL,NULL,100,0,0,NULL,0,NULL,3,'2025-02-04 09:56:05','2025-02-04 09:56:05');
+insert  into `inv_goods_received_note`(`goods_received_note_id`,`purchase_order_id`,`supplier_id`,`warehouse_id`,`goods_received_note_no`,`goods_received_note_date`,`goods_received_note_expired_date`,`goods_received_note_remark`,`goods_received_note_status_invoice`,`receipt_image`,`delivery_note_no`,`faktur_no`,`subtotal_item`,`item_type`,`data_state`,`voided_remark`,`voided_id`,`voided_at`,`created_id`,`created_at`,`updated_at`) values
+(1,2,1,1,'0001/IGRN/II/2025','2025-02-05',NULL,NULL,0,'',NULL,NULL,20,0,0,NULL,0,NULL,3,'2025-02-05 08:04:06','2025-02-05 08:04:06'),
+(2,3,1,1,'0002/IGRN/II/2025','2025-02-05',NULL,NULL,0,'',NULL,NULL,100,0,0,NULL,0,NULL,3,'2025-02-05 08:25:00','2025-02-05 08:25:00');
 
 /*Table structure for table `inv_goods_received_note_item` */
 
@@ -2639,17 +2412,13 @@ CREATE TABLE `inv_goods_received_note_item` (
   KEY `FK_goods_received_note_item_purchase_order_id` (`purchase_order_id`),
   KEY `FK_goods_received_note_item_purchase_order_item_id` (`purchase_order_item_id`),
   KEY `FK_invt_goods_received_note_item_item_stock_id` (`item_stock_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `inv_goods_received_note_item` */
 
-insert  into `inv_goods_received_note_item`(`goods_received_note_item_id`,`goods_received_note_id`,`purchase_order_id`,`purchase_order_item_id`,`item_category_id`,`item_type_id`,`item_unit_id`,`item_stock_id`,`quantity`,`quantity_received`,`data_state`,`voided_id`,`voided_at`,`created_id`,`created_at`,`updated_at`) values 
-(3,3,282,1,1,1,10,0,100,100,0,0,NULL,3,'2025-02-04 08:44:23','2025-02-04 08:44:23'),
-(4,4,283,2,1,3,10,0,100,100,0,0,NULL,3,'2025-02-04 08:46:40','2025-02-04 08:46:40'),
-(5,5,284,3,1,3,10,0,100,100,0,0,NULL,3,'2025-02-04 08:58:03','2025-02-04 08:58:03'),
-(6,6,285,4,1,4,23,0,100,100,0,0,NULL,3,'2025-02-04 09:07:33','2025-02-04 09:07:33'),
-(7,7,286,5,1,4,23,0,100,100,0,0,NULL,3,'2025-02-04 09:08:51','2025-02-04 09:08:51'),
-(8,8,287,6,1,5,23,0,100,100,0,0,NULL,3,'2025-02-04 09:56:05','2025-02-04 09:56:05');
+insert  into `inv_goods_received_note_item`(`goods_received_note_item_id`,`goods_received_note_id`,`purchase_order_id`,`purchase_order_item_id`,`item_category_id`,`item_type_id`,`item_unit_id`,`item_stock_id`,`quantity`,`quantity_received`,`data_state`,`voided_id`,`voided_at`,`created_id`,`created_at`,`updated_at`) values
+(1,1,2,1,1,1,10,0,20,20,0,0,NULL,3,'2025-02-05 08:04:06','2025-02-05 08:04:06'),
+(2,2,3,2,1,1,10,0,100,100,0,0,NULL,3,'2025-02-05 08:25:00','2025-02-05 08:25:00');
 
 /*Table structure for table `inv_item` */
 
@@ -2721,14 +2490,12 @@ CREATE TABLE `inv_item_category` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`item_category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `inv_item_category` */
 
-insert  into `inv_item_category`(`item_category_id`,`item_category_name`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(1,'Barang',0,3,'0000-00-00 00:00:00','2023-08-04 09:18:38'),
-(11,'Besi',0,3,'2025-02-04 04:54:53','2025-02-04 04:54:53'),
-(12,'Pipa',0,3,'2025-02-04 04:55:43','2025-02-04 04:55:43');
+insert  into `inv_item_category`(`item_category_id`,`item_category_name`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+(1,'Barang',0,3,'0000-00-00 00:00:00','2023-08-04 09:18:38');
 
 /*Table structure for table `inv_item_old` */
 
@@ -2790,16 +2557,16 @@ CREATE TABLE `inv_item_stock` (
   `created_at` date DEFAULT NULL,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`item_stock_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=338 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=323 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `inv_item_stock` */
 
-insert  into `inv_item_stock`(`item_stock_id`,`goods_received_note_id`,`goods_received_note_item_id`,`item_stock_date`,`purchase_order_item_id`,`warehouse_id`,`purchase_order_no`,`buyers_acknowledgment_no`,`no_retur_barang`,`nota_retur_pajak`,`item_category_id`,`item_type_id`,`item_id`,`item_unit_id`,`category`,`barang`,`satuan`,`item_total`,`item_unit_cost`,`item_unit_total`,`item_unit_price`,`item_unit_id_default`,`item_default_quantity_unit`,`quantity_unit`,`item_weight_default`,`item_weight_unit`,`package_id`,`package_total`,`package_unit_id`,`package_price`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(1,0,0,'2024-12-13',0,1,'','','','',1,1,0,10,'','','',1600,1000,0,0,10,0,740,0,'',0,0,0,0,0,0,'2024-12-13','2025-02-04 08:44:23'),
-(2,0,0,'2024-12-13',0,1,'','','','',1,2,0,22,'','','',5000,1000,0,0,22,0,4300,0,'',0,0,0,0,0,0,'2024-12-13','2025-02-04 05:27:53'),
-(3,0,0,'2024-12-13',0,1,'','','','',1,3,0,10,'','','',200,1000,0,0,10,0,100,0,'',0,0,0,0,0,0,'2024-12-13','2025-02-04 09:25:43'),
-(4,0,0,'2024-12-13',0,1,'','','','',1,4,0,23,'','','',200,1000,0,0,23,0,200,0,'',0,0,0,0,0,0,'2024-12-13','2025-02-04 09:46:54'),
-(5,0,0,'2024-12-13',0,1,'','','','',1,5,0,23,'','','',100,1000,0,0,23,0,50,0,'',0,0,0,0,0,0,'2024-12-13','2025-02-04 10:04:19'),
+insert  into `inv_item_stock`(`item_stock_id`,`goods_received_note_id`,`goods_received_note_item_id`,`item_stock_date`,`purchase_order_item_id`,`warehouse_id`,`purchase_order_no`,`buyers_acknowledgment_no`,`no_retur_barang`,`nota_retur_pajak`,`item_category_id`,`item_type_id`,`item_id`,`item_unit_id`,`category`,`barang`,`satuan`,`item_total`,`item_unit_cost`,`item_unit_total`,`item_unit_price`,`item_unit_id_default`,`item_default_quantity_unit`,`quantity_unit`,`item_weight_default`,`item_weight_unit`,`package_id`,`package_total`,`package_unit_id`,`package_price`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+(1,0,0,'2024-12-13',0,1,'','','','',1,1,0,10,'','','',1320,1000,0,0,10,0,200,0,'',0,0,0,0,0,0,'2024-12-13','2025-02-05 08:25:00'),
+(2,0,0,'2024-12-13',0,1,'','','','',1,2,0,22,'','','',5000,1000,0,0,22,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2025-01-30 07:13:27'),
+(3,0,0,'2024-12-13',0,1,'','','','',1,3,0,10,'','','',100,1000,0,0,10,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2025-02-05 04:39:33'),
+(4,0,0,'2024-12-13',0,1,'','','','',1,4,0,23,'','','',0,0,0,0,23,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-13 15:12:19'),
+(5,0,0,'2024-12-13',0,1,'','','','',1,5,0,23,'','','',0,0,0,0,23,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-13 15:12:19'),
 (6,0,0,'2024-12-13',0,1,'','','','',1,6,0,23,'','','',0,0,0,0,23,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-13 15:12:19'),
 (7,0,0,'2024-12-13',0,1,'','','','',1,7,0,22,'','','',0,0,0,0,22,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-13 15:12:19'),
 (8,0,0,'2024-12-13',0,1,'','','','',1,8,0,24,'','','',0,0,0,0,24,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-13 15:12:19'),
@@ -3115,21 +2882,8 @@ insert  into `inv_item_stock`(`item_stock_id`,`goods_received_note_id`,`goods_re
 (318,0,0,'2024-12-13',0,1,'','','','',1,318,0,0,'','','',0,0,0,0,0,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-13 15:12:19'),
 (319,0,0,'2024-12-13',0,1,'','','','',1,319,0,29,'','','',0,0,0,0,29,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-13 15:12:19'),
 (320,0,0,'2024-12-13',0,1,'','','','',1,320,0,23,'','','',0,0,0,0,23,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2024-12-13 15:12:19'),
-(323,NULL,NULL,'2025-02-04',0,1,'','','','',11,412,0,2,NULL,NULL,NULL,0,0,0,0,2,0,200,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 04:55:32'),
-(324,NULL,NULL,'2025-02-04',0,1,'','','','',1,413,0,1,NULL,NULL,NULL,0,0,0,0,1,0,NULL,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:05:35'),
-(325,NULL,NULL,'2025-02-04',0,1,'','','','',11,414,0,6,NULL,NULL,NULL,0,0,0,0,6,0,100,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:09:56'),
-(326,NULL,NULL,'2025-02-04',0,1,'','','','',11,415,0,2,NULL,NULL,NULL,0,0,0,0,2,0,11,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:35:54'),
-(327,NULL,NULL,'2025-02-04',0,1,'','','','',11,416,0,2,NULL,NULL,NULL,0,0,0,0,2,0,11,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:35:54'),
-(328,NULL,NULL,'2025-02-04',0,1,'','','','',11,417,0,2,NULL,NULL,NULL,0,0,0,0,2,0,100,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:36:14'),
-(329,NULL,NULL,'2025-02-04',0,1,'','','','',11,418,0,2,NULL,NULL,NULL,0,0,0,0,2,0,100,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:36:14'),
-(330,NULL,NULL,'2025-02-04',0,1,'','','','',11,419,0,1,NULL,NULL,NULL,0,0,0,0,1,0,200,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:36:22'),
-(331,NULL,NULL,'2025-02-04',0,1,'','','','',11,420,0,1,NULL,NULL,NULL,0,0,0,0,1,0,200,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:36:22'),
-(332,NULL,NULL,'2025-02-04',0,1,'','','','',1,421,0,1,NULL,NULL,NULL,0,0,0,0,1,0,200,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:36:51'),
-(333,NULL,NULL,'2025-02-04',0,1,'','','','',1,422,0,1,NULL,NULL,NULL,0,0,0,0,1,0,200,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:36:51'),
-(334,NULL,NULL,'2025-02-04',0,1,'','','','',12,423,0,1,NULL,NULL,NULL,0,0,0,0,1,0,200,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:37:32'),
-(335,NULL,NULL,'2025-02-04',0,1,'','','','',12,424,0,1,NULL,NULL,NULL,0,0,0,0,1,0,200,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:37:32'),
-(336,NULL,NULL,'2025-02-04',0,1,'','','','',1,425,0,1,NULL,NULL,NULL,0,0,0,0,1,0,100,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:38:21'),
-(337,NULL,NULL,'2025-02-04',0,1,'','','','',1,426,0,1,NULL,NULL,NULL,0,0,0,0,1,0,200,NULL,'',NULL,0,0,0,0,3,'2025-02-04','2025-02-04 05:39:51');
+(321,NULL,NULL,NULL,0,1,'','','','',1,340,0,1,NULL,NULL,NULL,0,0,0,0,1,0,1000,NULL,'',NULL,0,0,0,0,3,'2025-02-03','2025-02-03 10:09:59'),
+(322,NULL,NULL,'2025-02-03',0,1,'','','','',1,341,0,2,NULL,NULL,NULL,0,0,0,0,2,0,1000,NULL,'',NULL,0,0,0,0,3,'2025-02-03','2025-02-03 10:15:46');
 
 /*Table structure for table `inv_item_stock_adjustment` */
 
@@ -3170,7 +2924,7 @@ CREATE TABLE `inv_item_stock_adjustment_item` (
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`stock_adjustment_item_id`),
   KEY `FK_adjustment_id` (`stock_adjustment_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `inv_item_stock_adjustment_item` */
 
@@ -3214,13 +2968,14 @@ CREATE TABLE `inv_item_stock_card` (
   KEY `FK_inv_item_stock_card_item_unit_id` (`item_unit_id`),
   KEY `FK_inv_item_stock_card_section_id` (`section_id`),
   KEY `item_batch_number` (`item_batch_number`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `inv_item_stock_card` */
 
-insert  into `inv_item_stock_card`(`item_stock_card_id`,`item_stock_id`,`section_id`,`item_category_id`,`item_type_id`,`warehouse_id`,`supplier_id`,`item_unit_id`,`item_stock_type`,`item_batch_number`,`item_color`,`item_size`,`transaction_id`,`transaction_type`,`transaction_code`,`transaction_date`,`opening_balance`,`opening_balance_unfinished`,`item_stock_card_in`,`item_stock_card_out`,`item_unit_default_quantity`,`last_balance`,`last_balance_unfinished`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(28,5,0,1,5,1,0,23,0,'','',0,8,1,'INVT_GDS_RCV_NOTE','2025-02-04',0,0,100,0,0,100,0,0,NULL,'2025-02-04 16:56:05','2025-02-04 16:56:05'),
-(29,5,0,0,5,1,0,23,0,'','',0,21,1,'SDN-21','2025-02-04',100,0,0,50,0,50,0,0,NULL,'2025-02-04 17:04:19','2025-02-04 17:04:19');
+insert  into `inv_item_stock_card`(`item_stock_card_id`,`item_stock_id`,`section_id`,`item_category_id`,`item_type_id`,`warehouse_id`,`supplier_id`,`item_unit_id`,`item_stock_type`,`item_batch_number`,`item_color`,`item_size`,`transaction_id`,`transaction_type`,`transaction_code`,`transaction_date`,`opening_balance`,`opening_balance_unfinished`,`item_stock_card_in`,`item_stock_card_out`,`item_unit_default_quantity`,`last_balance`,`last_balance_unfinished`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+(1,1,0,0,1,1,0,10,0,'','',0,2,1,'SDN-2','2025-02-05',0,0,0,20,0,-20,0,0,NULL,'2025-02-05 14:47:06','2025-02-05 14:47:06'),
+(2,1,0,1,1,1,0,10,0,'','',0,1,1,'INVT_GDS_RCV_NOTE','2025-02-05',-20,0,20,0,0,0,0,0,NULL,'2025-02-05 15:04:06','2025-02-05 15:04:06'),
+(3,1,0,1,1,1,0,10,0,'','',0,2,1,'INVT_GDS_RCV_NOTE','2025-02-05',0,0,100,0,0,100,0,0,NULL,'2025-02-05 15:25:00','2025-02-05 15:25:00');
 
 /*Table structure for table `inv_item_stock_old` */
 
@@ -3330,13 +3085,13 @@ CREATE TABLE `inv_item_type` (
   KEY `FK_inv_item_type_inv_account_id` (`inv_account_id`),
   KEY `FK_inv_item_type_inv_return_account_id` (`inv_return_account_id`),
   KEY `FK_inv_item_type_inv_discount_account_id` (`inv_discount_account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=427 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=342 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `inv_item_type` */
 
-insert  into `inv_item_type`(`item_type_id`,`item_category_id`,`item_type_name`,`item_type_expired_time`,`item_package_status`,`item_unit_1`,`item_quantity_default_1`,`item_weight_1`,`item_unit_2`,`item_quantity_default_2`,`item_weight_2`,`item_unit_3`,`item_quantity_default_3`,`item_weight_3`,`purchase_account_id`,`purchase_return_account_id`,`purchase_discount_account_id`,`sales_account_id`,`sales_return_account_id`,`sales_discount_account_id`,`inv_account_id`,`inv_return_account_id`,`inv_discount_account_id`,`hpp_account_id`,`hpp_amount`,`data_state`,`created_id`,`created_at`,`updated_at`,`dump`) values 
+insert  into `inv_item_type`(`item_type_id`,`item_category_id`,`item_type_name`,`item_type_expired_time`,`item_package_status`,`item_unit_1`,`item_quantity_default_1`,`item_weight_1`,`item_unit_2`,`item_quantity_default_2`,`item_weight_2`,`item_unit_3`,`item_quantity_default_3`,`item_weight_3`,`purchase_account_id`,`purchase_return_account_id`,`purchase_discount_account_id`,`sales_account_id`,`sales_return_account_id`,`sales_discount_account_id`,`inv_account_id`,`inv_return_account_id`,`inv_discount_account_id`,`hpp_account_id`,`hpp_amount`,`data_state`,`created_id`,`created_at`,`updated_at`,`dump`) values
 (1,1,'1 MPA PSI              ( BU LUSI )',0,0,10,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','DUS/PCS'),
-(2,1,'12PC DOUBLE OPEN END WRENCH SET(GAAA1206)',0,0,22,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','PC'),
+(2,1,'12PC DOUBLE OPEN END WRENCH SET ( GAAA1206 )',0,0,22,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','PC'),
 (3,1,'2.5 MPA PSI              ( BU LUSI )',0,0,10,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','DUS/PCS'),
 (4,1,'3M 4100 SUPER POLISH',0,0,23,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','PCS'),
 (5,1,'3M 5100 MERAH',0,0,23,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','PCS'),
@@ -3653,24 +3408,29 @@ insert  into `inv_item_type`(`item_type_id`,`item_category_id`,`item_type_name`,
 (316,1,'WIKA PRESSURE GAUGE SS 4IN 0-16BAR BOTTOM CONNECTION      WIKA PRESSURE GAUGE SS 4IN 0-16BAR BOTTOM CONNECTION  ',0,0,22,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','PC'),
 (317,1,'WIKA THERMOMETER D 4 0-300 DRAT 1/2NPT D.STIK 6MM P.TIK 10CM (tokped serba gauge)              WIKA THERMOMETER MODEL RAKET 1/2IN X 10CM 0-300 C',0,0,22,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','PC'),
 (318,1,'WILDEN DOVER',0,0,8,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43',''),
-(319,1,'WIRE BRUSH 1,5M SS316 WIRE BRUSH 1,5M SS316',0,0,29,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','UN'),
+(319,1,'WIRE BRUSH 1,5M SS316                     WIRE BRUSH 1,5M SS316',0,0,29,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','UN'),
 (320,1,'YUANAN SUS 304 25.4 1811',0,0,23,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','PCS'),
-(410,1,'daffa',NULL,0,2,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-03','2025-02-03 10:05:48',NULL),
-(411,1,'aqua4',NULL,0,1,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-03','2025-02-03 10:06:35',NULL),
-(412,11,'A11',NULL,0,2,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 04:55:32',NULL),
-(414,11,'ring',NULL,0,6,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:09:56',NULL),
-(415,11,'aqua12',NULL,0,2,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:35:54',NULL),
-(416,11,'aqua12',NULL,0,2,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:35:54',NULL),
-(417,11,'daffa',NULL,0,2,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:36:14',NULL),
-(418,11,'daffa',NULL,0,2,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:36:14',NULL),
-(419,11,'aqua12',NULL,0,1,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:36:22',NULL),
-(420,11,'aqua12',NULL,0,1,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:36:22',NULL),
-(421,1,'daffa',NULL,0,1,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:36:51',NULL),
-(422,1,'daffa',NULL,0,1,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:36:51',NULL),
-(423,12,'aqua4',NULL,0,1,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:37:32',NULL),
-(424,12,'aqua4',NULL,0,1,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:37:32',NULL),
-(425,1,'Sayyid Azziz',NULL,0,1,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:38:21',NULL),
-(426,1,'aqua4',NULL,0,1,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-04','2025-02-04 05:39:51',NULL);
+(321,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:24:47',NULL),
+(322,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:24:48',NULL),
+(323,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:24:54',NULL),
+(324,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:24:55',NULL),
+(325,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:24:55',NULL),
+(326,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:24:56',NULL),
+(327,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:24:57',NULL),
+(328,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:24:58',NULL),
+(329,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:25:01',NULL),
+(330,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:25:02',NULL),
+(331,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:25:03',NULL),
+(332,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:26:06',NULL),
+(333,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:27:24',NULL),
+(334,1,'Test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:34:46',NULL),
+(335,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:35:10',NULL),
+(336,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:36:55',NULL),
+(337,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:43:17',NULL),
+(338,1,'test',NULL,0,0,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-01-13','2025-01-13 07:45:07',NULL),
+(339,1,'pensil',NULL,0,2,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-03','2025-02-03 09:42:44',NULL),
+(340,1,'Besi',NULL,0,1,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-03','2025-02-03 10:09:59',NULL),
+(341,1,'HP',NULL,0,2,1,1,NULL,1,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,3,'2025-02-03','2025-02-03 10:15:46',NULL);
 
 /*Table structure for table `inv_item_unit` */
 
@@ -3687,11 +3447,11 @@ CREATE TABLE `inv_item_unit` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`item_unit_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `inv_item_unit` */
 
-insert  into `inv_item_unit`(`item_unit_id`,`item_unit_code`,`item_unit_name`,`item_unit_default_quantity`,`item_unit_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
+insert  into `inv_item_unit`(`item_unit_id`,`item_unit_code`,`item_unit_name`,`item_unit_default_quantity`,`item_unit_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values
 (1,'(1 BOX=12 PC)','(1 BOX=12 PC)',0,'(1 BOX=12 PC)',0,3,'0000-00-00 00:00:00','0000-00-00 00:00:00'),
 (2,'(1 BX= 10 PC)','(1 BX= 10 PC)',0,'(1 BX= 10 PC)',0,3,'0000-00-00 00:00:00','2023-08-05 21:45:16'),
 (3,'1 BOX = 6 PSG','1 BOX = 6 PSG',0,'1 BOX = 6 PSG',0,3,'0000-00-00 00:00:00','2023-08-05 21:45:28'),
@@ -3714,8 +3474,7 @@ insert  into `inv_item_unit`(`item_unit_id`,`item_unit_code`,`item_unit_name`,`i
 (28,'TUB/PCS','TUB/PCS',0,'TUB/PCS',0,75,'2024-06-11 08:00:45','2024-06-11 08:00:45'),
 (29,'UN','UN',0,'UN',0,75,'2024-06-11 08:02:46','2024-06-11 08:02:46'),
 (30,'UN = 3PC','UN = 3PC',0,'UN = 3PC',0,75,'2024-06-11 08:05:47','2024-06-11 08:05:47'),
-(31,'tidak ada','tidak ada',0,'tidak ada',0,75,'2024-06-11 08:06:49','2024-06-11 08:06:49'),
-(32,'liter','liter',1,NULL,0,3,'2025-02-04 05:50:29','2025-02-04 05:50:29');
+(31,'tidak ada','tidak ada',0,'tidak ada',0,75,'2024-06-11 08:06:49','2024-06-11 08:06:49');
 
 /*Table structure for table `inv_item_unit_cost` */
 
@@ -3766,7 +3525,7 @@ CREATE TABLE `inv_warehouse` (
 
 /*Data for the table `inv_warehouse` */
 
-insert  into `inv_warehouse`(`warehouse_id`,`warehouse_location_id`,`warehouse_code`,`warehouse_type`,`warehouse_name`,`warehouse_address`,`warehouse_phone`,`warehouse_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
+insert  into `inv_warehouse`(`warehouse_id`,`warehouse_location_id`,`warehouse_code`,`warehouse_type`,`warehouse_name`,`warehouse_address`,`warehouse_phone`,`warehouse_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values
 (1,6,'GDRS','1','GUDANG READY STOCK','Jln. Gatot Subroto','0897875559','Gudang untuk barang ready stock',0,3,'2022-01-07 01:16:16','2025-01-09 09:52:05');
 
 /*Table structure for table `inv_warehouse_in` */
@@ -3831,7 +3590,7 @@ CREATE TABLE `inv_warehouse_in_type` (
 
 /*Data for the table `inv_warehouse_in_type` */
 
-insert  into `inv_warehouse_in_type`(`warehouse_in_type_id`,`warehouse_in_type_name`,`warehouse_in_type_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
+insert  into `inv_warehouse_in_type`(`warehouse_in_type_id`,`warehouse_in_type_name`,`warehouse_in_type_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values
 (1,'Return Barang','Barang Reject',0,3,'2023-02-27 04:59:55','2023-06-23 10:52:21');
 
 /*Table structure for table `inv_warehouse_location` */
@@ -3854,7 +3613,7 @@ CREATE TABLE `inv_warehouse_location` (
 
 /*Data for the table `inv_warehouse_location` */
 
-insert  into `inv_warehouse_location`(`warehouse_location_id`,`warehouse_location_code`,`province_id`,`city_id`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
+insert  into `inv_warehouse_location`(`warehouse_location_id`,`warehouse_location_code`,`province_id`,`city_id`,`data_state`,`created_id`,`created_at`,`updated_at`) values
 (6,'SMG',71,1048,0,3,'2023-02-27 06:40:33','2023-06-23 10:52:21');
 
 /*Table structure for table `inv_warehouse_out` */
@@ -3919,7 +3678,7 @@ CREATE TABLE `inv_warehouse_out_type` (
 
 /*Data for the table `inv_warehouse_out_type` */
 
-insert  into `inv_warehouse_out_type`(`warehouse_out_type_id`,`warehouse_out_type_name`,`warehouse_out_type_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
+insert  into `inv_warehouse_out_type`(`warehouse_out_type_id`,`warehouse_out_type_name`,`warehouse_out_type_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values
 (4,'Waste','Barang Busuk',1,3,'2022-01-04 03:18:50','2023-06-23 10:52:22'),
 (5,'PRODUKSI','produksi',1,3,'2022-02-08 06:48:10','2023-06-23 10:52:22'),
 (6,'Antimo Anak Jeruk','Terjual',0,3,'2023-03-01 09:34:04','2023-06-23 10:52:22');
@@ -4065,7 +3824,7 @@ CREATE TABLE `inv_warehouse_transfer_type` (
 
 /*Data for the table `inv_warehouse_transfer_type` */
 
-insert  into `inv_warehouse_transfer_type`(`warehouse_transfer_type_id`,`warehouse_transfer_type_name`,`warehouse_transfer_type_remark`,`data_state`,`created_id`,`created_at`,`deleted_id`,`deleted_at`,`updated_at`) values 
+insert  into `inv_warehouse_transfer_type`(`warehouse_transfer_type_id`,`warehouse_transfer_type_name`,`warehouse_transfer_type_remark`,`data_state`,`created_id`,`created_at`,`deleted_id`,`deleted_at`,`updated_at`) values
 (9,'Waste','Barang Busuk',1,3,'2022-01-04 03:18:20',0,NULL,'2023-06-23 10:52:22'),
 (10,'READY SMG','PRODUK BERADA DI SEMARANG SIAP DIKIRIM KE PEMBELI',0,3,'2022-01-07 13:11:54',0,NULL,'2023-12-27 09:42:31');
 
@@ -4097,7 +3856,7 @@ CREATE TABLE `migration_accounts` (
 
 /*Data for the table `migration_accounts` */
 
-insert  into `migration_accounts`(`id`,`account_id`,`company_id`,`account_code`,`account_name`,`account_group`,`account_suspended`,`account_default_status`,`account_remark`,`account_status`,`account_token`,`parent_account_status`,`account_type_id`,`data_state`,`created_id`,`updated_id`,`created_at`,`updated_at`) values 
+insert  into `migration_accounts`(`id`,`account_id`,`company_id`,`account_code`,`account_name`,`account_group`,`account_suspended`,`account_default_status`,`account_remark`,`account_status`,`account_token`,`parent_account_status`,`account_type_id`,`data_state`,`created_id`,`updated_id`,`created_at`,`updated_at`) values
 (1,'1',2,'100','A K T I V A','100',0,0,NULL,0,NULL,0,0,0,55,55,'2025-01-28 06:14:07','2025-01-28 06:14:07'),
 (2,'2',2,'101.01','AKTIVA LANCAR','100',0,0,NULL,0,NULL,0,0,0,55,55,'2025-01-28 06:14:07','2025-01-28 06:14:07'),
 (3,'3',2,'101.01.01','Kas dan Setara Kas','101.01',0,0,NULL,0,NULL,0,0,0,55,55,'2025-01-28 06:14:07','2025-01-28 06:14:07'),
@@ -4195,7 +3954,7 @@ CREATE TABLE `migration_balance_sheets` (
 
 /*Data for the table `migration_balance_sheets` */
 
-insert  into `migration_balance_sheets`(`id`,`balance_sheet_report_id`,`company_id`,`report_no`,`account_id1`,`account_code1`,`account_name1`,`account_id2`,`account_code2`,`account_name2`,`report_formula1`,`report_operator1`,`report_type1`,`report_tab1`,`report_bold1`,`report_formula2`,`report_operator2`,`report_type2`,`report_tab2`,`report_bold2`,`report_formula3`,`report_operator3`,`balance_report_type`,`balance_report_type1`,`data_state`,`created_id`,`created_on`,`last_update`,`created_at`,`updated_at`) values 
+insert  into `migration_balance_sheets`(`id`,`balance_sheet_report_id`,`company_id`,`report_no`,`account_id1`,`account_code1`,`account_name1`,`account_id2`,`account_code2`,`account_name2`,`report_formula1`,`report_operator1`,`report_type1`,`report_tab1`,`report_bold1`,`report_formula2`,`report_operator2`,`report_type2`,`report_tab2`,`report_bold2`,`report_formula3`,`report_operator3`,`balance_report_type`,`balance_report_type1`,`data_state`,`created_id`,`created_on`,`last_update`,`created_at`,`updated_at`) values
 (1,1,2,'1',1,'100','A K T I V A',14,'200','P A S I V A ',NULL,NULL,'1',1,1,NULL,NULL,'1',1,1,'0','0','1','1',0,55,'2025-01-29 15:29:34','2025-01-29 15:29:34','2025-01-30 07:47:28','2025-01-30 07:47:28'),
 (2,2,2,'2',2,'101.01','AKTIVA LANCAR',15,'201.01','HUTANG LANCAR',NULL,NULL,'3',2,1,NULL,NULL,'2',2,1,'0','0','1','1',0,55,'2025-01-29 15:29:34','2025-01-29 15:29:34','2025-01-30 07:47:28','2025-01-30 07:47:28'),
 (3,3,2,'3',3,'101.01.01','Kas dan Setara Kas',16,'201.01.01','Hutang Dagang',NULL,NULL,'3',3,0,NULL,NULL,'3',3,0,'0','0','1','1',0,55,'2025-01-29 15:29:34','2025-01-29 15:29:34','2025-01-30 07:47:28','2025-01-30 07:47:28'),
@@ -4275,7 +4034,7 @@ CREATE TABLE `migration_profit_losses` (
 
 /*Data for the table `migration_profit_losses` */
 
-insert  into `migration_profit_losses`(`profit_loss_report_id`,`company_id`,`format_id`,`report_no`,`account_type_id`,`account_id`,`account_code`,`account_name`,`report_formula`,`report_operator`,`report_type`,`report_tab`,`report_bold`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
+insert  into `migration_profit_losses`(`profit_loss_report_id`,`company_id`,`format_id`,`report_no`,`account_type_id`,`account_id`,`account_code`,`account_name`,`report_formula`,`report_operator`,`report_type`,`report_tab`,`report_bold`,`data_state`,`created_id`,`created_at`,`updated_at`) values
 (1,2,1,1,2,23,'300','PENJUALAN',NULL,NULL,'3','1',1,'0',55,'2025-01-30 06:48:02','2025-01-30 06:48:02'),
 (2,2,1,2,2,0,'0',NULL,NULL,NULL,'0','0',0,'0',55,'2025-01-30 06:48:02','2025-01-30 06:48:02'),
 (3,2,1,3,2,24,'300.01','HARGA POKOK PENJUALAN :',NULL,NULL,'1','1',1,'0',55,'2025-01-30 06:48:02','2025-01-30 06:48:02'),
@@ -4330,7 +4089,7 @@ CREATE TABLE `migrations` (
 
 /*Data for the table `migrations` */
 
-insert  into `migrations`(`id`,`migration`,`batch`) values 
+insert  into `migrations`(`id`,`migration`,`batch`) values
 (1,'2014_10_12_000000_create_users_table',1),
 (2,'2014_10_12_100000_create_password_resets_table',1),
 (3,'2019_08_19_000000_create_failed_jobs_table',1),
@@ -4369,7 +4128,7 @@ CREATE TABLE `password_resets` (
 
 /*Data for the table `password_resets` */
 
-insert  into `password_resets`(`email`,`token`,`created_at`) values 
+insert  into `password_resets`(`email`,`token`,`created_at`) values
 ('administrator@gmail.com','$2y$10$5POYOZVw/qOdocfjS2H1x.4rnpa9gOz2KJNzTLY1awGxW8nIihLoe','2021-09-14 08:11:09');
 
 /*Table structure for table `personal_access_tokens` */
@@ -4393,7 +4152,7 @@ CREATE TABLE `personal_access_tokens` (
 
 /*Data for the table `personal_access_tokens` */
 
-insert  into `personal_access_tokens`(`id`,`tokenable_type`,`tokenable_id`,`name`,`token`,`abilities`,`last_used_at`,`created_at`,`updated_at`) values 
+insert  into `personal_access_tokens`(`id`,`tokenable_type`,`tokenable_id`,`name`,`token`,`abilities`,`last_used_at`,`created_at`,`updated_at`) values
 (41,'App\\Models\\User',3,'token-name','508636b02eaf5c09cbc9aa4777c7794edaf13dc45f6476c5c06047e2825828be','[\"*\"]','2023-02-10 07:17:54','2023-02-10 07:11:29','2023-02-10 07:17:54'),
 (42,'App\\Models\\User',3,'token-name','e4951cc3fed0cd316e8709317b22182d8c735892f12b3708478a9c0214e60bbf','[\"*\"]','2023-02-10 07:21:53','2023-02-10 07:18:11','2023-02-10 07:21:53'),
 (43,'App\\Models\\User',3,'token-name','79326c33563ab28f18170d7462079df46c634eeef63d1989ec4bd3fe81d5d93d','[\"*\"]','2023-02-10 07:32:24','2023-02-10 07:31:06','2023-02-10 07:32:24'),
@@ -4455,7 +4214,7 @@ CREATE TABLE `preference_company` (
 
 /*Data for the table `preference_company` */
 
-insert  into `preference_company`(`company_id`,`company_name`,`company_address`,`company_phone_number`,`company_mobile_number`,`company_email`,`company_website`,`company_tax_number`,`company_account_receivable_due_date`,`company_account_payable_due_date`,`company_logo`,`CDBO_no`,`distribution_no`,`account_inventory_trade_id`,`account_vat_in_id`,`account_vat_out_id`,`account_payable_id`,`account_bank_or_cash_id`,`account_pdp_id`,`account_bank_cash_hpp_id`,`account_receivable_id`,`account_shortover_id`,`account_sales_id`,`ppn_amount_in`,`ppn_amount_out`,`sales_discount_id`,`purchase_discount_id`,`pharmacist_license_no`,`account_sales_return_id`,`account_hpp_id`,`account_bank_id`,`account_cash_id`,`account_cash_on_way_id`,`account_delivery_id`,`account_expense_id`,`created_at`,`updated_at`) values 
+insert  into `preference_company`(`company_id`,`company_name`,`company_address`,`company_phone_number`,`company_mobile_number`,`company_email`,`company_website`,`company_tax_number`,`company_account_receivable_due_date`,`company_account_payable_due_date`,`company_logo`,`CDBO_no`,`distribution_no`,`account_inventory_trade_id`,`account_vat_in_id`,`account_vat_out_id`,`account_payable_id`,`account_bank_or_cash_id`,`account_pdp_id`,`account_bank_cash_hpp_id`,`account_receivable_id`,`account_shortover_id`,`account_sales_id`,`ppn_amount_in`,`ppn_amount_out`,`sales_discount_id`,`purchase_discount_id`,`pharmacist_license_no`,`account_sales_return_id`,`account_hpp_id`,`account_bank_id`,`account_cash_id`,`account_cash_on_way_id`,`account_delivery_id`,`account_expense_id`,`created_at`,`updated_at`) values
 (2,'Tripta Tri Tunggal','PERUM. BUMI WONOREJO - KARANGANYAR','( 024 ) 76623702','08712813691','TriptaTriTunggal@gmail.com','www.TriptaTriTunggal.id','',0,0,NULL,'CDOB1827/S/4-3306/09/2020','FP.01.04/IV/0118-/2019',79,99,48,17,0,82,0,6,4,308,11,11,0,0,'A1111111',340,356,0,4,4,9,0,NULL,'2025-01-29 14:59:09');
 
 /*Table structure for table `preference_transaction_module` */
@@ -4478,7 +4237,7 @@ CREATE TABLE `preference_transaction_module` (
 
 /*Data for the table `preference_transaction_module` */
 
-insert  into `preference_transaction_module`(`transaction_module_id`,`transaction_module_name`,`transaction_module_code`,`transaction_id`,`transaction_controller`,`status`,`created_by`,`data_state`,`created_at`,`updated_at`) values 
+insert  into `preference_transaction_module`(`transaction_module_id`,`transaction_module_name`,`transaction_module_code`,`transaction_id`,`transaction_controller`,`status`,`created_by`,`data_state`,`created_at`,`updated_at`) values
 (1,'Supplier','SP',0,'supplier','0','','0','0000-00-00 00:00:00','2023-06-23 10:52:22'),
 (2,'Department','DP',0,'department','0','','0','0000-00-00 00:00:00','2023-06-23 10:52:22'),
 (3,'Location','LC',0,'location','0','','0','0000-00-00 00:00:00','2023-06-23 10:52:22'),
@@ -4601,12 +4360,9 @@ CREATE TABLE `purchase_invoice` (
   KEY `FK_purchase_invoice_branch_id` (`branch_id`),
   KEY `FK_purchase_invoice_supplier_id` (`supplier_id`),
   KEY `FK_purchase_invoice_warehouse_id` (`warehouse_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `purchase_invoice` */
-
-insert  into `purchase_invoice`(`purchase_invoice_id`,`goods_received_note_id`,`purchase_order_id`,`branch_id`,`supplier_id`,`warehouse_id`,`payment_method_account_id`,`ongkir_account_id`,`purchase_invoice_date`,`purchase_invoice_payment_terms`,`purchase_invoice_due_date`,`purchase_invoice_no`,`purchase_invoice_reference_no`,`purchase_invoice_remark`,`purchase_police_number`,`subtotal_item`,`subtotal_amount`,`discount_percentage`,`discount_amount`,`purchase_handling_fee`,`ppn_in_amount`,`tax_percentage`,`tax_amount`,`faktur_tax_no`,`total_amount`,`paid_amount`,`payment_discount`,`owing_amount`,`shortover_amount`,`down_payment_amount`,`purchase_return_amount`,`debit_amount`,`purchase_invoice_status`,`purchase_invoice_token`,`purchase_invoice_token_void`,`voided_id`,`voided_on`,`voided_remark`,`record_no`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(1,3,282,1,7,1,0,0,'2025-02-04',0.00,'2025-03-08','0001/PI/II/2025','',NULL,'',100,111000.00,0.00,0.00,0.00,11000,0.00,0.00,NULL,111000.00,0.00,0.00,111000.00,0.00,0.00,0.00,0.00,0,NULL,NULL,0,NULL,NULL,'',0,3,'2025-02-04 10:11:17','2025-02-04 10:11:17');
 
 /*Table structure for table `purchase_invoice_item` */
 
@@ -4635,12 +4391,9 @@ CREATE TABLE `purchase_invoice_item` (
   PRIMARY KEY (`purchase_invoice_item_id`),
   UNIQUE KEY `purchase_invoice_item_token` (`purchase_invoice_item_token`),
   KEY `FK_purchase_invoice_item_purchase_invoice_id` (`purchase_invoice_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `purchase_invoice_item` */
-
-insert  into `purchase_invoice_item`(`purchase_invoice_item_id`,`purchase_invoice_id`,`goods_received_note_item_id`,`item_category_id`,`item_type_id`,`item_id`,`quantity_scale`,`quantity`,`item_unit_id`,`item_unit_cost`,`subtotal_amount`,`discount_percentage`,`discount_amount`,`subtotal_amount_after_discount`,`purchase_invoice_item_token`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(1,1,3,1,1,NULL,0.00,100.00,10,1000.00,100000.00,0.00,0.00,0.00,NULL,0,3,'2025-02-04 10:11:17','2025-02-04 10:11:17');
 
 /*Table structure for table `purchase_order` */
 
@@ -4693,17 +4446,13 @@ CREATE TABLE `purchase_order` (
   KEY `created_id` (`created_id`),
   KEY `FK_purchase_order_warehouse_id` (`warehouse_id`),
   KEY `FK_purchase_order_purchase_order_type_id` (`purchase_order_type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=288 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `purchase_order` */
 
-insert  into `purchase_order`(`purchase_order_id`,`supplier_id`,`warehouse_id`,`purchase_order_no`,`purchase_order_date`,`payment_method`,`purchase_order_shipment_date`,`purchase_order_payment_terms`,`purchase_order_remark`,`total_item`,`total_received_item`,`subtotal_amount`,`discount_percentage`,`discount_amount`,`ppn_in_percentage`,`ppn_in_amount`,`subtotal_after_ppn_in`,`tax_percentage`,`tax_amount`,`total_amount`,`down_payment_amount`,`down_payment_amount_balance`,`last_balance_amount`,`purchase_order_type_id`,`purchase_order_status`,`purchase_invoice_status`,`item_type`,`branch_id`,`approved`,`approved_id`,`approved_on`,`approved_remark`,`closed_remark`,`voided_id`,`voided_on`,`voided_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(282,7,1,'0001/PO/II/2025','2025-02-04','2','2025-02-04',0,NULL,100.00,0.00,0.00,0.00,0.00,11.00,11000.00,111000.00,0.00,0.00,100000.00,0.00,0.00,0.00,0,0,0,0,1,1,0,NULL,NULL,NULL,0,NULL,NULL,0,0,'2025-02-04 08:25:20','2025-02-04 08:25:20'),
-(283,7,1,'0002/PO/II/2025','2025-02-04','1','2025-02-04',0,NULL,100.00,0.00,0.00,0.00,0.00,11.00,11000.00,111000.00,0.00,0.00,100000.00,0.00,0.00,0.00,0,0,0,0,1,1,0,NULL,NULL,NULL,0,NULL,NULL,0,0,'2025-02-04 08:46:20','2025-02-04 08:46:20'),
-(284,7,1,'0003/PO/II/2025','2025-02-04','2','2025-02-04',0,NULL,100.00,0.00,0.00,0.00,0.00,11.00,11000.00,111000.00,0.00,0.00,100000.00,0.00,0.00,0.00,0,0,0,0,1,1,0,NULL,NULL,NULL,0,NULL,NULL,0,0,'2025-02-04 08:57:47','2025-02-04 08:57:47'),
-(285,9,1,'0004/PO/II/2025','2025-02-04','1','2025-02-04',0,NULL,100.00,0.00,0.00,0.00,0.00,11.00,11000.00,111000.00,0.00,0.00,100000.00,0.00,0.00,0.00,0,0,0,0,1,1,0,NULL,NULL,NULL,0,NULL,NULL,0,0,'2025-02-04 09:07:21','2025-02-04 09:07:21'),
-(286,9,1,'0005/PO/II/2025','2025-02-04','2','2025-02-04',0,NULL,100.00,0.00,0.00,0.00,0.00,11.00,11000.00,111000.00,0.00,0.00,100000.00,0.00,0.00,0.00,0,0,0,0,1,1,0,NULL,NULL,NULL,0,NULL,NULL,0,0,'2025-02-04 09:08:43','2025-02-04 09:08:43'),
-(287,7,1,'0006/PO/II/2025','2025-02-04','1','2025-02-04',0,NULL,100.00,0.00,0.00,0.00,0.00,11.00,11000.00,111000.00,0.00,0.00,100000.00,0.00,0.00,0.00,0,0,0,0,1,1,0,NULL,NULL,NULL,0,NULL,NULL,0,0,'2025-02-04 09:55:13','2025-02-04 09:55:13');
+insert  into `purchase_order`(`purchase_order_id`,`supplier_id`,`warehouse_id`,`purchase_order_no`,`purchase_order_date`,`payment_method`,`purchase_order_shipment_date`,`purchase_order_payment_terms`,`purchase_order_remark`,`total_item`,`total_received_item`,`subtotal_amount`,`discount_percentage`,`discount_amount`,`ppn_in_percentage`,`ppn_in_amount`,`subtotal_after_ppn_in`,`tax_percentage`,`tax_amount`,`total_amount`,`down_payment_amount`,`down_payment_amount_balance`,`last_balance_amount`,`purchase_order_type_id`,`purchase_order_status`,`purchase_invoice_status`,`item_type`,`branch_id`,`approved`,`approved_id`,`approved_on`,`approved_remark`,`closed_remark`,`voided_id`,`voided_on`,`voided_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+(2,1,1,'0001/PO/II/2025','2025-02-05','1','2025-02-05',0,NULL,20.00,0.00,0.00,0.00,0.00,11.00,2200.00,22200.00,0.00,0.00,20000.00,0.00,0.00,0.00,0,0,0,0,1,1,0,NULL,NULL,NULL,0,NULL,NULL,0,0,'2025-02-05 07:58:54','2025-02-05 07:58:54'),
+(3,1,1,'0002/PO/II/2025','2025-02-05','2','2025-02-05',0,NULL,100.00,0.00,0.00,0.00,0.00,11.00,11000.00,111000.00,0.00,0.00,100000.00,0.00,0.00,0.00,0,0,0,0,1,1,0,NULL,NULL,NULL,0,NULL,NULL,0,0,'2025-02-05 08:24:23','2025-02-05 08:24:23');
 
 /*Table structure for table `purchase_order_item` */
 
@@ -4740,17 +4489,13 @@ CREATE TABLE `purchase_order_item` (
   KEY `purchase_order_token` (`purchase_order_token`),
   KEY `item_flute_id` (`item_type_id`),
   KEY `FK_purchase_order_item_purchase_order_id` (`purchase_order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `purchase_order_item` */
 
-insert  into `purchase_order_item`(`purchase_order_item_id`,`purchase_order_id`,`purchase_requisition_id`,`purchase_requisition_item_id`,`item_category_id`,`item_unit_id`,`item_type_id`,`quantity`,`quantity_outstanding`,`quantity_received`,`quantity_return`,`item_unit_cost`,`subtotal_amount`,`discount_percentage`,`discount_amount`,`subtotal_amount_after_discount`,`purchase_order_item_creassing`,`purchase_order_token`,`data_state`,`created_id`,`created_at`,`voided_id`,`voided_on`,`updated_at`) values 
-(1,282,0,0,1,10,1,100,0,100,0,1000,100000,0,0,0,'','',0,0,'2025-02-04 08:25:20',0,NULL,'2025-02-04 08:44:23'),
-(2,283,0,0,1,10,3,100,0,100,0,1000,100000,0,0,0,'','',0,0,'2025-02-04 08:46:20',0,NULL,'2025-02-04 08:46:40'),
-(3,284,0,0,1,10,3,100,0,100,0,1000,100000,0,0,0,'','',0,0,'2025-02-04 08:57:47',0,NULL,'2025-02-04 08:58:03'),
-(4,285,0,0,1,23,4,100,0,100,0,1000,100000,0,0,0,'','',0,0,'2025-02-04 09:07:21',0,NULL,'2025-02-04 09:07:33'),
-(5,286,0,0,1,23,4,100,0,100,0,1000,100000,0,0,0,'','',0,0,'2025-02-04 09:08:43',0,NULL,'2025-02-04 09:08:51'),
-(6,287,0,0,1,23,5,100,0,100,0,1000,100000,0,0,0,'','',0,0,'2025-02-04 09:55:13',0,NULL,'2025-02-04 09:56:05');
+insert  into `purchase_order_item`(`purchase_order_item_id`,`purchase_order_id`,`purchase_requisition_id`,`purchase_requisition_item_id`,`item_category_id`,`item_unit_id`,`item_type_id`,`quantity`,`quantity_outstanding`,`quantity_received`,`quantity_return`,`item_unit_cost`,`subtotal_amount`,`discount_percentage`,`discount_amount`,`subtotal_amount_after_discount`,`purchase_order_item_creassing`,`purchase_order_token`,`data_state`,`created_id`,`created_at`,`voided_id`,`voided_on`,`updated_at`) values
+(1,2,0,0,1,10,1,20,0,20,0,1000,20000,NULL,0,0,'','',0,0,'2025-02-05 07:58:54',0,NULL,'2025-02-05 08:04:06'),
+(2,3,0,0,1,10,1,100,0,100,0,1000,100000,0,0,0,'','',0,0,'2025-02-05 08:24:23',0,NULL,'2025-02-05 08:25:00');
 
 /*Table structure for table `purchase_order_return` */
 
@@ -4858,13 +4603,9 @@ CREATE TABLE `purchase_payment` (
   UNIQUE KEY `payment_token_void` (`payment_token_void`),
   KEY `FK_purchase_payment_supplier_id` (`supplier_id`) USING BTREE,
   KEY `FK_purchase_payment_branch_id` (`branch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `purchase_payment` */
-
-insert  into `purchase_payment`(`payment_id`,`branch_id`,`supplier_id`,`payment_date`,`payment_no`,`reference_number`,`cash_account_id`,`payment_remark`,`payment_amount`,`payment_allocated`,`payment_shortover`,`payment_total_amount`,`payment_shortover_remark`,`payment_total_cash_amount`,`payment_total_transfer_amount`,`payment_total_giro_amount`,`payment_token`,`payment_token_void`,`voided_id`,`voided_on`,`voided_remark`,`posted`,`posted_id`,`posted_on`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(30,1,8,'2024-01-20','0001/PH/I/2024','',8,NULL,1066479553.00,1066479553.00,0.00,1066479553.00,'',0.00,1066479553.00,0.00,NULL,NULL,0,NULL,'','0',0,NULL,0,75,'2024-01-20 08:11:23','2024-01-20 08:11:23'),
-(31,1,8,'2024-01-20','0002/PH/I/2024','',8,NULL,1261217520.00,1261217520.00,0.00,1261217520.00,'',0.00,1261217520.00,0.00,NULL,NULL,0,NULL,'','0',0,NULL,0,75,'2024-01-20 08:18:08','2024-01-20 08:18:08');
 
 /*Table structure for table `purchase_payment_item` */
 
@@ -4893,13 +4634,9 @@ CREATE TABLE `purchase_payment_item` (
   UNIQUE KEY `payment_item_token_void` (`payment_item_token_void`),
   KEY `FK_purchase_payment_item_purchase_invoice_id` (`purchase_invoice_id`) USING BTREE,
   KEY `FK_purchase_payment_item_payment_id` (`payment_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `purchase_payment_item` */
-
-insert  into `purchase_payment_item`(`payment_item_id`,`payment_id`,`purchase_invoice_id`,`purchase_invoice_no`,`purchase_invoice_date`,`purchase_invoice_amount`,`total_amount`,`paid_amount`,`owing_amount`,`shortover_amount`,`allocation_amount`,`payment_discount`,`payment_item_token`,`payment_item_token_void`,`last_balance`,`created_at`,`updated_at`) values 
-(29,30,28,'0001/PI/I/2024','2024-01-20',1166479552.80,1166479552.80,0.00,1166479552.80,0.00,1066479553.00,NULL,NULL,NULL,99999999.80,'2024-01-20 08:11:23','2024-01-20 08:11:23'),
-(30,31,29,'0002/PI/I/2024','2024-01-20',1261217520.00,1261217520.00,0.00,1261217520.00,0.00,1261217520.00,NULL,NULL,NULL,0.00,'2024-01-20 08:18:08','2024-01-20 08:18:08');
 
 /*Table structure for table `purchase_payment_transfer` */
 
@@ -5072,12 +4809,9 @@ CREATE TABLE `sales_collection` (
   KEY `FK_sales_collection_section_id` (`section_id`),
   KEY `FK_sales_collection_customer_id` (`customer_id`),
   CONSTRAINT `FK_sales_collection_customer_id` FOREIGN KEY (`customer_id`) REFERENCES `core_customer` (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_collection` */
-
-insert  into `sales_collection`(`collection_id`,`customer_id`,`salesman_id`,`section_id`,`project_id`,`cash_account_id`,`collection_no`,`collection_date`,`reference_number`,`collection_remark`,`collection_amount`,`collection_allocated`,`collection_shortover`,`collection_total_amount`,`collection_shortover_remark`,`collection_total_cash_amount`,`collection_total_transfer_amount`,`collection_total_giro_amount`,`collection_giro_status`,`collection_token`,`collection_token_void`,`voided_id`,`voided_on`,`voided_remark`,`posted`,`posted_by`,`posted_on`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(10,164,0,NULL,0,0,'','2025-01-31','',NULL,11000.00,11000.00,0.00,NULL,NULL,NULL,NULL,0.00,0,NULL,NULL,0,NULL,NULL,'0','',NULL,0,3,'2025-01-31 09:31:24','2025-01-31 09:31:24');
 
 /*Table structure for table `sales_collection_item` */
 
@@ -5109,12 +4843,9 @@ CREATE TABLE `sales_collection_item` (
   UNIQUE KEY `collection_item_token_void` (`collection_item_token_void`),
   KEY `FK_sales_collection_collection_id` (`collection_id`) USING BTREE,
   KEY `FK_sales_collection_sales_invoice_id` (`sales_invoice_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_collection_item` */
-
-insert  into `sales_collection_item`(`collection_item_id`,`collection_id`,`sales_invoice_id`,`sales_invoice_no`,`sales_invoice_date`,`sales_invoice_amount`,`subtotal_invoice_amount`,`discount_percentage`,`discount_amount`,`total_amount`,`paid_amount`,`owing_amount`,`shortover_amount`,`allocation_amount`,`collection_discount`,`last_balance`,`collection_item_token`,`collection_item_token_void`,`created_at`,`updated_at`) values 
-(9,10,19,'0001/TMO.ME/I/2025','2025-01-31',277500,0,0,0,277500.00,0.00,277500.00,0.00,11000.00,0.00,266500.00,NULL,NULL,'2025-01-31 09:31:24','2025-01-31 09:31:24');
 
 /*Table structure for table `sales_customer` */
 
@@ -5220,17 +4951,12 @@ CREATE TABLE `sales_delivery_note` (
   KEY `FK_sales_delivery_note_sales_delivery_order_id` (`sales_delivery_order_id`),
   KEY `FK_sales_delivery_note_sales_order_id` (`sales_order_id`),
   KEY `FK_sales_delivery_note_warehouse_id` (`warehouse_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_delivery_note` */
 
-insert  into `sales_delivery_note`(`sales_delivery_note_id`,`sales_delivery_order_id`,`sales_quotation_id`,`sales_delivery_note_date`,`shipment_planning_id`,`sales_order_id`,`warehouse_id`,`section_id`,`salesman_id`,`customer_id`,`expedition_id`,`sales_delivery_note_cost`,`sales_delivery_note_no`,`ppn_out_amount`,`expedition_receipt_no`,`customer_name`,`customer_address`,`customer_city`,`customer_home_phone`,`customer_mobile_phone1`,`driver_name`,`fleet_police_number`,`purchase_order_no`,`salesman_name`,`sales_delivery_note_status`,`sales_invoice_status`,`sales_delivery_note_remark`,`posted`,`posted_id`,`posted_on`,`voided_id`,`voided_on`,`voided_remark`,`rejected_id`,`rejected_on`,`rejected_remark`,`branch_id`,`return_status`,`pdp_lost_on_expedition_status`,`buyers_acknowledgment_status`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(14,0,2,'2025-01-30',0,0,1,NULL,NULL,164,16,0.00,'0001/SDN/I/2025',NULL,'111111','',NULL,'','','','Daffa','AD 120812 AZ',NULL,'',0,1,'TEST PENJUALAN',0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,3,'2025-01-30 07:13:27','2025-01-31 09:26:21'),
-(15,0,3,'2025-02-04',0,0,1,NULL,NULL,1,11,0.00,'0002/SDN/II/2025',NULL,'344555','',NULL,'','','','sayyid','AD 8080 HAd',NULL,'',0,1,'da',0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,3,'2025-02-04 05:27:53','2025-02-04 05:28:21'),
-(16,0,4,'2025-02-04',0,0,1,NULL,NULL,1,11,0.00,'0003/SDN/II/2025',NULL,'test','',NULL,'','','','Test','test',NULL,'',0,1,'test',0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,3,'2025-02-04 09:25:43','2025-02-04 09:40:47'),
-(17,0,5,'2025-02-04',0,0,1,NULL,NULL,1,11,0.00,'0004/SDN/II/2025',NULL,'test','',NULL,'','','','test','test',NULL,'',0,0,'tst',0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,3,'2025-02-04 09:42:26','2025-02-04 09:42:26'),
-(18,0,5,'2025-02-04',0,0,1,NULL,NULL,1,11,0.00,'0005/SDN/II/2025',NULL,'test','',NULL,'','','','test','test',NULL,'',0,0,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,3,'2025-02-04 09:46:54','2025-02-04 09:46:54'),
-(21,0,6,'2025-02-04',0,0,1,NULL,NULL,1,11,0.00,'0006/SDN/II/2025',NULL,'Test','',NULL,'','','','Test','Test',NULL,'',0,0,NULL,0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,3,'2025-02-04 10:04:19','2025-02-04 10:04:19');
+insert  into `sales_delivery_note`(`sales_delivery_note_id`,`sales_delivery_order_id`,`sales_quotation_id`,`sales_delivery_note_date`,`shipment_planning_id`,`sales_order_id`,`warehouse_id`,`section_id`,`salesman_id`,`customer_id`,`expedition_id`,`sales_delivery_note_cost`,`sales_delivery_note_no`,`ppn_out_amount`,`expedition_receipt_no`,`customer_name`,`customer_address`,`customer_city`,`customer_home_phone`,`customer_mobile_phone1`,`driver_name`,`fleet_police_number`,`purchase_order_no`,`salesman_name`,`sales_delivery_note_status`,`sales_invoice_status`,`sales_delivery_note_remark`,`posted`,`posted_id`,`posted_on`,`voided_id`,`voided_on`,`voided_remark`,`rejected_id`,`rejected_on`,`rejected_remark`,`branch_id`,`return_status`,`pdp_lost_on_expedition_status`,`buyers_acknowledgment_status`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+(2,0,1,'2025-02-05',0,0,1,NULL,NULL,180,11,0.00,'00001/3T/SJ/II/2025',NULL,'2222','',NULL,'','','','Daff','JJVJV',NULL,'',0,1,'DD',0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,3,'2025-02-05 07:47:06','2025-02-05 07:50:57');
 
 /*Table structure for table `sales_delivery_note_item` */
 
@@ -5274,18 +5000,12 @@ CREATE TABLE `sales_delivery_note_item` (
   KEY `account_id_hpp` (`hpp_account_id`),
   KEY `section_id` (`section_id`),
   KEY `FK_sales_delivery_note_item_sales_delivery_note_id` (`sales_delivery_note_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_delivery_note_item` */
 
-insert  into `sales_delivery_note_item`(`sales_delivery_note_item_id`,`sales_delivery_note_id`,`sales_order_id`,`sales_quotation_item_id`,`sales_order_item_id`,`sales_delivery_order_id`,`sales_delivery_order_item_id`,`section_id`,`warehouse_id`,`supplier_id`,`item_category_id`,`item_id`,`item_type_id`,`item_unit_id`,`item_unit_id_unit`,`quantity`,`quantity_unit`,`item_default_quantity_unit`,`item_weight_unit`,`item_batch_number`,`sales_delivery_note_item_token`,`sales_delivery_note_item_token_void`,`return_item_status`,`data_state`,`item_unit_price`,`subtotal_price`,`hpp_amount`,`hpp_account_id`,`created_id`,`created_at`,`updated_at`) values 
-(16,14,0,3,0,0,0,0,0,0,0,0,1,10,0,'100.00','0.00','1','0',NULL,NULL,NULL,0,0,1000.00,100000.00,0.00,0,3,'2025-01-30 07:13:27','2025-01-30 07:13:27'),
-(17,14,0,4,0,0,0,0,0,0,0,0,2,22,0,'100.00','0.00','1','0',NULL,NULL,NULL,0,0,1500.00,150000.00,0.00,0,3,'2025-01-30 07:13:27','2025-01-30 07:13:27'),
-(18,15,0,5,0,0,0,0,0,0,0,0,2,22,0,'100.00','0.00','1','0',NULL,NULL,NULL,0,0,3000.00,300000.00,0.00,0,3,'2025-02-04 05:27:53','2025-02-04 05:27:53'),
-(19,16,0,6,0,0,0,0,0,0,0,0,3,10,0,'100.00','0.00','1','0',NULL,NULL,NULL,0,0,1000.00,100000.00,0.00,0,3,'2025-02-04 09:25:43','2025-02-04 09:25:43'),
-(20,17,0,7,0,0,0,0,0,0,0,0,4,23,0,'100.00','0.00','1','0',NULL,NULL,NULL,0,0,1000.00,100000.00,0.00,0,3,'2025-02-04 09:42:26','2025-02-04 09:42:26'),
-(21,18,0,7,0,0,0,0,0,0,0,0,4,23,0,'100.00','0.00','1','0',NULL,NULL,NULL,0,0,1000.00,100000.00,0.00,0,3,'2025-02-04 09:46:54','2025-02-04 09:46:54'),
-(24,21,0,8,0,0,0,0,0,0,0,0,5,23,0,'50.00','0.00','1','0',NULL,NULL,NULL,0,0,2000.00,100000.00,0.00,0,3,'2025-02-04 10:04:19','2025-02-04 10:04:19');
+insert  into `sales_delivery_note_item`(`sales_delivery_note_item_id`,`sales_delivery_note_id`,`sales_order_id`,`sales_quotation_item_id`,`sales_order_item_id`,`sales_delivery_order_id`,`sales_delivery_order_item_id`,`section_id`,`warehouse_id`,`supplier_id`,`item_category_id`,`item_id`,`item_type_id`,`item_unit_id`,`item_unit_id_unit`,`quantity`,`quantity_unit`,`item_default_quantity_unit`,`item_weight_unit`,`item_batch_number`,`sales_delivery_note_item_token`,`sales_delivery_note_item_token_void`,`return_item_status`,`data_state`,`item_unit_price`,`subtotal_price`,`hpp_amount`,`hpp_account_id`,`created_id`,`created_at`,`updated_at`) values
+(1,2,0,1,0,0,0,0,0,0,0,0,1,10,0,'20.00','0.00','1','0',NULL,NULL,NULL,0,0,1000.00,20000.00,0.00,0,3,'2025-02-05 07:47:06','2025-02-05 07:47:06');
 
 /*Table structure for table `sales_delivery_note_item_stock` */
 
@@ -5535,14 +5255,12 @@ CREATE TABLE `sales_invoice` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_invoice_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_invoice` */
 
-insert  into `sales_invoice`(`sales_invoice_id`,`branch_id`,`warehouse_id`,`customer_id`,`sales_quotation_id`,`sales_order_id`,`sales_delivery_note_id`,`collection_method_account_id`,`services_income_id`,`sales_invoice_no`,`sales_invoice_reference_no`,`sales_invoice_date`,`sales_invoice_due_date`,`sales_invoice_remark`,`sales_invoice_status`,`services_income_amount`,`subtotal_item`,`subtotal_amount`,`subtotal_before_discount`,`discount_percentage`,`discount_amount`,`return_status`,`subtotal_after_discount`,`tax_percentage`,`tax_amount`,`goods_received_note_no`,`faktur_tax_no`,`buyers_acknowledgment_id`,`buyers_acknowledgment_no`,`ttf_no`,`kwitansi_status`,`total_amount`,`paid_amount`,`owing_amount`,`shortover_amount`,`last_balance`,`total_discount_amount`,`paid_discount_amount`,`owing_discount_amount`,`shortover_discount_amount`,`discount_last_balance`,`cash_advance_amount`,`change_amount`,`sales_return_amount`,`sales_collection_date`,`sales_invoice_token`,`sales_invoice_token_void`,`voided_id`,`voided_on`,`voided_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(19,1,1,164,2,0,14,0,0,'0001/TMO.ME/I/2025','','2025-01-31','2025-01-31',NULL,0,0.00,NULL,277500,0,0.00,0,0,250000,0.00,27500.00,NULL,'0',0,'0','',0,277500,11000,266500,0,0,0,0,0,0,0,0,0,0.00,NULL,NULL,NULL,0,NULL,NULL,0,3,'2025-01-31 09:26:21','2025-01-31 09:31:24'),
-(20,1,1,1,3,0,15,0,0,'0002/TMO.ME/II/2025','','2025-02-04','2025-02-04','da',0,0.00,NULL,333000,0,0.00,0,0,300000,0.00,33000.00,NULL,'31313',0,'1231212','',0,333000,0,333000,0,0,0,0,0,0,0,0,0,0.00,NULL,NULL,NULL,0,NULL,NULL,0,3,'2025-02-04 05:28:21','2025-02-04 05:28:21'),
-(21,1,1,1,4,0,16,0,0,'0003/TMO.ME/II/2025','','2025-02-04','2025-02-28',NULL,0,0.00,NULL,111000,0,0.00,0,0,100000,0.00,11000.00,NULL,'0',0,'0','',0,111000,0,111000,0,0,0,0,0,0,0,0,0,0.00,NULL,NULL,NULL,0,NULL,NULL,0,3,'2025-02-04 09:40:47','2025-02-04 09:40:47');
+insert  into `sales_invoice`(`sales_invoice_id`,`branch_id`,`warehouse_id`,`customer_id`,`sales_quotation_id`,`sales_order_id`,`sales_delivery_note_id`,`collection_method_account_id`,`services_income_id`,`sales_invoice_no`,`sales_invoice_reference_no`,`sales_invoice_date`,`sales_invoice_due_date`,`sales_invoice_remark`,`sales_invoice_status`,`services_income_amount`,`subtotal_item`,`subtotal_amount`,`subtotal_before_discount`,`discount_percentage`,`discount_amount`,`return_status`,`subtotal_after_discount`,`tax_percentage`,`tax_amount`,`goods_received_note_no`,`faktur_tax_no`,`buyers_acknowledgment_id`,`buyers_acknowledgment_no`,`ttf_no`,`kwitansi_status`,`total_amount`,`paid_amount`,`owing_amount`,`shortover_amount`,`last_balance`,`total_discount_amount`,`paid_discount_amount`,`owing_discount_amount`,`shortover_discount_amount`,`discount_last_balance`,`cash_advance_amount`,`change_amount`,`sales_return_amount`,`sales_collection_date`,`sales_invoice_token`,`sales_invoice_token_void`,`voided_id`,`voided_on`,`voided_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+(1,1,1,180,1,0,2,0,0,'00001/3T/INV/II/2025','','2025-02-05','2025-02-06','D',0,0.00,NULL,22200,0,0.00,0,0,20000,0.00,2200.00,NULL,'21212',0,'1','',0,22200,0,22200,0,0,0,0,0,0,0,0,0,0.00,NULL,NULL,NULL,0,NULL,NULL,0,3,'2025-02-05 07:50:57','2025-02-05 07:50:57');
 
 /*Table structure for table `sales_invoice_item` */
 
@@ -5571,15 +5289,12 @@ CREATE TABLE `sales_invoice_item` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   KEY `sales_invoice_item_id` (`sales_invoice_item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_invoice_item` */
 
-insert  into `sales_invoice_item`(`sales_invoice_item_id`,`sales_invoice_id`,`sales_order_id`,`sales_quotation_id`,`sales_quotation_item_id`,`sales_delivery_note_id`,`sales_delivery_note_item_id`,`item_id`,`item_type_id`,`item_unit_id`,`quantity`,`item_unit_price`,`item_unit_price_tax`,`discount_A`,`discount_B`,`subtotal_price_A`,`subtotal_price_B`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(31,19,NULL,2,3,14,16,0,1,10,100,1000,0,NULL,NULL,100000,NULL,0,3,'2025-01-31 09:26:21','2025-01-31 09:26:21'),
-(32,19,NULL,2,4,14,17,0,2,22,100,1500,0,NULL,NULL,150000,NULL,1,3,'2025-01-31 09:26:21','2025-01-31 09:26:21'),
-(33,20,NULL,3,5,15,18,0,289,22,100,3000,0,NULL,NULL,300000,NULL,0,3,'2025-02-04 05:28:21','2025-02-04 05:28:21'),
-(34,21,NULL,4,6,16,19,0,3,10,100,1000,0,NULL,NULL,100000,NULL,0,3,'2025-02-04 09:40:47','2025-02-04 09:40:47');
+insert  into `sales_invoice_item`(`sales_invoice_item_id`,`sales_invoice_id`,`sales_order_id`,`sales_quotation_id`,`sales_quotation_item_id`,`sales_delivery_note_id`,`sales_delivery_note_item_id`,`item_id`,`item_type_id`,`item_unit_id`,`quantity`,`item_unit_price`,`item_unit_price_tax`,`discount_A`,`discount_B`,`subtotal_price_A`,`subtotal_price_B`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+(1,1,NULL,1,1,2,1,0,1,10,20,1000,0,NULL,NULL,20000,NULL,0,3,'2025-02-05 07:50:57','2025-02-05 07:50:57');
 
 /*Table structure for table `sales_order` */
 
@@ -5776,7 +5491,7 @@ CREATE TABLE `sales_order_type` (
 
 /*Data for the table `sales_order_type` */
 
-insert  into `sales_order_type`(`sales_order_type_id`,`sales_order_type_name`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
+insert  into `sales_order_type`(`sales_order_type_id`,`sales_order_type_name`,`data_state`,`created_id`,`created_at`,`updated_at`) values
 (1,'Kwitansi',0,NULL,NULL,'2023-06-23 10:52:23'),
 (2,'Invoice',0,NULL,NULL,'2023-06-23 10:52:23');
 
@@ -5839,16 +5554,12 @@ CREATE TABLE `sales_quotation` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_quotation_id`),
   KEY `sales_order_id` (`sales_quotation_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_quotation` */
 
-insert  into `sales_quotation`(`sales_quotation_id`,`sales_quotation_type_id`,`purchase_order_customer`,`customer_id`,`salesman_id`,`receipt_image`,`sales_quotation_no`,`sales_quotation_date`,`sales_quotation_due_date`,`sales_quotation_status`,`sales_quotation_over_limit`,`sales_quotation_over_due_status`,`work_order_status`,`purchase_requisition_status`,`sales_quotation_design_status`,`sales_delivery_order_status`,`sales_delivery_note_status`,`customer_credit_limit_balance`,`sales_invoice_status`,`sales_invoice_last_balance`,`sales_quotation_remark`,`sales_quotation_over_remark`,`total_item`,`subtotal_before_discount`,`discount_percentage`,`discount_amount`,`subtotal_after_discount`,`ppn_out_percentage`,`ppn_out_amount`,`subtotal_after_ppn_out`,`sales_shipment_status`,`paid_amount`,`total_amount`,`last_balance`,`counter_edited`,`branch_id`,`data_state`,`created_id`,`created_at`,`approved`,`approved_id`,`approved_on`,`approved_remark`,`closed`,`closed_id`,`closed_on`,`closed_remark`,`voided_id`,`voided_on`,`voided_remark`,`customer_no`,`updated_at`) values 
-(2,0,'0',164,0,'','0001/QO/I/2025','2025-01-30','2025-02-08',0,0.00,0,0,0,0,0,1,0.00,0,0.00,NULL,NULL,200.00,0.00,0.00,0.00,250000.00,11.00,27500.00,277500.00,0,0.00,277500.00,0.00,0,1,0,0,'2025-01-30 07:12:46',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2025-01-30 07:13:27'),
-(3,0,'0',1,0,'','0002/QO/II/2025','2025-02-04','2025-02-04',0,0.00,0,0,0,0,0,1,0.00,0,0.00,'da',NULL,100.00,0.00,0.00,0.00,300000.00,11.00,33000.00,333000.00,0,0.00,333000.00,0.00,0,1,0,0,'2025-02-04 05:27:21',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2025-02-04 05:27:53'),
-(4,0,'0',1,0,'','0003/QO/II/2025','2025-02-04','2025-02-04',0,0.00,0,0,0,0,0,1,0.00,0,0.00,NULL,NULL,100.00,0.00,0.00,0.00,100000.00,11.00,11000.00,111000.00,0,0.00,111000.00,0.00,0,1,0,0,'2025-02-04 09:25:13',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2025-02-04 09:25:43'),
-(5,0,'0',1,0,'','0004/QO/II/2025','2025-02-04','2025-02-04',0,0.00,0,0,0,0,0,0,0.00,0,0.00,NULL,NULL,100.00,0.00,0.00,0.00,100000.00,11.00,11000.00,111000.00,0,0.00,111000.00,0.00,0,1,0,0,'2025-02-04 09:42:03',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2025-02-04 09:46:54'),
-(6,0,'0',1,0,'','0005/QO/II/2025','2025-02-04','2025-02-04',0,0.00,0,0,0,0,0,1,0.00,0,0.00,NULL,NULL,50.00,0.00,0.00,0.00,100000.00,11.00,11000.00,111000.00,0,0.00,111000.00,0.00,0,1,0,0,'2025-02-04 09:57:54',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2025-02-04 10:04:19');
+insert  into `sales_quotation`(`sales_quotation_id`,`sales_quotation_type_id`,`purchase_order_customer`,`customer_id`,`salesman_id`,`receipt_image`,`sales_quotation_no`,`sales_quotation_date`,`sales_quotation_due_date`,`sales_quotation_status`,`sales_quotation_over_limit`,`sales_quotation_over_due_status`,`work_order_status`,`purchase_requisition_status`,`sales_quotation_design_status`,`sales_delivery_order_status`,`sales_delivery_note_status`,`customer_credit_limit_balance`,`sales_invoice_status`,`sales_invoice_last_balance`,`sales_quotation_remark`,`sales_quotation_over_remark`,`total_item`,`subtotal_before_discount`,`discount_percentage`,`discount_amount`,`subtotal_after_discount`,`ppn_out_percentage`,`ppn_out_amount`,`subtotal_after_ppn_out`,`sales_shipment_status`,`paid_amount`,`total_amount`,`last_balance`,`counter_edited`,`branch_id`,`data_state`,`created_id`,`created_at`,`approved`,`approved_id`,`approved_on`,`approved_remark`,`closed`,`closed_id`,`closed_on`,`closed_remark`,`voided_id`,`voided_on`,`voided_remark`,`customer_no`,`updated_at`) values
+(1,0,'0',180,0,'','0001/QO/II/2025','2025-02-05','2025-02-05',0,0.00,0,0,0,0,0,1,0.00,0,0.00,NULL,NULL,20.00,0.00,0.00,0.00,20000.00,11.00,2200.00,22200.00,0,0.00,22200.00,0.00,0,1,0,0,'2025-02-05 07:27:10',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2025-02-05 07:47:06');
 
 /*Table structure for table `sales_quotation_item` */
 
@@ -5901,17 +5612,12 @@ CREATE TABLE `sales_quotation_item` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_quotation_item_id`),
   KEY `sales_order_item_id` (`sales_quotation_item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_quotation_item` */
 
-insert  into `sales_quotation_item`(`sales_quotation_item_id`,`sales_quotation_id`,`item_category_id`,`item_type_id`,`quantity`,`quantity_delivered`,`quantity_shipped`,`quantity_planned`,`quantity_outstanding`,`quantity_received`,`quantity_ordered`,`quantity_cavity`,`quantity_minimum`,`quantity_resulted`,`sales_quotation_item_status`,`item_substance_price`,`item_unit_id`,`item_unit_price`,`item_unit_price_adds`,`purchase_requisition_status`,`purchase_order_status`,`work_order_status`,`sales_delivery_order_status`,`sales_delivery_note_status`,`sales_invoice_status`,`quantity_minimum_status`,`subtotal_amount`,`subtotal_additional_amount`,`subtotal_item_amount`,`sales_quotation_no`,`sales_quotation_status`,`discount_percentage_item`,`discount_percentage_item_b`,`discount_amount_item`,`discount_amount_item_b`,`subtotal_after_discount_item_a`,`subtotal_after_discount_item_b`,`total_price_after_ppn_amount`,`ppn_amount_item`,`record_id`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
-(3,2,1,1,100.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,100.00,0,0.00,10,1000.00,0.00,0,0,0,0,0,0,0,100000.00,0.00,0.00,'',0,0.00,NULL,0.00,NULL,100000.00,NULL,0.00,0.00,0,0,0,'2025-01-30 07:12:46','2025-01-30 07:12:46'),
-(4,2,1,2,100.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,100.00,0,0.00,22,1500.00,0.00,0,0,0,0,0,0,0,150000.00,0.00,0.00,'',0,0.00,NULL,0.00,NULL,150000.00,NULL,166500.00,16500.00,0,0,0,'2025-01-30 07:12:46','2025-01-30 07:12:46'),
-(5,3,1,2,100.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,100.00,0,0.00,22,3000.00,0.00,0,0,0,0,0,0,0,300000.00,0.00,0.00,'',0,NULL,NULL,0.00,NULL,300000.00,NULL,0.00,0.00,0,0,0,'2025-02-04 05:27:21','2025-02-04 05:27:21'),
-(6,4,1,3,100.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,100.00,0,0.00,10,1000.00,0.00,0,0,0,0,0,0,0,100000.00,0.00,0.00,'',0,NULL,NULL,0.00,NULL,100000.00,NULL,0.00,0.00,0,0,0,'2025-02-04 09:25:13','2025-02-04 09:25:13'),
-(7,5,1,4,100.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,100.00,0,0.00,23,1000.00,0.00,0,0,0,0,0,0,0,100000.00,0.00,0.00,'',0,0.00,NULL,0.00,NULL,100000.00,NULL,0.00,0.00,0,0,0,'2025-02-04 09:42:03','2025-02-04 09:42:03'),
-(8,6,1,5,50.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,50.00,0,0.00,23,2000.00,0.00,0,0,0,0,0,0,0,100000.00,0.00,0.00,'',0,0.00,NULL,0.00,NULL,100000.00,NULL,0.00,0.00,0,0,0,'2025-02-04 09:57:54','2025-02-04 09:57:54');
+insert  into `sales_quotation_item`(`sales_quotation_item_id`,`sales_quotation_id`,`item_category_id`,`item_type_id`,`quantity`,`quantity_delivered`,`quantity_shipped`,`quantity_planned`,`quantity_outstanding`,`quantity_received`,`quantity_ordered`,`quantity_cavity`,`quantity_minimum`,`quantity_resulted`,`sales_quotation_item_status`,`item_substance_price`,`item_unit_id`,`item_unit_price`,`item_unit_price_adds`,`purchase_requisition_status`,`purchase_order_status`,`work_order_status`,`sales_delivery_order_status`,`sales_delivery_note_status`,`sales_invoice_status`,`quantity_minimum_status`,`subtotal_amount`,`subtotal_additional_amount`,`subtotal_item_amount`,`sales_quotation_no`,`sales_quotation_status`,`discount_percentage_item`,`discount_percentage_item_b`,`discount_amount_item`,`discount_amount_item_b`,`subtotal_after_discount_item_a`,`subtotal_after_discount_item_b`,`total_price_after_ppn_amount`,`ppn_amount_item`,`record_id`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+(1,1,1,1,20.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,20.00,0,0.00,10,1000.00,0.00,0,0,0,0,0,0,0,20000.00,0.00,0.00,'',0,NULL,NULL,0.00,NULL,20000.00,NULL,0.00,0.00,0,0,0,'2025-02-05 07:27:10','2025-02-05 07:27:10');
 
 /*Table structure for table `sessions` */
 
@@ -5952,7 +5658,7 @@ CREATE TABLE `system_log_user` (
 
 /*Data for the table `system_log_user` */
 
-insert  into `system_log_user`(`user_log_id`,`user_id`,`username`,`id_previllage`,`log_stat`,`class_name`,`pk`,`remark`,`log_time`,`created_at`,`updated_at`) values 
+insert  into `system_log_user`(`user_log_id`,`user_id`,`username`,`id_previllage`,`log_stat`,`class_name`,`pk`,`remark`,`log_time`,`created_at`,`updated_at`) values
 (1,0,'administrator',2141,'1','SalesInvoice.printSalesInvoice','administrator','Print Sales Invoice','2022-02-08 12:56:56','2022-02-08 12:56:56','2023-06-23 10:52:23'),
 (2,0,'administrator',2141,'1','SalesInvoice.printSalesInvoice','administrator','Print Sales Invoice','2022-02-08 13:41:13','2022-02-08 13:41:13','2023-06-23 10:52:23'),
 (3,0,'administrator',2141,'1','SalesInvoice.printSalesInvoice','administrator','Print Sales Invoice','2022-12-24 12:00:23','2022-12-24 12:00:23','2023-06-23 10:52:23'),
@@ -6205,7 +5911,7 @@ CREATE TABLE `system_menu` (
 
 /*Data for the table `system_menu` */
 
-insert  into `system_menu`(`id_menu`,`id`,`type`,`indent_level`,`text`,`image`,`last_update`) values 
+insert  into `system_menu`(`id_menu`,`id`,`type`,`indent_level`,`text`,`image`,`last_update`) values
 ('1','#','folder',1,'Persediaan',NULL,'2023-06-23 10:52:23'),
 ('11','#','folder',2,'Preferensi Produk',NULL,'2023-06-23 10:52:23'),
 ('111','inv-item','file',3,'Barang',NULL,'2023-06-23 10:52:23'),
@@ -6226,7 +5932,6 @@ insert  into `system_menu`(`id_menu`,`id`,`type`,`indent_level`,`text`,`image`,`
 ('129','warehouse-in-type','file',3,'Tipe Penambahan Barang Gudang',NULL,'2023-06-23 10:52:23'),
 ('130','warehouse-in-requisition','file',3,'Penambahan Barang Gudang',NULL,'2023-06-23 10:52:23'),
 ('131','warehouse-in-approval','file',3,'Persetujuan Penambahan Barang Gudang',NULL,'2023-06-23 10:52:23'),
-('14','goods-received-note','file',2,'Penerimaan Barang',NULL,'2023-06-23 10:52:23'),
 ('15','item-stock','file',2,'Stock Barang',NULL,'2023-06-23 10:52:23'),
 ('16','item-stock-adjustment','file',2,'Penyesuaian Stock Barang',NULL,'2023-06-23 10:52:23'),
 ('17','item-stock-card','file',2,'Kartu Stock',NULL,'2023-06-23 10:52:23'),
@@ -6238,9 +5943,10 @@ insert  into `system_menu`(`id_menu`,`id`,`type`,`indent_level`,`text`,`image`,`
 ('222','purchase-order-approval','file',3,'Persetujuan Purchase Order',NULL,'2023-06-23 10:52:23'),
 ('23','#','folder',2,'Invoice',NULL,'2023-06-23 10:52:23'),
 ('231','purchase-invoice','file',3,'Inovice Pembelian',NULL,'2023-06-23 10:52:23'),
-('24','#','folder',2,'Laporan',NULL,'2023-07-26 15:36:17'),
-('240','purchase-order-return-report','file',3,'Laporan Retur Pembelian',NULL,'2023-07-26 15:40:54'),
-('241','purchase-order-return','file',2,'Return Pembelian',NULL,'2023-06-23 10:52:23'),
+('24','goods-received-note','file',2,'Penerimaan Barang',NULL,'2025-02-05 13:17:43'),
+('25','#','folder',2,'Laporan',NULL,'2025-02-05 13:17:00'),
+('250','purchase-order-return-report','file',3,'Laporan Retur Pembelian',NULL,'2025-02-05 13:17:04'),
+('251','purchase-order-return','file',2,'Return Pembelian',NULL,'2025-02-05 13:17:06'),
 ('3','#','folder',1,'Penjualan',NULL,'2023-06-23 10:52:23'),
 ('31','#','folder',2,'Preferensi',NULL,'2023-06-23 10:52:23'),
 ('311','core-customer','file',3,'Pelanggan',NULL,'2024-12-19 16:10:16'),
@@ -6322,11 +6028,11 @@ CREATE TABLE `system_menu_mapping` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`menu_mapping_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2373 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2482 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `system_menu_mapping` */
 
-insert  into `system_menu_mapping`(`menu_mapping_id`,`user_group_level`,`id_menu`,`created_at`,`updated_at`) values 
+insert  into `system_menu_mapping`(`menu_mapping_id`,`user_group_level`,`id_menu`,`created_at`,`updated_at`) values
 (1227,1,'0','2024-10-17 04:38:36','2024-10-17 04:38:36'),
 (2119,2,'1','2025-01-28 08:39:04','2025-01-28 08:39:04'),
 (2120,2,'11','2025-01-28 08:39:04','2025-01-28 08:39:04'),
@@ -6401,64 +6107,62 @@ insert  into `system_menu_mapping`(`menu_mapping_id`,`user_group_level`,`id_menu
 (2189,2,'9','2025-01-28 08:39:04','2025-01-28 08:39:04'),
 (2190,2,'91','2025-01-28 08:39:04','2025-01-28 08:39:04'),
 (2191,2,'92','2025-01-28 08:39:04','2025-01-28 08:39:04'),
-(2315,1,'1','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2316,1,'11','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2317,1,'112','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2318,1,'113','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2319,1,'115','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2320,1,'12','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2321,1,'121','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2322,1,'122','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2323,1,'14','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2324,1,'15','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2325,1,'16','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2326,1,'17','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2327,1,'2','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2328,1,'21','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2329,1,'211','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2330,1,'22','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2331,1,'221','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2332,1,'23','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2333,1,'231','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2334,1,'241','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2335,1,'3','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2336,1,'31','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2337,1,'311','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2338,1,'32','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2339,1,'321','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2340,1,'34','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2341,1,'341','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2342,1,'35','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2343,1,'351','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2344,1,'36','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2345,1,'4','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2346,1,'41','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2347,1,'411','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2348,1,'42','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2349,1,'422','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2350,1,'45','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2351,1,'6','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2352,1,'61','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2353,1,'617','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2354,1,'65','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2355,1,'651','2025-02-04 06:50:48','2025-02-04 06:50:48'),
-(2356,1,'652','2025-02-04 06:50:49','2025-02-04 06:50:49'),
-(2357,1,'7','2025-02-04 06:50:49','2025-02-04 06:50:49'),
-(2358,1,'71','2025-02-04 06:50:49','2025-02-04 06:50:49'),
-(2359,1,'711','2025-02-04 06:50:49','2025-02-04 06:50:49'),
-(2360,1,'712','2025-02-04 06:50:49','2025-02-04 06:50:49'),
-(2361,1,'72','2025-02-04 06:50:49','2025-02-04 06:50:49'),
-(2362,1,'721','2025-02-04 06:50:49','2025-02-04 06:50:49'),
-(2363,1,'722','2025-02-04 06:50:49','2025-02-04 06:50:49'),
-(2364,1,'73','2025-02-04 06:50:49','2025-02-04 06:50:49'),
-(2365,1,'74','2025-02-04 06:50:49','2025-02-04 06:50:49'),
-(2366,1,'75','2025-02-04 06:50:49','2025-02-04 06:50:49'),
-(2367,1,'8','2025-02-04 06:50:49','2025-02-04 06:50:49'),
-(2368,1,'81','2025-02-04 06:50:49','2025-02-04 06:50:49'),
-(2369,1,'82','2025-02-04 06:50:49','2025-02-04 06:50:49'),
-(2370,1,'9','2025-02-04 06:50:49','2025-02-04 06:50:49'),
-(2371,1,'91','2025-02-04 06:50:49','2025-02-04 06:50:49'),
-(2372,1,'92','2025-02-04 06:50:49','2025-02-04 06:50:49');
+(2323,1,'14','2025-02-05 04:53:40','2025-02-05 04:53:40'),
+(2427,1,'1','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2428,1,'11','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2429,1,'112','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2430,1,'113','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2431,1,'115','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2432,1,'12','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2433,1,'121','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2434,1,'122','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2435,1,'15','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2436,1,'16','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2437,1,'17','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2438,1,'2','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2439,1,'21','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2440,1,'211','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2441,1,'22','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2442,1,'221','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2443,1,'23','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2444,1,'231','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2445,1,'24','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2446,1,'3','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2447,1,'31','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2448,1,'311','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2449,1,'32','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2450,1,'321','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2451,1,'34','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2452,1,'341','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2453,1,'35','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2454,1,'351','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2455,1,'4','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2456,1,'41','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2457,1,'411','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2458,1,'42','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2459,1,'422','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2460,1,'45','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2461,1,'6','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2462,1,'61','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2463,1,'617','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2464,1,'65','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2465,1,'651','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2466,1,'7','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2467,1,'71','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2468,1,'711','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2469,1,'712','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2470,1,'72','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2471,1,'721','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2472,1,'722','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2473,1,'73','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2474,1,'74','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2475,1,'75','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2476,1,'8','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2477,1,'81','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2478,1,'82','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2479,1,'9','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2480,1,'91','2025-02-05 06:25:09','2025-02-05 06:25:09'),
+(2481,1,'92','2025-02-05 06:25:09','2025-02-05 06:25:09');
 
 /*Table structure for table `system_user` */
 
@@ -6482,7 +6186,7 @@ CREATE TABLE `system_user` (
 
 /*Data for the table `system_user` */
 
-insert  into `system_user`(`user_id`,`user_group_id`,`company_id`,`name`,`branch_id`,`email`,`email_verified_at`,`password`,`remember_token`,`data_state`,`created_at`,`updated_at`) values 
+insert  into `system_user`(`user_id`,`user_group_id`,`company_id`,`name`,`branch_id`,`email`,`email_verified_at`,`password`,`remember_token`,`data_state`,`created_at`,`updated_at`) values
 (3,1,2,'administrator',1,NULL,NULL,'$2y$10$E8BvoK6I2D7CDzz/mjKmE.3LQ4AW4rdcpU1ynbVqXzZCZYEGOcH0O',NULL,0,'2021-09-18 02:14:46','2023-02-06 04:15:25'),
 (4,2,2,'tripta',1,NULL,NULL,'$2y$10$6ahAK9XjGanX0zS7V/5n8e3sWvN.VPtJjE7802XluZ0NsgQPaFyJi',NULL,0,NULL,'2025-01-28 08:40:10');
 
@@ -6508,7 +6212,7 @@ CREATE TABLE `system_user_group` (
 
 /*Data for the table `system_user_group` */
 
-insert  into `system_user_group`(`user_group_id`,`user_group_level`,`user_group_name`,`user_group_token`,`data_state`,`created_id`,`created_at`,`updated_id`,`updated_on`,`deleted_id`,`deleted_on`,`updated_at`) values 
+insert  into `system_user_group`(`user_group_id`,`user_group_level`,`user_group_name`,`user_group_token`,`data_state`,`created_id`,`created_at`,`updated_id`,`updated_on`,`deleted_id`,`deleted_on`,`updated_at`) values
 (1,1,'administrator','',0,0,NULL,0,NULL,0,NULL,'2025-01-28 08:39:16'),
 (2,2,'admin','',0,0,'2025-01-28 08:37:40',0,NULL,0,NULL,'2025-01-28 08:39:04');
 
@@ -6526,20 +6230,17 @@ CREATE TABLE `user_locations` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `ip` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `user_locations` */
 
-insert  into `user_locations`(`id`,`user_id`,`latitude`,`longitude`,`data_state`,`created_at`,`updated_at`,`ip`) values 
+insert  into `user_locations`(`id`,`user_id`,`latitude`,`longitude`,`data_state`,`created_at`,`updated_at`,`ip`) values
 (1,NULL,'-7.5558771','110.8642444',0,'2025-01-22 10:08:52','2025-01-22 10:08:52',NULL),
 (2,NULL,'-7.5558771','110.8642444',0,'2025-01-22 10:10:28','2025-01-22 10:10:28','127.0.0.1'),
 (3,NULL,'-7.6325181','110.9559445',0,'2025-01-28 04:38:12','2025-01-28 04:38:12','127.0.0.1'),
 (4,NULL,'-7.6287936','110.9588715',0,'2025-01-28 14:54:35','2025-01-28 14:54:35','127.0.0.1'),
 (5,NULL,'-7.6315161','110.9603617',0,'2025-01-29 12:58:13','2025-01-29 12:58:13','127.0.0.1'),
-(6,NULL,'-7.5726848','110.8836352',0,'2025-01-31 06:36:45','2025-01-31 06:36:45','127.0.0.1'),
-(7,NULL,'-7.5749342','110.8910673',0,'2025-02-03 04:59:27','2025-02-03 04:59:27','127.0.0.1'),
-(8,NULL,'-7.5749342','110.8910673',0,'2025-02-03 06:10:51','2025-02-03 06:10:51','127.0.0.1'),
-(9,NULL,'-7.5749342','110.8910673',0,'2025-02-03 06:10:52','2025-02-03 06:10:52','127.0.0.1');
+(6,NULL,'-7.5726848','110.8836352',0,'2025-01-31 06:36:45','2025-01-31 06:36:45','127.0.0.1');
 
 /* Trigger structure for table `acct_bank_disbursement` */
 
@@ -6547,50 +6248,50 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_bank_disbursement` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_acct_bank_disbursement` BEFORE INSERT ON `acct_bank_disbursement` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_acct_bank_disbursement` BEFORE INSERT ON `acct_bank_disbursement` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
 	DECLARE period 			VARCHAR(20);
 	DECLARE tPeriod			INT;
 	DECLARE nDisbursementNo		VARCHAR(20);
-	
-	
+
+
 	DECLARE nOpeningBalance		DECIMAL(20,2);
 	DECLARE nLastBalance		DECIMAL(20,2);
 	DECLARE nTransactionType	DECIMAL(10);
 	DECLARE nTransactionCode	VARCHAR(20);
 	DECLARE nTransactionID		INT(10);
 	DECLARE nTransactionDate	DATE;
-	
+
 	SET year_period = (SELECT RIGHT(YEAR(new.bank_disbursement_date),2));
-	
+
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.bank_disbursement_date)), 2));
-	
+
 	SET day_period = (SELECT RIGHT(CONCAT('0', DAY(new.bank_disbursement_date)), 2));
-	
+
 	SET nDisbursementNo = CONCAT('BBK', year_period, month_period);
-		
-	SET period = (SELECT RIGHT(TRIM(bank_disbursement_no), 4) 
+
+	SET period = (SELECT RIGHT(TRIM(bank_disbursement_no), 4)
 		FROM acct_bank_disbursement
 		WHERE LEFT(TRIM(bank_disbursement_no), 7) = nDisbursementNo
-		ORDER BY bank_disbursement_id DESC 
+		ORDER BY bank_disbursement_id DESC
 		LIMIT 1);
-	
-	IF (period IS NULL ) THEN 
+
+	IF (period IS NULL ) THEN
 		SET period = "0000";
 	END IF;
-	
+
 	SET tPeriod = CAST(period AS DECIMAL(10));
-	
+
 	SET tPeriod = tPeriod + 1;
-	
+
 	SET period = RIGHT(CONCAT('000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-	
+
 	SET nDisbursementNo = CONCAT(nDisbursementNo, period);
-		
+
 	SET new.bank_disbursement_no = nDisbursementNo;
-	
+
     END */$$
 
 
@@ -6602,49 +6303,49 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_bank_receipt` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_acct_bank_receipt` BEFORE INSERT ON `acct_bank_receipt` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_acct_bank_receipt` BEFORE INSERT ON `acct_bank_receipt` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
 	DECLARE period 			VARCHAR(20);
 	DECLARE tPeriod			INT;
 	DECLARE nReceiptNo		VARCHAR(20);
-	
+
 	DECLARE nOpeningBalance		DECIMAL(20,2);
 	DECLARE nLastBalance		DECIMAL(20,2);
 	DECLARE nTransactionType	DECIMAL(10);
 	DECLARE nTransactionCode	VARCHAR(20);
 	DECLARE nTransactionID		INT(10);
 	DECLARE nTransactionDate	DATE;
-	
+
 	SET year_period = (SELECT RIGHT(YEAR(new.bank_receipt_date),2));
-	
+
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.bank_receipt_date)), 2));
-	
+
 	SET day_period = (SELECT RIGHT(CONCAT('0', DAY(new.bank_receipt_date)), 2));
-	
+
 	SET nReceiptNo = CONCAT('BBM', year_period, month_period);
-		
-	SET period = (SELECT RIGHT(TRIM(bank_receipt_no), 4) 
+
+	SET period = (SELECT RIGHT(TRIM(bank_receipt_no), 4)
 		FROM acct_bank_receipt
 		WHERE LEFT(TRIM(bank_receipt_no), 7) = nReceiptNo
-		ORDER BY bank_receipt_id DESC 
+		ORDER BY bank_receipt_id DESC
 		LIMIT 1);
-	
-	IF (period IS NULL ) THEN 
+
+	IF (period IS NULL ) THEN
 		SET period = "0000";
 	END IF;
-	
+
 	SET tPeriod = CAST(period AS DECIMAL(10));
-	
+
 	SET tPeriod = tPeriod + 1;
-	
+
 	SET period = RIGHT(CONCAT('000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-	
+
 	SET nReceiptNo = CONCAT(nReceiptNo, period);
-		
+
 	SET new.bank_receipt_no = nReceiptNo;
-	
+
     END */$$
 
 
@@ -6656,50 +6357,50 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_cash_disbursement` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_acct_cash_disbursement` BEFORE INSERT ON `acct_cash_disbursement` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_acct_cash_disbursement` BEFORE INSERT ON `acct_cash_disbursement` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
 	DECLARE period 			VARCHAR(20);
 	DECLARE tPeriod			INT;
 	DECLARE nDisbursementNo		VARCHAR(20);
-	
-	
+
+
 	DECLARE nOpeningBalance		DECIMAL(20,2);
 	DECLARE nLastBalance		DECIMAL(20,2);
 	DECLARE nTransactionType	DECIMAL(10);
 	DECLARE nTransactionCode	VARCHAR(20);
 	DECLARE nTransactionID		INT(10);
 	DECLARE nTransactionDate	DATE;
-	
+
 	SET year_period = (SELECT RIGHT(YEAR(new.cash_disbursement_date),2));
-	
+
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.cash_disbursement_date)), 2));
-	
+
 	SET day_period = (SELECT RIGHT(CONCAT('0', DAY(new.cash_disbursement_date)), 2));
-	
+
 	SET nDisbursementNo = CONCAT('BKK', year_period, month_period);
-		
-	SET period = (SELECT RIGHT(TRIM(cash_disbursement_no), 4) 
+
+	SET period = (SELECT RIGHT(TRIM(cash_disbursement_no), 4)
 		FROM acct_cash_disbursement
 		WHERE LEFT(TRIM(cash_disbursement_no), 7) = nDisbursementNo
-		ORDER BY cash_disbursement_id DESC 
+		ORDER BY cash_disbursement_id DESC
 		LIMIT 1);
-	
-	IF (period IS NULL ) THEN 
+
+	IF (period IS NULL ) THEN
 		SET period = "0000";
 	END IF;
-	
+
 	SET tPeriod = CAST(period AS DECIMAL(10));
-	
+
 	SET tPeriod = tPeriod + 1;
-	
+
 	SET period = RIGHT(CONCAT('000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-	
+
 	SET nDisbursementNo = CONCAT(nDisbursementNo, period);
-		
+
 	SET new.cash_disbursement_no = nDisbursementNo;
-	
+
     END */$$
 
 
@@ -6711,49 +6412,49 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_cash_receipt` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_acct_cash_receipt` BEFORE INSERT ON `acct_cash_receipt` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_acct_cash_receipt` BEFORE INSERT ON `acct_cash_receipt` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
 	DECLARE period 			VARCHAR(20);
 	DECLARE tPeriod			INT;
 	DECLARE nReceiptNo		VARCHAR(20);
-	
+
 	DECLARE nOpeningBalance		DECIMAL(20,2);
 	DECLARE nLastBalance		DECIMAL(20,2);
 	DECLARE nTransactionType	DECIMAL(10);
 	DECLARE nTransactionCode	VARCHAR(20);
 	DECLARE nTransactionID		INT(10);
 	DECLARE nTransactionDate	DATE;
-	
+
 	SET year_period = (SELECT RIGHT(YEAR(new.cash_receipt_date),2));
-	
+
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.cash_receipt_date)), 2));
-	
+
 	SET day_period = (SELECT RIGHT(CONCAT('0', DAY(new.cash_receipt_date)), 2));
-	
+
 	SET nReceiptNo = CONCAT('BKM', year_period, month_period);
-		
-	SET period = (SELECT RIGHT(TRIM(cash_receipt_no), 4) 
+
+	SET period = (SELECT RIGHT(TRIM(cash_receipt_no), 4)
 		FROM acct_cash_receipt
 		WHERE LEFT(TRIM(cash_receipt_no), 7) = nReceiptNo
-		ORDER BY cash_receipt_id DESC 
+		ORDER BY cash_receipt_id DESC
 		LIMIT 1);
-	
-	IF (period IS NULL ) THEN 
+
+	IF (period IS NULL ) THEN
 		SET period = "0000";
 	END IF;
-	
+
 	SET tPeriod = CAST(period AS DECIMAL(10));
-	
+
 	SET tPeriod = tPeriod + 1;
-	
+
 	SET period = RIGHT(CONCAT('000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-	
+
 	SET nReceiptNo = CONCAT(nReceiptNo, period);
-		
+
 	SET new.cash_receipt_no = nReceiptNo;
-	
+
     END */$$
 
 
@@ -6765,50 +6466,50 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_check_disbursement` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_acct_check_disbursement` BEFORE INSERT ON `acct_check_disbursement` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_acct_check_disbursement` BEFORE INSERT ON `acct_check_disbursement` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
 	DECLARE period 			VARCHAR(20);
 	DECLARE tPeriod			INT;
 	DECLARE nDisbursementNo		VARCHAR(20);
-	
-	
+
+
 	DECLARE nOpeningBalance		DECIMAL(20,2);
 	DECLARE nLastBalance		DECIMAL(20,2);
 	DECLARE nTransactionType	DECIMAL(10);
 	DECLARE nTransactionCode	VARCHAR(20);
 	DECLARE nTransactionID		INT(10);
 	DECLARE nTransactionDate	DATE;
-	
+
 	SET year_period = (SELECT RIGHT(YEAR(new.check_disbursement_date),2));
-	
+
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.check_disbursement_date)), 2));
-	
+
 	SET day_period = (SELECT RIGHT(CONCAT('0', DAY(new.check_disbursement_date)), 2));
-	
+
 	SET nDisbursementNo = CONCAT('BGK', year_period, month_period);
-		
-	SET period = (SELECT RIGHT(TRIM(check_disbursement_no), 4) 
+
+	SET period = (SELECT RIGHT(TRIM(check_disbursement_no), 4)
 		FROM acct_check_disbursement
 		WHERE LEFT(TRIM(check_disbursement_no), 7) = nDisbursementNo
-		ORDER BY check_disbursement_id DESC 
+		ORDER BY check_disbursement_id DESC
 		LIMIT 1);
-	
-	IF (period IS NULL ) THEN 
+
+	IF (period IS NULL ) THEN
 		SET period = "0000";
 	END IF;
-	
+
 	SET tPeriod = CAST(period AS DECIMAL(10));
-	
+
 	SET tPeriod = tPeriod + 1;
-	
+
 	SET period = RIGHT(CONCAT('000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-	
+
 	SET nDisbursementNo = CONCAT(nDisbursementNo, period);
-		
+
 	SET new.check_disbursement_no = nDisbursementNo;
-	
+
     END */$$
 
 
@@ -6820,49 +6521,49 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_check_receipt` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_acct_check_receipt` BEFORE INSERT ON `acct_check_receipt` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_acct_check_receipt` BEFORE INSERT ON `acct_check_receipt` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
 	DECLARE period 			VARCHAR(20);
 	DECLARE tPeriod			INT;
 	DECLARE nReceiptNo		VARCHAR(20);
-	
+
 	DECLARE nOpeningBalance		DECIMAL(20,2);
 	DECLARE nLastBalance		DECIMAL(20,2);
 	DECLARE nTransactionType	DECIMAL(10);
 	DECLARE nTransactionCode	VARCHAR(20);
 	DECLARE nTransactionID		INT(10);
 	DECLARE nTransactionDate	DATE;
-	
+
 	SET year_period = (SELECT RIGHT(YEAR(new.check_receipt_date),2));
-	
+
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.check_receipt_date)), 2));
-	
+
 	SET day_period = (SELECT RIGHT(CONCAT('0', DAY(new.check_receipt_date)), 2));
-	
+
 	SET nReceiptNo = CONCAT('BGM', year_period, month_period);
-		
-	SET period = (SELECT RIGHT(TRIM(check_receipt_no), 4) 
+
+	SET period = (SELECT RIGHT(TRIM(check_receipt_no), 4)
 		FROM acct_check_receipt
 		WHERE LEFT(TRIM(check_receipt_no), 7) = nReceiptNo
-		ORDER BY check_receipt_id DESC 
+		ORDER BY check_receipt_id DESC
 		LIMIT 1);
-	
-	IF (period IS NULL ) THEN 
+
+	IF (period IS NULL ) THEN
 		SET period = "0000";
 	END IF;
-	
+
 	SET tPeriod = CAST(period AS DECIMAL(10));
-	
+
 	SET tPeriod = tPeriod + 1;
-	
+
 	SET period = RIGHT(CONCAT('000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-	
+
 	SET nReceiptNo = CONCAT(nReceiptNo, period);
-		
+
 	SET new.check_receipt_no = nReceiptNo;
-	
+
     END */$$
 
 
@@ -6874,84 +6575,84 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_journal_voucher` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_acct_journal_voucher` BEFORE INSERT ON `acct_journal_voucher` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_acct_journal_voucher` BEFORE INSERT ON `acct_journal_voucher` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
 	DECLARE tPeriod			INT;
 	DECLARE nJournalVoucherNo	VARCHAR(20);
 	DECLARE monthPeriod		VARCHAR(20);
-	
+
 	SET year_period = (YEAR(new.journal_voucher_date));
-	
+
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.journal_voucher_date)), 2));
-	
-	IF (month_period) = '01' THEN 
+
+	IF (month_period) = '01' THEN
 		SET monthPeriod = 'I';
 	END IF;
-	
-	IF (month_period) = '02' THEN 
+
+	IF (month_period) = '02' THEN
 		SET monthPeriod = 'II';
 	END IF;
-	
-	IF (month_period) = '03' THEN 
+
+	IF (month_period) = '03' THEN
 		SET monthPeriod = 'III';
 	END IF;
-	
-	IF (month_period) = '04' THEN 
+
+	IF (month_period) = '04' THEN
 		SET monthPeriod = 'IV';
-	END IF;	
-	
-	IF (month_period) = '05' THEN 
+	END IF;
+
+	IF (month_period) = '05' THEN
 		SET monthPeriod = 'V';
 	END IF;
-	
-	IF (month_period) = '06' THEN 
+
+	IF (month_period) = '06' THEN
 		SET monthPeriod = 'VI';
 	END IF;
-	
-	IF (month_period) = '07' THEN 
+
+	IF (month_period) = '07' THEN
 		SET monthPeriod = 'VII';
 	END IF;
-	
-	IF (month_period) = '08' THEN 
+
+	IF (month_period) = '08' THEN
 		SET monthPeriod = 'VIII';
 	END IF;
-	
-	IF (month_period) = '09' THEN 
+
+	IF (month_period) = '09' THEN
 		SET monthPeriod = 'IX';
 	END IF;
-	
-	IF (month_period) = '10' THEN 
+
+	IF (month_period) = '10' THEN
 		SET monthPeriod = 'X';
 	END IF;
-	
-	IF (month_period) = '11' THEN 
+
+	IF (month_period) = '11' THEN
 		SET monthPeriod = 'XI';
 	END IF;
-	
-	IF (month_period) = '12' THEN 
+
+	IF (month_period) = '12' THEN
 		SET monthPeriod = 'XII';
 	END IF;
-		
-	SET PERIOD = (SELECT LEFT(TRIM(journal_voucher_no), 4) 
+
+	SET PERIOD = (SELECT LEFT(TRIM(journal_voucher_no), 4)
 			FROM acct_journal_voucher
 			WHERE RIGHT(TRIM(journal_voucher_no), 4) = year_period
-			ORDER BY journal_voucher_id DESC 
+			ORDER BY journal_voucher_id DESC
 			LIMIT 1);
-		
-	IF (PERIOD IS NULL ) THEN 
+
+	IF (PERIOD IS NULL ) THEN
 		SET PERIOD = "0000";
 	END IF;
-	
+
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-	
+
 	SET tPeriod = tPeriod + 1;
-	
+
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-	
+
 	SET nJournalVoucherNo = CONCAT(PERIOD, '/JV/', monthPeriod, '/', year_period);
-		
+
 	SET new.journal_voucher_no = nJournalVoucherNo;
     END */$$
 
@@ -6964,9 +6665,9 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_journal_voucher_item` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_acct_journal_voucher_item` BEFORE INSERT ON `acct_journal_voucher_item` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_acct_journal_voucher_item` BEFORE INSERT ON `acct_journal_voucher_item` FOR EACH ROW BEGIN
 	DECLARE nAccountIDDefaultStatus		DECIMAL(1);
-	
+
 	DECLARE nAccountID		INT(10);
 	DECLARE nBranchID		INT(10);
 	DECLARE nOpeningBalance		DECIMAL(20);
@@ -6978,25 +6679,25 @@ DELIMITER $$
 	DECLARE nAccountIn		DECIMAL(20);
 	DECLARE nAccountOut		DECIMAL(20);
 	DECLARE nCreatedId		INT(10);
-	
-	
+
+
 	SET nCreatedId			= (SELECT created_id FROM acct_journal_voucher
 						WHERE journal_voucher_id = new.journal_voucher_id);
-	
+
 	SET nBranchID 			= (SELECT company_id FROM acct_journal_voucher
 						WHERE journal_voucher_id = new.journal_voucher_id);
-						
+
 	SET nOpeningBalance 		= (SELECT last_balance FROM acct_account_balance
 						WHERE company_id = nBranchID
 						AND account_id = new.account_id);
-						
+
 	IF ( nOpeningBalance IS NULL ) THEN
 		SET nOpeningBalance = 0;
 	END IF;
-				
-	SET nAccountIDDefaultStatus 	= (SELECT account_default_status FROM acct_account 
+
+	SET nAccountIDDefaultStatus 	= (SELECT account_default_status FROM acct_account
 						WHERE account_id = new.account_id);
-						
+
 	IF (new.account_id_status = nAccountIDDefaultStatus) THEN
 		SET nLastBalance 	= nOpeningBalance + new.journal_voucher_amount;
 		SET nAccountIn 		= new.journal_voucher_amount;
@@ -7005,32 +6706,32 @@ DELIMITER $$
 		SET nLastBalance 	= nOpeningBalance - new.journal_voucher_amount;
 		SET nAccountIn 		= 0;
 		SET nAccountOut		= new.journal_voucher_amount;
-	END IF; 
-	
-	SET nAccountID 			= (SELECT account_id FROM acct_account_balance 
+	END IF;
+
+	SET nAccountID 			= (SELECT account_id FROM acct_account_balance
 						WHERE company_id = nBranchID
 						AND account_id = new.account_id);
-	
+
 	IF (nAccountID IS NULL) THEN
 		INSERT INTO acct_account_balance (company_id, account_id, last_balance, created_id) VALUES (nBranchID, new.account_id, nLastBalance, nCreatedId);
-	ELSE 
+	ELSE
 		UPDATE acct_account_balance SET last_balance = nLastBalance
 			WHERE account_id = new.account_id
 			AND company_id = nBranchID;
 	END IF;
-	
-		
+
+
 	SET nTransactionType 		= (SELECT transaction_module_id FROM acct_journal_voucher WHERE journal_voucher_id = new.journal_voucher_id);
-		
+
 	SET nTransactionCode 		= (SELECT transaction_module_code FROM acct_journal_voucher WHERE journal_voucher_id = new.journal_voucher_id);
-	
+
 	SET nTransactionID 		= new.journal_voucher_id;
-		
+
 	SET nTransactionDate 		= (SELECT journal_voucher_date FROM acct_journal_voucher WHERE journal_voucher_id = new.journal_voucher_id);
-		
-	INSERT INTO acct_account_balance_detail (company_id, transaction_type, transaction_code, transaction_id, transaction_date, 
+
+	INSERT INTO acct_account_balance_detail (company_id, transaction_type, transaction_code, transaction_id, transaction_date,
 		account_id, opening_balance, account_in, account_out, last_balance, created_id)
-		VALUES (nBranchID, nTransactionType, nTransactionCode, nTransactionID, nTransactionDate, 
+		VALUES (nBranchID, nTransactionType, nTransactionCode, nTransactionID, nTransactionDate,
 			new.account_id, nOpeningBalance, nAccountIn, nAccountOut, nLastBalance, nCreatedId);
     END */$$
 
@@ -7043,7 +6744,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_goods_received_note` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_inv_goods_received_note` BEFORE INSERT ON `inv_goods_received_note` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_inv_goods_received_note` BEFORE INSERT ON `inv_goods_received_note` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -7051,77 +6752,77 @@ DELIMITER $$
 	DECLARE nInvGoodsReceivedNoteNo		VARCHAR(20);
 	DECLARE monthPeriod			VARCHAR(20);
 	DECLARE lenInvGoodsReceivedNoteNo	DECIMAL(10);
-	
+
 	SET year_period = (YEAR(new.goods_received_note_date));
-	
+
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.goods_received_note_date)), 2));
-	
-	IF (month_period) = '01' THEN 
+
+	IF (month_period) = '01' THEN
 		SET monthPeriod = 'I';
 	END IF;
-	
-	IF (month_period) = '02' THEN 
+
+	IF (month_period) = '02' THEN
 		SET monthPeriod = 'II';
 	END IF;
-	
-	IF (month_period) = '03' THEN 
+
+	IF (month_period) = '03' THEN
 		SET monthPeriod = 'III';
 	END IF;
-	
-	IF (month_period) = '04' THEN 
+
+	IF (month_period) = '04' THEN
 		SET monthPeriod = 'IV';
-	END IF;	
-	
-	IF (month_period) = '05' THEN 
+	END IF;
+
+	IF (month_period) = '05' THEN
 		SET monthPeriod = 'V';
 	END IF;
-	
-	IF (month_period) = '06' THEN 
+
+	IF (month_period) = '06' THEN
 		SET monthPeriod = 'VI';
 	END IF;
-	
-	IF (month_period) = '07' THEN 
+
+	IF (month_period) = '07' THEN
 		SET monthPeriod = 'VII';
 	END IF;
-	
-	IF (month_period) = '08' THEN 
+
+	IF (month_period) = '08' THEN
 		SET monthPeriod = 'VIII';
 	END IF;
-	
-	IF (month_period) = '09' THEN 
+
+	IF (month_period) = '09' THEN
 		SET monthPeriod = 'IX';
 	END IF;
-	
-	IF (month_period) = '10' THEN 
+
+	IF (month_period) = '10' THEN
 		SET monthPeriod = 'X';
 	END IF;
-	
-	IF (month_period) = '11' THEN 
+
+	IF (month_period) = '11' THEN
 		SET monthPeriod = 'XI';
 	END IF;
-	
-	IF (month_period) = '12' THEN 
+
+	IF (month_period) = '12' THEN
 		SET monthPeriod = 'XII';
 	END IF;
-		
-	SET PERIOD = (SELECT LEFT(TRIM(goods_received_note_no), 4) 
+
+	SET PERIOD = (SELECT LEFT(TRIM(goods_received_note_no), 4)
 			FROM inv_goods_received_note
 			WHERE RIGHT(TRIM(goods_received_note_no), 4) = year_period
-			ORDER BY goods_received_note_id DESC 
+			ORDER BY goods_received_note_id DESC
 			LIMIT 1);
-		
-	IF (PERIOD IS NULL ) THEN 
+
+	IF (PERIOD IS NULL ) THEN
 		SET PERIOD = "0000";
 	END IF;
-	
+
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-	
+
 	SET tPeriod = tPeriod + 1;
-	
+
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-	
+
 	SET nInvGoodsReceivedNoteNo = CONCAT(PERIOD, '/IGRN/', monthPeriod, '/', year_period);
-		
+
 	SET new.goods_received_note_no = nInvGoodsReceivedNoteNo;
     END */$$
 
@@ -7134,58 +6835,58 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_item_stock_card_in` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_inv_item_stock_card_in` AFTER INSERT ON `inv_goods_received_note_item` FOR EACH ROW BEGIN
-	DECLARE nOpeningBalance 		DECIMAL(20,5); 
-	DECLARE nLastOpeningBalance 		DECIMAL(20,5);  
+/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_inv_item_stock_card_in` AFTER INSERT ON `inv_goods_received_note_item` FOR EACH ROW BEGIN
+	DECLARE nOpeningBalance 		DECIMAL(20,5);
+	DECLARE nLastOpeningBalance 		DECIMAL(20,5);
 	DECLARE nLastBalance	 		DECIMAL(20,5);
 	DECLARE nQuantityReceived	 	DECIMAL(20,5);
 	DECLARE nItemID				INT(18);
 	DECLARE nWarehouseID			INT(10);
 	DECLARE nSectionID			INT(10);
-	
+
 	DECLARE nTransactionID			BIGINT(22);
 	DECLARE nTransactionType		DECIMAL(10);
 	DECLARE nTransactionCode		VARCHAR(20);
 	DECLARE nTransactionDate		DATE;
-	
+
 	DECLARE nQuantity 			DECIMAL(10,2);
 	DECLARE nReceivedQuantity 		DECIMAL(10,2);
 	DECLARE nItemStockID			BIGINT(22);
 	DECLARE nLastItemStockID		BIGINT(22);
 	DECLARE nFirstItemStockID			BIGINT(22);
 	DECLARE nSecondItemStockID			BIGINT(22);
-	
-	
-	SET nWarehouseID 	= (SELECT warehouse_id FROM inv_goods_received_note 
+
+
+	SET nWarehouseID 	= (SELECT warehouse_id FROM inv_goods_received_note
 						WHERE goods_received_note_id = new.goods_received_note_id);
-				
+
 	SET nTransactionType 	= 1;
-	
+
 	SET nTransactionID 	= new.goods_received_note_id;
-	
+
 	SET nTransactionCode 	= 'INVT_GDS_RCV_NOTE';
-	
+
 	SET nTransactionDate 	= (SELECT goods_received_note_date FROM inv_goods_received_note
 					WHERE goods_received_note_id = new.goods_received_note_id);
-					
+
 	SET nLastOpeningBalance = (SELECT last_balance FROM inv_item_stock_card
 					WHERE item_type_id = new.item_type_id
 					ORDER BY item_stock_card_id DESC LIMIT 1);
-					
+
 	SET nSecondItemStockID 	= (SELECT item_stock_id FROM inv_item_stock
 					ORDER BY item_stock_id DESC LIMIT 1);
-	
-	SET nLastItemStockID 	= (SELECT item_stock_id FROM inv_item_stock 
+
+	SET nLastItemStockID 	= (SELECT item_stock_id FROM inv_item_stock
 					WHERE item_type_id = new.item_type_id
 					ORDER BY item_stock_id DESC LIMIT 1);
-					
-					
+
+
 	select auto_increment into nFirstItemStockID
 	from information_schema.tables
 	where table_name = 'inv_item_stock'
 	and table_schema = database();
-	
-					
+
+
 	IF (nLastItemStockID IS NULL) THEN
 		if (nSecondItemStockID is null) then
 			SET nItemStockID     = nFirstItemStockID;
@@ -7194,11 +6895,11 @@ DELIMITER $$
 		end if;
 	ELSE
 		SET nItemStockID     = nLastItemStockID;
-	END IF;	
-	
+	END IF;
+
 	SET nQuantityReceived   = new.quantity_received;
-						
-		
+
+
 	if (nLastOpeningBalance is null) then
 		SET nOpeningBalance     = 0;
 		set nLastOpeningBalance = 0 + nQuantityReceived;
@@ -7206,15 +6907,15 @@ DELIMITER $$
 		SET nOpeningBalance     = nLastOpeningBalance;
 		set nLastOpeningBalance = nLastOpeningBalance + nQuantityReceived;
 	end if;
-	
-	
-	INSERT INTO inv_item_stock_card (item_stock_id, item_category_id, item_type_id, item_unit_id, warehouse_id, 
-		transaction_id, transaction_type, transaction_code, transaction_date, 
+
+
+	INSERT INTO inv_item_stock_card (item_stock_id, item_category_id, item_type_id, item_unit_id, warehouse_id,
+		transaction_id, transaction_type, transaction_code, transaction_date,
 		opening_balance, item_stock_card_in, last_balance)
-		VALUES (nItemStockID, new.item_category_id, new.item_type_id, new.item_unit_id, nWarehouseID, 
+		VALUES (nItemStockID, new.item_category_id, new.item_type_id, new.item_unit_id, nWarehouseID,
 			nTransactionID, nTransactionType, nTransactionCode, nTransactionDate,
 			nOpeningBalance, nQuantityReceived, nLastOpeningBalance);
-			
+
     END */$$
 
 
@@ -7226,7 +6927,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_warehouse_in` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_inv_warehouse_in` BEFORE INSERT ON `inv_warehouse_in` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_in` BEFORE INSERT ON `inv_warehouse_in` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -7234,77 +6935,77 @@ DELIMITER $$
 	DECLARE nInvWarehouseInNo		VARCHAR(20);
 	DECLARE monthPeriod			VARCHAR(20);
 	DECLARE lenInvWarehouseInNo		DECIMAL(10);
-	
+
 	SET year_period = (YEAR(new.warehouse_in_date));
-	
+
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.warehouse_in_date)), 2));
-	
-	IF (month_period) = '01' THEN 
+
+	IF (month_period) = '01' THEN
 		SET monthPeriod = 'I';
 	END IF;
-	
-	IF (month_period) = '02' THEN 
+
+	IF (month_period) = '02' THEN
 		SET monthPeriod = 'II';
 	END IF;
-	
-	IF (month_period) = '03' THEN 
+
+	IF (month_period) = '03' THEN
 		SET monthPeriod = 'III';
 	END IF;
-	
-	IF (month_period) = '04' THEN 
+
+	IF (month_period) = '04' THEN
 		SET monthPeriod = 'IV';
-	END IF;	
-	
-	IF (month_period) = '05' THEN 
+	END IF;
+
+	IF (month_period) = '05' THEN
 		SET monthPeriod = 'V';
 	END IF;
-	
-	IF (month_period) = '06' THEN 
+
+	IF (month_period) = '06' THEN
 		SET monthPeriod = 'VI';
 	END IF;
-	
-	IF (month_period) = '07' THEN 
+
+	IF (month_period) = '07' THEN
 		SET monthPeriod = 'VII';
 	END IF;
-	
-	IF (month_period) = '08' THEN 
+
+	IF (month_period) = '08' THEN
 		SET monthPeriod = 'VIII';
 	END IF;
-	
-	IF (month_period) = '09' THEN 
+
+	IF (month_period) = '09' THEN
 		SET monthPeriod = 'IX';
 	END IF;
-	
-	IF (month_period) = '10' THEN 
+
+	IF (month_period) = '10' THEN
 		SET monthPeriod = 'X';
 	END IF;
-	
-	IF (month_period) = '11' THEN 
+
+	IF (month_period) = '11' THEN
 		SET monthPeriod = 'XI';
 	END IF;
-	
-	IF (month_period) = '12' THEN 
+
+	IF (month_period) = '12' THEN
 		SET monthPeriod = 'XII';
 	END IF;
-		
-	SET PERIOD = (SELECT LEFT(TRIM(warehouse_in_no), 4) 
+
+	SET PERIOD = (SELECT LEFT(TRIM(warehouse_in_no), 4)
 			FROM inv_warehouse_in
 			WHERE RIGHT(TRIM(warehouse_in_no), 4) = year_period
-			ORDER BY warehouse_in_id DESC 
+			ORDER BY warehouse_in_id DESC
 			LIMIT 1);
-		
-	IF (PERIOD IS NULL ) THEN 
+
+	IF (PERIOD IS NULL ) THEN
 		SET PERIOD = "0000";
 	END IF;
-	
+
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-	
+
 	SET tPeriod = tPeriod + 1;
-	
+
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-	
+
 	SET nInvWarehouseInNo = CONCAT(PERIOD, '/WI/', monthPeriod, '/', year_period);
-		
+
 	SET new.warehouse_in_no = nInvWarehouseInNo;
     END */$$
 
@@ -7317,7 +7018,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_warehouse_out` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_inv_warehouse_out` BEFORE INSERT ON `inv_warehouse_out` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_out` BEFORE INSERT ON `inv_warehouse_out` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -7325,77 +7026,77 @@ DELIMITER $$
 	DECLARE nInvWarehouseOutNo		VARCHAR(20);
 	DECLARE monthPeriod			VARCHAR(20);
 	DECLARE lenInvWarehouseOutNo		DECIMAL(10);
-	
+
 	SET year_period = (YEAR(new.warehouse_out_date));
-	
+
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.warehouse_out_date)), 2));
-	
-	IF (month_period) = '01' THEN 
+
+	IF (month_period) = '01' THEN
 		SET monthPeriod = 'I';
 	END IF;
-	
-	IF (month_period) = '02' THEN 
+
+	IF (month_period) = '02' THEN
 		SET monthPeriod = 'II';
 	END IF;
-	
-	IF (month_period) = '03' THEN 
+
+	IF (month_period) = '03' THEN
 		SET monthPeriod = 'III';
 	END IF;
-	
-	IF (month_period) = '04' THEN 
+
+	IF (month_period) = '04' THEN
 		SET monthPeriod = 'IV';
-	END IF;	
-	
-	IF (month_period) = '05' THEN 
+	END IF;
+
+	IF (month_period) = '05' THEN
 		SET monthPeriod = 'V';
 	END IF;
-	
-	IF (month_period) = '06' THEN 
+
+	IF (month_period) = '06' THEN
 		SET monthPeriod = 'VI';
 	END IF;
-	
-	IF (month_period) = '07' THEN 
+
+	IF (month_period) = '07' THEN
 		SET monthPeriod = 'VII';
 	END IF;
-	
-	IF (month_period) = '08' THEN 
+
+	IF (month_period) = '08' THEN
 		SET monthPeriod = 'VIII';
 	END IF;
-	
-	IF (month_period) = '09' THEN 
+
+	IF (month_period) = '09' THEN
 		SET monthPeriod = 'IX';
 	END IF;
-	
-	IF (month_period) = '10' THEN 
+
+	IF (month_period) = '10' THEN
 		SET monthPeriod = 'X';
 	END IF;
-	
-	IF (month_period) = '11' THEN 
+
+	IF (month_period) = '11' THEN
 		SET monthPeriod = 'XI';
 	END IF;
-	
-	IF (month_period) = '12' THEN 
+
+	IF (month_period) = '12' THEN
 		SET monthPeriod = 'XII';
 	END IF;
-		
-	SET PERIOD = (SELECT LEFT(TRIM(warehouse_out_no), 4) 
+
+	SET PERIOD = (SELECT LEFT(TRIM(warehouse_out_no), 4)
 			FROM inv_warehouse_out
 			WHERE RIGHT(TRIM(warehouse_out_no), 4) = year_period
-			ORDER BY warehouse_out_id DESC 
+			ORDER BY warehouse_out_id DESC
 			LIMIT 1);
-		
-	IF (PERIOD IS NULL ) THEN 
+
+	IF (PERIOD IS NULL ) THEN
 		SET PERIOD = "0000";
 	END IF;
-	
+
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-	
+
 	SET tPeriod = tPeriod + 1;
-	
+
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-	
+
 	SET nInvWarehouseOutNo = CONCAT(PERIOD, '/WO/', monthPeriod, '/', year_period);
-		
+
 	SET new.warehouse_out_no = nInvWarehouseOutNo;
     END */$$
 
@@ -7408,7 +7109,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_warehouse_transfer` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_inv_warehouse_transfer` BEFORE INSERT ON `inv_warehouse_transfer` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_transfer` BEFORE INSERT ON `inv_warehouse_transfer` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -7416,77 +7117,77 @@ DELIMITER $$
 	DECLARE nInvWarehouseTransferNo		VARCHAR(20);
 	DECLARE monthPeriod			VARCHAR(20);
 	DECLARE lenInvWarehouseTransferNo	DECIMAL(10);
-	
+
 	SET year_period = (YEAR(new.warehouse_transfer_date));
-	
+
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.warehouse_transfer_date)), 2));
-	
-	IF (month_period) = '01' THEN 
+
+	IF (month_period) = '01' THEN
 		SET monthPeriod = 'I';
 	END IF;
-	
-	IF (month_period) = '02' THEN 
+
+	IF (month_period) = '02' THEN
 		SET monthPeriod = 'II';
 	END IF;
-	
-	IF (month_period) = '03' THEN 
+
+	IF (month_period) = '03' THEN
 		SET monthPeriod = 'III';
 	END IF;
-	
-	IF (month_period) = '04' THEN 
+
+	IF (month_period) = '04' THEN
 		SET monthPeriod = 'IV';
-	END IF;	
-	
-	IF (month_period) = '05' THEN 
+	END IF;
+
+	IF (month_period) = '05' THEN
 		SET monthPeriod = 'V';
 	END IF;
-	
-	IF (month_period) = '06' THEN 
+
+	IF (month_period) = '06' THEN
 		SET monthPeriod = 'VI';
 	END IF;
-	
-	IF (month_period) = '07' THEN 
+
+	IF (month_period) = '07' THEN
 		SET monthPeriod = 'VII';
 	END IF;
-	
-	IF (month_period) = '08' THEN 
+
+	IF (month_period) = '08' THEN
 		SET monthPeriod = 'VIII';
 	END IF;
-	
-	IF (month_period) = '09' THEN 
+
+	IF (month_period) = '09' THEN
 		SET monthPeriod = 'IX';
 	END IF;
-	
-	IF (month_period) = '10' THEN 
+
+	IF (month_period) = '10' THEN
 		SET monthPeriod = 'X';
 	END IF;
-	
-	IF (month_period) = '11' THEN 
+
+	IF (month_period) = '11' THEN
 		SET monthPeriod = 'XI';
 	END IF;
-	
-	IF (month_period) = '12' THEN 
+
+	IF (month_period) = '12' THEN
 		SET monthPeriod = 'XII';
 	END IF;
-		
-	SET PERIOD = (SELECT LEFT(TRIM(warehouse_transfer_no), 4) 
+
+	SET PERIOD = (SELECT LEFT(TRIM(warehouse_transfer_no), 4)
 			FROM inv_warehouse_transfer
 			WHERE RIGHT(TRIM(warehouse_transfer_no), 4) = year_period
-			ORDER BY warehouse_transfer_id DESC 
+			ORDER BY warehouse_transfer_id DESC
 			LIMIT 1);
-		
-	IF (PERIOD IS NULL ) THEN 
+
+	IF (PERIOD IS NULL ) THEN
 		SET PERIOD = "0000";
 	END IF;
-	
+
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-	
+
 	SET tPeriod = tPeriod + 1;
-	
+
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-	
+
 	SET nInvWarehouseTransferNo = CONCAT(PERIOD, '/WT/', monthPeriod, '/', year_period);
-		
+
 	SET new.warehouse_transfer_no = nInvWarehouseTransferNo;
     END */$$
 
@@ -7499,7 +7200,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_warehouse_transfer_received_note` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_inv_warehouse_transfer_received_note` BEFORE INSERT ON `inv_warehouse_transfer_received_note` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_transfer_received_note` BEFORE INSERT ON `inv_warehouse_transfer_received_note` FOR EACH ROW BEGIN
 	DECLARE year_period 				VARCHAR(20);
 	DECLARE month_period 				VARCHAR(20);
 	DECLARE PERIOD 					VARCHAR(20);
@@ -7507,77 +7208,77 @@ DELIMITER $$
 	DECLARE nInvWarehouseTransferReceivedNoteNo	VARCHAR(20);
 	DECLARE monthPeriod				VARCHAR(20);
 	DECLARE lenInvWarehouseTransferReceivedNoteNo	DECIMAL(10);
-	
+
 	SET year_period = (YEAR(new.warehouse_transfer_received_note_date));
-	
+
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.warehouse_transfer_received_note_date)), 2));
-	
-	IF (month_period) = '01' THEN 
+
+	IF (month_period) = '01' THEN
 		SET monthPeriod = 'I';
 	END IF;
-	
-	IF (month_period) = '02' THEN 
+
+	IF (month_period) = '02' THEN
 		SET monthPeriod = 'II';
 	END IF;
-	
-	IF (month_period) = '03' THEN 
+
+	IF (month_period) = '03' THEN
 		SET monthPeriod = 'III';
 	END IF;
-	
-	IF (month_period) = '04' THEN 
+
+	IF (month_period) = '04' THEN
 		SET monthPeriod = 'IV';
-	END IF;	
-	
-	IF (month_period) = '05' THEN 
+	END IF;
+
+	IF (month_period) = '05' THEN
 		SET monthPeriod = 'V';
 	END IF;
-	
-	IF (month_period) = '06' THEN 
+
+	IF (month_period) = '06' THEN
 		SET monthPeriod = 'VI';
 	END IF;
-	
-	IF (month_period) = '07' THEN 
+
+	IF (month_period) = '07' THEN
 		SET monthPeriod = 'VII';
 	END IF;
-	
-	IF (month_period) = '08' THEN 
+
+	IF (month_period) = '08' THEN
 		SET monthPeriod = 'VIII';
 	END IF;
-	
-	IF (month_period) = '09' THEN 
+
+	IF (month_period) = '09' THEN
 		SET monthPeriod = 'IX';
 	END IF;
-	
-	IF (month_period) = '10' THEN 
+
+	IF (month_period) = '10' THEN
 		SET monthPeriod = 'X';
 	END IF;
-	
-	IF (month_period) = '11' THEN 
+
+	IF (month_period) = '11' THEN
 		SET monthPeriod = 'XI';
 	END IF;
-	
-	IF (month_period) = '12' THEN 
+
+	IF (month_period) = '12' THEN
 		SET monthPeriod = 'XII';
 	END IF;
-		
-	SET PERIOD = (SELECT LEFT(TRIM(warehouse_transfer_received_note_no), 4) 
+
+	SET PERIOD = (SELECT LEFT(TRIM(warehouse_transfer_received_note_no), 4)
 			FROM inv_warehouse_transfer_received_note
 			WHERE RIGHT(TRIM(warehouse_transfer_received_note_no), 4) = year_period
-			ORDER BY warehouse_transfer_received_note_id DESC 
+			ORDER BY warehouse_transfer_received_note_id DESC
 			LIMIT 1);
-		
-	IF (PERIOD IS NULL ) THEN 
+
+	IF (PERIOD IS NULL ) THEN
 		SET PERIOD = "0000";
 	END IF;
-	
+
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-	
+
 	SET tPeriod = tPeriod + 1;
-	
+
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-	
+
 	SET nInvWarehouseTransferReceivedNoteNo = CONCAT(PERIOD, '/WTRN/', monthPeriod, '/', year_period);
-		
+
 	SET new.warehouse_transfer_received_note_no = nInvWarehouseTransferReceivedNoteNo;
     END */$$
 
@@ -7590,7 +7291,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_purchase_invoice` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_purchase_invoice` BEFORE INSERT ON `purchase_invoice` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_purchase_invoice` BEFORE INSERT ON `purchase_invoice` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -7598,77 +7299,77 @@ DELIMITER $$
 	DECLARE nPurchaseInvoiceNo	VARCHAR(20);
 	DECLARE monthPeriod		VARCHAR(20);
 	DECLARE lenPurchaseInvoiceNo	DECIMAL(10);
-	
+
 	SET year_period = (YEAR(new.purchase_invoice_date));
-	
+
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.purchase_invoice_date)), 2));
-	
-	IF (month_period) = '01' THEN 
+
+	IF (month_period) = '01' THEN
 		SET monthPeriod = 'I';
 	END IF;
-	
-	IF (month_period) = '02' THEN 
+
+	IF (month_period) = '02' THEN
 		SET monthPeriod = 'II';
 	END IF;
-	
-	IF (month_period) = '03' THEN 
+
+	IF (month_period) = '03' THEN
 		SET monthPeriod = 'III';
 	END IF;
-	
-	IF (month_period) = '04' THEN 
+
+	IF (month_period) = '04' THEN
 		SET monthPeriod = 'IV';
-	END IF;	
-	
-	IF (month_period) = '05' THEN 
+	END IF;
+
+	IF (month_period) = '05' THEN
 		SET monthPeriod = 'V';
 	END IF;
-	
-	IF (month_period) = '06' THEN 
+
+	IF (month_period) = '06' THEN
 		SET monthPeriod = 'VI';
 	END IF;
-	
-	IF (month_period) = '07' THEN 
+
+	IF (month_period) = '07' THEN
 		SET monthPeriod = 'VII';
 	END IF;
-	
-	IF (month_period) = '08' THEN 
+
+	IF (month_period) = '08' THEN
 		SET monthPeriod = 'VIII';
 	END IF;
-	
-	IF (month_period) = '09' THEN 
+
+	IF (month_period) = '09' THEN
 		SET monthPeriod = 'IX';
 	END IF;
-	
-	IF (month_period) = '10' THEN 
+
+	IF (month_period) = '10' THEN
 		SET monthPeriod = 'X';
 	END IF;
-	
-	IF (month_period) = '11' THEN 
+
+	IF (month_period) = '11' THEN
 		SET monthPeriod = 'XI';
 	END IF;
-	
-	IF (month_period) = '12' THEN 
+
+	IF (month_period) = '12' THEN
 		SET monthPeriod = 'XII';
 	END IF;
-		
-	SET PERIOD = (SELECT LEFT(TRIM(purchase_invoice_no), 4) 
+
+	SET PERIOD = (SELECT LEFT(TRIM(purchase_invoice_no), 4)
 			FROM purchase_invoice
 			WHERE RIGHT(TRIM(purchase_invoice_no), 4) = year_period
-			ORDER BY purchase_invoice_id DESC 
+			ORDER BY purchase_invoice_id DESC
 			LIMIT 1);
-		
-	IF (PERIOD IS NULL ) THEN 
+
+	IF (PERIOD IS NULL ) THEN
 		SET PERIOD = "0000";
 	END IF;
-	
+
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-	
+
 	SET tPeriod = tPeriod + 1;
-	
+
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-	
+
 	SET nPurchaseInvoiceNo = CONCAT(PERIOD, '/PI/', monthPeriod, '/', year_period);
-		
+
 	SET new.purchase_invoice_no = nPurchaseInvoiceNo;
     END */$$
 
@@ -7681,7 +7382,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_purchase_order` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_purchase_order` BEFORE INSERT ON `purchase_order` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_purchase_order` BEFORE INSERT ON `purchase_order` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -7689,77 +7390,77 @@ DELIMITER $$
 	DECLARE nPurchaseOrderNo	VARCHAR(20);
 	DECLARE monthPeriod		VARCHAR(20);
 	DECLARE lenPurchaseOrderNo	DECIMAL(10);
-	
+
 	SET year_period = (YEAR(new.purchase_order_date));
-	
+
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.purchase_order_date)), 2));
-	
-	IF (month_period) = '01' THEN 
+
+	IF (month_period) = '01' THEN
 		SET monthPeriod = 'I';
 	END IF;
-	
-	IF (month_period) = '02' THEN 
+
+	IF (month_period) = '02' THEN
 		SET monthPeriod = 'II';
 	END IF;
-	
-	IF (month_period) = '03' THEN 
+
+	IF (month_period) = '03' THEN
 		SET monthPeriod = 'III';
 	END IF;
-	
-	IF (month_period) = '04' THEN 
+
+	IF (month_period) = '04' THEN
 		SET monthPeriod = 'IV';
-	END IF;	
-	
-	IF (month_period) = '05' THEN 
+	END IF;
+
+	IF (month_period) = '05' THEN
 		SET monthPeriod = 'V';
 	END IF;
-	
-	IF (month_period) = '06' THEN 
+
+	IF (month_period) = '06' THEN
 		SET monthPeriod = 'VI';
 	END IF;
-	
-	IF (month_period) = '07' THEN 
+
+	IF (month_period) = '07' THEN
 		SET monthPeriod = 'VII';
 	END IF;
-	
-	IF (month_period) = '08' THEN 
+
+	IF (month_period) = '08' THEN
 		SET monthPeriod = 'VIII';
 	END IF;
-	
-	IF (month_period) = '09' THEN 
+
+	IF (month_period) = '09' THEN
 		SET monthPeriod = 'IX';
 	END IF;
-	
-	IF (month_period) = '10' THEN 
+
+	IF (month_period) = '10' THEN
 		SET monthPeriod = 'X';
 	END IF;
-	
-	IF (month_period) = '11' THEN 
+
+	IF (month_period) = '11' THEN
 		SET monthPeriod = 'XI';
 	END IF;
-	
-	IF (month_period) = '12' THEN 
+
+	IF (month_period) = '12' THEN
 		SET monthPeriod = 'XII';
 	END IF;
-		
-	SET PERIOD = (SELECT LEFT(TRIM(purchase_order_no), 4) 
+
+	SET PERIOD = (SELECT LEFT(TRIM(purchase_order_no), 4)
 			FROM purchase_order
 			WHERE RIGHT(TRIM(purchase_order_no), 4) = year_period
-			ORDER BY purchase_order_id DESC 
+			ORDER BY purchase_order_id DESC
 			LIMIT 1);
-		
-	IF (PERIOD IS NULL ) THEN 
+
+	IF (PERIOD IS NULL ) THEN
 		SET PERIOD = "0000";
 	END IF;
-	
+
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-	
+
 	SET tPeriod = tPeriod + 1;
-	
+
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-	
+
 	SET nPurchaseOrderNo = CONCAT(PERIOD, '/PO/', monthPeriod, '/', year_period);
-		
+
 	SET new.purchase_order_no = nPurchaseOrderNo;
     END */$$
 
@@ -7772,7 +7473,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_purchase_order_return` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_purchase_order_return` BEFORE INSERT ON `purchase_order_return` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_purchase_order_return` BEFORE INSERT ON `purchase_order_return` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -7780,77 +7481,77 @@ DELIMITER $$
 	DECLARE nPurchaseOrderReturnNo		VARCHAR(20);
 	DECLARE monthPeriod			VARCHAR(20);
 	DECLARE lenPurchaseOrderReturnNo	DECIMAL(10);
-	
+
 	SET year_period = (YEAR(new.purchase_order_return_date));
-	
+
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.purchase_order_return_date)), 2));
-	
-	IF (month_period) = '01' THEN 
+
+	IF (month_period) = '01' THEN
 		SET monthPeriod = 'I';
 	END IF;
-	
-	IF (month_period) = '02' THEN 
+
+	IF (month_period) = '02' THEN
 		SET monthPeriod = 'II';
 	END IF;
-	
-	IF (month_period) = '03' THEN 
+
+	IF (month_period) = '03' THEN
 		SET monthPeriod = 'III';
 	END IF;
-	
-	IF (month_period) = '04' THEN 
+
+	IF (month_period) = '04' THEN
 		SET monthPeriod = 'IV';
-	END IF;	
-	
-	IF (month_period) = '05' THEN 
+	END IF;
+
+	IF (month_period) = '05' THEN
 		SET monthPeriod = 'V';
 	END IF;
-	
-	IF (month_period) = '06' THEN 
+
+	IF (month_period) = '06' THEN
 		SET monthPeriod = 'VI';
 	END IF;
-	
-	IF (month_period) = '07' THEN 
+
+	IF (month_period) = '07' THEN
 		SET monthPeriod = 'VII';
 	END IF;
-	
-	IF (month_period) = '08' THEN 
+
+	IF (month_period) = '08' THEN
 		SET monthPeriod = 'VIII';
 	END IF;
-	
-	IF (month_period) = '09' THEN 
+
+	IF (month_period) = '09' THEN
 		SET monthPeriod = 'IX';
 	END IF;
-	
-	IF (month_period) = '10' THEN 
+
+	IF (month_period) = '10' THEN
 		SET monthPeriod = 'X';
 	END IF;
-	
-	IF (month_period) = '11' THEN 
+
+	IF (month_period) = '11' THEN
 		SET monthPeriod = 'XI';
 	END IF;
-	
-	IF (month_period) = '12' THEN 
+
+	IF (month_period) = '12' THEN
 		SET monthPeriod = 'XII';
 	END IF;
-		
-	SET PERIOD = (SELECT LEFT(TRIM(purchase_order_return_no), 4) 
+
+	SET PERIOD = (SELECT LEFT(TRIM(purchase_order_return_no), 4)
 			FROM purchase_order_return
 			WHERE RIGHT(TRIM(purchase_order_return_no), 4) = year_period
-			ORDER BY purchase_order_return_id DESC 
+			ORDER BY purchase_order_return_id DESC
 			LIMIT 1);
-		
-	IF (PERIOD IS NULL ) THEN 
+
+	IF (PERIOD IS NULL ) THEN
 		SET PERIOD = "0000";
 	END IF;
-	
+
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-	
+
 	SET tPeriod = tPeriod + 1;
-	
+
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-	
+
 	SET nPurchaseOrderReturnNo = CONCAT(PERIOD, '/PR/', monthPeriod, '/', year_period);
-		
+
 	SET new.purchase_order_return_no = nPurchaseOrderReturnNo;
     END */$$
 
@@ -7863,7 +7564,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_purchase_payment` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_purchase_payment` BEFORE INSERT ON `purchase_payment` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_purchase_payment` BEFORE INSERT ON `purchase_payment` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -7871,77 +7572,77 @@ DELIMITER $$
 	DECLARE nPurchasePaymentNo	VARCHAR(20);
 	DECLARE monthPeriod		VARCHAR(20);
 	DECLARE lenPurchasePaymentNo	DECIMAL(10);
-	
+
 	SET year_period = (YEAR(new.payment_date));
-	
+
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.payment_date)), 2));
-	
-	IF (month_period) = '01' THEN 
+
+	IF (month_period) = '01' THEN
 		SET monthPeriod = 'I';
 	END IF;
-	
-	IF (month_period) = '02' THEN 
+
+	IF (month_period) = '02' THEN
 		SET monthPeriod = 'II';
 	END IF;
-	
-	IF (month_period) = '03' THEN 
+
+	IF (month_period) = '03' THEN
 		SET monthPeriod = 'III';
 	END IF;
-	
-	IF (month_period) = '04' THEN 
+
+	IF (month_period) = '04' THEN
 		SET monthPeriod = 'IV';
-	END IF;	
-	
-	IF (month_period) = '05' THEN 
+	END IF;
+
+	IF (month_period) = '05' THEN
 		SET monthPeriod = 'V';
 	END IF;
-	
-	IF (month_period) = '06' THEN 
+
+	IF (month_period) = '06' THEN
 		SET monthPeriod = 'VI';
 	END IF;
-	
-	IF (month_period) = '07' THEN 
+
+	IF (month_period) = '07' THEN
 		SET monthPeriod = 'VII';
 	END IF;
-	
-	IF (month_period) = '08' THEN 
+
+	IF (month_period) = '08' THEN
 		SET monthPeriod = 'VIII';
 	END IF;
-	
-	IF (month_period) = '09' THEN 
+
+	IF (month_period) = '09' THEN
 		SET monthPeriod = 'IX';
 	END IF;
-	
-	IF (month_period) = '10' THEN 
+
+	IF (month_period) = '10' THEN
 		SET monthPeriod = 'X';
 	END IF;
-	
-	IF (month_period) = '11' THEN 
+
+	IF (month_period) = '11' THEN
 		SET monthPeriod = 'XI';
 	END IF;
-	
-	IF (month_period) = '12' THEN 
+
+	IF (month_period) = '12' THEN
 		SET monthPeriod = 'XII';
 	END IF;
-		
-	SET PERIOD = (SELECT LEFT(TRIM(payment_no), 4) 
+
+	SET PERIOD = (SELECT LEFT(TRIM(payment_no), 4)
 			FROM purchase_payment
 			WHERE RIGHT(TRIM(payment_no), 4) = year_period
-			ORDER BY payment_id DESC 
+			ORDER BY payment_id DESC
 			LIMIT 1);
-		
-	IF (PERIOD IS NULL ) THEN 
+
+	IF (PERIOD IS NULL ) THEN
 		SET PERIOD = "0000";
 	END IF;
-	
+
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-	
+
 	SET tPeriod = tPeriod + 1;
-	
+
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-	
+
 	SET nPurchasePaymentNo = CONCAT(PERIOD, '/PH/', monthPeriod, '/', year_period);
-		
+
 	SET new.payment_no = nPurchasePaymentNo;
     END */$$
 
@@ -7954,7 +7655,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_delivery_note` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_sales_delivery_note` BEFORE INSERT ON `sales_delivery_note` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_sales_delivery_note` BEFORE INSERT ON `sales_delivery_note` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -7962,77 +7663,77 @@ DELIMITER $$
 	DECLARE nSalesDeliveryNoteNo		VARCHAR(20);
 	DECLARE monthPeriod			VARCHAR(20);
 	DECLARE lenSalesDeliveryNoteNo		DECIMAL(10);
-	
+
 	SET year_period = (YEAR(new.sales_delivery_note_date));
-	
+
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.sales_delivery_note_date)), 2));
-	
-	IF (month_period) = '01' THEN 
+
+	IF (month_period) = '01' THEN
 		SET monthPeriod = 'I';
 	END IF;
-	
-	IF (month_period) = '02' THEN 
+
+	IF (month_period) = '02' THEN
 		SET monthPeriod = 'II';
 	END IF;
-	
-	IF (month_period) = '03' THEN 
+
+	IF (month_period) = '03' THEN
 		SET monthPeriod = 'III';
 	END IF;
-	
-	IF (month_period) = '04' THEN 
+
+	IF (month_period) = '04' THEN
 		SET monthPeriod = 'IV';
-	END IF;	
-	
-	IF (month_period) = '05' THEN 
+	END IF;
+
+	IF (month_period) = '05' THEN
 		SET monthPeriod = 'V';
 	END IF;
-	
-	IF (month_period) = '06' THEN 
+
+	IF (month_period) = '06' THEN
 		SET monthPeriod = 'VI';
 	END IF;
-	
-	IF (month_period) = '07' THEN 
+
+	IF (month_period) = '07' THEN
 		SET monthPeriod = 'VII';
 	END IF;
-	
-	IF (month_period) = '08' THEN 
+
+	IF (month_period) = '08' THEN
 		SET monthPeriod = 'VIII';
 	END IF;
-	
-	IF (month_period) = '09' THEN 
+
+	IF (month_period) = '09' THEN
 		SET monthPeriod = 'IX';
 	END IF;
-	
-	IF (month_period) = '10' THEN 
+
+	IF (month_period) = '10' THEN
 		SET monthPeriod = 'X';
 	END IF;
-	
-	IF (month_period) = '11' THEN 
+
+	IF (month_period) = '11' THEN
 		SET monthPeriod = 'XI';
 	END IF;
-	
-	IF (month_period) = '12' THEN 
+
+	IF (month_period) = '12' THEN
 		SET monthPeriod = 'XII';
 	END IF;
-		
-	SET PERIOD = (SELECT LEFT(TRIM(sales_delivery_note_no), 4) 
+
+	SET PERIOD = (SELECT LEFT(TRIM(sales_delivery_note_no), 4)
 			FROM sales_delivery_note
 			WHERE RIGHT(TRIM(sales_delivery_note_no), 4) = year_period
-			ORDER BY sales_delivery_note_id DESC 
+			ORDER BY sales_delivery_note_id DESC
 			LIMIT 1);
-		
-	IF (PERIOD IS NULL ) THEN 
-		SET PERIOD = "0000";
+
+	IF (PERIOD IS NULL ) THEN
+		SET PERIOD = "00000";
 	END IF;
-	
+
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-	
+
 	SET tPeriod = tPeriod + 1;
-	
-	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-	
-	SET nSalesDeliveryNoteNo = CONCAT(PERIOD, '/SDN/', monthPeriod, '/', year_period);
-		
+
+	SET PERIOD = RIGHT(CONCAT('00000', TRIM(CAST(tPeriod AS CHAR(5)))), 5);
+
+	SET nSalesDeliveryNoteNo = CONCAT(PERIOD,'/3T','/SJ/', monthPeriod, '/', year_period);
+
 	SET new.sales_delivery_note_no = nSalesDeliveryNoteNo;
     END */$$
 
@@ -8045,9 +7746,9 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_item_stock_card_out` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_inv_item_stock_card_out` AFTER INSERT ON `sales_delivery_note_item` FOR EACH ROW BEGIN
-    DECLARE nOpeningBalance DECIMAL(20,5); 
-    DECLARE nLastOpeningBalance DECIMAL(20,5);  
+/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_inv_item_stock_card_out` AFTER INSERT ON `sales_delivery_note_item` FOR EACH ROW BEGIN
+    DECLARE nOpeningBalance DECIMAL(20,5);
+    DECLARE nLastOpeningBalance DECIMAL(20,5);
     DECLARE nQuantityOut DECIMAL(20,5);
     DECLARE nWarehouseID INT(10);
     DECLARE nTransactionID BIGINT(22);
@@ -8056,24 +7757,20 @@ DELIMITER $$
     DECLARE nTransactionDate DATE;
     DECLARE nItemStockID BIGINT(22);
     DECLARE nFirstItemStockID BIGINT(22);
-
     -- Menentukan warehouse_id dan transaction info
-    SET nWarehouseID = (SELECT warehouse_id FROM sales_delivery_note 
+    SET nWarehouseID = (SELECT warehouse_id FROM sales_delivery_note
                         WHERE sales_delivery_note_id = new.sales_delivery_note_id);
     SET nTransactionType = 1;
     SET nTransactionID = new.sales_delivery_note_id;
     SET nTransactionDate = (SELECT sales_delivery_note_date FROM sales_delivery_note
                              WHERE sales_delivery_note_id = new.sales_delivery_note_id);
     SET nTransactionCode = CONCAT('SDN-', CAST(nTransactionID AS CHAR));  -- Perbaikan menggunakan CONCAT
-
     -- Mendapatkan saldo terakhir
     SET nLastOpeningBalance = (SELECT last_balance FROM inv_item_stock_card
                                WHERE item_type_id = new.item_type_id AND warehouse_id = nWarehouseID
                                ORDER BY item_stock_card_id DESC LIMIT 1);
-
     -- Mendapatkan jumlah barang yang keluar
     SET nQuantityOut = new.quantity;
-
     -- Menentukan saldo awal
     IF (nLastOpeningBalance IS NULL) THEN
         SET nOpeningBalance = 0;
@@ -8082,23 +7779,19 @@ DELIMITER $$
         SET nOpeningBalance = nLastOpeningBalance;
         SET nLastOpeningBalance = nLastOpeningBalance - nQuantityOut;
     END IF;
-
     -- Mendapatkan ID stok item terakhir
     SET nItemStockID = (SELECT item_stock_id FROM inv_item_stock
                         WHERE item_type_id = new.item_type_id
                         ORDER BY item_stock_id DESC LIMIT 1);
-
     -- Mendapatkan ID stok item pertama jika ada
     SELECT AUTO_INCREMENT INTO nFirstItemStockID
     FROM information_schema.tables
     WHERE table_name = 'inv_item_stock'
     AND table_schema = DATABASE();
-
     -- Jika tidak ada item stok terakhir, gunakan ID stok item pertama
     IF (nItemStockID IS NULL) THEN
         SET nItemStockID = nFirstItemStockID;
     END IF;
-
     -- Menyimpan perubahan stok ke dalam tabel inv_item_stock_card
     INSERT INTO inv_item_stock_card (
         item_stock_id, item_category_id, item_type_id, item_unit_id, warehouse_id,
@@ -8111,7 +7804,6 @@ DELIMITER $$
         nTransactionID, nTransactionType, nTransactionCode, nTransactionDate,
         nOpeningBalance, nQuantityOut, nLastOpeningBalance  -- Saldo akhir yang baru
     );
-
 END */$$
 
 
@@ -8123,7 +7815,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_delivery_order` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_sales_delivery_order` BEFORE INSERT ON `sales_delivery_order` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_sales_delivery_order` BEFORE INSERT ON `sales_delivery_order` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -8131,77 +7823,77 @@ DELIMITER $$
 	DECLARE nSalesDeliveryOrderNo		VARCHAR(20);
 	DECLARE monthPeriod			VARCHAR(20);
 	DECLARE lenSalesDeliveryOrderNo		DECIMAL(10);
-	
+
 	SET year_period = (YEAR(new.sales_delivery_order_date));
-	
+
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.sales_delivery_order_date)), 2));
-	
-	IF (month_period) = '01' THEN 
+
+	IF (month_period) = '01' THEN
 		SET monthPeriod = 'I';
 	END IF;
-	
-	IF (month_period) = '02' THEN 
+
+	IF (month_period) = '02' THEN
 		SET monthPeriod = 'II';
 	END IF;
-	
-	IF (month_period) = '03' THEN 
+
+	IF (month_period) = '03' THEN
 		SET monthPeriod = 'III';
 	END IF;
-	
-	IF (month_period) = '04' THEN 
+
+	IF (month_period) = '04' THEN
 		SET monthPeriod = 'IV';
-	END IF;	
-	
-	IF (month_period) = '05' THEN 
+	END IF;
+
+	IF (month_period) = '05' THEN
 		SET monthPeriod = 'V';
 	END IF;
-	
-	IF (month_period) = '06' THEN 
+
+	IF (month_period) = '06' THEN
 		SET monthPeriod = 'VI';
 	END IF;
-	
-	IF (month_period) = '07' THEN 
+
+	IF (month_period) = '07' THEN
 		SET monthPeriod = 'VII';
 	END IF;
-	
-	IF (month_period) = '08' THEN 
+
+	IF (month_period) = '08' THEN
 		SET monthPeriod = 'VIII';
 	END IF;
-	
-	IF (month_period) = '09' THEN 
+
+	IF (month_period) = '09' THEN
 		SET monthPeriod = 'IX';
 	END IF;
-	
-	IF (month_period) = '10' THEN 
+
+	IF (month_period) = '10' THEN
 		SET monthPeriod = 'X';
 	END IF;
-	
-	IF (month_period) = '11' THEN 
+
+	IF (month_period) = '11' THEN
 		SET monthPeriod = 'XI';
 	END IF;
-	
-	IF (month_period) = '12' THEN 
+
+	IF (month_period) = '12' THEN
 		SET monthPeriod = 'XII';
 	END IF;
-		
-	SET PERIOD = (SELECT LEFT(TRIM(sales_delivery_order_no), 4) 
+
+	SET PERIOD = (SELECT LEFT(TRIM(sales_delivery_order_no), 4)
 			FROM sales_delivery_order
 			WHERE RIGHT(TRIM(sales_delivery_order_no), 4) = year_period
-			ORDER BY sales_delivery_order_id DESC 
+			ORDER BY sales_delivery_order_id DESC
 			LIMIT 1);
-		
-	IF (PERIOD IS NULL ) THEN 
+
+	IF (PERIOD IS NULL ) THEN
 		SET PERIOD = "0000";
 	END IF;
-	
+
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-	
+
 	SET tPeriod = tPeriod + 1;
-	
+
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-	
+
 	SET nSalesDeliveryOrderNo = CONCAT(PERIOD, '/SDO/', monthPeriod, '/', year_period);
-		
+
 	SET new.sales_delivery_order_no = nSalesDeliveryOrderNo;
     END */$$
 
@@ -8214,7 +7906,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_invoice` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_sales_invoice` BEFORE INSERT ON `sales_invoice` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_sales_invoice` BEFORE INSERT ON `sales_invoice` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(50);
 	DECLARE month_period 		VARCHAR(50);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -8223,9 +7915,9 @@ DELIMITER $$
 	DECLARE monthPeriod		VARCHAR(20);
 	DECLARE lenSalesInvoiceNo	DECIMAL(10);
 	DECLARE roman_month		VARCHAR(4);
-	
+
 	SET year_period = (YEAR(new.sales_invoice_date));
-	
+
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.sales_invoice_date)), 2));
     CASE month_period
         WHEN '01' THEN SET roman_month = 'I';
@@ -8242,25 +7934,25 @@ DELIMITER $$
         WHEN '12' THEN SET roman_month = 'XII';
         ELSE SET roman_month = '';
     END CASE;
-		
-	SET PERIOD = (SELECT LEFT(TRIM(sales_invoice_no), 4) 
+
+	SET PERIOD = (SELECT LEFT(TRIM(sales_invoice_no), 4)
 			FROM sales_invoice
 			WHERE RIGHT(TRIM(sales_invoice_no), 4) = year_period
-			ORDER BY sales_invoice_id DESC 
+			ORDER BY sales_invoice_id DESC
 			LIMIT 1);
-		
-	IF (PERIOD IS NULL ) THEN 
+
+	IF (PERIOD IS NULL ) THEN
 		SET PERIOD = "0000";
 	END IF;
-	
+
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-	
+
 	SET tPeriod = tPeriod + 1;
-	
-	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-	
-	SET nSalesInvoiceNo = CONCAT(PERIOD, '/TMO.ME/', roman_month, '/', year_period);
-		
+
+	SET PERIOD = RIGHT(CONCAT('00000', TRIM(CAST(tPeriod AS CHAR(5)))), 5);
+
+	SET nSalesInvoiceNo = CONCAT(PERIOD,'/3T', '/INV/', roman_month, '/', year_period);
+
 	SET new.sales_invoice_no = nSalesInvoiceNo;
     END */$$
 
@@ -8273,7 +7965,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_order` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_sales_order` BEFORE INSERT ON `sales_order` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_sales_order` BEFORE INSERT ON `sales_order` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -8281,77 +7973,77 @@ DELIMITER $$
 	DECLARE nSalesOrderNo		VARCHAR(20);
 	DECLARE monthPeriod		VARCHAR(20);
 	DECLARE lenSalesOrderNo		DECIMAL(10);
-	
+
 	SET year_period = (YEAR(new.sales_order_date));
-	
+
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.sales_order_date)), 2));
-	
-	IF (month_period) = '01' THEN 
+
+	IF (month_period) = '01' THEN
 		SET monthPeriod = 'I';
 	END IF;
-	
-	IF (month_period) = '02' THEN 
+
+	IF (month_period) = '02' THEN
 		SET monthPeriod = 'II';
 	END IF;
-	
-	IF (month_period) = '03' THEN 
+
+	IF (month_period) = '03' THEN
 		SET monthPeriod = 'III';
 	END IF;
-	
-	IF (month_period) = '04' THEN 
+
+	IF (month_period) = '04' THEN
 		SET monthPeriod = 'IV';
-	END IF;	
-	
-	IF (month_period) = '05' THEN 
+	END IF;
+
+	IF (month_period) = '05' THEN
 		SET monthPeriod = 'V';
 	END IF;
-	
-	IF (month_period) = '06' THEN 
+
+	IF (month_period) = '06' THEN
 		SET monthPeriod = 'VI';
 	END IF;
-	
-	IF (month_period) = '07' THEN 
+
+	IF (month_period) = '07' THEN
 		SET monthPeriod = 'VII';
 	END IF;
-	
-	IF (month_period) = '08' THEN 
+
+	IF (month_period) = '08' THEN
 		SET monthPeriod = 'VIII';
 	END IF;
-	
-	IF (month_period) = '09' THEN 
+
+	IF (month_period) = '09' THEN
 		SET monthPeriod = 'IX';
 	END IF;
-	
-	IF (month_period) = '10' THEN 
+
+	IF (month_period) = '10' THEN
 		SET monthPeriod = 'X';
 	END IF;
-	
-	IF (month_period) = '11' THEN 
+
+	IF (month_period) = '11' THEN
 		SET monthPeriod = 'XI';
 	END IF;
-	
-	IF (month_period) = '12' THEN 
+
+	IF (month_period) = '12' THEN
 		SET monthPeriod = 'XII';
 	END IF;
-		
-	SET PERIOD = (SELECT LEFT(TRIM(sales_order_no), 4) 
+
+	SET PERIOD = (SELECT LEFT(TRIM(sales_order_no), 4)
 			FROM sales_order
 			WHERE RIGHT(TRIM(sales_order_no), 4) = year_period
-			ORDER BY sales_order_id DESC 
+			ORDER BY sales_order_id DESC
 			LIMIT 1);
-		
-	IF (PERIOD IS NULL ) THEN 
+
+	IF (PERIOD IS NULL ) THEN
 		SET PERIOD = "0000";
 	END IF;
-	
+
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-	
+
 	SET tPeriod = tPeriod + 1;
-	
+
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-	
+
 	SET nSalesOrderNo = CONCAT(PERIOD, '/SO/', monthPeriod, '/', year_period);
-		
+
 	SET new.sales_order_no = nSalesOrderNo;
     END */$$
 
@@ -8364,7 +8056,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_quotation` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'daffa'@'%' */ /*!50003 TRIGGER `insert_sales_quotation` BEFORE INSERT ON `sales_quotation` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_sales_quotation` BEFORE INSERT ON `sales_quotation` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -8372,77 +8064,77 @@ DELIMITER $$
 	DECLARE nSalesQuotationNo		VARCHAR(20);
 	DECLARE monthPeriod		VARCHAR(20);
 	DECLARE lenSalesQuotationrNo		DECIMAL(10);
-	
+
 	SET year_period = (YEAR(new.sales_quotation_date));
-	
+
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.sales_quotation_date)), 2));
-	
-	IF (month_period) = '01' THEN 
+
+	IF (month_period) = '01' THEN
 		SET monthPeriod = 'I';
 	END IF;
-	
-	IF (month_period) = '02' THEN 
+
+	IF (month_period) = '02' THEN
 		SET monthPeriod = 'II';
 	END IF;
-	
-	IF (month_period) = '03' THEN 
+
+	IF (month_period) = '03' THEN
 		SET monthPeriod = 'III';
 	END IF;
-	
-	IF (month_period) = '04' THEN 
+
+	IF (month_period) = '04' THEN
 		SET monthPeriod = 'IV';
-	END IF;	
-	
-	IF (month_period) = '05' THEN 
+	END IF;
+
+	IF (month_period) = '05' THEN
 		SET monthPeriod = 'V';
 	END IF;
-	
-	IF (month_period) = '06' THEN 
+
+	IF (month_period) = '06' THEN
 		SET monthPeriod = 'VI';
 	END IF;
-	
-	IF (month_period) = '07' THEN 
+
+	IF (month_period) = '07' THEN
 		SET monthPeriod = 'VII';
 	END IF;
-	
-	IF (month_period) = '08' THEN 
+
+	IF (month_period) = '08' THEN
 		SET monthPeriod = 'VIII';
 	END IF;
-	
-	IF (month_period) = '09' THEN 
+
+	IF (month_period) = '09' THEN
 		SET monthPeriod = 'IX';
 	END IF;
-	
-	IF (month_period) = '10' THEN 
+
+	IF (month_period) = '10' THEN
 		SET monthPeriod = 'X';
 	END IF;
-	
-	IF (month_period) = '11' THEN 
+
+	IF (month_period) = '11' THEN
 		SET monthPeriod = 'XI';
 	END IF;
-	
-	IF (month_period) = '12' THEN 
+
+	IF (month_period) = '12' THEN
 		SET monthPeriod = 'XII';
 	END IF;
-		
-	SET PERIOD = (SELECT LEFT(TRIM(sales_quotation_no), 4) 
+
+	SET PERIOD = (SELECT LEFT(TRIM(sales_quotation_no), 4)
 			FROM sales_quotation
 			WHERE RIGHT(TRIM(sales_quotation_no), 4) = year_period
-			ORDER BY sales_quotation_id DESC 
+			ORDER BY sales_quotation_id DESC
 			LIMIT 1);
-		
-	IF (PERIOD IS NULL ) THEN 
+
+	IF (PERIOD IS NULL ) THEN
 		SET PERIOD = "0000";
 	END IF;
-	
+
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-	
+
 	SET tPeriod = tPeriod + 1;
-	
+
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-	
+
 	SET nSalesQuotationNo = CONCAT(PERIOD, '/QO/', monthPeriod, '/', year_period);
-		
+
 	SET new.sales_quotation_no = nSalesQuotationNo;
     END */$$
 
