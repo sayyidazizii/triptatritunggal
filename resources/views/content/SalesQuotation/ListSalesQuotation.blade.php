@@ -120,10 +120,10 @@
 
                                 @if($item['approved'] == 0)
                                     <a type="button" class="btn btn-outline-danger btn-sm" href="{{ url('/sales-quotation/delete/'.$item['sales_quotation_id']) }}">Hapus</a>
-                                @elseif($item['approved'] == 1)
+                                {{-- @elseif($item['approved'] == 1)
                                     <a type="button" class="btn btn-outline-success btn-sm">Approved</a>
                                 @elseif($item['approved'] == 2)
-                                    <a type="button" class="btn btn-outline-danger btn-sm">Disapproved</a>
+                                    <a type="button" class="btn btn-outline-danger btn-sm">Disapproved</a> --}}
                                 @endif
 
                                     <a type="button" class="btn btn-outline-info btn-sm" target="_blank" href="{{ url('/sales-quotation/export/'.$item['sales_quotation_id']) }}">Cetak</a>
