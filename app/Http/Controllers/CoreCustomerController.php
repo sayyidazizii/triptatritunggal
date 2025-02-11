@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\CoreCustomer;
-use App\Models\AcctDebtRepayment;
-use App\Models\AcctDebtRepaymentItem;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\DB; 
 use Carbon\Carbon;
+use App\Models\CoreCustomer;
+use Illuminate\Http\Request;
+use App\Models\AcctDebtRepayment;
+use App\Models\PreferenceCompany;
+use Illuminate\Support\Facades\DB; 
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Models\AcctDebtRepaymentItem;
+use Illuminate\Support\Facades\Session;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class CoreCustomerController extends Controller
 {
@@ -80,7 +83,7 @@ class CoreCustomerController extends Controller
         }
     }
 
-     public function editCoreCustomer($customer_id)
+    public function editCoreCustomer($customer_id)
      {
          $data = CoreCustomer::select('customer_number','customer_name','debt_limit','customer_id')
          ->where('customer_id', $customer_id)
@@ -89,7 +92,7 @@ class CoreCustomerController extends Controller
          return view('content.CoreCustomer.EditCoreCustomer', compact('data'));
      }
 
-     public function processEditCoreCustomer(Request $request)
+    public function processEditCoreCustomer(Request $request)
      {
          $table                     = CoreCustomer::findOrFail($request->customer_id);
          $table->customer_number    = $request->customer_number;
@@ -110,7 +113,7 @@ class CoreCustomerController extends Controller
 
      }
 
-     public function processEditLimitCoreCustomer(Request $request)
+    public function processEditLimitCoreCustomer(Request $request)
     {
         // print_r($request); exit;
         $customer = CoreCustomer::select('debt_limit','customer_id','amount_debt','remaining_limit')
@@ -224,6 +227,95 @@ class CoreCustomerController extends Controller
                 $msg = 'Pelunasan Hutang Gagal';
                 return redirect()->back()->with('msg', $msg);
             }            
-         }
     }
+
+    public function exportCoreCustomer()
+    {
+
+        $customer = CoreCustomer::select('*')->where('data_state',0)->get();
+
+        $spreadsheet = new Spreadsheet();
+
+        if(count($customer)>=0){
+            $spreadsheet->getProperties()->setCreator("CIPTASOLUTINDO")
+                                        ->setLastModifiedBy("CIPTASOLUTINDO")
+                                        ->setTitle("LAPORAN PENJUALAN")
+                                        ->setDescription("LAPORAN PENJUALAN");
+
+            $sheet = $spreadsheet->getActiveSheet(0);
+            $spreadsheet->getActiveSheet()->getPageSetup()->setFitToWidth(1);
+            $spreadsheet->getActiveSheet()->getPageSetup()->setFitToWidth(1);
+            $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(5);
+            $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(45);
+            $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+    
+            $spreadsheet->getActiveSheet()->mergeCells("B1:D1");
+            $spreadsheet->getActiveSheet()->getStyle('B1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            $spreadsheet->getActiveSheet()->getStyle('B1')->getFont()->setBold(true)->setSize(16);
+
+            $spreadsheet->getActiveSheet()->getStyle('B3:D3')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $spreadsheet->getActiveSheet()->getStyle('B3:D3')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+
+            $sheet->setCellValue('B1',"Laporan Piutang Perusahaan");	
+            $sheet->setCellValue('B3',"No");
+            $sheet->setCellValue('C3',"Nama Perusahaan");
+            $sheet->setCellValue('D3',"Jumlah Piutang");
+
+            
+            $j  =   4;
+            $no =   0;
+            $subtotal_amount = 0;
+            $subtotal_amount_ppn = 0;
+
+            foreach($customer as $key=>$val){
+
+                if(is_numeric($key)){
+                    
+                    $sheet = $spreadsheet->getActiveSheet(0);
+                    $spreadsheet->getActiveSheet()->setTitle("Laporan Penjualan");
+                    $spreadsheet->getActiveSheet()->getStyle('B'.$j.':D'.$j)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+
+            
+                    $spreadsheet->getActiveSheet()->getStyle('B'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                    $spreadsheet->getActiveSheet()->getStyle('C'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+                    $spreadsheet->getActiveSheet()->getStyle('D'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+
+                        $no++;
+                        $sheet->setCellValue('B'.$j, $no);
+                        $sheet->setCellValue('C'.$j, $val->customer_name);
+                        $sheet->setCellValue('D'.$j, $val->amount_debt);
+                }
+
+                $j++;
+        
+            }
+            // $spreadsheet->getActiveSheet()->getStyle('H'.$j.':M'.$j)->getNumberFormat()->setFormatCode('0.00');
+
+            // $spreadsheet->getActiveSheet()->getStyle('B'.$j.':M'.$j)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            // $spreadsheet->getActiveSheet()->mergeCells('B'.$j.':I'.$j);
+            // $spreadsheet->getActiveSheet()->mergeCells('K'.$j.':L'.$j);
+            // $spreadsheet->getActiveSheet()->getStyle('B'.$j.':I'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+            // $spreadsheet->getActiveSheet()->getStyle('B'.$j.':M'.$j)->getFont()->setBold(true);
+            // $spreadsheet->getActiveSheet()->getStyle('G'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+            // $spreadsheet->getActiveSheet()->getStyle('H'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+            // $spreadsheet->getActiveSheet()->getStyle('I'.$j.':L'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+            // $spreadsheet->getActiveSheet()->getStyle('M'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+            
+            // $sheet->setCellValue('B'.$j,'Total Sebelum Discount');
+            // $sheet->setCellValue('J'.$j, number_format($subtotal_amount,2,'.',','));
+            // $sheet->setCellValue('K'.$j,'Total Sesudah Discount');
+            // $sheet->setCellValue('M'.$j, number_format($subtotal_amount_ppn,2,'.',','));
+            // ob_clean();
+            $filename='Laporan_Piutang_.xls';
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment;filename="'.$filename.'"');
+            header('Cache-Control: max-age=0');
+
+            $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
+            $writer->save('php://output');
+        }else{
+            echo "Maaf data yang di eksport tidak ada !";
+        }
+    }
+}
 

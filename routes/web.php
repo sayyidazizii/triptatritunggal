@@ -333,6 +333,7 @@ Route::get('/core-customer/delete/{customer_id}', [CoreCustomerController::class
 Route::post('/core-customer/process-edit-limit', [CoreCustomerController::class, 'processEditLimitCoreCustomer'])->name('process-edit-limit-core-customer');
 Route::get('/core-customer/edit-limit', [CoreCustomerController::class, 'editlimitCoreCustomer'])->name('edit-limit-core-customer');
 Route::get('/core-customer/delete-debt', [CoreCustomerController::class, 'deletedebtCoreCustomer'])->name('delete-debt-core-customer');
+Route::get('/core-customer/export', [CoreCustomerController::class, 'exportCoreCustomer'])->name('export-core-customer');
 
 
 Route::get('/agency', [CoreAgencyController::class, 'index'])->name('agency');

@@ -44,16 +44,16 @@
 </div>
 @endif
 <div class="card border border-dark">
-  <div class="card-header bg-dark clearfix">
-    <h5 class="mb-0 float-left">
-        Daftar
-    </h5>
-    <div class="form-actions float-right">
-        {{-- <a class="btn btn-sm btn-success" href="{{ url('/core-customer/delete-debt') }}" onclick="return confirm('Apakah Anda Yakin Ingin Melunasi Data Hutang Ini ?')"><i class="fa fa-address-card"></i> Pelunasan Hutang</a>
-        <button onclick="location.href='{{ url('/core-customer/edit-limit') }}'" name="Find" class="btn btn-sm btn-warning" title="Add Data"><i class="fa fa-upload"></i> Update Limit Hutang </button> --}}
-        <button onclick="location.href='{{ url('/core-customer/add') }}'" name="Find" class="btn btn-sm btn-info" title="Add Data"><i class="fa fa-plus"></i> Tambah Pelanggan </button>
+    <div class="card-header bg-dark clearfix">
+        <h5 class="mb-0 float-left">
+            Daftar
+        </h5>
+        <div class="form-actions float-right">
+            {{-- <a class="btn btn-sm btn-success" href="{{ url('/core-customer/delete-debt') }}" onclick="return confirm('Apakah Anda Yakin Ingin Melunasi Data Hutang Ini ?')"><i class="fa fa-address-card"></i> Pelunasan Hutang</a>
+            <button onclick="location.href='{{ url('/core-customer/edit-limit') }}'" name="Find" class="btn btn-sm btn-warning" title="Add Data"><i class="fa fa-upload"></i> Update Limit Hutang </button> --}}
+            <button onclick="location.href='{{ url('/core-customer/add') }}'" name="Find" class="btn btn-sm btn-info" title="Add Data"><i class="fa fa-plus"></i> Tambah Pelanggan </button>
+        </div>
     </div>
-  </div>
 
     <div class="card-body">
         <div class="table-responsive">
@@ -89,6 +89,11 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class=" mt-3 bg-dark">
+            <div class="form-actions float-right">
+                <a class="btn btn-success" href="{{ url('/core-customer/export') }}"><i class="fa fa-download"></i> Excel </a>
+            </div>
         </div>
     </div>
   </div>
