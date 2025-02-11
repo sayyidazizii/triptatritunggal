@@ -93,6 +93,8 @@
         <div class=" mt-3 bg-dark">
             <div class="form-actions float-right">
                 <a class="btn btn-success" href="{{ url('/core-customer/export') }}"><i class="fa fa-download"></i> Excel </a>
+                <a class="btn btn-danger" href="{{ url('/core-customer/print') }}"><i class="fa fa-download"></i> PDF </a>
+
             </div>
         </div>
     </div>
