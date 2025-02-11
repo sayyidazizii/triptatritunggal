@@ -45,11 +45,8 @@
                         <th width="2%" style='text-align:center'>No.</th>
                         {{-- <th width="20%" style='text-align:center'>Kode Pemasok</th> --}}
                         <th width="20%" style='text-align:center'>Nama Pemasok</th>
-                        <th width="20%" style='text-align:center'>Alamat Pemasok</th>
                         <th width="20%" style='text-align:center'>Contact Person</th>
-                        <th width="20%" style='text-align:center'>No NPWP</th>
-                        <th width="20%" style='text-align:center'>Nama Akun</th>
-                        <th width="20%" style='text-align:center'>Nomor Rekening</th>
+                        <th width="10%" style='text-align:center'>Jumlah Hutang</th>
                         <th width="10%" style='text-align:center'>Aksi</th>
                     </tr>
                 </thead>
@@ -58,13 +55,9 @@
                     @foreach($coresupplier as $supplier)
                     <tr>
                         <td style='text-align:center'>{{$no}}.</td>
-                        {{-- <td>{{$supplier['supplier_code']}}</td> --}}
                         <td>{{$supplier['supplier_name']}}</td>
-                        <td>{{$supplier['supplier_address']}}</td>
                         <td>{{$supplier['supplier_contact_person']}}</td>
-                        <td>{{$supplier['supplier_npwp_no']}}</td>
-                        <td>{{$supplier['supplier_bank_acct_name']}}</td>
-                        <td>{{$supplier['supplier_bank_acct_no']}}</td>
+                        <td>{{number_format($supplier['amount_debt'],2)}}</td>
                         <td class="" style='text-align:center'>
                             <a type="button" class="btn btn-outline-warning btn-sm" href="{{ url('/supplier/edit/'.$supplier['supplier_id']) }}">Edit</a>
                             <a type="button" class="btn btn-outline-danger btn-sm" href="{{ url('/supplier/delete-supplier/'.$supplier['supplier_id']) }}">Hapus</a>
@@ -74,6 +67,13 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class=" mt-3 bg-dark">
+            <div class="form-actions float-right">
+                <a class="btn btn-success" href="{{ url('/core-supplier/export') }}"><i class="fa fa-download"></i> Excel </a>
+                <a class="btn btn-danger" href="{{ url('/core-supplier/print') }}"><i class="fa fa-download"></i> PDF </a>
+
+            </div>
         </div>
     </div>
 </div>
