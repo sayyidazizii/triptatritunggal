@@ -86,34 +86,40 @@ class CoreCustomerController extends Controller
     }
 
     public function editCoreCustomer($customer_id)
-     {
+    {
          $data = CoreCustomer::select('*')
          ->where('customer_id', $customer_id)
          ->first();
 
          return view('content.CoreCustomer.EditCoreCustomer', compact('data'));
-     }
+    }
 
     public function processEditCoreCustomer(Request $request)
-     {
-         $table                     = CoreCustomer::findOrFail($request->customer_id);
-         $table->customer_number    = $request->customer_number;
-         $table->customer_name      = $request->customer_name;
-         $table->debt_limit         = $request->debt_limit;
-         $table->updated_id         = Auth::id();
+    {   
+        try {
+            DB::beginTransaction();
+            
+            $table                             = CoreCustomer::findOrFail($request->customer_id);
+            $table->customer_contact_person    = $request->customer_contact_person;
+            $table->customer_name              = $request->customer_name;
+            $table->debt_limit                 = $request->debt_limit;
+            $table->updated_id                 = Auth::id();
+            $table->save();
 
-        //  echo json_encode( $table); exit;
-         
-         if ($table->save()) {
-             $msg = 'Ubah Pegawai Berhasil';
-             return redirect()->back()->with('msg', $msg);
-         } else {
-             $msg = 'Ubah Pegawai Gagal';
-             return redirect()->back()->with('msg', $msg);
-         }
+                $msg = 'Ubah Pegawai Berhasil';
+            DB::commit();
+            return redirect('/core-customer')->with('msg',$msg);
 
-
-     }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error Descriptions: ' . e->getMessage(), [
+                'exception' => e, 
+                'trace' => e->getTraceAsString()
+            ]);
+            $msg = 'Ubah Pegawai Gagal';
+            return redirect()->back()->with('msg', $msg);
+        }
+    }
 
     public function processEditLimitCoreCustomer(Request $request)
     {
@@ -127,7 +133,7 @@ class CoreCustomerController extends Controller
                 $p->debt_limit          = $request->debt_limit;  
                 $p->updated_id          = Auth::id();    
                 $p->save();
-             }
+            }
                 
             if ($p->save()) {
                 $msg = 'Ubah Limit Berhasil';
@@ -342,7 +348,15 @@ class CoreCustomerController extends Controller
 
         $pdf::SetFont('helvetica', 'B', 20);
 
+
+                    
         $pdf::AddPage('P', 'A4');
+
+
+    // Add watermark background
+    $pdf::SetAlpha(0.2); // Set transparency level
+    $pdf::Image(public_path('img/logo_tripta.png'), 30, 50, 150, 150, '', '', '', false, 300, '', false, false, 0);
+    $pdf::SetAlpha(1); // Reset transparency
 
         $pdf::SetFont('helvetica', '', 12);
 
