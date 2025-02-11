@@ -353,10 +353,10 @@ class CoreCustomerController extends Controller
         $pdf::AddPage('P', 'A4');
 
 
-    // Add watermark background
-    $pdf::SetAlpha(0.2); // Set transparency level
-    $pdf::Image(public_path('img/logo_tripta.png'), 30, 50, 150, 150, '', '', '', false, 300, '', false, false, 0);
-    $pdf::SetAlpha(1); // Reset transparency
+        // Add watermark background
+        $pdf::SetAlpha(0.2); // Set transparency level
+        $pdf::Image(public_path('img/logo_tripta.png'), 60, 90, 110, 100, '', '', '', false, 300, '', false, false, 0);
+        $pdf::SetAlpha(1); // Reset transparency
 
         $pdf::SetFont('helvetica', '', 12);
 
