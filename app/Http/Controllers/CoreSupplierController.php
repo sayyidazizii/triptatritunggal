@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\Models\InvItem;
+use App\Models\CoreCity;
 use App\Models\CoreGrade;
 use App\Models\InvItemType;
-use App\Models\CoreSupplier;
 use App\Models\CoreProvince;
-use App\Models\CoreCity;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use App\Models\CoreSupplier;
+use Illuminate\Http\Request;
+use Elibyy\TCPDF\Facades\TCPDF;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class CoreSupplierController extends Controller
 {
@@ -165,5 +166,159 @@ class CoreSupplierController extends Controller
         }
 
         return $data;
+    }
+
+    public function exportCoreSupplier()
+    {
+
+        $customer = CoreCustomer::select('*')->where('data_state',0)->get();
+
+        $spreadsheet = new Spreadsheet();
+
+        if(count($customer)>=0){
+            $spreadsheet->getProperties()->setCreator("CIPTASOLUTINDO")
+                                        ->setLastModifiedBy("CIPTASOLUTINDO")
+                                        ->setTitle("LAPORAN PENJUALAN")
+                                        ->setDescription("LAPORAN PENJUALAN");
+
+            $sheet = $spreadsheet->getActiveSheet(0);
+            $spreadsheet->getActiveSheet()->getPageSetup()->setFitToWidth(1);
+            $spreadsheet->getActiveSheet()->getPageSetup()->setFitToWidth(1);
+            $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(5);
+            $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(45);
+            $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+    
+            $spreadsheet->getActiveSheet()->mergeCells("B1:D1");
+            $spreadsheet->getActiveSheet()->getStyle('B1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            $spreadsheet->getActiveSheet()->getStyle('B1')->getFont()->setBold(true)->setSize(16);
+
+            $spreadsheet->getActiveSheet()->getStyle('B3:D3')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $spreadsheet->getActiveSheet()->getStyle('B3:D3')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+
+            $sheet->setCellValue('B1',"Laporan Piutang Perusahaan");	
+            $sheet->setCellValue('B3',"No");
+            $sheet->setCellValue('C3',"Nama Perusahaan");
+            $sheet->setCellValue('D3',"Jumlah Piutang");
+
+            
+            $j  =   4;
+            $no =   0;
+            $subtotal_amount = 0;
+            $subtotal_amount_ppn = 0;
+
+            foreach($customer as $key=>$val){
+
+                if(is_numeric($key)){
+                    
+                    $sheet = $spreadsheet->getActiveSheet(0);
+                    $spreadsheet->getActiveSheet()->setTitle("Laporan Penjualan");
+                    $spreadsheet->getActiveSheet()->getStyle('B'.$j.':D'.$j)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+
+            
+                    $spreadsheet->getActiveSheet()->getStyle('B'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                    $spreadsheet->getActiveSheet()->getStyle('C'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+                    $spreadsheet->getActiveSheet()->getStyle('D'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+
+                        $no++;
+                        $sheet->setCellValue('B'.$j, $no);
+                        $sheet->setCellValue('C'.$j, $val->customer_name);
+                        $sheet->setCellValue('D'.$j, number_format($val->amount_debt, 2, ',', '.'));
+                }
+
+                $j++;
+        
+            }
+            // $spreadsheet->getActiveSheet()->getStyle('H'.$j.':M'.$j)->getNumberFormat()->setFormatCode('0.00');
+
+            // $spreadsheet->getActiveSheet()->getStyle('B'.$j.':M'.$j)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            // $spreadsheet->getActiveSheet()->mergeCells('B'.$j.':I'.$j);
+            // $spreadsheet->getActiveSheet()->mergeCells('K'.$j.':L'.$j);
+            // $spreadsheet->getActiveSheet()->getStyle('B'.$j.':I'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+            // $spreadsheet->getActiveSheet()->getStyle('B'.$j.':M'.$j)->getFont()->setBold(true);
+            // $spreadsheet->getActiveSheet()->getStyle('G'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+            // $spreadsheet->getActiveSheet()->getStyle('H'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+            // $spreadsheet->getActiveSheet()->getStyle('I'.$j.':L'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+            // $spreadsheet->getActiveSheet()->getStyle('M'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+            
+            // $sheet->setCellValue('B'.$j,'Total Sebelum Discount');
+            // $sheet->setCellValue('J'.$j, number_format($subtotal_amount,2,'.',','));
+            // $sheet->setCellValue('K'.$j,'Total Sesudah Discount');
+            // $sheet->setCellValue('M'.$j, number_format($subtotal_amount_ppn,2,'.',','));
+            // ob_clean();
+            $filename='Laporan_Piutang_.xls';
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment;filename="'.$filename.'"');
+            header('Cache-Control: max-age=0');
+
+            $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
+            $writer->save('php://output');
+        }else{
+            echo "Maaf data yang di eksport tidak ada !";
+        }
+    }
+
+    public function printCoreSupplier()
+    {
+        $customer = CoreSupplier::where('data_state', 0)->get();
+
+        // Create new PDF instance
+        $pdf = new TCPDF('P', PDF_UNIT, 'A4', true, 'UTF-8', false);
+
+        $pdf::SetPrintHeader(false);
+        $pdf::SetPrintFooter(false);
+
+        $pdf::SetMargins(10, 10, 10, 10);
+
+        $pdf::setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+        if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+            require_once(dirname(__FILE__).'/lang/eng.php');
+            $pdf::setLanguageArray($l);
+        }
+
+        $pdf::SetFont('helvetica', 'B', 20);
+
+
+                    
+        $pdf::AddPage('P', 'A4');
+
+
+        // Add watermark background
+        $pdf::SetAlpha(0.2); // Set transparency level
+        $pdf::Image(public_path('img/logo_tripta.png'), 60, 90, 110, 100, '', '', '', false, 300, '', false, false, 0);
+        $pdf::SetAlpha(1); // Reset transparency
+
+        $pdf::SetFont('helvetica', '', 12);
+
+        // Define table style
+        $html = '<h2 style="text-align:center;">Laporan Hutang Perusahaan</h2>';
+        $html .= '<table border="1" cellpadding="5" cellspacing="0" style="width:100%; text-align:center;">
+                    <thead>
+                        <tr style="font-weight:bold; background-color:#ddd;">
+                            <th width="10%">No</th>
+                            <th width="60%">Nama Perusahaan</th>
+                            <th width="30%">Jumlah Hutang</th>
+                        </tr>
+                    </thead>
+                    <tbody>';
+
+            $no = 1;
+            foreach ($customer as $val) {
+                $html .= '<tr>
+                            <td width="10%">' . $no . '</td>
+                            <td width="60%" style="text-align:left;">' . $val->supplier_name . '</td>
+                            <td width="30%" style="text-align:right;">' . number_format($val->amount_debt, 2, ',', '.') . '</td>
+                        </tr>';
+                $no++;
+            }
+
+        $html .= '</tbody></table>';
+
+        // Output HTML to PDF
+        $pdf::writeHTML($html, true, false, true, false, '');
+
+        // Output PDF
+        $filename = 'Laporan_Hutang.pdf';
+        $pdf::Output($filename, 'I');
     }
 }

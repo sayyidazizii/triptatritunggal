@@ -70,8 +70,8 @@
         </div>
         <div class=" mt-3 bg-dark">
             <div class="form-actions float-right">
-                <a class="btn btn-success" href="{{ url('/core-supplier/export') }}"><i class="fa fa-download"></i> Excel </a>
-                <a class="btn btn-danger" href="{{ url('/core-supplier/print') }}"><i class="fa fa-download"></i> PDF </a>
+                <a class="btn btn-success" href="{{ url('/supplier/export') }}"><i class="fa fa-download"></i> Excel </a>
+                <a class="btn btn-danger" href="{{ url('/supplier/print') }}"><i class="fa fa-download"></i> PDF </a>
 
             </div>
         </div>
