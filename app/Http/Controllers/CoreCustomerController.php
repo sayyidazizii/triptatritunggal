@@ -87,7 +87,7 @@ class CoreCustomerController extends Controller
 
     public function editCoreCustomer($customer_id)
      {
-         $data = CoreCustomer::select('customer_number','customer_name','debt_limit','customer_id')
+         $data = CoreCustomer::select('*')
          ->where('customer_id', $customer_id)
          ->first();
 
@@ -139,13 +139,14 @@ class CoreCustomerController extends Controller
     }
 
     public function editlimitCoreCustomer()
-     {
+    {
          $customer = CoreCustomer::select('customer_number','customer_name','debt_limit','customer_id')
          ->where('data_state',0)
          ->get();
         
          return view('content.CoreCustomer.EditLimitCoreCustomer', compact('customer'));
-     }
+    
+    }
 
     public function deleteCoreCustomer($customer_id)
     {
@@ -321,61 +322,61 @@ class CoreCustomerController extends Controller
     }
 
     public function printCoreCustomer()
-{
-    $customer = CoreCustomer::where('data_state', 0)->get();
+    {
+        $customer = CoreCustomer::where('data_state', 0)->get();
 
-    // Create new PDF instance
-    $pdf = new TCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        // Create new PDF instance
+        $pdf = new TCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
-    $pdf::SetPrintHeader(false);
-    $pdf::SetPrintFooter(false);
+        $pdf::SetPrintHeader(false);
+        $pdf::SetPrintFooter(false);
 
-    $pdf::SetMargins(10, 10, 10, 10);
+        $pdf::SetMargins(10, 10, 10, 10);
 
-    $pdf::setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf::setImageScale(PDF_IMAGE_SCALE_RATIO);
 
-    if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-        require_once(dirname(__FILE__).'/lang/eng.php');
-        $pdf::setLanguageArray($l);
-    }
-
-    $pdf::SetFont('helvetica', 'B', 20);
-
-    $pdf::AddPage('P', 'A4');
-
-    $pdf::SetFont('helvetica', '', 12);
-
-    // Define table style
-    $html = '<h2 style="text-align:center;">Laporan Piutang Perusahaan</h2>';
-    $html .= '<table border="1" cellpadding="5" cellspacing="0" style="width:100%; text-align:center;">
-                <thead>
-                    <tr style="font-weight:bold; background-color:#ddd;">
-                        <th width="10%">No</th>
-                        <th width="60%">Nama Perusahaan</th>
-                        <th width="30%">Jumlah Piutang</th>
-                    </tr>
-                </thead>
-                <tbody>';
-
-        $no = 1;
-        foreach ($customer as $val) {
-            $html .= '<tr>
-                        <td width="10%">' . $no . '</td>
-                        <td width="60%" style="text-align:left;">' . $val->customer_name . '</td>
-                        <td width="30%" style="text-align:right;">' . number_format($val->amount_debt, 2, ',', '.') . '</td>
-                    </tr>';
-            $no++;
+        if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+            require_once(dirname(__FILE__).'/lang/eng.php');
+            $pdf::setLanguageArray($l);
         }
 
-    $html .= '</tbody></table>';
+        $pdf::SetFont('helvetica', 'B', 20);
 
-    // Output HTML to PDF
-    $pdf::writeHTML($html, true, false, true, false, '');
+        $pdf::AddPage('P', 'A4');
 
-    // Output PDF
-    $filename = 'Laporan_Penjualan_.pdf';
-    $pdf::Output($filename, 'I');
-}
+        $pdf::SetFont('helvetica', '', 12);
+
+        // Define table style
+        $html = '<h2 style="text-align:center;">Laporan Piutang Perusahaan</h2>';
+        $html .= '<table border="1" cellpadding="5" cellspacing="0" style="width:100%; text-align:center;">
+                    <thead>
+                        <tr style="font-weight:bold; background-color:#ddd;">
+                            <th width="10%">No</th>
+                            <th width="60%">Nama Perusahaan</th>
+                            <th width="30%">Jumlah Piutang</th>
+                        </tr>
+                    </thead>
+                    <tbody>';
+
+            $no = 1;
+            foreach ($customer as $val) {
+                $html .= '<tr>
+                            <td width="10%">' . $no . '</td>
+                            <td width="60%" style="text-align:left;">' . $val->customer_name . '</td>
+                            <td width="30%" style="text-align:right;">' . number_format($val->amount_debt, 2, ',', '.') . '</td>
+                        </tr>';
+                $no++;
+            }
+
+        $html .= '</tbody></table>';
+
+        // Output HTML to PDF
+        $pdf::writeHTML($html, true, false, true, false, '');
+
+        // Output PDF
+        $filename = 'Laporan_Penjualan_.pdf';
+        $pdf::Output($filename, 'I');
+    }
 
 }
 
