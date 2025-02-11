@@ -50,7 +50,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <a class="text-dark">Nomor Pelanggan<a class='red'> *</a></a>
-                        <input class="form-control input-bb" name="customer_number" id="customer_number" type="text" autocomplete="off" value="{{ $data['customer_number'] }}"/>
+                        <input class="form-control input-bb" name="customer_contact_person" id="customer_contact_person" type="text" autocomplete="off" value="{{ $data['customer_contact_person'] }}"/>
                         <input class="form-control input-bb" name="customer_id" id="customer_id" type="text" autocomplete="off" value="{{ $data['customer_id'] }}" hidden/>
                     </div>
                 </div>
@@ -58,12 +58,6 @@
                     <div class="form-group">
                         <a class="text-dark">Nama Pelanggan</a>
                         <input class="form-control input-bb" name="customer_name" id="customer_name" type="text" autocomplete="off" value="{{ $data['customer_name'] }}"/>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="form-group">
-                        <a class="text-dark">Limit Hutang</a>
-                        <textarea class="form-control input-bb" name="debt_limit" id="debt_limit" type="text" autocomplete="off">{{ $data['debt_limit'] }}</textarea>
                     </div>
                 </div>
             </div>
