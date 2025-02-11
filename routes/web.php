@@ -320,6 +320,8 @@ Route::post('/supplier/process-edit-supplier', [CoreSupplierController::class, '
 Route::get('/supplier/delete-supplier/{product_type_id}', [CoreSupplierController::class, 'deleteCoreSupplier'])->name('delete-supplier');
 Route::post('/supplier/filter', [CoreSupplierController::class, 'filterCoreSupplier'])->name('filter-supplier');
 Route::post('/supplier/city', [CoreSupplierController::class, 'getCoreCity'])->name('supplier-city');
+Route::get('/supplier/export', [CoreSupplierController::class, 'exportCoreSupplier'])->name('export-supplier');
+Route::get('/supplier/print', [CoreSupplierController::class, 'printCoreSupplier'])->name('print-supplier');
 
 
 Route::get('/core-customer', [CoreCustomerController::class, 'index'])->name('core-customer');
