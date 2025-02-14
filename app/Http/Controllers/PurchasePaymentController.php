@@ -220,6 +220,7 @@ class PurchasePaymentController extends Controller
     {
         try {
             // Log::debug('Starting processAddPurchasePayment', ['request' => $request->all()]);
+            DB::beginTransaction();
 
             $allrequest = $request->all();
             $fields = $request->validate([
@@ -339,14 +340,16 @@ class PurchasePaymentController extends Controller
 
                 // $msg = "DEBUG MODE: Proses selesai tanpa menyimpan ke database.";
                 $msg = "Pembayaran Berhasil";
+                DB::commit();
                 return redirect('/purchase-payment')->with('msg', $msg);
             } else {
                 throw new \Exception("Gagal membuat data pelunasan hutang.");
             }
         } catch (\Exception $e) {
-            Log::error('Error in pelunasan hutang: ' . $e->getMessage(), [
-                'trace' => $e->getTraceAsString(),
-                'request' => $request->all()
+            DB::rollBack();
+            Log::error('Error saat membuat Sales Invoice: ' . $e->getMessage(), [
+                'exception' => $e,
+                'trace' => $e->getTraceAsString()
             ]);
 
             $msg = "Tambah Pelunasan Hutang Gagal: " . $e->getMessage();
