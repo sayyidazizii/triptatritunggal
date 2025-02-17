@@ -12,7 +12,7 @@ use App\Models\InvItemType;
 use App\Models\InvItemUnit;
 use App\Models\CoreCustomer;
 use App\Models\InvItemStock;
-use App\Models\SalesInvoice;
+use App\Models\PurchaseInvoice;
 use Illuminate\Http\Request;
 use App\Models\SalesKwitansi;
 use App\Models\SystemLogUser;
@@ -21,7 +21,7 @@ use App\Models\CoreExpedition;
 use App\Models\SalesOrderItem;
 use App\Models\InvItemCategory;
 use Elibyy\TCPDF\Facades\TCPDF;
-use App\Models\SalesInvoiceItem;
+use App\Models\PurchaseInvoiceItem;
 use App\Models\PreferenceCompany;
 use App\Models\PurchaseOrderItem;
 use App\Models\SalesDeliveryNote;
@@ -48,7 +48,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use App\Models\SalesDeliveryNoteItemStock;
 use App\Models\PreferenceTransactionModule;
 
-class SalesInvoiceReportController extends Controller
+class PurchaseInvoiceReportController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -83,21 +83,18 @@ class SalesInvoiceReportController extends Controller
 
         Session::forget('salesinvoiceitem');
         Session::forget('salesinvoiceelements');
-        $salesinvoice = SalesInvoiceItem::with(['SalesQuotationItems','SalesInvoice'])
+        $salesinvoice = PurchaseInvoiceItem::with(['SalesQuotationItems','SalesInvoice'])
         ->where('data_state', '=', 0)
-        ->whereHas('SalesInvoice', function ($query) use ($start_date, $end_date) {
+        ->whereHas('PurchaseInvoice', function ($query) use ($start_date, $end_date) {
             $query->where('sales_invoice_date', '>=', $start_date)
                 ->where('sales_invoice_date', '<=', $end_date);
         });
-
         if ($customer_id) {
-            $salesinvoice = $salesinvoice->whereHas('SalesInvoice', function ($query) use ($customer_id) {
+            $salesinvoice = $salesinvoice->whereHas('PurchaseInvoice', function ($query) use ($customer_id) {
                 $query->where('customer_id', $customer_id);
             });
         }
         $salesinvoice       = $salesinvoice->get();
-        echo json_encode($salesinvoice);exit;
-
         $customer = CoreCustomer::select('customer_id', 'customer_name')
             ->where('data_state', 0)
             ->pluck('customer_name', 'customer_id');

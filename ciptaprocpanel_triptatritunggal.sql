@@ -1,5 +1,5 @@
 /*
-SQLyog Professional v13.1.1 (64 bit)
+SQLyog Ultimate v13.1.1 (64 bit)
 MySQL - 8.0.41-0ubuntu0.22.04.1 : Database - ciptaprocpanel_triptatritunggal
 *********************************************************************
 */
@@ -43,7 +43,7 @@ CREATE TABLE `acct_account` (
 
 /*Data for the table `acct_account` */
 
-insert  into `acct_account`(`account_id`,`company_id`,`account_code`,`account_name`,`account_group`,`account_suspended`,`account_default_status`,`account_remark`,`account_status`,`account_token`,`parent_account_status`,`account_type_id`,`data_state`,`created_id`,`updated_id`,`created_at`,`updated_at`) values
+insert  into `acct_account`(`account_id`,`company_id`,`account_code`,`account_name`,`account_group`,`account_suspended`,`account_default_status`,`account_remark`,`account_status`,`account_token`,`parent_account_status`,`account_type_id`,`data_state`,`created_id`,`updated_id`,`created_at`,`updated_at`) values 
 (1,2,'100','A K T I V A','100',0,0,NULL,0,NULL,0,0,0,55,55,'2025-01-30 04:22:47','2025-01-30 04:22:47'),
 (2,2,'101.01','AKTIVA LANCAR','100',0,0,NULL,0,NULL,0,0,0,55,55,'2025-01-30 04:22:47','2025-01-30 04:22:47'),
 (3,2,'101.01.01','Kas dan Setara Kas','101.01',0,0,NULL,0,NULL,0,0,0,55,55,'2025-01-30 04:22:47','2025-01-30 04:22:47'),
@@ -121,7 +121,7 @@ CREATE TABLE `acct_account_balance` (
 
 /*Data for the table `acct_account_balance` */
 
-insert  into `acct_account_balance`(`account_balance_id`,`company_id`,`branch_id`,`account_id`,`last_balance`,`created_id`,`created_at`,`updated_at`) values
+insert  into `acct_account_balance`(`account_balance_id`,`company_id`,`branch_id`,`account_id`,`last_balance`,`created_id`,`created_at`,`updated_at`) values 
 (1,2,0,4,22200.00,3,NULL,'2025-02-05 14:50:57'),
 (2,2,0,23,20000.00,3,NULL,'2025-02-05 14:50:57'),
 (3,2,0,17,2200.00,3,NULL,'2025-02-05 14:50:57'),
@@ -160,7 +160,7 @@ CREATE TABLE `acct_account_balance_detail` (
 
 /*Data for the table `acct_account_balance_detail` */
 
-insert  into `acct_account_balance_detail`(`account_balance_detail_id`,`branch_id`,`company_id`,`transaction_type`,`transaction_code`,`transaction_date`,`transaction_id`,`account_id`,`opening_balance`,`account_in`,`account_out`,`cash_in`,`cash_out`,`bank_in`,`bank_out`,`last_balance`,`created_at`,`updated_at`,`created_id`) values
+insert  into `acct_account_balance_detail`(`account_balance_detail_id`,`branch_id`,`company_id`,`transaction_type`,`transaction_code`,`transaction_date`,`transaction_id`,`account_id`,`opening_balance`,`account_in`,`account_out`,`cash_in`,`cash_out`,`bank_in`,`bank_out`,`last_balance`,`created_at`,`updated_at`,`created_id`) values 
 (1,0,2,63,'PPP','2025-02-05',1,4,0.00,22200.00,0.00,0.00,0.00,0.00,0.00,22200.00,NULL,'2025-02-05 14:50:57',3),
 (2,0,2,63,'PPP','2025-02-05',1,23,0.00,20000.00,0.00,0.00,0.00,0.00,0.00,20000.00,NULL,'2025-02-05 14:50:57',3),
 (3,0,2,63,'PPP','2025-02-05',1,17,0.00,2200.00,0.00,0.00,0.00,0.00,0.00,2200.00,NULL,'2025-02-05 14:50:57',3),
@@ -235,7 +235,7 @@ CREATE TABLE `acct_account_setting` (
 
 /*Data for the table `acct_account_setting` */
 
-insert  into `acct_account_setting`(`account_setting_id`,`company_id`,`account_id`,`account_setting_name`,`account_setting_status`,`account_default_status`,`created_at`,`updated_at`) values
+insert  into `acct_account_setting`(`account_setting_id`,`company_id`,`account_id`,`account_setting_name`,`account_setting_status`,`account_default_status`,`created_at`,`updated_at`) values 
 (370,2,3,'account_cash_purchase_id',1,0,'2022-07-16 11:14:51','2025-02-04 10:13:23'),
 (371,2,7,'purchase_cash_account_id',0,0,'2022-07-16 11:14:51','2025-02-04 10:13:23'),
 (372,2,16,'account_credit_purchase_id',1,1,'2022-07-16 11:14:51','2025-02-04 10:13:23'),
@@ -273,7 +273,7 @@ CREATE TABLE `acct_account_type` (
 
 /*Data for the table `acct_account_type` */
 
-insert  into `acct_account_type`(`account_type_id`,`account_type_name`,`account_type_status`,`default_value`,`data_state`,`created_by`,`created_at`,`updated_at`) values
+insert  into `acct_account_type`(`account_type_id`,`account_type_name`,`account_type_status`,`default_value`,`data_state`,`created_by`,`created_at`,`updated_at`) values 
 (1,'Other Current Asset',1,1,'0','ADMIN','2015-11-03 16:07:00','2023-06-23 10:52:20'),
 (2,'Fixed Asset',1,1,'0','ADMIN','2015-11-03 16:07:00','2023-06-23 10:52:20'),
 (3,'Accumulated Depreciation',1,1,'0','ADMIN','2015-11-03 16:07:00','2023-06-23 10:52:20'),
@@ -412,7 +412,7 @@ CREATE TABLE `acct_asset_type` (
 
 /*Data for the table `acct_asset_type` */
 
-insert  into `acct_asset_type`(`asset_type_id`,`asset_type_code`,`asset_type_name`,`asset_type_description`,`asset_type_parent`,`asset_type_parent_status`,`data_state`,`created_at`,`updated_at`) values
+insert  into `acct_asset_type`(`asset_type_id`,`asset_type_code`,`asset_type_name`,`asset_type_description`,`asset_type_parent`,`asset_type_parent_status`,`data_state`,`created_at`,`updated_at`) values 
 (1,'AT0001','Elektronik','',0,0,0,NULL,'2023-06-23 10:52:20'),
 (2,'AT0071','Kendaraan','',0,0,0,NULL,'2023-06-23 10:52:20'),
 (3,'AT0077','AA','',1,0,1,NULL,'2023-06-23 10:52:20');
@@ -458,7 +458,7 @@ CREATE TABLE `acct_balance_sheet_report` (
 
 /*Data for the table `acct_balance_sheet_report` */
 
-insert  into `acct_balance_sheet_report`(`balance_sheet_report_id`,`company_id`,`report_no`,`account_id1`,`account_code1`,`account_name1`,`account_id2`,`account_code2`,`account_name2`,`report_formula1`,`report_operator1`,`report_type1`,`report_tab1`,`report_bold1`,`report_formula2`,`report_operator2`,`report_type2`,`report_tab2`,`report_bold2`,`report_formula3`,`report_operator3`,`balance_report_type`,`balance_report_type1`,`data_state`,`created_id`,`created_on`,`last_update`) values
+insert  into `acct_balance_sheet_report`(`balance_sheet_report_id`,`company_id`,`report_no`,`account_id1`,`account_code1`,`account_name1`,`account_id2`,`account_code2`,`account_name2`,`report_formula1`,`report_operator1`,`report_type1`,`report_tab1`,`report_bold1`,`report_formula2`,`report_operator2`,`report_type2`,`report_tab2`,`report_bold2`,`report_formula3`,`report_operator3`,`balance_report_type`,`balance_report_type1`,`data_state`,`created_id`,`created_on`,`last_update`) values 
 (1,2,1,1,'100','A K T I V A',14,'200','P A S I V A ',NULL,NULL,1,1,1,NULL,NULL,1,1,1,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
 (2,2,2,2,'101.01','AKTIVA LANCAR',15,'201.01','HUTANG LANCAR',NULL,NULL,1,2,1,NULL,NULL,1,2,1,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
 (3,2,3,3,'101.01.01','Kas dan Setara Kas',16,'201.01.01','Hutang Dagang',NULL,NULL,3,3,0,NULL,NULL,3,3,0,'','',0,0,0,55,'2025-01-30 07:59:48','07:59:48'),
@@ -914,7 +914,7 @@ CREATE TABLE `acct_debt_repayment` (
 
 /*Data for the table `acct_debt_repayment` */
 
-insert  into `acct_debt_repayment`(`debt_repayment_id`,`company_id`,`debt_repayment_date`,`total_repayment`,`data_state`,`updated_at`,`created_at`,`updated_id`,`created_id`) values
+insert  into `acct_debt_repayment`(`debt_repayment_id`,`company_id`,`debt_repayment_date`,`total_repayment`,`data_state`,`updated_at`,`created_at`,`updated_id`,`created_id`) values 
 (74,NULL,'2025-01-31 09:22:40',11000,0,'2025-01-31 09:22:40','2025-01-31 09:22:40',3,3),
 (75,NULL,'2025-01-31 09:31:24',11000,0,'2025-01-31 09:31:24','2025-01-31 09:31:24',3,3),
 (76,NULL,'2025-02-05 05:39:45',111000,0,'2025-02-05 05:39:45','2025-02-05 05:39:45',3,3);
@@ -945,7 +945,7 @@ CREATE TABLE `acct_debt_repayment_item` (
 
 /*Data for the table `acct_debt_repayment_item` */
 
-insert  into `acct_debt_repayment_item`(`debt_repayment_item_id`,`company_id`,`debt_repayment_id`,`employee_id`,`debt_repayment_amount`,`data_state`,`updated_at`,`created_at`,`updated_id`,`created_id`) values
+insert  into `acct_debt_repayment_item`(`debt_repayment_item_id`,`company_id`,`debt_repayment_id`,`employee_id`,`debt_repayment_amount`,`data_state`,`updated_at`,`created_at`,`updated_id`,`created_id`) values 
 (1,NULL,74,NULL,11000,0,'2025-01-31 09:22:40','2025-01-31 09:22:40',3,3),
 (2,NULL,75,NULL,11000,0,'2025-01-31 09:31:24','2025-01-31 09:31:24',3,3),
 (3,NULL,76,NULL,111000,0,'2025-02-05 05:39:45','2025-02-05 05:39:45',3,3);
@@ -995,7 +995,7 @@ CREATE TABLE `acct_journal_voucher` (
 
 /*Data for the table `acct_journal_voucher` */
 
-insert  into `acct_journal_voucher`(`journal_voucher_id`,`company_id`,`branch_id`,`project_id`,`project_type_id`,`transaction_module_id`,`transaction_journal_id`,`transaction_journal_no`,`journal_voucher_title`,`journal_voucher_no`,`journal_voucher_period`,`journal_voucher_date`,`journal_voucher_description`,`journal_voucher_token`,`journal_voucher_token_void`,`journal_voucher_type_id`,`journal_voucher_status`,`transaction_module_code`,`posted`,`posted_id`,`posted_on`,`voided`,`voided_id`,`voided_on`,`voided_remark`,`data_state`,`created_id`,`created_at`,`updated_at`,`reverse_state`) values
+insert  into `acct_journal_voucher`(`journal_voucher_id`,`company_id`,`branch_id`,`project_id`,`project_type_id`,`transaction_module_id`,`transaction_journal_id`,`transaction_journal_no`,`journal_voucher_title`,`journal_voucher_no`,`journal_voucher_period`,`journal_voucher_date`,`journal_voucher_description`,`journal_voucher_token`,`journal_voucher_token_void`,`journal_voucher_type_id`,`journal_voucher_status`,`transaction_module_code`,`posted`,`posted_id`,`posted_on`,`voided`,`voided_id`,`voided_on`,`voided_remark`,`data_state`,`created_id`,`created_at`,`updated_at`,`reverse_state`) values 
 (1,2,1,0,0,63,1,NULL,'Penjualan Barang','0001/JV/II/2025',202502,'2025-02-05','D',NULL,NULL,1,1,'PPP',0,0,NULL,0,0,NULL,NULL,0,3,'2025-02-05 07:50:57','2025-02-05 07:50:57',0),
 (2,2,1,0,0,20,1,NULL,'Pembelian ','0002/JV/II/2025',202502,'2025-02-05','Pembelian 0001/PO/II/2025',NULL,NULL,1,1,'GRN',0,0,NULL,0,0,NULL,NULL,0,3,'2025-02-05 08:04:06','2025-02-05 08:04:06',0),
 (3,2,1,0,0,20,2,NULL,'Pembelian ','0003/JV/II/2025',202502,'2025-02-05','Pembelian 0002/PO/II/2025',NULL,NULL,1,1,'GRN',0,0,NULL,0,0,NULL,NULL,0,3,'2025-02-05 08:25:00','2025-02-05 08:25:00',0);
@@ -1030,7 +1030,7 @@ CREATE TABLE `acct_journal_voucher_item` (
 
 /*Data for the table `acct_journal_voucher_item` */
 
-insert  into `acct_journal_voucher_item`(`journal_voucher_item_id`,`journal_voucher_id`,`company_id`,`account_id`,`journal_voucher_description`,`journal_voucher_amount`,`account_id_status`,`account_id_default_status`,`journal_voucher_debit_amount`,`journal_voucher_credit_amount`,`journal_voucher_item_token`,`journal_voucher_item_token_void`,`data_state`,`created_at`,`updated_at`,`reverse_state`) values
+insert  into `acct_journal_voucher_item`(`journal_voucher_item_id`,`journal_voucher_id`,`company_id`,`account_id`,`journal_voucher_description`,`journal_voucher_amount`,`account_id_status`,`account_id_default_status`,`journal_voucher_debit_amount`,`journal_voucher_credit_amount`,`journal_voucher_item_token`,`journal_voucher_item_token_void`,`data_state`,`created_at`,`updated_at`,`reverse_state`) values 
 (1,1,2,4,'D',22200.00,0,0,22200.00,0.00,NULL,NULL,0,'2025-02-05 07:50:57','2025-02-05 07:50:57',0),
 (2,1,2,23,'D',20000.00,1,1,0.00,20000.00,NULL,NULL,0,'2025-02-05 07:50:57','2025-02-05 07:50:57',0),
 (3,1,2,17,'D',2200.00,1,1,0.00,2200.00,NULL,NULL,0,'2025-02-05 07:50:57','2025-02-05 07:50:57',0),
@@ -1064,7 +1064,7 @@ CREATE TABLE `acct_payment_schedule` (
 
 /*Data for the table `acct_payment_schedule` */
 
-insert  into `acct_payment_schedule`(`payment_schedule_id`,`branch_id`,`payment_schedule_name`,`payment_schedule_repeat_every`,`payment_schedule_start_date`,`payment_schedule_next_date`,`payment_schedule_last_date`,`payment_schedule_status`,`status`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+insert  into `acct_payment_schedule`(`payment_schedule_id`,`branch_id`,`payment_schedule_name`,`payment_schedule_repeat_every`,`payment_schedule_start_date`,`payment_schedule_next_date`,`payment_schedule_last_date`,`payment_schedule_status`,`status`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (3,0,'Biaya Listrik, Telepon dan Air',0,'2019-07-09','2019-09-09','2019-08-27',0,0,0,0,NULL,'2023-06-23 10:52:20'),
 (4,0,'Uang Sampah',0,'2019-07-03','2019-08-03',NULL,0,0,0,0,NULL,'2023-06-23 10:52:20');
 
@@ -1113,7 +1113,7 @@ CREATE TABLE `acct_profit_loss_report` (
 
 /*Data for the table `acct_profit_loss_report` */
 
-insert  into `acct_profit_loss_report`(`profit_loss_report_id`,`company_id`,`format_id`,`report_no`,`account_type_id`,`account_id`,`account_code`,`account_name`,`report_formula`,`report_operator`,`report_type`,`report_tab`,`report_bold`,`data_state`,`created_id`,`created_on`,`last_update`) values
+insert  into `acct_profit_loss_report`(`profit_loss_report_id`,`company_id`,`format_id`,`report_no`,`account_type_id`,`account_id`,`account_code`,`account_name`,`report_formula`,`report_operator`,`report_type`,`report_tab`,`report_bold`,`data_state`,`created_id`,`created_on`,`last_update`) values 
 (1,2,1,1,2,23,'300','PENJUALAN',NULL,NULL,3,1,1,0,55,'2025-01-30 06:50:37','2025-01-30 06:50:37'),
 (2,2,1,2,2,0,'0',NULL,NULL,NULL,0,0,0,0,55,'2025-01-30 06:50:37','2025-01-30 06:50:37'),
 (3,2,1,3,2,24,'300.01','HARGA POKOK PENJUALAN :',NULL,NULL,1,1,1,0,55,'2025-01-30 06:50:37','2025-01-30 06:50:37'),
@@ -1194,7 +1194,7 @@ CREATE TABLE `acct_report` (
 
 /*Data for the table `acct_report` */
 
-insert  into `acct_report`(`id`,`id_no`,`id_report`,`field_name`,`account_id`,`formula`,`operator`,`type`,`status`,`indent_tab`,`indent_bold`) values
+insert  into `acct_report`(`id`,`id_no`,`id_report`,`field_name`,`account_id`,`formula`,`operator`,`type`,`status`,`indent_tab`,`indent_bold`) values 
 (559,1,2,'Aktiva Lancar','0','','','title',1,0,1),
 (560,2,2,'Kas','1.1.1.1','','','loop',1,1,0),
 (561,3,2,'Bank','1.1.1.2','','','loop',1,1,0),
@@ -1295,7 +1295,7 @@ CREATE TABLE `acct_report_backup` (
 
 /*Data for the table `acct_report_backup` */
 
-insert  into `acct_report_backup`(`id`,`id_no`,`id_report`,`field_name`,`account_id`,`formula`,`operator`,`type`,`indent_tab`,`indent_bold`) values
+insert  into `acct_report_backup`(`id`,`id_no`,`id_report`,`field_name`,`account_id`,`formula`,`operator`,`type`,`indent_tab`,`indent_bold`) values 
 (220,1,1,'Pendapatan','0',NULL,NULL,'title',0,1),
 (221,2,1,'Penjualan Plastik','0',NULL,NULL,'subtitle',1,1),
 (222,3,1,'Penjualan Plastik','500.001',NULL,NULL,'loop',2,0),
@@ -1443,7 +1443,7 @@ CREATE TABLE `core_agency` (
 
 /*Data for the table `core_agency` */
 
-insert  into `core_agency`(`agency_id`,`branch_id`,`agency_code`,`agency_name`,`agency_phone_number`,`agency_contact_person`,`agency_address`,`agency_email`,`agency_profit_sharing_percentage`,`agency_remark`,`mou_status`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+insert  into `core_agency`(`agency_id`,`branch_id`,`agency_code`,`agency_name`,`agency_phone_number`,`agency_contact_person`,`agency_address`,`agency_email`,`agency_profit_sharing_percentage`,`agency_remark`,`mou_status`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (1,1,'B001','EXAMPLE AGENSI','0526525','SMG','SEMARANG','-',2.00,NULL,0,0,121,'2019-10-24 11:18:12','2023-12-28 04:42:51'),
 (2,0,'tes1','tes','1212','tes','tes','tes',12.00,'tes',0,1,3,'2021-10-15 02:43:48','2023-06-23 10:52:21');
 
@@ -1468,7 +1468,7 @@ CREATE TABLE `core_bank` (
 
 /*Data for the table `core_bank` */
 
-insert  into `core_bank`(`bank_id`,`bank_code`,`bank_name`,`account_id`,`bank_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+insert  into `core_bank`(`bank_id`,`bank_code`,`bank_name`,`account_id`,`bank_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (11,'BM','Bank Mandiri',8,NULL,0,3,'2023-06-09 06:34:35','2023-06-23 10:52:21'),
 (12,'5454','BRI Syariah',8,NULL,0,3,'2023-06-20 15:54:32','2023-06-23 10:52:21');
 
@@ -1494,7 +1494,7 @@ CREATE TABLE `core_branch` (
 
 /*Data for the table `core_branch` */
 
-insert  into `core_branch`(`branch_id`,`branch_code`,`branch_name`,`branch_address`,`branch_manager`,`branch_status`,`branch_parent_id`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+insert  into `core_branch`(`branch_id`,`branch_code`,`branch_name`,`branch_address`,`branch_manager`,`branch_status`,`branch_parent_id`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (1,'KME','PBF Menjangan Enam','Semarang',NULL,0,NULL,0,0,NULL,'2023-12-26 10:12:57');
 
 /*Table structure for table `core_city` */
@@ -1518,7 +1518,7 @@ CREATE TABLE `core_city` (
 
 /*Data for the table `core_city` */
 
-insert  into `core_city`(`city_id`,`city_code`,`province_id`,`province_code`,`city_name`,`province_no`,`city_no`,`data_state`) values
+insert  into `core_city`(`city_id`,`city_code`,`province_id`,`province_code`,`city_name`,`province_no`,`city_no`,`data_state`) values 
 (936,'',62,'','Kabupaten Gianyar','','',0),
 (937,'',62,'','Kabupaten Bangli','','',0),
 (938,'',62,'','Kabupaten Buleleng','','',0),
@@ -2068,7 +2068,7 @@ CREATE TABLE `core_customer` (
 
 /*Data for the table `core_customer` */
 
-insert  into `core_customer`(`customer_id`,`province_id`,`city_id`,`customer_code`,`customer_name`,`customer_tax_no`,`customer_address`,`customer_email`,`customer_fax_number`,`customer_contact_person`,`customer_payment_terms`,`customer_remark`,`debt_limit`,`amount_debt`,`remaining_limit`,`from_store`,`data_state`,`updated_id`,`created_id`,`created_at`,`updated_at`,`data_dump`) values
+insert  into `core_customer`(`customer_id`,`province_id`,`city_id`,`customer_code`,`customer_name`,`customer_tax_no`,`customer_address`,`customer_email`,`customer_fax_number`,`customer_contact_person`,`customer_payment_terms`,`customer_remark`,`debt_limit`,`amount_debt`,`remaining_limit`,`from_store`,`data_state`,`updated_id`,`created_id`,`created_at`,`updated_at`,`data_dump`) values 
 (180,67,976,NULL,'PT . PEMBELI',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,3,3,'2025-02-05 05:23:46','2025-02-05 05:39:45',NULL),
 (181,62,936,NULL,'nn',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,3,'2025-02-05 07:35:39','2025-02-05 07:35:39',NULL),
 (182,62,936,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,3,'2025-02-06 04:45:53','2025-02-06 04:45:53',NULL),
@@ -2108,7 +2108,7 @@ CREATE TABLE `core_expedition` (
 
 /*Data for the table `core_expedition` */
 
-insert  into `core_expedition`(`expedition_id`,`expedition_code`,`expedition_name`,`expedition_route`,`expedition_address`,`expedition_city`,`expedition_home_phone`,`expedition_mobile_phone1`,`expedition_mobile_phone2`,`expedition_fax_number`,`expedition_email`,`expedition_person_in_charge`,`expedition_status`,`expedition_remark`,`expedition_acct_invoice`,`expedition_acct_payable`,`expedition_acct_claim`,`expedition_acct_receivable`,`expedition_token`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+insert  into `core_expedition`(`expedition_id`,`expedition_code`,`expedition_name`,`expedition_route`,`expedition_address`,`expedition_city`,`expedition_home_phone`,`expedition_mobile_phone1`,`expedition_mobile_phone2`,`expedition_fax_number`,`expedition_email`,`expedition_person_in_charge`,`expedition_status`,`expedition_remark`,`expedition_acct_invoice`,`expedition_acct_payable`,`expedition_acct_claim`,`expedition_acct_receivable`,`expedition_token`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (11,'JNE','JNE EXPRESS','NASIONAL','JL KUMUDASMORO',1048,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,0,0,0,0,NULL,0,3,'2022-01-10 04:16:02','2023-08-08 04:12:18'),
 (12,'TDP','TRIADIPA','NASIONAL','JL PUCANG GADING',1048,NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,0,0,0,0,NULL,0,3,'2022-01-13 05:32:26','2023-08-08 04:13:11'),
 (13,'SPT','SAPTA','NASIONAL','JL MUARA BERES',1014,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,NULL,0,75,'2023-08-08 04:13:42','2023-08-08 04:13:42'),
@@ -2132,7 +2132,7 @@ CREATE TABLE `core_grade` (
 
 /*Data for the table `core_grade` */
 
-insert  into `core_grade`(`grade_id`,`grade_name`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+insert  into `core_grade`(`grade_id`,`grade_name`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (1,'BBB',0,3,'2023-02-14 03:06:58','2023-06-23 10:52:21'),
 (16,'SS',0,3,'2022-01-04 03:09:40','2023-06-23 10:52:21'),
 (17,'S',0,3,'2022-01-04 03:09:43','2023-06-23 10:52:21'),
@@ -2170,7 +2170,7 @@ CREATE TABLE `core_package` (
 
 /*Data for the table `core_package` */
 
-insert  into `core_package`(`package_id`,`package_name`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+insert  into `core_package`(`package_id`,`package_name`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (1,'PLASTIK BAL',0,3,'2022-01-26 00:30:51','2023-06-23 10:52:21');
 
 /*Table structure for table `core_project` */
@@ -2198,7 +2198,7 @@ CREATE TABLE `core_project` (
 
 /*Data for the table `core_project` */
 
-insert  into `core_project`(`project_id`,`branch_id`,`project_type_id`,`project_category_id`,`customer_id`,`project_code`,`project_name`,`project_tender`,`project_remark`,`project_date`,`project_status`,`data_state`,`created_id`,`created_on`,`last_update`) values
+insert  into `core_project`(`project_id`,`branch_id`,`project_type_id`,`project_category_id`,`customer_id`,`project_code`,`project_name`,`project_tender`,`project_remark`,`project_date`,`project_status`,`data_state`,`created_id`,`created_on`,`last_update`) values 
 (1,0,0,0,0,'','',0.00,NULL,NULL,'0',0,0,NULL,'2023-07-24 13:58:27');
 
 /*Table structure for table `core_project_category` */
@@ -2234,7 +2234,7 @@ CREATE TABLE `core_province` (
 
 /*Data for the table `core_province` */
 
-insert  into `core_province`(`province_id`,`province_code`,`province_name`,`province_no`,`data_state`) values
+insert  into `core_province`(`province_id`,`province_code`,`province_name`,`province_no`,`data_state`) values 
 (62,'','Bali','',0),
 (63,'','Bangka Belitung','',0),
 (64,'','Banten','',0),
@@ -2310,13 +2310,15 @@ CREATE TABLE `core_supplier` (
   KEY `FK_core_supplier_province_id` (`province_id`),
   KEY `FK_core_supplier_city_id` (`city_id`),
   KEY `FK_core_supplier_branch_id` (`branch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
 
 /*Data for the table `core_supplier` */
 
-insert  into `core_supplier`(`supplier_id`,`branch_id`,`province_id`,`city_id`,`supplier_code`,`supplier_name`,`supplier_id_number`,`supplier_address`,`supplier_city`,`supplier_home_phone`,`supplier_mobile_phone1`,`supplier_mobile_phone2`,`supplier_fax_number`,`supplier_email`,`supplier_contact_person`,`supplier_bank_acct_name`,`supplier_bank_acct_no`,`supplier_tax_no`,`supplier_npwp_no`,`supplier_npwp_address`,`supplier_payment_terms`,`supplier_status`,`supplier_remark`,`advance_account_id`,`amount_debt`,`giro_account_id`,`payable_account_id`,`created_id`,`created_at`,`data_state`,`updated_at`) values
+insert  into `core_supplier`(`supplier_id`,`branch_id`,`province_id`,`city_id`,`supplier_code`,`supplier_name`,`supplier_id_number`,`supplier_address`,`supplier_city`,`supplier_home_phone`,`supplier_mobile_phone1`,`supplier_mobile_phone2`,`supplier_fax_number`,`supplier_email`,`supplier_contact_person`,`supplier_bank_acct_name`,`supplier_bank_acct_no`,`supplier_tax_no`,`supplier_npwp_no`,`supplier_npwp_address`,`supplier_payment_terms`,`supplier_status`,`supplier_remark`,`advance_account_id`,`amount_debt`,`giro_account_id`,`payable_account_id`,`created_id`,`created_at`,`data_state`,`updated_at`) values 
 (1,1,71,1048,'','Pabrik',NULL,'Jl. Gedong Songo Timur No.1','','(024) 7604307',NULL,NULL,NULL,NULL,NULL,'Mandiri','1234567',NULL,'1',NULL,NULL,0,NULL,0,0,0,0,74,'2023-06-24 03:54:36',0,'2024-12-23 06:49:04'),
-(2,1,71,1055,'','PT . PABRIK',NULL,'SOLO','','0124242',NULL,NULL,NULL,NULL,NULL,'','',NULL,NULL,NULL,NULL,0,NULL,0,0,0,0,3,'2025-02-05 04:51:40',0,'2025-02-05 04:51:40');
+(2,1,71,1055,'','PT . PABRIK',NULL,'SOLO','','0124242',NULL,NULL,NULL,NULL,NULL,'','',NULL,NULL,NULL,NULL,0,NULL,0,0,0,0,3,'2025-02-05 04:51:40',0,'2025-02-05 04:51:40'),
+(3,1,71,1025,'','Ikhsan','123','Bakaran RT 01/06','','08895742234','08895742234','08895742234','123','ikhsansetyo05@gmail.com','ikhsansetyo05','Ikhsan','1234674747','123','123','Bakaran RT 01/06',0,0,'W',0,0,0,0,3,'2025-02-10 06:59:52',1,'2025-02-10 07:00:04'),
+(4,1,71,1025,'','Ikhsan','123','Bakaran RT 01/06','','08895742234','08895742234','08895742234','123','ikhsansetyo05@gmail.com','ikhsansetyo05','Ikhsan','1234674747','123','123','Bakaran RT 01/06',0,0,'W',0,0,0,0,3,'2025-02-10 07:19:21',1,'2025-02-10 07:19:38');
 
 /*Table structure for table `failed_jobs` */
 
@@ -2376,7 +2378,7 @@ CREATE TABLE `inv_goods_received_note` (
 
 /*Data for the table `inv_goods_received_note` */
 
-insert  into `inv_goods_received_note`(`goods_received_note_id`,`purchase_order_id`,`supplier_id`,`warehouse_id`,`goods_received_note_no`,`goods_received_note_date`,`goods_received_note_expired_date`,`goods_received_note_remark`,`goods_received_note_status_invoice`,`receipt_image`,`delivery_note_no`,`faktur_no`,`subtotal_item`,`item_type`,`data_state`,`voided_remark`,`voided_id`,`voided_at`,`created_id`,`created_at`,`updated_at`) values
+insert  into `inv_goods_received_note`(`goods_received_note_id`,`purchase_order_id`,`supplier_id`,`warehouse_id`,`goods_received_note_no`,`goods_received_note_date`,`goods_received_note_expired_date`,`goods_received_note_remark`,`goods_received_note_status_invoice`,`receipt_image`,`delivery_note_no`,`faktur_no`,`subtotal_item`,`item_type`,`data_state`,`voided_remark`,`voided_id`,`voided_at`,`created_id`,`created_at`,`updated_at`) values 
 (1,2,1,1,'0001/IGRN/II/2025','2025-02-05',NULL,NULL,0,'',NULL,NULL,20,0,0,NULL,0,NULL,3,'2025-02-05 08:04:06','2025-02-05 08:04:06'),
 (2,3,1,1,'0002/IGRN/II/2025','2025-02-05',NULL,NULL,0,'',NULL,NULL,100,0,0,NULL,0,NULL,3,'2025-02-05 08:25:00','2025-02-05 08:25:00');
 
@@ -2416,7 +2418,7 @@ CREATE TABLE `inv_goods_received_note_item` (
 
 /*Data for the table `inv_goods_received_note_item` */
 
-insert  into `inv_goods_received_note_item`(`goods_received_note_item_id`,`goods_received_note_id`,`purchase_order_id`,`purchase_order_item_id`,`item_category_id`,`item_type_id`,`item_unit_id`,`item_stock_id`,`quantity`,`quantity_received`,`data_state`,`voided_id`,`voided_at`,`created_id`,`created_at`,`updated_at`) values
+insert  into `inv_goods_received_note_item`(`goods_received_note_item_id`,`goods_received_note_id`,`purchase_order_id`,`purchase_order_item_id`,`item_category_id`,`item_type_id`,`item_unit_id`,`item_stock_id`,`quantity`,`quantity_received`,`data_state`,`voided_id`,`voided_at`,`created_id`,`created_at`,`updated_at`) values 
 (1,1,2,1,1,1,10,0,20,20,0,0,NULL,3,'2025-02-05 08:04:06','2025-02-05 08:04:06'),
 (2,2,3,2,1,1,10,0,100,100,0,0,NULL,3,'2025-02-05 08:25:00','2025-02-05 08:25:00');
 
@@ -2494,7 +2496,7 @@ CREATE TABLE `inv_item_category` (
 
 /*Data for the table `inv_item_category` */
 
-insert  into `inv_item_category`(`item_category_id`,`item_category_name`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+insert  into `inv_item_category`(`item_category_id`,`item_category_name`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (1,'Barang',0,3,'0000-00-00 00:00:00','2023-08-04 09:18:38');
 
 /*Table structure for table `inv_item_old` */
@@ -2561,7 +2563,7 @@ CREATE TABLE `inv_item_stock` (
 
 /*Data for the table `inv_item_stock` */
 
-insert  into `inv_item_stock`(`item_stock_id`,`goods_received_note_id`,`goods_received_note_item_id`,`item_stock_date`,`purchase_order_item_id`,`warehouse_id`,`purchase_order_no`,`buyers_acknowledgment_no`,`no_retur_barang`,`nota_retur_pajak`,`item_category_id`,`item_type_id`,`item_id`,`item_unit_id`,`category`,`barang`,`satuan`,`item_total`,`item_unit_cost`,`item_unit_total`,`item_unit_price`,`item_unit_id_default`,`item_default_quantity_unit`,`quantity_unit`,`item_weight_default`,`item_weight_unit`,`package_id`,`package_total`,`package_unit_id`,`package_price`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+insert  into `inv_item_stock`(`item_stock_id`,`goods_received_note_id`,`goods_received_note_item_id`,`item_stock_date`,`purchase_order_item_id`,`warehouse_id`,`purchase_order_no`,`buyers_acknowledgment_no`,`no_retur_barang`,`nota_retur_pajak`,`item_category_id`,`item_type_id`,`item_id`,`item_unit_id`,`category`,`barang`,`satuan`,`item_total`,`item_unit_cost`,`item_unit_total`,`item_unit_price`,`item_unit_id_default`,`item_default_quantity_unit`,`quantity_unit`,`item_weight_default`,`item_weight_unit`,`package_id`,`package_total`,`package_unit_id`,`package_price`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (1,0,0,'2024-12-13',0,1,'','','','',1,1,0,10,'','','',1320,1000,0,0,10,0,200,0,'',0,0,0,0,0,0,'2024-12-13','2025-02-05 08:25:00'),
 (2,0,0,'2024-12-13',0,1,'','','','',1,2,0,22,'','','',5000,1000,0,0,22,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2025-01-30 07:13:27'),
 (3,0,0,'2024-12-13',0,1,'','','','',1,3,0,10,'','','',100,1000,0,0,10,0,0,0,'',0,0,0,0,0,0,'2024-12-13','2025-02-05 04:39:33'),
@@ -2972,7 +2974,7 @@ CREATE TABLE `inv_item_stock_card` (
 
 /*Data for the table `inv_item_stock_card` */
 
-insert  into `inv_item_stock_card`(`item_stock_card_id`,`item_stock_id`,`section_id`,`item_category_id`,`item_type_id`,`warehouse_id`,`supplier_id`,`item_unit_id`,`item_stock_type`,`item_batch_number`,`item_color`,`item_size`,`transaction_id`,`transaction_type`,`transaction_code`,`transaction_date`,`opening_balance`,`opening_balance_unfinished`,`item_stock_card_in`,`item_stock_card_out`,`item_unit_default_quantity`,`last_balance`,`last_balance_unfinished`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+insert  into `inv_item_stock_card`(`item_stock_card_id`,`item_stock_id`,`section_id`,`item_category_id`,`item_type_id`,`warehouse_id`,`supplier_id`,`item_unit_id`,`item_stock_type`,`item_batch_number`,`item_color`,`item_size`,`transaction_id`,`transaction_type`,`transaction_code`,`transaction_date`,`opening_balance`,`opening_balance_unfinished`,`item_stock_card_in`,`item_stock_card_out`,`item_unit_default_quantity`,`last_balance`,`last_balance_unfinished`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (1,1,0,0,1,1,0,10,0,'','',0,2,1,'SDN-2','2025-02-05',0,0,0,20,0,-20,0,0,NULL,'2025-02-05 14:47:06','2025-02-05 14:47:06'),
 (2,1,0,1,1,1,0,10,0,'','',0,1,1,'INVT_GDS_RCV_NOTE','2025-02-05',-20,0,20,0,0,0,0,0,NULL,'2025-02-05 15:04:06','2025-02-05 15:04:06'),
 (3,1,0,1,1,1,0,10,0,'','',0,2,1,'INVT_GDS_RCV_NOTE','2025-02-05',0,0,100,0,0,100,0,0,NULL,'2025-02-05 15:25:00','2025-02-05 15:25:00');
@@ -3089,7 +3091,7 @@ CREATE TABLE `inv_item_type` (
 
 /*Data for the table `inv_item_type` */
 
-insert  into `inv_item_type`(`item_type_id`,`item_category_id`,`item_type_name`,`item_type_expired_time`,`item_package_status`,`item_unit_1`,`item_quantity_default_1`,`item_weight_1`,`item_unit_2`,`item_quantity_default_2`,`item_weight_2`,`item_unit_3`,`item_quantity_default_3`,`item_weight_3`,`purchase_account_id`,`purchase_return_account_id`,`purchase_discount_account_id`,`sales_account_id`,`sales_return_account_id`,`sales_discount_account_id`,`inv_account_id`,`inv_return_account_id`,`inv_discount_account_id`,`hpp_account_id`,`hpp_amount`,`data_state`,`created_id`,`created_at`,`updated_at`,`dump`) values
+insert  into `inv_item_type`(`item_type_id`,`item_category_id`,`item_type_name`,`item_type_expired_time`,`item_package_status`,`item_unit_1`,`item_quantity_default_1`,`item_weight_1`,`item_unit_2`,`item_quantity_default_2`,`item_weight_2`,`item_unit_3`,`item_quantity_default_3`,`item_weight_3`,`purchase_account_id`,`purchase_return_account_id`,`purchase_discount_account_id`,`sales_account_id`,`sales_return_account_id`,`sales_discount_account_id`,`inv_account_id`,`inv_return_account_id`,`inv_discount_account_id`,`hpp_account_id`,`hpp_amount`,`data_state`,`created_id`,`created_at`,`updated_at`,`dump`) values 
 (1,1,'1 MPA PSI              ( BU LUSI )',0,0,10,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','DUS/PCS'),
 (2,1,'12PC DOUBLE OPEN END WRENCH SET ( GAAA1206 )',0,0,22,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','PC'),
 (3,1,'2.5 MPA PSI              ( BU LUSI )',0,0,10,1,1,NULL,1,'','',1,'',0,0,0,0,0,0,0,0,0,0,0,0,0,'2024-12-13','2024-12-13 16:05:43','DUS/PCS'),
@@ -3451,7 +3453,7 @@ CREATE TABLE `inv_item_unit` (
 
 /*Data for the table `inv_item_unit` */
 
-insert  into `inv_item_unit`(`item_unit_id`,`item_unit_code`,`item_unit_name`,`item_unit_default_quantity`,`item_unit_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+insert  into `inv_item_unit`(`item_unit_id`,`item_unit_code`,`item_unit_name`,`item_unit_default_quantity`,`item_unit_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (1,'(1 BOX=12 PC)','(1 BOX=12 PC)',0,'(1 BOX=12 PC)',0,3,'0000-00-00 00:00:00','0000-00-00 00:00:00'),
 (2,'(1 BX= 10 PC)','(1 BX= 10 PC)',0,'(1 BX= 10 PC)',0,3,'0000-00-00 00:00:00','2023-08-05 21:45:16'),
 (3,'1 BOX = 6 PSG','1 BOX = 6 PSG',0,'1 BOX = 6 PSG',0,3,'0000-00-00 00:00:00','2023-08-05 21:45:28'),
@@ -3525,7 +3527,7 @@ CREATE TABLE `inv_warehouse` (
 
 /*Data for the table `inv_warehouse` */
 
-insert  into `inv_warehouse`(`warehouse_id`,`warehouse_location_id`,`warehouse_code`,`warehouse_type`,`warehouse_name`,`warehouse_address`,`warehouse_phone`,`warehouse_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+insert  into `inv_warehouse`(`warehouse_id`,`warehouse_location_id`,`warehouse_code`,`warehouse_type`,`warehouse_name`,`warehouse_address`,`warehouse_phone`,`warehouse_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (1,6,'GDRS','1','GUDANG READY STOCK','Jln. Gatot Subroto','0897875559','Gudang untuk barang ready stock',0,3,'2022-01-07 01:16:16','2025-01-09 09:52:05');
 
 /*Table structure for table `inv_warehouse_in` */
@@ -3590,7 +3592,7 @@ CREATE TABLE `inv_warehouse_in_type` (
 
 /*Data for the table `inv_warehouse_in_type` */
 
-insert  into `inv_warehouse_in_type`(`warehouse_in_type_id`,`warehouse_in_type_name`,`warehouse_in_type_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+insert  into `inv_warehouse_in_type`(`warehouse_in_type_id`,`warehouse_in_type_name`,`warehouse_in_type_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (1,'Return Barang','Barang Reject',0,3,'2023-02-27 04:59:55','2023-06-23 10:52:21');
 
 /*Table structure for table `inv_warehouse_location` */
@@ -3613,7 +3615,7 @@ CREATE TABLE `inv_warehouse_location` (
 
 /*Data for the table `inv_warehouse_location` */
 
-insert  into `inv_warehouse_location`(`warehouse_location_id`,`warehouse_location_code`,`province_id`,`city_id`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+insert  into `inv_warehouse_location`(`warehouse_location_id`,`warehouse_location_code`,`province_id`,`city_id`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (6,'SMG',71,1048,0,3,'2023-02-27 06:40:33','2023-06-23 10:52:21');
 
 /*Table structure for table `inv_warehouse_out` */
@@ -3678,7 +3680,7 @@ CREATE TABLE `inv_warehouse_out_type` (
 
 /*Data for the table `inv_warehouse_out_type` */
 
-insert  into `inv_warehouse_out_type`(`warehouse_out_type_id`,`warehouse_out_type_name`,`warehouse_out_type_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+insert  into `inv_warehouse_out_type`(`warehouse_out_type_id`,`warehouse_out_type_name`,`warehouse_out_type_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (4,'Waste','Barang Busuk',1,3,'2022-01-04 03:18:50','2023-06-23 10:52:22'),
 (5,'PRODUKSI','produksi',1,3,'2022-02-08 06:48:10','2023-06-23 10:52:22'),
 (6,'Antimo Anak Jeruk','Terjual',0,3,'2023-03-01 09:34:04','2023-06-23 10:52:22');
@@ -3824,7 +3826,7 @@ CREATE TABLE `inv_warehouse_transfer_type` (
 
 /*Data for the table `inv_warehouse_transfer_type` */
 
-insert  into `inv_warehouse_transfer_type`(`warehouse_transfer_type_id`,`warehouse_transfer_type_name`,`warehouse_transfer_type_remark`,`data_state`,`created_id`,`created_at`,`deleted_id`,`deleted_at`,`updated_at`) values
+insert  into `inv_warehouse_transfer_type`(`warehouse_transfer_type_id`,`warehouse_transfer_type_name`,`warehouse_transfer_type_remark`,`data_state`,`created_id`,`created_at`,`deleted_id`,`deleted_at`,`updated_at`) values 
 (9,'Waste','Barang Busuk',1,3,'2022-01-04 03:18:20',0,NULL,'2023-06-23 10:52:22'),
 (10,'READY SMG','PRODUK BERADA DI SEMARANG SIAP DIKIRIM KE PEMBELI',0,3,'2022-01-07 13:11:54',0,NULL,'2023-12-27 09:42:31');
 
@@ -3856,7 +3858,7 @@ CREATE TABLE `migration_accounts` (
 
 /*Data for the table `migration_accounts` */
 
-insert  into `migration_accounts`(`id`,`account_id`,`company_id`,`account_code`,`account_name`,`account_group`,`account_suspended`,`account_default_status`,`account_remark`,`account_status`,`account_token`,`parent_account_status`,`account_type_id`,`data_state`,`created_id`,`updated_id`,`created_at`,`updated_at`) values
+insert  into `migration_accounts`(`id`,`account_id`,`company_id`,`account_code`,`account_name`,`account_group`,`account_suspended`,`account_default_status`,`account_remark`,`account_status`,`account_token`,`parent_account_status`,`account_type_id`,`data_state`,`created_id`,`updated_id`,`created_at`,`updated_at`) values 
 (1,'1',2,'100','A K T I V A','100',0,0,NULL,0,NULL,0,0,0,55,55,'2025-01-28 06:14:07','2025-01-28 06:14:07'),
 (2,'2',2,'101.01','AKTIVA LANCAR','100',0,0,NULL,0,NULL,0,0,0,55,55,'2025-01-28 06:14:07','2025-01-28 06:14:07'),
 (3,'3',2,'101.01.01','Kas dan Setara Kas','101.01',0,0,NULL,0,NULL,0,0,0,55,55,'2025-01-28 06:14:07','2025-01-28 06:14:07'),
@@ -3954,7 +3956,7 @@ CREATE TABLE `migration_balance_sheets` (
 
 /*Data for the table `migration_balance_sheets` */
 
-insert  into `migration_balance_sheets`(`id`,`balance_sheet_report_id`,`company_id`,`report_no`,`account_id1`,`account_code1`,`account_name1`,`account_id2`,`account_code2`,`account_name2`,`report_formula1`,`report_operator1`,`report_type1`,`report_tab1`,`report_bold1`,`report_formula2`,`report_operator2`,`report_type2`,`report_tab2`,`report_bold2`,`report_formula3`,`report_operator3`,`balance_report_type`,`balance_report_type1`,`data_state`,`created_id`,`created_on`,`last_update`,`created_at`,`updated_at`) values
+insert  into `migration_balance_sheets`(`id`,`balance_sheet_report_id`,`company_id`,`report_no`,`account_id1`,`account_code1`,`account_name1`,`account_id2`,`account_code2`,`account_name2`,`report_formula1`,`report_operator1`,`report_type1`,`report_tab1`,`report_bold1`,`report_formula2`,`report_operator2`,`report_type2`,`report_tab2`,`report_bold2`,`report_formula3`,`report_operator3`,`balance_report_type`,`balance_report_type1`,`data_state`,`created_id`,`created_on`,`last_update`,`created_at`,`updated_at`) values 
 (1,1,2,'1',1,'100','A K T I V A',14,'200','P A S I V A ',NULL,NULL,'1',1,1,NULL,NULL,'1',1,1,'0','0','1','1',0,55,'2025-01-29 15:29:34','2025-01-29 15:29:34','2025-01-30 07:47:28','2025-01-30 07:47:28'),
 (2,2,2,'2',2,'101.01','AKTIVA LANCAR',15,'201.01','HUTANG LANCAR',NULL,NULL,'3',2,1,NULL,NULL,'2',2,1,'0','0','1','1',0,55,'2025-01-29 15:29:34','2025-01-29 15:29:34','2025-01-30 07:47:28','2025-01-30 07:47:28'),
 (3,3,2,'3',3,'101.01.01','Kas dan Setara Kas',16,'201.01.01','Hutang Dagang',NULL,NULL,'3',3,0,NULL,NULL,'3',3,0,'0','0','1','1',0,55,'2025-01-29 15:29:34','2025-01-29 15:29:34','2025-01-30 07:47:28','2025-01-30 07:47:28'),
@@ -4034,7 +4036,7 @@ CREATE TABLE `migration_profit_losses` (
 
 /*Data for the table `migration_profit_losses` */
 
-insert  into `migration_profit_losses`(`profit_loss_report_id`,`company_id`,`format_id`,`report_no`,`account_type_id`,`account_id`,`account_code`,`account_name`,`report_formula`,`report_operator`,`report_type`,`report_tab`,`report_bold`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+insert  into `migration_profit_losses`(`profit_loss_report_id`,`company_id`,`format_id`,`report_no`,`account_type_id`,`account_id`,`account_code`,`account_name`,`report_formula`,`report_operator`,`report_type`,`report_tab`,`report_bold`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (1,2,1,1,2,23,'300','PENJUALAN',NULL,NULL,'3','1',1,'0',55,'2025-01-30 06:48:02','2025-01-30 06:48:02'),
 (2,2,1,2,2,0,'0',NULL,NULL,NULL,'0','0',0,'0',55,'2025-01-30 06:48:02','2025-01-30 06:48:02'),
 (3,2,1,3,2,24,'300.01','HARGA POKOK PENJUALAN :',NULL,NULL,'1','1',1,'0',55,'2025-01-30 06:48:02','2025-01-30 06:48:02'),
@@ -4089,7 +4091,7 @@ CREATE TABLE `migrations` (
 
 /*Data for the table `migrations` */
 
-insert  into `migrations`(`id`,`migration`,`batch`) values
+insert  into `migrations`(`id`,`migration`,`batch`) values 
 (1,'2014_10_12_000000_create_users_table',1),
 (2,'2014_10_12_100000_create_password_resets_table',1),
 (3,'2019_08_19_000000_create_failed_jobs_table',1),
@@ -4128,7 +4130,7 @@ CREATE TABLE `password_resets` (
 
 /*Data for the table `password_resets` */
 
-insert  into `password_resets`(`email`,`token`,`created_at`) values
+insert  into `password_resets`(`email`,`token`,`created_at`) values 
 ('administrator@gmail.com','$2y$10$5POYOZVw/qOdocfjS2H1x.4rnpa9gOz2KJNzTLY1awGxW8nIihLoe','2021-09-14 08:11:09');
 
 /*Table structure for table `personal_access_tokens` */
@@ -4152,7 +4154,7 @@ CREATE TABLE `personal_access_tokens` (
 
 /*Data for the table `personal_access_tokens` */
 
-insert  into `personal_access_tokens`(`id`,`tokenable_type`,`tokenable_id`,`name`,`token`,`abilities`,`last_used_at`,`created_at`,`updated_at`) values
+insert  into `personal_access_tokens`(`id`,`tokenable_type`,`tokenable_id`,`name`,`token`,`abilities`,`last_used_at`,`created_at`,`updated_at`) values 
 (41,'App\\Models\\User',3,'token-name','508636b02eaf5c09cbc9aa4777c7794edaf13dc45f6476c5c06047e2825828be','[\"*\"]','2023-02-10 07:17:54','2023-02-10 07:11:29','2023-02-10 07:17:54'),
 (42,'App\\Models\\User',3,'token-name','e4951cc3fed0cd316e8709317b22182d8c735892f12b3708478a9c0214e60bbf','[\"*\"]','2023-02-10 07:21:53','2023-02-10 07:18:11','2023-02-10 07:21:53'),
 (43,'App\\Models\\User',3,'token-name','79326c33563ab28f18170d7462079df46c634eeef63d1989ec4bd3fe81d5d93d','[\"*\"]','2023-02-10 07:32:24','2023-02-10 07:31:06','2023-02-10 07:32:24'),
@@ -4214,7 +4216,7 @@ CREATE TABLE `preference_company` (
 
 /*Data for the table `preference_company` */
 
-insert  into `preference_company`(`company_id`,`company_name`,`company_address`,`company_phone_number`,`company_mobile_number`,`company_email`,`company_website`,`company_tax_number`,`company_account_receivable_due_date`,`company_account_payable_due_date`,`company_logo`,`CDBO_no`,`distribution_no`,`account_inventory_trade_id`,`account_vat_in_id`,`account_vat_out_id`,`account_payable_id`,`account_bank_or_cash_id`,`account_pdp_id`,`account_bank_cash_hpp_id`,`account_receivable_id`,`account_shortover_id`,`account_sales_id`,`ppn_amount_in`,`ppn_amount_out`,`sales_discount_id`,`purchase_discount_id`,`pharmacist_license_no`,`account_sales_return_id`,`account_hpp_id`,`account_bank_id`,`account_cash_id`,`account_cash_on_way_id`,`account_delivery_id`,`account_expense_id`,`created_at`,`updated_at`) values
+insert  into `preference_company`(`company_id`,`company_name`,`company_address`,`company_phone_number`,`company_mobile_number`,`company_email`,`company_website`,`company_tax_number`,`company_account_receivable_due_date`,`company_account_payable_due_date`,`company_logo`,`CDBO_no`,`distribution_no`,`account_inventory_trade_id`,`account_vat_in_id`,`account_vat_out_id`,`account_payable_id`,`account_bank_or_cash_id`,`account_pdp_id`,`account_bank_cash_hpp_id`,`account_receivable_id`,`account_shortover_id`,`account_sales_id`,`ppn_amount_in`,`ppn_amount_out`,`sales_discount_id`,`purchase_discount_id`,`pharmacist_license_no`,`account_sales_return_id`,`account_hpp_id`,`account_bank_id`,`account_cash_id`,`account_cash_on_way_id`,`account_delivery_id`,`account_expense_id`,`created_at`,`updated_at`) values 
 (2,'Tripta Tri Tunggal','PERUM. BUMI WONOREJO - KARANGANYAR','( 024 ) 76623702','08712813691','TriptaTriTunggal@gmail.com','www.TriptaTriTunggal.id','',0,0,NULL,'CDOB1827/S/4-3306/09/2020','FP.01.04/IV/0118-/2019',79,99,48,17,0,82,0,6,4,308,11,11,0,0,'A1111111',340,356,0,4,4,9,0,NULL,'2025-01-29 14:59:09');
 
 /*Table structure for table `preference_transaction_module` */
@@ -4237,7 +4239,7 @@ CREATE TABLE `preference_transaction_module` (
 
 /*Data for the table `preference_transaction_module` */
 
-insert  into `preference_transaction_module`(`transaction_module_id`,`transaction_module_name`,`transaction_module_code`,`transaction_id`,`transaction_controller`,`status`,`created_by`,`data_state`,`created_at`,`updated_at`) values
+insert  into `preference_transaction_module`(`transaction_module_id`,`transaction_module_name`,`transaction_module_code`,`transaction_id`,`transaction_controller`,`status`,`created_by`,`data_state`,`created_at`,`updated_at`) values 
 (1,'Supplier','SP',0,'supplier','0','','0','0000-00-00 00:00:00','2023-06-23 10:52:22'),
 (2,'Department','DP',0,'department','0','','0','0000-00-00 00:00:00','2023-06-23 10:52:22'),
 (3,'Location','LC',0,'location','0','','0','0000-00-00 00:00:00','2023-06-23 10:52:22'),
@@ -4450,7 +4452,7 @@ CREATE TABLE `purchase_order` (
 
 /*Data for the table `purchase_order` */
 
-insert  into `purchase_order`(`purchase_order_id`,`supplier_id`,`warehouse_id`,`purchase_order_no`,`purchase_order_date`,`payment_method`,`purchase_order_shipment_date`,`purchase_order_payment_terms`,`purchase_order_remark`,`total_item`,`total_received_item`,`subtotal_amount`,`discount_percentage`,`discount_amount`,`ppn_in_percentage`,`ppn_in_amount`,`subtotal_after_ppn_in`,`tax_percentage`,`tax_amount`,`total_amount`,`down_payment_amount`,`down_payment_amount_balance`,`last_balance_amount`,`purchase_order_type_id`,`purchase_order_status`,`purchase_invoice_status`,`item_type`,`branch_id`,`approved`,`approved_id`,`approved_on`,`approved_remark`,`closed_remark`,`voided_id`,`voided_on`,`voided_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+insert  into `purchase_order`(`purchase_order_id`,`supplier_id`,`warehouse_id`,`purchase_order_no`,`purchase_order_date`,`payment_method`,`purchase_order_shipment_date`,`purchase_order_payment_terms`,`purchase_order_remark`,`total_item`,`total_received_item`,`subtotal_amount`,`discount_percentage`,`discount_amount`,`ppn_in_percentage`,`ppn_in_amount`,`subtotal_after_ppn_in`,`tax_percentage`,`tax_amount`,`total_amount`,`down_payment_amount`,`down_payment_amount_balance`,`last_balance_amount`,`purchase_order_type_id`,`purchase_order_status`,`purchase_invoice_status`,`item_type`,`branch_id`,`approved`,`approved_id`,`approved_on`,`approved_remark`,`closed_remark`,`voided_id`,`voided_on`,`voided_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (2,1,1,'0001/PO/II/2025','2025-02-05','1','2025-02-05',0,NULL,20.00,0.00,0.00,0.00,0.00,11.00,2200.00,22200.00,0.00,0.00,20000.00,0.00,0.00,0.00,0,0,0,0,1,1,0,NULL,NULL,NULL,0,NULL,NULL,0,0,'2025-02-05 07:58:54','2025-02-05 07:58:54'),
 (3,1,1,'0002/PO/II/2025','2025-02-05','2','2025-02-05',0,NULL,100.00,0.00,0.00,0.00,0.00,11.00,11000.00,111000.00,0.00,0.00,100000.00,0.00,0.00,0.00,0,0,0,0,1,1,0,NULL,NULL,NULL,0,NULL,NULL,0,0,'2025-02-05 08:24:23','2025-02-05 08:24:23');
 
@@ -4493,7 +4495,7 @@ CREATE TABLE `purchase_order_item` (
 
 /*Data for the table `purchase_order_item` */
 
-insert  into `purchase_order_item`(`purchase_order_item_id`,`purchase_order_id`,`purchase_requisition_id`,`purchase_requisition_item_id`,`item_category_id`,`item_unit_id`,`item_type_id`,`quantity`,`quantity_outstanding`,`quantity_received`,`quantity_return`,`item_unit_cost`,`subtotal_amount`,`discount_percentage`,`discount_amount`,`subtotal_amount_after_discount`,`purchase_order_item_creassing`,`purchase_order_token`,`data_state`,`created_id`,`created_at`,`voided_id`,`voided_on`,`updated_at`) values
+insert  into `purchase_order_item`(`purchase_order_item_id`,`purchase_order_id`,`purchase_requisition_id`,`purchase_requisition_item_id`,`item_category_id`,`item_unit_id`,`item_type_id`,`quantity`,`quantity_outstanding`,`quantity_received`,`quantity_return`,`item_unit_cost`,`subtotal_amount`,`discount_percentage`,`discount_amount`,`subtotal_amount_after_discount`,`purchase_order_item_creassing`,`purchase_order_token`,`data_state`,`created_id`,`created_at`,`voided_id`,`voided_on`,`updated_at`) values 
 (1,2,0,0,1,10,1,20,0,20,0,1000,20000,NULL,0,0,'','',0,0,'2025-02-05 07:58:54',0,NULL,'2025-02-05 08:04:06'),
 (2,3,0,0,1,10,1,100,0,100,0,1000,100000,0,0,0,'','',0,0,'2025-02-05 08:24:23',0,NULL,'2025-02-05 08:25:00');
 
@@ -4955,7 +4957,7 @@ CREATE TABLE `sales_delivery_note` (
 
 /*Data for the table `sales_delivery_note` */
 
-insert  into `sales_delivery_note`(`sales_delivery_note_id`,`sales_delivery_order_id`,`sales_quotation_id`,`sales_delivery_note_date`,`shipment_planning_id`,`sales_order_id`,`warehouse_id`,`section_id`,`salesman_id`,`customer_id`,`expedition_id`,`sales_delivery_note_cost`,`sales_delivery_note_no`,`ppn_out_amount`,`expedition_receipt_no`,`customer_name`,`customer_address`,`customer_city`,`customer_home_phone`,`customer_mobile_phone1`,`driver_name`,`fleet_police_number`,`purchase_order_no`,`salesman_name`,`sales_delivery_note_status`,`sales_invoice_status`,`sales_delivery_note_remark`,`posted`,`posted_id`,`posted_on`,`voided_id`,`voided_on`,`voided_remark`,`rejected_id`,`rejected_on`,`rejected_remark`,`branch_id`,`return_status`,`pdp_lost_on_expedition_status`,`buyers_acknowledgment_status`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+insert  into `sales_delivery_note`(`sales_delivery_note_id`,`sales_delivery_order_id`,`sales_quotation_id`,`sales_delivery_note_date`,`shipment_planning_id`,`sales_order_id`,`warehouse_id`,`section_id`,`salesman_id`,`customer_id`,`expedition_id`,`sales_delivery_note_cost`,`sales_delivery_note_no`,`ppn_out_amount`,`expedition_receipt_no`,`customer_name`,`customer_address`,`customer_city`,`customer_home_phone`,`customer_mobile_phone1`,`driver_name`,`fleet_police_number`,`purchase_order_no`,`salesman_name`,`sales_delivery_note_status`,`sales_invoice_status`,`sales_delivery_note_remark`,`posted`,`posted_id`,`posted_on`,`voided_id`,`voided_on`,`voided_remark`,`rejected_id`,`rejected_on`,`rejected_remark`,`branch_id`,`return_status`,`pdp_lost_on_expedition_status`,`buyers_acknowledgment_status`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (2,0,1,'2025-02-05',0,0,1,NULL,NULL,180,11,0.00,'00001/3T/SJ/II/2025',NULL,'2222','',NULL,'','','','Daff','JJVJV',NULL,'',0,1,'DD',0,NULL,NULL,0,NULL,NULL,0,NULL,NULL,1,0,NULL,0,0,3,'2025-02-05 07:47:06','2025-02-05 07:50:57');
 
 /*Table structure for table `sales_delivery_note_item` */
@@ -5004,7 +5006,7 @@ CREATE TABLE `sales_delivery_note_item` (
 
 /*Data for the table `sales_delivery_note_item` */
 
-insert  into `sales_delivery_note_item`(`sales_delivery_note_item_id`,`sales_delivery_note_id`,`sales_order_id`,`sales_quotation_item_id`,`sales_order_item_id`,`sales_delivery_order_id`,`sales_delivery_order_item_id`,`section_id`,`warehouse_id`,`supplier_id`,`item_category_id`,`item_id`,`item_type_id`,`item_unit_id`,`item_unit_id_unit`,`quantity`,`quantity_unit`,`item_default_quantity_unit`,`item_weight_unit`,`item_batch_number`,`sales_delivery_note_item_token`,`sales_delivery_note_item_token_void`,`return_item_status`,`data_state`,`item_unit_price`,`subtotal_price`,`hpp_amount`,`hpp_account_id`,`created_id`,`created_at`,`updated_at`) values
+insert  into `sales_delivery_note_item`(`sales_delivery_note_item_id`,`sales_delivery_note_id`,`sales_order_id`,`sales_quotation_item_id`,`sales_order_item_id`,`sales_delivery_order_id`,`sales_delivery_order_item_id`,`section_id`,`warehouse_id`,`supplier_id`,`item_category_id`,`item_id`,`item_type_id`,`item_unit_id`,`item_unit_id_unit`,`quantity`,`quantity_unit`,`item_default_quantity_unit`,`item_weight_unit`,`item_batch_number`,`sales_delivery_note_item_token`,`sales_delivery_note_item_token_void`,`return_item_status`,`data_state`,`item_unit_price`,`subtotal_price`,`hpp_amount`,`hpp_account_id`,`created_id`,`created_at`,`updated_at`) values 
 (1,2,0,1,0,0,0,0,0,0,0,0,1,10,0,'20.00','0.00','1','0',NULL,NULL,NULL,0,0,1000.00,20000.00,0.00,0,3,'2025-02-05 07:47:06','2025-02-05 07:47:06');
 
 /*Table structure for table `sales_delivery_note_item_stock` */
@@ -5259,7 +5261,7 @@ CREATE TABLE `sales_invoice` (
 
 /*Data for the table `sales_invoice` */
 
-insert  into `sales_invoice`(`sales_invoice_id`,`branch_id`,`warehouse_id`,`customer_id`,`sales_quotation_id`,`sales_order_id`,`sales_delivery_note_id`,`collection_method_account_id`,`services_income_id`,`sales_invoice_no`,`sales_invoice_reference_no`,`sales_invoice_date`,`sales_invoice_due_date`,`sales_invoice_remark`,`sales_invoice_status`,`services_income_amount`,`subtotal_item`,`subtotal_amount`,`subtotal_before_discount`,`discount_percentage`,`discount_amount`,`return_status`,`subtotal_after_discount`,`tax_percentage`,`tax_amount`,`goods_received_note_no`,`faktur_tax_no`,`buyers_acknowledgment_id`,`buyers_acknowledgment_no`,`ttf_no`,`kwitansi_status`,`total_amount`,`paid_amount`,`owing_amount`,`shortover_amount`,`last_balance`,`total_discount_amount`,`paid_discount_amount`,`owing_discount_amount`,`shortover_discount_amount`,`discount_last_balance`,`cash_advance_amount`,`change_amount`,`sales_return_amount`,`sales_collection_date`,`sales_invoice_token`,`sales_invoice_token_void`,`voided_id`,`voided_on`,`voided_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+insert  into `sales_invoice`(`sales_invoice_id`,`branch_id`,`warehouse_id`,`customer_id`,`sales_quotation_id`,`sales_order_id`,`sales_delivery_note_id`,`collection_method_account_id`,`services_income_id`,`sales_invoice_no`,`sales_invoice_reference_no`,`sales_invoice_date`,`sales_invoice_due_date`,`sales_invoice_remark`,`sales_invoice_status`,`services_income_amount`,`subtotal_item`,`subtotal_amount`,`subtotal_before_discount`,`discount_percentage`,`discount_amount`,`return_status`,`subtotal_after_discount`,`tax_percentage`,`tax_amount`,`goods_received_note_no`,`faktur_tax_no`,`buyers_acknowledgment_id`,`buyers_acknowledgment_no`,`ttf_no`,`kwitansi_status`,`total_amount`,`paid_amount`,`owing_amount`,`shortover_amount`,`last_balance`,`total_discount_amount`,`paid_discount_amount`,`owing_discount_amount`,`shortover_discount_amount`,`discount_last_balance`,`cash_advance_amount`,`change_amount`,`sales_return_amount`,`sales_collection_date`,`sales_invoice_token`,`sales_invoice_token_void`,`voided_id`,`voided_on`,`voided_remark`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (1,1,1,180,1,0,2,0,0,'00001/3T/INV/II/2025','','2025-02-05','2025-02-06','D',0,0.00,NULL,22200,0,0.00,0,0,20000,0.00,2200.00,NULL,'21212',0,'1','',0,22200,0,22200,0,0,0,0,0,0,0,0,0,0.00,NULL,NULL,NULL,0,NULL,NULL,0,3,'2025-02-05 07:50:57','2025-02-05 07:50:57');
 
 /*Table structure for table `sales_invoice_item` */
@@ -5293,7 +5295,7 @@ CREATE TABLE `sales_invoice_item` (
 
 /*Data for the table `sales_invoice_item` */
 
-insert  into `sales_invoice_item`(`sales_invoice_item_id`,`sales_invoice_id`,`sales_order_id`,`sales_quotation_id`,`sales_quotation_item_id`,`sales_delivery_note_id`,`sales_delivery_note_item_id`,`item_id`,`item_type_id`,`item_unit_id`,`quantity`,`item_unit_price`,`item_unit_price_tax`,`discount_A`,`discount_B`,`subtotal_price_A`,`subtotal_price_B`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+insert  into `sales_invoice_item`(`sales_invoice_item_id`,`sales_invoice_id`,`sales_order_id`,`sales_quotation_id`,`sales_quotation_item_id`,`sales_delivery_note_id`,`sales_delivery_note_item_id`,`item_id`,`item_type_id`,`item_unit_id`,`quantity`,`item_unit_price`,`item_unit_price_tax`,`discount_A`,`discount_B`,`subtotal_price_A`,`subtotal_price_B`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (1,1,NULL,1,1,2,1,0,1,10,20,1000,0,NULL,NULL,20000,NULL,0,3,'2025-02-05 07:50:57','2025-02-05 07:50:57');
 
 /*Table structure for table `sales_order` */
@@ -5491,7 +5493,7 @@ CREATE TABLE `sales_order_type` (
 
 /*Data for the table `sales_order_type` */
 
-insert  into `sales_order_type`(`sales_order_type_id`,`sales_order_type_name`,`data_state`,`created_id`,`created_at`,`updated_at`) values
+insert  into `sales_order_type`(`sales_order_type_id`,`sales_order_type_name`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
 (1,'Kwitansi',0,NULL,NULL,'2023-06-23 10:52:23'),
 (2,'Invoice',0,NULL,NULL,'2023-06-23 10:52:23');
 
@@ -5554,12 +5556,13 @@ CREATE TABLE `sales_quotation` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_quotation_id`),
   KEY `sales_order_id` (`sales_quotation_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_quotation` */
 
-insert  into `sales_quotation`(`sales_quotation_id`,`sales_quotation_type_id`,`purchase_order_customer`,`customer_id`,`salesman_id`,`receipt_image`,`sales_quotation_no`,`sales_quotation_date`,`sales_quotation_due_date`,`sales_quotation_status`,`sales_quotation_over_limit`,`sales_quotation_over_due_status`,`work_order_status`,`purchase_requisition_status`,`sales_quotation_design_status`,`sales_delivery_order_status`,`sales_delivery_note_status`,`customer_credit_limit_balance`,`sales_invoice_status`,`sales_invoice_last_balance`,`sales_quotation_remark`,`sales_quotation_over_remark`,`total_item`,`subtotal_before_discount`,`discount_percentage`,`discount_amount`,`subtotal_after_discount`,`ppn_out_percentage`,`ppn_out_amount`,`subtotal_after_ppn_out`,`sales_shipment_status`,`paid_amount`,`total_amount`,`last_balance`,`counter_edited`,`branch_id`,`data_state`,`created_id`,`created_at`,`approved`,`approved_id`,`approved_on`,`approved_remark`,`closed`,`closed_id`,`closed_on`,`closed_remark`,`voided_id`,`voided_on`,`voided_remark`,`customer_no`,`updated_at`) values
-(1,0,'0',180,0,'','0001/QO/II/2025','2025-02-05','2025-02-05',0,0.00,0,0,0,0,0,1,0.00,0,0.00,NULL,NULL,20.00,0.00,0.00,0.00,20000.00,11.00,2200.00,22200.00,0,0.00,22200.00,0.00,0,1,0,0,'2025-02-05 07:27:10',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2025-02-05 07:47:06');
+insert  into `sales_quotation`(`sales_quotation_id`,`sales_quotation_type_id`,`purchase_order_customer`,`customer_id`,`salesman_id`,`receipt_image`,`sales_quotation_no`,`sales_quotation_date`,`sales_quotation_due_date`,`sales_quotation_status`,`sales_quotation_over_limit`,`sales_quotation_over_due_status`,`work_order_status`,`purchase_requisition_status`,`sales_quotation_design_status`,`sales_delivery_order_status`,`sales_delivery_note_status`,`customer_credit_limit_balance`,`sales_invoice_status`,`sales_invoice_last_balance`,`sales_quotation_remark`,`sales_quotation_over_remark`,`total_item`,`subtotal_before_discount`,`discount_percentage`,`discount_amount`,`subtotal_after_discount`,`ppn_out_percentage`,`ppn_out_amount`,`subtotal_after_ppn_out`,`sales_shipment_status`,`paid_amount`,`total_amount`,`last_balance`,`counter_edited`,`branch_id`,`data_state`,`created_id`,`created_at`,`approved`,`approved_id`,`approved_on`,`approved_remark`,`closed`,`closed_id`,`closed_on`,`closed_remark`,`voided_id`,`voided_on`,`voided_remark`,`customer_no`,`updated_at`) values 
+(1,0,'0',180,0,'','0001/QO/II/2025','2025-02-05','2025-02-05',0,0.00,0,0,0,0,0,1,0.00,0,0.00,NULL,NULL,20.00,0.00,0.00,0.00,20000.00,11.00,2200.00,22200.00,0,0.00,22200.00,0.00,0,1,0,0,'2025-02-05 07:27:10',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2025-02-05 07:47:06'),
+(2,0,'0',181,0,'','0002/QO/II/2025','2025-02-14','2025-02-14',0,0.00,0,0,0,0,0,0,0.00,0,0.00,'yy',NULL,1.00,0.00,0.00,0.00,1000.00,11.00,110.00,1110.00,0,0.00,1110.00,0.00,0,1,0,0,'2025-02-14 06:38:31',1,0,NULL,NULL,0,0,NULL,NULL,0,NULL,NULL,'','2025-02-14 06:38:31');
 
 /*Table structure for table `sales_quotation_item` */
 
@@ -5612,12 +5615,13 @@ CREATE TABLE `sales_quotation_item` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`sales_quotation_item_id`),
   KEY `sales_order_item_id` (`sales_quotation_item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
 
 /*Data for the table `sales_quotation_item` */
 
-insert  into `sales_quotation_item`(`sales_quotation_item_id`,`sales_quotation_id`,`item_category_id`,`item_type_id`,`quantity`,`quantity_delivered`,`quantity_shipped`,`quantity_planned`,`quantity_outstanding`,`quantity_received`,`quantity_ordered`,`quantity_cavity`,`quantity_minimum`,`quantity_resulted`,`sales_quotation_item_status`,`item_substance_price`,`item_unit_id`,`item_unit_price`,`item_unit_price_adds`,`purchase_requisition_status`,`purchase_order_status`,`work_order_status`,`sales_delivery_order_status`,`sales_delivery_note_status`,`sales_invoice_status`,`quantity_minimum_status`,`subtotal_amount`,`subtotal_additional_amount`,`subtotal_item_amount`,`sales_quotation_no`,`sales_quotation_status`,`discount_percentage_item`,`discount_percentage_item_b`,`discount_amount_item`,`discount_amount_item_b`,`subtotal_after_discount_item_a`,`subtotal_after_discount_item_b`,`total_price_after_ppn_amount`,`ppn_amount_item`,`record_id`,`data_state`,`created_id`,`created_at`,`updated_at`) values
-(1,1,1,1,20.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,20.00,0,0.00,10,1000.00,0.00,0,0,0,0,0,0,0,20000.00,0.00,0.00,'',0,NULL,NULL,0.00,NULL,20000.00,NULL,0.00,0.00,0,0,0,'2025-02-05 07:27:10','2025-02-05 07:27:10');
+insert  into `sales_quotation_item`(`sales_quotation_item_id`,`sales_quotation_id`,`item_category_id`,`item_type_id`,`quantity`,`quantity_delivered`,`quantity_shipped`,`quantity_planned`,`quantity_outstanding`,`quantity_received`,`quantity_ordered`,`quantity_cavity`,`quantity_minimum`,`quantity_resulted`,`sales_quotation_item_status`,`item_substance_price`,`item_unit_id`,`item_unit_price`,`item_unit_price_adds`,`purchase_requisition_status`,`purchase_order_status`,`work_order_status`,`sales_delivery_order_status`,`sales_delivery_note_status`,`sales_invoice_status`,`quantity_minimum_status`,`subtotal_amount`,`subtotal_additional_amount`,`subtotal_item_amount`,`sales_quotation_no`,`sales_quotation_status`,`discount_percentage_item`,`discount_percentage_item_b`,`discount_amount_item`,`discount_amount_item_b`,`subtotal_after_discount_item_a`,`subtotal_after_discount_item_b`,`total_price_after_ppn_amount`,`ppn_amount_item`,`record_id`,`data_state`,`created_id`,`created_at`,`updated_at`) values 
+(1,1,1,1,20.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,20.00,0,0.00,10,1000.00,0.00,0,0,0,0,0,0,0,20000.00,0.00,0.00,'',0,NULL,NULL,0.00,NULL,20000.00,NULL,0.00,0.00,0,0,0,'2025-02-05 07:27:10','2025-02-05 07:27:10'),
+(2,2,1,1,1.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,1.00,0,0.00,10,1000.00,0.00,0,0,0,0,0,0,0,1000.00,0.00,0.00,'',0,NULL,NULL,0.00,NULL,1000.00,NULL,0.00,0.00,0,0,0,'2025-02-14 06:38:31','2025-02-14 06:38:31');
 
 /*Table structure for table `sessions` */
 
@@ -5658,7 +5662,7 @@ CREATE TABLE `system_log_user` (
 
 /*Data for the table `system_log_user` */
 
-insert  into `system_log_user`(`user_log_id`,`user_id`,`username`,`id_previllage`,`log_stat`,`class_name`,`pk`,`remark`,`log_time`,`created_at`,`updated_at`) values
+insert  into `system_log_user`(`user_log_id`,`user_id`,`username`,`id_previllage`,`log_stat`,`class_name`,`pk`,`remark`,`log_time`,`created_at`,`updated_at`) values 
 (1,0,'administrator',2141,'1','SalesInvoice.printSalesInvoice','administrator','Print Sales Invoice','2022-02-08 12:56:56','2022-02-08 12:56:56','2023-06-23 10:52:23'),
 (2,0,'administrator',2141,'1','SalesInvoice.printSalesInvoice','administrator','Print Sales Invoice','2022-02-08 13:41:13','2022-02-08 13:41:13','2023-06-23 10:52:23'),
 (3,0,'administrator',2141,'1','SalesInvoice.printSalesInvoice','administrator','Print Sales Invoice','2022-12-24 12:00:23','2022-12-24 12:00:23','2023-06-23 10:52:23'),
@@ -5911,7 +5915,7 @@ CREATE TABLE `system_menu` (
 
 /*Data for the table `system_menu` */
 
-insert  into `system_menu`(`id_menu`,`id`,`type`,`indent_level`,`text`,`image`,`last_update`) values
+insert  into `system_menu`(`id_menu`,`id`,`type`,`indent_level`,`text`,`image`,`last_update`) values 
 ('1','#','folder',1,'Persediaan',NULL,'2023-06-23 10:52:23'),
 ('11','#','folder',2,'Preferensi Produk',NULL,'2023-06-23 10:52:23'),
 ('111','inv-item','file',3,'Barang',NULL,'2023-06-23 10:52:23'),
@@ -6032,7 +6036,7 @@ CREATE TABLE `system_menu_mapping` (
 
 /*Data for the table `system_menu_mapping` */
 
-insert  into `system_menu_mapping`(`menu_mapping_id`,`user_group_level`,`id_menu`,`created_at`,`updated_at`) values
+insert  into `system_menu_mapping`(`menu_mapping_id`,`user_group_level`,`id_menu`,`created_at`,`updated_at`) values 
 (1227,1,'0','2024-10-17 04:38:36','2024-10-17 04:38:36'),
 (2119,2,'1','2025-01-28 08:39:04','2025-01-28 08:39:04'),
 (2120,2,'11','2025-01-28 08:39:04','2025-01-28 08:39:04'),
@@ -6186,7 +6190,7 @@ CREATE TABLE `system_user` (
 
 /*Data for the table `system_user` */
 
-insert  into `system_user`(`user_id`,`user_group_id`,`company_id`,`name`,`branch_id`,`email`,`email_verified_at`,`password`,`remember_token`,`data_state`,`created_at`,`updated_at`) values
+insert  into `system_user`(`user_id`,`user_group_id`,`company_id`,`name`,`branch_id`,`email`,`email_verified_at`,`password`,`remember_token`,`data_state`,`created_at`,`updated_at`) values 
 (3,1,2,'administrator',1,NULL,NULL,'$2y$10$E8BvoK6I2D7CDzz/mjKmE.3LQ4AW4rdcpU1ynbVqXzZCZYEGOcH0O',NULL,0,'2021-09-18 02:14:46','2023-02-06 04:15:25'),
 (4,2,2,'tripta',1,NULL,NULL,'$2y$10$6ahAK9XjGanX0zS7V/5n8e3sWvN.VPtJjE7802XluZ0NsgQPaFyJi',NULL,0,NULL,'2025-01-28 08:40:10');
 
@@ -6212,7 +6216,7 @@ CREATE TABLE `system_user_group` (
 
 /*Data for the table `system_user_group` */
 
-insert  into `system_user_group`(`user_group_id`,`user_group_level`,`user_group_name`,`user_group_token`,`data_state`,`created_id`,`created_at`,`updated_id`,`updated_on`,`deleted_id`,`deleted_on`,`updated_at`) values
+insert  into `system_user_group`(`user_group_id`,`user_group_level`,`user_group_name`,`user_group_token`,`data_state`,`created_id`,`created_at`,`updated_id`,`updated_on`,`deleted_id`,`deleted_on`,`updated_at`) values 
 (1,1,'administrator','',0,0,NULL,0,NULL,0,NULL,'2025-01-28 08:39:16'),
 (2,2,'admin','',0,0,'2025-01-28 08:37:40',0,NULL,0,NULL,'2025-01-28 08:39:04');
 
@@ -6234,7 +6238,7 @@ CREATE TABLE `user_locations` (
 
 /*Data for the table `user_locations` */
 
-insert  into `user_locations`(`id`,`user_id`,`latitude`,`longitude`,`data_state`,`created_at`,`updated_at`,`ip`) values
+insert  into `user_locations`(`id`,`user_id`,`latitude`,`longitude`,`data_state`,`created_at`,`updated_at`,`ip`) values 
 (1,NULL,'-7.5558771','110.8642444',0,'2025-01-22 10:08:52','2025-01-22 10:08:52',NULL),
 (2,NULL,'-7.5558771','110.8642444',0,'2025-01-22 10:10:28','2025-01-22 10:10:28','127.0.0.1'),
 (3,NULL,'-7.6325181','110.9559445',0,'2025-01-28 04:38:12','2025-01-28 04:38:12','127.0.0.1'),
@@ -6255,43 +6259,43 @@ DELIMITER $$
 	DECLARE period 			VARCHAR(20);
 	DECLARE tPeriod			INT;
 	DECLARE nDisbursementNo		VARCHAR(20);
-
-
+	
+	
 	DECLARE nOpeningBalance		DECIMAL(20,2);
 	DECLARE nLastBalance		DECIMAL(20,2);
 	DECLARE nTransactionType	DECIMAL(10);
 	DECLARE nTransactionCode	VARCHAR(20);
 	DECLARE nTransactionID		INT(10);
 	DECLARE nTransactionDate	DATE;
-
+	
 	SET year_period = (SELECT RIGHT(YEAR(new.bank_disbursement_date),2));
-
+	
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.bank_disbursement_date)), 2));
-
+	
 	SET day_period = (SELECT RIGHT(CONCAT('0', DAY(new.bank_disbursement_date)), 2));
-
+	
 	SET nDisbursementNo = CONCAT('BBK', year_period, month_period);
-
-	SET period = (SELECT RIGHT(TRIM(bank_disbursement_no), 4)
+		
+	SET period = (SELECT RIGHT(TRIM(bank_disbursement_no), 4) 
 		FROM acct_bank_disbursement
 		WHERE LEFT(TRIM(bank_disbursement_no), 7) = nDisbursementNo
-		ORDER BY bank_disbursement_id DESC
+		ORDER BY bank_disbursement_id DESC 
 		LIMIT 1);
-
-	IF (period IS NULL ) THEN
+	
+	IF (period IS NULL ) THEN 
 		SET period = "0000";
 	END IF;
-
+	
 	SET tPeriod = CAST(period AS DECIMAL(10));
-
+	
 	SET tPeriod = tPeriod + 1;
-
+	
 	SET period = RIGHT(CONCAT('000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-
+	
 	SET nDisbursementNo = CONCAT(nDisbursementNo, period);
-
+		
 	SET new.bank_disbursement_no = nDisbursementNo;
-
+	
     END */$$
 
 
@@ -6310,42 +6314,42 @@ DELIMITER $$
 	DECLARE period 			VARCHAR(20);
 	DECLARE tPeriod			INT;
 	DECLARE nReceiptNo		VARCHAR(20);
-
+	
 	DECLARE nOpeningBalance		DECIMAL(20,2);
 	DECLARE nLastBalance		DECIMAL(20,2);
 	DECLARE nTransactionType	DECIMAL(10);
 	DECLARE nTransactionCode	VARCHAR(20);
 	DECLARE nTransactionID		INT(10);
 	DECLARE nTransactionDate	DATE;
-
+	
 	SET year_period = (SELECT RIGHT(YEAR(new.bank_receipt_date),2));
-
+	
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.bank_receipt_date)), 2));
-
+	
 	SET day_period = (SELECT RIGHT(CONCAT('0', DAY(new.bank_receipt_date)), 2));
-
+	
 	SET nReceiptNo = CONCAT('BBM', year_period, month_period);
-
-	SET period = (SELECT RIGHT(TRIM(bank_receipt_no), 4)
+		
+	SET period = (SELECT RIGHT(TRIM(bank_receipt_no), 4) 
 		FROM acct_bank_receipt
 		WHERE LEFT(TRIM(bank_receipt_no), 7) = nReceiptNo
-		ORDER BY bank_receipt_id DESC
+		ORDER BY bank_receipt_id DESC 
 		LIMIT 1);
-
-	IF (period IS NULL ) THEN
+	
+	IF (period IS NULL ) THEN 
 		SET period = "0000";
 	END IF;
-
+	
 	SET tPeriod = CAST(period AS DECIMAL(10));
-
+	
 	SET tPeriod = tPeriod + 1;
-
+	
 	SET period = RIGHT(CONCAT('000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-
+	
 	SET nReceiptNo = CONCAT(nReceiptNo, period);
-
+		
 	SET new.bank_receipt_no = nReceiptNo;
-
+	
     END */$$
 
 
@@ -6364,43 +6368,43 @@ DELIMITER $$
 	DECLARE period 			VARCHAR(20);
 	DECLARE tPeriod			INT;
 	DECLARE nDisbursementNo		VARCHAR(20);
-
-
+	
+	
 	DECLARE nOpeningBalance		DECIMAL(20,2);
 	DECLARE nLastBalance		DECIMAL(20,2);
 	DECLARE nTransactionType	DECIMAL(10);
 	DECLARE nTransactionCode	VARCHAR(20);
 	DECLARE nTransactionID		INT(10);
 	DECLARE nTransactionDate	DATE;
-
+	
 	SET year_period = (SELECT RIGHT(YEAR(new.cash_disbursement_date),2));
-
+	
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.cash_disbursement_date)), 2));
-
+	
 	SET day_period = (SELECT RIGHT(CONCAT('0', DAY(new.cash_disbursement_date)), 2));
-
+	
 	SET nDisbursementNo = CONCAT('BKK', year_period, month_period);
-
-	SET period = (SELECT RIGHT(TRIM(cash_disbursement_no), 4)
+		
+	SET period = (SELECT RIGHT(TRIM(cash_disbursement_no), 4) 
 		FROM acct_cash_disbursement
 		WHERE LEFT(TRIM(cash_disbursement_no), 7) = nDisbursementNo
-		ORDER BY cash_disbursement_id DESC
+		ORDER BY cash_disbursement_id DESC 
 		LIMIT 1);
-
-	IF (period IS NULL ) THEN
+	
+	IF (period IS NULL ) THEN 
 		SET period = "0000";
 	END IF;
-
+	
 	SET tPeriod = CAST(period AS DECIMAL(10));
-
+	
 	SET tPeriod = tPeriod + 1;
-
+	
 	SET period = RIGHT(CONCAT('000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-
+	
 	SET nDisbursementNo = CONCAT(nDisbursementNo, period);
-
+		
 	SET new.cash_disbursement_no = nDisbursementNo;
-
+	
     END */$$
 
 
@@ -6419,42 +6423,42 @@ DELIMITER $$
 	DECLARE period 			VARCHAR(20);
 	DECLARE tPeriod			INT;
 	DECLARE nReceiptNo		VARCHAR(20);
-
+	
 	DECLARE nOpeningBalance		DECIMAL(20,2);
 	DECLARE nLastBalance		DECIMAL(20,2);
 	DECLARE nTransactionType	DECIMAL(10);
 	DECLARE nTransactionCode	VARCHAR(20);
 	DECLARE nTransactionID		INT(10);
 	DECLARE nTransactionDate	DATE;
-
+	
 	SET year_period = (SELECT RIGHT(YEAR(new.cash_receipt_date),2));
-
+	
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.cash_receipt_date)), 2));
-
+	
 	SET day_period = (SELECT RIGHT(CONCAT('0', DAY(new.cash_receipt_date)), 2));
-
+	
 	SET nReceiptNo = CONCAT('BKM', year_period, month_period);
-
-	SET period = (SELECT RIGHT(TRIM(cash_receipt_no), 4)
+		
+	SET period = (SELECT RIGHT(TRIM(cash_receipt_no), 4) 
 		FROM acct_cash_receipt
 		WHERE LEFT(TRIM(cash_receipt_no), 7) = nReceiptNo
-		ORDER BY cash_receipt_id DESC
+		ORDER BY cash_receipt_id DESC 
 		LIMIT 1);
-
-	IF (period IS NULL ) THEN
+	
+	IF (period IS NULL ) THEN 
 		SET period = "0000";
 	END IF;
-
+	
 	SET tPeriod = CAST(period AS DECIMAL(10));
-
+	
 	SET tPeriod = tPeriod + 1;
-
+	
 	SET period = RIGHT(CONCAT('000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-
+	
 	SET nReceiptNo = CONCAT(nReceiptNo, period);
-
+		
 	SET new.cash_receipt_no = nReceiptNo;
-
+	
     END */$$
 
 
@@ -6473,43 +6477,43 @@ DELIMITER $$
 	DECLARE period 			VARCHAR(20);
 	DECLARE tPeriod			INT;
 	DECLARE nDisbursementNo		VARCHAR(20);
-
-
+	
+	
 	DECLARE nOpeningBalance		DECIMAL(20,2);
 	DECLARE nLastBalance		DECIMAL(20,2);
 	DECLARE nTransactionType	DECIMAL(10);
 	DECLARE nTransactionCode	VARCHAR(20);
 	DECLARE nTransactionID		INT(10);
 	DECLARE nTransactionDate	DATE;
-
+	
 	SET year_period = (SELECT RIGHT(YEAR(new.check_disbursement_date),2));
-
+	
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.check_disbursement_date)), 2));
-
+	
 	SET day_period = (SELECT RIGHT(CONCAT('0', DAY(new.check_disbursement_date)), 2));
-
+	
 	SET nDisbursementNo = CONCAT('BGK', year_period, month_period);
-
-	SET period = (SELECT RIGHT(TRIM(check_disbursement_no), 4)
+		
+	SET period = (SELECT RIGHT(TRIM(check_disbursement_no), 4) 
 		FROM acct_check_disbursement
 		WHERE LEFT(TRIM(check_disbursement_no), 7) = nDisbursementNo
-		ORDER BY check_disbursement_id DESC
+		ORDER BY check_disbursement_id DESC 
 		LIMIT 1);
-
-	IF (period IS NULL ) THEN
+	
+	IF (period IS NULL ) THEN 
 		SET period = "0000";
 	END IF;
-
+	
 	SET tPeriod = CAST(period AS DECIMAL(10));
-
+	
 	SET tPeriod = tPeriod + 1;
-
+	
 	SET period = RIGHT(CONCAT('000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-
+	
 	SET nDisbursementNo = CONCAT(nDisbursementNo, period);
-
+		
 	SET new.check_disbursement_no = nDisbursementNo;
-
+	
     END */$$
 
 
@@ -6528,42 +6532,42 @@ DELIMITER $$
 	DECLARE period 			VARCHAR(20);
 	DECLARE tPeriod			INT;
 	DECLARE nReceiptNo		VARCHAR(20);
-
+	
 	DECLARE nOpeningBalance		DECIMAL(20,2);
 	DECLARE nLastBalance		DECIMAL(20,2);
 	DECLARE nTransactionType	DECIMAL(10);
 	DECLARE nTransactionCode	VARCHAR(20);
 	DECLARE nTransactionID		INT(10);
 	DECLARE nTransactionDate	DATE;
-
+	
 	SET year_period = (SELECT RIGHT(YEAR(new.check_receipt_date),2));
-
+	
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.check_receipt_date)), 2));
-
+	
 	SET day_period = (SELECT RIGHT(CONCAT('0', DAY(new.check_receipt_date)), 2));
-
+	
 	SET nReceiptNo = CONCAT('BGM', year_period, month_period);
-
-	SET period = (SELECT RIGHT(TRIM(check_receipt_no), 4)
+		
+	SET period = (SELECT RIGHT(TRIM(check_receipt_no), 4) 
 		FROM acct_check_receipt
 		WHERE LEFT(TRIM(check_receipt_no), 7) = nReceiptNo
-		ORDER BY check_receipt_id DESC
+		ORDER BY check_receipt_id DESC 
 		LIMIT 1);
-
-	IF (period IS NULL ) THEN
+	
+	IF (period IS NULL ) THEN 
 		SET period = "0000";
 	END IF;
-
+	
 	SET tPeriod = CAST(period AS DECIMAL(10));
-
+	
 	SET tPeriod = tPeriod + 1;
-
+	
 	SET period = RIGHT(CONCAT('000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-
+	
 	SET nReceiptNo = CONCAT(nReceiptNo, period);
-
+		
 	SET new.check_receipt_no = nReceiptNo;
-
+	
     END */$$
 
 
@@ -6582,77 +6586,77 @@ DELIMITER $$
 	DECLARE tPeriod			INT;
 	DECLARE nJournalVoucherNo	VARCHAR(20);
 	DECLARE monthPeriod		VARCHAR(20);
-
+	
 	SET year_period = (YEAR(new.journal_voucher_date));
-
+	
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.journal_voucher_date)), 2));
-
-	IF (month_period) = '01' THEN
+	
+	IF (month_period) = '01' THEN 
 		SET monthPeriod = 'I';
 	END IF;
-
-	IF (month_period) = '02' THEN
+	
+	IF (month_period) = '02' THEN 
 		SET monthPeriod = 'II';
 	END IF;
-
-	IF (month_period) = '03' THEN
+	
+	IF (month_period) = '03' THEN 
 		SET monthPeriod = 'III';
 	END IF;
-
-	IF (month_period) = '04' THEN
+	
+	IF (month_period) = '04' THEN 
 		SET monthPeriod = 'IV';
-	END IF;
-
-	IF (month_period) = '05' THEN
+	END IF;	
+	
+	IF (month_period) = '05' THEN 
 		SET monthPeriod = 'V';
 	END IF;
-
-	IF (month_period) = '06' THEN
+	
+	IF (month_period) = '06' THEN 
 		SET monthPeriod = 'VI';
 	END IF;
-
-	IF (month_period) = '07' THEN
+	
+	IF (month_period) = '07' THEN 
 		SET monthPeriod = 'VII';
 	END IF;
-
-	IF (month_period) = '08' THEN
+	
+	IF (month_period) = '08' THEN 
 		SET monthPeriod = 'VIII';
 	END IF;
-
-	IF (month_period) = '09' THEN
+	
+	IF (month_period) = '09' THEN 
 		SET monthPeriod = 'IX';
 	END IF;
-
-	IF (month_period) = '10' THEN
+	
+	IF (month_period) = '10' THEN 
 		SET monthPeriod = 'X';
 	END IF;
-
-	IF (month_period) = '11' THEN
+	
+	IF (month_period) = '11' THEN 
 		SET monthPeriod = 'XI';
 	END IF;
-
-	IF (month_period) = '12' THEN
+	
+	IF (month_period) = '12' THEN 
 		SET monthPeriod = 'XII';
 	END IF;
-
-	SET PERIOD = (SELECT LEFT(TRIM(journal_voucher_no), 4)
+		
+	SET PERIOD = (SELECT LEFT(TRIM(journal_voucher_no), 4) 
 			FROM acct_journal_voucher
 			WHERE RIGHT(TRIM(journal_voucher_no), 4) = year_period
-			ORDER BY journal_voucher_id DESC
+			ORDER BY journal_voucher_id DESC 
 			LIMIT 1);
-
-	IF (PERIOD IS NULL ) THEN
+		
+	IF (PERIOD IS NULL ) THEN 
 		SET PERIOD = "0000";
 	END IF;
-
+	
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-
+	
 	SET tPeriod = tPeriod + 1;
-
+	
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-
+	
 	SET nJournalVoucherNo = CONCAT(PERIOD, '/JV/', monthPeriod, '/', year_period);
-
+		
 	SET new.journal_voucher_no = nJournalVoucherNo;
     END */$$
 
@@ -6667,7 +6671,7 @@ DELIMITER $$
 
 /*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_acct_journal_voucher_item` BEFORE INSERT ON `acct_journal_voucher_item` FOR EACH ROW BEGIN
 	DECLARE nAccountIDDefaultStatus		DECIMAL(1);
-
+	
 	DECLARE nAccountID		INT(10);
 	DECLARE nBranchID		INT(10);
 	DECLARE nOpeningBalance		DECIMAL(20);
@@ -6679,25 +6683,25 @@ DELIMITER $$
 	DECLARE nAccountIn		DECIMAL(20);
 	DECLARE nAccountOut		DECIMAL(20);
 	DECLARE nCreatedId		INT(10);
-
-
+	
+	
 	SET nCreatedId			= (SELECT created_id FROM acct_journal_voucher
 						WHERE journal_voucher_id = new.journal_voucher_id);
-
+	
 	SET nBranchID 			= (SELECT company_id FROM acct_journal_voucher
 						WHERE journal_voucher_id = new.journal_voucher_id);
-
+						
 	SET nOpeningBalance 		= (SELECT last_balance FROM acct_account_balance
 						WHERE company_id = nBranchID
 						AND account_id = new.account_id);
-
+						
 	IF ( nOpeningBalance IS NULL ) THEN
 		SET nOpeningBalance = 0;
 	END IF;
-
-	SET nAccountIDDefaultStatus 	= (SELECT account_default_status FROM acct_account
+				
+	SET nAccountIDDefaultStatus 	= (SELECT account_default_status FROM acct_account 
 						WHERE account_id = new.account_id);
-
+						
 	IF (new.account_id_status = nAccountIDDefaultStatus) THEN
 		SET nLastBalance 	= nOpeningBalance + new.journal_voucher_amount;
 		SET nAccountIn 		= new.journal_voucher_amount;
@@ -6706,32 +6710,32 @@ DELIMITER $$
 		SET nLastBalance 	= nOpeningBalance - new.journal_voucher_amount;
 		SET nAccountIn 		= 0;
 		SET nAccountOut		= new.journal_voucher_amount;
-	END IF;
-
-	SET nAccountID 			= (SELECT account_id FROM acct_account_balance
+	END IF; 
+	
+	SET nAccountID 			= (SELECT account_id FROM acct_account_balance 
 						WHERE company_id = nBranchID
 						AND account_id = new.account_id);
-
+	
 	IF (nAccountID IS NULL) THEN
 		INSERT INTO acct_account_balance (company_id, account_id, last_balance, created_id) VALUES (nBranchID, new.account_id, nLastBalance, nCreatedId);
-	ELSE
+	ELSE 
 		UPDATE acct_account_balance SET last_balance = nLastBalance
 			WHERE account_id = new.account_id
 			AND company_id = nBranchID;
 	END IF;
-
-
+	
+		
 	SET nTransactionType 		= (SELECT transaction_module_id FROM acct_journal_voucher WHERE journal_voucher_id = new.journal_voucher_id);
-
+		
 	SET nTransactionCode 		= (SELECT transaction_module_code FROM acct_journal_voucher WHERE journal_voucher_id = new.journal_voucher_id);
-
+	
 	SET nTransactionID 		= new.journal_voucher_id;
-
+		
 	SET nTransactionDate 		= (SELECT journal_voucher_date FROM acct_journal_voucher WHERE journal_voucher_id = new.journal_voucher_id);
-
-	INSERT INTO acct_account_balance_detail (company_id, transaction_type, transaction_code, transaction_id, transaction_date,
+		
+	INSERT INTO acct_account_balance_detail (company_id, transaction_type, transaction_code, transaction_id, transaction_date, 
 		account_id, opening_balance, account_in, account_out, last_balance, created_id)
-		VALUES (nBranchID, nTransactionType, nTransactionCode, nTransactionID, nTransactionDate,
+		VALUES (nBranchID, nTransactionType, nTransactionCode, nTransactionID, nTransactionDate, 
 			new.account_id, nOpeningBalance, nAccountIn, nAccountOut, nLastBalance, nCreatedId);
     END */$$
 
@@ -6752,77 +6756,77 @@ DELIMITER $$
 	DECLARE nInvGoodsReceivedNoteNo		VARCHAR(20);
 	DECLARE monthPeriod			VARCHAR(20);
 	DECLARE lenInvGoodsReceivedNoteNo	DECIMAL(10);
-
+	
 	SET year_period = (YEAR(new.goods_received_note_date));
-
+	
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.goods_received_note_date)), 2));
-
-	IF (month_period) = '01' THEN
+	
+	IF (month_period) = '01' THEN 
 		SET monthPeriod = 'I';
 	END IF;
-
-	IF (month_period) = '02' THEN
+	
+	IF (month_period) = '02' THEN 
 		SET monthPeriod = 'II';
 	END IF;
-
-	IF (month_period) = '03' THEN
+	
+	IF (month_period) = '03' THEN 
 		SET monthPeriod = 'III';
 	END IF;
-
-	IF (month_period) = '04' THEN
+	
+	IF (month_period) = '04' THEN 
 		SET monthPeriod = 'IV';
-	END IF;
-
-	IF (month_period) = '05' THEN
+	END IF;	
+	
+	IF (month_period) = '05' THEN 
 		SET monthPeriod = 'V';
 	END IF;
-
-	IF (month_period) = '06' THEN
+	
+	IF (month_period) = '06' THEN 
 		SET monthPeriod = 'VI';
 	END IF;
-
-	IF (month_period) = '07' THEN
+	
+	IF (month_period) = '07' THEN 
 		SET monthPeriod = 'VII';
 	END IF;
-
-	IF (month_period) = '08' THEN
+	
+	IF (month_period) = '08' THEN 
 		SET monthPeriod = 'VIII';
 	END IF;
-
-	IF (month_period) = '09' THEN
+	
+	IF (month_period) = '09' THEN 
 		SET monthPeriod = 'IX';
 	END IF;
-
-	IF (month_period) = '10' THEN
+	
+	IF (month_period) = '10' THEN 
 		SET monthPeriod = 'X';
 	END IF;
-
-	IF (month_period) = '11' THEN
+	
+	IF (month_period) = '11' THEN 
 		SET monthPeriod = 'XI';
 	END IF;
-
-	IF (month_period) = '12' THEN
+	
+	IF (month_period) = '12' THEN 
 		SET monthPeriod = 'XII';
 	END IF;
-
-	SET PERIOD = (SELECT LEFT(TRIM(goods_received_note_no), 4)
+		
+	SET PERIOD = (SELECT LEFT(TRIM(goods_received_note_no), 4) 
 			FROM inv_goods_received_note
 			WHERE RIGHT(TRIM(goods_received_note_no), 4) = year_period
-			ORDER BY goods_received_note_id DESC
+			ORDER BY goods_received_note_id DESC 
 			LIMIT 1);
-
-	IF (PERIOD IS NULL ) THEN
+		
+	IF (PERIOD IS NULL ) THEN 
 		SET PERIOD = "0000";
 	END IF;
-
+	
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-
+	
 	SET tPeriod = tPeriod + 1;
-
+	
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-
+	
 	SET nInvGoodsReceivedNoteNo = CONCAT(PERIOD, '/IGRN/', monthPeriod, '/', year_period);
-
+		
 	SET new.goods_received_note_no = nInvGoodsReceivedNoteNo;
     END */$$
 
@@ -6836,57 +6840,57 @@ DELIMITER $$
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_item_stock_card_in` */$$
 
 /*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_inv_item_stock_card_in` AFTER INSERT ON `inv_goods_received_note_item` FOR EACH ROW BEGIN
-	DECLARE nOpeningBalance 		DECIMAL(20,5);
-	DECLARE nLastOpeningBalance 		DECIMAL(20,5);
+	DECLARE nOpeningBalance 		DECIMAL(20,5); 
+	DECLARE nLastOpeningBalance 		DECIMAL(20,5);  
 	DECLARE nLastBalance	 		DECIMAL(20,5);
 	DECLARE nQuantityReceived	 	DECIMAL(20,5);
 	DECLARE nItemID				INT(18);
 	DECLARE nWarehouseID			INT(10);
 	DECLARE nSectionID			INT(10);
-
+	
 	DECLARE nTransactionID			BIGINT(22);
 	DECLARE nTransactionType		DECIMAL(10);
 	DECLARE nTransactionCode		VARCHAR(20);
 	DECLARE nTransactionDate		DATE;
-
+	
 	DECLARE nQuantity 			DECIMAL(10,2);
 	DECLARE nReceivedQuantity 		DECIMAL(10,2);
 	DECLARE nItemStockID			BIGINT(22);
 	DECLARE nLastItemStockID		BIGINT(22);
 	DECLARE nFirstItemStockID			BIGINT(22);
 	DECLARE nSecondItemStockID			BIGINT(22);
-
-
-	SET nWarehouseID 	= (SELECT warehouse_id FROM inv_goods_received_note
+	
+	
+	SET nWarehouseID 	= (SELECT warehouse_id FROM inv_goods_received_note 
 						WHERE goods_received_note_id = new.goods_received_note_id);
-
+				
 	SET nTransactionType 	= 1;
-
+	
 	SET nTransactionID 	= new.goods_received_note_id;
-
+	
 	SET nTransactionCode 	= 'INVT_GDS_RCV_NOTE';
-
+	
 	SET nTransactionDate 	= (SELECT goods_received_note_date FROM inv_goods_received_note
 					WHERE goods_received_note_id = new.goods_received_note_id);
-
+					
 	SET nLastOpeningBalance = (SELECT last_balance FROM inv_item_stock_card
 					WHERE item_type_id = new.item_type_id
 					ORDER BY item_stock_card_id DESC LIMIT 1);
-
+					
 	SET nSecondItemStockID 	= (SELECT item_stock_id FROM inv_item_stock
 					ORDER BY item_stock_id DESC LIMIT 1);
-
-	SET nLastItemStockID 	= (SELECT item_stock_id FROM inv_item_stock
+	
+	SET nLastItemStockID 	= (SELECT item_stock_id FROM inv_item_stock 
 					WHERE item_type_id = new.item_type_id
 					ORDER BY item_stock_id DESC LIMIT 1);
-
-
+					
+					
 	select auto_increment into nFirstItemStockID
 	from information_schema.tables
 	where table_name = 'inv_item_stock'
 	and table_schema = database();
-
-
+	
+					
 	IF (nLastItemStockID IS NULL) THEN
 		if (nSecondItemStockID is null) then
 			SET nItemStockID     = nFirstItemStockID;
@@ -6895,11 +6899,11 @@ DELIMITER $$
 		end if;
 	ELSE
 		SET nItemStockID     = nLastItemStockID;
-	END IF;
-
+	END IF;	
+	
 	SET nQuantityReceived   = new.quantity_received;
-
-
+						
+		
 	if (nLastOpeningBalance is null) then
 		SET nOpeningBalance     = 0;
 		set nLastOpeningBalance = 0 + nQuantityReceived;
@@ -6907,15 +6911,15 @@ DELIMITER $$
 		SET nOpeningBalance     = nLastOpeningBalance;
 		set nLastOpeningBalance = nLastOpeningBalance + nQuantityReceived;
 	end if;
-
-
-	INSERT INTO inv_item_stock_card (item_stock_id, item_category_id, item_type_id, item_unit_id, warehouse_id,
-		transaction_id, transaction_type, transaction_code, transaction_date,
+	
+	
+	INSERT INTO inv_item_stock_card (item_stock_id, item_category_id, item_type_id, item_unit_id, warehouse_id, 
+		transaction_id, transaction_type, transaction_code, transaction_date, 
 		opening_balance, item_stock_card_in, last_balance)
-		VALUES (nItemStockID, new.item_category_id, new.item_type_id, new.item_unit_id, nWarehouseID,
+		VALUES (nItemStockID, new.item_category_id, new.item_type_id, new.item_unit_id, nWarehouseID, 
 			nTransactionID, nTransactionType, nTransactionCode, nTransactionDate,
 			nOpeningBalance, nQuantityReceived, nLastOpeningBalance);
-
+			
     END */$$
 
 
@@ -6935,77 +6939,77 @@ DELIMITER $$
 	DECLARE nInvWarehouseInNo		VARCHAR(20);
 	DECLARE monthPeriod			VARCHAR(20);
 	DECLARE lenInvWarehouseInNo		DECIMAL(10);
-
+	
 	SET year_period = (YEAR(new.warehouse_in_date));
-
+	
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.warehouse_in_date)), 2));
-
-	IF (month_period) = '01' THEN
+	
+	IF (month_period) = '01' THEN 
 		SET monthPeriod = 'I';
 	END IF;
-
-	IF (month_period) = '02' THEN
+	
+	IF (month_period) = '02' THEN 
 		SET monthPeriod = 'II';
 	END IF;
-
-	IF (month_period) = '03' THEN
+	
+	IF (month_period) = '03' THEN 
 		SET monthPeriod = 'III';
 	END IF;
-
-	IF (month_period) = '04' THEN
+	
+	IF (month_period) = '04' THEN 
 		SET monthPeriod = 'IV';
-	END IF;
-
-	IF (month_period) = '05' THEN
+	END IF;	
+	
+	IF (month_period) = '05' THEN 
 		SET monthPeriod = 'V';
 	END IF;
-
-	IF (month_period) = '06' THEN
+	
+	IF (month_period) = '06' THEN 
 		SET monthPeriod = 'VI';
 	END IF;
-
-	IF (month_period) = '07' THEN
+	
+	IF (month_period) = '07' THEN 
 		SET monthPeriod = 'VII';
 	END IF;
-
-	IF (month_period) = '08' THEN
+	
+	IF (month_period) = '08' THEN 
 		SET monthPeriod = 'VIII';
 	END IF;
-
-	IF (month_period) = '09' THEN
+	
+	IF (month_period) = '09' THEN 
 		SET monthPeriod = 'IX';
 	END IF;
-
-	IF (month_period) = '10' THEN
+	
+	IF (month_period) = '10' THEN 
 		SET monthPeriod = 'X';
 	END IF;
-
-	IF (month_period) = '11' THEN
+	
+	IF (month_period) = '11' THEN 
 		SET monthPeriod = 'XI';
 	END IF;
-
-	IF (month_period) = '12' THEN
+	
+	IF (month_period) = '12' THEN 
 		SET monthPeriod = 'XII';
 	END IF;
-
-	SET PERIOD = (SELECT LEFT(TRIM(warehouse_in_no), 4)
+		
+	SET PERIOD = (SELECT LEFT(TRIM(warehouse_in_no), 4) 
 			FROM inv_warehouse_in
 			WHERE RIGHT(TRIM(warehouse_in_no), 4) = year_period
-			ORDER BY warehouse_in_id DESC
+			ORDER BY warehouse_in_id DESC 
 			LIMIT 1);
-
-	IF (PERIOD IS NULL ) THEN
+		
+	IF (PERIOD IS NULL ) THEN 
 		SET PERIOD = "0000";
 	END IF;
-
+	
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-
+	
 	SET tPeriod = tPeriod + 1;
-
+	
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-
+	
 	SET nInvWarehouseInNo = CONCAT(PERIOD, '/WI/', monthPeriod, '/', year_period);
-
+		
 	SET new.warehouse_in_no = nInvWarehouseInNo;
     END */$$
 
@@ -7026,77 +7030,77 @@ DELIMITER $$
 	DECLARE nInvWarehouseOutNo		VARCHAR(20);
 	DECLARE monthPeriod			VARCHAR(20);
 	DECLARE lenInvWarehouseOutNo		DECIMAL(10);
-
+	
 	SET year_period = (YEAR(new.warehouse_out_date));
-
+	
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.warehouse_out_date)), 2));
-
-	IF (month_period) = '01' THEN
+	
+	IF (month_period) = '01' THEN 
 		SET monthPeriod = 'I';
 	END IF;
-
-	IF (month_period) = '02' THEN
+	
+	IF (month_period) = '02' THEN 
 		SET monthPeriod = 'II';
 	END IF;
-
-	IF (month_period) = '03' THEN
+	
+	IF (month_period) = '03' THEN 
 		SET monthPeriod = 'III';
 	END IF;
-
-	IF (month_period) = '04' THEN
+	
+	IF (month_period) = '04' THEN 
 		SET monthPeriod = 'IV';
-	END IF;
-
-	IF (month_period) = '05' THEN
+	END IF;	
+	
+	IF (month_period) = '05' THEN 
 		SET monthPeriod = 'V';
 	END IF;
-
-	IF (month_period) = '06' THEN
+	
+	IF (month_period) = '06' THEN 
 		SET monthPeriod = 'VI';
 	END IF;
-
-	IF (month_period) = '07' THEN
+	
+	IF (month_period) = '07' THEN 
 		SET monthPeriod = 'VII';
 	END IF;
-
-	IF (month_period) = '08' THEN
+	
+	IF (month_period) = '08' THEN 
 		SET monthPeriod = 'VIII';
 	END IF;
-
-	IF (month_period) = '09' THEN
+	
+	IF (month_period) = '09' THEN 
 		SET monthPeriod = 'IX';
 	END IF;
-
-	IF (month_period) = '10' THEN
+	
+	IF (month_period) = '10' THEN 
 		SET monthPeriod = 'X';
 	END IF;
-
-	IF (month_period) = '11' THEN
+	
+	IF (month_period) = '11' THEN 
 		SET monthPeriod = 'XI';
 	END IF;
-
-	IF (month_period) = '12' THEN
+	
+	IF (month_period) = '12' THEN 
 		SET monthPeriod = 'XII';
 	END IF;
-
-	SET PERIOD = (SELECT LEFT(TRIM(warehouse_out_no), 4)
+		
+	SET PERIOD = (SELECT LEFT(TRIM(warehouse_out_no), 4) 
 			FROM inv_warehouse_out
 			WHERE RIGHT(TRIM(warehouse_out_no), 4) = year_period
-			ORDER BY warehouse_out_id DESC
+			ORDER BY warehouse_out_id DESC 
 			LIMIT 1);
-
-	IF (PERIOD IS NULL ) THEN
+		
+	IF (PERIOD IS NULL ) THEN 
 		SET PERIOD = "0000";
 	END IF;
-
+	
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-
+	
 	SET tPeriod = tPeriod + 1;
-
+	
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-
+	
 	SET nInvWarehouseOutNo = CONCAT(PERIOD, '/WO/', monthPeriod, '/', year_period);
-
+		
 	SET new.warehouse_out_no = nInvWarehouseOutNo;
     END */$$
 
@@ -7117,77 +7121,77 @@ DELIMITER $$
 	DECLARE nInvWarehouseTransferNo		VARCHAR(20);
 	DECLARE monthPeriod			VARCHAR(20);
 	DECLARE lenInvWarehouseTransferNo	DECIMAL(10);
-
+	
 	SET year_period = (YEAR(new.warehouse_transfer_date));
-
+	
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.warehouse_transfer_date)), 2));
-
-	IF (month_period) = '01' THEN
+	
+	IF (month_period) = '01' THEN 
 		SET monthPeriod = 'I';
 	END IF;
-
-	IF (month_period) = '02' THEN
+	
+	IF (month_period) = '02' THEN 
 		SET monthPeriod = 'II';
 	END IF;
-
-	IF (month_period) = '03' THEN
+	
+	IF (month_period) = '03' THEN 
 		SET monthPeriod = 'III';
 	END IF;
-
-	IF (month_period) = '04' THEN
+	
+	IF (month_period) = '04' THEN 
 		SET monthPeriod = 'IV';
-	END IF;
-
-	IF (month_period) = '05' THEN
+	END IF;	
+	
+	IF (month_period) = '05' THEN 
 		SET monthPeriod = 'V';
 	END IF;
-
-	IF (month_period) = '06' THEN
+	
+	IF (month_period) = '06' THEN 
 		SET monthPeriod = 'VI';
 	END IF;
-
-	IF (month_period) = '07' THEN
+	
+	IF (month_period) = '07' THEN 
 		SET monthPeriod = 'VII';
 	END IF;
-
-	IF (month_period) = '08' THEN
+	
+	IF (month_period) = '08' THEN 
 		SET monthPeriod = 'VIII';
 	END IF;
-
-	IF (month_period) = '09' THEN
+	
+	IF (month_period) = '09' THEN 
 		SET monthPeriod = 'IX';
 	END IF;
-
-	IF (month_period) = '10' THEN
+	
+	IF (month_period) = '10' THEN 
 		SET monthPeriod = 'X';
 	END IF;
-
-	IF (month_period) = '11' THEN
+	
+	IF (month_period) = '11' THEN 
 		SET monthPeriod = 'XI';
 	END IF;
-
-	IF (month_period) = '12' THEN
+	
+	IF (month_period) = '12' THEN 
 		SET monthPeriod = 'XII';
 	END IF;
-
-	SET PERIOD = (SELECT LEFT(TRIM(warehouse_transfer_no), 4)
+		
+	SET PERIOD = (SELECT LEFT(TRIM(warehouse_transfer_no), 4) 
 			FROM inv_warehouse_transfer
 			WHERE RIGHT(TRIM(warehouse_transfer_no), 4) = year_period
-			ORDER BY warehouse_transfer_id DESC
+			ORDER BY warehouse_transfer_id DESC 
 			LIMIT 1);
-
-	IF (PERIOD IS NULL ) THEN
+		
+	IF (PERIOD IS NULL ) THEN 
 		SET PERIOD = "0000";
 	END IF;
-
+	
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-
+	
 	SET tPeriod = tPeriod + 1;
-
+	
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-
+	
 	SET nInvWarehouseTransferNo = CONCAT(PERIOD, '/WT/', monthPeriod, '/', year_period);
-
+		
 	SET new.warehouse_transfer_no = nInvWarehouseTransferNo;
     END */$$
 
@@ -7208,77 +7212,77 @@ DELIMITER $$
 	DECLARE nInvWarehouseTransferReceivedNoteNo	VARCHAR(20);
 	DECLARE monthPeriod				VARCHAR(20);
 	DECLARE lenInvWarehouseTransferReceivedNoteNo	DECIMAL(10);
-
+	
 	SET year_period = (YEAR(new.warehouse_transfer_received_note_date));
-
+	
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.warehouse_transfer_received_note_date)), 2));
-
-	IF (month_period) = '01' THEN
+	
+	IF (month_period) = '01' THEN 
 		SET monthPeriod = 'I';
 	END IF;
-
-	IF (month_period) = '02' THEN
+	
+	IF (month_period) = '02' THEN 
 		SET monthPeriod = 'II';
 	END IF;
-
-	IF (month_period) = '03' THEN
+	
+	IF (month_period) = '03' THEN 
 		SET monthPeriod = 'III';
 	END IF;
-
-	IF (month_period) = '04' THEN
+	
+	IF (month_period) = '04' THEN 
 		SET monthPeriod = 'IV';
-	END IF;
-
-	IF (month_period) = '05' THEN
+	END IF;	
+	
+	IF (month_period) = '05' THEN 
 		SET monthPeriod = 'V';
 	END IF;
-
-	IF (month_period) = '06' THEN
+	
+	IF (month_period) = '06' THEN 
 		SET monthPeriod = 'VI';
 	END IF;
-
-	IF (month_period) = '07' THEN
+	
+	IF (month_period) = '07' THEN 
 		SET monthPeriod = 'VII';
 	END IF;
-
-	IF (month_period) = '08' THEN
+	
+	IF (month_period) = '08' THEN 
 		SET monthPeriod = 'VIII';
 	END IF;
-
-	IF (month_period) = '09' THEN
+	
+	IF (month_period) = '09' THEN 
 		SET monthPeriod = 'IX';
 	END IF;
-
-	IF (month_period) = '10' THEN
+	
+	IF (month_period) = '10' THEN 
 		SET monthPeriod = 'X';
 	END IF;
-
-	IF (month_period) = '11' THEN
+	
+	IF (month_period) = '11' THEN 
 		SET monthPeriod = 'XI';
 	END IF;
-
-	IF (month_period) = '12' THEN
+	
+	IF (month_period) = '12' THEN 
 		SET monthPeriod = 'XII';
 	END IF;
-
-	SET PERIOD = (SELECT LEFT(TRIM(warehouse_transfer_received_note_no), 4)
+		
+	SET PERIOD = (SELECT LEFT(TRIM(warehouse_transfer_received_note_no), 4) 
 			FROM inv_warehouse_transfer_received_note
 			WHERE RIGHT(TRIM(warehouse_transfer_received_note_no), 4) = year_period
-			ORDER BY warehouse_transfer_received_note_id DESC
+			ORDER BY warehouse_transfer_received_note_id DESC 
 			LIMIT 1);
-
-	IF (PERIOD IS NULL ) THEN
+		
+	IF (PERIOD IS NULL ) THEN 
 		SET PERIOD = "0000";
 	END IF;
-
+	
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-
+	
 	SET tPeriod = tPeriod + 1;
-
+	
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-
+	
 	SET nInvWarehouseTransferReceivedNoteNo = CONCAT(PERIOD, '/WTRN/', monthPeriod, '/', year_period);
-
+		
 	SET new.warehouse_transfer_received_note_no = nInvWarehouseTransferReceivedNoteNo;
     END */$$
 
@@ -7299,77 +7303,77 @@ DELIMITER $$
 	DECLARE nPurchaseInvoiceNo	VARCHAR(20);
 	DECLARE monthPeriod		VARCHAR(20);
 	DECLARE lenPurchaseInvoiceNo	DECIMAL(10);
-
+	
 	SET year_period = (YEAR(new.purchase_invoice_date));
-
+	
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.purchase_invoice_date)), 2));
-
-	IF (month_period) = '01' THEN
+	
+	IF (month_period) = '01' THEN 
 		SET monthPeriod = 'I';
 	END IF;
-
-	IF (month_period) = '02' THEN
+	
+	IF (month_period) = '02' THEN 
 		SET monthPeriod = 'II';
 	END IF;
-
-	IF (month_period) = '03' THEN
+	
+	IF (month_period) = '03' THEN 
 		SET monthPeriod = 'III';
 	END IF;
-
-	IF (month_period) = '04' THEN
+	
+	IF (month_period) = '04' THEN 
 		SET monthPeriod = 'IV';
-	END IF;
-
-	IF (month_period) = '05' THEN
+	END IF;	
+	
+	IF (month_period) = '05' THEN 
 		SET monthPeriod = 'V';
 	END IF;
-
-	IF (month_period) = '06' THEN
+	
+	IF (month_period) = '06' THEN 
 		SET monthPeriod = 'VI';
 	END IF;
-
-	IF (month_period) = '07' THEN
+	
+	IF (month_period) = '07' THEN 
 		SET monthPeriod = 'VII';
 	END IF;
-
-	IF (month_period) = '08' THEN
+	
+	IF (month_period) = '08' THEN 
 		SET monthPeriod = 'VIII';
 	END IF;
-
-	IF (month_period) = '09' THEN
+	
+	IF (month_period) = '09' THEN 
 		SET monthPeriod = 'IX';
 	END IF;
-
-	IF (month_period) = '10' THEN
+	
+	IF (month_period) = '10' THEN 
 		SET monthPeriod = 'X';
 	END IF;
-
-	IF (month_period) = '11' THEN
+	
+	IF (month_period) = '11' THEN 
 		SET monthPeriod = 'XI';
 	END IF;
-
-	IF (month_period) = '12' THEN
+	
+	IF (month_period) = '12' THEN 
 		SET monthPeriod = 'XII';
 	END IF;
-
-	SET PERIOD = (SELECT LEFT(TRIM(purchase_invoice_no), 4)
+		
+	SET PERIOD = (SELECT LEFT(TRIM(purchase_invoice_no), 4) 
 			FROM purchase_invoice
 			WHERE RIGHT(TRIM(purchase_invoice_no), 4) = year_period
-			ORDER BY purchase_invoice_id DESC
+			ORDER BY purchase_invoice_id DESC 
 			LIMIT 1);
-
-	IF (PERIOD IS NULL ) THEN
+		
+	IF (PERIOD IS NULL ) THEN 
 		SET PERIOD = "0000";
 	END IF;
-
+	
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-
+	
 	SET tPeriod = tPeriod + 1;
-
+	
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-
+	
 	SET nPurchaseInvoiceNo = CONCAT(PERIOD, '/PI/', monthPeriod, '/', year_period);
-
+		
 	SET new.purchase_invoice_no = nPurchaseInvoiceNo;
     END */$$
 
@@ -7390,77 +7394,77 @@ DELIMITER $$
 	DECLARE nPurchaseOrderNo	VARCHAR(20);
 	DECLARE monthPeriod		VARCHAR(20);
 	DECLARE lenPurchaseOrderNo	DECIMAL(10);
-
+	
 	SET year_period = (YEAR(new.purchase_order_date));
-
+	
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.purchase_order_date)), 2));
-
-	IF (month_period) = '01' THEN
+	
+	IF (month_period) = '01' THEN 
 		SET monthPeriod = 'I';
 	END IF;
-
-	IF (month_period) = '02' THEN
+	
+	IF (month_period) = '02' THEN 
 		SET monthPeriod = 'II';
 	END IF;
-
-	IF (month_period) = '03' THEN
+	
+	IF (month_period) = '03' THEN 
 		SET monthPeriod = 'III';
 	END IF;
-
-	IF (month_period) = '04' THEN
+	
+	IF (month_period) = '04' THEN 
 		SET monthPeriod = 'IV';
-	END IF;
-
-	IF (month_period) = '05' THEN
+	END IF;	
+	
+	IF (month_period) = '05' THEN 
 		SET monthPeriod = 'V';
 	END IF;
-
-	IF (month_period) = '06' THEN
+	
+	IF (month_period) = '06' THEN 
 		SET monthPeriod = 'VI';
 	END IF;
-
-	IF (month_period) = '07' THEN
+	
+	IF (month_period) = '07' THEN 
 		SET monthPeriod = 'VII';
 	END IF;
-
-	IF (month_period) = '08' THEN
+	
+	IF (month_period) = '08' THEN 
 		SET monthPeriod = 'VIII';
 	END IF;
-
-	IF (month_period) = '09' THEN
+	
+	IF (month_period) = '09' THEN 
 		SET monthPeriod = 'IX';
 	END IF;
-
-	IF (month_period) = '10' THEN
+	
+	IF (month_period) = '10' THEN 
 		SET monthPeriod = 'X';
 	END IF;
-
-	IF (month_period) = '11' THEN
+	
+	IF (month_period) = '11' THEN 
 		SET monthPeriod = 'XI';
 	END IF;
-
-	IF (month_period) = '12' THEN
+	
+	IF (month_period) = '12' THEN 
 		SET monthPeriod = 'XII';
 	END IF;
-
-	SET PERIOD = (SELECT LEFT(TRIM(purchase_order_no), 4)
+		
+	SET PERIOD = (SELECT LEFT(TRIM(purchase_order_no), 4) 
 			FROM purchase_order
 			WHERE RIGHT(TRIM(purchase_order_no), 4) = year_period
-			ORDER BY purchase_order_id DESC
+			ORDER BY purchase_order_id DESC 
 			LIMIT 1);
-
-	IF (PERIOD IS NULL ) THEN
+		
+	IF (PERIOD IS NULL ) THEN 
 		SET PERIOD = "0000";
 	END IF;
-
+	
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-
+	
 	SET tPeriod = tPeriod + 1;
-
+	
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-
+	
 	SET nPurchaseOrderNo = CONCAT(PERIOD, '/PO/', monthPeriod, '/', year_period);
-
+		
 	SET new.purchase_order_no = nPurchaseOrderNo;
     END */$$
 
@@ -7481,77 +7485,77 @@ DELIMITER $$
 	DECLARE nPurchaseOrderReturnNo		VARCHAR(20);
 	DECLARE monthPeriod			VARCHAR(20);
 	DECLARE lenPurchaseOrderReturnNo	DECIMAL(10);
-
+	
 	SET year_period = (YEAR(new.purchase_order_return_date));
-
+	
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.purchase_order_return_date)), 2));
-
-	IF (month_period) = '01' THEN
+	
+	IF (month_period) = '01' THEN 
 		SET monthPeriod = 'I';
 	END IF;
-
-	IF (month_period) = '02' THEN
+	
+	IF (month_period) = '02' THEN 
 		SET monthPeriod = 'II';
 	END IF;
-
-	IF (month_period) = '03' THEN
+	
+	IF (month_period) = '03' THEN 
 		SET monthPeriod = 'III';
 	END IF;
-
-	IF (month_period) = '04' THEN
+	
+	IF (month_period) = '04' THEN 
 		SET monthPeriod = 'IV';
-	END IF;
-
-	IF (month_period) = '05' THEN
+	END IF;	
+	
+	IF (month_period) = '05' THEN 
 		SET monthPeriod = 'V';
 	END IF;
-
-	IF (month_period) = '06' THEN
+	
+	IF (month_period) = '06' THEN 
 		SET monthPeriod = 'VI';
 	END IF;
-
-	IF (month_period) = '07' THEN
+	
+	IF (month_period) = '07' THEN 
 		SET monthPeriod = 'VII';
 	END IF;
-
-	IF (month_period) = '08' THEN
+	
+	IF (month_period) = '08' THEN 
 		SET monthPeriod = 'VIII';
 	END IF;
-
-	IF (month_period) = '09' THEN
+	
+	IF (month_period) = '09' THEN 
 		SET monthPeriod = 'IX';
 	END IF;
-
-	IF (month_period) = '10' THEN
+	
+	IF (month_period) = '10' THEN 
 		SET monthPeriod = 'X';
 	END IF;
-
-	IF (month_period) = '11' THEN
+	
+	IF (month_period) = '11' THEN 
 		SET monthPeriod = 'XI';
 	END IF;
-
-	IF (month_period) = '12' THEN
+	
+	IF (month_period) = '12' THEN 
 		SET monthPeriod = 'XII';
 	END IF;
-
-	SET PERIOD = (SELECT LEFT(TRIM(purchase_order_return_no), 4)
+		
+	SET PERIOD = (SELECT LEFT(TRIM(purchase_order_return_no), 4) 
 			FROM purchase_order_return
 			WHERE RIGHT(TRIM(purchase_order_return_no), 4) = year_period
-			ORDER BY purchase_order_return_id DESC
+			ORDER BY purchase_order_return_id DESC 
 			LIMIT 1);
-
-	IF (PERIOD IS NULL ) THEN
+		
+	IF (PERIOD IS NULL ) THEN 
 		SET PERIOD = "0000";
 	END IF;
-
+	
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-
+	
 	SET tPeriod = tPeriod + 1;
-
+	
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-
+	
 	SET nPurchaseOrderReturnNo = CONCAT(PERIOD, '/PR/', monthPeriod, '/', year_period);
-
+		
 	SET new.purchase_order_return_no = nPurchaseOrderReturnNo;
     END */$$
 
@@ -7572,77 +7576,77 @@ DELIMITER $$
 	DECLARE nPurchasePaymentNo	VARCHAR(20);
 	DECLARE monthPeriod		VARCHAR(20);
 	DECLARE lenPurchasePaymentNo	DECIMAL(10);
-
+	
 	SET year_period = (YEAR(new.payment_date));
-
+	
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.payment_date)), 2));
-
-	IF (month_period) = '01' THEN
+	
+	IF (month_period) = '01' THEN 
 		SET monthPeriod = 'I';
 	END IF;
-
-	IF (month_period) = '02' THEN
+	
+	IF (month_period) = '02' THEN 
 		SET monthPeriod = 'II';
 	END IF;
-
-	IF (month_period) = '03' THEN
+	
+	IF (month_period) = '03' THEN 
 		SET monthPeriod = 'III';
 	END IF;
-
-	IF (month_period) = '04' THEN
+	
+	IF (month_period) = '04' THEN 
 		SET monthPeriod = 'IV';
-	END IF;
-
-	IF (month_period) = '05' THEN
+	END IF;	
+	
+	IF (month_period) = '05' THEN 
 		SET monthPeriod = 'V';
 	END IF;
-
-	IF (month_period) = '06' THEN
+	
+	IF (month_period) = '06' THEN 
 		SET monthPeriod = 'VI';
 	END IF;
-
-	IF (month_period) = '07' THEN
+	
+	IF (month_period) = '07' THEN 
 		SET monthPeriod = 'VII';
 	END IF;
-
-	IF (month_period) = '08' THEN
+	
+	IF (month_period) = '08' THEN 
 		SET monthPeriod = 'VIII';
 	END IF;
-
-	IF (month_period) = '09' THEN
+	
+	IF (month_period) = '09' THEN 
 		SET monthPeriod = 'IX';
 	END IF;
-
-	IF (month_period) = '10' THEN
+	
+	IF (month_period) = '10' THEN 
 		SET monthPeriod = 'X';
 	END IF;
-
-	IF (month_period) = '11' THEN
+	
+	IF (month_period) = '11' THEN 
 		SET monthPeriod = 'XI';
 	END IF;
-
-	IF (month_period) = '12' THEN
+	
+	IF (month_period) = '12' THEN 
 		SET monthPeriod = 'XII';
 	END IF;
-
-	SET PERIOD = (SELECT LEFT(TRIM(payment_no), 4)
+		
+	SET PERIOD = (SELECT LEFT(TRIM(payment_no), 4) 
 			FROM purchase_payment
 			WHERE RIGHT(TRIM(payment_no), 4) = year_period
-			ORDER BY payment_id DESC
+			ORDER BY payment_id DESC 
 			LIMIT 1);
-
-	IF (PERIOD IS NULL ) THEN
+		
+	IF (PERIOD IS NULL ) THEN 
 		SET PERIOD = "0000";
 	END IF;
-
+	
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-
+	
 	SET tPeriod = tPeriod + 1;
-
+	
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-
+	
 	SET nPurchasePaymentNo = CONCAT(PERIOD, '/PH/', monthPeriod, '/', year_period);
-
+		
 	SET new.payment_no = nPurchasePaymentNo;
     END */$$
 
@@ -7663,77 +7667,77 @@ DELIMITER $$
 	DECLARE nSalesDeliveryNoteNo		VARCHAR(20);
 	DECLARE monthPeriod			VARCHAR(20);
 	DECLARE lenSalesDeliveryNoteNo		DECIMAL(10);
-
+	
 	SET year_period = (YEAR(new.sales_delivery_note_date));
-
+	
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.sales_delivery_note_date)), 2));
-
-	IF (month_period) = '01' THEN
+	
+	IF (month_period) = '01' THEN 
 		SET monthPeriod = 'I';
 	END IF;
-
-	IF (month_period) = '02' THEN
+	
+	IF (month_period) = '02' THEN 
 		SET monthPeriod = 'II';
 	END IF;
-
-	IF (month_period) = '03' THEN
+	
+	IF (month_period) = '03' THEN 
 		SET monthPeriod = 'III';
 	END IF;
-
-	IF (month_period) = '04' THEN
+	
+	IF (month_period) = '04' THEN 
 		SET monthPeriod = 'IV';
-	END IF;
-
-	IF (month_period) = '05' THEN
+	END IF;	
+	
+	IF (month_period) = '05' THEN 
 		SET monthPeriod = 'V';
 	END IF;
-
-	IF (month_period) = '06' THEN
+	
+	IF (month_period) = '06' THEN 
 		SET monthPeriod = 'VI';
 	END IF;
-
-	IF (month_period) = '07' THEN
+	
+	IF (month_period) = '07' THEN 
 		SET monthPeriod = 'VII';
 	END IF;
-
-	IF (month_period) = '08' THEN
+	
+	IF (month_period) = '08' THEN 
 		SET monthPeriod = 'VIII';
 	END IF;
-
-	IF (month_period) = '09' THEN
+	
+	IF (month_period) = '09' THEN 
 		SET monthPeriod = 'IX';
 	END IF;
-
-	IF (month_period) = '10' THEN
+	
+	IF (month_period) = '10' THEN 
 		SET monthPeriod = 'X';
 	END IF;
-
-	IF (month_period) = '11' THEN
+	
+	IF (month_period) = '11' THEN 
 		SET monthPeriod = 'XI';
 	END IF;
-
-	IF (month_period) = '12' THEN
+	
+	IF (month_period) = '12' THEN 
 		SET monthPeriod = 'XII';
 	END IF;
-
-	SET PERIOD = (SELECT LEFT(TRIM(sales_delivery_note_no), 4)
+		
+	SET PERIOD = (SELECT LEFT(TRIM(sales_delivery_note_no), 4) 
 			FROM sales_delivery_note
 			WHERE RIGHT(TRIM(sales_delivery_note_no), 4) = year_period
-			ORDER BY sales_delivery_note_id DESC
+			ORDER BY sales_delivery_note_id DESC 
 			LIMIT 1);
-
-	IF (PERIOD IS NULL ) THEN
+		
+	IF (PERIOD IS NULL ) THEN 
 		SET PERIOD = "00000";
 	END IF;
-
+	
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-
+	
 	SET tPeriod = tPeriod + 1;
-
+	
 	SET PERIOD = RIGHT(CONCAT('00000', TRIM(CAST(tPeriod AS CHAR(5)))), 5);
-
+	
 	SET nSalesDeliveryNoteNo = CONCAT(PERIOD,'/3T','/SJ/', monthPeriod, '/', year_period);
-
+		
 	SET new.sales_delivery_note_no = nSalesDeliveryNoteNo;
     END */$$
 
@@ -7747,8 +7751,8 @@ DELIMITER $$
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_item_stock_card_out` */$$
 
 /*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_inv_item_stock_card_out` AFTER INSERT ON `sales_delivery_note_item` FOR EACH ROW BEGIN
-    DECLARE nOpeningBalance DECIMAL(20,5);
-    DECLARE nLastOpeningBalance DECIMAL(20,5);
+    DECLARE nOpeningBalance DECIMAL(20,5); 
+    DECLARE nLastOpeningBalance DECIMAL(20,5);  
     DECLARE nQuantityOut DECIMAL(20,5);
     DECLARE nWarehouseID INT(10);
     DECLARE nTransactionID BIGINT(22);
@@ -7758,7 +7762,7 @@ DELIMITER $$
     DECLARE nItemStockID BIGINT(22);
     DECLARE nFirstItemStockID BIGINT(22);
     -- Menentukan warehouse_id dan transaction info
-    SET nWarehouseID = (SELECT warehouse_id FROM sales_delivery_note
+    SET nWarehouseID = (SELECT warehouse_id FROM sales_delivery_note 
                         WHERE sales_delivery_note_id = new.sales_delivery_note_id);
     SET nTransactionType = 1;
     SET nTransactionID = new.sales_delivery_note_id;
@@ -7823,77 +7827,77 @@ DELIMITER $$
 	DECLARE nSalesDeliveryOrderNo		VARCHAR(20);
 	DECLARE monthPeriod			VARCHAR(20);
 	DECLARE lenSalesDeliveryOrderNo		DECIMAL(10);
-
+	
 	SET year_period = (YEAR(new.sales_delivery_order_date));
-
+	
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.sales_delivery_order_date)), 2));
-
-	IF (month_period) = '01' THEN
+	
+	IF (month_period) = '01' THEN 
 		SET monthPeriod = 'I';
 	END IF;
-
-	IF (month_period) = '02' THEN
+	
+	IF (month_period) = '02' THEN 
 		SET monthPeriod = 'II';
 	END IF;
-
-	IF (month_period) = '03' THEN
+	
+	IF (month_period) = '03' THEN 
 		SET monthPeriod = 'III';
 	END IF;
-
-	IF (month_period) = '04' THEN
+	
+	IF (month_period) = '04' THEN 
 		SET monthPeriod = 'IV';
-	END IF;
-
-	IF (month_period) = '05' THEN
+	END IF;	
+	
+	IF (month_period) = '05' THEN 
 		SET monthPeriod = 'V';
 	END IF;
-
-	IF (month_period) = '06' THEN
+	
+	IF (month_period) = '06' THEN 
 		SET monthPeriod = 'VI';
 	END IF;
-
-	IF (month_period) = '07' THEN
+	
+	IF (month_period) = '07' THEN 
 		SET monthPeriod = 'VII';
 	END IF;
-
-	IF (month_period) = '08' THEN
+	
+	IF (month_period) = '08' THEN 
 		SET monthPeriod = 'VIII';
 	END IF;
-
-	IF (month_period) = '09' THEN
+	
+	IF (month_period) = '09' THEN 
 		SET monthPeriod = 'IX';
 	END IF;
-
-	IF (month_period) = '10' THEN
+	
+	IF (month_period) = '10' THEN 
 		SET monthPeriod = 'X';
 	END IF;
-
-	IF (month_period) = '11' THEN
+	
+	IF (month_period) = '11' THEN 
 		SET monthPeriod = 'XI';
 	END IF;
-
-	IF (month_period) = '12' THEN
+	
+	IF (month_period) = '12' THEN 
 		SET monthPeriod = 'XII';
 	END IF;
-
-	SET PERIOD = (SELECT LEFT(TRIM(sales_delivery_order_no), 4)
+		
+	SET PERIOD = (SELECT LEFT(TRIM(sales_delivery_order_no), 4) 
 			FROM sales_delivery_order
 			WHERE RIGHT(TRIM(sales_delivery_order_no), 4) = year_period
-			ORDER BY sales_delivery_order_id DESC
+			ORDER BY sales_delivery_order_id DESC 
 			LIMIT 1);
-
-	IF (PERIOD IS NULL ) THEN
+		
+	IF (PERIOD IS NULL ) THEN 
 		SET PERIOD = "0000";
 	END IF;
-
+	
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-
+	
 	SET tPeriod = tPeriod + 1;
-
+	
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-
+	
 	SET nSalesDeliveryOrderNo = CONCAT(PERIOD, '/SDO/', monthPeriod, '/', year_period);
-
+		
 	SET new.sales_delivery_order_no = nSalesDeliveryOrderNo;
     END */$$
 
@@ -7915,9 +7919,9 @@ DELIMITER $$
 	DECLARE monthPeriod		VARCHAR(20);
 	DECLARE lenSalesInvoiceNo	DECIMAL(10);
 	DECLARE roman_month		VARCHAR(4);
-
+	
 	SET year_period = (YEAR(new.sales_invoice_date));
-
+	
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.sales_invoice_date)), 2));
     CASE month_period
         WHEN '01' THEN SET roman_month = 'I';
@@ -7934,25 +7938,25 @@ DELIMITER $$
         WHEN '12' THEN SET roman_month = 'XII';
         ELSE SET roman_month = '';
     END CASE;
-
-	SET PERIOD = (SELECT LEFT(TRIM(sales_invoice_no), 4)
+		
+	SET PERIOD = (SELECT LEFT(TRIM(sales_invoice_no), 4) 
 			FROM sales_invoice
 			WHERE RIGHT(TRIM(sales_invoice_no), 4) = year_period
-			ORDER BY sales_invoice_id DESC
+			ORDER BY sales_invoice_id DESC 
 			LIMIT 1);
-
-	IF (PERIOD IS NULL ) THEN
+		
+	IF (PERIOD IS NULL ) THEN 
 		SET PERIOD = "0000";
 	END IF;
-
+	
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-
+	
 	SET tPeriod = tPeriod + 1;
-
+	
 	SET PERIOD = RIGHT(CONCAT('00000', TRIM(CAST(tPeriod AS CHAR(5)))), 5);
-
+	
 	SET nSalesInvoiceNo = CONCAT(PERIOD,'/3T', '/INV/', roman_month, '/', year_period);
-
+		
 	SET new.sales_invoice_no = nSalesInvoiceNo;
     END */$$
 
@@ -7973,77 +7977,77 @@ DELIMITER $$
 	DECLARE nSalesOrderNo		VARCHAR(20);
 	DECLARE monthPeriod		VARCHAR(20);
 	DECLARE lenSalesOrderNo		DECIMAL(10);
-
+	
 	SET year_period = (YEAR(new.sales_order_date));
-
+	
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.sales_order_date)), 2));
-
-	IF (month_period) = '01' THEN
+	
+	IF (month_period) = '01' THEN 
 		SET monthPeriod = 'I';
 	END IF;
-
-	IF (month_period) = '02' THEN
+	
+	IF (month_period) = '02' THEN 
 		SET monthPeriod = 'II';
 	END IF;
-
-	IF (month_period) = '03' THEN
+	
+	IF (month_period) = '03' THEN 
 		SET monthPeriod = 'III';
 	END IF;
-
-	IF (month_period) = '04' THEN
+	
+	IF (month_period) = '04' THEN 
 		SET monthPeriod = 'IV';
-	END IF;
-
-	IF (month_period) = '05' THEN
+	END IF;	
+	
+	IF (month_period) = '05' THEN 
 		SET monthPeriod = 'V';
 	END IF;
-
-	IF (month_period) = '06' THEN
+	
+	IF (month_period) = '06' THEN 
 		SET monthPeriod = 'VI';
 	END IF;
-
-	IF (month_period) = '07' THEN
+	
+	IF (month_period) = '07' THEN 
 		SET monthPeriod = 'VII';
 	END IF;
-
-	IF (month_period) = '08' THEN
+	
+	IF (month_period) = '08' THEN 
 		SET monthPeriod = 'VIII';
 	END IF;
-
-	IF (month_period) = '09' THEN
+	
+	IF (month_period) = '09' THEN 
 		SET monthPeriod = 'IX';
 	END IF;
-
-	IF (month_period) = '10' THEN
+	
+	IF (month_period) = '10' THEN 
 		SET monthPeriod = 'X';
 	END IF;
-
-	IF (month_period) = '11' THEN
+	
+	IF (month_period) = '11' THEN 
 		SET monthPeriod = 'XI';
 	END IF;
-
-	IF (month_period) = '12' THEN
+	
+	IF (month_period) = '12' THEN 
 		SET monthPeriod = 'XII';
 	END IF;
-
-	SET PERIOD = (SELECT LEFT(TRIM(sales_order_no), 4)
+		
+	SET PERIOD = (SELECT LEFT(TRIM(sales_order_no), 4) 
 			FROM sales_order
 			WHERE RIGHT(TRIM(sales_order_no), 4) = year_period
-			ORDER BY sales_order_id DESC
+			ORDER BY sales_order_id DESC 
 			LIMIT 1);
-
-	IF (PERIOD IS NULL ) THEN
+		
+	IF (PERIOD IS NULL ) THEN 
 		SET PERIOD = "0000";
 	END IF;
-
+	
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-
+	
 	SET tPeriod = tPeriod + 1;
-
+	
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-
+	
 	SET nSalesOrderNo = CONCAT(PERIOD, '/SO/', monthPeriod, '/', year_period);
-
+		
 	SET new.sales_order_no = nSalesOrderNo;
     END */$$
 
@@ -8064,77 +8068,77 @@ DELIMITER $$
 	DECLARE nSalesQuotationNo		VARCHAR(20);
 	DECLARE monthPeriod		VARCHAR(20);
 	DECLARE lenSalesQuotationrNo		DECIMAL(10);
-
+	
 	SET year_period = (YEAR(new.sales_quotation_date));
-
+	
 	SET month_period = (SELECT RIGHT(CONCAT('0', MONTH(new.sales_quotation_date)), 2));
-
-	IF (month_period) = '01' THEN
+	
+	IF (month_period) = '01' THEN 
 		SET monthPeriod = 'I';
 	END IF;
-
-	IF (month_period) = '02' THEN
+	
+	IF (month_period) = '02' THEN 
 		SET monthPeriod = 'II';
 	END IF;
-
-	IF (month_period) = '03' THEN
+	
+	IF (month_period) = '03' THEN 
 		SET monthPeriod = 'III';
 	END IF;
-
-	IF (month_period) = '04' THEN
+	
+	IF (month_period) = '04' THEN 
 		SET monthPeriod = 'IV';
-	END IF;
-
-	IF (month_period) = '05' THEN
+	END IF;	
+	
+	IF (month_period) = '05' THEN 
 		SET monthPeriod = 'V';
 	END IF;
-
-	IF (month_period) = '06' THEN
+	
+	IF (month_period) = '06' THEN 
 		SET monthPeriod = 'VI';
 	END IF;
-
-	IF (month_period) = '07' THEN
+	
+	IF (month_period) = '07' THEN 
 		SET monthPeriod = 'VII';
 	END IF;
-
-	IF (month_period) = '08' THEN
+	
+	IF (month_period) = '08' THEN 
 		SET monthPeriod = 'VIII';
 	END IF;
-
-	IF (month_period) = '09' THEN
+	
+	IF (month_period) = '09' THEN 
 		SET monthPeriod = 'IX';
 	END IF;
-
-	IF (month_period) = '10' THEN
+	
+	IF (month_period) = '10' THEN 
 		SET monthPeriod = 'X';
 	END IF;
-
-	IF (month_period) = '11' THEN
+	
+	IF (month_period) = '11' THEN 
 		SET monthPeriod = 'XI';
 	END IF;
-
-	IF (month_period) = '12' THEN
+	
+	IF (month_period) = '12' THEN 
 		SET monthPeriod = 'XII';
 	END IF;
-
-	SET PERIOD = (SELECT LEFT(TRIM(sales_quotation_no), 4)
+		
+	SET PERIOD = (SELECT LEFT(TRIM(sales_quotation_no), 4) 
 			FROM sales_quotation
 			WHERE RIGHT(TRIM(sales_quotation_no), 4) = year_period
-			ORDER BY sales_quotation_id DESC
+			ORDER BY sales_quotation_id DESC 
 			LIMIT 1);
-
-	IF (PERIOD IS NULL ) THEN
+		
+	IF (PERIOD IS NULL ) THEN 
 		SET PERIOD = "0000";
 	END IF;
-
+	
 	SET tPeriod = CAST(PERIOD AS DECIMAL(10));
-
+	
 	SET tPeriod = tPeriod + 1;
-
+	
 	SET PERIOD = RIGHT(CONCAT('0000', TRIM(CAST(tPeriod AS CHAR(4)))), 4);
-
+	
 	SET nSalesQuotationNo = CONCAT(PERIOD, '/QO/', monthPeriod, '/', year_period);
-
+		
 	SET new.sales_quotation_no = nSalesQuotationNo;
     END */$$
 
