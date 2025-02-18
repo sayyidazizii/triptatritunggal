@@ -67,17 +67,9 @@ class SalesInvoiceReportController extends Controller
      */
     public function index()
     {
-        if (!Session::get('start_date')) {
-            $start_date     = date('Y-m-d');
-        } else {
-            $start_date = Session::get('start_date');
-        }
-
-        if (!Session::get('end_date')) {
-            $end_date     = date('Y-m-d');
-        } else {
-            $end_date = Session::get('end_date');
-        }
+        $start_date = Session::get('start_date', date('Y-m-d'));
+        
+        $end_date = Session::get('end_date', date('Y-m-d'));
 
         $customer_id = Session::get('customer_id');
 
@@ -96,10 +88,9 @@ class SalesInvoiceReportController extends Controller
             });
         }
         $salesinvoice       = $salesinvoice->get();
-        echo json_encode($salesinvoice);exit;
+        // echo json_encode($salesinvoice);exit;
 
-        $customer = CoreCustomer::select('customer_id', 'customer_name')
-            ->where('data_state', 0)
+        $customer = CoreCustomer::where('data_state', 0)
             ->pluck('customer_name', 'customer_id');
 
         return view('content/SalesInvoice/FormSalesInvoiceReport', compact('salesinvoice', 'start_date', 'end_date', 'customer_id', 'customer'));
