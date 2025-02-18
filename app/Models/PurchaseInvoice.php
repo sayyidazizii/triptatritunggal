@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use App\Models\CoreSupplier;
 use Illuminate\Database\Eloquent\Model;
 
 class PurchaseInvoice extends Model
@@ -27,5 +29,18 @@ class PurchaseInvoice extends Model
      */
     protected $hidden = [
     ];
+
+    /* Create Accessor purchase_invoice_date */  
+    public function getFormattedDateAttribute()
+    {
+        return Carbon::parse($this->purchase_invoice_date)->format('d-m-Y');
+    }
+
+    /* Relationship */
+    public function CoreSupplier()
+    {
+        return $this->belongsTo(CoreSupplier::class, 'supplier_id', 'supplier_id');
+    }
+
 
 }
