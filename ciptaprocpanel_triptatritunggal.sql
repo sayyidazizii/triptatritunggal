@@ -6252,7 +6252,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_bank_disbursement` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_acct_bank_disbursement` BEFORE INSERT ON `acct_bank_disbursement` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_bank_disbursement` BEFORE INSERT ON `acct_bank_disbursement` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -6307,7 +6307,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_bank_receipt` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_acct_bank_receipt` BEFORE INSERT ON `acct_bank_receipt` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_bank_receipt` BEFORE INSERT ON `acct_bank_receipt` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -6361,7 +6361,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_cash_disbursement` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_acct_cash_disbursement` BEFORE INSERT ON `acct_cash_disbursement` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_cash_disbursement` BEFORE INSERT ON `acct_cash_disbursement` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -6416,7 +6416,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_cash_receipt` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_acct_cash_receipt` BEFORE INSERT ON `acct_cash_receipt` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_cash_receipt` BEFORE INSERT ON `acct_cash_receipt` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -6470,7 +6470,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_check_disbursement` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_acct_check_disbursement` BEFORE INSERT ON `acct_check_disbursement` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_check_disbursement` BEFORE INSERT ON `acct_check_disbursement` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -6525,7 +6525,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_check_receipt` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_acct_check_receipt` BEFORE INSERT ON `acct_check_receipt` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_check_receipt` BEFORE INSERT ON `acct_check_receipt` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE day_period 		VARCHAR(20);
@@ -6579,7 +6579,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_journal_voucher` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_acct_journal_voucher` BEFORE INSERT ON `acct_journal_voucher` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_journal_voucher` BEFORE INSERT ON `acct_journal_voucher` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -6669,7 +6669,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_acct_journal_voucher_item` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_acct_journal_voucher_item` BEFORE INSERT ON `acct_journal_voucher_item` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_acct_journal_voucher_item` BEFORE INSERT ON `acct_journal_voucher_item` FOR EACH ROW BEGIN
 	DECLARE nAccountIDDefaultStatus		DECIMAL(1);
 	
 	DECLARE nAccountID		INT(10);
@@ -6748,7 +6748,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_goods_received_note` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_inv_goods_received_note` BEFORE INSERT ON `inv_goods_received_note` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_goods_received_note` BEFORE INSERT ON `inv_goods_received_note` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -6839,7 +6839,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_item_stock_card_in` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_inv_item_stock_card_in` AFTER INSERT ON `inv_goods_received_note_item` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_item_stock_card_in` AFTER INSERT ON `inv_goods_received_note_item` FOR EACH ROW BEGIN
 	DECLARE nOpeningBalance 		DECIMAL(20,5); 
 	DECLARE nLastOpeningBalance 		DECIMAL(20,5);  
 	DECLARE nLastBalance	 		DECIMAL(20,5);
@@ -6931,7 +6931,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_warehouse_in` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_in` BEFORE INSERT ON `inv_warehouse_in` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_in` BEFORE INSERT ON `inv_warehouse_in` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -7022,7 +7022,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_warehouse_out` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_out` BEFORE INSERT ON `inv_warehouse_out` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_out` BEFORE INSERT ON `inv_warehouse_out` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -7113,7 +7113,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_warehouse_transfer` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_transfer` BEFORE INSERT ON `inv_warehouse_transfer` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_transfer` BEFORE INSERT ON `inv_warehouse_transfer` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -7204,7 +7204,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_warehouse_transfer_received_note` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_transfer_received_note` BEFORE INSERT ON `inv_warehouse_transfer_received_note` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_warehouse_transfer_received_note` BEFORE INSERT ON `inv_warehouse_transfer_received_note` FOR EACH ROW BEGIN
 	DECLARE year_period 				VARCHAR(20);
 	DECLARE month_period 				VARCHAR(20);
 	DECLARE PERIOD 					VARCHAR(20);
@@ -7295,7 +7295,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_purchase_invoice` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_purchase_invoice` BEFORE INSERT ON `purchase_invoice` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_purchase_invoice` BEFORE INSERT ON `purchase_invoice` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -7386,7 +7386,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_purchase_order` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_purchase_order` BEFORE INSERT ON `purchase_order` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_purchase_order` BEFORE INSERT ON `purchase_order` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -7477,7 +7477,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_purchase_order_return` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_purchase_order_return` BEFORE INSERT ON `purchase_order_return` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_purchase_order_return` BEFORE INSERT ON `purchase_order_return` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -7568,7 +7568,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_purchase_payment` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_purchase_payment` BEFORE INSERT ON `purchase_payment` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_purchase_payment` BEFORE INSERT ON `purchase_payment` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -7659,7 +7659,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_delivery_note` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_sales_delivery_note` BEFORE INSERT ON `sales_delivery_note` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_delivery_note` BEFORE INSERT ON `sales_delivery_note` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -7750,7 +7750,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_inv_item_stock_card_out` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_inv_item_stock_card_out` AFTER INSERT ON `sales_delivery_note_item` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_inv_item_stock_card_out` AFTER INSERT ON `sales_delivery_note_item` FOR EACH ROW BEGIN
     DECLARE nOpeningBalance DECIMAL(20,5); 
     DECLARE nLastOpeningBalance DECIMAL(20,5);  
     DECLARE nQuantityOut DECIMAL(20,5);
@@ -7819,7 +7819,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_delivery_order` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_sales_delivery_order` BEFORE INSERT ON `sales_delivery_order` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_delivery_order` BEFORE INSERT ON `sales_delivery_order` FOR EACH ROW BEGIN
 	DECLARE year_period 			VARCHAR(20);
 	DECLARE month_period 			VARCHAR(20);
 	DECLARE PERIOD 				VARCHAR(20);
@@ -7910,7 +7910,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_invoice` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_sales_invoice` BEFORE INSERT ON `sales_invoice` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_invoice` BEFORE INSERT ON `sales_invoice` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(50);
 	DECLARE month_period 		VARCHAR(50);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -7969,7 +7969,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_order` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_sales_order` BEFORE INSERT ON `sales_order` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_order` BEFORE INSERT ON `sales_order` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
@@ -8060,7 +8060,7 @@ DELIMITER $$
 
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `insert_sales_quotation` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'dbman'@'localhost' */ /*!50003 TRIGGER `insert_sales_quotation` BEFORE INSERT ON `sales_quotation` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `insert_sales_quotation` BEFORE INSERT ON `sales_quotation` FOR EACH ROW BEGIN
 	DECLARE year_period 		VARCHAR(20);
 	DECLARE month_period 		VARCHAR(20);
 	DECLARE PERIOD 			VARCHAR(20);
