@@ -33,4 +33,15 @@ class PurchaseInvoiceItem extends Model
         return $this->belongsTo(PurchaseInvoice::class, 'purchase_invoice_id', 'purchase_invoice_id');
     }
 
+    public function InvItemType()
+    {
+        return $this->belongsTo(InvItemType::class, 'item_type_id', 'item_type_id');
+    }
+
+
+    public function InvItemUnit()
+    {
+        return $this->belongsTo(InvItemUnit::class, 'item_unit_id', 'item_unit_id');
+    }
+
 }

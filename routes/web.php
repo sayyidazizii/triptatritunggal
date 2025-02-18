@@ -48,6 +48,7 @@ use App\Http\Controllers\AcctJournalVoucherController;
 use App\Http\Controllers\InvWarehouseInTypeController;
 use App\Http\Controllers\SalesDeliveryOrderController;
 use App\Http\Controllers\SalesInvoiceReportController;
+use App\Http\Controllers\PurchaseInvoiceReportController;
 use App\Http\Controllers\SalesOrderApprovalController;
 use App\Http\Controllers\AcctJournalMemorialController;
 use App\Http\Controllers\InvWarehouseOutTypeController;
@@ -641,6 +642,10 @@ Route::post('/purchase-invoice/process-edit-purchase-invoice', [PurchaseInvoiceC
 Route::post('/purchase-invoice/process-void-purchase-invoice', [PurchaseInvoiceController::class, 'processVoidPurchaseInvoice'])->name('process-void-purchase-invoice');
 Route::get('/purchase-invoice/export', [PurchaseInvoiceController::class, 'export'])->name('purchase-invoice-export');
 
+Route::get('/purchase-invoice-report', [PurchaseInvoiceReportController::class, 'index'])->name('purchase-invoice-report');
+Route::post('/purchase-invoice-report/filter', [PurchaseInvoiceReportController::class, 'filterPurchaseInvoiceReport'])->name('filter-purchase-invoice-report');
+Route::get('/purchase-invoice-report/filter-reset', [PurchaseInvoiceReportController::class, 'resetFilterPurchaseInvoiceReport'])->name('filter-reset-purchase-invoice-report');
+Route::get('/purchase-invoice-report/export', [PurchaseInvoiceReportController::class, 'export'])->name('purchase-invoice-report-export');
 
 Route::get('/sales-invoice', [SalesInvoiceController::class, 'index'])->name('sales-invoice');
 Route::post('/sales-invoice/filter', [SalesInvoiceController::class, 'filterSalesInvoice'])->name('filter-sales-invoice');
