@@ -102,13 +102,11 @@ class PurchasePaymentController extends Controller
         Session::forget('purchasepaymentelements');
         Session::forget('datapurchasepaymenttransfer');
 
-        $coresupplier = PurchaseInvoice::select('purchase_invoice.supplier_id', 'core_supplier.supplier_name', 'core_supplier.supplier_address', DB::raw("SUM(purchase_invoice.owing_amount) as total_owing_amount"))
-        ->join('core_supplier', 'core_supplier.supplier_id', 'purchase_invoice.supplier_id')
-        ->where('purchase_invoice.data_state', 0)
-        ->where('core_supplier.data_state', 0)
-        ->groupBy('purchase_invoice.supplier_id')
-        ->orderBy('core_supplier.supplier_name', 'ASC')
-        ->get();
+        $coresupplier = PurchaseInvoice::with('CoreSupplier')
+            ->where('data_state', 0)
+            ->whereRelation('CoreSupplier', 'data_state', 0)
+            ->get();
+            // echo json_encode($coresupplier);exit;
 
         return view('content/PurchasePayment/SearchCoreSupplier',compact('coresupplier'));
     }
