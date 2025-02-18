@@ -11,8 +11,8 @@ use App\Models\AcctAccount;
 use App\Models\InvItemType;
 use App\Models\InvItemUnit;
 use App\Models\CoreCustomer;
+use App\Models\CoreSupplier;
 use App\Models\InvItemStock;
-use App\Models\PurchaseInvoice;
 use Illuminate\Http\Request;
 use App\Models\SalesKwitansi;
 use App\Models\SystemLogUser;
@@ -20,8 +20,8 @@ use App\Helpers\JournalHelper;
 use App\Models\CoreExpedition;
 use App\Models\SalesOrderItem;
 use App\Models\InvItemCategory;
+use App\Models\PurchaseInvoice;
 use Elibyy\TCPDF\Facades\TCPDF;
-use App\Models\PurchaseInvoiceItem;
 use App\Models\PreferenceCompany;
 use App\Models\PurchaseOrderItem;
 use App\Models\SalesDeliveryNote;
@@ -29,6 +29,7 @@ use App\Models\SalesKwitansiItem;
 use App\Models\AcctAccountSetting;
 use App\Models\AcctJournalVoucher;
 use Illuminate\Support\Facades\DB;
+use App\Models\PurchaseInvoiceItem;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Models\BuyersAcknowledgment;
@@ -47,6 +48,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use App\Models\SalesDeliveryNoteItemStock;
 use App\Models\PreferenceTransactionModule;
+use Carbon\Carbon;
 
 class PurchaseInvoiceReportController extends Controller
 {
@@ -67,63 +69,58 @@ class PurchaseInvoiceReportController extends Controller
      */
     public function index()
     {
-        if (!Session::get('start_date')) {
-            $start_date     = date('Y-m-d');
-        } else {
-            $start_date = Session::get('start_date');
-        }
+        $start_date = Session::get('start_date') ?? date('Y-m-d');
 
-        if (!Session::get('end_date')) {
-            $end_date     = date('Y-m-d');
-        } else {
-            $end_date = Session::get('end_date');
-        }
-
-        $customer_id = Session::get('customer_id');
+        $end_date = Session::get('end_date') ?? date('Y-m-d');
+        
+        $supplier_id = Session::get('supplier_id');
 
         Session::forget('salesinvoiceitem');
         Session::forget('salesinvoiceelements');
-        $salesinvoice = PurchaseInvoiceItem::with(['SalesQuotationItems','SalesInvoice'])
+
+        $salesinvoice = PurchaseInvoiceItem::with(['purchaseInvoice.CoreSupplier', 'InvItemType', 'InvItemUnit'])
         ->where('data_state', '=', 0)
         ->whereHas('PurchaseInvoice', function ($query) use ($start_date, $end_date) {
-            $query->where('sales_invoice_date', '>=', $start_date)
-                ->where('sales_invoice_date', '<=', $end_date);
+            $query->where('purchase_invoice_date', '>=', $start_date)
+                ->where('purchase_invoice_date', '<=', $end_date);
         });
-        if ($customer_id) {
-            $salesinvoice = $salesinvoice->whereHas('PurchaseInvoice', function ($query) use ($customer_id) {
-                $query->where('customer_id', $customer_id);
+        if ($supplier_id) {
+            $salesinvoice = $salesinvoice->whereHas('PurchaseInvoice', function ($query) use ($supplier_id) {
+                $query->where('supplier_id', $supplier_id);
             });
         }
         $salesinvoice       = $salesinvoice->get();
-        $customer = CoreCustomer::select('customer_id', 'customer_name')
-            ->where('data_state', 0)
-            ->pluck('customer_name', 'customer_id');
 
-        return view('content/SalesInvoice/FormSalesInvoiceReport', compact('salesinvoice', 'start_date', 'end_date', 'customer_id', 'customer'));
+        // echo json_encode($salesinvoice);exit;
+
+        $supplier = CoreSupplier::where('data_state', 0)
+            ->pluck('supplier_name', 'supplier_id');
+
+        return view('content/PurchaseInvoice/FormPurchaseInvoiceReport', compact('salesinvoice', 'start_date', 'end_date', 'supplier_id', 'supplier'));
     }
 
     //Report
-    public function filterSalesInvoiceReport(Request $request)
+    public function filterPurchaseInvoiceReport(Request $request)
     {
         $start_date     = $request->start_date;
         $end_date       = $request->end_date;
-        $customer_id  = $request->customer_id;
+        $supplier_id  = $request->supplier_id;
 
         Session::put('start_date', $start_date);
         Session::put('end_date', $end_date);
-        Session::put('customer_id', $customer_id);
+        Session::put('supplier_id', $supplier_id);
 
-        return redirect('/sales-invoice-report');
+        return redirect('/purchase-invoice-report');
     }
 
     //Report
-    public function resetFilterSalesInvoiceReport()
+    public function resetFilterPurchaseInvoiceReport()
     {
         Session::forget('start_date');
         Session::forget('end_date');
-        Session::forget('customer_id');
+        Session::forget('supplier_id');
 
-        return redirect('/sales-invoice-report');
+        return redirect('/purchase-invoice-report');
     }
 
     public function export()
@@ -131,117 +128,135 @@ class PurchaseInvoiceReportController extends Controller
         // Pastikan session valid
         $start_date = Session::get('start_date') ?? date('Y-m-d');
         $end_date = Session::get('end_date') ?? date('Y-m-d');
-        $customer_id = Session::get('customer_id');
+        $supplier_id = Session::get('supplier_id');
 
         // Reset session yang tidak diperlukan
         Session::forget('salesinvoiceitem');
         Session::forget('salesinvoiceelements');
 
         // Ambil data penjualan
-        $salesinvoice = SalesInvoiceItem::with(['SalesQuotationItems', 'SalesInvoice'])
-            ->where('data_state', '=', 0)
-            ->whereHas('SalesInvoice', function ($query) use ($start_date, $end_date) {
-                $query->whereBetween('sales_invoice_date', [$start_date, $end_date]);
-            });
-
-        if ($customer_id) {
-            $salesinvoice = $salesinvoice->whereHas('SalesInvoice', function ($query) use ($customer_id) {
-                $query->where('customer_id', $customer_id);
+        $salesinvoice = PurchaseInvoiceItem::with(['purchaseInvoice.CoreSupplier', 'InvItemType', 'InvItemUnit'])
+        ->where('data_state', '=', 0)
+        ->whereHas('PurchaseInvoice', function ($query) use ($start_date, $end_date) {
+            $query->where('purchase_invoice_date', '>=', $start_date)
+                ->where('purchase_invoice_date', '<=', $end_date);
+        });
+        if ($supplier_id) {
+            $salesinvoice = $salesinvoice->whereHas('PurchaseInvoice', function ($query) use ($supplier_id) {
+                $query->where('supplier_id', $supplier_id);
             });
         }
-
-        $salesinvoice = $salesinvoice->get();
-        $preference_company = PreferenceCompany::first();
+        $salesinvoice       = $salesinvoice->get();
 
         // Buat spreadsheet
         $spreadsheet = new Spreadsheet();
 
-        if ($salesinvoice->count() > 0) {
-            // Set properti file
+        if(count($salesinvoice)>=0){
             $spreadsheet->getProperties()->setCreator("CIPTASOLUTINDO")
-                ->setLastModifiedBy("CIPTASOLUTINDO")
-                ->setTitle("LAPORAN PENJUALAN")
-                ->setDescription("LAPORAN PENJUALAN");
+                                        ->setLastModifiedBy("IBS CJDW")
+                                        ->setTitle("Purchase Invoice Report")
+                                        ->setSubject("")
+                                        ->setDescription("Purchase Invoice Report")
+                                        ->setKeywords("Purchase, Invoice, Report")
+                                        ->setCategory("Purchase Invoice Report");
+                                
+            $sheet = $spreadsheet->getActiveSheet(0);
+            $spreadsheet->getActiveSheet()->getPageSetup()->setFitToWidth(1);
+            $spreadsheet->getActiveSheet()->getPageSetup()->setFitToWidth(1);
+            $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(5);
+            $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(20);
+            $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+            $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(20);
+            $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(20);
+            $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(20);
+            $spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(20);
+            $spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(20);
+            $spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(20);
+    
+            $spreadsheet->getActiveSheet()->mergeCells("B1:J1");
+            $spreadsheet->getActiveSheet()->getStyle('B1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            $spreadsheet->getActiveSheet()->getStyle('B1')->getFont()->setBold(true)->setSize(16);
 
-            // Group data berdasarkan customer_id
-            $groupedInvoices = $salesinvoice->groupBy('customer_id');
+            $spreadsheet->getActiveSheet()->getStyle('B3:J3')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $spreadsheet->getActiveSheet()->getStyle('B3:J3')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-            foreach ($groupedInvoices as $customer_id => $invoices) {
-                // Buat sheet baru untuk setiap customer
-                $sheet = $spreadsheet->createSheet();
-                $sheet->setTitle("Customer " . $customer_id);
+            $sheet->setCellValue('B1',"Laporan Pembelian Dari Periode ".date('d M Y', strtotime($start_date))." s.d. ".date('d M Y', strtotime($end_date)));	
+            $sheet->setCellValue('B3',"No");
+            $sheet->setCellValue('C3',"Tanggal Pembelian");
+            $sheet->setCellValue('D3',"NO INVOICE");
+            $sheet->setCellValue('E3',"Nama Pemasok");
+            $sheet->setCellValue('F3',"BARANG");
+            $sheet->setCellValue('G3',"Quantity");
+            $sheet->setCellValue('H3',"Satuan");
+            $sheet->setCellValue('I3',"Harga Per Satuan");
+            $sheet->setCellValue('J3',"Subtotal"); 
+            
+            $j=4;
+            $no=0;
+            $subtotal_amount = 0;
 
-                // Header laporan
-                $sheet->mergeCells("B5:J5");
-                $sheet->mergeCells("B6:J6");
-                $sheet->mergeCells("B7:J7");
-                $sheet->setCellValue('B5', "TRIPTA TRI TUNGGAL");
-                $sheet->setCellValue('B6', "PERUM. BUMI WONOREJO - KARANGANYAR");
-                $sheet->setCellValue('B7', "REKAPITULASI PENJUALAN TANGGAL $start_date - $end_date");
+            
+            foreach($salesinvoice as $key=>$item){
 
-                // Header tabel
-                $sheet->setCellValue('B12', "No");
-                $sheet->setCellValue('C12', "TANGGAL");
-                $sheet->setCellValue('D12', "PEMBELI");
-                $sheet->setCellValue('E12', "NO INVOICE");
-                $sheet->setCellValue('F12', "BARANG");
-                $sheet->setCellValue('G12', "QTY");
-                $sheet->setCellValue('H12', "JUMLAH");
-                $sheet->setCellValue('I12', "DISKON");
-                $sheet->setCellValue('J12', "TOTAL");
+                if(is_numeric($key)){
+                    
+                    $sheet = $spreadsheet->getActiveSheet(0);
+                    $spreadsheet->getActiveSheet()->setTitle("Laporan Pembelian");
+                    $spreadsheet->getActiveSheet()->getStyle('B'.$j.':J'.$j)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
 
-                $row = 13;
-                $no = 1;
+                    $spreadsheet->getActiveSheet()->getStyle('H'.$j.':J'.$j)->getNumberFormat()->setFormatCode('0.00');
+            
+                    $spreadsheet->getActiveSheet()->getStyle('B'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                    $spreadsheet->getActiveSheet()->getStyle('C'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+                    $spreadsheet->getActiveSheet()->getStyle('D'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+                    $spreadsheet->getActiveSheet()->getStyle('E'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+                    $spreadsheet->getActiveSheet()->getStyle('F'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+                    $spreadsheet->getActiveSheet()->getStyle('G'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+                    $spreadsheet->getActiveSheet()->getStyle('H'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+                    $spreadsheet->getActiveSheet()->getStyle('I'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+                    $spreadsheet->getActiveSheet()->getStyle('J'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
 
-                // Variabel untuk menyimpan total
-                $totalQty = 0;
-                $totalJumlah = 0;
-                $totalDiskon = 0;
-                $totalHarga = 0;
 
-                // Isi data
-                foreach ($invoices as $invoice) {
-                    $sheet->setCellValue('B' . $row, $no++);
-                    $sheet->setCellValue('C' . $row, $invoice->sales_invoice_date);
-                    $sheet->setCellValue('D' . $row, $this->getCustomerName($invoice->SalesInvoice->customer_id));
-                    $sheet->setCellValue('E' . $row, $invoice->SalesInvoice->sales_invoice_no);
-                    $sheet->setCellValue('F' . $row, $this->getItemTypeName($invoice->item_type_id));
-                    $sheet->setCellValue('G' . $row, number_format($invoice->quantity, 2, '.', ''));
-                    $sheet->setCellValue('H' . $row, number_format($invoice->item_unit_price * $invoice->quantity, 2, '.', ''));
-                    $sheet->setCellValue('I' . $row, number_format($invoice->discount_A, 2, '.', ''));
-                    $sheet->setCellValue('J' . $row, number_format($invoice->subtotal_price_A, 2, '.', ''));
 
-                    // Hitung total
-                    $totalQty += $invoice->quantity;
-                    $totalJumlah += $invoice->item_unit_price * $invoice->quantity;
-                    $totalDiskon += $invoice->discount_A;
-                    $totalHarga += $invoice->subtotal_price_A;
-
-                    $row++;
+                    $no++;
+                    $sheet->setCellValue('B'.$j, $no);
+                    $sheet->setCellValue('C'.$j, $item->purchaseInvoice->formatted_date );
+                    $sheet->setCellValue('D'.$j, $item->purchaseInvoice->purchase_invoice_no);
+                    $sheet->setCellValue('E'.$j, $item->purchaseInvoice->CoreSupplier->supplier_name);
+                    $sheet->setCellValue('F'.$j, $item->InvItemType->item_type_name);
+                    $sheet->setCellValue('G'.$j, number_format($item->quantity));
+                    $sheet->setCellValue('H'.$j, $item->InvItemUnit->item_unit_name);
+                    $sheet->setCellValue('I'.$j, number_format($item['item_unit_cost'],2,'.',','));
+                    $sheet->setCellValue('J'.$j, number_format($item['subtotal_amount'],2,'.',','));
                 }
+                $subtotal_amount += $item['subtotal_amount'];
 
-                // Tambahkan baris total
-                $sheet->setCellValue('F' . $row, "TOTAL");
-                $sheet->setCellValue('G' . $row, number_format($totalQty, 2, '.', ''));
-                $sheet->setCellValue('H' . $row, number_format($totalJumlah, 2, '.', ''));
-                $sheet->setCellValue('I' . $row, number_format($totalDiskon, 2, '.', ''));
-                $sheet->setCellValue('J' . $row, number_format($totalHarga, 2, '.', ''));
+                $j++;
+        
             }
 
-            // Hapus sheet default
-            $spreadsheet->removeSheetByIndex(0);
-
-            // Export file
-            $filename = 'LAPORAN_PENJUALAN_' . date('d_M_Y') . '.xlsx';
+            $spreadsheet->getActiveSheet()->getStyle('B'.$j.':J'.$j)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+            $spreadsheet->getActiveSheet()->mergeCells('B'.$j.':I'.$j);
+            $spreadsheet->getActiveSheet()->getStyle('B'.$j.':I'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+            $spreadsheet->getActiveSheet()->getStyle('B'.$j.':J'.$j)->getFont()->setBold(true);
+            $spreadsheet->getActiveSheet()->getStyle('G'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+            $spreadsheet->getActiveSheet()->getStyle('H'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+            $spreadsheet->getActiveSheet()->getStyle('I'.$j.':L'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+            $spreadsheet->getActiveSheet()->getStyle('J'.$j)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+            
+            $sheet->setCellValue('B'.$j,'Total');
+            $sheet->setCellValue('J'.$j, number_format($subtotal_amount,2,'.',','));
+            
+            // ob_clean();
+            $filename='Laporan_Pembelian_'.$start_date.'_s.d._'.$end_date.'.xls';
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-            header('Content-Disposition: attachment;filename="' . $filename . '"');
+            header('Content-Disposition: attachment;filename="'.$filename.'"');
             header('Cache-Control: max-age=0');
 
-            $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+            $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
             $writer->save('php://output');
-        } else {
-            // Tampilkan pesan jika data tidak ditemukan
-            return response()->json(['message' => 'Maaf, tidak ada data untuk diekspor!'], 404);
+        }else{
+            echo "Maaf data yang di eksport tidak ada !";
         }
     }
 
