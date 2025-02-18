@@ -304,12 +304,12 @@ class PurchaseInvoiceController extends Controller
                 return redirect('/purchase-invoice')->with('msg',$msg);
         } catch (\Exception $e) {
             DB::rollBack();
-            Log::error('Error Descriptions: ' . e->getMessage(), [
-                'exception' => e,
-                'trace' => e->getTraceAsString()
+            Log::error('Error Descriptions: ' . $e->getMessage(), [
+                'exception' => $e,
+                'trace' => $e->getTraceAsString()
             ]);
             $msg = 'Tambah Purchase Invoice Gagal';
-            return redirect('/purchase-invoice/add/'.$fields['purchase_order_id'])->with('msg',$msg);
+            return redirect('/purchase-invoice')->with('msg',$msg);
         }
 
     }
