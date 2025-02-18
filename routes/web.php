@@ -732,7 +732,7 @@ Route::get('/warehouse-out-type/delete-warehouse-out-type/{product_type_id}', [I
 Route::get('/purchase-payment', [PurchasePaymentController::class, 'index'])->name('purchase-payment');
 Route::post('/purchase-payment/filter', [PurchasePaymentController::class, 'filterPurchasePayment'])->name('filter-purchase-payment');
 Route::get('/purchase-payment/search', [PurchasePaymentController::class, 'searchCoreSupplier'])->name('search-core-supplier-purchase-payment');
-Route::get('/purchase-payment/add/{supplier_id}', [PurchasePaymentController::class, 'addPurchasePayment'])->name('add-purchase-payment');
+Route::get('/purchase-payment/add/{purchase_invoice_id}/{supplier_id}', [PurchasePaymentController::class, 'addPurchasePayment'])->name('add-purchase-payment');
 Route::get('/purchase-payment/detail/{supplier_id}', [PurchasePaymentController::class, 'detailPurchasePayment'])->name('detail-purchase-payment');
 Route::get('/purchase-payment/delete/{supplier_id}', [PurchasePaymentController::class, 'deletePurchasePayment'])->name('delete-purchase-payment');
 Route::post('/purchase-payment/process-delete', [PurchasePaymentController::class, 'processVoidPurchasePayment'])->name('process-delete-purchase-payment');

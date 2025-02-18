@@ -43,9 +43,11 @@
                 <thead>
                     <tr>
                         <th width="2%" style='text-align:center'>No</th>
-                        <th width="30%" style='text-align:center'>Nama Pemasok</th>
-                        <th width="40%" style='text-align:center'>Alamat Pemasok</th>
-                        <th width="20%" style='text-align:center'>Jumlah Hutang</th>
+                        <th width="10%" style='text-align:center'>Tanggal Transaksi</th>
+                        <th width="15%" style='text-align:center'>No Invoice</th>
+                        <th width="25%" style='text-align:center'>Nama Pemasok</th>
+                        <th width="30%" style='text-align:center'>Alamat Pemasok</th>
+                        <th width="30%" style='text-align:center'>Jumlah Hutang</th>
                         <th width="8%" style='text-align:center'>Aksi</th>
                     </tr>
                 </thead>
@@ -54,11 +56,13 @@
                     @foreach($coresupplier as $item)
                     <tr>
                         <td style='text-align:center'>{{$no}}</td>
+                        <td>{{$item->formatted_date}}</td>
+                        <td>{{$item->purchase_invoice_no}}</td>
                         <td>{{$item->CoreSupplier->supplier_name}}</td>
                         <td>{{$item->CoreSupplier->supplier_address}}</td>
                         <td style='text-align:right'>{{number_format($item['owing_amount'],2,',','.')}}</td>
                         <td style='text-align:center'>
-                            <a type="button" class="btn btn-outline-primary btn-sm" href="{{ url('/purchase-payment/add/'.$item['supplier_id']) }}">Pilih</a>
+                            <a type="button" class="btn btn-outline-primary btn-sm" href="{{ url('/purchase-payment/add/'.$item['purchase_invoice_id'].'/'.$item['supplier_id']) }}">Pilih</a>
                         </td>
                     </tr>
                     <?php $no++; ?>
