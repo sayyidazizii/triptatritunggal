@@ -47,6 +47,9 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use App\Models\SalesDeliveryNoteItemStock;
 use App\Models\PreferenceTransactionModule;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
 class SalesInvoiceReportController extends Controller
 {
@@ -68,7 +71,7 @@ class SalesInvoiceReportController extends Controller
     public function index()
     {
         $start_date = Session::get('start_date', date('Y-m-d'));
-        
+
         $end_date = Session::get('end_date', date('Y-m-d'));
 
         $customer_id = Session::get('customer_id');
@@ -120,6 +123,7 @@ class SalesInvoiceReportController extends Controller
         return redirect('/sales-invoice-report');
     }
 
+
     public function export()
     {
         // Pastikan session valid
@@ -151,7 +155,6 @@ class SalesInvoiceReportController extends Controller
         $spreadsheet = new Spreadsheet();
 
         if ($salesinvoice->count() > 0) {
-            // Set properti file
             $spreadsheet->getProperties()->setCreator("CIPTASOLUTINDO")
                 ->setLastModifiedBy("CIPTASOLUTINDO")
                 ->setTitle("LAPORAN PENJUALAN")
@@ -161,7 +164,6 @@ class SalesInvoiceReportController extends Controller
             $groupedInvoices = $salesinvoice->groupBy('customer_id');
 
             foreach ($groupedInvoices as $customer_id => $invoices) {
-                // Buat sheet baru untuk setiap customer
                 $sheet = $spreadsheet->createSheet();
                 $sheet->setTitle("Customer " . $customer_id);
 
@@ -174,15 +176,23 @@ class SalesInvoiceReportController extends Controller
                 $sheet->setCellValue('B7', "REKAPITULASI PENJUALAN TANGGAL $start_date - $end_date");
 
                 // Header tabel
-                $sheet->setCellValue('B12', "No");
-                $sheet->setCellValue('C12', "TANGGAL");
-                $sheet->setCellValue('D12', "PEMBELI");
-                $sheet->setCellValue('E12', "NO INVOICE");
-                $sheet->setCellValue('F12', "BARANG");
-                $sheet->setCellValue('G12', "QTY");
-                $sheet->setCellValue('H12', "JUMLAH");
-                $sheet->setCellValue('I12', "DISKON");
-                $sheet->setCellValue('J12', "TOTAL");
+                $headerRow = 12;
+                $sheet->setCellValue('B' . $headerRow, "No");
+                $sheet->setCellValue('C' . $headerRow, "TANGGAL");
+                $sheet->setCellValue('D' . $headerRow, "PEMBELI");
+                $sheet->setCellValue('E' . $headerRow, "NO INVOICE");
+                $sheet->setCellValue('F' . $headerRow, "BARANG");
+                $sheet->setCellValue('G' . $headerRow, "QTY");
+                $sheet->setCellValue('H' . $headerRow, "JUMLAH");
+                $sheet->setCellValue('I' . $headerRow, "DISKON");
+                $sheet->setCellValue('J' . $headerRow, "TOTAL");
+
+                // Style header
+                $sheet->getStyle("B$headerRow:J$headerRow")->applyFromArray([
+                    'font' => ['bold' => true],
+                    'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
+                    'borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN]]
+                ]);
 
                 $row = 13;
                 $no = 1;
@@ -193,10 +203,9 @@ class SalesInvoiceReportController extends Controller
                 $totalDiskon = 0;
                 $totalHarga = 0;
 
-                // Isi data
                 foreach ($invoices as $invoice) {
                     $sheet->setCellValue('B' . $row, $no++);
-                    $sheet->setCellValue('C' . $row, $invoice->sales_invoice_date);
+                    $sheet->setCellValue('C' . $row, $invoice->SalesInvoice->sales_invoice_date);
                     $sheet->setCellValue('D' . $row, $this->getCustomerName($invoice->SalesInvoice->customer_id));
                     $sheet->setCellValue('E' . $row, $invoice->SalesInvoice->sales_invoice_no);
                     $sheet->setCellValue('F' . $row, $this->getItemTypeName($invoice->item_type_id));
@@ -205,7 +214,11 @@ class SalesInvoiceReportController extends Controller
                     $sheet->setCellValue('I' . $row, number_format($invoice->discount_A, 2, '.', ''));
                     $sheet->setCellValue('J' . $row, number_format($invoice->subtotal_price_A, 2, '.', ''));
 
-                    // Hitung total
+                    // Tambahkan border untuk tiap baris
+                    $sheet->getStyle("B$row:J$row")->applyFromArray([
+                        'borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN]]
+                    ]);
+
                     $totalQty += $invoice->quantity;
                     $totalJumlah += $invoice->item_unit_price * $invoice->quantity;
                     $totalDiskon += $invoice->discount_A;
@@ -220,6 +233,12 @@ class SalesInvoiceReportController extends Controller
                 $sheet->setCellValue('H' . $row, number_format($totalJumlah, 2, '.', ''));
                 $sheet->setCellValue('I' . $row, number_format($totalDiskon, 2, '.', ''));
                 $sheet->setCellValue('J' . $row, number_format($totalHarga, 2, '.', ''));
+
+                // Tambahkan border untuk baris total
+                $sheet->getStyle("F$row:J$row")->applyFromArray([
+                    'font' => ['bold' => true],
+                    'borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN]]
+                ]);
             }
 
             // Hapus sheet default
@@ -234,10 +253,10 @@ class SalesInvoiceReportController extends Controller
             $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
             $writer->save('php://output');
         } else {
-            // Tampilkan pesan jika data tidak ditemukan
             return response()->json(['message' => 'Maaf, tidak ada data untuk diekspor!'], 404);
         }
     }
+
 
     public function getCustomerName($customer_id){
         $customer = CoreCustomer::select('customer_name')
