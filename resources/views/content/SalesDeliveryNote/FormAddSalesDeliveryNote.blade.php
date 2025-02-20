@@ -246,11 +246,19 @@ function elements_add(name, value){
                 </div>
             </div>
             <div class="row form-group">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group">
                         <a class="text-dark">No Resi</a>
                         <div class="">
                             <input class="form-control input-bb" type="text" name="expedition_receipt_no" id="expedition_receipt_no" onChange="function_elements_add(this.name, this.value);" value=""/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <a class="text-dark">PO Number</a>
+                        <div class="">
+                            <input class="form-control input-bb" type="text" name="number_po" id="number_po" onChange="function_elements_add(this.name, this.value);" value=""/>
                         </div>
                     </div>
                 </div>

@@ -349,6 +349,7 @@ class SalesDeliveryNoteController extends Controller
             'warehouse_id'                  => 1,
             'expedition_id'                 => $request->expedition_id,
             'driver_name'                   => $request->driver_name,
+            'number_po'                     => $request->number_po,
             'fleet_police_number'           => $request->fleet_police_number,
             'sales_delivery_note_remark'    => $request->sales_delivery_note_remark,
             'sales_delivery_note_date'      => $request->sales_delivery_note_date,
