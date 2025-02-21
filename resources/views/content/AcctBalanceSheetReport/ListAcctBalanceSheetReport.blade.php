@@ -350,6 +350,7 @@
                                                     }
 
                                                     $total_current_liabilities  = $total_current_liabilities  + $total_account_amount2;
+
                                                     echo "
                                                         <td><div style='font-weight:".$report_bold2."'>".$report_tab2."".$val['account_name2']."</div></td>
                                                         <td style='text-align:right'><div style='font-weight:".$report_bold2."'>".number_format($total_current_liabilities, 2)."</div></td>
@@ -397,7 +398,6 @@
                                                     }
 
                                                     $grand_total_account_amount2 = $grand_total_account_amount2 + $total_account_amount210;
-
                                                     echo "
                                                         <td><div style='font-weight:".$report_bold2."'>".$report_tab2."(".$val['account_code2'].") ".$val['account_name2']."</div> </td>
                                                         <td style='text-align:right'><div style='font-weight:".$report_bold2."'>".number_format($grand_total_account_amount2, 2)."</div></td>
@@ -411,6 +411,7 @@
                                         echo "
                                         <tr>";
                                             if($val['report_type2']	== 12){
+                                                $grand_total_account_name2 = $val['account_name2'];
 
                                                 $total_amount_activa 	= $total_current_liabilities + $total_account_amount210;
 
@@ -442,11 +443,8 @@
                             <table class="table table-bordered table-advance table-hover">
                                 <tr>
                                     <?php
-                                        // echo "
-                                        //     <td style=\"width: 70%\"><div style=\"font-weight:".$report_bold2.";font-size:14px\">".$report_tab2."".$grand_total_account_name2."</div></td>
-                                        //     <td style=\"width: 28%; text-align:right;\"><div style=\"font-weight:".$report_bold2."; font-size:14px\">".number_format($grand_total_account_amount2, 2)."</div></td>
-                                        // ";
                                         echo "
+                                            <td style=\"width: 70%\"><div style=\"font-weight:".$report_bold2.";font-size:14px\">".$report_tab2."".$grand_total_account_name2."</div></td>
                                             <td style=\"width: 28%; text-align:right;\"><div style=\"font-weight:".$report_bold2."; font-size:14px\">".number_format($total_amount_activa, 2)."</div></td>
                                         ";
                                     ?>
