@@ -233,7 +233,7 @@ class AcctAccountSettingController extends Controller
 
         $company_id = AcctAccountSetting::where('company_id', Auth::user()->company_id)->first();
         if(!empty($company_id)){
-            for($key = 1; $key<=10;$key++){
+            for($key = 1; $key<=18;$key++){
                 $data_item = array(
                     'account_id' 				=> $data[$key."_account_id"],
                     'account_setting_status'	=> $data[$key."_account_setting_status"],

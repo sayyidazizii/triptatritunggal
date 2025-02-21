@@ -45,16 +45,16 @@
         <div class="card-body">
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link active" href="#pembelian" role="tab" data-toggle="tab">Pembelian</a>
+                  <a class="nav-link active" href="#pembelian" role="tab" data-toggle="tab"> <i class="fa fa-box"></i> Pembelian</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#penjualan" role="tab" data-toggle="tab">Penjualan</a>
+                  <a class="nav-link" href="#penjualan" role="tab" data-toggle="tab"> <i class="fa fa-dollar-sign"></i> Penjualan</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#pengeluaran" role="tab" data-toggle="tab">Pengeluaran</a>
+                  <a class="nav-link" href="#pengeluaran" role="tab" data-toggle="tab"> <i class="fa fa-arrow-left"></i> Pengeluaran</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#pelunasan" role="tab" data-toggle="tab">Pelunasan</a>
+                    <a class="nav-link" href="#pelunasan" role="tab" data-toggle="tab">  <i class="fa fa-arrow-right"></i> Pelunasan</a>
                 </li>
             </ul>
 
