@@ -246,7 +246,7 @@ class AcctAccountSettingController extends Controller
                 ->update($data_item);
             }
         } else {
-            for($key = 1; $key<=10;$key++){
+            for($key = 1; $key<=18;$key++){
                 $data_item = array(
                     'account_id' 				=> $data[$key."_account_id"],
                     'account_setting_status'	=> $data[$key."_account_setting_status"],
