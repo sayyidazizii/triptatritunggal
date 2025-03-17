@@ -1147,7 +1147,7 @@ class SalesInvoiceController extends Controller
     public function printNota($salesId)
     {
         // Get sales invoice and items
-        $salesinvoice = SalesInvoice::with('salesDeliveryNote')
+        $salesinvoice = SalesInvoice::with('salesDeliveryNote','Customer')
             ->where('sales_invoice_id', $salesId)
             ->where('data_state', 0)
             ->first();
@@ -1171,7 +1171,8 @@ class SalesInvoiceController extends Controller
 
         // Create new TCPDF instance
         $pdf = new TCPDF('P', 'in', $page_format, true, 'UTF-8');
-
+        
+        $pdf::SetMargins(10, 10, 10,10); // Atur margin umum
         // Remove default header/footer
         $pdf::setPrintHeader(false);
         $pdf::setPrintFooter(false);
@@ -1186,32 +1187,39 @@ class SalesInvoiceController extends Controller
         $html = '
 
         <table border="0" style="width:100%;">
-            <tr>
-                <td style="width:50%; text-align:left;">
-                    <img src="' . public_path('img/logo_tripta.png') . '" width="50" /> <strong>PT. TRIPTA TRI TUNGGAL</strong>
-                </td>
-                <td style="width:50%; text-align:right;">
-                    <div style="font-size:14px; font-weight:bold; text-align:center;">
-                            INVOICE
-                    </div>
-                </td>
-            </tr>
                 <tr>
-                    <td style="width:50%; font-size:9px;">
-                        JL. DURIAN 2 A<br>
-                        PERUM. BUMI WONOREJO - KARANGANYAR<br>
-                        TELP: 061 226 869 764<br>
-                        FAX: 0271-2874598
-                        <br>
-                        <div style="font-size:9px;">
-                            <strong>BILL TO:</strong><br>
-                            PT. CHAROEN POKPHAND INDONESIA<br>
-                            Patimura Kutowinangun Km.1 Candeh Tingkir<br>
-                            Salatiga 50742
+                    <td style="width:50%; text-align:left;">
+                        <div style="font-size:14px; font-weight:bold; ">
+                            <img src="' . public_path('img/logo_tripta.png') . '" width="50" /> 
+                            <strong style="display:top">PT. TRIPTA TRI TUNGGAL</strong>
                         </div>
                     </td>
+                    <td style="width:50%; text-align:right;">
+                        <div style="font-size:14px; font-weight:bold; text-align:center;">
+                                INVOICE
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr>
                     <td style="width:50%; font-size:9px;">
-
+                        <table border="0" cellspacing="5" style="width:100%;">
+                            <tr>
+                                <td style="text-align:left; line-height:2;">
+                                    JL. DURIAN 2 A<br>
+                                    PERUM. BUMI WONOREJO - KARANGANYAR<br>
+                                    <strong>Telp:</strong> 061-226-869-764<br>
+                                    <strong>Fax:</strong> 0271-287-4598
+                                </td>
+                            </tr>
+                        </table>
+                            <br>
+                            <div style="font-size:9px;">
+                                <strong>BILL TO:</strong><br><br>
+                                &nbsp;'. $salesinvoice->Customer->customer_name . '<br>
+                            </div>
+                    </td>
+                    <td style="width:50%; font-size:9px;">
                         <table border="0" cellspacing="5" style="width:100%;">
                             <tr>
                                 <td style="width:30%;">Date</td>
@@ -1225,24 +1233,28 @@ class SalesInvoiceController extends Controller
                                 <td style="width: 30%;">Delivery Order </td>
                                 <td style="width: 50%;">' . $salesinvoice->sales_invoice_no . '</td>
                             </tr>
-                            <tr><td>PO Number</td><td></td></tr>
-                            <tr><td>Sales Person</td><td></td></tr>
+                            <tr>
+                                <td style="width: 30%;">PO Number</td>
+                                <td style="width: 50%;">' . $salesinvoice->salesDeliveryNote->number_po . '</td>
+                            </tr>
+                            <tr>
+                                <td>Sales Person</td>
+                                <td>'.Auth::user()->name.'</td>
+                            </tr>
                         </table>
                     </td>
                 </tr>
             </table>
         ';
-        $pdf::writeHTML($html, true, false, false, false, '');
+        $pdf::writeHTML($html, true, false, true, false, '');
 
         $data1 = '
             <table border="1" cellpadding="5" style="width:100%; margin-top:30px; border-collapse: collapse;">
                 <thead>
                     <tr>
-                        <th style="width:60%;">DESCRIPTION</th>
-                        <th style="width:10%;">QTY</th>
-                        <th style="width:10%;">@</th>
-                        <th style="width:10%;">Total Valas</th>
-                        <th style="width:10%;">Total Rupiah (Rp.)</th>
+                        <th style="width:50%;">DESCRIPTION</th>
+                        <th style="width:30%;">QTY</th>
+                        <th style="width:20%;">Total Rupiah (Rp.)</th>
                     </tr>
                 </thead>
                 <tbody>';
@@ -1250,11 +1262,9 @@ class SalesInvoiceController extends Controller
         // Add invoice items
         foreach ($salesinvoiceitems as $item) {
             $data1 .= '<tr>
-                        <td>' . $item->itemType->item_type_name . '</td>
-                        <td>' . $item->quantity . ' PC</td>
-                        <td>' . 'Rp ' . number_format($item->item_unit_price, 0) . '</td>
-                        <td>' . 'Rp 0' . '</td>
-                        <td>' . 'Rp ' . number_format($item->subtotal_price_A, 0) . '</td>
+                        <td style="width:50%; font-size:10px">' . $item->itemType->item_type_name . '</td>
+                        <td style="width:30%; font-size:10px">' . $item->quantity . ' PC</td>
+                        <td style="width:20%; font-size:10px">' . 'Rp ' . number_format($item->item_unit_price, 0) . '</td>
                     </tr>';
         }
 
@@ -1262,31 +1272,48 @@ class SalesInvoiceController extends Controller
             </table>
 
             <div style="margin-top:20px;">
-                <table style="width:100%; font-size:9px;">
-                    <tr><td>Sub Total</td><td style="text-align:right;">Rp </td></tr>
-                    <tr><td>Discount</td><td style="text-align:right;">Rp </td></tr>
-                    <tr><td>DPP</td><td style="text-align:right;">Rp </td></tr>
-                    <tr><td>PPN</td><td style="text-align:right;">Rp </td></tr>
-                    <tr><td><strong>TOTAL Due</strong></td><td style="text-align:right;">Rp </td></tr>
+                <table border="0" cellpadding="2" style="width:100%; margin-top:30px; border-collapse: collapse;">
+                    <tr>
+                        <td style="width:50%;"></td>
+                        <td style="width:30%;">Sub Total</td>
+                        <td style="text-align:left; width:20%;">Rp</td>
+                    </tr>
+                    <tr>
+                        <td style="width:50%;"></td>
+                        <td style="width:30%;">Discount</td>
+                        <td style="text-align:left; width:20%;">Rp </td>
+                    </tr>
+                    <tr>
+                        <td style="width:50%;"></td>
+                        <td style="width:30%;">DPP</td>
+                        <td style="text-align:left; width:20%;">Rp </td>
+                    </tr>
+                    <tr>
+                        <td style="width:50%;"></td>
+                        <td style="width:30%;">PPN</td>
+                        <td style="text-align:left; width:20%;">Rp </td>
+                    </tr>
+                    <tr>
+                        <td style="width:50%;"></td>
+                        <td style="width:30%;">Total</td>
+                        <td style="text-align:left; width:20%;">Rp </td>
+                    </tr>
                 </table>
             </div>
 
-            <div style="margin-top:20px; font-size:9px;">
+            <div style="margin-top:10px; font-size:9px;">
                 <strong>Notes and Payment Instruction:</strong><br>
                 Make all checks payable to PT. TRIPTA TRI TUNGGAL<br>
                 Bank BCA KCU Solo Slamet Riyadi<br>
                 A/C No. 015-317072-7<br>
                 Payment is due within 14 days.
             </div>
-
-            <div style="margin-top:40px; text-align:center;">
+            <br><br>
+            <div style="margin-top:40px; text-align:center; float:right; width:200px;">
                 <strong>Your Faithfully</strong><br>
                 <div>ELLY</div>
             </div>
-
-            <div style="text-align:center; font-size:9px; margin-top:20px;">
-                Thank You For Your Purchase
-            </div>
+ 
         ';
 
         // Write HTML to PDF

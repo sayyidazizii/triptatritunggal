@@ -902,7 +902,7 @@ class SalesDeliveryNoteController extends Controller
                     <td style=\"text-align:left; font-size:12px;\"><b>Kepada:</b></td>
                 </tr>
                 <tr>
-                    <td style=\"text-align:left; font-size:12px;\"><b>PO: ".$salesdeliverynote->salesQuotation->purchase_order_customer."</b></td>
+                    <td style=\"text-align:left; font-size:12px;\"><b>PO: ".$salesdeliverynote->salesQuotation->number_po."</b></td>
                     <td style=\"text-align:left; font-size:12px;\"><b>" . $customer['customer_name'] . "</b></td>
                 </tr>
                 <tr>
