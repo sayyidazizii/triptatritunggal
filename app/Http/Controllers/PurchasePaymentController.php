@@ -306,6 +306,8 @@ class PurchasePaymentController extends Controller
                     'branch_id'                     => $data['branch_id'],
                     'journal_voucher_period'        => date("Ym", strtotime($data['payment_date'])),
                     'journal_voucher_date'          => $data['payment_date'],
+                    'sales_id'                      => null,
+                    'goods_received_note_id'        => null,
                     'journal_voucher_title'         => 'Pembayaran hutang ' . $purchasepayment->payment_no,
                     'journal_voucher_description'   => $data['payment_remark'],
                     'transaction_module_id'         => $transactionmodule->transaction_module_id ?? null,
