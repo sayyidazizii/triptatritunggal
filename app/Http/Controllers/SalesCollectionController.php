@@ -24,7 +24,6 @@ use Illuminate\Support\Facades\DB;
 use App\Models\SalesCollectionItem;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-
 use App\Models\SalesCollectionPiece;
 use Illuminate\Support\Facades\Auth;
 use App\Models\AcctDebtRepaymentItem;

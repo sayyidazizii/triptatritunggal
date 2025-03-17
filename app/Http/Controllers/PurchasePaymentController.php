@@ -111,18 +111,22 @@ class PurchasePaymentController extends Controller
         return view('content/PurchasePayment/SearchCoreSupplier',compact('coresupplier'));
     }
 
-    public function addPurchasePayment($supplier_id){
+    public function addPurchasePayment($purchase_invoice_id,$supplier_id){
 
         $purchaseinvoiceowing = PurchaseInvoice::select('purchase_invoice.faktur_tax_no','purchase_invoice.purchase_invoice_id', 'purchase_invoice.supplier_id', 'purchase_invoice.owing_amount', 'purchase_invoice.purchase_invoice_date','purchase_invoice.ppn_in_amount', 'purchase_invoice.paid_amount', 'purchase_invoice.purchase_invoice_no', 'purchase_invoice.subtotal_amount', 'purchase_invoice.discount_percentage', 'purchase_invoice.discount_amount', 'purchase_invoice.tax_amount', 'purchase_invoice.total_amount')
         ->where('purchase_invoice.supplier_id', $supplier_id)
+        ->where('purchase_invoice.purchase_invoice_id', $purchase_invoice_id)
         ->where('purchase_invoice.owing_amount', '>', 0)
         ->where('purchase_invoice.data_state', 0)
         ->get();
 
         $PPN = $this->getTotalPpn($supplier_id);
 
-        $supplier = CoreSupplier::findOrfail($supplier_id);
+        $purchase_invoice_id = PurchaseInvoice::findorFail($purchase_invoice_id);
 
+
+        $supplier = CoreSupplier::findOrfail($supplier_id);
+        
         $acctaccount    = AcctAccount::select('account_id', DB::raw('CONCAT(account_code, " - ", account_name) AS full_name'))
         ->where('acct_account.data_state', 0)
         ->where('parent_account_status', 0)
@@ -139,7 +143,7 @@ class PurchasePaymentController extends Controller
         $purchasepaymentelements = Session::get('purchasepaymentelements');
         $purchasepaymenttransfer = Session::get('datapurchasepaymenttransfer');
 
-        return view('content/PurchasePayment/FormAddPurchasePayment',compact('payment_type_list','supplier_id', 'purchaseinvoiceowing', 'corebank', 'supplier', 'acctaccount', 'purchasepaymentelements', 'purchasepaymenttransfer','PPN'));
+        return view('content/PurchasePayment/FormAddPurchasePayment',compact('purchase_invoice_id','payment_type_list','supplier_id', 'purchaseinvoiceowing', 'corebank', 'supplier', 'acctaccount', 'purchasepaymentelements', 'purchasepaymenttransfer','PPN'));
     }
 
     public function detailPurchasePayment($payment_id){
