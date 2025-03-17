@@ -371,6 +371,7 @@ class SalesInvoiceController extends Controller
                 'branch_id'                     => 1,
                 'journal_voucher_period'        => date("Ym", strtotime($salesdeliverynote->sales_delivery_note_date)),
                 'journal_voucher_date'          => $SalesInvoice->sales_invoice_date,
+                'sales_id'                      => $SalesInvoice->sales_invoice_id,
                 'journal_voucher_title'         => 'Penjualan Barang',
                 'journal_voucher_description'   => $SalesInvoice->sales_invoice_remark,
                 'transaction_module_id'         => $transaction_module_id,

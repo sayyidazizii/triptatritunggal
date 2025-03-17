@@ -16,6 +16,7 @@ class JournalHelper
                 'branch_id'                     => $data_journal['branch_id'],
                 'journal_voucher_period'        => $data_journal['journal_voucher_period'],
                 'journal_voucher_date'          => $data_journal['journal_voucher_date'],
+                'sales_id'                      => $data_journal['sales_invoice_id'],
                 'journal_voucher_title'         => $data_journal['journal_voucher_title'],
                 'journal_voucher_description'   => $data_journal['journal_voucher_description'],
                 'transaction_module_id'         => $data_journal['transaction_module_id'],
