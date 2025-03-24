@@ -1282,7 +1282,7 @@ class SalesInvoiceController extends Controller
                     <tr>
                         <td style="width:50%;"></td>
                         <td style="width:30%;">Sub Total</td>
-                        <td style="text-align:left; width:20%;">Rp</td>
+                        <td style="text-align:left; width:20%;">' . 'Rp ' . number_format($salesinvoice->subtotal_amount, 0) . '</td>
                     </tr>
                     <tr>
                         <td style="width:50%;"></td>
