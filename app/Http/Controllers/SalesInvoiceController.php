@@ -1189,20 +1189,11 @@ class SalesInvoiceController extends Controller
         $html = '
 
         <table border="0" style="width:100%;">
-            <tr>
-                <td style="width:50%; text-align:left;">
-                    <img src="' . asset('img/logo_tripta.png') . '" width="50" /> <strong>PT. TRIPTA TRI TUNGGAL</strong>
-                </td>
-                <td style="width:50%; text-align:right;">
-                    <div style="font-size:14px; font-weight:bold; text-align:center;">
-                            INVOICE
-                    </div>
-                </td>
-            </tr>
+
                 <tr>
                     <td style="width:50%; text-align:left;">
                         <div style="font-size:14px; font-weight:bold; ">
-                            <img src="' . public_path('img/logo_tripta.png') . '" width="50" /> 
+                            <img src="' . asset('img/logo_tripta.png') . '" width="50" /> 
                             <strong style="display:top">PT. TRIPTA TRI TUNGGAL</strong>
                         </div>
                     </td>
