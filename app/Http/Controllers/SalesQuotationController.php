@@ -359,7 +359,7 @@ class SalesQuotationController extends Controller
         $drawing = new Drawing();
         $drawing->setName('Logo');
         $drawing->setDescription('Logo Tripta');
-        $drawing->setPath(public_path('img/logo_tripta.png'));
+        $drawing->setPath(asset('img/logo_tripta.png'));
         $drawing->setHeight(50);
         $drawing->setCoordinates('B4');
         $drawing->setOffsetX(10);
@@ -739,7 +739,7 @@ class SalesQuotationController extends Controller
         <table cellpadding="5">
             <tr>
                 <td width="50%">
-                    <img src="' . public_path('img/logo_tripta.png') . '" height="50">
+                    <img src="' . asset('img/logo_tripta.png') . '" height="50">
                     <h1>PT. TRIPTA TRI TUNGGAL</h1>
                     <p>SERVING BETTER</p>
                 </td>
