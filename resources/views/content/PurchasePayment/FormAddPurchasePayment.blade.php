@@ -223,9 +223,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <a class="text-dark">Nama Pemasok</a>
-                        <input class="form-control input-bb" type="text" name="supplier_name" id="supplier_name" value="{{$supplier['supplier_name']}}" readonly/>
-                        <input class="form-control input-bb" type="hidden" name="supplier_id" id="supplier_id" value="{{$supplier['supplier_id']}}" readonly/>
+                        <input class="form-control input-bb" type="text" name="supplier_name" id="supplier_name" value="{{$PurchasePayment->getCoreSupplierName($purchase_invoice_id['supplier_id'])}}" readonly/>
+                        <input class="form-control input-bb" type="hidden" name="supplier_id" id="supplier_id" value="{{$purchase_invoice_id['supplier_id']}}" readonly/>
                     </div>
+                </div>
+                <div class="form-group">
+                    <a class="text-dark">No. Invoice</a>
+                    <input class="form-control input-bb" type="text" name="purchase_invoice_no" id="purchase_invoice_no" value="{{$purchase_invoice_id == null ? '' : $purchase_invoice_id['purchase_invoice_no']}}" onChange="elements_add(this.name, this.value);" style='text-align:left' readonly/>
                 </div>
             </div>
             <div class="row form-group">

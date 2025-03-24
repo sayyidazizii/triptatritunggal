@@ -24,7 +24,6 @@ use Illuminate\Support\Facades\DB;
 use App\Models\SalesCollectionItem;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-
 use App\Models\SalesCollectionPiece;
 use Illuminate\Support\Facades\Auth;
 use App\Models\AcctDebtRepaymentItem;
@@ -343,6 +342,8 @@ class SalesCollectionController extends Controller
                     'journal_voucher_status'        => 1,
                     'journal_voucher_description'   => $this->getTransactionModuleName($transaction_module_code) ." ".$request->customer_name ." ".$request->sales_invoice_no,
                     'journal_voucher_title'         => $this->getTransactionModuleName($transaction_module_code) ." ".$request->customer_name ." ".$request->sales_invoice_no,
+                    'sales_id'                      => null,
+                    'goods_received_note_id'        => null,
                     'transaction_module_id'         => $transaction_module_id,
                     'transaction_module_code'       => $transaction_module_code,
                     'journal_voucher_date'			=> $data['collection_date'],

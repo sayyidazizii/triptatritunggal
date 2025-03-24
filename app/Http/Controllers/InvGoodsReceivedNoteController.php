@@ -458,6 +458,8 @@ class InvGoodsReceivedNoteController extends Controller
                 'branch_id' => 1,
                 'journal_voucher_period' => $journal_voucher_period,
                 'journal_voucher_date' => $invgoodsreceivednote['goods_received_note_date'],
+                'goods_received_note_id' => $invgoodsreceivednote['goods_received_note_id'],
+                'sales_id'   => null,
                 'journal_voucher_title' => 'Pembelian ' . $invgoodsreceivednote['goods_received_note_no'],
                 'journal_voucher_no' => $invgoodsreceivednote['goods_received_note_no'],
                 'journal_voucher_description' => 'Pembelian ' . $purchaseorder['purchase_order_no'],
