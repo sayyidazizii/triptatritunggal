@@ -1189,7 +1189,6 @@ class SalesInvoiceController extends Controller
         $html = '
 
         <table border="0" style="width:100%;">
-<<<<<<< HEAD
             <tr>
                 <td style="width:50%; text-align:left;">
                     <img src="' . asset('img/logo_tripta.png') . '" width="50" /> <strong>PT. TRIPTA TRI TUNGGAL</strong>
@@ -1200,8 +1199,6 @@ class SalesInvoiceController extends Controller
                     </div>
                 </td>
             </tr>
-=======
->>>>>>> a29eaaea18f5a288cf277534adb8e8e2d35a40bf
                 <tr>
                     <td style="width:50%; text-align:left;">
                         <div style="font-size:14px; font-weight:bold; ">
