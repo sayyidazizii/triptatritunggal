@@ -1287,7 +1287,7 @@ class SalesInvoiceController extends Controller
                     <tr>
                         <td style="width:50%;"></td>
                         <td style="width:30%;">Discount</td>
-                        <td style="text-align:left; width:20%;">Rp </td>
+                        <td style="text-align:left; width:20%;">'.$salesinvoice->discount_percentage.'</td>
                     </tr>
                     <tr>
                         <td style="width:50%;"></td>
