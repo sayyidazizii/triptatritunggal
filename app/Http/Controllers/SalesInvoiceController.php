@@ -1292,17 +1292,17 @@ class SalesInvoiceController extends Controller
                     <tr>
                         <td style="width:50%;"></td>
                         <td style="width:30%;">DPP</td>
-                        <td style="text-align:left; width:20%;">Rp </td>
+                        <td style="text-align:left; width:20%;">' . 'Rp ' . number_format($salesinvoice->subtotal_after_discount, 0) . '</td>
                     </tr>
                     <tr>
                         <td style="width:50%;"></td>
                         <td style="width:30%;">PPN</td>
-                        <td style="text-align:left; width:20%;">Rp </td>
+                        <td style="text-align:left; width:20%;">'.$salesinvoice->discount_percentage.'</td>
                     </tr>
                     <tr>
                         <td style="width:50%;"></td>
                         <td style="width:30%;">Total</td>
-                        <td style="text-align:left; width:20%;">Rp </td>
+                        <td style="text-align:left; width:20%;">' . 'Rp ' . number_format($salesinvoice->subtotal_after_discount, 0) . '</td>
                     </tr>
                 </table>
             </div>
