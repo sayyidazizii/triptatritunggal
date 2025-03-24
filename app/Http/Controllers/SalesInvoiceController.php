@@ -300,7 +300,7 @@ class SalesInvoiceController extends Controller
             'subtotal_item'                 => $request->total_item,
             'discount_amount'               => $discount_amount,
             'subtotal_after_discount'       => $total_after_discount,
-            'subtotal_amount'               => $total_due,
+            'subtotal_amount'               => $total,
             'total_amount'                  => $total_due,
             'owing_amount'                  => $total_due,
             'sales_invoice_remark'          => $request->sales_invoice_remark,
