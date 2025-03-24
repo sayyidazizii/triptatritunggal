@@ -1172,7 +1172,7 @@ class SalesInvoiceController extends Controller
             );
 
         // Create new TCPDF instance
-        $pdf = new TCPDF('P', 'in', $page_format, true, 'UTF-8');
+        $pdf = new TCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, 'in', $page_format, true, 'UTF-8');
         
         $pdf::SetMargins(10, 10, 10,10); // Atur margin umum
         // Remove default header/footer
@@ -1180,8 +1180,12 @@ class SalesInvoiceController extends Controller
         $pdf::setPrintFooter(false);
 
         // Add a page
-        $pdf::AddPage();
-
+        $pdf::AddPage('P', 'A4');
+        
+        // Add watermark background
+            $pdf::SetAlpha(0.2); // Set transparency level
+            $pdf::Image(asset('img/logo_tripta.png'), 60, 50, 110, 100, '', '', '', false, 300, '', false, false, 0);
+            $pdf::SetAlpha(1); // Reset transparency
         // Set font
         $pdf::SetFont('helvetica', '', 10);
 
@@ -1193,7 +1197,6 @@ class SalesInvoiceController extends Controller
                 <tr>
                     <td style="width:50%; text-align:left;">
                         <div style="font-size:14px; font-weight:bold; ">
-                            <img src="' . asset('img/logo_tripta.png') . '" width="50" /> 
                             <strong style="display:top">PT. TRIPTA TRI TUNGGAL</strong>
                         </div>
                     </td>
@@ -1320,7 +1323,7 @@ class SalesInvoiceController extends Controller
         ';
 
         // Write HTML to PDF
-        $pdf::writeHTML($data1, true, false, false, false, '');
+        $pdf::writeHTML($data1, true, false, true, false, '');
 
         // Output the PDF
         return $pdf::Output('invoice.pdf', 'I');
